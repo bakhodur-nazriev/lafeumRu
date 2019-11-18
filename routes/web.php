@@ -16,3 +16,7 @@ Route::get('/', function () {
 });
 
 Route::get('/videos', 'VideosController@index');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

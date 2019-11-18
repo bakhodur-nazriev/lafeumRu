@@ -7,7 +7,7 @@
 
           <div class="card-body">
             <v-app>
-              <v-alert color="success">
+              <v-alert type="success">
                 I'm a success alert.
               </v-alert>
 

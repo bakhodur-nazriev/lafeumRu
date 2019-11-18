@@ -26,6 +26,11 @@ Vue.component(
     require("./components/Mytest.vue")
         .default
 );
+Vue.component(
+    "login-form",
+    require("./components/Login.vue")
+        .default
+);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

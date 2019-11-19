@@ -1,10 +1,18 @@
+import Vue from "vue";
+
 require("./bootstrap");
 
 window.Vue = require("vue");
 
+
 import Vuetify from "vuetify";
 import "vuetify/dist/vuetify.min.css";
 import "@mdi/font/css/materialdesignicons.css";
+
+// Route information for Vue Router
+import router from "./router.js";
+import App from "./components/App";
+
 Vue.use(
     Vuetify
 );
@@ -16,32 +24,27 @@ const vuetifyOptions = {
     }
 };
 
+
 Vue.component(
-    "example-component",
-    require("./components/ExampleComponent.vue")
-        .default
-);
-Vue.component(
-    "my-component",
-    require("./components/Mytest.vue")
-        .default
-);
-Vue.component(
-    "login-form",
-    require("./components/Login.vue")
+    "admin-dashboard",
+    require("./pages/Dashboard.vue")
         .default
 );
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+Vue.component(
+    "admin-navbar",
+    require("./components/Navbar.vue")
+        .default
+);
 
 const app = new Vue(
     {
         el:
             "#app",
+        components: {
+            App
+        },
+        router,
         vuetify: new Vuetify(
             vuetifyOptions
         )

@@ -3,14 +3,46 @@
         <a class="navbar-brand" href="{{ url('/') }}">
             {{ config('app.name', 'Lafeum') }}
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+        {{-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
             <span class="navbar-toggler-icon"></span>
-        </button>
+        </button> --}}
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
+            </ul>
 
+            <ul class="navbar-nav m-auto">
+                <li class="mx-3">
+                    <a href="{{ url('/') }}">Главная</a>
+                </li>
+                <li class="mx-3">
+                    <a href="{{ url('/quotes') }}">Цитаты</a>
+                </li>
+                <li class="mx-3">
+                    <a href="{{ url('/authors') }}">Авторы</a>
+                </li>
+                <li class="mx-3">
+                    <a href="{{ url('/terms') }}">Термины</a>
+                </li>
+                <li class="mx-3">
+                    <a href="{{ url('/vocabulary') }}">Словарь</a>
+                </li>
+                <li class="mx-3">
+                    <a href="{{ url('/knowledge-areas') }}">Области Знаний</a>
+                </li>
+                <li class="mx-3">
+                    <a href="{{ url('/videos') }}">Видео</a>
+                </li>
+                <li class="mx-3">
+                    <a href="{{ url('/channels') }}">Каналы</a>
+                </li>
+                <li class="mx-3">
+                    <a href="{{ url('/photo') }}">Фотографии</a>
+                </li>
+                <li class="mx-3">
+                    <a href="{{ url('/contacts') }}">Контакты</a>
+                </li>
             </ul>
 
             <!-- Right Side Of Navbar -->
@@ -48,3 +80,9 @@
         </div>
     </div>
 </nav>
+
+<style>
+.main-menu{
+    margin: 0 20px;
+}
+</style>

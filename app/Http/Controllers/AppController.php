@@ -24,13 +24,12 @@ class AppController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-        return view('home', compact('users'));
+        return view('/home');
     }
 
-    public function show(Request $request)
-    {
-        $user = User::find($request->id);
-        return view('home', compact('user'));
-    }
+    // public function show(Request $request)
+    // {
+    //     $user = User::find($request->id);
+    //     return view('home', compact('user'));
+    // }
 }

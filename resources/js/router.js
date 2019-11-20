@@ -3,6 +3,8 @@ import VueRouter from "vue-router";
 import Dashboard from "./pages/Dashboard";
 import Projects from "./pages/Projects";
 import Team from "./pages/Team";
+import Publications from "./pages/Publications";
+import Profile from "./pages/Profile";
 
 Vue.use(
     VueRouter
@@ -28,6 +30,21 @@ export default new VueRouter(
                 name:
                     "team",
                 component: Team
+            },
+            {
+                path:
+                    "/publications",
+                name:
+                    "publications",
+                component: Publications
+            },
+            ,
+            {
+                path:
+                    "/profile",
+                name:
+                    "profile",
+                component: Profile
             }
         ],
         mode:

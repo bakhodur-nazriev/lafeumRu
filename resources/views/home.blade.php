@@ -1,5 +1,5 @@
 @extends('layouts.empty')
 
 @section('content')
-    <App></App>
+    <App users="{{ $users }}"></App>
 @endsection

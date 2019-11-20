@@ -8,6 +8,10 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
 
+      <v-btn icon>
+        <v-icon>mdi-bell</v-icon>
+      </v-btn>
+
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
           <v-btn class="grey--text" text v-on="on">
@@ -28,10 +32,19 @@
       </v-menu>
       <!-- dropdown menu -->
 
-      <v-btn text dark color="grey">
+      <v-btn text dark color="grey" @click="$refs.logoutform.submit()">
         <span>Sign Out</span>
         <v-icon right>mdi-exit-to-app</v-icon>
       </v-btn>
+
+      <form
+        ref="logoutform"
+        action="/logout"
+        method="POST"
+        style="display: none;"
+      >
+        <input type="hidden" name="_token" :value="csrf" />
+      </form>
     </v-app-bar>
 
     <v-navigation-drawer v-model="drawer" class="primary" app>
@@ -41,7 +54,7 @@
             <!-- <v-img src="/developer.png"></v-img> -->
           </v-avatar>
           <p class="white--text subheading mt-1">
-            Bakhodur Nazriev
+              Bakhodur Nazriev
           </p>
         </v-flex>
         <!-- <v-flex>
@@ -68,17 +81,18 @@
 </template>
 
 <script>
-// import Popup from "./Popup.vue";
-
 export default {
-//   components: { Popup },
+  props: ["route", "users"],
   data() {
     return {
-      drawer: false,
+      csrf: window.Laravel.csrf_token,
+      drawer: true,
       links: [
         { icon: "mdi-view-dashboard", text: "Dashboard", route: "/" },
         { icon: "mdi-folder", text: "My Projects", route: "/projects" },
-        { icon: "mdi-account", text: "Team", route: "/team" }
+        { icon: "mdi-account-group", text: "Группа", route: "/group" },
+        { icon: "mdi-post", text: "Публикации", route: "/publications" },
+        { icon: "mdi-post", text: "Профил", route: "/profile" }
       ]
     };
   }

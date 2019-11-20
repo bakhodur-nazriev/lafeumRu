@@ -23,5 +23,14 @@
     <v-app id="app">
         @yield('layout')
     </v-app>
+
+
+    <script>
+        window.Laravel = {!! json_encode([
+            'csrf_token' => csrf_token(),
+            'asset_path' => asset(''),
+            'auth'       => Auth::user()
+        ]); !!}
+	</script>
 </body>
 </html>

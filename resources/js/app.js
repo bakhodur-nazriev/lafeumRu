@@ -4,7 +4,6 @@ require("./bootstrap");
 
 window.Vue = require("vue");
 
-
 import Vuetify from "vuetify";
 import "vuetify/dist/vuetify.min.css";
 import "@mdi/font/css/materialdesignicons.css";
@@ -23,7 +22,6 @@ const vuetifyOptions = {
             "mdi"
     }
 };
-
 
 Vue.component(
     "admin-dashboard",
@@ -44,6 +42,7 @@ const app = new Vue(
         components: {
             App
         },
+
         router,
         vuetify: new Vuetify(
             vuetifyOptions

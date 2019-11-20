@@ -2,5 +2,7 @@
 
 @section('content')
     {{-- <App users="{{ $users }}"></App> --}}
-    <h1>Home Page!</h1>
+    <div class="container">
+        
+    </div>
 @endsection

@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Lafuem') }}</title>
+    <title>Lafeum</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -18,11 +18,14 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 <body>
-    <v-app id="app">
-        @yield('layout')
-    </v-app>
+    {{-- <v-app id="app"> --}}
+        <div>
+            @yield('layout')
+        </div>
+    {{-- </v-app> --}}
 
 
     <script>

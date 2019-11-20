@@ -1,0 +1,26 @@
+.main-navbar {
+    background-color: #04718c;
+}
+
+.main-menu {
+    font-size: 18px;
+}
+
+.navbar-links>li{
+    font-size: 18px;
+    text-transform: uppercase;
+}
+
+/* .menu-toggle-btn{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+} */
+
+#sticky-footer {
+    flex-shrink: none;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #04718c;
+}

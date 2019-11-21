@@ -1,26 +1,81 @@
+body {
+    background-color: #e7ebf2;
+}
+
+p,
+a {
+    font-size: 18px;
+}
+
+h3 {
+    color: #a6192e;
+}
+
 .main-navbar {
     background-color: #04718c;
 }
 
-.main-menu {
-    font-size: 18px;
-}
-
-.navbar-links>li{
-    font-size: 18px;
+.navbar-links > li {
+    font-size: 16px;
     text-transform: uppercase;
 }
 
-/* .menu-toggle-btn{
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-} */
+.about-us-section img {
+    width: 250px;
+}
+
+.about-us-section > p {
+    font-size: 18px;
+    margin-top: 15px;
+}
 
 #sticky-footer {
     flex-shrink: none;
-    position: absolute;
+    position: relative;
     bottom: 0;
     width: 100%;
     background-color: #04718c;
+}
+
+.carousel-item > img {
+    width: 31%;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 5px;
+}
+
+.main-page-carousel-inner {
+    text-align: center;
+}
+
+.quotes-blocks {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.quotes-blocks > a {
+    text-align: start;
+    color: #a6192e;
+    /* width: 100%; */
+}
+
+.qouter-share {
+    background-color: #04718c;
+    color: white;
+}
+
+.qouter-authors-image {
+    width: 21px;
+    margin-right: 5px;
+}
+
+.quotes-pagiination {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0;
+    margin-top: 10px;
 }

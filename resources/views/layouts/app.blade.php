@@ -22,9 +22,9 @@
 </head>
 <body>
     {{-- <v-app id="app"> --}}
-        <div>
+        {{-- <div> --}}
             @yield('layout')
-        </div>
+        {{-- </div> --}}
     {{-- </v-app> --}}
 
 

@@ -1,7 +1,7 @@
 @extends('layouts.empty')
 
 @section('content')
-{{-- <div class="container">
+<div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -69,16 +69,16 @@
             </div>
         </div>
     </div>
-</div> --}}
+</div>
 
-<v-container fluid fill-height>
+{{-- <v-container fluid fill-height>
     <v-layout align-center justify-center>
         <v-flex xs12 sm8 md4>
-            {{-- <v-layout justify-center class="mb-5">
+            <v-layout justify-center class="mb-5">
                 <v-flex xs8>
                     <v-img :src="'/img/lafeum.png'" />
                 </v-flex>
-            </v-layout> --}}
+            </v-layout>
             <v-card>
                 <v-form
                     action="{{ route('login') }}"
@@ -121,6 +121,6 @@
             </v-card>
         </v-flex>
     </v-layout>
-</v-container>
+</v-container> --}}
 {{-- <login-form login="{{ 'login' }}"></login-form> --}}
 @endsection

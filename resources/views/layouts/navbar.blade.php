@@ -42,7 +42,7 @@
                 <a class="nav-link text-light" href="{{ url('/channels') }}">Каналы</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-light" href="{{ url('/photo') }}">Фотографии</a>
+                <a class="nav-link text-light" href="{{ url('/photos') }}">Фотографии</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-light" href="{{ url('/contacts') }}">Контакты</a>

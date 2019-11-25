@@ -16,10 +16,31 @@
                     Приятного и полезного чтения!</p>
             </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <h3 class="text-center">Темы</h3>
-                
+        <div class="row d-flex justify-content-center">
+            <h3 class="col-md-12 text-center">Темы</h3>
+            <div class="col-md-3 col-xl-2 home-tems-links">
+                <a href="#">Test</a>
+                <a href="#">Test</a>
+                <a href="#">Test</a>
+                <a href="#">Test</a>
+            </div>
+            <div class="col-md-3 col-xl-2 home-tems-links">
+                <a href="#">Test</a>
+                <a href="#">Test</a>
+                <a href="#">Test</a>
+                <a href="#">Test</a>
+            </div>
+            <div class="col-md-3 col-xl-2 home-tems-links">
+                <a href="#">Test</a>
+                <a href="#">Test</a>
+                <a href="#">Test</a>
+                <a href="#">Test</a>
+            </div>
+            <div class="col-md-3 col-xl-2 home-tems-links">
+                <a href="#">Test</a>
+                <a href="#">Test</a>
+                <a href="#">Test</a>
+                <a href="#">Test</a>
             </div>
         </div>
         <div class="row">

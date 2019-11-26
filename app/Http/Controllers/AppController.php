@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Channels;
 use Illuminate\Http\Request;
 
 class AppController extends Controller
@@ -12,10 +13,10 @@ class AppController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
     /**
      * Show the application dashboard.
@@ -24,7 +25,9 @@ class AppController extends Controller
      */
     public function index()
     {
-        return view('/home');
+        $channels = Channels::all();
+
+        return view('/home', compact('channels'));
     }
 
     // public function show(Request $request)

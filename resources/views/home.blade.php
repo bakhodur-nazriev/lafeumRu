@@ -16,6 +16,9 @@
                     Приятного и полезного чтения!</p>
             </div>
         </div>
+        @foreach ($channels as $channel)
+            <li>{{ $channel->name }}</li>
+        @endforeach
         <div class="row d-flex justify-content-center">
             <h3 class="col-md-12 text-center">Темы</h3>
             <div class="col-md-3 col-xl-2 home-tems-links">

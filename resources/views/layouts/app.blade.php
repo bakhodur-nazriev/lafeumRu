@@ -22,18 +22,18 @@
 </head>
 <body>
     {{-- <v-app id="app"> --}}
-        {{-- <div> --}}
+        <div id="app">
             @yield('layout')
-        {{-- </div> --}}
+        </div>
     {{-- </v-app> --}}
 
 
-    <script>
+    {{-- <script>
         window.Laravel = {!! json_encode([
             'csrf_token' => csrf_token(),
             'asset_path' => asset(''),
             'auth'       => Auth::user()
         ]); !!}
-	</script>
+	</script> --}}
 </body>
 </html>

@@ -12,24 +12,9 @@
         </div>
         <div class="row">
             @foreach ($photos as $photo)
-                {{-- <div class="col-md-3">
-                    <img src="{{ $photo->image }}" alt="..." class="img-thumbnail">
-                </div> --}}
-                {{-- <div class="col-sm-6 col-md-6 col-lg-4">
-                    <a class="text-decoration-none text-dark" href="{{route('category.show',$photo->id)}}">
-                        <div class="card  hoverable border-0 mt-5 shadow-sm" style="ovewflow:visible;">
-                            <div class="card-img-wrapper animated">
-                                <img src="{{$photo->image}}" class="rounded card-img-top shadow-sm" style=" " alt="{{$category->name}}">
-                            </div>
-                            <div class="card-body">
-                                <h3 class="card-title font-weight-bold" style="min-height:60px;">{{ $category->name }}</h3>
-                            </div>
-                        </div>
-                    </a>
-                </div> --}}
-                <div class="col-sm-6 col-md-6 col-lg-4">
-                    <a class="text-decoration-none text-dark" href="">
-                        <div class="card  hoverable border-0 mt-5 shadow-sm" style="ovewflow: visible;">
+                <div class="col-sm-6 col-md-4 col-xl-3">
+                    <a href="#">
+                        <div class="card  hoverable border-0 shadow-sm" style="ovewflow: visible;">
                             <div class="card-img-wrapper animated">
                                 <img src="{{$photo->image}}" class="rounded card-img-top shadow-sm" style=" " alt="...">
                             </div>
@@ -37,7 +22,25 @@
                     </a>
                 </div>
             @endforeach
-
+        </div>
+        <div class="row d-flex justify-content-center my-6">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination photos-pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 @endsection

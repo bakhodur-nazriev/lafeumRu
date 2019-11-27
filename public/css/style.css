@@ -94,7 +94,8 @@ footer {
     text-align: center;
 }
 
-.authors-links,.home-tems-links {
+.authors-links,
+.home-tems-links {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -116,4 +117,8 @@ footer {
 .home-tems-section > div {
     display: flex;
     justify-content: center;
+}
+
+.photos-pagination {
+    margin: 20px 0;
 }

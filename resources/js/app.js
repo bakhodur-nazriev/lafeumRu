@@ -12,40 +12,25 @@ import "@mdi/font/css/materialdesignicons.css";
 import router from "./router.js";
 import App from "./components/App";
 
-Vue.use(
-    Vuetify
-);
+Vue.use(Vuetify);
 
 const vuetifyOptions = {
     icons: {
-        iconfont:
-            "mdi"
+        iconfont: "mdi"
     }
 };
 
-Vue.component(
-    "admin-dashboard",
-    require("./pages/Dashboard.vue")
-        .default
-);
+Vue.component("admin-dashboard", require("./pages/Dashboard.vue").default);
 
-Vue.component(
-    "admin-navbar",
-    require("./components/Navbar.vue")
-        .default
-);
+Vue.component("admin-navbar", require("./components/Navbar.vue").default);
+Vue.component("pagination", require("laravel-vue-pagination"));
 
-const app = new Vue(
-    {
-        el:
-            "#app",
-        components: {
-            App
-        },
+const app = new Vue({
+    el: "#app",
+    components: {
+        App
+    },
 
-        router,
-        vuetify: new Vuetify(
-            vuetifyOptions
-        )
-    }
-);
+    router,
+    vuetify: new Vuetify(vuetifyOptions)
+});

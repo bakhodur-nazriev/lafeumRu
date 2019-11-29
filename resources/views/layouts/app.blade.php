@@ -22,11 +22,11 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 <body>
-    {{-- <v-app id="app"> --}}
+    <v-app id="app">
         <div id="app">
             @yield('layout')
         </div>
-    {{-- </v-app> --}}
+    </v-app>
 
 
     {{-- <script>

@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Terms;
 use Illuminate\Http\Request;
 
 class TermsController extends Controller
 {
     public function index()
     {
-        return view('/terms');
+        $terms = Terms::all();
+        return view('/terms', compact('terms'));
     }
 }

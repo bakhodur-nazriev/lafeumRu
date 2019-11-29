@@ -122,3 +122,7 @@ footer {
 .photos-pagination {
     margin: 20px 0;
 }
+
+.elastic li.hide {
+    display: none;
+}

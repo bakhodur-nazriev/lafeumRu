@@ -1,19 +1,35 @@
-function myFunction() {
-    // Declare variables
-    var input, filter, ul, li, a, i, txtValue;
-    input = document.getElementById("myInput");
-    filter = input.value.toUpperCase();
-    ul = document.getElementById("myUL");
-    li = ul.getElementsByTagName("li");
-
-    // Loop through all list items, and hide those who don't match the search query
-    for (i = 0; i < li.length; i++) {
-        a = li[i].getElementsByTagName("a")[0];
-        txtValue = a.textContent || a.innerText;
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            li[i].style.display = "";
-        } else {
-            li[i].style.display = "none";
-        }
+document.querySelector("#searchInput").oninput = function() {
+    let val = this.value.trim();
+    let elasticItems = document.querySelectorAll(".elastic li");
+    if (val != "") {
+        elasticItems.forEach(function(elem) {
+            if (elem.innerText.search(val) == -1) {
+                elem.classList.add("hide");
+                // elem.innerHTML = elem.innerText;
+            } else {
+                elem.classList.remove("hide");
+                // let str = elem.innerText;
+                // elem.innerHTML = insertMark(
+                //     str,
+                //     elem.innerText.search(val),
+                //     val.length
+                // );
+            }
+        });
+    } else {
+        elasticItems.forEach(function(elem) {
+            elem.classList.remove("hide");
+            // elem.innerHTML = elem.innerText;
+        });
     }
-}
+};
+
+// function insertMark(string, pos, len) {
+//     return (
+//         string.slice(0, pos) +
+//         "<mark>" +
+//         string.slice(pos, pos + len) +
+//         "/mark>" +
+//         string.slice(pos + len)
+//     );
+// }

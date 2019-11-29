@@ -22,8 +22,9 @@ const vuetifyOptions = {
 
 Vue.component("admin-dashboard", require("./pages/Dashboard.vue").default);
 
-Vue.component("admin-navbar", require("./components/Navbar.vue").default);
+Vue.component("Search", require("./components/Navbar.vue").default);
 Vue.component("pagination", require("laravel-vue-pagination"));
+Vue.component("search-component", require("./components/SearchComponent.vue").default);
 
 const app = new Vue({
     el: "#app",

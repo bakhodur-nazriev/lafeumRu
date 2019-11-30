@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class TagsTableSeeder extends Seeder
+class VideosTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,7 +11,6 @@ class TagsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory('App\Tags', 20)->create();
+        factory('App\Videos', 20)->create();
     }
 }
-/*/*

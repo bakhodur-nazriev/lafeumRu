@@ -9,6 +9,7 @@ class ChannelsController extends Controller
 {
     public function index()
     {
-        return view('/channels');
+        $channels = Channels::all();
+        return view('/channels', compact('channels'));
     }
 }

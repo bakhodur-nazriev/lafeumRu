@@ -2,14 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Channels;
 use Illuminate\Http\Request;
 
-use App\Video;
+use App\Videos;
 
 class VideosController extends Controller
 {
     public function index()
     {
-        return view('/videos');
+        $videos = Videos::first();
+        $channel = Channels::all();
+        // return $channel;
+        // return $videos;
+
+        return view('/videos', compact('videos', 'channel'));
     }
 }

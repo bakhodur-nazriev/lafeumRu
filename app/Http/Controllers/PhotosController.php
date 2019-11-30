@@ -9,7 +9,7 @@ class PhotosController extends Controller
 {
     public function index()
     {
-        $photos = Photos::all();
+        $photos = Photos::orderBy('id', 'desc')->paginate(9);
         return view('/photos', compact('photos'));
     }
 }

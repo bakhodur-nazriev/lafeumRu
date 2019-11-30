@@ -11,11 +11,8 @@ class VideosController extends Controller
 {
     public function index()
     {
-        $videos = Videos::first();
-        $channel = Channels::all();
-        // return $channel;
-        // return $videos;
+        $videos = Videos::all();
 
-        return view('/videos', compact('videos', 'channel'));
+        return view('/videos', compact('videos'));
     }
 }

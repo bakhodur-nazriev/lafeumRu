@@ -1,9 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Faker\Factory as Faker;
 
-class ChannelsTableSeeder extends Seeder
+class PhotoTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,6 +11,6 @@ class ChannelsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory('App\Channels', 10)->create();
+        factory('App\Photo', 20)->create();
     }
 }

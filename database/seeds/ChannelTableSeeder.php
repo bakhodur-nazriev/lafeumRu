@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Faker\Factory as Faker;
 
-class VideosTableSeeder extends Seeder
+class ChannelTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +12,6 @@ class VideosTableSeeder extends Seeder
      */
     public function run()
     {
-        factory('App\Videos', 20)->create();
+        factory('App\Channel', 10)->create();
     }
 }

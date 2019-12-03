@@ -32,10 +32,7 @@
                         </svg>
                     </div>
                     <div class="card-body">
-                        @foreach ($video->channel as $chan)
-                            <p class="card-text">{{ $chan->name }}</p>
-
-                        @endforeach
+                            <p>{{ $video->channel->description }}</p>
                         <div class="dropdown-divider"></div>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">

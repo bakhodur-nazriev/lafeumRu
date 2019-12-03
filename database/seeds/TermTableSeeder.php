@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class PhotosTableSeeder extends Seeder
+class TermTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +11,6 @@ class PhotosTableSeeder extends Seeder
      */
     public function run()
     {
-        factory('App\Photos', 20)->create();
+        // factory('App\Terms', 30)->create();
     }
 }

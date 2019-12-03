@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class TermsTableSeeder extends Seeder
+class AuthorTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +11,6 @@ class TermsTableSeeder extends Seeder
      */
     public function run()
     {
-        // factory('App\Terms', 30)->create();
+        factory('App\Author', 200)->create();
     }
 }

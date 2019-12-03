@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class KnowledgeAreasTableSeeder extends Seeder
+class KnowledgeAreaTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.

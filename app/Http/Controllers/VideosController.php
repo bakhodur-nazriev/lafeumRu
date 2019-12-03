@@ -11,7 +11,10 @@ class VideosController extends Controller
     public function index()
     {
         $videos = Video::with('channel')->get();
-        return $videos;
+        // foreach ($videos->channel as $channel) {
+        //     return $channel->name;
+        // }
+        // return $videos;
         return view('/videos', compact('videos'));
     }
 }

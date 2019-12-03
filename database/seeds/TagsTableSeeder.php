@@ -14,4 +14,3 @@ class TagsTableSeeder extends Seeder
         factory('App\Tags', 20)->create();
     }
 }
-/*/*

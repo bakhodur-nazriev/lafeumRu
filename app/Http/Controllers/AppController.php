@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use App\Channels;
+use App\Channel;
 use Illuminate\Http\Request;
 
 class AppController extends Controller
@@ -25,7 +25,7 @@ class AppController extends Controller
      */
     public function index()
     {
-        $channels = Channels::all();
+        $channels = Channel::all();
 
         return view('/home', compact('channels'));
     }

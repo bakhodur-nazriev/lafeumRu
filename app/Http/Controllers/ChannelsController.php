@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Channels;
+use App\Channel;
 use Illuminate\Http\Request;
 
 class ChannelsController extends Controller
 {
     public function index()
     {
-        $channels = Channels::all();
+        $channels = Channel::all();
         return view('/channels', compact('channels'));
     }
 }

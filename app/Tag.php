@@ -12,4 +12,9 @@ class Tag extends Model
     {
         return $this->belongsTo(Video::class);
     }
+
+    public function quote()
+    {
+        return $this->belongsTo(Quote::class);
+    }
 }

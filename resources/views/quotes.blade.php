@@ -9,7 +9,9 @@
         </div>
         <div class="col-md-9 col-xl-6">
             <h3>Цитаты и Афоризмы</h3>
-            <p>Красивые цитаты и афоризмы великих людей, жизненные со смыслом высказывания известнейших поэтов, писателей и философов. Понятия и суждения компетентных ученых и специалистов.</p>
+            <p>Красивые цитаты и афоризмы великих людей, жизненные со смыслом высказывания известнейших поэтов, 
+                писателей и философов. Понятия и суждения компетентных ученых и специалистов.
+            </p>
             <div class="quotes-blocks">
                 <a href="#">
                     <img src="/img/person-60.png" alt="" class="qouter-authors-image">Марк Туллий Цицерон
@@ -25,21 +27,9 @@
             <div class="row">
                 <div class="col-12">
                     <nav aria-label="Page navigation example">
-                        <ul class="pagination quotes-pagiination">
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        </ul>
+                        <div class="row d-flex justify-content-center my-6">
+                            {{-- {!! $quotes->links(); !!} --}}
+                        </div>
                     </nav>
                 </div>
             </div>

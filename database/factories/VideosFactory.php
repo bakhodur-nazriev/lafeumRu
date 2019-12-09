@@ -3,7 +3,7 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use App\Channel;
-use App\Model;
+// use App\Model;
 use App\Video;
 use Faker\Generator as Faker;
 

@@ -2,12 +2,12 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Model;
+use App\Channel;
 use Faker\Generator as Faker;
 
 $factory->define(App\Channel::class, function (Faker $faker) {
     return [
         'name' => $faker->name(),
-        'description' => $faker->text($maxNbChars = 100)
+        'description' => $faker->text(80)
     ];
 });

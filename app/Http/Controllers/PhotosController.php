@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Photos;
+use App\Photo;
 use Illuminate\Http\Request;
 
 class PhotosController extends Controller
 {
     public function index()
     {
-        $photos = Photos::orderBy('id', 'desc')->paginate(9);
+        $photos = Photo::orderBy('id')->paginate(12);
         return view('/photos', compact('photos'));
     }
 }

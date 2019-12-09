@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Channel;
+use App\Photo;
 use Illuminate\Http\Request;
 
 class AppController extends Controller
@@ -26,8 +27,8 @@ class AppController extends Controller
     public function index()
     {
         $channels = Channel::all();
-
-        return view('/home', compact('channels'));
+        $photos = Photo::take(3)->get();
+        return view('/home', compact('channels', 'photos'));
     }
 
     // public function show(Request $request)

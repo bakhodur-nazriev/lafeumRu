@@ -131,3 +131,26 @@ footer {
 .videos-channels-title img {
     width: 22px;
 }
+
+.video-share {
+    margin-left: 10px;
+    /* display: none; */
+}
+
+.video-share a img {
+    width: 22px;
+    vertical-align: center;
+}
+
+.single-video-block {
+    max-width: 360px;
+    min-height: 480px;
+    float: left;
+}
+
+#ShowHide1 {
+    cursor: pointer;
+}
+#exemple1 {
+    display: none;
+}

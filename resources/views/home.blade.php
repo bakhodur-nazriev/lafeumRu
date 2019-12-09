@@ -17,7 +17,7 @@
             </div>
         </div>
         @foreach ($channels as $channel)
-            <li>{{ $channel->name }}</li>
+        
         @endforeach
         <div class="row d-flex justify-content-center">
             <h3 class="col-md-12 text-center">Темы</h3>
@@ -53,19 +53,9 @@
                 <div id="carouselExampleControls" class="carousel slide my-4">
                     <div class="carousel-inner main-page-carousel-inner">
                         <div class="carousel-item active">
-                            <img src="/img/6-712x445.jpg" class="d-inline-block" alt="...">
-                            <img src="/img/13-712x445.jpg" class="d-inline-block" alt="...">
-                            <img src="/img/63-712x445.jpg" class="d-inline-block" alt="...">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="/img/6-712x445.jpg" class="d-inline-block" alt="...">
-                            <img src="/img/13-712x445.jpg" class="d-inline-block" alt="...">
-                            <img src="/img/63-712x445.jpg" class="d-inline-block" alt="...">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="/img/6-712x445.jpg" class="d-inline-block" alt="...">
-                            <img src="/img/13-712x445.jpg" class="d-inline-block" alt="...">
-                            <img src="/img/63-712x445.jpg" class="d-inline-block" alt="...">
+                            @foreach ($photos as $photo) 
+                                <img src="{{ $photo->image }}" class="d-inline-block" alt="">
+                            @endforeach
                         </div>
                     </div>
                     <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">

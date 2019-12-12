@@ -13,11 +13,10 @@ class CreateTagPivotsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tag_pivots', function (Blueprint $table) {
+        Schema::create('taggables', function (Blueprint $table) {
             $table->integer('tag_id');
-            $table->integer('pivot_id');
-            $table->integer('pivot_type');
-            $table->timestamps();
+            $table->integer('taggable_id');
+            $table->string('taggable_type');
         });
     }
 
@@ -28,6 +27,6 @@ class CreateTagPivotsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tag_pivots');
+        Schema::dropIfExists('taggables');
     }
 }

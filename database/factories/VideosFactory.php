@@ -7,10 +7,6 @@ use App\Channel;
 use App\Video;
 use Faker\Generator as Faker;
 
-function getRandomId($collection, $exceptions = [])
-{
-    return $collection->except($exceptions)->random()->id;
-}
 
 $factory->define(Video::class, function (Faker $faker) {
     return [

@@ -59,6 +59,7 @@ footer {
     padding: 20px;
     background-color: white;
     border-radius: 5px;
+    margin-bottom: 25px;
 }
 
 .quotes-blocks > a {
@@ -153,4 +154,11 @@ footer {
 }
 #exemple1 {
     display: none;
+}
+
+.quotes-divider{
+    height: 5px;
+    width: 100%;
+    margin: 20px 0;
+    background-color: tomato;
 }

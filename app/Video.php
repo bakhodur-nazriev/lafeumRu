@@ -8,13 +8,18 @@ class Video extends Model
 {
     protected $guarded = [];
 
-    public function channel()
-    {
-        return $this->belongsTo(Channel::class);
-    }
+//    public function channel()
+//    {
+//        return $this->belongsTo(Channel::class);
+//    }
+//
+//    public function tag()
+//    {
+//        return $this->hasMany(Tag::class);
+//    }
 
-    public function tag()
+    public function tags()
     {
-        return $this->hasMany(Tag::class);
+        return $this->morphToMany(Tag::class, 'taggable');
     }
 }

@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(KnowledgeAreaTableSeeder::class);
         $this->call(TermTableSeeder::class);
         $this->call(VideoTableSeeder::class);
+        $this->call(QuoteTableSeeder::class);
         $this->call(TagTableSeeder::class);
     }
 }

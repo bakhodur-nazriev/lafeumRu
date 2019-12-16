@@ -8,15 +8,10 @@ class Tag extends Model
 {
     protected $guarded = [];
 
-//    public function video()
-//    {
-//        return $this->belongsTo(Video::class);
-//    }
-//
-//    public function quote()
-//    {
-//        return $this->belongsTo(Quote::class);
-//    }
+    public function terms()
+    {
+        return $this->morphedByMany(Term::class, 'taggable');
+    }
 
     public function qoutes()
     {

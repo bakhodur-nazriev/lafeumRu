@@ -8,15 +8,11 @@ class Quote extends Model
 {
 
     protected $guarded = [];
-//    public function tag()
-//    {
-//        return $this->hasMany(Tag::class);
-//    }
-//
-//    public function author()
-//    {
-//        return $this->hasOne(Author::class);
-//    }
+
+    public function author()
+    {
+        return $this->belongsTo(Author::class);
+    }
 
     public function tags()
     {

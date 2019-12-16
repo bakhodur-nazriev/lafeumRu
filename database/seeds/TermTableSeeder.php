@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Term;
 
 class TermTableSeeder extends Seeder
 {
@@ -11,6 +12,6 @@ class TermTableSeeder extends Seeder
      */
     public function run()
     {
-        // factory('App\Terms', 30)->create();
+         factory(Term::class, 30)->create();
     }
 }

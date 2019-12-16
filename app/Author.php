@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Author extends Model
 {
-  public function quote()
-  {
-    return $this->belongsTo(Quote::class);
-  }
+    public function quote()
+    {
+        return $this->hasMany(Quote::class);
+    }
 }

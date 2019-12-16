@@ -9,7 +9,7 @@ class TermsController extends Controller
 {
     public function index()
     {
-        $terms = Term::all();
+        $terms = Term::with('tags')->paginate(8);
         return view('/terms', compact('terms'));
     }
 }

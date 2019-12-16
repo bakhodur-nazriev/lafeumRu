@@ -9,7 +9,7 @@
                     <p>Введите название канала</p>
                 </span>
                 <div class="input-group mb-3">
-                    <input type="text" id="" class="form-control" placeholder="Поиск по авторам" aria-label="Поиск по авторам">
+                    <input type="text" id="" class="form-control" placeholder="Введите название канала" aria-label="Поиск по авторам">
                 </div>
             </div>
         </div>

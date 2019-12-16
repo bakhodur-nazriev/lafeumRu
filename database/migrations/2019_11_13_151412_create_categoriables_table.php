@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTagPivotsTable extends Migration
+class CreateCategoriablesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateTagPivotsTable extends Migration
      */
     public function up()
     {
-        Schema::create('taggables', function (Blueprint $table) {
-            $table->integer('tag_id');
-            $table->integer('taggable_id');
-            $table->string('taggable_type');
+        Schema::create('categoriables', function (Blueprint $table) {
+            $table->integer('category_id');
+            $table->integer('categoriable_id');
+            $table->string('categoriable_type');
+            $table->timestamps();
         });
     }
 
@@ -27,6 +28,6 @@ class CreateTagPivotsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('taggables');
+        Schema::dropIfExists('categoriables');
     }
 }

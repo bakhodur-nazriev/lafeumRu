@@ -33,7 +33,7 @@
                 <a class="nav-link text-light" href="{{ url('/vocabulary') }}">Словарь</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-light" href="{{ url('/knowledge-areas') }}">Области Знаний</a>
+                <a class="nav-link text-light" href="{{ url('/knowledges') }}">Области Знаний</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-light" href="{{ url('/videos') }}">Видео</a>

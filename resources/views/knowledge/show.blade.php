@@ -9,7 +9,7 @@
             </div>
             <div class="col-md-9 col-xl-6">
                 <h3 class="mb-4">Термины</h3>
-                @foreach($terms as $term)
+                {{-- @foreach($knowledge as $knowledge) --}}
                     <div class="quotes-blocks">
                         <p>
                             <a href="#">Факторы производства</a> — экономические ресурсы, необходимые для производства
@@ -21,26 +21,27 @@
                             добавляют:
                             предпринимательская способность (предпринимательство); информация (информационные ресурсы).
                             <a href="#">Категория в Википедии.</a>
-                            {{ $term->body }}
+                            {{-- {{ $term->body }} --}}
                         </p>
 
                         <div class="tags-block">
-                            @foreach($term->tags as $tag)
+                            {{-- @foreach($term->tags as $tag) --}}
                                 <a href="#">
-                                    <img src="/img/tag.png" alt="" class="qouter-authors-image">{{ $tag->name }}
+                                    <img src="/img/tag.png" alt="" class="qouter-authors-image">
+                                    {{-- {{ $tag->name }} --}}
                                 </a>
-                            @endforeach
+                            {{-- @endforeach --}}
                         </div>
 
                         <div class="my-main-divider"></div>
                         <button class="btn qouter-share">Поделиться</button>
                     </div>
-                @endforeach
+                {{-- @endforeach --}}
                 <div class="row">
                     <div class="col-12">
                         <nav aria-label="Page navigation example">
                             <div class="row d-flex justify-content-center my-6">
-                                {!! $terms->links(); !!}
+                                {{-- {!! $terms->links(); !!} --}}
                             </div>
                         </nav>
                     </div>

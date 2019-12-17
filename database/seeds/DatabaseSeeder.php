@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ChannelTableSeeder::class);
         $this->call(PhotoTableSeeder::class);
         $this->call(AuthorTableSeeder::class);
-        $this->call(KnowledgeAreaTableSeeder::class);
+        $this->call(KnowledgeTableSeeder::class);
         $this->call(TermTableSeeder::class);
         $this->call(VideoTableSeeder::class);
         $this->call(QuoteTableSeeder::class);

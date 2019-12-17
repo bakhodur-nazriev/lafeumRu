@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class KnowledgeAreaTableSeeder extends Seeder
+class KnowledgeTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +11,6 @@ class KnowledgeAreaTableSeeder extends Seeder
      */
     public function run()
     {
-        // factory('App\KnowledgeAreas', 20)->create();
+        factory('App\Knowledge', 80)->create();
     }
 }

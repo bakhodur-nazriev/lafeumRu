@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateKnowledgeAreasTable extends Migration
+class CreateKnowledgesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateKnowledgeAreasTable extends Migration
      */
     public function up()
     {
-        Schema::create('knowledge_areas', function (Blueprint $table) {
+        Schema::create('knowledge', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('description');
@@ -28,6 +28,6 @@ class CreateKnowledgeAreasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('knowledge_areas');
+        Schema::dropIfExists('knowledge');
     }
 }

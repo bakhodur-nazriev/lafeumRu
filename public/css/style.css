@@ -94,6 +94,7 @@ footer {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 1px !important;
 }
 
 .tags {
@@ -211,4 +212,8 @@ footer {
 .tags-block a {
     margin-right: 10px;
     color: #04718c;
+}
+
+a {
+    color: #04718c !important;
 }

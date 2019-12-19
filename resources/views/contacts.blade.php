@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-sm-12 col-md-6 col-lg-6">
+            <div class="col-sm-12 col-md-8 col-lg-8">
                 <h3>Контакты</h3>
                 <p>Мы рады, что Вы посетили наш сайт и ознакомились с находящейся на нем информацией.
                     Вся информация находится в свободном доступе и предназначена только для частного пользования.
@@ -13,7 +13,7 @@
                     <a href="#">info@lafeum.org</a>
                 </p>
             </div>
-            <div class="col-sm-8 offset-sm-2 col-md-4 col-lg-4">
+            <div class="col-sm-8 offet-sm-2 col-md-4 offset-md-0 col-lg-4">
                 <h3 class="mb-4">Свяжитесь с нами</h3>
                 <div class="contact-form-block mb-4">
                     <form action="/contacts" method="POST">

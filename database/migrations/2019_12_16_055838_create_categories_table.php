@@ -17,7 +17,7 @@ class CreateCategoriesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->text('description');
-            $table->timestamps();
+            $table->nestedSet();
         });
     }
 
@@ -28,6 +28,9 @@ class CreateCategoriesTable extends Migration
      */
     public function down()
     {
+        Schema::table('categories', function (Blueprint $table) {
+            $table->dropNestedSet();
+        });
         Schema::dropIfExists('categories');
     }
 }

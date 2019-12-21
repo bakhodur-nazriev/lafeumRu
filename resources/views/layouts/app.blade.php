@@ -25,20 +25,20 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 <body>
-    {{-- <v-app id="app"> --}}
-        <div id="app">
+    <v-app id="app">
+{{--        <div id="app">--}}
             @yield('layout')
-        </div>
-    {{-- </v-app> --}}
+{{--        </div>--}}
+    </v-app>
 
 
-    {{-- <script>
+    <script>
         window.Laravel = {!! json_encode([
-            'csrf_token' => csrf_token(),
+        'csrf_token' => csrf_token(),
             'asset_path' => asset(''),
             'auth'       => Auth::user()
         ]); !!}
-    </script> --}}
-    
+    </script>
+
 </body>
 </html>

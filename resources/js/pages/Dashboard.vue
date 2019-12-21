@@ -67,7 +67,7 @@
             </div>
           </v-flex>
         </v-layout>
-          <v-divider></v-divider>
+        <v-divider></v-divider>
       </v-card>
     </v-container>
   </div>
@@ -75,9 +75,7 @@
 
 <script>
 export default {
-//   props: ["users"],
   data() {
-    //   console.log(this.users);
     return {
       projects: [
         {

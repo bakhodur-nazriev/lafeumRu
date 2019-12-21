@@ -2,12 +2,33 @@
 
 // use Symfony\Component\Routing\Annotation\Route;
 
+
 // use Illuminate\Routing\Route;
 
 Auth::routes();
 
 // Route::get('/videos', 'VideosController@index');
 // Route::get('/{any}', 'AppController@index')->where('any', '.*');
+
+// Route::group(['middleware' => ['auth']], function(){
+  Route::get('/dashboard', 'AdminController@index')->name('dashboard');
+
+// });
+
+// Route::group(['middleware' => 'auth'], function () {
+//   Route::get('dashboard', function () {
+//     if ($this->user->isAdmin())
+//       return redirect('/dashboard/admin');
+//     if ($this->user->isManager())
+//       return redirect('/dashboard/manager');
+
+//     return redirect('/');
+//   });
+// });
+
+// Route::get('dashboard/admin', 'Admin\dashboard@index');
+// Route::get('dashboard/manage', 'Manager\dashboard@index');
+// Route::get('users', 'PagesController@manageUsers');
 
 Route::get('/', 'AppController@index')->name('home');
 Route::get('/authors', 'AuthorsController@index')->name('authors');

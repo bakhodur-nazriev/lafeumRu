@@ -1,30 +1,26 @@
 @extends('layouts.default')
 
 @section('content')
-    <div class="container">
-        <div class="row d-flex justify-content-center">
-            <div class="col-md-5 col-xl-4">
+    <v-container fluid>
+        <v-row justify="center">
+            <v-col md5 lg4>
                 <span class="authors-main-title">
                     <h3>Фотографии</h3>
                     <p>В данном разделе подборка фотографий на тему жизни и ее красоты.</p>
                 </span>
-            </div>
-        </div>
-        <div class="row mb-3">
-                <a href="{{ $photo->image }}" data-fancybox="gallery">
-                    <div class="card  hoverable border-0 shadow-sm" style="ovewflow: visible;">
-                    <a href="{{ $photo->image }}" data-fancybox="gallery">
-                        <div class="card  hoverable border-0 shadow-sm" style="ovewflow: visible;">
-                            <div class="card-img-wrapper animated">
-                                <img src="{{ $photo->image }}" class="rounded card-img-top shadow-sm" style=" " alt="...">
-                            </div>
-                        </div>
-                    </a>
-                </div>
+            </v-col>
+        </v-row>
+        <v-row justify="center">
+            @foreach($photos as $photo)
+                <a href="{{ $photo->image }}" data-fancybox="gallery" class="pa-2">
+                    <v-card class="mx-auto" max-width="400">
+                        <img src="{{ $photo->image }}" class="rounded card-img-top shadow-sm" alt="">
+                    </v-card>
+                </a>
             @endforeach
-        </div>
-        <div class="mt-6 row d-flex justify-content-center">
+        </v-row>
+        <v-row justify="center" class="mt-6">
             {!! $photos->links(); !!}
-        </div>
-    </div>
+        </v-row>
+    </v-container>
 @endsection

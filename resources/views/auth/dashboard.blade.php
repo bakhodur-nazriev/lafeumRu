@@ -1,5 +1,6 @@
 @extends('layouts.empty')
 
 @section('layout')
-    <admin-dashboard></admin-dashboard>
+    <app></app>
 @endsection
+

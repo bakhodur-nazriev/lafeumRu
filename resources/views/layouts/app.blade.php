@@ -20,25 +20,23 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css"/>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 <body>
-    <v-app id="app">
-{{--        <div id="app">--}}
-            @yield('layout')
-{{--        </div>--}}
-    </v-app>
+<v-app id="app" style="background-color: #E7EBF2;">
+    @yield('layout')
+</v-app>
 
 
-    <script>
-        window.Laravel = {!! json_encode([
+<script>
+    window.Laravel = {!! json_encode([
         'csrf_token' => csrf_token(),
-            'asset_path' => asset(''),
-            'auth'       => Auth::user()
-        ]); !!}
-    </script>
+        'asset_path' => asset(''),
+        'auth'       => Auth::user()
+    ]); !!}
+</script>
 
 </body>
 </html>

@@ -33,7 +33,7 @@
                 <div class="row">
                     <div class="col-12">
                         <nav aria-label="Page navigation example">
-                            <div class="row d-flex justify-content-center my-6">
+                            <div class="row d-flex justify-content-center mt-3">
                                 {!! $quotes->links(); !!}
                             </div>
                         </nav>

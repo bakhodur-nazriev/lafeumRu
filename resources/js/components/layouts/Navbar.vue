@@ -2,8 +2,9 @@
     <nav>
         <v-app-bar app color="grey--text" flat>
             <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
-            <v-toolbar-title class="text-uppercase grey--text">
-                <span>lafeum</span>
+            <v-toolbar-title
+                class="text-uppercase grey--text">
+                <span>Lafeum</span> 
             </v-toolbar-title>
             <v-spacer></v-spacer>
 
@@ -50,33 +51,16 @@
             <v-layout column align-center>
                 <v-flex class="mt-5 text-center">
                     <v-avatar size="110">
-                        <!--                         <v-img src="{{ this.user.avatar }}"></v-img>-->
                     </v-avatar>
                     <p class="white--text subheading mt-1">
                         {{ this.users.name }}
                     </p>
                 </v-flex>
             </v-layout>
-            <!--            <v-list>-->
-            <!--                <v-list-item-->
-            <!--                    v-for="link in links"-->
-            <!--                    :key="link.text"-->
-            <!--                    :to="link.route"-->
-            <!--                    router-->
-            <!--                >-->
-            <!--                    <v-list-item-icon>-->
-            <!--                        <v-icon color="white" v-text="link.icon"></v-icon>-->
-            <!--                    </v-list-item-icon>-->
-            <!--                    <v-list-item-content class="white&#45;&#45;text">-->
-            <!--                        <v-list-item-title v-text="link.text"></v-list-item-title>-->
-            <!--                    </v-list-item-content>-->
-            <!--                </v-list-item>-->
-            <!--            </v-list>-->
 
             <v-list dark shaped>
                 <div v-for="link in links" :key="link.text">
                     <v-list-group
-                        v-model="link.active"
                         :prepend-icon="link.icon"
                         active-class="white--text"
                         no-action
@@ -93,7 +77,6 @@
                             :key="i"
                             :to="subLink.route"
                             router
-
                             active-class="white--text"
                         >
                             <v-list-item-content>
@@ -119,54 +102,61 @@
                     {
                         icon: "mdi-plus",
                         text: "Добавить запись",
-                        // route: "/admin/record",
                         links: [
                             {
                                 icon: 'mdi-tag',
                                 text: 'Цитаты',
-                                route: '/admin/quotes'
+                                route: '/dashboard/quotes'
                             },
                             {
                                 icon: 'mdi-person',
                                 text: 'Авторы',
-                                route: '/admin/authors'
+                                route: '/dashboard/authors'
                             },
                             {
                                 icon: 'mdi-tag',
                                 text: 'Термины',
-                                route: '/admin/terms'
+                                route: '/dashboard/terms'
                             },
                             {
                                 icon: 'mdi-tag',
                                 text: 'Области Знаний',
-                                route: '/admin/knowledge-areas'
+                                route: '/dashboard/knowledge-areas'
                             },
                             {
                                 icon: 'mdi-youtube',
                                 text: 'Видео',
-                                route: '/admin/videos'
+                                route: '/dashboard/videos'
                             },
                             {
                                 icon: 'mdi-youtube',
                                 text: 'Каналы',
-                                route: '/admin/channels'
+                                route: '/dashboard/channels'
                             },
                             {
                                 icon: 'mdi-image',
                                 text: 'Фото',
-                                route: '/admin/photos'
+                                route: '/dashboard/photos'
                             },
                         ]
                     },
-                    {icon: "mdi-folder", text: "My Projects", route: "/admin/projects"},
-                    {icon: "mdi-account-group", text: "Группа", route: "/admin/group"},
-                    {icon: "mdi-post", text: "Публикации", route: "/admin/publications"},
-                    {icon: "mdi-account", text: "Профил", route: "/admin/profile"},
-                    {icon: "mdi-settings", text: "Настройка", route: "/admin/setting"},
-                    {icon: "mdi-chat", text: "Чат", route: "/admin/chat"}
+                    {icon: "mdi-folder", text: "My Projects", route: "/dashboard/projects"},
+                    {icon: "mdi-account-group", text: "Группа", route: "/dashboard/group"},
+                    {icon: "mdi-post", text: "Публикации", route: "/dashboard/publications"},
+                    {icon: "mdi-account", text: "Профил", route: "/dashboard/profile"},
+                    {icon: "mdi-settings", text: "Настройка", route: "/dashboard/setting"},
+                    {icon: "mdi-chat", text: "Чат", route: "/dashboard/chat"}
                 ]
             };
         },
-        method: {}
+        methods: {
+            isLinkGroup(link) {
+                return (
+                    link.hasOwnProperty('items') &&
+                    Array.isArray(link.items) &&
+                    link.items.length >= 0
+                );
+            }
+        }
     };
 </script>

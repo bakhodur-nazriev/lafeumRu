@@ -12,34 +12,34 @@ export default new VueRouter({
     mode: "history",
     routes: [
         {
-            path: "/admin",
-            name: '/admin/home',
+            path: "/dashboard",
+            name: '/dashboard/home',
             component: Home
         },
         {
-            path: "/admin/quotes",
-            name: '/admin/quotes',
+            path: "/dashboard/quotes",
+            name: '/dashboard/quotes',
             component: Quotes
         },
         {
-            path: "/admin/projects",
-            name: "/admin/projects",
+            path: "/dashboard/projects",
+            name: "/dashboard/projects",
             component: Projects
         },
         {
-            path: "/admin/team",
-            name: "/admin/team",
+            path: "/dashboard/team",
+            name: "/dashboard/team",
             component: Team
         },
         {
-            path: "/admin/publications",
-            name: "/admin/publications",
+            path: "/dashboard/publications",
+            name: "/dashboard/publications",
             component: Publications
         },
         ,
         {
-            path: "/admin/profile",
-            name: "/admin/profile",
+            path: "/dashboard/profile",
+            name: "/dashboard/profile",
             component: Profile
         }
     ]

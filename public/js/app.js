@@ -2049,23 +2049,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["route"],
   data: function data() {
@@ -2076,64 +2059,67 @@ __webpack_require__.r(__webpack_exports__);
       links: [{
         icon: "mdi-plus",
         text: "Добавить запись",
-        // route: "/admin/record",
         links: [{
           icon: 'mdi-tag',
           text: 'Цитаты',
-          route: '/admin/quotes'
+          route: '/dashboard/quotes'
         }, {
           icon: 'mdi-person',
           text: 'Авторы',
-          route: '/admin/authors'
+          route: '/dashboard/authors'
         }, {
           icon: 'mdi-tag',
           text: 'Термины',
-          route: '/admin/terms'
+          route: '/dashboard/terms'
         }, {
           icon: 'mdi-tag',
           text: 'Области Знаний',
-          route: '/admin/knowledge-areas'
+          route: '/dashboard/knowledge-areas'
         }, {
           icon: 'mdi-youtube',
           text: 'Видео',
-          route: '/admin/videos'
+          route: '/dashboard/videos'
         }, {
           icon: 'mdi-youtube',
           text: 'Каналы',
-          route: '/admin/channels'
+          route: '/dashboard/channels'
         }, {
           icon: 'mdi-image',
           text: 'Фото',
-          route: '/admin/photos'
+          route: '/dashboard/photos'
         }]
       }, {
         icon: "mdi-folder",
         text: "My Projects",
-        route: "/admin/projects"
+        route: "/dashboard/projects"
       }, {
         icon: "mdi-account-group",
         text: "Группа",
-        route: "/admin/group"
+        route: "/dashboard/group"
       }, {
         icon: "mdi-post",
         text: "Публикации",
-        route: "/admin/publications"
+        route: "/dashboard/publications"
       }, {
         icon: "mdi-account",
         text: "Профил",
-        route: "/admin/profile"
+        route: "/dashboard/profile"
       }, {
         icon: "mdi-settings",
         text: "Настройка",
-        route: "/admin/setting"
+        route: "/dashboard/setting"
       }, {
         icon: "mdi-chat",
         text: "Чат",
-        route: "/admin/chat"
+        route: "/dashboard/chat"
       }]
     };
   },
-  method: {}
+  methods: {
+    isLinkGroup: function isLinkGroup(link) {
+      return link.hasOwnProperty('items') && Array.isArray(link.items) && link.items.length >= 0;
+    }
+  }
 });
 
 /***/ }),
@@ -2489,17 +2475,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      dialog: false,
-      model: null,
-      states: ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District of Columbia', 'Federated States of Micronesia', 'Florida', 'Georgia', 'Guam', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Marshall Islands', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Northern Mariana Islands', 'Ohio', 'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Island', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'],
+      quotes: [],
+      dialogAdd: false,
+      dialogDelete: false,
+      items: ['qwe', 'asd', 'zxc'],
       filters: [{
         value: 0,
         fn: function fn(item, queryText, itemText) {
@@ -2512,13 +2494,82 @@ __webpack_require__.r(__webpack_exports__);
           return queryText.length > 2 && item.toLowerCase().indexOf(queryText) > -1;
         },
         text: 'Search Length > 2 & Loose Match'
-      }]
+      }],
+      headers: [{
+        text: '№',
+        value: 'counter'
+      }, {
+        text: 'Dessert (100g serving)',
+        align: 'left',
+        sortable: false,
+        value: 'name'
+      }, {
+        text: 'Calories',
+        value: 'calories'
+      }, {
+        text: 'Carbs (g)',
+        value: 'carbs'
+      }, {
+        text: 'Protein (g)',
+        value: 'protein'
+      }, {
+        text: 'Действия',
+        value: 'action',
+        sortable: false
+      }],
+      desserts: [],
+      editedIndex: -1,
+      editedItem: {
+        name: '',
+        calories: 0,
+        fat: 0,
+        carbs: 0,
+        protein: 0
+      },
+      defaultItem: {
+        name: '',
+        calories: 0,
+        fat: 0,
+        carbs: 0,
+        protein: 0
+      }
     };
   },
-  computed: {
-    activeFilter: function activeFilter() {
-      if (this.model == null) return undefined;
-      return this.filters[this.model].fn;
+  watch: {
+    dialog: function dialog(val) {
+      val || this.close();
+    }
+  },
+  created: function created() {
+    this.initialize();
+  },
+  methods: {
+    initialize: function initialize() {
+      this.desserts = [{
+        name: 'Frozen Yogurt',
+        calories: 159,
+        fat: 6.0,
+        carbs: 24,
+        protein: 4.0
+      }, {
+        name: 'Ice cream sandwich',
+        calories: 237,
+        fat: 9.0,
+        carbs: 37,
+        protein: 4.3
+      }, {
+        name: 'Eclair',
+        calories: 262,
+        fat: 16.0,
+        carbs: 23,
+        protein: 6.0
+      }, {
+        name: 'Cupcake',
+        calories: 305,
+        fat: 3.7,
+        carbs: 67,
+        protein: 4.3
+      }];
     }
   }
 });
@@ -39337,7 +39388,7 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("v-toolbar-title", { staticClass: "text-uppercase grey--text" }, [
-            _c("span", [_vm._v("lafeum")])
+            _c("span", [_vm._v("Lafeum")])
           ]),
           _vm._v(" "),
           _c("v-spacer"),
@@ -39513,14 +39564,7 @@ var render = function() {
                         ],
                         null,
                         true
-                      ),
-                      model: {
-                        value: link.active,
-                        callback: function($$v) {
-                          _vm.$set(link, "active", $$v)
-                        },
-                        expression: "link.active"
-                      }
+                      )
                     },
                     [
                       _vm._v(" "),
@@ -39946,60 +39990,232 @@ var render = function() {
         "v-container",
         { attrs: { fluid: "" } },
         [
-          _c("v-text-field", {
-            staticClass: "hidden-sm-and-down",
+          _c(
+            "v-row",
+            { attrs: { justify: "center" } },
+            [
+              _c(
+                "v-col",
+                { attrs: { cols: "6" } },
+                [
+                  _c("v-text-field", {
+                    attrs: {
+                      solo: "",
+                      label: "Поиск",
+                      "append-icon": "mdi-magnify"
+                    }
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("v-data-table", {
+            staticClass: "elevation-2",
             attrs: {
-              flat: "",
-              "solo-inverted": "",
-              "hide-details": "",
-              "prepend-inner-icon": "mdi-magnify",
-              label: "Поиск",
-              color: "primary"
-            }
+              headers: _vm.headers,
+              items: _vm.desserts,
+              "sort-by": "calories"
+            },
+            scopedSlots: _vm._u([
+              {
+                key: "item.action",
+                fn: function(ref) {
+                  var item = ref.item
+                  return [
+                    _c(
+                      "v-btn",
+                      {
+                        attrs: {
+                          fab: "",
+                          dark: "",
+                          small: "",
+                          color: "primary",
+                          elevation: "1"
+                        }
+                      },
+                      [
+                        _c("v-icon", { attrs: { dark: "" } }, [
+                          _vm._v(
+                            "\n                        mdi-pen\n                    "
+                          )
+                        ])
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "v-btn",
+                      {
+                        attrs: {
+                          fab: "",
+                          dark: "",
+                          small: "",
+                          color: "primary",
+                          elevation: "1"
+                        }
+                      },
+                      [
+                        _c("v-icon", { attrs: { dark: "" } }, [
+                          _vm._v(
+                            "\n                        mdi-delete\n                    "
+                          )
+                        ])
+                      ],
+                      1
+                    )
+                  ]
+                }
+              },
+              {
+                key: "no-data",
+                fn: function() {
+                  return [
+                    _c(
+                      "v-btn",
+                      {
+                        attrs: { color: "primary" },
+                        on: { click: _vm.initialize }
+                      },
+                      [_vm._v("Reset")]
+                    )
+                  ]
+                },
+                proxy: true
+              }
+            ])
           })
         ],
         1
       ),
       _vm._v(" "),
       _c(
-        "v-btn",
+        "v-tooltip",
         {
-          attrs: {
-            bottom: "",
-            color: "primary",
-            dark: "",
-            fab: "",
-            fixed: "",
-            right: ""
-          },
-          on: {
-            click: function($event) {
-              _vm.dialog = !_vm.dialog
+          attrs: { top: "" },
+          scopedSlots: _vm._u([
+            {
+              key: "activator",
+              fn: function(ref) {
+                var on = ref.on
+                return [
+                  _c(
+                    "v-btn",
+                    _vm._g(
+                      {
+                        attrs: {
+                          bottom: "",
+                          color: "primary",
+                          dark: "",
+                          fab: "",
+                          fixed: "",
+                          right: ""
+                        },
+                        on: {
+                          click: function($event) {
+                            _vm.dialog = !_vm.dialog
+                          }
+                        }
+                      },
+                      on
+                    ),
+                    [_c("v-icon", [_vm._v("mdi-plus")])],
+                    1
+                  )
+                ]
+              }
             }
+          ])
+        },
+        [_vm._v(" "), _c("span", [_vm._v("Добавить цитату")])]
+      ),
+      _vm._v(" "),
+      _c(
+        "v-dialog",
+        {
+          attrs: { width: "500" },
+          model: {
+            value: _vm.dialogDelete,
+            callback: function($$v) {
+              _vm.dialogDelete = $$v
+            },
+            expression: "dialogDelete"
           }
         },
-        [_c("v-icon", [_vm._v("mdi-plus")])],
+        [
+          _c(
+            "v-card",
+            { staticClass: "pa-2" },
+            [
+              _c(
+                "v-card-title",
+                { staticClass: "pt-1 regular headline text-center" },
+                [
+                  _vm._v(
+                    "Вы действительно хотите удалить эту цитату ?\n            "
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "v-card-actions",
+                { staticClass: "justify-center" },
+                [
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { color: "green darken-1", dark: "" },
+                      on: {
+                        click: function($event) {
+                          _vm.dialogDelete = false
+                        }
+                      }
+                    },
+                    [_vm._v("\n                    Не\n                ")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { color: "red darken-1", dark: "" },
+                      on: {
+                        click: function($event) {
+                          _vm.dialogDelete = false
+                        }
+                      }
+                    },
+                    [_vm._v("\n                    Ҳа\n                ")]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
         1
       ),
       _vm._v(" "),
       _c(
         "v-dialog",
         {
-          attrs: { width: "800px" },
+          attrs: { width: "600px" },
           model: {
-            value: _vm.dialog,
+            value: _vm.dialogAdd,
             callback: function($$v) {
-              _vm.dialog = $$v
+              _vm.dialogAdd = $$v
             },
-            expression: "dialog"
+            expression: "dialogAdd"
           }
         },
         [
           _c(
             "v-card",
             [
-              _c("v-card-title", { staticClass: "grey darken-2" }, [
-                _vm._v("\n                    Create contact\n                ")
+              _c("v-card-title", { staticClass: "primary white--text" }, [
+                _vm._v("\n                Создать Цитату\n            ")
               ]),
               _vm._v(" "),
               _c(
@@ -40007,79 +40223,16 @@ var render = function() {
                 [
                   _c(
                     "v-row",
-                    { staticClass: "mx-2" },
                     [
                       _c(
                         "v-col",
-                        {
-                          staticClass: "align-center justify-space-between",
-                          attrs: { cols: "12" }
-                        },
-                        [
-                          _c(
-                            "v-row",
-                            { staticClass: "mr-0", attrs: { align: "center" } },
-                            [
-                              _c(
-                                "v-avatar",
-                                {
-                                  staticClass: "mx-3",
-                                  attrs: { size: "40px" }
-                                },
-                                [
-                                  _c("img", {
-                                    attrs: {
-                                      src:
-                                        "//ssl.gstatic.com/s2/oz/images/sge/grey_silhouette.png",
-                                      alt: ""
-                                    }
-                                  })
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c("v-text-field", {
-                                attrs: { placeholder: "Name" }
-                              })
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-col",
-                        { attrs: { cols: "6" } },
-                        [
-                          _c("v-text-field", {
-                            attrs: {
-                              "prepend-icon": "business",
-                              placeholder: "Company"
-                            }
-                          })
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-col",
-                        { attrs: { cols: "6" } },
-                        [
-                          _c("v-text-field", {
-                            attrs: { placeholder: "Job title" }
-                          })
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-col",
                         { attrs: { cols: "12" } },
                         [
-                          _c("v-text-field", {
+                          _c("v-select", {
                             attrs: {
-                              "prepend-icon": "mail",
-                              placeholder: "Email"
+                              items: _vm.items,
+                              label: "Категории",
+                              dense: ""
                             }
                           })
                         ],
@@ -40090,25 +40243,13 @@ var render = function() {
                         "v-col",
                         { attrs: { cols: "12" } },
                         [
-                          _c("v-text-field", {
+                          _c("v-textarea", {
                             attrs: {
-                              type: "tel",
-                              "prepend-icon": "phone",
-                              placeholder: "(000) 000 - 0000"
-                            }
-                          })
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-col",
-                        { attrs: { cols: "12" } },
-                        [
-                          _c("v-text-field", {
-                            attrs: {
-                              "prepend-icon": "notes",
-                              placeholder: "Notes"
+                              name: "input-7-1",
+                              label: "Default style",
+                              value:
+                                "The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through.",
+                              hint: "Hint text"
                             }
                           })
                         ],
@@ -40124,36 +40265,32 @@ var render = function() {
               _c(
                 "v-card-actions",
                 [
-                  _c("v-btn", { attrs: { text: "", color: "primary" } }, [
-                    _vm._v("More\n                    ")
-                  ]),
-                  _vm._v(" "),
                   _c("v-spacer"),
                   _vm._v(" "),
                   _c(
                     "v-btn",
                     {
-                      attrs: { text: "", color: "primary" },
+                      attrs: { dark: "", color: "green" },
                       on: {
                         click: function($event) {
                           _vm.dialog = false
                         }
                       }
                     },
-                    [_vm._v("Cancel\n                    ")]
+                    [_vm._v("Сохранить\n                ")]
                   ),
                   _vm._v(" "),
                   _c(
                     "v-btn",
                     {
-                      attrs: { text: "" },
+                      attrs: { dark: "", color: "error" },
                       on: {
                         click: function($event) {
                           _vm.dialog = false
                         }
                       }
                     },
-                    [_vm._v("Save\n                    ")]
+                    [_vm._v("Отмена\n                ")]
                   )
                 ],
                 1
@@ -93028,6 +93165,19 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuetify__WEBPACK_IMPORTED_MODULE_
 var vuetifyOptions = {
   icons: {
     iconfont: "mdi"
+  },
+  theme: {
+    themes: {
+      light: {
+        primary: "#04718c",
+        secondary: "#21353f" // accent: "#689F38",
+        // success: "#4caf50",
+        // error: "#EF5350",
+        // warning: "#ffeb3b",
+        // info: "#2196f3",
+
+      }
+    }
   }
 };
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("admin-dashboard", __webpack_require__(/*! ./components/pages/Home.vue */ "./resources/js/components/pages/Home.vue")["default"]);
@@ -93673,28 +93823,28 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
 /* harmony default export */ __webpack_exports__["default"] = (new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   mode: "history",
   routes: [{
-    path: "/admin",
-    name: '/admin/home',
+    path: "/dashboard",
+    name: '/dashboard/home',
     component: _components_pages_Home__WEBPACK_IMPORTED_MODULE_2__["default"]
   }, {
-    path: "/admin/quotes",
-    name: '/admin/quotes',
+    path: "/dashboard/quotes",
+    name: '/dashboard/quotes',
     component: _components_pages_Quotes__WEBPACK_IMPORTED_MODULE_7__["default"]
   }, {
-    path: "/admin/projects",
-    name: "/admin/projects",
+    path: "/dashboard/projects",
+    name: "/dashboard/projects",
     component: _components_pages_Projects__WEBPACK_IMPORTED_MODULE_3__["default"]
   }, {
-    path: "/admin/team",
-    name: "/admin/team",
+    path: "/dashboard/team",
+    name: "/dashboard/team",
     component: _components_pages_Team__WEBPACK_IMPORTED_MODULE_4__["default"]
   }, {
-    path: "/admin/publications",
-    name: "/admin/publications",
+    path: "/dashboard/publications",
+    name: "/dashboard/publications",
     component: _components_pages_Publications__WEBPACK_IMPORTED_MODULE_5__["default"]
   },, {
-    path: "/admin/profile",
-    name: "/admin/profile",
+    path: "/dashboard/profile",
+    name: "/dashboard/profile",
     component: _components_pages_Profile__WEBPACK_IMPORTED_MODULE_6__["default"]
   }]
 }));

@@ -5,7 +5,7 @@
 
 Auth::routes();
 
-Route::get('/{any}', 'AdminController@index')->where('any', '.*');
+Route::get('/dashboard{any}', 'AdminController@index')->where('any', '.*');
 
 Route::get('/dashboard', 'AdminController@index')->name('dashboard');
 
@@ -25,3 +25,7 @@ Route::get('/quotes', 'QuotesController@index')->name('quotes');
 Route::get('/terms', 'TermsController@index')->name('terms');
 Route::get('/videos', 'VideosController@index')->name('videos');
 Route::get('/vocabulary', 'VocabularyController@index')->name('vocabulary');
+
+Route::prefix('api')->group(function() {
+    Route::resource('quptes', 'QuotesController');
+});

@@ -14,4 +14,22 @@ class QuotesController extends Controller
         $quotes = Quote::with(['author', 'tags'])->paginate(8);
         return view('/quotes', compact('quotes'));
     }
+
+    public function get(Request $request)
+    {
+        $quotes = Quote::with(['tag'])->get();
+        return response()->json($quotes);
+    }
+
+    public function store(Request $request)
+    {
+        $quote = Quote::create($request->all());
+        return response()->json($quote);
+    }
+
+    public function delete($id)
+    {
+        Quote::destroy($id);
+        return response()->json("ok");
+    }
 }

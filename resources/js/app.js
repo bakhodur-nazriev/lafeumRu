@@ -17,7 +17,20 @@ Vue.use(Vuetify);
 const vuetifyOptions = {
     icons: {
         iconfont: "mdi"
-    }
+    },
+    theme: {
+        themes: {
+            light: {
+                primary: "#04718c",
+                secondary: "#21353f"
+                // accent: "#689F38",
+                // success: "#4caf50",
+                // error: "#EF5350",
+                // warning: "#ffeb3b",
+                // info: "#2196f3",
+            }
+        }
+    },
 };
 
 Vue.component("admin-dashboard", require("./components/pages/Home.vue").default);
@@ -26,7 +39,7 @@ Vue.component("pagination", require("laravel-vue-pagination"));
 
 const app = new Vue({
     el: "#app",
-    components: { App },
+    components: {App},
     router,
     vuetify: new Vuetify(vuetifyOptions)
 });

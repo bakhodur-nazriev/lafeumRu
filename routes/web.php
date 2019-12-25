@@ -26,6 +26,3 @@ Route::get('/terms', 'TermsController@index')->name('terms');
 Route::get('/videos', 'VideosController@index')->name('videos');
 Route::get('/vocabulary', 'VocabularyController@index')->name('vocabulary');
 
-Route::prefix('api')->group(function() {
-    Route::resource('quptes', 'QuotesController');
-});

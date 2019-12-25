@@ -17,7 +17,7 @@ class QuotesController extends Controller
 
     public function get(Request $request)
     {
-        $quotes = Quote::with(['tag'])->get();
+        $quotes = Quote::with(['author', 'tags'])->get();
         return response()->json($quotes);
     }
 

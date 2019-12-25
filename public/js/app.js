@@ -2475,62 +2475,81 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       quotes: [],
+      page: 3,
+      pagination: {},
       dialogAdd: false,
       dialogDelete: false,
+      dialogUpdate: false,
+      itemsPerPage: 1,
+      editedIndex: -1,
       items: ['qwe', 'asd', 'zxc'],
-      filters: [{
-        value: 0,
-        fn: function fn(item, queryText, itemText) {
-          return item.indexOf(queryText) > -1;
-        },
-        text: 'Exact Match'
-      }, {
-        value: 1,
-        fn: function fn(item, queryText, itemText) {
-          return queryText.length > 2 && item.toLowerCase().indexOf(queryText) > -1;
-        },
-        text: 'Search Length > 2 & Loose Match'
-      }],
       headers: [{
         text: '№',
-        value: 'counter'
+        value: 'counter',
+        sortable: false
       }, {
-        text: 'Dessert (100g serving)',
-        align: 'left',
-        sortable: false,
-        value: 'name'
+        text: 'Цитата',
+        value: 'body',
+        align: 'center',
+        sortable: false
       }, {
-        text: 'Calories',
-        value: 'calories'
-      }, {
-        text: 'Carbs (g)',
-        value: 'carbs'
-      }, {
-        text: 'Protein (g)',
-        value: 'protein'
-      }, {
-        text: 'Действия',
-        value: 'action',
+        text: 'Автор',
+        value: 'author.name',
+        align: 'center',
         sortable: false
       }],
-      desserts: [],
-      editedIndex: -1,
       editedItem: {
         name: '',
-        calories: 0,
-        fat: 0,
-        carbs: 0,
+        categories: 0,
         protein: 0
       },
       defaultItem: {
         name: '',
         calories: 0,
-        fat: 0,
-        carbs: 0,
         protein: 0
       }
     };
@@ -2540,36 +2559,18 @@ __webpack_require__.r(__webpack_exports__);
       val || this.close();
     }
   },
-  created: function created() {
-    this.initialize();
+  mounted: function mounted() {
+    this.loadQuotes();
   },
   methods: {
-    initialize: function initialize() {
-      this.desserts = [{
-        name: 'Frozen Yogurt',
-        calories: 159,
-        fat: 6.0,
-        carbs: 24,
-        protein: 4.0
-      }, {
-        name: 'Ice cream sandwich',
-        calories: 237,
-        fat: 9.0,
-        carbs: 37,
-        protein: 4.3
-      }, {
-        name: 'Eclair',
-        calories: 262,
-        fat: 16.0,
-        carbs: 23,
-        protein: 6.0
-      }, {
-        name: 'Cupcake',
-        calories: 305,
-        fat: 3.7,
-        carbs: 67,
-        protein: 4.3
-      }];
+    loadQuotes: function loadQuotes() {
+      var _this = this;
+
+      axios.get('/api/quotes').then(function (res) {
+        _this.quotes = res.data;
+      })["catch"](function (err) {
+        console.log(err);
+      });
     }
   }
 });
@@ -40016,8 +40017,8 @@ var render = function() {
             staticClass: "elevation-2",
             attrs: {
               headers: _vm.headers,
-              items: _vm.desserts,
-              "sort-by": "calories"
+              items: _vm.quotes,
+              "hide-default-footer": ""
             },
             scopedSlots: _vm._u([
               {
@@ -40033,7 +40034,12 @@ var render = function() {
                           dark: "",
                           small: "",
                           color: "primary",
-                          elevation: "1"
+                          elevation: "2"
+                        },
+                        on: {
+                          click: function($event) {
+                            _vm.dialogUpdate = !_vm.dialogUpdate
+                          }
                         }
                       },
                       [
@@ -40054,7 +40060,12 @@ var render = function() {
                           dark: "",
                           small: "",
                           color: "primary",
-                          elevation: "1"
+                          elevation: "2"
+                        },
+                        on: {
+                          click: function($event) {
+                            _vm.dialogDelete = !_vm.dialogDelete
+                          }
                         }
                       },
                       [
@@ -40068,25 +40079,27 @@ var render = function() {
                     )
                   ]
                 }
-              },
-              {
-                key: "no-data",
-                fn: function() {
-                  return [
-                    _c(
-                      "v-btn",
-                      {
-                        attrs: { color: "primary" },
-                        on: { click: _vm.initialize }
-                      },
-                      [_vm._v("Reset")]
-                    )
-                  ]
-                },
-                proxy: true
               }
             ])
-          })
+          }),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "text-center pt-2" },
+            [
+              _c("v-pagination", {
+                attrs: { length: 2 },
+                model: {
+                  value: _vm.page,
+                  callback: function($$v) {
+                    _vm.page = $$v
+                  },
+                  expression: "page"
+                }
+              })
+            ],
+            1
+          )
         ],
         1
       ),
@@ -40115,7 +40128,7 @@ var render = function() {
                         },
                         on: {
                           click: function($event) {
-                            _vm.dialog = !_vm.dialog
+                            _vm.dialogAdd = !_vm.dialogAdd
                           }
                         }
                       },
@@ -40246,10 +40259,7 @@ var render = function() {
                           _c("v-textarea", {
                             attrs: {
                               name: "input-7-1",
-                              label: "Default style",
-                              value:
-                                "The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through.",
-                              hint: "Hint text"
+                              label: "Добаить цитату здесь"
                             }
                           })
                         ],
@@ -40273,7 +40283,7 @@ var render = function() {
                       attrs: { dark: "", color: "green" },
                       on: {
                         click: function($event) {
-                          _vm.dialog = false
+                          _vm.dialogAdd = false
                         }
                       }
                     },
@@ -40286,7 +40296,108 @@ var render = function() {
                       attrs: { dark: "", color: "error" },
                       on: {
                         click: function($event) {
-                          _vm.dialog = false
+                          _vm.dialogAdd = false
+                        }
+                      }
+                    },
+                    [_vm._v("Отмена\n                ")]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-dialog",
+        {
+          attrs: { width: "600px" },
+          model: {
+            value: _vm.dialogUpdate,
+            callback: function($$v) {
+              _vm.dialogUpdate = $$v
+            },
+            expression: "dialogUpdate"
+          }
+        },
+        [
+          _c(
+            "v-card",
+            [
+              _c("v-card-title", { staticClass: "primary white--text" }, [
+                _vm._v("\n                Изменить Цитату\n            ")
+              ]),
+              _vm._v(" "),
+              _c(
+                "v-container",
+                [
+                  _c(
+                    "v-row",
+                    [
+                      _c(
+                        "v-col",
+                        { attrs: { cols: "12" } },
+                        [
+                          _c("v-select", {
+                            attrs: {
+                              items: _vm.items,
+                              label: "Категории",
+                              dense: ""
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-col",
+                        { attrs: { cols: "12" } },
+                        [
+                          _c("v-textarea", {
+                            attrs: {
+                              name: "input-7-1",
+                              label: "Изменить цитату здесь"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-card-actions",
+                [
+                  _c("v-spacer"),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { dark: "", color: "green" },
+                      on: {
+                        click: function($event) {
+                          _vm.dialogUpdate = false
+                        }
+                      }
+                    },
+                    [_vm._v("Сохранить\n                ")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { dark: "", color: "error" },
+                      on: {
+                        click: function($event) {
+                          _vm.dialogUpdate = false
                         }
                       }
                     },
@@ -93223,6 +93334,7 @@ try {
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common['X-CSRFToken'] = Laravel.csrf_token;
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting

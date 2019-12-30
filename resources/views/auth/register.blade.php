@@ -18,7 +18,7 @@
                             />
                             <v-text-field
                                 name="name"
-                                label="Имя"
+                                label="Полное имя"
                                 required
                                 value="{{ old('name') }}"
                                 class="@error('name') is-invalid @enderror"
@@ -57,7 +57,9 @@
                         <v-card-actions>
                             <v-spacer></v-spacer>
                             <v-btn type="submit" color="primary">Регистрация</v-btn>
-                            <v-btn @click="" color="primary">Отмена</v-btn>
+                            <v-btn href="{{route('home')}}" color="primary">
+                                <span class="white--text">Отмена</span>
+                            </v-btn>
                         </v-card-actions>
                     </v-form>
                 </v-card>

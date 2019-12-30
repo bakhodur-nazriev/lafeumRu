@@ -4,7 +4,7 @@
             <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
             <v-toolbar-title
                 class="text-uppercase grey--text">
-                <span>Lafeum</span> 
+                <span>Lafeum</span>
             </v-toolbar-title>
             <v-spacer></v-spacer>
 
@@ -50,11 +50,12 @@
         <v-navigation-drawer v-model="drawer" class="primary" app>
             <v-layout column align-center>
                 <v-flex class="mt-5 text-center">
-                    <v-avatar size="110">
+                    <v-avatar size="150">
+                        <img :src="'/img/avatars/' + this.users.avatar" alt="John">
                     </v-avatar>
-                    <p class="white--text subheading mt-1">
+                    <h4 class="white--text subheading mt-2">
                         {{ this.users.name }}
-                    </p>
+                    </h4>
                 </v-flex>
             </v-layout>
 
@@ -101,7 +102,7 @@
                 links: [
                     {
                         icon: "mdi-plus",
-                        text: "Добавить запись",
+                        text: "Все записи",
                         links: [
                             {
                                 icon: 'mdi-tag',
@@ -148,6 +149,9 @@
                     {icon: "mdi-chat", text: "Чат", route: "/dashboard/chat"}
                 ]
             };
+        },
+        created() {
+            console.log(this.users);
         },
         methods: {
             isLinkGroup(link) {

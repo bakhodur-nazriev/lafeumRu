@@ -17,4 +17,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// Quotes
 Route::get('/quotes', 'QuotesController@get');
+Route::post('/quotes', 'QuotesController@store');
+Route::put('/quotes', 'QuotesController@update');
+Route::delete('/quotes', 'QuotesController@delete');
+
+//Authors
+Route::get('/authors', 'AuthorsController@get');
+Route::post('/authors', 'AuthorsController@store');
+
+//Photos
+Route::get('/photos', 'PhotosController@get');

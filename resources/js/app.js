@@ -30,7 +30,7 @@ const vuetifyOptions = {
                 // info: "#2196f3",
             }
         }
-    },
+    }
 };
 
 Vue.component("admin-dashboard", require("./components/pages/Home.vue").default);
@@ -41,5 +41,5 @@ const app = new Vue({
     el: "#app",
     components: {App},
     router,
-    vuetify: new Vuetify(vuetifyOptions)
+    vuetify: new Vuetify(vuetifyOptions),
 });

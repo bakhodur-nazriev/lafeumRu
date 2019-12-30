@@ -14,16 +14,31 @@
             <v-data-table
                 :headers="headers"
                 :items="quotes"
+                :items-per-page="itemsPerPage"
+                :page.sync="page"
+                @page-count="pageCount = $event"
                 hide-default-footer
                 class="elevation-2"
             >
                 <template v-slot:item.action="{ item }">
-                    <v-btn fab dark small color="primary" elevation="2" @click="dialogUpdate = !dialogUpdate">
-                        <v-icon dark>
-                            mdi-pen
-                        </v-icon>
+                    <v-btn
+                        fab
+                        dark
+                        small
+                        color="primary"
+                        elevation="2"
+                        @click="dialogUpdate = !dialogUpdate"
+                    >
+                        <v-icon dark>mdi-pen</v-icon>
                     </v-btn>
-                    <v-btn fab dark small color="primary" elevation="2" @click="dialogDelete = !dialogDelete">
+                    <v-btn
+                        fab
+                        dark
+                        small
+                        color="primary"
+                        elevation="2"
+                        @click="dialogDelete = !dialogDelete"
+                    >
                         <v-icon dark>
                             mdi-delete
                         </v-icon>
@@ -31,21 +46,28 @@
                 </template>
             </v-data-table>
             <div class="text-center pt-2">
-                <!-- <v-pagination v-model="page" :length="pageCount"></v-pagination> -->
-                <v-pagination v-model="page" :length="2"></v-pagination>
+                <v-pagination v-model="page" :length="pageCount"></v-pagination>
             </div>
         </v-container>
 
 
         <v-tooltip top>
             <template v-slot:activator="{ on }">
-                <v-btn bottom color="primary" v-on="on" dark fab fixed right @click="dialogAdd = !dialogAdd">
+                <v-btn
+                    bottom
+                    color="primary"
+                    v-on="on"
+                    dark
+                    fab
+                    fixed
+                    right
+                    @click="dialogAdd = !dialogAdd"
+                >
                     <v-icon>mdi-plus</v-icon>
                 </v-btn>
             </template>
             <span>Добавить цитату</span>
         </v-tooltip>
-
         <!-- Delete Item Dialog -->
         <v-dialog v-model="dialogDelete" width="500">
             <v-card class="pa-2">
@@ -73,7 +95,7 @@
                     <v-row>
                         <v-col cols="12">
                             <v-select
-                                :items="items"
+                                :items="categoriesItem"
                                 label="Категории"
                                 dense
                             ></v-select>
@@ -91,13 +113,13 @@
                     <v-btn
                         dark
                         color="green"
-                        @click="dialogAdd = false"
+                        @click="addQuote"
                     >Сохранить
                     </v-btn>
                     <v-btn
                         dark
                         color="error"
-                        @click="dialogAdd = false"
+                        @click="() => dialogAdd = false"
                     >Отмена
                     </v-btn>
                 </v-card-actions>
@@ -113,7 +135,7 @@
                     <v-row>
                         <v-col cols="12">
                             <v-select
-                                :items="items"
+                                :items="categoriesItem"
                                 label="Категории"
                                 dense
                             ></v-select>
@@ -143,8 +165,10 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
+        <!-- Show Quote Dialog -->
+        <v-dialog v-model="dialogShowQuote">
 
-
+        </v-dialog>
     </v-content>
 </template>
 
@@ -153,38 +177,25 @@
         data() {
             return {
                 quotes: [],
-                page: 3,
+                page: 1,
+                pageCount: 2,
                 pagination: {},
+                dialogShowQuote: false,
                 dialogAdd: false,
                 dialogDelete: false,
                 dialogUpdate: false,
-                itemsPerPage: 1,
+                itemsPerPage: 12,
                 editedIndex: -1,
-                items: ['qwe', 'asd', 'zxc'],
+                categoriesItem: ['qwe', 'asd', 'zxc'],
                 headers: [
-                    {text: '№', value: 'counter', sortable: false,},
-                    {text: 'Цитата', value: 'body', align: 'center', sortable: false,},
+                    {text: '№', value: 'id', sortable: false},
+                    {text: 'Цитата', value: 'body', align: 'left', sortable: false},
                     {text: 'Автор', value: 'author.name', align: 'center', sortable: false},
                 ],
-                editedItem: {
-                    name: '',
-                    categories: 0,
-                    protein: 0,
-                },
-                defaultItem: {
-                    name: '',
-                    calories: 0,
-                    protein: 0,
-                },
             }
         },
-        watch: {
-            dialog(val) {
-                val || this.close()
-            },
-        },
         mounted() {
-            this.loadQuotes();
+            console.log(this.loadQuotes());
         },
         methods: {
             loadQuotes() {
@@ -192,6 +203,25 @@
                     this.quotes = res.data;
                 }).catch(err => {
                     console.log(err);
+                });
+            },
+
+            deleteQuote() {
+                axios.delete('/api/quotes/{id}').then(res => {
+                    this.quotes = res.data;
+                }).catch(err => {
+                    console.log(err);
+                });
+            },
+
+            addQuote() {
+                axios.post('/api/quotes/', {
+                    'body': this.quotes.body
+                }).then(res => {
+                    console.log(res);
+                    this.dialogAdd = false;
+                }).catch((err) => {
+                    console.log(err.res.data)
                 });
             }
         },

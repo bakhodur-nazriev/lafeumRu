@@ -12,4 +12,10 @@ class PhotosController extends Controller
         $photos = Photo::orderBy('id')->paginate(12);
         return view('/photos', compact('photos'));
     }
+
+    public function get()
+    {
+        $photos = Photo::all();
+        return response()->json($photos);
+    }
 }

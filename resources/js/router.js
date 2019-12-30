@@ -6,6 +6,8 @@ import Team from "./components/pages/Team";
 import Publications from "./components/pages/Publications";
 import Profile from "./components/pages/Profile";
 import Quotes from "./components/pages/Quotes";
+import Authors from "./components/pages/Authors";
+import Photos from "./components/pages/Photos";
 
 Vue.use(VueRouter);
 export default new VueRouter({
@@ -16,6 +18,12 @@ export default new VueRouter({
             name: '/dashboard/home',
             component: Home
         },
+        {
+            path: "/dashboard/authors",
+            name: '/dashboard/authors',
+            component: Authors
+        },
+
         {
             path: "/dashboard/quotes",
             name: '/dashboard/quotes',
@@ -36,11 +44,15 @@ export default new VueRouter({
             name: "/dashboard/publications",
             component: Publications
         },
-        ,
         {
             path: "/dashboard/profile",
             name: "/dashboard/profile",
             component: Profile
+        },
+        {
+            path: "/dashboard/photos",
+            name: "/dashboard/photos",
+            component: Photos
         }
     ]
 });

@@ -32,9 +32,10 @@
 
 <script>
     window.Laravel = {!! json_encode([
-        'csrf_token' => csrf_token(),
-        'asset_path' => asset(''),
-        'auth'       => Auth::user()
+        'csrf_token'   => csrf_token(),
+        'asset_path'   => asset(''),
+        'auth'         => Auth::user(),
+        'avatars_path' => asset('img/avatars')
     ]); !!}
 </script>
 

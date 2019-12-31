@@ -10,14 +10,14 @@
                     ></v-text-field>
                     <v-data-table
                         :headers="headers"
-                        :items="authors"
+                        :items="terms"
                         :items-per-page="itemsPerPage"
                         :page.sync="page"
                         @page-count="pageCount = $event"
                         hide-default-footer
                         class="elevation-1"
                     >
-                        <template v-slot="authors">
+                        <template v-slot="terms">
 
                         </template>
                     </v-data-table>
@@ -34,43 +34,39 @@
     export default {
         data() {
             return {
-                authors: [],
+                terms: [],
                 page: 1,
                 pageCount: 2,
                 itemsPerPage: 12,
                 headers: [
                     {text: '№', value: 'id', sortable: false},
-                    {text: 'Имя', value: 'name'},
-                    // {text: 'Фото', value: 'photo', sortable: false},
-                    {text: 'Биография', value: 'biography', sortable: false}
+                    {text: 'Термины', value: 'body', sortable: false, class: "font-size: 20px"}
                 ]
             }
         },
         mounted() {
-            this.loadAuthors();
-            console.log(this.loadAuthors());
+            this.loadTerms();
         },
         methods: {
-            loadAuthors() {
-                axios.get('/api/authors').then(res => {
-                    this.authors = res.data;
-                    console.log(this.quotes = res.data);
+            loadTerms() {
+                axios.get('/api/terms').then(res => {
+                    this.terms = res.data;
                 }).catch(err => {
                     console.log(err);
                 });
             },
 
-            deleteAuthor() {
+            deleteTerms() {
                 axios.delete('/api/authors/{id}').then(res => {
-                    this.quotes = res.data;
+                    this.terms = res.data;
                 }).catch(err => {
                     console.log(err);
                 });
             },
 
-            addAuthor() {
+            addTerms() {
                 axios.post('/api/authors/', {
-                    'body': this.quotes.body
+                    'body': this.terms.body
                 }).then(res => {
                     console.log(res);
                     this.dialogAdd = false;
@@ -81,3 +77,10 @@
         },
     }
 </script>
+
+<style>
+    .theme--light.v-data-table thead tr:last-child th {
+        font-size: 15px;
+        font-weight: bold;
+    }
+</style>

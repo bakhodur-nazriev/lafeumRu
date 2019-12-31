@@ -10,14 +10,14 @@
                     ></v-text-field>
                     <v-data-table
                         :headers="headers"
-                        :items="authors"
+                        :items="videos"
                         :items-per-page="itemsPerPage"
                         :page.sync="page"
                         @page-count="pageCount = $event"
                         hide-default-footer
                         class="elevation-1"
                     >
-                        <template v-slot="authors">
+                        <template v-slot="videos">
 
                         </template>
                     </v-data-table>
@@ -34,43 +34,40 @@
     export default {
         data() {
             return {
-                authors: [],
+                videos: [],
                 page: 1,
                 pageCount: 2,
                 itemsPerPage: 12,
                 headers: [
                     {text: '№', value: 'id', sortable: false},
-                    {text: 'Имя', value: 'name'},
-                    // {text: 'Фото', value: 'photo', sortable: false},
-                    {text: 'Биография', value: 'biography', sortable: false}
+                    {text: 'Названия', value: 'title', sortable: false,},
+                    {text: 'Канал', value: 'channel_id', sortable: false,}
                 ]
             }
         },
         mounted() {
-            this.loadAuthors();
-            console.log(this.loadAuthors());
+            this.loadVideos();
         },
         methods: {
-            loadAuthors() {
-                axios.get('/api/authors').then(res => {
-                    this.authors = res.data;
-                    console.log(this.quotes = res.data);
+            loadVideos() {
+                axios.get('/api/videos').then(res => {
+                    this.videos = res.data;
                 }).catch(err => {
                     console.log(err);
                 });
             },
 
-            deleteAuthor() {
-                axios.delete('/api/authors/{id}').then(res => {
-                    this.quotes = res.data;
+            deleteVideos() {
+                axios.delete('/api/videos/{id}').then(res => {
+                    this.videos = res.data;
                 }).catch(err => {
                     console.log(err);
                 });
             },
 
-            addAuthor() {
-                axios.post('/api/authors/', {
-                    'body': this.quotes.body
+            addVideos() {
+                axios.post('/api/videos/', {
+                    'body': this.videos.body
                 }).then(res => {
                     console.log(res);
                     this.dialogAdd = false;
@@ -81,3 +78,10 @@
         },
     }
 </script>
+
+<style>
+    .theme--light.v-data-table thead tr:last-child th {
+        font-size: 15px;
+        font-weight: bold;
+    }
+</style>

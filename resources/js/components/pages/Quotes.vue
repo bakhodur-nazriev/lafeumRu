@@ -1,53 +1,52 @@
 <template>
     <v-content class="pa-0">
         <v-container fluid>
-            <v-row justify="center">
-                <v-col cols="6">
+            <v-row>
+                <v-col cols="12">
                     <v-text-field
                         solo
                         label="Поиск"
                         append-icon="mdi-magnify"
                     ></v-text-field>
+                    <v-data-table
+                        :headers="headers"
+                        :items="quotes"
+                        :items-per-page="itemsPerPage"
+                        :page.sync="page"
+                        @page-count="pageCount = $event"
+                        hide-default-footer
+                        class="elevation-2"
+                    >
+                        <template v-slot:item.action="{ item }">
+                            <v-btn
+                                fab
+                                dark
+                                small
+                                color="primary"
+                                elevation="2"
+                                @click="dialogUpdate = !dialogUpdate"
+                            >
+                                <v-icon dark>mdi-pen</v-icon>
+                            </v-btn>
+                            <v-btn
+                                fab
+                                dark
+                                small
+                                color="primary"
+                                elevation="2"
+                                @click="dialogDelete = !dialogDelete"
+                            >
+                                <v-icon dark>
+                                    mdi-delete
+                                </v-icon>
+                            </v-btn>
+                        </template>
+                    </v-data-table>
+                    <div class="text-center pt-2">
+                        <v-pagination v-model="page" :length="pageCount"></v-pagination>
+                    </div>
                 </v-col>
             </v-row>
-
-            <v-data-table
-                :headers="headers"
-                :items="quotes"
-                :items-per-page="itemsPerPage"
-                :page.sync="page"
-                @page-count="pageCount = $event"
-                hide-default-footer
-                class="elevation-2"
-            >
-                <template v-slot:item.action="{ item }">
-                    <v-btn
-                        fab
-                        dark
-                        small
-                        color="primary"
-                        elevation="2"
-                        @click="dialogUpdate = !dialogUpdate"
-                    >
-                        <v-icon dark>mdi-pen</v-icon>
-                    </v-btn>
-                    <v-btn
-                        fab
-                        dark
-                        small
-                        color="primary"
-                        elevation="2"
-                        @click="dialogDelete = !dialogDelete"
-                    >
-                        <v-icon dark>
-                            mdi-delete
-                        </v-icon>
-                    </v-btn>
-                </template>
-            </v-data-table>
-            <div class="text-center pt-2">
-                <v-pagination v-model="page" :length="pageCount"></v-pagination>
-            </div>
         </v-container>
 
 
@@ -227,3 +226,4 @@
         },
     }
 </script>
+

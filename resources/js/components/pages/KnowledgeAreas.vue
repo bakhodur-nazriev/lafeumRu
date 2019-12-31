@@ -10,14 +10,14 @@
                     ></v-text-field>
                     <v-data-table
                         :headers="headers"
-                        :items="authors"
+                        :items="knowledgeAreas"
                         :items-per-page="itemsPerPage"
                         :page.sync="page"
                         @page-count="pageCount = $event"
                         hide-default-footer
                         class="elevation-1"
                     >
-                        <template v-slot="authors">
+                        <template v-slot="terms">
 
                         </template>
                     </v-data-table>
@@ -34,43 +34,40 @@
     export default {
         data() {
             return {
-                authors: [],
+                knowledgeAreas: [],
                 page: 1,
                 pageCount: 2,
                 itemsPerPage: 12,
                 headers: [
                     {text: '№', value: 'id', sortable: false},
-                    {text: 'Имя', value: 'name'},
-                    // {text: 'Фото', value: 'photo', sortable: false},
-                    {text: 'Биография', value: 'biography', sortable: false}
+                    {text: 'Имя', value: 'name', sortable: false,},
+                    {text: 'Описания', value: 'description', sortable: false,}
                 ]
             }
         },
         mounted() {
-            this.loadAuthors();
-            console.log(this.loadAuthors());
+            this.loadKnowledgeAreas();
         },
         methods: {
-            loadAuthors() {
-                axios.get('/api/authors').then(res => {
-                    this.authors = res.data;
-                    console.log(this.quotes = res.data);
+            loadKnowledgeAreas() {
+                axios.get('/api/knowledge_areas').then(res => {
+                    this.knowledgeAreas = res.data;
                 }).catch(err => {
                     console.log(err);
                 });
             },
 
-            deleteAuthor() {
-                axios.delete('/api/authors/{id}').then(res => {
-                    this.quotes = res.data;
+            deleteTerms() {
+                axios.delete('/api/knowledge_areas/{id}').then(res => {
+                    this.knowledgeAreas = res.data;
                 }).catch(err => {
                     console.log(err);
                 });
             },
 
-            addAuthor() {
-                axios.post('/api/authors/', {
-                    'body': this.quotes.body
+            addTerms() {
+                axios.post('/api/knowledge_areas/', {
+                    'body': this.knowledges.body
                 }).then(res => {
                     console.log(res);
                     this.dialogAdd = false;
@@ -81,3 +78,10 @@
         },
     }
 </script>
+
+<style>
+    .theme--light.v-data-table thead tr:last-child th {
+        font-size: 15px;
+        font-weight: bold;
+    }
+</style>

@@ -12,4 +12,10 @@ class TermsController extends Controller
         $terms = Term::with('tags')->paginate(8);
         return view('/terms', compact('terms'));
     }
+
+    public function get()
+    {
+        $terms = Term::all();
+        return response()->json($terms);
+    }
 }

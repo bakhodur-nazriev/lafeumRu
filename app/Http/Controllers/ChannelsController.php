@@ -12,4 +12,10 @@ class ChannelsController extends Controller
         $channels = Channel::all();
         return view('/channels', compact('channels'));
     }
+
+    public function get()
+    {
+        $channels = Channel::all();
+        return response()->json($channels);
+    }
 }

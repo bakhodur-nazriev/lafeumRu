@@ -122,7 +122,7 @@
                             {
                                 icon: 'mdi-tag',
                                 text: 'Области Знаний',
-                                route: '/dashboard/knowledge-areas'
+                                route: '/dashboard/knowledge_areas'
                             },
                             {
                                 icon: 'mdi-youtube',

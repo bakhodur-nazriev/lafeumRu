@@ -16,9 +16,9 @@
                         </h4>
                     </span>
                     <div class="input-group">
-                        <input 
-                            type="text" 
-                            class="form-control" 
+                        <input
+                            type="text"
+                            class="form-control"
                             placeholder="Поиск по области знаний"
                             aria-label="Поиск по области знаний"
                         >
@@ -26,9 +26,9 @@
                 </div>
             </div>
             <div class="row">
-                @foreach ($knowledges as $knowledge)    
+                @foreach ($knowledgeAreas as $knowledgeArea)
                     <div class="col-md-3 col-xl-2 authors-links">
-                        <a href="#">{{ $knowledge->name }}</a>
+                        <a href="#">{{ $knowledgeArea->name }}</a>
                     </div>
                 @endforeach
             </div>

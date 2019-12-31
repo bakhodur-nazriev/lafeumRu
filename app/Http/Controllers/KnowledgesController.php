@@ -9,17 +9,15 @@ class KnowledgesController extends Controller
 {
     public function index()
     {
-        $knowledges = Knowledge::all();
-        return view('/knowledge.index', compact('knowledges'));
+        $knowledgeAreas = Knowledge::all();
+        return view('/knowledge.index', compact('knowledgeAreas'));
     }
 
-    public function show(Knowledge $knowledge)
+    public function get()
     {
-        return view('/knowledge.show', compact('knowledge'));
+        $knowledgeAreas = Knowledge::all();
+        return response()->json($knowledgeAreas);
     }
 
-    public function create()
-    {
-        return view('knowledges.create');
-    }
+
 }

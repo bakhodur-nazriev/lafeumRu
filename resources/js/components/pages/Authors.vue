@@ -27,6 +27,66 @@
                 </v-col>
             </v-row>
         </v-container>
+
+        <v-tooltip top>
+            <template v-slot:activator="{ on }">
+                <v-btn
+                    bottom
+                    color="primary"
+                    v-on="on"
+                    dark
+                    fab
+                    fixed
+                    right
+                    @click="dialogAdd = !dialogAdd"
+                >
+                    <v-icon>mdi-plus</v-icon>
+                </v-btn>
+            </template>
+            <span>Добавить цитату</span>
+        </v-tooltip>
+
+        <!-- Add Item Dialog -->
+        <v-dialog v-model="dialogAdd" width="600px">
+            <v-card>
+                <v-card-title class="primary white--text">
+                    Создать Цитату
+                </v-card-title>
+                <v-container>
+                    <v-row>
+                        <v-col cols="12">
+                            <v-select
+                                :items="categoriesItem"
+                                label="Категории"
+                                dense
+                            ></v-select>
+                        </v-col>
+                        <v-col cols="12">
+                            <v-textarea
+                                name="input-7-1"
+                                label="Добаить цитату здесь"
+                            ></v-textarea>
+                        </v-col>
+                    </v-row>
+                </v-container>
+                <v-card-actions>
+                    <v-spacer/>
+                    <v-btn
+                        dark
+                        color="green"
+                        @click="addAuthor"
+                    >Сохранить
+                    </v-btn>
+                    <v-btn
+                        dark
+                        color="error"
+                        @click="() => dialogAdd = false"
+                    >Отмена
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+
     </v-content>
 </template>
 
@@ -37,7 +97,9 @@
                 authors: [],
                 page: 1,
                 pageCount: 2,
+                dialogAdd: false,
                 itemsPerPage: 12,
+                categoriesItem: ['qwe', 'asd', 'zxc'],
                 headers: [
                     {text: '№', value: 'id', sortable: false},
                     {text: 'Имя', value: 'name'},
@@ -48,13 +110,11 @@
         },
         mounted() {
             this.loadAuthors();
-            console.log(this.loadAuthors());
         },
         methods: {
             loadAuthors() {
                 axios.get('/api/authors').then(res => {
                     this.authors = res.data;
-                    console.log(this.quotes = res.data);
                 }).catch(err => {
                     console.log(err);
                 });

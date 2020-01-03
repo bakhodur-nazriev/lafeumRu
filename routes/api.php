@@ -21,7 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/quotes', 'QuotesController@get');
 Route::post('/quotes', 'QuotesController@store');
 Route::put('/quotes', 'QuotesController@update');
-Route::delete('/quotes', 'QuotesController@delete');
+Route::delete('/quotes/{id}', 'QuotesController@delete');
 
 //Authors
 Route::get('/authors', 'AuthorsController@get');

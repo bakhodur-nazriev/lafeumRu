@@ -15,7 +15,7 @@ class QuotesController extends Controller
         return view('/quotes', compact('quotes'));
     }
 
-    public function get(Request $request)
+    public function get()
     {
         $quotes = Quote::with(['author', 'tags'])->get();
         return response()->json($quotes);

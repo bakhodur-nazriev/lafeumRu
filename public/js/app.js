@@ -2169,13 +2169,75 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       authors: [],
       page: 1,
       pageCount: 2,
+      dialogAdd: false,
       itemsPerPage: 12,
+      categoriesItem: ['qwe', 'asd', 'zxc'],
       headers: [{
         text: '№',
         value: 'id',
@@ -2193,7 +2255,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.loadAuthors();
-    console.log(this.loadAuthors());
   },
   methods: {
     loadAuthors: function loadAuthors() {
@@ -2201,7 +2262,6 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get('/api/authors').then(function (res) {
         _this.authors = res.data;
-        console.log(_this.quotes = res.data);
       })["catch"](function (err) {
         console.log(err);
       });
@@ -2874,6 +2934,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       quotes: [],
+      quoteToDelete: null,
       page: 1,
       pageCount: 2,
       pagination: {},
@@ -2887,6 +2948,7 @@ __webpack_require__.r(__webpack_exports__);
       headers: [{
         text: '№',
         value: 'id',
+        align: 'center',
         sortable: false
       }, {
         text: 'Цитата',
@@ -2898,11 +2960,17 @@ __webpack_require__.r(__webpack_exports__);
         value: 'author.name',
         align: 'center',
         sortable: false
+      }, {
+        text: 'Действия',
+        value: 'action',
+        align: 'center',
+        sortable: false,
+        width: '140px'
       }]
     };
   },
   mounted: function mounted() {
-    console.log(this.loadQuotes());
+    this.loadQuotes();
   },
   methods: {
     loadQuotes: function loadQuotes() {
@@ -2910,6 +2978,7 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get('/api/quotes').then(function (res) {
         _this.quotes = res.data;
+        console.log(_this.quotes);
       })["catch"](function (err) {
         console.log(err);
       });
@@ -2917,11 +2986,16 @@ __webpack_require__.r(__webpack_exports__);
     deleteQuote: function deleteQuote() {
       var _this2 = this;
 
-      axios["delete"]('/api/quotes/{id}').then(function (res) {
-        _this2.quotes = res.data;
+      axios["delete"]('/api/quotes/' + this.quoteToDelete.id).then(function (res) {
+        _this2.loadQuotes();
+
+        _this2.dialogDelete = false;
       })["catch"](function (err) {
         console.log(err);
       });
+    },
+    updateQuote: function updateQuote() {
+      axios.put().then({});
     },
     addQuote: function addQuote() {
       var _this3 = this;
@@ -2934,6 +3008,15 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (err) {
         console.log(err.res.data);
       });
+    }
+  },
+  watch: {
+    quoteToDelete: function quoteToDelete(value) {
+      if (value) {
+        this.dialogDelete = true;
+      } else {
+        this.dialogDelete = false;
+      }
     }
   }
 });
@@ -7758,7 +7841,7 @@ exports.push([module.i, "/* MaterialDesignIcons.com */\n@font-face {\n  font-fam
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/vuetify/dist/vuetify.min.css":
+/***/ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/vuetify/dist/vuetify.min.css?bdb9":
 /*!***********************************************************************************************************************************!*\
   !*** ./node_modules/css-loader??ref--6-1!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vuetify/dist/vuetify.min.css ***!
   \***********************************************************************************************************************************/
@@ -40426,6 +40509,144 @@ var render = function() {
           )
         ],
         1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-tooltip",
+        {
+          attrs: { top: "" },
+          scopedSlots: _vm._u([
+            {
+              key: "activator",
+              fn: function(ref) {
+                var on = ref.on
+                return [
+                  _c(
+                    "v-btn",
+                    _vm._g(
+                      {
+                        attrs: {
+                          bottom: "",
+                          color: "primary",
+                          dark: "",
+                          fab: "",
+                          fixed: "",
+                          right: ""
+                        },
+                        on: {
+                          click: function($event) {
+                            _vm.dialogAdd = !_vm.dialogAdd
+                          }
+                        }
+                      },
+                      on
+                    ),
+                    [_c("v-icon", [_vm._v("mdi-plus")])],
+                    1
+                  )
+                ]
+              }
+            }
+          ])
+        },
+        [_vm._v(" "), _c("span", [_vm._v("Добавить цитату")])]
+      ),
+      _vm._v(" "),
+      _c(
+        "v-dialog",
+        {
+          attrs: { width: "600px" },
+          model: {
+            value: _vm.dialogAdd,
+            callback: function($$v) {
+              _vm.dialogAdd = $$v
+            },
+            expression: "dialogAdd"
+          }
+        },
+        [
+          _c(
+            "v-card",
+            [
+              _c("v-card-title", { staticClass: "primary white--text" }, [
+                _vm._v("\n                Создать Цитату\n            ")
+              ]),
+              _vm._v(" "),
+              _c(
+                "v-container",
+                [
+                  _c(
+                    "v-row",
+                    [
+                      _c(
+                        "v-col",
+                        { attrs: { cols: "12" } },
+                        [
+                          _c("v-select", {
+                            attrs: {
+                              items: _vm.categoriesItem,
+                              label: "Категории",
+                              dense: ""
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-col",
+                        { attrs: { cols: "12" } },
+                        [
+                          _c("v-textarea", {
+                            attrs: {
+                              name: "input-7-1",
+                              label: "Добаить цитату здесь"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-card-actions",
+                [
+                  _c("v-spacer"),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { dark: "", color: "green" },
+                      on: { click: _vm.addAuthor }
+                    },
+                    [_vm._v("Сохранить\n                ")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { dark: "", color: "error" },
+                      on: {
+                        click: function() {
+                          return (_vm.dialogAdd = false)
+                        }
+                      }
+                    },
+                    [_vm._v("Отмена\n                ")]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
       )
     ],
     1
@@ -41282,7 +41503,7 @@ var render = function() {
                                 },
                                 on: {
                                   click: function($event) {
-                                    _vm.dialogDelete = !_vm.dialogDelete
+                                    _vm.quoteToDelete = item
                                   }
                                 }
                               },
@@ -41372,72 +41593,6 @@ var render = function() {
       _c(
         "v-dialog",
         {
-          attrs: { width: "500" },
-          model: {
-            value: _vm.dialogDelete,
-            callback: function($$v) {
-              _vm.dialogDelete = $$v
-            },
-            expression: "dialogDelete"
-          }
-        },
-        [
-          _c(
-            "v-card",
-            { staticClass: "pa-2" },
-            [
-              _c(
-                "v-card-title",
-                { staticClass: "pt-1 regular headline text-center" },
-                [
-                  _vm._v(
-                    "Вы действительно хотите удалить эту цитату ?\n            "
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "v-card-actions",
-                { staticClass: "justify-center" },
-                [
-                  _c(
-                    "v-btn",
-                    {
-                      attrs: { color: "green darken-1", dark: "" },
-                      on: {
-                        click: function($event) {
-                          _vm.dialogDelete = false
-                        }
-                      }
-                    },
-                    [_vm._v("\n                    Не\n                ")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-btn",
-                    {
-                      attrs: { color: "red darken-1", dark: "" },
-                      on: {
-                        click: function($event) {
-                          _vm.dialogDelete = false
-                        }
-                      }
-                    },
-                    [_vm._v("\n                    Ҳа\n                ")]
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "v-dialog",
-        {
           attrs: { width: "600px" },
           model: {
             value: _vm.dialogAdd,
@@ -41521,6 +41676,72 @@ var render = function() {
                       }
                     },
                     [_vm._v("Отмена\n                ")]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-dialog",
+        {
+          attrs: { width: "500" },
+          model: {
+            value: _vm.dialogDelete,
+            callback: function($$v) {
+              _vm.dialogDelete = $$v
+            },
+            expression: "dialogDelete"
+          }
+        },
+        [
+          _c(
+            "v-card",
+            { staticClass: "pa-2" },
+            [
+              _c(
+                "v-card-title",
+                { staticClass: "pt-1 regular headline text-center" },
+                [
+                  _vm._v(
+                    "Вы действительно хотите удалить эту цитату ?\n            "
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "v-card-actions",
+                { staticClass: "justify-center" },
+                [
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { color: "green darken-1", dark: "" },
+                      on: {
+                        click: function($event) {
+                          _vm.quoteToDelete = null
+                        }
+                      }
+                    },
+                    [_vm._v("\n                    Нет\n                ")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { color: "red darken-1", dark: "" },
+                      on: {
+                        click: function($event) {
+                          return _vm.deleteQuote()
+                        }
+                      }
+                    },
+                    [_vm._v("\n                    Да\n                ")]
                   )
                 ],
                 1
@@ -94588,7 +94809,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_vue__;
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../../css-loader??ref--6-1!../../postcss-loader/src??ref--6-2!./vuetify.min.css */ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/vuetify/dist/vuetify.min.css");
+var content = __webpack_require__(/*! !../../css-loader??ref--6-1!../../postcss-loader/src??ref--6-2!./vuetify.min.css */ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/vuetify/dist/vuetify.min.css?bdb9");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -95758,7 +95979,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_pages_Photos__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/pages/Photos */ "./resources/js/components/pages/Photos.vue");
 /* harmony import */ var _components_pages_Terms__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/pages/Terms */ "./resources/js/components/pages/Terms.vue");
 /* harmony import */ var _components_pages_KnowledgeAreas__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/pages/KnowledgeAreas */ "./resources/js/components/pages/KnowledgeAreas.vue");
-/* harmony import */ var _components_pages_Videos__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/pages/Videos */ "./resources/js/components/pages/Videos.vue");
+/* harmony import */ var _components_pages_Videos__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/pages/Videos */ "./resources/js/components/pages/Videos.vue");
 
 
 
@@ -95818,7 +96039,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
   }, {
     path: "/dashboard/videos",
     name: "/dashboard/videos",
-    component: _components_pages_Videos__WEBPACK_IMPORTED_MODULE_13__["default"]
+    component: _components_pages_Videos__WEBPACK_IMPORTED_MODULE_12__["default"]
   }]
 }));
 

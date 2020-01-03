@@ -34,7 +34,7 @@
                                 small
                                 color="primary"
                                 elevation="2"
-                                @click="dialogDelete = !dialogDelete"
+                                @click="quoteToDelete = item"
                             >
                                 <v-icon dark>
                                     mdi-delete
@@ -48,7 +48,6 @@
                 </v-col>
             </v-row>
         </v-container>
-
 
         <v-tooltip top>
             <template v-slot:activator="{ on }">
@@ -67,23 +66,7 @@
             </template>
             <span>Добавить цитату</span>
         </v-tooltip>
-        <!-- Delete Item Dialog -->
-        <v-dialog v-model="dialogDelete" width="500">
-            <v-card class="pa-2">
-                <v-card-title class="pt-1 regular headline text-center"
-                >Вы действительно хотите удалить эту цитату ?
-                </v-card-title
-                >
-                <v-card-actions class="justify-center">
-                    <v-btn color="green darken-1" dark @click="dialogDelete = false">
-                        Не
-                    </v-btn>
-                    <v-btn color="red darken-1" dark @click="dialogDelete = false">
-                        Ҳа
-                    </v-btn>
-                </v-card-actions>
-            </v-card>
-        </v-dialog>
+
         <!-- Add Item Dialog -->
         <v-dialog v-model="dialogAdd" width="600px">
             <v-card>
@@ -120,6 +103,23 @@
                         color="error"
                         @click="() => dialogAdd = false"
                     >Отмена
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+        <!-- Delete Item Dialog -->
+        <v-dialog v-model="dialogDelete" width="500">
+            <v-card class="pa-2">
+                <v-card-title class="pt-1 regular headline text-center"
+                >Вы действительно хотите удалить эту цитату ?
+                </v-card-title
+                >
+                <v-card-actions class="justify-center">
+                    <v-btn color="green darken-1" dark @click="quoteToDelete = null">
+                        Нет
+                    </v-btn>
+                    <v-btn color="red darken-1" dark @click="deleteQuote()">
+                        Да
                     </v-btn>
                 </v-card-actions>
             </v-card>
@@ -176,6 +176,7 @@
         data() {
             return {
                 quotes: [],
+                quoteToDelete: null,
                 page: 1,
                 pageCount: 2,
                 pagination: {},
@@ -187,30 +188,53 @@
                 editedIndex: -1,
                 categoriesItem: ['qwe', 'asd', 'zxc'],
                 headers: [
-                    {text: '№', value: 'id', sortable: false},
-                    {text: 'Цитата', value: 'body', align: 'left', sortable: false},
-                    {text: 'Автор', value: 'author.name', align: 'center', sortable: false},
+                    {text: '№', value: 'id', align: 'center', sortable: false},
+                    {
+                        text: 'Цитата',
+                        value: 'body',
+                        align: 'left',
+                        sortable: false
+                    },
+                    {
+                        text: 'Автор',
+                        value: 'author.name',
+                        align: 'center',
+                        sortable: false
+                    },
+                    {
+                        text: 'Действия',
+                        value: 'action',
+                        align: 'center',
+                        sortable: false,
+                        width: '140px'
+                    },
                 ],
             }
         },
         mounted() {
-            console.log(this.loadQuotes());
+            this.loadQuotes();
         },
         methods: {
             loadQuotes() {
                 axios.get('/api/quotes').then(res => {
                     this.quotes = res.data;
+                    console.log(this.quotes);
                 }).catch(err => {
                     console.log(err);
                 });
             },
 
-            deleteQuote() {
-                axios.delete('/api/quotes/{id}').then(res => {
-                    this.quotes = res.data;
+            deleteQuote(){
+                axios.delete('/api/quotes/' + this.quoteToDelete.id).then(res => {
+                    this.loadQuotes();
+                    this.dialogDelete = false;
                 }).catch(err => {
                     console.log(err);
                 });
+            },
+
+            updateQuote() {
+                axios.put().then({});
             },
 
             addQuote() {
@@ -224,6 +248,14 @@
                 });
             }
         },
+        watch:{
+            quoteToDelete(value){
+                if(value){
+                    this.dialogDelete = true;
+                } else {
+                    this.dialogDelete = false;
+                }
+            }
+        }
     }
 </script>
-

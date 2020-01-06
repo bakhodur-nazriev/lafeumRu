@@ -150,9 +150,6 @@
                 ]
             };
         },
-        created() {
-            console.log(this.users);
-        },
         methods: {
             isLinkGroup(link) {
                 return (

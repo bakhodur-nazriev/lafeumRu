@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Quote;
 use App\Tag;
 use App\Author;
+use http\Env\Response;
 use Illuminate\Http\Request;
 
 class QuotesController extends Controller
@@ -17,7 +18,7 @@ class QuotesController extends Controller
 
     public function get()
     {
-        $quotes = Quote::with(['author', 'tags'])->get();
+        $quotes = Quote::with('author')->get();
         return response()->json($quotes);
     }
 

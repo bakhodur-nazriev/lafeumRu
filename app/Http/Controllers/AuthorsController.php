@@ -13,7 +13,7 @@ class AuthorsController extends Controller
         return view('/authors', compact('authors'));
     }
 
-    public function get(Request $request)
+    public function get()
     {
         $authors = Author::all();
         return response()->json($authors);

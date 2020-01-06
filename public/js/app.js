@@ -2116,9 +2116,6 @@ __webpack_require__.r(__webpack_exports__);
       }]
     };
   },
-  created: function created() {
-    console.log(this.users);
-  },
   methods: {
     isLinkGroup: function isLinkGroup(link) {
       return link.hasOwnProperty('items') && Array.isArray(link.items) && link.items.length >= 0;
@@ -2930,9 +2927,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      search: '',
+      authors: [],
       quotes: [],
       quoteToDelete: null,
       page: 1,
@@ -2944,7 +2965,7 @@ __webpack_require__.r(__webpack_exports__);
       dialogUpdate: false,
       itemsPerPage: 12,
       editedIndex: -1,
-      categoriesItem: ['qwe', 'asd', 'zxc'],
+      categoriesItems: ['asd', 'lkj'],
       headers: [{
         text: '№',
         value: 'id',
@@ -2965,37 +2986,29 @@ __webpack_require__.r(__webpack_exports__);
         value: 'action',
         align: 'center',
         sortable: false,
-        width: '140px'
+        width: '160px'
       }]
     };
   },
   mounted: function mounted() {
+    var _this = this;
+
     this.loadQuotes();
+    axios.get('/api/authors').then(function (res) {
+      _this.authors = res.data;
+    })["catch"](function (err) {
+      console.log(err);
+    });
   },
   methods: {
     loadQuotes: function loadQuotes() {
-      var _this = this;
-
-      axios.get('/api/quotes').then(function (res) {
-        _this.quotes = res.data;
-        console.log(_this.quotes);
-      })["catch"](function (err) {
-        console.log(err);
-      });
-    },
-    deleteQuote: function deleteQuote() {
       var _this2 = this;
 
-      axios["delete"]('/api/quotes/' + this.quoteToDelete.id).then(function (res) {
-        _this2.loadQuotes();
-
-        _this2.dialogDelete = false;
+      axios.get('/api/quotes').then(function (res) {
+        _this2.quotes = res.data;
       })["catch"](function (err) {
         console.log(err);
       });
-    },
-    updateQuote: function updateQuote() {
-      axios.put().then({});
     },
     addQuote: function addQuote() {
       var _this3 = this;
@@ -3008,6 +3021,17 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (err) {
         console.log(err.res.data);
       });
+    },
+    deleteQuote: function deleteQuote() {
+      var _this4 = this;
+
+      axios["delete"]('/api/quotes/' + this.quoteToDelete.id).then(function (res) {
+        _this4.loadQuotes();
+
+        _this4.dialogDelete = false;
+      })["catch"](function (err) {
+        console.log(err);
+      });
     }
   },
   watch: {
@@ -3017,6 +3041,15 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         this.dialogDelete = false;
       }
+    }
+  },
+  computed: {
+    filteredQuotes: function filteredQuotes() {
+      var _this5 = this;
+
+      return this.quotes.filter(function (quotes) {
+        return quotes.body.toLowerCase().includes(_this5.search.toLowerCase());
+      });
     }
   }
 });
@@ -7841,7 +7874,7 @@ exports.push([module.i, "/* MaterialDesignIcons.com */\n@font-face {\n  font-fam
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/vuetify/dist/vuetify.min.css?bdb9":
+/***/ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/vuetify/dist/vuetify.min.css":
 /*!***********************************************************************************************************************************!*\
   !*** ./node_modules/css-loader??ref--6-1!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vuetify/dist/vuetify.min.css ***!
   \***********************************************************************************************************************************/
@@ -41441,6 +41474,13 @@ var render = function() {
                       solo: "",
                       label: "Поиск",
                       "append-icon": "mdi-magnify"
+                    },
+                    model: {
+                      value: _vm.search,
+                      callback: function($$v) {
+                        _vm.search = $$v
+                      },
+                      expression: "search"
                     }
                   }),
                   _vm._v(" "),
@@ -41448,7 +41488,7 @@ var render = function() {
                     staticClass: "elevation-2",
                     attrs: {
                       headers: _vm.headers,
-                      items: _vm.quotes,
+                      items: _vm.filteredQuotes,
                       "items-per-page": _vm.itemsPerPage,
                       page: _vm.page,
                       "hide-default-footer": ""
@@ -41511,6 +41551,32 @@ var render = function() {
                                 _c("v-icon", { attrs: { dark: "" } }, [
                                   _vm._v(
                                     "\n                                mdi-delete\n                            "
+                                  )
+                                ])
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "v-btn",
+                              {
+                                attrs: {
+                                  fab: "",
+                                  dark: "",
+                                  small: "",
+                                  color: "primary",
+                                  elevation: "2"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    _vm.quoteToShow = item
+                                  }
+                                }
+                              },
+                              [
+                                _c("v-icon", { attrs: { dark: "" } }, [
+                                  _vm._v(
+                                    "\n                                mdi-eye\n                            "
                                   )
                                 ])
                               ],
@@ -41622,7 +41688,9 @@ var render = function() {
                         [
                           _c("v-select", {
                             attrs: {
-                              items: _vm.categoriesItem,
+                              items: _vm.quotes,
+                              "item-value": "id",
+                              "item-text": "name",
                               label: "Категории",
                               dense: ""
                             }
@@ -41785,7 +41853,9 @@ var render = function() {
                         [
                           _c("v-select", {
                             attrs: {
-                              items: _vm.categoriesItem,
+                              items: _vm.authors,
+                              "item-value": "id",
+                              "item-text": "name",
                               label: "Категории",
                               dense: ""
                             }
@@ -94809,7 +94879,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_vue__;
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../../css-loader??ref--6-1!../../postcss-loader/src??ref--6-2!./vuetify.min.css */ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/vuetify/dist/vuetify.min.css?bdb9");
+var content = __webpack_require__(/*! !../../css-loader??ref--6-1!../../postcss-loader/src??ref--6-2!./vuetify.min.css */ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/vuetify/dist/vuetify.min.css");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 

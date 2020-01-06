@@ -7,10 +7,12 @@
                         solo
                         label="Поиск"
                         append-icon="mdi-magnify"
-                    ></v-text-field>
+                        v-model="search"
+                    >
+                    </v-text-field>
                     <v-data-table
                         :headers="headers"
-                        :items="quotes"
+                        :items="filteredQuotes"
                         :items-per-page="itemsPerPage"
                         :page.sync="page"
                         @page-count="pageCount = $event"
@@ -38,6 +40,18 @@
                             >
                                 <v-icon dark>
                                     mdi-delete
+                                </v-icon>
+                            </v-btn>
+                            <v-btn
+                                fab
+                                dark
+                                small
+                                color="primary"
+                                elevation="2"
+                                @click="quoteToShow = item"
+                            >
+                                <v-icon dark>
+                                    mdi-eye
                                 </v-icon>
                             </v-btn>
                         </template>
@@ -77,16 +91,20 @@
                     <v-row>
                         <v-col cols="12">
                             <v-select
-                                :items="categoriesItem"
+                                :items="quotes"
+                                item-value="id"
+                                item-text="name"
                                 label="Категории"
                                 dense
-                            ></v-select>
+                            >
+                            </v-select>
                         </v-col>
                         <v-col cols="12">
                             <v-textarea
                                 name="input-7-1"
                                 label="Добаить цитату здесь"
-                            ></v-textarea>
+                            >
+                            </v-textarea>
                         </v-col>
                     </v-row>
                 </v-container>
@@ -134,16 +152,20 @@
                     <v-row>
                         <v-col cols="12">
                             <v-select
-                                :items="categoriesItem"
+                                :items="authors"
+                                item-value="id"
+                                item-text="name"
                                 label="Категории"
                                 dense
-                            ></v-select>
+                            >
+                            </v-select>
                         </v-col>
                         <v-col cols="12">
                             <v-textarea
                                 name="input-7-1"
                                 label="Изменить цитату здесь"
-                            ></v-textarea>
+                            >
+                            </v-textarea>
                         </v-col>
                     </v-row>
                 </v-container>
@@ -175,6 +197,8 @@
     export default {
         data() {
             return {
+                search: '',
+                authors: [],
                 quotes: [],
                 quoteToDelete: null,
                 page: 1,
@@ -186,9 +210,14 @@
                 dialogUpdate: false,
                 itemsPerPage: 12,
                 editedIndex: -1,
-                categoriesItem: ['qwe', 'asd', 'zxc'],
+                categoriesItems: ['asd', 'lkj'],
                 headers: [
-                    {text: '№', value: 'id', align: 'center', sortable: false},
+                    {
+                        text: '№',
+                        value: 'id',
+                        align: 'center',
+                        sortable: false
+                    },
                     {
                         text: 'Цитата',
                         value: 'body',
@@ -206,37 +235,29 @@
                         value: 'action',
                         align: 'center',
                         sortable: false,
-                        width: '140px'
+                        width: '160px',
                     },
                 ],
             }
         },
+
         mounted() {
             this.loadQuotes();
+
+            axios.get('/api/authors').then(res => {
+                this.authors = res.data;
+            }).catch(err => {
+                console.log(err);
+            });
         },
         methods: {
             loadQuotes() {
                 axios.get('/api/quotes').then(res => {
                     this.quotes = res.data;
-                    console.log(this.quotes);
                 }).catch(err => {
                     console.log(err);
                 });
             },
-
-            deleteQuote(){
-                axios.delete('/api/quotes/' + this.quoteToDelete.id).then(res => {
-                    this.loadQuotes();
-                    this.dialogDelete = false;
-                }).catch(err => {
-                    console.log(err);
-                });
-            },
-
-            updateQuote() {
-                axios.put().then({});
-            },
-
             addQuote() {
                 axios.post('/api/quotes/', {
                     'body': this.quotes.body
@@ -246,15 +267,31 @@
                 }).catch((err) => {
                     console.log(err.res.data)
                 });
-            }
+            },
+            deleteQuote() {
+                axios.delete('/api/quotes/' + this.quoteToDelete.id).then(res => {
+                    this.loadQuotes();
+                    this.dialogDelete = false;
+                }).catch(err => {
+                    console.log(err);
+                });
+            },
         },
-        watch:{
-            quoteToDelete(value){
-                if(value){
+        watch: {
+            quoteToDelete(value) {
+                if (value) {
                     this.dialogDelete = true;
                 } else {
                     this.dialogDelete = false;
                 }
+            }
+        },
+
+        computed: {
+            filteredQuotes() {
+                return this.quotes.filter((quotes) => {
+                    return quotes.body.toLowerCase().includes(this.search.toLowerCase());
+                })
             }
         }
     }

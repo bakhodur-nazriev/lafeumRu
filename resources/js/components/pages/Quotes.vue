@@ -3,13 +3,15 @@
         <v-container fluid>
             <v-row>
                 <v-col cols="12">
-                    <v-text-field
-                        solo
-                        label="Поиск"
-                        append-icon="mdi-magnify"
-                        v-model="search"
-                    >
-                    </v-text-field>
+                    <v-col cols="6" offset="3">
+                        <v-text-field
+                            solo
+                            label="Поиск"
+                            append-icon="mdi-magnify"
+                            v-model="search"
+                        >
+                        </v-text-field>
+                    </v-col>
                     <v-data-table
                         :headers="headers"
                         :items="filteredQuotes"
@@ -26,6 +28,7 @@
                                 small
                                 color="primary"
                                 elevation="2"
+                                outlined
                                 @click="dialogUpdate = !dialogUpdate"
                             >
                                 <v-icon dark>mdi-pen</v-icon>
@@ -36,24 +39,29 @@
                                 small
                                 color="primary"
                                 elevation="2"
-                                @click="quoteToDelete = item"
-                            >
-                                <v-icon dark>
-                                    mdi-delete
-                                </v-icon>
-                            </v-btn>
-                            <v-btn
-                                fab
-                                dark
-                                small
-                                color="primary"
-                                elevation="2"
+                                outlined
                                 @click="quoteToShow = item"
                             >
                                 <v-icon dark>
                                     mdi-eye
                                 </v-icon>
                             </v-btn>
+                            <v-btn
+                                fab
+                                dark
+                                small
+                                color="error"
+                                elevation="2"
+                                outlined
+                                @click="quoteToDelete = item"
+                            >
+                                <v-icon dark>
+                                    mdi-delete
+                                </v-icon>
+                            </v-btn>
+                        </template>
+                        <template v-slot:item.index="item">
+                            {{ getIndex() }}
                         </template>
                     </v-data-table>
                     <div class="text-center pt-2">
@@ -62,7 +70,6 @@
                 </v-col>
             </v-row>
         </v-container>
-
         <v-tooltip top>
             <template v-slot:activator="{ on }">
                 <v-btn
@@ -91,10 +98,10 @@
                     <v-row>
                         <v-col cols="12">
                             <v-select
-                                :items="quotes"
+                                :items="authors"
                                 item-value="id"
                                 item-text="name"
-                                label="Категории"
+                                label="Автор"
                                 dense
                             >
                             </v-select>
@@ -152,10 +159,10 @@
                     <v-row>
                         <v-col cols="12">
                             <v-select
-                                :items="authors"
+                                :items="this.authors"
                                 item-value="id"
                                 item-text="name"
-                                label="Категории"
+                                label="Авторы"
                                 dense
                             >
                             </v-select>
@@ -164,6 +171,8 @@
                             <v-textarea
                                 name="input-7-1"
                                 label="Изменить цитату здесь"
+                                v-model="quotes.body"
+                                value="body"
                             >
                             </v-textarea>
                         </v-col>
@@ -194,6 +203,16 @@
 </template>
 
 <script>
+    function* getIterator(index, maxIndex) {
+        let i = index;
+        while (i <= maxIndex + 1) {
+            if (i > maxIndex) {
+                i = index;
+            }
+            yield i++;
+        }
+    }
+
     export default {
         data() {
             return {
@@ -207,14 +226,14 @@
                 dialogShowQuote: false,
                 dialogAdd: false,
                 dialogDelete: false,
-                dialogUpdate: false,
-                itemsPerPage: 12,
+                dialogUpdate: true,
+                itemsPerPage: 15,
                 editedIndex: -1,
-                categoriesItems: ['asd', 'lkj'],
+                indexIterator: null,
                 headers: [
                     {
                         text: '№',
-                        value: 'id',
+                        value: 'index',
                         align: 'center',
                         sortable: false
                     },
@@ -240,7 +259,6 @@
                 ],
             }
         },
-
         mounted() {
             this.loadQuotes();
 
@@ -254,13 +272,15 @@
             loadQuotes() {
                 axios.get('/api/quotes').then(res => {
                     this.quotes = res.data;
+                    this.indexIterator = getIterator(1, res.data.length);
                 }).catch(err => {
                     console.log(err);
                 });
             },
             addQuote() {
                 axios.post('/api/quotes/', {
-                    'body': this.quotes.body
+                    body: this.quoteBody,
+                    author_id: this.authors
                 }).then(res => {
                     console.log(res);
                     this.dialogAdd = false;
@@ -276,6 +296,9 @@
                     console.log(err);
                 });
             },
+            getIndex() {
+                return this.indexIterator.next().value;
+            }
         },
         watch: {
             quoteToDelete(value) {
@@ -286,13 +309,20 @@
                 }
             }
         },
-
         computed: {
             filteredQuotes() {
-                return this.quotes.filter((quotes) => {
-                    return quotes.body.toLowerCase().includes(this.search.toLowerCase());
+                return this.quotes.filter((quote) => {
+                    return quote.body.toLowerCase().includes(this.search.toLowerCase());
                 })
             }
         }
     }
 </script>
+
+<style scoped>
+    .v-application
+    .primary--text,
+    .primary {
+        outline: none;
+    }
+</style>

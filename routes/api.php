@@ -55,6 +55,6 @@ Route::delete('/videos', 'VideosController@delete');
 
 //Channels
 Route::get('/channels', 'ChannelsController@get');
-Route::post('/videos', 'ChannelsController@store');
-Route::put('/videos', 'ChannelsController@update');
-Route::delete('/videos', 'ChannelsController@delete');
+Route::post('/channels', 'ChannelsController@store');
+Route::put('/channels', 'ChannelsController@update');
+Route::delete('/channels', 'ChannelsController@delete');

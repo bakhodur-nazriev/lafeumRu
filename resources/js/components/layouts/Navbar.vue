@@ -65,7 +65,6 @@
                         :prepend-icon="link.icon"
                         active-class="white--text"
                         no-action
-
                     >
                         <template v-slot:activator>
                             <v-list-item-content>
@@ -86,7 +85,7 @@
                         </v-list-item>
                     </v-list-group>
                 </div>
-            </v-list>
+            </v-list dark shaped>
         </v-navigation-drawer>
     </nav>
 </template>
@@ -157,7 +156,25 @@
                     Array.isArray(link.items) &&
                     link.items.length >= 0
                 );
+            },
+            updateImage() {
+                axios.post('').then();
             }
-        }
+        },
     };
 </script>
+
+<style>
+    .v-application--is-ltr
+    .v-list--shaped
+    .v-list-item,
+    .v-application--is-ltr
+    .v-list--shaped
+    .v-list-item:before,
+    .v-application--is-ltr
+    .v-list--shaped
+    .v-list-item >
+    .v-ripple__container {
+        text-decoration: none;
+    }
+</style>

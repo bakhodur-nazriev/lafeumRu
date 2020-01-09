@@ -3113,18 +3113,6 @@ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(getIterat
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 function getIterator(index, maxIndex) {
   var i;
   return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function getIterator$(_context) {
@@ -3161,6 +3149,7 @@ function getIterator(index, maxIndex) {
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      quoteBody: '',
       search: '',
       authors: [],
       quotes: [],
@@ -3171,7 +3160,7 @@ function getIterator(index, maxIndex) {
       dialogShowQuote: false,
       dialogAdd: false,
       dialogDelete: false,
-      dialogUpdate: true,
+      dialogUpdate: false,
       itemsPerPage: 15,
       editedIndex: -1,
       indexIterator: null,
@@ -3225,14 +3214,25 @@ function getIterator(index, maxIndex) {
 
       axios.post('/api/quotes/', {
         body: this.quoteBody,
-        author_id: this.authors
+        author_id: 1
       }).then(function (res) {
         console.log(res);
         _this3.dialogAdd = false;
       })["catch"](function (err) {
-        console.log(err.res.data);
+        console.log(err);
       });
     },
+    // updateQuote() {
+    //     axios.put('/api/quotes', {
+    //         body: this.quotes.body,
+    //         author_id: 1
+    //     }).then(res => {
+    //         console.log(res);
+    //         this.dialogUpdate = false;
+    //     }).catch((err) => {
+    //         console.log(err);
+    //     })
+    // },
     deleteQuote: function deleteQuote() {
       var _this4 = this;
 
@@ -42870,33 +42870,6 @@ var render = function() {
                                   fab: "",
                                   dark: "",
                                   small: "",
-                                  color: "primary",
-                                  elevation: "2",
-                                  outlined: ""
-                                },
-                                on: {
-                                  click: function($event) {
-                                    _vm.quoteToShow = item
-                                  }
-                                }
-                              },
-                              [
-                                _c("v-icon", { attrs: { dark: "" } }, [
-                                  _vm._v(
-                                    "\n                                mdi-eye\n                            "
-                                  )
-                                ])
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "v-btn",
-                              {
-                                attrs: {
-                                  fab: "",
-                                  dark: "",
-                                  small: "",
                                   color: "error",
                                   elevation: "2",
                                   outlined: ""
@@ -43051,8 +43024,15 @@ var render = function() {
                         [
                           _c("v-textarea", {
                             attrs: {
-                              name: "input-7-1",
+                              name: "body",
                               label: "Добаить цитату здесь"
+                            },
+                            model: {
+                              value: _vm.quoteBody,
+                              callback: function($$v) {
+                                _vm.quoteBody = $$v
+                              },
+                              expression: "quoteBody"
                             }
                           })
                         ],
@@ -43074,7 +43054,11 @@ var render = function() {
                     "v-btn",
                     {
                       attrs: { dark: "", color: "green" },
-                      on: { click: _vm.addQuote }
+                      on: {
+                        click: function($event) {
+                          return _vm.addQuote()
+                        }
+                      }
                     },
                     [_vm._v("Сохранить\n                ")]
                   ),
@@ -43199,7 +43183,7 @@ var render = function() {
                         [
                           _c("v-select", {
                             attrs: {
-                              items: this.authors,
+                              items: this.quotes.values("author"),
                               "item-value": "id",
                               "item-text": "name",
                               label: "Авторы",
@@ -43216,9 +43200,9 @@ var render = function() {
                         [
                           _c("v-textarea", {
                             attrs: {
-                              name: "input-7-1",
                               label: "Изменить цитату здесь",
-                              value: "body"
+                              value: "body",
+                              name: "input-7-1"
                             },
                             model: {
                               value: _vm.quotes.body,
@@ -43249,7 +43233,7 @@ var render = function() {
                       attrs: { dark: "", color: "green" },
                       on: {
                         click: function($event) {
-                          _vm.dialogUpdate = false
+                          return _vm.updateQuote()
                         }
                       }
                     },

@@ -28,6 +28,15 @@ class QuotesController extends Controller
         return response()->json($quote);
     }
 
+    public function update(Request $request)
+    {
+        $quote = Quote::find($request->id);
+        $quote->update([
+            'body' => $request->body
+        ]);
+        return response()->json($quote);
+    }
+
     public function delete($id)
     {
         Quote::destroy($id);

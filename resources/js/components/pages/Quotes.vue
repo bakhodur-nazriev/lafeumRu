@@ -37,19 +37,6 @@
                                 fab
                                 dark
                                 small
-                                color="primary"
-                                elevation="2"
-                                outlined
-                                @click="quoteToShow = item"
-                            >
-                                <v-icon dark>
-                                    mdi-eye
-                                </v-icon>
-                            </v-btn>
-                            <v-btn
-                                fab
-                                dark
-                                small
                                 color="error"
                                 elevation="2"
                                 outlined
@@ -108,7 +95,8 @@
                         </v-col>
                         <v-col cols="12">
                             <v-textarea
-                                name="input-7-1"
+                                v-model="quoteBody"
+                                name="body"
                                 label="Добаить цитату здесь"
                             >
                             </v-textarea>
@@ -120,7 +108,7 @@
                     <v-btn
                         dark
                         color="green"
-                        @click="addQuote"
+                        @click="addQuote()"
                     >Сохранить
                     </v-btn>
                     <v-btn
@@ -159,7 +147,7 @@
                     <v-row>
                         <v-col cols="12">
                             <v-select
-                                :items="this.authors"
+                                :items="this.quotes.values('author')"
                                 item-value="id"
                                 item-text="name"
                                 label="Авторы"
@@ -169,10 +157,10 @@
                         </v-col>
                         <v-col cols="12">
                             <v-textarea
-                                name="input-7-1"
-                                label="Изменить цитату здесь"
                                 v-model="quotes.body"
+                                label="Изменить цитату здесь"
                                 value="body"
+                                name="input-7-1"
                             >
                             </v-textarea>
                         </v-col>
@@ -183,7 +171,7 @@
                     <v-btn
                         dark
                         color="green"
-                        @click="dialogUpdate = false"
+                        @click="updateQuote()"
                     >Сохранить
                     </v-btn>
                     <v-btn
@@ -216,6 +204,7 @@
     export default {
         data() {
             return {
+                quoteBody: '',
                 search: '',
                 authors: [],
                 quotes: [],
@@ -226,7 +215,7 @@
                 dialogShowQuote: false,
                 dialogAdd: false,
                 dialogDelete: false,
-                dialogUpdate: true,
+                dialogUpdate: false,
                 itemsPerPage: 15,
                 editedIndex: -1,
                 indexIterator: null,
@@ -280,14 +269,25 @@
             addQuote() {
                 axios.post('/api/quotes/', {
                     body: this.quoteBody,
-                    author_id: this.authors
+                    author_id: 1
                 }).then(res => {
                     console.log(res);
                     this.dialogAdd = false;
                 }).catch((err) => {
-                    console.log(err.res.data)
+                    console.log(err)
                 });
             },
+            // updateQuote() {
+            //     axios.put('/api/quotes', {
+            //         body: this.quotes.body,
+            //         author_id: 1
+            //     }).then(res => {
+            //         console.log(res);
+            //         this.dialogUpdate = false;
+            //     }).catch((err) => {
+            //         console.log(err);
+            //     })
+            // },
             deleteQuote() {
                 axios.delete('/api/quotes/' + this.quoteToDelete.id).then(res => {
                     this.loadQuotes();

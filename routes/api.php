@@ -20,7 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 // Quotes
 Route::get('/quotes', 'QuotesController@get');
 Route::post('/quotes', 'QuotesController@store');
-Route::put('/quotes', 'QuotesController@update');
+Route::put('/quotes/{id}', 'QuotesController@update');
 Route::delete('/quotes/{id}', 'QuotesController@delete');
 
 //Authors

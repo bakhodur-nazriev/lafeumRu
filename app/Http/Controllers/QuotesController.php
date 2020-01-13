@@ -18,8 +18,7 @@ class QuotesController extends Controller
 
     public function get()
     {
-        $quotes = Quote::with('author')->get();
-        return response()->json($quotes);
+        return Quote::with('author')->latest()->get();
     }
 
     public function store(Request $request)
@@ -28,12 +27,10 @@ class QuotesController extends Controller
         return response()->json($quote);
     }
 
-    public function update(Request $request)
+    public function update($id, Request $request)
     {
-        $quote = Quote::find($request->id);
-        $quote->update([
-            'body' => $request->body
-        ]);
+        $quote = Quote::find($id);
+        $quote->update($request->all());
         return response()->json($quote);
     }
 

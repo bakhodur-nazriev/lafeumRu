@@ -15,13 +15,19 @@ class AuthorsController extends Controller
 
     public function get()
     {
-        $authors = Author::all();
-        return response()->json($authors);
+        return Author::latest()->get();
     }
 
     public function store(Request $request)
     {
         $author = Author::create($request->all());
+        return response()->json($author);
+    }
+
+    public function update($id, Request $request)
+    {
+        $author = Author::find($id);
+        $author->update($request->all());
         return response()->json($author);
     }
 

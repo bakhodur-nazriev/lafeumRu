@@ -26,8 +26,8 @@ Route::delete('/quotes/{id}', 'QuotesController@delete');
 //Authors
 Route::get('/authors', 'AuthorsController@get');
 Route::post('/authors', 'AuthorsController@store');
-Route::put('/authors', 'AuthorsController@update');
-Route::delete('/authors', 'AuthorsController@delete');
+Route::put('/authors{id}', 'AuthorsController@update');
+Route::delete('/authors{id}', 'AuthorsController@delete');
 
 //Photos
 Route::get('/photos', 'PhotosController@get');

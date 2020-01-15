@@ -85,6 +85,7 @@
           <v-row>
             <v-col cols="12">
               <v-select
+                prepend-icon="mdi-account"
                 :items="authors"
                 item-value="id"
                 item-text="name"
@@ -96,6 +97,7 @@
             </v-col>
             <v-col cols="12">
               <v-textarea
+                prepend-icon="mdi-file"
                 v-model="quoteBody"
                 name="body"
                 label="Добаить цитату здесь"
@@ -108,11 +110,8 @@
           <v-spacer />
           <v-btn dark color="green" @click="addQuote()">Сохранить</v-btn>
           <v-btn dark color="error" @click="() => (dialogAdd = false)"
-            >Отмена
-          </v-btn>
-          <!-- <v-btn dark color="error" @click="quoteToAdd = null"
-            >Отмена
-          </v-btn> -->
+            >Отмена</v-btn
+          >
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -123,12 +122,10 @@
           >Вы действительно хотите удалить эту цитату ?
         </v-card-title>
         <v-card-actions class="justify-center">
-          <v-btn color="green darken-1" dark @click="quoteToDelete = null">
-            Нет
-          </v-btn>
-          <v-btn color="red darken-1" dark @click="deleteQuote()">
-            Да
-          </v-btn>
+          <v-btn color="green darken-1" dark @click="quoteToDelete = null"
+            >Нет</v-btn
+          >
+          <v-btn color="red darken-1" dark @click="deleteQuote()">Да</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -155,7 +152,7 @@
               <v-textarea
                 label="Изменить цитату здесь"
                 :value="quoteToUpdate.body"
-                name="input-7-1"
+                name="body"
               >
               </v-textarea>
             </v-col>
@@ -163,7 +160,7 @@
         </v-container>
         <v-card-actions>
           <v-spacer />
-          <v-btn dark color="green" @click="updateQuote()">Сохранить </v-btn>
+          <v-btn dark color="green" @click="updateQuote()">Сохранить</v-btn>
           <v-btn dark color="error" @click="dialogUpdate = false"
             >Отмена
           </v-btn>
@@ -171,7 +168,7 @@
       </v-card>
     </v-dialog>
     <!-- Show Quote Dialog -->
-    <v-dialog v-model="dialogShowQuote"> </v-dialog>
+    <v-dialog v-model="dialogShowQuote"></v-dialog>
   </v-content>
 </template>
 

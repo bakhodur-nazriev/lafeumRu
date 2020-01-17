@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Term extends Model
 {
-    protected $guarded = [];
+    protected $fillable = ['body'];
 
     public function tags()
     {

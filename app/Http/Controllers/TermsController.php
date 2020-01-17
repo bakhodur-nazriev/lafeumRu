@@ -15,7 +15,24 @@ class TermsController extends Controller
 
     public function get()
     {
-        $terms = Term::all();
-        return response()->json($terms);
+        return Term::latest()->get();
+    }
+
+    public function store(Request $request)
+    {
+        return Term::create($request->all());
+    }
+
+    public function update(Request $request, $id)
+    {
+        $term = Term::find($id);
+        $term->update($request->all());
+        return response()->json($term);
+    }
+
+    public function delete($id)
+    {
+        Term::destroy($id);
+        return response()->json("ok");
     }
 }

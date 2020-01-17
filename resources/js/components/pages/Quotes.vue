@@ -85,7 +85,7 @@
           <v-row>
             <v-col cols="12">
               <v-select
-                prepend-icon="mdi-account"
+                outlined
                 :items="authors"
                 item-value="id"
                 item-text="name"
@@ -97,7 +97,7 @@
             </v-col>
             <v-col cols="12">
               <v-textarea
-                prepend-icon="mdi-file"
+                outlined
                 v-model="quoteBody"
                 name="body"
                 label="Добаить цитату здесь"
@@ -139,6 +139,7 @@
           <v-row>
             <v-col cols="12">
               <v-select
+                outlined
                 :items="authors"
                 item-value="id"
                 item-text="name"
@@ -150,6 +151,7 @@
             </v-col>
             <v-col cols="12">
               <v-textarea
+                outlined
                 label="Изменить цитату здесь"
                 :value="quoteToUpdate.body"
                 name="body"
@@ -270,6 +272,7 @@ export default {
         })
         .then(res => {
           console.log(res);
+          this.loadQuotes();
           this.dialogAdd = false;
         })
         .catch(err => {
@@ -278,12 +281,13 @@ export default {
     },
     updateQuote() {
       axios
-        .put("/api/quotes", {
-          body: "",
-          author_id: ""
+        .put("/api/quotes/" + this.quoteToUpdate.id, {
+          body: this.quotes.body,
+          author_id: this.authors.name
         })
         .then(res => {
           console.log(res);
+          this.loadQuotes();
           this.dialogUpdate = false;
         })
         .catch(err => {

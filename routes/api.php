@@ -26,35 +26,35 @@ Route::delete('/quotes/{id}', 'QuotesController@delete');
 //Authors
 Route::get('/authors', 'AuthorsController@get');
 Route::post('/authors', 'AuthorsController@store');
-Route::put('/authors{id}', 'AuthorsController@update');
-Route::delete('/authors{id}', 'AuthorsController@delete');
+Route::put('/authors/{id}', 'AuthorsController@update');
+Route::delete('/authors/{id}', 'AuthorsController@delete');
 
 //Photos
 Route::get('/photos', 'PhotosController@get');
 Route::post('/photos', 'PhotosController@store');
-Route::put('/photos', 'PhotosController@update');
-Route::delete('/photos', 'PhotosController@delete');
+Route::put('/photos/{id}', 'PhotosController@update');
+Route::delete('/photos/{id}', 'PhotosController@delete');
 
 //Terms
 Route::get('/terms', 'TermsController@get');
 Route::post('/terms', 'TermsController@store');
-Route::put('/terms', 'TermsController@update');
-Route::delete('/terms', 'TermsController@delete');
+Route::put('/terms/{id}', 'TermsController@update');
+Route::delete('/terms/{id}', 'TermsController@delete');
 
 //Knowledge Areas
 Route::get('/knowledge_areas', 'KnowledgesController@get');
 Route::post('/knowledge_areas', 'KnowledgesController@store');
-Route::put('/knowledge_areas', 'KnowledgesController@update');
-Route::delete('/knowledge_areas', 'KnowledgesController@delete');
+Route::put('/knowledge_areas/{id}', 'KnowledgesController@update');
+Route::delete('/knowledge_areas/{id}', 'KnowledgesController@delete');
 
 //Videos
 Route::get('/videos', 'VideosController@get');
 Route::post('/videos', 'VideosController@store');
-Route::put('/videos', 'VideosController@update');
-Route::delete('/videos', 'VideosController@delete');
+Route::put('/videos/{id}', 'VideosController@update');
+Route::delete('/videos/{id}', 'VideosController@delete');
 
 //Channels
 Route::get('/channels', 'ChannelsController@get');
 Route::post('/channels', 'ChannelsController@store');
-Route::put('/channels', 'ChannelsController@update');
-Route::delete('/channels', 'ChannelsController@delete');
+Route::put('/channels/{id}', 'ChannelsController@update');
+Route::delete('/channels/{id}', 'ChannelsController@delete');

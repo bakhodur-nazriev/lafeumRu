@@ -20,8 +20,12 @@ class AuthorsController extends Controller
 
     public function store(Request $request)
     {
-        $author = Author::create($request->all());
-        return response()->json($author);
+        $photo = $request->file('photo');
+        $fileName = $photo->getClientOriginalName();
+        $photo->move('/home/bakhodur/Desktop/MyProjects/lafeum/public/img/authors',$fileName);
+
+        return "success";
+        // return Author::create($request->all());
     }
 
     public function update($id, Request $request)

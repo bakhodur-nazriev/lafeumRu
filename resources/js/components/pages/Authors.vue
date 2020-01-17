@@ -86,21 +86,28 @@
         <v-container>
           <v-row>
             <v-col cols="12">
-              <v-text-field prepend-icon="mdi-pencil" name="name" label="Имя">
+              <v-text-field
+                outlined
+                name="name"
+                label="Имя"
+                v-model="authorName"
+              >
               </v-text-field>
             </v-col>
             <v-col cols="12">
               <v-file-input
-                prepend-icon="mdi-camera"
+                outlined
                 name="photo"
                 label="Выберите фото"
+                v-model="authorPhoto"
               ></v-file-input>
             </v-col>
             <v-col cols="12">
               <v-textarea
-                prepend-icon="mdi-account-card-details-outline"
+                outlined
                 name="biography"
                 label="Биография"
+                v-model="authorBiography"
               ></v-textarea>
             </v-col>
           </v-row>
@@ -140,25 +147,26 @@
           <v-row>
             <v-col cols="12">
               <v-text-field
+                outlined
                 label="Изменить имя автора"
-                prepend-icon="mdi-pencil"
                 :value="authorToUpdate.name"
               ></v-text-field>
             </v-col>
-            <v-col cols="12">
+            <!-- <v-col cols="12">
               <v-file-input
+                outlined
                 name="photo"
                 prepend-icon="mdi-camera"
                 label="Изменить фото"
                 :value="authorToUpdate.photo"
               ></v-file-input>
-            </v-col>
+            </v-col> -->
             <v-col cols="12">
               <v-textarea
+                outlined
                 name="bigraphy"
-                prepend-icon="mdi-account-card-details-outline"
                 label="Изменить биографию автора"
-                :value="authorToUpdate.bigraphy"
+                :value="authorToUpdate.biography"
               >
               </v-textarea>
             </v-col>
@@ -180,6 +188,9 @@
 export default {
   data() {
     return {
+      authorName: "",
+      authorBiography: "",
+      authorPhoto: [],
       search: "",
       authors: [],
       page: 1,
@@ -213,7 +224,7 @@ export default {
         },
         {
           text: "Фото",
-          value: "photo",
+          value: "image",
           align: "center",
           sortable: false
         },
@@ -249,16 +260,20 @@ export default {
     },
 
     addAuthor() {
+      const formData = new FormData();
+      formData.append("photo", this.authorPhoto);
+
       axios
-        .post("/api/authors/", {
-          body: this.authors.body
+        .post("/api/authors", formData, {
+          "Content-Type": "multipart/form-data"
         })
         .then(res => {
           console.log(res);
+          this.loadAuthors();
           this.dialogAdd = false;
         })
         .catch(err => {
-          console.log(err.res.data);
+          console.log(err);
         });
     },
 
@@ -271,6 +286,7 @@ export default {
         })
         .then(res => {
           console.log(res);
+          this.loadAuthors();
           this.dialogUpdate = false;
         })
         .catch(res => {

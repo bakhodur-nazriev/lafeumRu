@@ -23,15 +23,15 @@ class QuotesController extends Controller
 
     public function store(Request $request)
     {
-        $quote = Quote::create($request->all());
-        return  response()->json($quote);
+        return Quote::create($request->all());
     }
 
-    public function update($id, Request $request)
+    public function update(Request $request, $id)
     {
         $quote = Quote::find($id);
-        $quote->update($request->all());
-        return response()->json($quote);
+        return $quote->update($request->all());
+        // return response()->json($quote);
+        // return 'hello lola';
     }
 
     public function delete($id)

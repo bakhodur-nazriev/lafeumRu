@@ -20,3 +20,9 @@
         }
     };
 </script>
+
+<style>
+    .v-application p{
+        margin-bottom: 0;
+    }
+</style>

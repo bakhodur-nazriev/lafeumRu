@@ -7,12 +7,28 @@ window.Vue = require("vue");
 import Vuetify from "vuetify";
 import "vuetify/dist/vuetify.min.css";
 import "@mdi/font/css/materialdesignicons.css";
+import {TiptapVuetifyPlugin} from "tiptap-vuetify";
+import "tiptap-vuetify/dist/main.css";
+
+const vuetify = new Vuetify({
+    lang: {
+        // If you change the language here, then it changes in the editor itself
+        current: "en" // en | es | fr | pl | ru
+    }
+});
 
 // Route information for Vue Router
 import router from "./router.js";
 import App from "./components/App";
 
+// you don't need it. this is for example purposes
+const iconsGroup = localStorage.getItem("current_icons_group") || "fa";
 Vue.use(Vuetify);
+Vue.use(TiptapVuetifyPlugin, {
+    vuetify,
+    // "md" (default), "fa", "mdi",
+    iconsGroup: 'mdi' // same as "iconsGroup: iconsGroup"
+});
 
 const vuetifyOptions = {
     icons: {
@@ -21,11 +37,11 @@ const vuetifyOptions = {
     theme: {
         themes: {
             light: {
+                secondary: "#21353f",
                 primary: "#04718c",
-                secondary: "#21353f"
+                error: "#EF5350",
                 // accent: "#689F38",
                 // success: "#4caf50",
-                // error: "#EF5350",
                 // warning: "#ffeb3b",
                 // info: "#2196f3",
             }
@@ -33,9 +49,15 @@ const vuetifyOptions = {
     }
 };
 
+// use this package's plugin
+Vue.use(TiptapVuetifyPlugin, {
+    iconsGroup: 'md'
+})
+
 Vue.component("admin-dashboard", require("./components/pages/Home.vue").default);
 Vue.component("Search", require("./components/layouts/Navbar.vue").default);
 Vue.component("pagination", require("laravel-vue-pagination"));
+// Vue.component("TiptapVuetify");
 
 const app = new Vue({
     el: "#app",

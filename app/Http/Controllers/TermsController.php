@@ -25,8 +25,10 @@ class TermsController extends Controller
 
     public function update(Request $request, $id)
     {
+//        return $request->all();
         $term = Term::find($id);
         $term->update($request->all());
+        $term->save();
         return response()->json($term);
     }
 

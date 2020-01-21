@@ -32,7 +32,8 @@ class AuthorsController extends Controller
     {
         $author = Author::find($id);
         $author->update($request->all());
-        return response()->json($author);
+        $author->save();
+//        return response()->json($author);
     }
 
     public function delete($id)

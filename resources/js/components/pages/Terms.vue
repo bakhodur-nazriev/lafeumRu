@@ -9,7 +9,8 @@
                             label="Поиск"
                             append-icon="mdi-magnify"
                             v-model="search"
-                        ></v-text-field>
+                        >
+                        </v-text-field>
                     </v-col>
                     <v-data-table
                         :headers="headers"
@@ -28,7 +29,7 @@
                                 color="primary"
                                 elevation="2"
                                 outlined
-                                @click="termToUpdate = item"
+                                @click="termToUpdate = {...item}"
                             >
                                 <v-icon dark>mdi-pen</v-icon>
                             </v-btn>
@@ -45,6 +46,9 @@
                                     mdi-delete
                                 </v-icon>
                             </v-btn>
+                        </template>
+                        <template v-slot:item.body="{ item }">
+                            <div v-html="item.body"/>
                         </template>
                     </v-data-table>
                     <div class="text-center pt-2">
@@ -72,31 +76,31 @@
         </v-tooltip>
 
         <!-- Add Item Dialog -->
-        <v-dialog v-model="dialogAdd" width="600px">
+        <v-dialog v-model="dialogAdd" width="700px">
             <v-card>
                 <v-card-title class="primary white--text">
                     Создать Термин
                 </v-card-title>
-                <v-container>
-                    <v-row>
-                        <v-col cols="12">
-                            <v-textarea
-                                outlined
-                                v-model="termBody"
-                                name="body"
-                                label="Добаить термин здесь"
-                            >
-                            </v-textarea>
-                        </v-col>
-                    </v-row>
-                </v-container>
+                <v-form v-model="valid">
+                    <v-container>
+                        <v-row>
+                            <v-col cols="12">
+                                <tiptap-vuetify
+                                    outlined
+                                    required
+                                    v-model="termBody"
+                                    :extensions="extensions"
+                                    placeholder="Добаить термин здесь"
+                                >
+                                </tiptap-vuetify>
+                            </v-col>
+                        </v-row>
+                    </v-container>
+                </v-form>
                 <v-card-actions>
                     <v-spacer/>
                     <v-btn dark color="green" @click="addTerm()">Сохранить</v-btn>
-                    <v-btn dark color="error" @click="() => (dialogAdd = false)"
-                    >Отмена
-                    </v-btn
-                    >
+                    <v-btn dark color="error" @click="() => (dialogAdd = false)">Отмена</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -104,7 +108,7 @@
         <v-dialog v-model="dialogDelete" width="500">
             <v-card class="pa-2">
                 <v-card-title class="pt-1 regular headline text-center"
-                >Вы действительно хотите удалить это терм ?
+                >Вы действительно хотите удалить это термин ?
                 </v-card-title>
                 <v-card-actions class="justify-center">
                     <v-btn color="green darken-1" dark @click="termToDelete = null"
@@ -115,7 +119,7 @@
             </v-card>
         </v-dialog>
         <!-- Update Item Dialog -->
-        <v-dialog v-model="dialogUpdate" width="600px">
+        <v-dialog v-model="dialogUpdate" width="700px">
             <v-card>
                 <v-card-title class="primary white--text">
                     Изменить Термин
@@ -123,12 +127,22 @@
                 <v-container>
                     <v-row>
                         <v-col cols="12">
-                            <v-textarea
+                            <!--                            <v-textarea-->
+                            <!--                                name="body"-->
+                            <!--                                :rules="bodyRules"-->
+                            <!--                                required-->
+                            <!--                                label="Изменить термин здесь"-->
+                            <!--                                v-model="termToUpdate.body"-->
+                            <!--                            >-->
+                            <!--                            </v-textarea>-->
+                            <tiptap-vuetify
                                 outlined
-                                label="Изменить термин здесь"
-                                :value="termToUpdate.body"
+                                name="body"
+                                :extensions="extensions"
+                                v-model="termToUpdate.body"
+                                placeholder="Изменить термин здесь"
                             >
-                            </v-textarea>
+                            </tiptap-vuetify>
                         </v-col>
                     </v-row>
                 </v-container>
@@ -147,14 +161,68 @@
 </template>
 
 <script>
+    import {
+        // component
+        TiptapVuetify,
+        // extensions
+        Heading,
+        Bold,
+        Italic,
+        Strike,
+        Underline,
+        Code,
+        Paragraph,
+        BulletList,
+        OrderedList,
+        ListItem,
+        Link,
+        Blockquote,
+        HardBreak,
+        HorizontalRule,
+        History,
+        Image
+    } from 'tiptap-vuetify';
+
     export default {
+        components: {TiptapVuetify},
         data() {
             return {
+                extensions: [
+                    History,
+                    Blockquote,
+                    Link,
+                    Underline,
+                    Strike,
+                    Italic,
+                    ListItem, // if you need to use a list (BulletList, OrderedList)
+                    BulletList,
+                    OrderedList,
+                    Image,
+                    [
+                        Heading,
+                        {
+                            // Options that fall into the tiptap's extension
+                            options: {
+                                levels: [1, 2, 3]
+                            }
+                        }
+                    ],
+                    Bold,
+                    Link,
+                    Code,
+                    HorizontalRule,
+                    Paragraph,
+                    HardBreak // line break on Shift + Ctrl + Enter
+                ],
+                valid: false,
                 dialogAdd: false,
                 dialogDelete: false,
                 dialogUpdate: false,
                 dialogShowTerm: false,
                 termBody: "",
+                bodyRules: [
+                    v => !!v || 'Заполните пустое поле',
+                ],
                 terms: [],
                 search: "",
                 page: 1,
@@ -188,6 +256,7 @@
                     .get("/api/terms")
                     .then(res => {
                         this.terms = res.data;
+                        console.log(res.data);
                     })
                     .catch(err => {
                         console.log(err);
@@ -208,10 +277,9 @@
                     });
             },
             updateTerm() {
+                console.log(this.termToUpdate);
                 axios
-                    .put("/api/terms/" + this.termToUpdate.id, {
-                        body: this.terms.body
-                    })
+                    .put("/api/terms/" + this.termToUpdate.id, this.termToUpdate)
                     .then(res => {
                         console.log(res);
                         this.loadTerms();
@@ -221,7 +289,6 @@
                         console.log(err);
                     })
             },
-
             deleteTerm() {
                 axios
                     .delete("/api/terms/" + this.termToDelete.id)
@@ -232,9 +299,8 @@
                     .catch(err => {
                         console.log(err);
                     });
-            }
+            },
         },
-
         watch: {
             termToUpdate(value) {
                 if (value) {
@@ -252,14 +318,15 @@
                 }
             }
         },
-
         computed: {
             filteredTerms() {
                 return this.terms.filter(term => {
                     return term.body.toLowerCase().includes(this.search.toLowerCase());
                 });
             }
+        },
+        created() {
+
         }
     };
 </script>
-

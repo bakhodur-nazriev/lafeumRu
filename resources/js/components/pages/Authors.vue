@@ -53,7 +53,8 @@
                             v-model="page"
                             :length="pageCount"
                             class="my-4"
-                        ></v-pagination>
+                        >
+                        </v-pagination>
                     </v-col>
                 </v-col>
             </v-row>
@@ -100,7 +101,10 @@
                                 name="photo"
                                 label="Выберите фото"
                                 v-model="authorPhoto"
-                            ></v-file-input>
+                                prepend-icon=""
+                                prepend-inner-icon="mdi-paperclip"
+                            >
+                            </v-file-input>
                         </v-col>
                         <v-col cols="12">
                             <v-textarea
@@ -108,7 +112,8 @@
                                 name="biography"
                                 label="Биография"
                                 v-model="authorBiography"
-                            ></v-textarea>
+                            >
+                            </v-textarea>
                         </v-col>
                     </v-row>
                 </v-container>
@@ -153,19 +158,20 @@
                             >
                             </v-text-field>
                         </v-col>
-                        <!-- <v-col cols="12">
-                          <v-file-input
-                            outlined
-                            name="photo"
-                            prepend-icon="mdi-camera"
-                            label="Изменить фото"
-                            :value="authorToUpdate.photo"
-                          ></v-file-input>
-                        </v-col> -->
+                        <v-col cols="12">
+                            <v-file-input
+                                outlined
+                                name="photo"
+                                prepend-icon="mdi-camera"
+                                label="Изменить фото"
+                                :value="authorToUpdate.photo"
+                            >
+                            </v-file-input>
+                        </v-col>
                         <v-col cols="12">
                             <v-textarea
                                 outlined
-                                name="bigraphy"
+                                name="biography"
                                 label="Изменить биографию автора"
                                 :value="authorToUpdate.biography"
                             >
@@ -212,12 +218,6 @@
                 dialogUpdate: false,
                 itemsPerPage: 12,
                 headers: [
-                    // {
-                    //   text: "№",
-                    //   value: "id",
-                    //   align: "center",
-                    //   sortable: false
-                    // },
                     {
                         text: "Имя",
                         align: "center",
@@ -280,7 +280,7 @@
 
             updateAuthor() {
                 axios
-                    .put("/api/authors", {
+                    .put("/api/authors" + this.authorToUpdate.id, {
                         name: "",
                         biography: "",
                         photo: ""

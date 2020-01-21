@@ -214,12 +214,6 @@
                 editedIndex: -1,
                 indexIterator: null,
                 headers: [
-                    // {
-                    //     text: '№',
-                    //     value: 'index',
-                    //     align: 'center',
-                    //     sortable: false
-                    // },
                     {
                         text: "Цитата",
                         value: "body",
@@ -328,7 +322,6 @@
                 }
             }
         },
-
         computed: {
             filteredQuotes() {
                 return this.quotes.filter(quote => {
@@ -343,7 +336,8 @@
     .v-application
     .error--text,
     .primary--text,
-    .primary {
+    .primary,
+    .error {
         outline: none;
     }
 </style>

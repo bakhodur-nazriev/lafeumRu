@@ -1,47 +1,290 @@
 <template>
     <v-content class="pa-0">
         <v-container>
-            <v-row>
-                <v-col cols="12">
+            <v-row justify="center">
+                <v-col cols="6">
                     <v-text-field
                         solo
                         label="Поиск"
+                        hide-details
+                        class="mb-1"
+                        v-model="search"
                         append-icon="mdi-magnify"
-                    ></v-text-field>
+                    >
+                    </v-text-field>
+                </v-col>
+                <v-col cols="12">
                     <v-data-table
                         :headers="headers"
-                        :items="knowledgeAreas"
+                        :items="filteredKnowledgeAreas"
                         :items-per-page="itemsPerPage"
                         :page.sync="page"
                         @page-count="pageCount = $event"
                         hide-default-footer
                         class="elevation-1"
                     >
-                        <template v-slot="terms">
-
+                        <template v-slot:item.action="{ item }">
+                            <v-btn
+                                fab
+                                dark
+                                small
+                                color="primary"
+                                elevation="2"
+                                outlined
+                                @click="knowledgeAreaToUpdate = {...item}"
+                            >
+                                <v-icon dark>mdi-pen</v-icon>
+                            </v-btn>
+                            <v-btn
+                                fab
+                                dark
+                                small
+                                color="primary"
+                                elevation="2"
+                                outlined
+                                @click="knowledgeAreaToShow = { item }"
+                            >
+                                <v-icon dark>mdi-file-eye-outline</v-icon>
+                            </v-btn>
+                            <v-btn
+                                fab
+                                dark
+                                small
+                                color="error"
+                                elevation="2"
+                                outlined
+                                @click="knowledgeAreaToDelete = item"
+                            >
+                                <v-icon dark>mdi-delete</v-icon>
+                            </v-btn>
+                        </template>
+                        <template v-slot:item.description="{ item }">
+                            <div v-html="item.description" class="short-paragraph"></div>
                         </template>
                     </v-data-table>
-                    <div class="text-center pt-2">
-                        <v-pagination v-model="page" :length="pageCount"></v-pagination>
-                    </div>
                 </v-col>
+                <div class="text-center pt-2">
+                    <v-pagination v-model="page" :length="pageCount"></v-pagination>
+                </div>
             </v-row>
         </v-container>
+        <v-tooltip top>
+            <template v-slot:activator="{ on }">
+                <v-btn
+                    bottom
+                    color="primary"
+                    v-on="on"
+                    dark
+                    fab
+                    fixed
+                    right
+                    @click="dialogAdd = !dialogAdd"
+                >
+                    <v-icon>mdi-plus</v-icon>
+                </v-btn>
+            </template>
+            <span>Добавить видео</span>
+        </v-tooltip>
+
+        <!-- Add Item Dialog -->
+        <v-dialog v-model="dialogAdd" width="780px">
+            <v-card>
+                <v-card-title class="primary white--text">
+                    Создать области знаний
+                </v-card-title>
+                <v-form>
+                    <v-container>
+                        <v-row justify="center">
+                            <v-col cols="12">
+                                <v-text-field
+                                    outlined
+                                    required
+                                    name="name"
+                                    v-model="knowledgeAreaName"
+                                    label="Добаить имя области знаний"
+                                >
+                                </v-text-field>
+                            </v-col>
+                            <v-col cols="12">
+                                <tiptap-vuetify
+                                    outlined
+                                    name="description"
+                                    :extensions="extensions"
+                                    v-model="knowledgeAreaDescription"
+                                    label="Добавить описания области знаний"
+                                >
+                                </tiptap-vuetify>
+                            </v-col>
+                        </v-row>
+                    </v-container>
+                </v-form>
+                <v-card-actions>
+                    <v-spacer/>
+                    <v-btn dark color="green" @click="addKnowledgeArea()">Сохранить</v-btn>
+                    <v-btn dark color="error" @click="() => (dialogAdd = false)">Отмена</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+        <!-- Delete Item Dialog -->
+        <v-dialog v-model="dialogDelete" width="500">
+            <v-card class="pa-2">
+                <v-card-title class="pt-1 regular headline text-center">
+                    Вы действительно хотите удалить этот область знаний ?
+                </v-card-title>
+                <v-card-actions class="justify-center">
+                    <v-btn color="green darken-1" dark @click="knowledgeAreaToDelete = null">
+                        Нет
+                    </v-btn>
+                    <v-btn color="red darken-1" dark @click="deleteKnowledgeArea()">Да</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+        <!-- Update Item Dialog -->
+        <v-dialog v-model="dialogUpdate" width="780px">
+            <v-card>
+                <v-card-title class="primary white--text">
+                    Изменить области зананий
+                </v-card-title>
+                <v-container>
+                    <v-row>
+                        <v-col cols="12">
+                            <v-text-field
+                                outlined
+                                name="name"
+                                v-model="knowledgeAreaToUpdate.name"
+                                placeholder="Изменить области знаний здесь"
+                            >
+                            </v-text-field>
+                        </v-col>
+                        <v-col cols="12">
+                            <tiptap-vuetify
+                                outlined
+                                name="description"
+                                :extensions="extensions"
+                                v-model="knowledgeAreaToUpdate.description"
+                                placeholder="Изменить области знаний здесь"
+                            >
+                            </tiptap-vuetify>
+                        </v-col>
+                    </v-row>
+                </v-container>
+                <v-card-actions>
+                    <v-spacer/>
+                    <v-btn dark color="green" @click="updateKnowledgeArea()">Сохранить</v-btn>
+                    <v-btn dark color="error" @click="dialogUpdate = false"
+                    >Отмена
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+        <!-- Show Quote Dialog -->
+        <v-dialog v-model="dialogShow" width="780px">
+            <card>
+                <h1>Hello World</h1>
+            </card>
+            <v-card-action>
+                <v-spacer/>
+                <v-btn dark color="error" @click="dialogShow = false">Закрыть</v-btn>
+            </v-card-action>
+        </v-dialog>
     </v-content>
 </template>
 
 <script>
+    import {
+        // component
+        TiptapVuetify,
+        // extensions
+        Heading,
+        Bold,
+        Italic,
+        Strike,
+        Underline,
+        Code,
+        Paragraph,
+        BulletList,
+        OrderedList,
+        ListItem,
+        Link,
+        Blockquote,
+        HardBreak,
+        HorizontalRule,
+        History,
+        Image
+    } from 'tiptap-vuetify';
+
     export default {
+        components: {TiptapVuetify},
         data() {
             return {
+                knowledgeAreaName: '',
+                knowledgeAreaDescription: '',
+                knowledgeAreaToDelete: {
+                    name: null,
+                    description: null
+                },
+                knowledgeAreaToUpdate: {
+                    name: null,
+                    description: null
+                },
+                knowledgeAreaToShow: {
+                    name: null,
+                    description: null
+                },
+                search: '',
+                dialogAdd: false,
+                dialogUpdate: false,
+                dialogDelete: false,
+                dialogShow: false,
                 knowledgeAreas: [],
                 page: 1,
                 pageCount: 2,
                 itemsPerPage: 12,
                 headers: [
-                    {text: '№', value: 'id', sortable: false},
-                    {text: 'Имя', value: 'name', sortable: false,},
-                    {text: 'Описания', value: 'description', sortable: false,}
+                    {
+                        text: 'Имя',
+                        value: 'name',
+                        sortable: false,
+                    },
+                    {
+                        text: 'Описания',
+                        value: 'description',
+                        sortable: false,
+                    },
+                    {
+                        text: 'Действия',
+                        value: 'action',
+                        align: 'center',
+                        sortable: false,
+                        width: "160px"
+                    }
+                ],
+                extensions: [
+                    History,
+                    Blockquote,
+                    Link,
+                    Underline,
+                    Strike,
+                    Italic,
+                    ListItem, // if you need to use a list (BulletList, OrderedList)
+                    BulletList,
+                    OrderedList,
+                    Image,
+                    [
+                        Heading,
+                        {
+                            // Options that fall into the tiptap's extension
+                            options: {
+                                levels: [1, 2, 3]
+                            }
+                        }
+                    ],
+                    Bold,
+                    Link,
+                    Code,
+                    HorizontalRule,
+                    Paragraph,
+                    HardBreak // line break on Shift + Ctrl + Enter
                 ]
             }
         },
@@ -56,32 +299,75 @@
                     console.log(err);
                 });
             },
-
-            deleteTerms() {
-                axios.delete('/api/knowledge_areas/{id}').then(res => {
-                    this.knowledgeAreas = res.data;
-                }).catch(err => {
-                    console.log(err);
-                });
+            addKnowledgeArea() {
+                axios
+                    .post('/api/knowledge_areas/', {
+                        name: this.knowledgeAreaName,
+                        description: this.knowledgeAreaDescription
+                    })
+                    .then(res => {
+                        console.log(res);
+                        this.loadKnowledgeAreas()
+                        this.dialogAdd = false;
+                    })
+                    .catch((err) => {
+                        console.log(err.res.data)
+                    });
             },
-
-            addTerms() {
-                axios.post('/api/knowledge_areas/', {
-                    'body': this.knowledges.body
-                }).then(res => {
-                    console.log(res);
-                    this.dialogAdd = false;
-                }).catch((err) => {
-                    console.log(err.res.data)
-                });
+            updateKnowledgeArea() {
+                axios
+                    .put('/api/knowledge_areas/' + this.knowledgeAreaToUpdate.id, this.knowledgeAreaToUpdate)
+                    .then(res => {
+                        console.log(res);
+                        this.loadKnowledgeAreas();
+                        this.dialogUpdate = false;
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })
+            },
+            deleteKnowledgeArea() {
+                axios
+                    .delete('/api/knowledge_areas/' + this.knowledgeAreaToDelete.id)
+                    .then(res => {
+                        console.log(res);
+                        this.loadKnowledgeAreas();
+                        this.dialogDelete = false;
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
             }
         },
+        watch: {
+            knowledgeAreaToShow(value) {
+                if (value) {
+                    this.dialogShow = true;
+                } else {
+                    this.dialogShow = false;
+                }
+            },
+            knowledgeAreaToUpdate(value) {
+                if (value) {
+                    this.dialogUpdate = true;
+                } else {
+                    this.dialogUpdate = false;
+                }
+            },
+            knowledgeAreaToDelete(value) {
+                if (value) {
+                    this.dialogDelete = true;
+                } else {
+                    this.dialogDelete = false;
+                }
+            }
+        },
+        computed: {
+            filteredKnowledgeAreas() {
+                return this.knowledgeAreas.filter(knowledgeArea => {
+                    return knowledgeArea.name.toLowerCase().includes(this.search.toLowerCase());
+                })
+            }
+        }
     }
 </script>
-
-<style>
-    .theme--light.v-data-table thead tr:last-child th {
-        font-size: 15px;
-        font-weight: bold;
-    }
-</style>

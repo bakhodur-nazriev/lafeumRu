@@ -1,17 +1,19 @@
 <template>
     <v-content class="pa-0">
         <v-container fluid>
-            <v-row>
+            <v-row justify="center">
+                <v-col cols="6">
+                    <v-text-field
+                        solo
+                        hide-details
+                        class="mb-1"
+                        label="Поиск"
+                        append-icon="mdi-magnify"
+                        v-model="search"
+                    >
+                    </v-text-field>
+                </v-col>
                 <v-col cols="12">
-                    <v-col cols="6" offset="3">
-                        <v-text-field
-                            solo
-                            label="Поиск"
-                            append-icon="mdi-magnify"
-                            v-model="search"
-                        >
-                        </v-text-field>
-                    </v-col>
                     <v-data-table
                         :headers="headers"
                         :items="filteredQuotes"

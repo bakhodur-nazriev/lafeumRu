@@ -19,5 +19,22 @@ class KnowledgesController extends Controller
         return response()->json($knowledgeAreas);
     }
 
+    public function store(Request $request)
+    {
+        return Knowledge::create($request->all());
+    }
 
+    public function update(Request $request, $id)
+    {
+        $knowledge = Knowledge::finc($id);
+        $knowledge->update($request->all());
+        $knowledge->save();
+        return response()->json($knowledge);
+    }
+
+    public function delete($id)
+    {
+        Knowledge::destroy($id);
+        return response()->json("ok");
+    }
 }

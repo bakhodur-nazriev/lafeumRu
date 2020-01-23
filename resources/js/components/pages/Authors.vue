@@ -1,17 +1,19 @@
 <template>
     <v-content class="pa-0">
         <v-container>
-            <v-row>
+            <v-row justify="center">
+                <v-col cols="6">
+                    <v-text-field
+                        solo
+                        hide-details
+                        class="mb-1"
+                        label="Поиск"
+                        append-icon="mdi-magnify"
+                        v-model="search"
+                    >
+                    </v-text-field>
+                </v-col>
                 <v-col cols="12">
-                    <v-col cols="6" offset="3">
-                        <v-text-field
-                            solo
-                            label="Поиск"
-                            append-icon="mdi-magnify"
-                            v-model="search"
-                        >
-                        </v-text-field>
-                    </v-col>
                     <v-data-table
                         :headers="headers"
                         :items="filteredAuthors"
@@ -37,14 +39,23 @@
                                 fab
                                 dark
                                 small
+                                color="primary"
+                                elevation="2"
+                                outlined
+                                @click="authorToShow = item"
+                            >
+                                <v-icon dark>mdi-file-eye-outline</v-icon>
+                            </v-btn>
+                            <v-btn
+                                fab
+                                dark
+                                small
                                 color="error"
                                 elevation="2"
                                 outlined
                                 @click="authorToDelete = item"
                             >
-                                <v-icon dark>
-                                    mdi-delete
-                                </v-icon>
+                                <v-icon dark>mdi-delete</v-icon>
                             </v-btn>
                         </template>
                     </v-data-table>
@@ -169,18 +180,10 @@
                             </v-file-input>
                         </v-col>
                         <v-col cols="12">
-                            <!--                            <v-textarea-->
-                            <!--                                outlined-->
-                            <!--                                name="biography"-->
-                            <!--                                label="Изменить биографию автора"-->
-                            <!--                                :value="authorToUpdate.biography"-->
-                            <!--                            >-->
-                            <!--                            </v-textarea>-->
-
                             <tiptap-vuetify
                                 name="biography"
                                 v-model="authorToUpdate.biography"
-
+                                :extensions="extensions"
                             >
                             </tiptap-vuetify>
                         </v-col>
@@ -194,7 +197,24 @@
             </v-card>
         </v-dialog>
         <!-- Show Item Dialog -->
-        <v-dialog v-model="dialogShowAuthor"></v-dialog>
+        <v-dialog v-model="dialogShow" width="780px">
+            <v-card>
+                <v-card-title class="primary white--text">
+                    Создать Автора
+                </v-card-title>
+                <v-container>
+                    <v-row>
+                        <v-col cols="12">
+                            <h1>Hello World</h1>
+                        </v-col>
+                    </v-row>
+                </v-container>
+                <v-card-actions>
+                    <v-spacer/>
+                    <v-btn dark color="error" @click="() => (dialogShow = false)">Закрыть</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
     </v-content>
 </template>
 <script>
@@ -267,8 +287,13 @@
                     biography: null,
                     photo: null
                 },
+                authorToShow: {
+                    name: null,
+                    biography: null,
+                    photo: null
+                },
                 dialogAdd: false,
-                dialogShowAuthor: false,
+                dialogShow: false,
                 dialogDelete: false,
                 dialogUpdate: false,
                 itemsPerPage: 12,
@@ -314,7 +339,6 @@
                         console.log(err);
                     });
             },
-
             addAuthor() {
                 const formData = new FormData();
                 formData.append("photo", this.authorPhoto);
@@ -332,7 +356,6 @@
                         console.log(err);
                     });
             },
-
             updateAuthor() {
                 axios
                     .put("/api/authors" + this.authorToUpdate.id, {
@@ -349,7 +372,6 @@
                         console.log(err);
                     });
             },
-
             deleteAuthor() {
                 axios
                     .delete("/api/authors/" + this.authorToDelete.id)
@@ -362,8 +384,14 @@
                     });
             }
         },
-
         watch: {
+            authorToShow(value) {
+                if (value) {
+                    this.dialogShow = true;
+                } else {
+                    this.dialogShow = false;
+                }
+            },
             authorToUpdate(value) {
                 if (value) {
                     this.dialogUpdate = true;
@@ -380,7 +408,6 @@
                 }
             }
         },
-
         computed: {
             filteredAuthors() {
                 return this.authors.filter(authors => {

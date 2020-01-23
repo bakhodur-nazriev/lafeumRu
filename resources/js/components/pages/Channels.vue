@@ -32,7 +32,7 @@
                             </v-btn>
                         </template>
                         <template v-slot:item.description="{ item }">
-                            <div v-html="item.description"></div>
+                            <div v-html="item.description" class="short-paragraph"></div>
                         </template>
                     </v-data-table>
                 </v-col>
@@ -279,7 +279,7 @@
             },
             updateChannel() {
                 axios
-                    .put('/api/channels/' + this.channelToUpdate.id)
+                    .put('/api/channels/' + this.channelToUpdate.id, this.channelToUpdate)
                     .then(res => {
                         console.log(res);
                         this.loadChannels();

@@ -50,7 +50,7 @@
                             </v-btn>
                         </template>
                         <template v-slot:item.body="{ item }">
-                            <div v-html="item.body"/>
+                            <div v-html="item.body" class="short-paragraph"/>
                         </template>
                     </v-data-table>
                 </v-col>
@@ -143,9 +143,7 @@
                 <v-card-actions>
                     <v-spacer/>
                     <v-btn dark color="green" @click="updateTerm()">Сохранить</v-btn>
-                    <v-btn dark color="error" @click="dialogUpdate = false"
-                    >Отмена
-                    </v-btn>
+                    <v-btn dark color="error" @click="dialogUpdate = false">Отмена</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>

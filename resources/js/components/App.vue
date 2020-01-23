@@ -45,4 +45,15 @@
     .primary {
         outline: none;
     }
+
+    .short-paragraph p {
+        white-space: nowrap;
+        overflow: hidden;
+        padding: 5px;
+        text-overflow: ellipsis;
+        width: 52vw;
+    }
+    .short-paragraph {
+        /*width: 52vw;*/
+    }
 </style>

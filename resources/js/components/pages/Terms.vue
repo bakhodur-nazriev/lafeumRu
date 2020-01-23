@@ -1,17 +1,19 @@
 <template>
     <v-content class="pa-0">
         <v-container>
-            <v-row>
+            <v-row justify="center">
+                <v-col cols="6">
+                    <v-text-field
+                        class="mb-1"
+                        hide-details
+                        solo
+                        label="Поиск"
+                        append-icon="mdi-magnify"
+                        v-model="search"
+                    >
+                    </v-text-field>
+                </v-col>
                 <v-col cols="12">
-                    <v-col cols="6" offset="3">
-                        <v-text-field
-                            solo
-                            label="Поиск"
-                            append-icon="mdi-magnify"
-                            v-model="search"
-                        >
-                        </v-text-field>
-                    </v-col>
                     <v-data-table
                         :headers="headers"
                         :items="filteredTerms"
@@ -51,10 +53,10 @@
                             <div v-html="item.body"/>
                         </template>
                     </v-data-table>
-                    <div class="text-center pt-2">
-                        <v-pagination v-model="page" :length="pageCount"></v-pagination>
-                    </div>
                 </v-col>
+                <div class="text-center pt-2">
+                    <v-pagination v-model="page" :length="pageCount"></v-pagination>
+                </div>
             </v-row>
         </v-container>
         <v-tooltip top>
@@ -76,7 +78,7 @@
         </v-tooltip>
 
         <!-- Add Item Dialog -->
-        <v-dialog v-model="dialogAdd" width="700px">
+        <v-dialog v-model="dialogAdd" width="780px">
             <v-card>
                 <v-card-title class="primary white--text">
                     Создать Термин
@@ -119,7 +121,7 @@
             </v-card>
         </v-dialog>
         <!-- Update Item Dialog -->
-        <v-dialog v-model="dialogUpdate" width="700px">
+        <v-dialog v-model="dialogUpdate" width="780px">
             <v-card>
                 <v-card-title class="primary white--text">
                     Изменить Термин
@@ -127,14 +129,6 @@
                 <v-container>
                     <v-row>
                         <v-col cols="12">
-                            <!--                            <v-textarea-->
-                            <!--                                name="body"-->
-                            <!--                                :rules="bodyRules"-->
-                            <!--                                required-->
-                            <!--                                label="Изменить термин здесь"-->
-                            <!--                                v-model="termToUpdate.body"-->
-                            <!--                            >-->
-                            <!--                            </v-textarea>-->
                             <tiptap-vuetify
                                 outlined
                                 name="body"
@@ -159,7 +153,6 @@
         <v-dialog v-model="dialogShowTerm"></v-dialog>
     </v-content>
 </template>
-
 <script>
     import {
         // component
@@ -277,7 +270,7 @@
                     });
             },
             updateTerm() {
-                console.log(this.termToUpdate);
+                // console.log(this.termToUpdate);
                 axios
                     .put("/api/terms/" + this.termToUpdate.id, this.termToUpdate)
                     .then(res => {
@@ -309,7 +302,6 @@
                     this.dialogUpdate = false;
                 }
             },
-
             termToDelete(value) {
                 if (value) {
                     this.dialogDelete = true;
@@ -325,8 +317,5 @@
                 });
             }
         },
-        created() {
-
-        }
     };
 </script>

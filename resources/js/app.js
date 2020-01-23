@@ -26,8 +26,7 @@ const iconsGroup = localStorage.getItem("current_icons_group") || "fa";
 Vue.use(Vuetify);
 Vue.use(TiptapVuetifyPlugin, {
     vuetify,
-    // "md" (default), "fa", "mdi",
-    iconsGroup: 'mdi' // same as "iconsGroup: iconsGroup"
+    iconsGroup: 'mdi'
 });
 
 const vuetifyOptions = {
@@ -50,14 +49,14 @@ const vuetifyOptions = {
 };
 
 // use this package's plugin
-Vue.use(TiptapVuetifyPlugin, {
-    iconsGroup: 'md'
-})
+// Vue.use(TiptapVuetifyPlugin, {
+//     iconsGroup: 'mdi'
+// })
 
 Vue.component("admin-dashboard", require("./components/pages/Home.vue").default);
 Vue.component("Search", require("./components/layouts/Navbar.vue").default);
 Vue.component("pagination", require("laravel-vue-pagination"));
-// Vue.component("TiptapVuetify");
+// Vue.component("tiptap-vuetify", require("tiptap-vuetify"));
 
 const app = new Vue({
     el: "#app",

@@ -331,13 +331,3 @@
         }
     };
 </script>
-
-<style>
-    .v-application
-    .error--text,
-    .primary--text,
-    .primary,
-    .error {
-        outline: none;
-    }
-</style>

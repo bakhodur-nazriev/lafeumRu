@@ -16,7 +16,24 @@ class VideosController extends Controller
 
     public function get()
     {
-        $videos = Video::with('channel')->get();
-        return response()->json($videos);
+        return Video::with('channel')->latest()->get();
+
+    }
+
+    public function store(Request $request)
+    {
+        return Video::create($request->all());
+    }
+
+    public function update(Request $request, $id)
+    {
+        $video = Video::find($id);
+        return $video->update($request->all());
+    }
+
+    public function delete($id)
+    {
+        Video::destroy($id);
+        return response()->json("ok");
     }
 }

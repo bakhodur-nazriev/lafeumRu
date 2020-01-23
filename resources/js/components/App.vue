@@ -22,7 +22,27 @@
 </script>
 
 <style>
-    .v-application p{
+    .v-application p {
         margin-bottom: 0;
+    }
+
+    .theme--light.v-data-table thead tr:last-child th {
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    .v-application
+    .error--text {
+        outline: none;
+    }
+
+    .v-application
+    .primary--text {
+        outline: none;
+    }
+
+    .v-application
+    .primary {
+        outline: none;
     }
 </style>

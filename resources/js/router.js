@@ -11,6 +11,7 @@ import Photos from "./components/pages/Photos";
 import Terms from "./components/pages/Terms";
 import KnowledgeAreas from "./components/pages/KnowledgeAreas";
 import Videos from "./components/pages/Videos";
+import Channels from "./components/pages/Channels";
 
 Vue.use(VueRouter);
 export default new VueRouter({
@@ -71,6 +72,11 @@ export default new VueRouter({
             path: "/dashboard/videos",
             name: "/dashboard/videos",
             component: Videos
+        },
+        {
+            path: "/dashboard/channels",
+            name: "/dashboard/channels",
+            component: Channels
         }
     ]
 });

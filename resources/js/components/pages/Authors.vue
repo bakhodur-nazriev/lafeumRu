@@ -169,13 +169,20 @@
                             </v-file-input>
                         </v-col>
                         <v-col cols="12">
-                            <v-textarea
-                                outlined
+                            <!--                            <v-textarea-->
+                            <!--                                outlined-->
+                            <!--                                name="biography"-->
+                            <!--                                label="Изменить биографию автора"-->
+                            <!--                                :value="authorToUpdate.biography"-->
+                            <!--                            >-->
+                            <!--                            </v-textarea>-->
+
+                            <tiptap-vuetify
                                 name="biography"
-                                label="Изменить биографию автора"
-                                :value="authorToUpdate.biography"
+                                v-model="authorToUpdate.biography"
+
                             >
-                            </v-textarea>
+                            </tiptap-vuetify>
                         </v-col>
                     </v-row>
                 </v-container>
@@ -190,11 +197,59 @@
         <v-dialog v-model="dialogShowAuthor"></v-dialog>
     </v-content>
 </template>
-
 <script>
+    import {
+        // component
+        TiptapVuetify,
+        // extensions
+        Heading,
+        Bold,
+        Italic,
+        Strike,
+        Underline,
+        Code,
+        Paragraph,
+        BulletList,
+        OrderedList,
+        ListItem,
+        Link,
+        Blockquote,
+        HardBreak,
+        HorizontalRule,
+        History,
+        Image
+    } from 'tiptap-vuetify';
+
     export default {
         data() {
             return {
+                extensions: [
+                    History,
+                    Blockquote,
+                    Link,
+                    Underline,
+                    Strike,
+                    Italic,
+                    ListItem, // if you need to use a list (BulletList, OrderedList)
+                    BulletList,
+                    OrderedList,
+                    Image,
+                    [
+                        Heading,
+                        {
+                            // Options that fall into the tiptap's extension
+                            options: {
+                                levels: [1, 2, 3]
+                            }
+                        }
+                    ],
+                    Bold,
+                    Link,
+                    Code,
+                    HorizontalRule,
+                    Paragraph,
+                    HardBreak // line break on Shift + Ctrl + Enter
+                ],
                 authorName: "",
                 authorBiography: "",
                 authorPhoto: [],

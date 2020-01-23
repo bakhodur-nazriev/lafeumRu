@@ -22,7 +22,7 @@ class AuthorsController extends Controller
     {
         $photo = $request->file('photo');
         $fileName = $photo->getClientOriginalName();
-        $photo->move('/home/bakhodur/Desktop/MyProjects/lafeum/public/img/authors',$fileName);
+        $photo->move('/home/bakhodur/Desktop/MyProjects/lafeum/public/img/authors', $fileName);
 
         return "success";
         // return Author::create($request->all());
@@ -33,7 +33,7 @@ class AuthorsController extends Controller
         $author = Author::find($id);
         $author->update($request->all());
         $author->save();
-//        return response()->json($author);
+        return response()->json($author);
     }
 
     public function delete($id)

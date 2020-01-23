@@ -31,7 +31,6 @@ class QuotesController extends Controller
         $quote = Quote::find($id);
         return $quote->update($request->all());
         // return response()->json($quote);
-        // return 'hello lola';
     }
 
     public function delete($id)

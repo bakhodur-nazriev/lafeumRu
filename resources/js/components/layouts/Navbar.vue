@@ -85,7 +85,7 @@
                         </v-list-item>
                     </v-list-group>
                 </div>
-            </v-list dark shaped>
+            </v-list>
         </v-navigation-drawer>
     </nav>
 </template>

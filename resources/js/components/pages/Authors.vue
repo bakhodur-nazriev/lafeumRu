@@ -15,6 +15,7 @@
                 </v-col>
                 <v-col cols="12">
                     <v-data-table
+                        :click="authorToDelete"
                         :headers="headers"
                         :items="filteredAuthors"
                         :items-per-page="itemsPerPage"
@@ -58,6 +59,16 @@
                                 <v-icon dark>mdi-delete</v-icon>
                             </v-btn>
                         </template>
+                        <template v-slot:item.photo="{ item }">
+                            <v-avatar size="78" class="ma-2">
+                                <v-img
+                                    :src="item.photo"
+                                    :alt="item.name"
+                                    max-width="6rem"
+                                >
+                                </v-img>
+                            </v-avatar>
+                        </template>
                     </v-data-table>
                     <v-col cols="4" offset="4">
                         <v-pagination
@@ -70,7 +81,6 @@
                 </v-col>
             </v-row>
         </v-container>
-
         <v-tooltip top>
             <template v-slot:activator="{ on }">
                 <v-btn
@@ -88,20 +98,19 @@
             </template>
             <span>Добавить цитату</span>
         </v-tooltip>
-
         <!-- Add Item Dialog -->
-        <v-dialog v-model="dialogAdd" width="600px">
+        <v-dialog v-model="dialogAdd" width="780px">
             <v-card>
                 <v-card-title class="primary white--text">
                     Создать Автора
                 </v-card-title>
                 <v-container>
-                    <v-row>
+                    <v-row justify="center">
                         <v-col cols="12">
                             <v-text-field
                                 outlined
                                 name="name"
-                                label="Имя"
+                                label="Имя автора"
                                 v-model="authorName"
                             >
                             </v-text-field>
@@ -113,27 +122,26 @@
                                 label="Выберите фото"
                                 v-model="authorPhoto"
                                 prepend-icon=""
-                                prepend-inner-icon="mdi-paperclip"
+                                prepend-inner-icon="mdi-camera"
                             >
                             </v-file-input>
                         </v-col>
                         <v-col cols="12">
-                            <v-textarea
+                            <tiptap-vuetify
+                                elevation="0"
                                 outlined
                                 name="biography"
-                                label="Биография"
+                                label="Биография автора"
                                 v-model="authorBiography"
                             >
-                            </v-textarea>
+                            </tiptap-vuetify>
                         </v-col>
                     </v-row>
                 </v-container>
                 <v-card-actions>
                     <v-spacer/>
                     <v-btn dark color="green" @click="addAuthor()">Сохранить</v-btn>
-                    <v-btn dark color="error" @click="() => (dialogAdd = false)"
-                    >Отмена
-                    </v-btn>
+                    <v-btn dark color="error" @click="() => (dialogAdd = false)">Отмена</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -154,13 +162,13 @@
             </v-card>
         </v-dialog>
         <!-- Update Item Dialog -->
-        <v-dialog v-model="dialogUpdate" width="600px">
+        <v-dialog v-model="dialogUpdate" width="780px">
             <v-card>
                 <v-card-title class="primary white--text">
                     Изменить Автора
                 </v-card-title>
                 <v-container>
-                    <v-row>
+                    <v-row justify="center">
                         <v-col cols="12">
                             <v-text-field
                                 outlined
@@ -173,17 +181,19 @@
                             <v-file-input
                                 outlined
                                 name="photo"
-                                prepend-icon="mdi-camera"
                                 label="Изменить фото"
+                                prepend-icon=""
+                                prepend-inner-icon="mdi-camera"
                                 :value="authorToUpdate.photo"
                             >
                             </v-file-input>
                         </v-col>
                         <v-col cols="12">
                             <tiptap-vuetify
-                                name="biography"
-                                v-model="authorToUpdate.biography"
+                                outlined
+                                v-model="authorToUpdate"
                                 :extensions="extensions"
+                                placeholder="Добаить биографию здесь"
                             >
                             </tiptap-vuetify>
                         </v-col>
@@ -241,6 +251,7 @@
     } from 'tiptap-vuetify';
 
     export default {
+        components: {TiptapVuetify},
         data() {
             return {
                 extensions: [
@@ -300,19 +311,18 @@
                 headers: [
                     {
                         text: "Имя",
-                        align: "center",
-                        value: "name"
+                        value: "name",
+                        sortable: false
                     },
                     {
                         text: "Фото",
-                        value: "image",
+                        value: "photo",
                         align: "center",
                         sortable: false
                     },
                     {
                         text: "Биография",
                         value: "biography",
-                        align: "center",
                         sortable: false
                     },
                     {
@@ -334,6 +344,7 @@
                     .get("/api/authors")
                     .then(res => {
                         this.authors = res.data;
+                        console.log(this.authors);
                     })
                     .catch(err => {
                         console.log(err);
@@ -342,7 +353,6 @@
             addAuthor() {
                 const formData = new FormData();
                 formData.append("photo", this.authorPhoto);
-
                 axios
                     .post("/api/authors", formData, {
                         "Content-Type": "multipart/form-data"
@@ -399,7 +409,6 @@
                     this.dialogUpdate = false;
                 }
             },
-
             authorToDelete(value) {
                 if (value) {
                     this.dialogDelete = true;

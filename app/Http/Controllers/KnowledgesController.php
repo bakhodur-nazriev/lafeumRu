@@ -15,8 +15,7 @@ class KnowledgesController extends Controller
 
     public function get()
     {
-        $knowledgeAreas = Knowledge::all();
-        return response()->json($knowledgeAreas);
+        return $knowledgeAreas = Knowledge::latest()->get();
     }
 
     public function store(Request $request)

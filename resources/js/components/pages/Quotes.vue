@@ -49,9 +49,9 @@
                                 </v-icon>
                             </v-btn>
                         </template>
-                        <!-- <template v-slot:item.index="item">-->
-                        <!--    {{ getIndex() }}-->
-                        <!-- </template>-->
+                        <!-- <template v-slot:item.index="item"> -->
+                        <!--    {{ getIndex() }} -->
+                        <!-- </template> -->
                     </v-data-table>
                     <div class="text-center pt-2">
                         <v-pagination v-model="page" :length="pageCount"></v-pagination>
@@ -76,7 +76,6 @@
             </template>
             <span>Добавить цитату</span>
         </v-tooltip>
-
         <!-- Add Item Dialog -->
         <v-dialog v-model="dialogAdd" width="600px">
             <v-card>
@@ -174,7 +173,7 @@
             </v-card>
         </v-dialog>
         <!-- Show Quote Dialog -->
-        <v-dialog v-model="dialogShowQuote"></v-dialog>
+        <v-dialog v-model="dialogShow"></v-dialog>
     </v-content>
 </template>
 
@@ -208,7 +207,7 @@
                 page: 1,
                 pageCount: 2,
                 pagination: {},
-                dialogShowQuote: false,
+                dialogShow: false,
                 dialogAdd: false,
                 dialogDelete: false,
                 dialogUpdate: false,
@@ -240,7 +239,6 @@
         },
         mounted() {
             this.loadQuotes();
-
             axios
                 .get("/api/authors")
                 .then(res => {

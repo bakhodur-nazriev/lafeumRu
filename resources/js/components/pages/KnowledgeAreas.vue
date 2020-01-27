@@ -85,39 +85,36 @@
             </template>
             <span>Добавить видео</span>
         </v-tooltip>
-
         <!-- Add Item Dialog -->
         <v-dialog v-model="dialogAdd" width="780px">
             <v-card>
                 <v-card-title class="primary white--text">
                     Создать области знаний
                 </v-card-title>
-                <v-form>
-                    <v-container>
-                        <v-row justify="center">
-                            <v-col cols="12">
-                                <v-text-field
-                                    outlined
-                                    required
-                                    name="name"
-                                    v-model="knowledgeAreaName"
-                                    label="Добаить имя области знаний"
-                                >
-                                </v-text-field>
-                            </v-col>
-                            <v-col cols="12">
-                                <tiptap-vuetify
-                                    outlined
-                                    name="description"
-                                    :extensions="extensions"
-                                    v-model="knowledgeAreaDescription"
-                                    label="Добавить описания области знаний"
-                                >
-                                </tiptap-vuetify>
-                            </v-col>
-                        </v-row>
-                    </v-container>
-                </v-form>
+                <v-container>
+                    <v-row justify="center">
+                        <v-col cols="12">
+                            <v-text-field
+                                outlined
+                                required
+                                name="name"
+                                v-model="knowledgeAreaName"
+                                label="Добаить имя области знаний"
+                            >
+                            </v-text-field>
+                        </v-col>
+                        <v-col cols="12">
+                            <tiptap-vuetify
+                                outlined
+                                name="description"
+                                :extensions="extensions"
+                                v-model="knowledgeAreaDescription"
+                                label="Добавить описания области знаний"
+                            >
+                            </tiptap-vuetify>
+                        </v-col>
+                    </v-row>
+                </v-container>
                 <v-card-actions>
                     <v-spacer/>
                     <v-btn dark color="green" @click="addKnowledgeArea()">Сохранить</v-btn>
@@ -171,25 +168,24 @@
                 <v-card-actions>
                     <v-spacer/>
                     <v-btn dark color="green" @click="updateKnowledgeArea()">Сохранить</v-btn>
-                    <v-btn dark color="error" @click="dialogUpdate = false"
-                    >Отмена
-                    </v-btn>
+                    <v-btn dark color="error" @click="dialogUpdate = false">Отмена</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
         <!-- Show Quote Dialog -->
         <v-dialog v-model="dialogShow" width="780px">
-            <card>
-                <h1>Hello World</h1>
-            </card>
-            <v-card-action>
-                <v-spacer/>
-                <v-btn dark color="error" @click="dialogShow = false">Закрыть</v-btn>
-            </v-card-action>
+            <v-card>
+                <v-card-title>
+                    <h1>Hello World</h1>
+                </v-card-title>
+                <v-card-actions>
+                    <v-spacer/>
+                    <v-btn dark color="error" @click="dialogShow = false">Закрыть</v-btn>
+                </v-card-actions>
+            </v-card>
         </v-dialog>
     </v-content>
 </template>
-
 <script>
     import {
         // component
@@ -217,8 +213,8 @@
         components: {TiptapVuetify},
         data() {
             return {
-                knowledgeAreaName: '',
-                knowledgeAreaDescription: '',
+                knowledgeAreaName: "",
+                knowledgeAreaDescription: "",
                 knowledgeAreaToDelete: {
                     name: null,
                     description: null
@@ -235,7 +231,7 @@
                 dialogAdd: false,
                 dialogUpdate: false,
                 dialogDelete: false,
-                dialogShow: false,
+                dialogShow: true,
                 knowledgeAreas: [],
                 page: 1,
                 pageCount: 2,
@@ -311,7 +307,7 @@
                         this.dialogAdd = false;
                     })
                     .catch((err) => {
-                        console.log(err.res.data)
+                        console.log(err)
                     });
             },
             updateKnowledgeArea() {

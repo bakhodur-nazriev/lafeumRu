@@ -17,11 +17,9 @@ const vuetify = new Vuetify({
     }
 });
 
-// Route information for Vue Router
 import router from "./router.js";
 import App from "./components/App";
 
-// you don't need it. this is for example purposes
 const iconsGroup = localStorage.getItem("current_icons_group") || "fa";
 Vue.use(Vuetify);
 Vue.use(TiptapVuetifyPlugin, {

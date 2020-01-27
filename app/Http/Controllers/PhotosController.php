@@ -15,7 +15,26 @@ class PhotosController extends Controller
 
     public function get()
     {
-        $photos = Photo::all();
-        return response()->json($photos);
+        return $photos = Photo::latest()->get();
+    }
+
+    protected function store(Request $request)
+    {
+        $photo = $request->file('photo');
+        $fileName = $photo->getClientOriginalName();
+        $photo->move('/home/bakhodur/Desktop/MyProjects/lafeum/public/img/photos', $fileName);
+
+        $photo->description = $request->description;
+        $photo->save();
+        return "success";
+    }
+
+    protected function update(Request $request, $id)
+    {
+    }
+
+    protected function delete($id)
+    {
+        return Photo::destroy($id);
     }
 }

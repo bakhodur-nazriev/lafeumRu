@@ -10,6 +10,6 @@ $factory->define(Author::class, function (Faker $faker) {
     return [
         'name' => $faker->name(),
         'biography' => $faker->sentence(),
-        'photo' => $faker->imageUrl()
+        'photo' => "https://placebeard.it/640x360"
     ];
 });

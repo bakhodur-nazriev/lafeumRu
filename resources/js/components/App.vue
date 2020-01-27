@@ -56,4 +56,8 @@
     .short-paragraph {
         /*width: 52vw;*/
     }
+
+    .mine-table-headers{
+        font-size: 18px;
+    }
 </style>

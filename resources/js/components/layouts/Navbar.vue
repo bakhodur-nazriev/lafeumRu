@@ -1,17 +1,15 @@
 <template>
     <nav>
-        <v-app-bar app color="grey--text" flat>
+        <v-app-bar app color="grey--text white" flat>
             <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
             <v-toolbar-title
                 class="text-uppercase grey--text">
                 <span>Lafeum</span>
             </v-toolbar-title>
             <v-spacer></v-spacer>
-
             <v-btn icon>
                 <v-icon>mdi-bell</v-icon>
             </v-btn>
-
             <v-menu offset-y>
                 <template v-slot:activator="{ on }">
                     <v-btn class="grey--text" text v-on="on">
@@ -31,12 +29,10 @@
                 </v-list>
             </v-menu>
             <!-- dropdown menu -->
-
             <v-btn text dark color="grey" @click="$refs.logoutform.submit()">
                 <span>Выход</span>
                 <v-icon right>mdi-exit-to-app</v-icon>
             </v-btn>
-
             <form
                 ref="logoutform"
                 action="/logout"
@@ -46,7 +42,6 @@
                 <input type="hidden" name="_token" :value="csrf"/>
             </form>
         </v-app-bar>
-
         <v-navigation-drawer v-model="drawer" class="primary" app>
             <v-layout column align-center>
                 <v-flex class="mt-5 text-center">

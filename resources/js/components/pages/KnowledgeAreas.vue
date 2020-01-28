@@ -95,8 +95,8 @@
                     <v-row justify="center">
                         <v-col cols="12">
                             <v-text-field
+                                hide-details
                                 outlined
-                                required
                                 name="name"
                                 v-model="knowledgeAreaName"
                                 label="Добаить имя области знаний"
@@ -262,25 +262,22 @@
                     Underline,
                     Strike,
                     Italic,
-                    ListItem, // if you need to use a list (BulletList, OrderedList)
+                    ListItem,
                     BulletList,
                     OrderedList,
                     Image,
                     [
                         Heading,
                         {
-                            // Options that fall into the tiptap's extension
                             options: {
                                 levels: [1, 2, 3]
                             }
                         }
                     ],
                     Bold,
-                    Link,
-                    Code,
                     HorizontalRule,
                     Paragraph,
-                    HardBreak // line break on Shift + Ctrl + Enter
+                    HardBreak
                 ]
             }
         },
@@ -289,7 +286,7 @@
         },
         methods: {
             loadKnowledgeAreas() {
-                axios.get('/api/knowledge_areas').then(res => {
+                axios.get('/api/knowledge-areas').then(res => {
                     this.knowledgeAreas = res.data;
                 }).catch(err => {
                     console.log(err);
@@ -297,12 +294,12 @@
             },
             addKnowledgeArea() {
                 axios
-                    .post('/api/knowledge_areas/', {
+                    .post('/api/knowledge-areas/', {
                         name: this.knowledgeAreaName,
                         description: this.knowledgeAreaDescription
                     })
                     .then(res => {
-                        console.log(res);
+                        // console.log(res);
                         this.loadKnowledgeAreas()
                         this.dialogAdd = false;
                     })
@@ -312,7 +309,7 @@
             },
             updateKnowledgeArea() {
                 axios
-                    .put('/api/knowledge_areas/' + this.knowledgeAreaToUpdate.id, this.knowledgeAreaToUpdate)
+                    .put('/api/knowledge-areas/' + this.knowledgeAreaToUpdate.id, this.knowledgeAreaToUpdate)
                     .then(res => {
                         console.log(res);
                         this.loadKnowledgeAreas();
@@ -324,7 +321,7 @@
             },
             deleteKnowledgeArea() {
                 axios
-                    .delete('/api/knowledge_areas/' + this.knowledgeAreaToDelete.id)
+                    .delete('/api/knowledge-areas/' + this.knowledgeAreaToDelete.id)
                     .then(res => {
                         console.log(res);
                         this.loadKnowledgeAreas();

@@ -39,6 +39,17 @@
                                 fab
                                 dark
                                 small
+                                color="primary"
+                                elevation="2"
+                                outlined
+                                @click="termToShow = item"
+                            >
+                                <v-icon dark>mdi-file-eye-outline</v-icon>
+                            </v-btn>
+                            <v-btn
+                                fab
+                                dark
+                                small
                                 color="error"
                                 elevation="2"
                                 outlined
@@ -78,27 +89,35 @@
         </v-tooltip>
 
         <!-- Add Item Dialog -->
-        <v-dialog v-model="dialogAdd" width="780px">
+        <v-dialog v-model="dialogAdd" width="700px">
             <v-card>
                 <v-card-title class="primary white--text">
                     Создать Термин
                 </v-card-title>
-                <v-form v-model="valid">
-                    <v-container>
-                        <v-row>
-                            <v-col cols="12">
-                                <tiptap-vuetify
-                                    outlined
-                                    required
-                                    v-model="termBody"
-                                    :extensions="extensions"
-                                    placeholder="Добаить термин здесь"
-                                >
-                                </tiptap-vuetify>
-                            </v-col>
-                        </v-row>
-                    </v-container>
-                </v-form>
+                <v-container>
+                    <v-row justify="center">
+                        <v-col cols="12">
+                            <v-text-field
+                                hide-details
+                                outlined
+                                v-model="termName"
+                                name="name"
+                                label="Добаить названия для термин здесь"
+                            >
+                            </v-text-field>
+                        </v-col>
+                        <v-col cols="12">
+                            <tiptap-vuetify
+                                outlined
+                                name="body"
+                                v-model="termBody"
+                                :extensions="extensions"
+                                placeholder="Добаить описания для термин здесь"
+                            >
+                            </tiptap-vuetify>
+                        </v-col>
+                    </v-row>
+                </v-container>
                 <v-card-actions>
                     <v-spacer/>
                     <v-btn dark color="green" @click="addTerm()">Сохранить</v-btn>
@@ -121,7 +140,7 @@
             </v-card>
         </v-dialog>
         <!-- Update Item Dialog -->
-        <v-dialog v-model="dialogUpdate" width="780px">
+        <v-dialog v-model="dialogUpdate" width="700px">
             <v-card>
                 <v-card-title class="primary white--text">
                     Изменить Термин
@@ -148,7 +167,7 @@
             </v-card>
         </v-dialog>
         <!-- Show Quote Dialog -->
-        <v-dialog v-model="dialogShowTerm"></v-dialog>
+        <v-dialog v-model="dialogShow"></v-dialog>
     </v-content>
 </template>
 <script>
@@ -161,7 +180,6 @@
         Italic,
         Strike,
         Underline,
-        Code,
         Paragraph,
         BulletList,
         OrderedList,
@@ -199,8 +217,6 @@
                         }
                     ],
                     Bold,
-                    Link,
-                    Code,
                     HorizontalRule,
                     Paragraph,
                     HardBreak // line break on Shift + Ctrl + Enter
@@ -209,7 +225,8 @@
                 dialogAdd: false,
                 dialogDelete: false,
                 dialogUpdate: false,
-                dialogShowTerm: false,
+                dialogShow: false,
+                termName: "",
                 termBody: "",
                 bodyRules: [
                     v => !!v || 'Заполните пустое поле',
@@ -219,9 +236,15 @@
                 page: 1,
                 pageCount: 2,
                 itemsPerPage: 12,
-                termToDelete: {body: null},
-                termToUpdate: {body: null},
+                termToDelete: {name: null, body: null},
+                termToUpdate: {name: null, body: null},
+                termToShow: {name: null, body: null},
                 headers: [
+                    {
+                        text: "Названия",
+                        value: "name",
+                        sortable: false,
+                    },
                     {
                         text: "Термины",
                         value: "body",
@@ -247,7 +270,6 @@
                     .get("/api/terms")
                     .then(res => {
                         this.terms = res.data;
-                        console.log(res.data);
                     })
                     .catch(err => {
                         console.log(err);
@@ -256,19 +278,18 @@
             addTerm() {
                 axios
                     .post("/api/terms/", {
+                        name: this.termName,
                         body: this.termBody
                     })
                     .then(res => {
-                        console.log(res);
                         this.loadTerms();
                         this.dialogAdd = false;
                     })
                     .catch(err => {
-                        console.log(err.res.data);
+                        console.log(err);
                     });
             },
             updateTerm() {
-                // console.log(this.termToUpdate);
                 axios
                     .put("/api/terms/" + this.termToUpdate.id, this.termToUpdate)
                     .then(res => {
@@ -293,6 +314,13 @@
             },
         },
         watch: {
+            termToShow(value) {
+                if (value) {
+                    this.dialogShow = true;
+                } else {
+                    this.dialogShow = false;
+                }
+            },
             termToUpdate(value) {
                 if (value) {
                     this.dialogUpdate = true;

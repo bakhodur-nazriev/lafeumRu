@@ -8,6 +8,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Term::class, function (Faker $faker) {
     return [
+        'name' => $faker->name,
         'body' => $faker->text
     ];
 });

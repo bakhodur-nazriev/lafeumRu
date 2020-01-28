@@ -29,8 +29,9 @@ class QuotesController extends Controller
     public function update(Request $request, $id)
     {
         $quote = Quote::find($id);
-        return $quote->update($request->all());
-        // return response()->json($quote);
+        $quote->update($request->all());
+        $quote->save();
+        return response()->json($quote);
     }
 
     public function delete($id)

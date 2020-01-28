@@ -60,4 +60,8 @@
     .mine-table-headers{
         font-size: 18px;
     }
+
+    .tiptap-vuetify-editor__toolbar .v-toolbar {
+        justify-content: center;
+    }
 </style>

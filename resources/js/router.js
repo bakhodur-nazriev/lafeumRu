@@ -64,8 +64,8 @@ export default new VueRouter({
             component: Terms
         },
         {
-            path: "/dashboard/knowledge_areas",
-            name: "/dashboard/knowledge_areas",
+            path: "/dashboard/knowledge-areas",
+            name: "/dashboard/knowledge-areas",
             component: KnowledgeAreas
         },
         {

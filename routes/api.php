@@ -31,10 +31,10 @@ Route::put('/terms/{id}', 'TermsController@update');
 Route::delete('/terms/{id}', 'TermsController@delete');
 
 //Knowledge Areas
-Route::get('/knowledge_areas', 'KnowledgesController@get');
-Route::post('/knowledge_areas', 'KnowledgesController@store');
-Route::put('/knowledge_areas/{id}', 'KnowledgesController@update');
-Route::delete('/knowledge_areas/{id}', 'KnowledgesController@delete');
+Route::get('/knowledge-areas', 'KnowledgesController@get');
+Route::post('/knowledge-areas', 'KnowledgesController@store');
+Route::put('/knowledge-areas/{id}', 'KnowledgesController@update');
+Route::delete('/knowledge-areas/{id}', 'KnowledgesController@delete');
 
 //Videos
 Route::get('/videos', 'VideosController@get');

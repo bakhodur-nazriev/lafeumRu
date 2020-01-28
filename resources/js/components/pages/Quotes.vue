@@ -23,6 +23,7 @@
                         hide-default-footer
                         class="elevation-2"
                     >
+
                         <template v-slot:item.action="{ item }">
                             <v-btn
                                 fab
@@ -39,19 +40,28 @@
                                 fab
                                 dark
                                 small
+                                color="primary"
+                                elevation="2"
+                                outlined
+                                @click="quoteToShow = item"
+                            >
+                                <v-icon dark>mdi-file-eye-outline</v-icon>
+                            </v-btn>
+                            <v-btn
+                                fab
+                                dark
+                                small
                                 color="error"
                                 elevation="2"
                                 outlined
                                 @click="quoteToDelete = item"
                             >
-                                <v-icon dark>
-                                    mdi-delete
-                                </v-icon>
+                                <v-icon dark>mdi-delete</v-icon>
                             </v-btn>
                         </template>
-                        <!-- <template v-slot:item.index="item"> -->
-                        <!--    {{ getIndex() }} -->
-                        <!-- </template> -->
+                        <template v-slot:item.body="{ item }">
+                            <div v-html="item.body" class="short-paragraph"></div>
+                        </template>
                     </v-data-table>
                     <div class="text-center pt-2">
                         <v-pagination v-model="page" :length="pageCount"></v-pagination>
@@ -77,7 +87,7 @@
             <span>Добавить цитату</span>
         </v-tooltip>
         <!-- Add Item Dialog -->
-        <v-dialog v-model="dialogAdd" width="600px">
+        <v-dialog v-model="dialogAdd" width="700">
             <v-card>
                 <v-card-title class="primary white--text">
                     Создать Цитату
@@ -86,60 +96,93 @@
                     <v-row>
                         <v-col cols="12">
                             <v-select
+                                hide-details
                                 outlined
                                 :items="authors"
                                 item-value="id"
                                 item-text="name"
                                 label="Автор"
-                                dense
                                 v-model="quoteAuthor"
                             >
                             </v-select>
                         </v-col>
                         <v-col cols="12">
-                            <v-textarea
+                            <tiptap-vuetify
                                 outlined
+                                :extensions="extensions"
                                 v-model="quoteBody"
-                                name="body"
                                 label="Добаить цитату здесь"
                             >
-                            </v-textarea>
+                            </tiptap-vuetify>
                         </v-col>
                     </v-row>
                 </v-container>
                 <v-card-actions>
                     <v-spacer/>
                     <v-btn dark color="green" @click="addQuote()">Сохранить</v-btn>
-                    <v-btn dark color="error" @click="() => (dialogAdd = false)"
-                    >Отмена
-                    </v-btn
-                    >
+                    <v-btn dark color="error" @click="() => (dialogAdd = false)">Отмена</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
         <!-- Delete Item Dialog -->
         <v-dialog v-model="dialogDelete" width="500">
             <v-card class="pa-2">
-                <v-card-title class="pt-1 regular headline text-center"
-                >Вы действительно хотите удалить эту цитату ?
+                <v-card-title class="pt-1 regular headline text-center">Вы действительно хотите удалить эту цитату ?
                 </v-card-title>
                 <v-card-actions class="justify-center">
-                    <v-btn color="green darken-1" dark @click="quoteToDelete = null"
-                    >Нет
-                    </v-btn
-                    >
+                    <v-btn color="green darken-1" dark @click="quoteToDelete = null">Нет</v-btn>
                     <v-btn color="red darken-1" dark @click="deleteQuote()">Да</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
         <!-- Update Item Dialog -->
-        <v-dialog v-model="dialogUpdate" width="600px">
+        <v-dialog v-model="dialogUpdate" width="700">
             <v-card>
                 <v-card-title class="primary white--text">
                     Изменить Цитату
                 </v-card-title>
                 <v-container>
-                    <v-row>
+                    <v-row justify="center">
+                        <v-col cols="12">
+                            <v-select
+                                hide-details
+                                outlined
+                                :items="authors"
+                                item-value="id"
+                                item-text="name"
+                                label="Авторы"
+                                :value="quoteToUpdate.author_id"
+                            >
+                            </v-select>
+                        </v-col>
+                        <v-col cols="12">
+                            <tiptap-vuetify
+                                :card-props="{ flat: true, color: '#f5f5f5' }"
+                                outlined
+                                :extensions="extensions"
+                                label="Изменить цитату здесь"
+                                :value="quoteToUpdate.body"
+                                name="body"
+                            >
+                            </tiptap-vuetify>
+                        </v-col>
+                    </v-row>
+                </v-container>
+                <v-card-actions>
+                    <v-spacer/>
+                    <v-btn dark color="green" @click="updateQuote()">Сохранить</v-btn>
+                    <v-btn dark color="error" @click="dialogUpdate = false">Отмена</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+        <!-- Show Quote Dialog -->
+        <v-dialog v-model="dialogShow" width="780">
+            <v-card>
+                <v-card-title class="primary white--text">
+                    Цитата
+                </v-card-title>
+                <v-container>
+                    <v-row justify="center">
                         <v-col cols="12">
                             <v-select
                                 outlined
@@ -148,7 +191,6 @@
                                 item-text="name"
                                 label="Авторы"
                                 :value="quoteToUpdate.author_id"
-                                dense
                             >
                             </v-select>
                         </v-col>
@@ -165,32 +207,63 @@
                 </v-container>
                 <v-card-actions>
                     <v-spacer/>
-                    <v-btn dark color="green" @click="updateQuote()">Сохранить</v-btn>
-                    <v-btn dark color="error" @click="dialogUpdate = false"
-                    >Отмена
-                    </v-btn>
+                    <v-btn dark color="error" @click="dialogUpdate = false">Закрыть</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
-        <!-- Show Quote Dialog -->
-        <v-dialog v-model="dialogShow"></v-dialog>
     </v-content>
 </template>
 
 <script>
-    // function* getIterator(index, maxIndex) {
-    //     let i = index;
-    //     while (i <= maxIndex + 1) {
-    //         if (i > maxIndex) {
-    //             i = index;
-    //         }
-    //         yield i++;
-    //     }
-    // }
+    import {
+        // component
+        TiptapVuetify,
+        // extensions
+        Heading,
+        Bold,
+        Italic,
+        Strike,
+        Underline,
+        Paragraph,
+        BulletList,
+        OrderedList,
+        ListItem,
+        Link,
+        Blockquote,
+        HardBreak,
+        HorizontalRule,
+        History,
+        Image
+    } from 'tiptap-vuetify';
 
     export default {
+        components: {TiptapVuetify},
         data() {
             return {
+                extensions: [
+                    History,
+                    Blockquote,
+                    Link,
+                    Underline,
+                    Strike,
+                    Italic,
+                    ListItem,
+                    BulletList,
+                    OrderedList,
+                    Image,
+                    [
+                        Heading,
+                        {
+                            options: {
+                                levels: [1, 2, 3]
+                            }
+                        }
+                    ],
+                    Bold,
+                    HorizontalRule,
+                    Paragraph,
+                    HardBreak
+                ],
                 quoteBody: "",
                 quoteAuthor: "",
                 search: "",
@@ -201,6 +274,10 @@
                     body: null
                 },
                 quoteToUpdate: {
+                    author_id: null,
+                    body: null
+                },
+                quoteToShow: {
                     author_id: null,
                     body: null
                 },
@@ -254,7 +331,6 @@
                     .get("/api/quotes")
                     .then(res => {
                         this.quotes = res.data;
-                        // this.indexIterator = getIterator(1, res.data.length);
                     })
                     .catch(err => {
                         console.log(err);
@@ -267,7 +343,6 @@
                         author_id: this.quoteAuthor
                     })
                     .then(res => {
-                        console.log(res);
                         this.loadQuotes();
                         this.dialogAdd = false;
                     })
@@ -282,7 +357,7 @@
                         author_id: this.authors.name
                     })
                     .then(res => {
-                        console.log(res);
+                        // console.log(res);
                         this.loadQuotes();
                         this.dialogUpdate = false;
                     })
@@ -300,12 +375,16 @@
                     .catch(err => {
                         console.log(err);
                     });
-            },
-            getIndex() {
-                return this.indexIterator.next().value;
             }
         },
         watch: {
+            quoteToShow(value) {
+                if (value) {
+                    this.dialogShow = true;
+                } else {
+                    this.dialogShow = false;
+                }
+            },
             quoteToUpdate(value) {
                 if (value) {
                     this.dialogUpdate = true;
@@ -313,7 +392,6 @@
                     this.dialogUpdate = false;
                 }
             },
-
             quoteToDelete(value) {
                 if (value) {
                     this.dialogDelete = true;

@@ -17,7 +17,7 @@
                         <a href="#">
                             <img src="/img/person-60.png" alt="" class="qouter-authors-image">{{ $quote->author->name }}
                         </a>
-                        <p>{{ $quote->body }}</p>
+                        <div>{!! $quote->body !!}</div>
 
                         <div class="tags-block">
                             @foreach($quote->tags as $tag)

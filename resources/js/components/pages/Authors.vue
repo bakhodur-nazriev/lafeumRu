@@ -128,6 +128,7 @@
                         </v-col>
                         <v-col cols="12">
                             <tiptap-vuetify
+                                :extensions="extensions"
                                 elevation="0"
                                 outlined
                                 name="biography"

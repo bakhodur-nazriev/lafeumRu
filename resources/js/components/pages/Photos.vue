@@ -379,7 +379,7 @@
         computed: {
             filteredPhotos() {
                 return this.photos.filter(photo => {
-                    return photos.description.toLowerCase().includes(this.search.toLowerCase());
+                    return photo.description.toLowerCase().includes(this.search.toLowerCase());
                 });
             }
         },

@@ -17,7 +17,7 @@ class CreateAuthorsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->text('biography');
-            $table->text('photo');
+            $table->text('photo')->nullable();
             $table->timestamps();
         });
     }

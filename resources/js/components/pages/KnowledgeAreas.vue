@@ -86,7 +86,7 @@
             <span>Добавить видео</span>
         </v-tooltip>
         <!-- Add Item Dialog -->
-        <v-dialog v-model="dialogAdd" width="780px">
+        <v-dialog v-model="dialogAdd" width="700px">
             <v-card>
                 <v-card-title class="primary white--text">
                     Создать области знаний
@@ -123,7 +123,7 @@
             </v-card>
         </v-dialog>
         <!-- Delete Item Dialog -->
-        <v-dialog v-model="dialogDelete" width="500">
+        <v-dialog v-if="knowledgeAreaToDelete" v-model="knowledgeAreaToDelete" width="500">
             <v-card class="pa-2">
                 <v-card-title class="pt-1 regular headline text-center">
                     Вы действительно хотите удалить этот область знаний ?
@@ -137,15 +137,16 @@
             </v-card>
         </v-dialog>
         <!-- Update Item Dialog -->
-        <v-dialog v-model="dialogUpdate" width="780px">
+        <v-dialog v-if="knowledgeAreaToUpdate" v-model="knowledgeAreaToUpdate" width="700px">
             <v-card>
                 <v-card-title class="primary white--text">
                     Изменить области зананий
                 </v-card-title>
                 <v-container>
-                    <v-row>
+                    <v-row justify="center">
                         <v-col cols="12">
                             <v-text-field
+                                hide-details
                                 outlined
                                 name="name"
                                 v-model="knowledgeAreaToUpdate.name"
@@ -173,7 +174,7 @@
             </v-card>
         </v-dialog>
         <!-- Show Quote Dialog -->
-        <v-dialog v-model="dialogShow" width="780px">
+        <v-dialog v-if="knowledgeAreaToShow" v-model="knowledgeAreaToShow" width="700px">
             <v-card>
                 <v-card-title>
                     <h1>Hello World</h1>
@@ -215,19 +216,34 @@
             return {
                 knowledgeAreaName: "",
                 knowledgeAreaDescription: "",
-                knowledgeAreaToDelete: {
-                    name: null,
-                    description: null
-                },
-                knowledgeAreaToUpdate: {
-                    name: null,
-                    description: null
-                },
-                knowledgeAreaToShow: {
-                    name: null,
-                    description: null
-                },
-                search: '',
+                extensions: [
+                    History,
+                    Blockquote,
+                    Link,
+                    Underline,
+                    Strike,
+                    Italic,
+                    ListItem,
+                    BulletList,
+                    OrderedList,
+                    Image,
+                    [
+                        Heading,
+                        {
+                            options: {
+                                levels: [1, 2, 3]
+                            }
+                        }
+                    ],
+                    Bold,
+                    HorizontalRule,
+                    Paragraph,
+                    HardBreak
+                ],
+                knowledgeAreaToDelete: null,
+                knowledgeAreaToUpdate: null,
+                knowledgeAreaToShow: null,
+                search: "",
                 dialogAdd: false,
                 dialogUpdate: false,
                 dialogDelete: false,
@@ -255,30 +271,6 @@
                         width: "160px"
                     }
                 ],
-                extensions: [
-                    History,
-                    Blockquote,
-                    Link,
-                    Underline,
-                    Strike,
-                    Italic,
-                    ListItem,
-                    BulletList,
-                    OrderedList,
-                    Image,
-                    [
-                        Heading,
-                        {
-                            options: {
-                                levels: [1, 2, 3]
-                            }
-                        }
-                    ],
-                    Bold,
-                    HorizontalRule,
-                    Paragraph,
-                    HardBreak
-                ]
             }
         },
         mounted() {
@@ -299,7 +291,6 @@
                         description: this.knowledgeAreaDescription
                     })
                     .then(res => {
-                        // console.log(res);
                         this.loadKnowledgeAreas()
                         this.dialogAdd = false;
                     })
@@ -323,36 +314,12 @@
                 axios
                     .delete('/api/knowledge-areas/' + this.knowledgeAreaToDelete.id)
                     .then(res => {
-                        console.log(res);
                         this.loadKnowledgeAreas();
                         this.dialogDelete = false;
                     })
                     .catch(err => {
                         console.log(err);
                     });
-            }
-        },
-        watch: {
-            knowledgeAreaToShow(value) {
-                if (value) {
-                    this.dialogShow = true;
-                } else {
-                    this.dialogShow = false;
-                }
-            },
-            knowledgeAreaToUpdate(value) {
-                if (value) {
-                    this.dialogUpdate = true;
-                } else {
-                    this.dialogUpdate = false;
-                }
-            },
-            knowledgeAreaToDelete(value) {
-                if (value) {
-                    this.dialogDelete = true;
-                } else {
-                    this.dialogDelete = false;
-                }
             }
         },
         computed: {

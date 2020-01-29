@@ -100,7 +100,7 @@
         </v-tooltip>
 
         <!-- Add Item Dialog -->
-        <v-dialog v-model="dialogAdd" width="780px">
+        <v-dialog v-model="dialogAdd" width="700px">
             <v-card>
                 <v-card-title class="primary white--text">
                     Создать Термин
@@ -109,11 +109,12 @@
                     <v-row justify="center">
                         <v-col cols="12">
                             <v-file-input
-                                outlined
-                                name="image"
+                                prepend-inner-icon="mdi-paperclip"
                                 label="Выберите фото"
                                 prepend-icon=""
-                                prepend-inner-icon="mdi-paperclip"
+                                name="image"
+                                hide-details
+                                outlined
                             >
 
                             </v-file-input>
@@ -138,7 +139,7 @@
             </v-card>
         </v-dialog>
         <!-- Delete Item Dialog -->
-        <v-dialog v-model="dialogDelete" width="500">
+        <v-dialog v-if="photoToDelete" v-model="photoToDelete" width="500">
             <v-card class="pa-2">
                 <v-card-title class="pt-1 regular headline text-center"
                 >Вы действительно хотите удалить это термин ?
@@ -152,7 +153,7 @@
             </v-card>
         </v-dialog>
         <!-- Update Item Dialog -->
-        <v-dialog v-model="dialogUpdate" width="780px">
+        <v-dialog v-if="photoToUpdate" v-model="photoToUpdate" width="700px">
             <v-card>
                 <v-card-title class="primary white--text">
                     Изменить Термин
@@ -179,7 +180,7 @@
             </v-card>
         </v-dialog>
         <!-- Show Quote Dialog -->
-        <v-dialog v-model="dialogShow" width="780px">
+        <v-dialog v-if="photoToShow" v-model="photoToShow" width="700px">
             <v-card>
                 <v-card-title class="primary white--text">
                     Фото
@@ -238,31 +239,28 @@
                     Underline,
                     Strike,
                     Italic,
-                    ListItem, // if you need to use a list (BulletList, OrderedList)
+                    ListItem,
                     BulletList,
                     OrderedList,
                     Image,
                     [
                         Heading,
                         {
-                            // Options that fall into the tiptap's extension
                             options: {
                                 levels: [1, 2, 3]
                             }
                         }
                     ],
                     Bold,
-                    Link,
-                    Code,
                     HorizontalRule,
                     Paragraph,
-                    HardBreak // line break on Shift + Ctrl + Enter
+                    HardBreak
                 ],
                 valid: false,
                 dialogAdd: false,
                 dialogDelete: false,
                 dialogUpdate: false,
-                dialogShow: true,
+                dialogShow: false,
                 photoImage: "",
                 photoDescription: "",
                 bodyRules: [
@@ -273,9 +271,9 @@
                 page: 1,
                 pageCount: 2,
                 itemsPerPage: 12,
-                photoToShow: {image: null, description: null},
-                photoToDelete: {image: null, description: null},
-                photoToUpdate: {body: null, description: null},
+                photoToShow: null,
+                photoToDelete: null,
+                photoToUpdate: null,
                 headers: [
                     {
                         text: "Фото",
@@ -309,7 +307,6 @@
                     .get("/api/photos/")
                     .then(res => {
                         this.photos = res.data;
-                        // console.log(res.data);
                     })
                     .catch(err => {
                         console.log(err);
@@ -318,10 +315,8 @@
             addTerm() {
                 axios
                     .post("/api/photos/", {
-                        // body: this.termBody
                     })
                     .then(res => {
-                        console.log(res);
                         this.loadPhotos();
                         this.dialogAdd = false;
                     })
@@ -333,7 +328,6 @@
                 axios
                     .put("/api/photos/" + this.photoToUpdate.id, this.photoToUpdate)
                     .then(res => {
-                        console.log(res);
                         this.loadPhotos();
                         this.dialogUpdate = false;
                     })
@@ -352,29 +346,6 @@
                         console.log(err);
                     });
             },
-        },
-        watch: {
-            photoToShow(value) {
-                if (value) {
-                    this.dialogShow = true;
-                } else {
-                    this.dialogShow = false;
-                }
-            },
-            photoToUpdate(value) {
-                if (value) {
-                    this.dialogUpdate = true;
-                } else {
-                    this.dialogUpdate = false;
-                }
-            },
-            photoToDelete(value) {
-                if (value) {
-                    this.dialogDelete = true;
-                } else {
-                    this.dialogDelete = false;
-                }
-            }
         },
         computed: {
             filteredPhotos() {

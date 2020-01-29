@@ -93,7 +93,7 @@
                     Создать Цитату
                 </v-card-title>
                 <v-container>
-                    <v-row>
+                    <v-row justify="center">
                         <v-col cols="12">
                             <v-select
                                 hide-details
@@ -125,9 +125,10 @@
             </v-card>
         </v-dialog>
         <!-- Delete Item Dialog -->
-        <v-dialog v-model="dialogDelete" width="500">
+        <v-dialog v-if="quoteToDelete" v-model="quoteToDelete" width="500">
             <v-card class="pa-2">
-                <v-card-title class="pt-1 regular headline text-center">Вы действительно хотите удалить эту цитату ?
+                <v-card-title class="pt-1 regular headline text-center"
+                >Вы действительно хотите удалить эту цитату ?
                 </v-card-title>
                 <v-card-actions class="justify-center">
                     <v-btn color="green darken-1" dark @click="quoteToDelete = null">Нет</v-btn>
@@ -136,7 +137,7 @@
             </v-card>
         </v-dialog>
         <!-- Update Item Dialog -->
-        <v-dialog v-model="dialogUpdate" width="700">
+        <v-dialog v-if="quoteToUpdate" v-model="quoteToUpdate" width="700">
             <v-card>
                 <v-card-title class="primary white--text">
                     Изменить Цитату
@@ -157,7 +158,6 @@
                         </v-col>
                         <v-col cols="12">
                             <tiptap-vuetify
-                                :card-props="{ flat: true, color: '#f5f5f5' }"
                                 outlined
                                 :extensions="extensions"
                                 label="Изменить цитату здесь"
@@ -176,7 +176,7 @@
             </v-card>
         </v-dialog>
         <!-- Show Quote Dialog -->
-        <v-dialog v-model="dialogShow" width="780">
+        <v-dialog v-if="quoteToShow" v-model="quoteToShow" width="700">
             <v-card>
                 <v-card-title class="primary white--text">
                     Цитата
@@ -269,18 +269,9 @@
                 search: "",
                 authors: [],
                 quotes: [],
-                quoteToDelete: {
-                    author_id: null,
-                    body: null
-                },
-                quoteToUpdate: {
-                    author_id: null,
-                    body: null
-                },
-                quoteToShow: {
-                    author_id: null,
-                    body: null
-                },
+                quoteToDelete: null,
+                quoteToUpdate: null,
+                quoteToShow: null,
                 page: 1,
                 pageCount: 2,
                 pagination: {},
@@ -293,7 +284,7 @@
                 indexIterator: null,
                 headers: [
                     {
-                        text: "Цитата",
+                        text: "Цитаты",
                         value: "body",
                         align: "left",
                         sortable: false
@@ -357,7 +348,6 @@
                         author_id: this.authors.name
                     })
                     .then(res => {
-                        // console.log(res);
                         this.loadQuotes();
                         this.dialogUpdate = false;
                     })
@@ -375,29 +365,6 @@
                     .catch(err => {
                         console.log(err);
                     });
-            }
-        },
-        watch: {
-            quoteToShow(value) {
-                if (value) {
-                    this.dialogShow = true;
-                } else {
-                    this.dialogShow = false;
-                }
-            },
-            quoteToUpdate(value) {
-                if (value) {
-                    this.dialogUpdate = true;
-                } else {
-                    this.dialogUpdate = false;
-                }
-            },
-            quoteToDelete(value) {
-                if (value) {
-                    this.dialogDelete = true;
-                } else {
-                    this.dialogDelete = false;
-                }
             }
         },
         computed: {

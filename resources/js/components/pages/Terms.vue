@@ -126,7 +126,7 @@
             </v-card>
         </v-dialog>
         <!-- Delete Item Dialog -->
-        <v-dialog v-model="dialogDelete" width="500">
+        <v-dialog v-if="termToDelete" v-model="termToDelete" width="500">
             <v-card class="pa-2">
                 <v-card-title class="pt-1 regular headline text-center"
                 >Вы действительно хотите удалить это термин ?
@@ -140,13 +140,21 @@
             </v-card>
         </v-dialog>
         <!-- Update Item Dialog -->
-        <v-dialog v-model="dialogUpdate" width="700px">
+        <v-dialog v-if="termToUpdate" v-model="termToUpdate" width="700px">
             <v-card>
                 <v-card-title class="primary white--text">
                     Изменить Термин
                 </v-card-title>
                 <v-container>
-                    <v-row>
+                    <v-row justify="center">
+                        <v-col cols="12">
+                            <v-text-field
+                                hide-details
+                                outlined
+                                label="Изменить название термина">
+                                :value="termToUpdate.name"
+                            </v-text-field>
+                        </v-col>
                         <v-col cols="12">
                             <tiptap-vuetify
                                 outlined
@@ -167,7 +175,7 @@
             </v-card>
         </v-dialog>
         <!-- Show Quote Dialog -->
-        <v-dialog v-model="dialogShow"></v-dialog>
+        <v-dialog v-if="termToShow" v-model="termToShow"></v-dialog>
     </v-content>
 </template>
 <script>
@@ -203,14 +211,13 @@
                     Underline,
                     Strike,
                     Italic,
-                    ListItem, // if you need to use a list (BulletList, OrderedList)
+                    ListItem,
                     BulletList,
                     OrderedList,
                     Image,
                     [
                         Heading,
                         {
-                            // Options that fall into the tiptap's extension
                             options: {
                                 levels: [1, 2, 3]
                             }
@@ -219,7 +226,7 @@
                     Bold,
                     HorizontalRule,
                     Paragraph,
-                    HardBreak // line break on Shift + Ctrl + Enter
+                    HardBreak
                 ],
                 valid: false,
                 dialogAdd: false,
@@ -236,9 +243,9 @@
                 page: 1,
                 pageCount: 2,
                 itemsPerPage: 12,
-                termToDelete: {name: null, body: null},
-                termToUpdate: {name: null, body: null},
-                termToShow: {name: null, body: null},
+                termToDelete: null,
+                termToUpdate: null,
+                termToShow: null,
                 headers: [
                     {
                         text: "Названия",
@@ -313,29 +320,29 @@
                     });
             },
         },
-        watch: {
-            termToShow(value) {
-                if (value) {
-                    this.dialogShow = true;
-                } else {
-                    this.dialogShow = false;
-                }
-            },
-            termToUpdate(value) {
-                if (value) {
-                    this.dialogUpdate = true;
-                } else {
-                    this.dialogUpdate = false;
-                }
-            },
-            termToDelete(value) {
-                if (value) {
-                    this.dialogDelete = true;
-                } else {
-                    this.dialogDelete = false;
-                }
-            }
-        },
+        // watch: {
+        //     termToShow(value) {
+        //         if (value) {
+        //             this.dialogShow = true;
+        //         } else {
+        //             this.dialogShow = false;
+        //         }
+        //     },
+        //     termToUpdate(value) {
+        //         if (value) {
+        //             this.dialogUpdate = true;
+        //         } else {
+        //             this.dialogUpdate = false;
+        //         }
+        //     },
+        //     termToDelete(value) {
+        //         if (value) {
+        //             this.dialogDelete = true;
+        //         } else {
+        //             this.dialogDelete = false;
+        //         }
+        //     }
+        // },
         computed: {
             filteredTerms() {
                 return this.terms.filter(term => {

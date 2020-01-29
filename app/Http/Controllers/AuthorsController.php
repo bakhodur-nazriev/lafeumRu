@@ -20,12 +20,19 @@ class AuthorsController extends Controller
 
     public function store(Request $request)
     {
-        $photo = $request->file('photo');
-        $fileName = $photo->getClientOriginalName();
-        $photo->move('/home/bakhodur/Desktop/MyProjects/lafeum/public/img/authors', $fileName);
-
+        $author = Author::create($request->all());
+        if ($request->hasfile('photo')) {
+            $file = $request->file('photo');
+            $extension = $file->getClientOriginalExtension(); //getting image extension
+            $filename = time() . '.' . $extension;
+            $file->move('/home/bakhodur/Desktop/MyProjects/lafeum/public/img/authors', $filename);
+            $author->photo = $filename;
+        } else {
+            return $request;
+            $author->photo = '';
+        }
+        $author->save();
         return "success";
-        // return Author::create($request->all());
     }
 
     public function update($id, Request $request)

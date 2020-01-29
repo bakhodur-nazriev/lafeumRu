@@ -24,10 +24,37 @@
                         class="elevation-1"
                     >
                         <template v-slot:item.action="{ item }">
-                            <v-btn fab dark small color="primary" elevation="2" outlined @click="channelToUpdate = {...item}">
+                            <v-btn
+                                fab
+                                dark
+                                small
+                                color="primary"
+                                elevation="2"
+                                outlined
+                                @click="channelToUpdate = {...item}"
+                            >
                                 <v-icon dark>mdi-pen</v-icon>
                             </v-btn>
-                            <v-btn fab dark small color="error" elevation="2" outlined @click="channelToDelete = item">
+                            <v-btn
+                                fab
+                                dark
+                                small
+                                color="primary"
+                                elevation="2"
+                                outlined
+                                @click="channelToShow = item"
+                            >
+                                <v-icon dark>mdi-file-eye-outline</v-icon>
+                            </v-btn>
+                            <v-btn
+                                fab
+                                dark
+                                small
+                                color="error"
+                                elevation="2"
+                                outlined
+                                @click="channelToDelete = item"
+                            >
                                 <v-icon dark>mdi-delete</v-icon>
                             </v-btn>
                         </template>
@@ -60,36 +87,33 @@
         </v-tooltip>
 
         <!-- Add Item Dialog -->
-        <v-dialog v-model="dialogAdd" width="755px">
+        <v-dialog v-model="dialogAdd" width="700px">
             <v-card>
                 <v-card-title class="primary white--text">
                     Создать Канал
                 </v-card-title>
-                <v-form>
-                    <v-container>
-                        <v-row>
-                            <v-col cols="12">
-                                <v-text-field
-                                    v-model="channelName"
-                                    label="Добаить назавния видео"
-                                    required
-                                    outlined
-                                >
-                                </v-text-field>
-                            </v-col>
-                            <v-col cols="12">
-                                <tiptap-vuetify
-                                    v-model="channelDescription"
-                                    label="Добавить описание к каналу"
-                                    :extensions="extensions"
-                                    outlined
-                                    required
-                                >
-                                </tiptap-vuetify>
-                            </v-col>
-                        </v-row>
-                    </v-container>
-                </v-form>
+                <v-container>
+                    <v-row justify="center">
+                        <v-col cols="12">
+                            <v-text-field
+                                label="Добаить назавния видео"
+                                v-model="channelName"
+                                hide-details
+                                outlined
+                            >
+                            </v-text-field>
+                        </v-col>
+                        <v-col cols="12">
+                            <tiptap-vuetify
+                                label="Добавить описание к каналу"
+                                v-model="channelDescription"
+                                :extensions="extensions"
+                                outlined
+                            >
+                            </tiptap-vuetify>
+                        </v-col>
+                    </v-row>
+                </v-container>
                 <v-card-actions>
                     <v-spacer/>
                     <v-btn dark color="green" @click="addChannel()">Сохранить</v-btn>
@@ -98,7 +122,7 @@
             </v-card>
         </v-dialog>
         <!-- Delete Item Dialog -->
-        <v-dialog v-model="dialogDelete" width="500">
+        <v-dialog v-if="channelToDelete" v-model="channelToDelete" width="500">
             <v-card class="pa-2">
                 <v-card-title class="pt-1 regular headline text-center">
                     Вы действительно хотите удалить этот канал ?
@@ -112,29 +136,30 @@
             </v-card>
         </v-dialog>
         <!-- Update Item Dialog -->
-        <v-dialog v-model="dialogUpdate" width="755px">
+        <v-dialog v-if="channelToUpdate" v-model="channelToUpdate" width="700px">
             <v-card>
                 <v-card-title class="primary white--text">
                     Изменить Канал
                 </v-card-title>
                 <v-container>
-                    <v-row>
+                    <v-row justify="center">
                         <v-col cols="12">
                             <v-text-field
-                                outlined
-                                name="name"
                                 v-model="channelToUpdate.name"
                                 label="Изменить имя канала"
+                                hide-details
+                                name="name"
+                                outlined
                             >
                             </v-text-field>
                         </v-col>
                         <v-col cols="12">
                             <tiptap-vuetify
-                                outlined
-                                :extensions="extensions"
-                                name="description"
                                 v-model="channelToUpdate.description"
                                 label="Изменить описание канала"
+                                :extensions="extensions"
+                                name="description"
+                                outlined
                             >
                             </tiptap-vuetify>
                         </v-col>
@@ -150,7 +175,7 @@
             </v-card>
         </v-dialog>
         <!-- Show Quote Dialog -->
-        <v-dialog v-model="dialogShowChannel"></v-dialog>
+        <v-dialog v-if="channelToShow" v-model="channelToShow"></v-dialog>
     </v-content>
 </template>
 
@@ -184,17 +209,12 @@
                 dialogAdd: false,
                 dialogDelete: false,
                 dialogUpdate: false,
-                dialogShowChannel: false,
-                channelName: '',
-                channelDescription: '',
-                channelToDelete: {
-                    name: null,
-                    description: null
-                },
-                channelToUpdate: {
-                    name: null,
-                    description: null
-                },
+                dialogShow: false,
+                channelName: "",
+                channelDescription: "",
+                channelToDelete: null,
+                channelToUpdate: null,
+                channelToShow: null,
                 channels: [],
                 search: "",
                 page: 1,
@@ -204,13 +224,11 @@
                     {
                         text: 'Названия',
                         value: 'name',
-                        align: "center",
                         sortable: false,
                     },
                     {
                         text: 'Описания',
                         value: 'description',
-                        align: "center",
                         sortable: false,
                     },
                     {
@@ -228,25 +246,22 @@
                     Underline,
                     Strike,
                     Italic,
-                    ListItem, // if you need to use a list (BulletList, OrderedList)
+                    ListItem,
                     BulletList,
                     OrderedList,
                     Image,
                     [
                         Heading,
                         {
-                            // Options that fall into the tiptap's extension
                             options: {
                                 levels: [1, 2, 3]
                             }
                         }
                     ],
                     Bold,
-                    Link,
-                    Code,
                     HorizontalRule,
                     Paragraph,
-                    HardBreak // line break on Shift + Ctrl + Enter
+                    HardBreak
                 ],
             }
         },
@@ -257,7 +272,6 @@
             loadChannels() {
                 axios.get('/api/channels').then(res => {
                     this.channels = res.data;
-                    console.log(this.channels);
                 }).catch(err => {
                     console.log(err);
                 });
@@ -269,7 +283,6 @@
                         'description': this.channelDescription
                     })
                     .then(res => {
-                        console.log(res);
                         this.loadChannels();
                         this.dialogAdd = false;
                     })
@@ -281,7 +294,6 @@
                 axios
                     .put('/api/channels/' + this.channelToUpdate.id, this.channelToUpdate)
                     .then(res => {
-                        console.log(res);
                         this.loadChannels();
                         this.dialogUpdate = false;
                     })
@@ -293,29 +305,12 @@
                 axios
                     .delete('/api/channels/' + this.channelToDelete.id)
                     .then(res => {
-                        console.log(res);
                         this.loadChannels();
                         this.dialogDelete = false;
                     })
                     .catch(err => {
                         console.log(err);
                     });
-            }
-        },
-        watch: {
-            channelToUpdate(value) {
-                if (value) {
-                    this.dialogUpdate = true;
-                } else {
-                    this.dialogUpdate = false;
-                }
-            },
-            channelToDelete(value) {
-                if (value) {
-                    this.dialogDelete = true;
-                } else {
-                    this.dialogDelete = false;
-                }
             }
         },
         computed: {

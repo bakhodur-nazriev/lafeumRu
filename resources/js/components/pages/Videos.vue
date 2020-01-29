@@ -39,6 +39,17 @@
                                 fab
                                 dark
                                 small
+                                color="primary"
+                                elevation="2"
+                                outlined
+                                @click="videoToShow = {...item}"
+                            >
+                                <v-icon dark>mdi-file-eye-outline</v-icon>
+                            </v-btn>
+                            <v-btn
+                                fab
+                                dark
+                                small
                                 color="error"
                                 elevation="2"
                                 outlined
@@ -48,6 +59,9 @@
                                     mdi-delete
                                 </v-icon>
                             </v-btn>
+                        </template>
+                        <template v-slot:item.duration="{ item }">
+                            <p v-html="item.duration + ' мин'"></p>
                         </template>
                     </v-data-table>
                 </v-col>
@@ -75,56 +89,56 @@
         </v-tooltip>
 
         <!-- Add Item Dialog -->
-        <v-dialog v-model="dialogAdd" width="780px">
+        <v-dialog v-model="dialogAdd" width="700px">
             <v-card>
                 <v-card-title class="primary white--text">
                     Создать Видео
                 </v-card-title>
-                <v-form>
-                    <v-container>
-                        <v-row>
-                            <v-col cols="12">
-                                <v-text-field
-                                    outlined
-                                    required
-                                    v-model="videoTitle"
-                                    placeholder="Добаить назавния видео"
-                                >
-                                </v-text-field>
-                            </v-col>
-                            <v-col cols="12">
-                                <v-select
-                                    :items="channels"
-                                    v-model="videoChannel"
-                                    item-value="id"
-                                    item-text="name"
-                                    label="Выберите канал"
-                                    outlined
-                                    dense
-                                >
-                                </v-select>
-                            </v-col>
-                            <v-col cols="12">
-                                <v-text-field
-                                    label="Добавить ссылку здесь"
-                                    outlined
-                                    name="link"
-                                    v-model="videoLink"
-                                >
-                                </v-text-field>
-                            </v-col>
-                            <v-col cols="12">
-                                <v-text-field
-                                    label="Добавить продольжительность здесь"
-                                    outlined
-                                    name="duration"
-                                    v-model="videoDuration"
-                                >
-                                </v-text-field>
-                            </v-col>
-                        </v-row>
-                    </v-container>
-                </v-form>
+                <v-container>
+                    <v-row justify="center">
+                        <v-col cols="12">
+                            <v-text-field
+                                label="Добаить назавния видео"
+                                v-model="videoTitle"
+                                hide-details
+                                outlined
+                            >
+                            </v-text-field>
+                        </v-col>
+                        <v-col cols="12">
+                            <v-select
+                                label="Выберите канал"
+                                v-model="videoChannel"
+                                item-text="name"
+                                item-value="id"
+                                hide-details
+                                outlined
+                                :items="channels"
+                            >
+                            </v-select>
+                        </v-col>
+                        <v-col cols="12">
+                            <v-text-field
+                                label="Добавить ссылку здесь"
+                                v-model="videoLink"
+                                hide-details
+                                name="link"
+                                outlined
+                            >
+                            </v-text-field>
+                        </v-col>
+                        <v-col cols="12">
+                            <v-text-field
+                                label="Добавить продольжительность здесь"
+                                v-model="videoDuration"
+                                name="duration"
+                                hide-details
+                                outlined
+                            >
+                            </v-text-field>
+                        </v-col>
+                    </v-row>
+                </v-container>
                 <v-card-actions>
                     <v-spacer/>
                     <v-btn dark color="green" @click="addVideo()">Сохранить</v-btn>
@@ -133,7 +147,7 @@
             </v-card>
         </v-dialog>
         <!-- Delete Item Dialog -->
-        <v-dialog v-model="dialogDelete" width="500">
+        <v-dialog v-if="videoToDelete" v-model="videoToDelete" width="500">
             <v-card class="pa-2">
                 <v-card-title class="pt-1 regular headline text-center">
                     Вы действительно хотите удалить это видео ?
@@ -147,7 +161,7 @@
             </v-card>
         </v-dialog>
         <!-- Update Item Dialog -->
-        <v-dialog v-model="dialogUpdate" width="780px">
+        <v-dialog v-if="videoToUpdate" v-model="videoToUpdate" width="700px">
             <v-card>
                 <v-card-title class="primary white--text">
                     Изменить Термин
@@ -175,7 +189,7 @@
             </v-card>
         </v-dialog>
         <!-- Show Quote Dialog -->
-        <v-dialog v-model="dialogShowVideo"></v-dialog>
+        <v-dialog v-if="videoToShow" v-model="videoToShow"></v-dialog>
     </v-content>
 </template>
 
@@ -183,26 +197,17 @@
     export default {
         data() {
             return {
-                dialogAdd: false,
+                dialogAdd: true,
                 dialogDelete: false,
                 dialogUpdate: false,
-                dialogShowVideo: false,
+                dialogShow: false,
                 videoChannel: '',
                 videoTitle: '',
                 videoLink: '',
                 videoDuration: '',
-                videoToDelete: {
-                    title: null,
-                    channel_id: null,
-                    link: null,
-                    duration: null
-                },
-                videoToUpdate: {
-                    title: null,
-                    channel_id: null,
-                    link: null,
-                    duration: null
-                },
+                videoToDelete: null,
+                videoToUpdate: null,
+                videoToShow: null,
                 videos: [],
                 channels: [],
                 search: "",
@@ -263,7 +268,6 @@
                     console.log(err);
                 });
             },
-
             addVideo() {
                 axios
                     .post('/api/videos/', {
@@ -273,7 +277,6 @@
                         'duration': this.videoDuration
                     })
                     .then(res => {
-                        console.log(res);
                         this.loadVideos();
                         this.dialogAdd = false;
                     })
@@ -281,12 +284,10 @@
                         console.log(err.res.data)
                     });
             },
-
             updateVideo() {
                 axios
                     .put('/api/videos/' + this.videoToUpdate.id)
                     .then(res => {
-                        console.log(res);
                         this.loadVideos();
                         this.dialogUpdate = false;
                     })
@@ -294,32 +295,13 @@
                         console.log(err);
                     })
             },
-
             deleteVideo() {
                 axios.delete('/api/videos/' + this.videoToDelete.id).then(res => {
-                    console.log(res);
                     this.loadVideos();
                     this.dialogDelete = false;
-                    // this.videos = res.data;
                 }).catch(err => {
                     console.log(err);
                 });
-            }
-        },
-        watch: {
-            videoToUpdate(value) {
-                if (value) {
-                    this.dialogUpdate = true;
-                } else {
-                    this.dialogUpdate = false;
-                }
-            },
-            videoToDelete(value) {
-                if (value) {
-                    this.dialogDelete = true;
-                } else {
-                    this.dialogDelete = false;
-                }
             }
         },
         computed: {

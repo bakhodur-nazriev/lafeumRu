@@ -25,7 +25,7 @@ class KnowledgesController extends Controller
 
     public function update(Request $request, $id)
     {
-        $knowledge = Knowledge::finc($id);
+        $knowledge = Knowledge::find($id);
         $knowledge->update($request->all());
         $knowledge->save();
         return response()->json($knowledge);

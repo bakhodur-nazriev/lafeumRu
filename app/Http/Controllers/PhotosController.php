@@ -20,11 +20,17 @@ class PhotosController extends Controller
 
     protected function store(Request $request)
     {
-        $photo = $request->file('photo');
-        $fileName = $photo->getClientOriginalName();
-        $photo->move('/home/bakhodur/Desktop/MyProjects/lafeum/public/img/photos', $fileName);
-
-        $photo->description = $request->description;
+        $photo = Photo::create($request->all());
+        if ($request->hasFile("image")) {
+            $file = $request->file("image");
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . "." . $extension;
+            $file->move("/home/bakhodur/Desktop/MyProjects/lafeum/public/img/photos", $filename);
+            $photo->image = $filename;
+        } else {
+            return $request;
+            $photo->photo = "";
+        }
         $photo->save();
         return "success";
     }

@@ -15,8 +15,7 @@ class ChannelsController extends Controller
 
     public function get()
     {
-        $channels = Channel::all();
-        return response()->json($channels);
+        return Channel::latest()->get();
     }
 
     public function store(Request $request)

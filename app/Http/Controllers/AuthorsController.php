@@ -10,7 +10,7 @@ class AuthorsController extends Controller
     public function index()
     {
         $authors = Author::all();
-        return view('/authors', compact('authors'));
+        return view("/authors", compact("authors"));
     }
 
     public function get()
@@ -21,15 +21,15 @@ class AuthorsController extends Controller
     public function store(Request $request)
     {
         $author = Author::create($request->all());
-        if ($request->hasfile('photo')) {
-            $file = $request->file('photo');
+        if ($request->hasfile("photo")) {
+            $file = $request->file("photo");
             $extension = $file->getClientOriginalExtension(); //getting image extension
-            $filename = time() . '.' . $extension;
-            $file->move('/home/bakhodur/Desktop/MyProjects/lafeum/public/img/authors', $filename);
+            $filename = time() . "." . $extension;
+            $file->move("/home/bakhodur/Desktop/MyProjects/lafeum/public/img/authors", $filename);
             $author->photo = $filename;
         } else {
             return $request;
-            $author->photo = '';
+            $author->photo = "";
         }
         $author->save();
         return "success";

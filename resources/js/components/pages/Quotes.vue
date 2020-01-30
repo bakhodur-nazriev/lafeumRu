@@ -148,21 +148,20 @@
                             <v-select
                                 hide-details
                                 outlined
-                                :items="authors"
                                 item-value="id"
                                 item-text="name"
                                 label="Авторы"
-                                :value="quoteToUpdate.author_id"
+                                :items="authors"
+                                v-model="quoteToUpdate.author_id"
                             >
                             </v-select>
                         </v-col>
                         <v-col cols="12">
                             <tiptap-vuetify
+                                label="Изменить цитату здесь"
                                 outlined
                                 :extensions="extensions"
-                                label="Изменить цитату здесь"
-                                :value="quoteToUpdate.body"
-                                name="body"
+                                v-model="quoteToUpdate.body"
                             >
                             </tiptap-vuetify>
                         </v-col>
@@ -170,8 +169,16 @@
                 </v-container>
                 <v-card-actions>
                     <v-spacer/>
-                    <v-btn dark color="green" @click="updateQuote()">Сохранить</v-btn>
-                    <v-btn dark color="error" @click="dialogUpdate = false">Отмена</v-btn>
+                    <v-btn
+                        dark
+                        color="green"
+                        @click="updateQuote()"
+                    >Сохранить</v-btn>
+                    <v-btn
+                        dark
+                        color="error"
+                        @click="quoteToUpdate = false"
+                    >Отмена</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -190,7 +197,7 @@
                                 item-value="id"
                                 item-text="name"
                                 label="Авторы"
-                                :value="quoteToUpdate.author_id"
+                                :value="quotes.author_id"
                             >
                             </v-select>
                         </v-col>
@@ -198,7 +205,7 @@
                             <v-textarea
                                 outlined
                                 label="Изменить цитату здесь"
-                                :value="quoteToUpdate.body"
+                                :value="quotes.body"
                                 name="body"
                             >
                             </v-textarea>
@@ -207,7 +214,11 @@
                 </v-container>
                 <v-card-actions>
                     <v-spacer/>
-                    <v-btn dark color="error" @click="dialogUpdate = false">Закрыть</v-btn>
+                    <v-btn
+                        dark
+                        color="error"
+                        @click="quoteToShow = false"
+                    >Закрыть</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -235,7 +246,6 @@
         History,
         Image
     } from 'tiptap-vuetify';
-
     export default {
         components: {TiptapVuetify},
         data() {
@@ -344,12 +354,12 @@
             updateQuote() {
                 axios
                     .put("/api/quotes/" + this.quoteToUpdate.id, {
-                        body: this.quotes.body,
-                        author_id: this.authors.name
+                        body: this.quoteToUpdate.body,
+                        author_id: this.quoteToUpdate.author_id
                     })
                     .then(res => {
+                        this.quoteToUpdate = false;
                         this.loadQuotes();
-                        this.dialogUpdate = false;
                     })
                     .catch(err => {
                         console.log(err);
@@ -360,7 +370,7 @@
                     .delete("/api/quotes/" + this.quoteToDelete.id)
                     .then(res => {
                         this.loadQuotes();
-                        this.dialogDelete = false;
+                        this.quoteToDelete = false;
                     })
                     .catch(err => {
                         console.log(err);

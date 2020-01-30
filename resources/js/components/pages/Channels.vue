@@ -105,7 +105,7 @@
                         </v-col>
                         <v-col cols="12">
                             <tiptap-vuetify
-                                label="Добавить описание к каналу"
+                                placeholder="Добавить описание к каналу"
                                 v-model="channelDescription"
                                 :extensions="extensions"
                                 outlined
@@ -148,7 +148,6 @@
                                 v-model="channelToUpdate.name"
                                 label="Изменить имя канала"
                                 hide-details
-                                name="name"
                                 outlined
                             >
                             </v-text-field>
@@ -156,9 +155,8 @@
                         <v-col cols="12">
                             <tiptap-vuetify
                                 v-model="channelToUpdate.description"
-                                label="Изменить описание канала"
+                                placeholder="Изменить описание канала"
                                 :extensions="extensions"
-                                name="description"
                                 outlined
                             >
                             </tiptap-vuetify>
@@ -168,9 +166,7 @@
                 <v-card-actions>
                     <v-spacer/>
                     <v-btn dark color="green" @click="updateChannel()">Сохранить</v-btn>
-                    <v-btn dark color="error" @click="dialogUpdate = false"
-                    >Отмена
-                    </v-btn>
+                    <v-btn dark color="error" @click="channelToUpdate = false">Отмена</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -201,7 +197,6 @@
         History,
         Image
     } from 'tiptap-vuetify';
-
     export default {
         components: {TiptapVuetify},
         data() {
@@ -220,25 +215,6 @@
                 page: 1,
                 pageCount: 2,
                 itemsPerPage: 12,
-                headers: [
-                    {
-                        text: 'Названия',
-                        value: 'name',
-                        sortable: false,
-                    },
-                    {
-                        text: 'Описания',
-                        value: 'description',
-                        sortable: false,
-                    },
-                    {
-                        text: "Действия",
-                        value: "action",
-                        align: "center",
-                        sortable: false,
-                        width: "160px"
-                    }
-                ],
                 extensions: [
                     History,
                     Blockquote,
@@ -263,6 +239,25 @@
                     Paragraph,
                     HardBreak
                 ],
+                headers: [
+                    {
+                        text: 'Названия',
+                        value: 'name',
+                        sortable: false,
+                    },
+                    {
+                        text: 'Описания',
+                        value: 'description',
+                        sortable: false,
+                    },
+                    {
+                        text: "Действия",
+                        value: "action",
+                        align: "center",
+                        sortable: false,
+                        width: "160px"
+                    }
+                ],
             }
         },
         mounted() {
@@ -270,32 +265,38 @@
         },
         methods: {
             loadChannels() {
-                axios.get('/api/channels').then(res => {
-                    this.channels = res.data;
-                }).catch(err => {
-                    console.log(err);
-                });
+                axios
+                    .get('/api/channels')
+                    .then(res => {
+                        this.channels = res.data;
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
             },
             addChannel() {
                 axios
                     .post('/api/channels/', {
-                        'name': this.channelName,
-                        'description': this.channelDescription
+                        name: this.channelName,
+                        description: this.channelDescription
                     })
                     .then(res => {
                         this.loadChannels();
                         this.dialogAdd = false;
                     })
                     .catch((err) => {
-                        console.log(err.res.data)
+                        console.log(err)
                     });
             },
             updateChannel() {
                 axios
-                    .put('/api/channels/' + this.channelToUpdate.id, this.channelToUpdate)
+                    .put('/api/channels/' + this.channelToUpdate.id, {
+                        name: this.channelToUpdate.name,
+                        description: this.channelToUpdate.description
+                    })
                     .then(res => {
+                        this.channelToUpdate = false;
                         this.loadChannels();
-                        this.dialogUpdate = false;
                     })
                     .catch(err => {
                         console.log(err);
@@ -305,8 +306,8 @@
                 axios
                     .delete('/api/channels/' + this.channelToDelete.id)
                     .then(res => {
+                        this.channelToDelete = false;
                         this.loadChannels();
-                        this.dialogDelete = false;
                     })
                     .catch(err => {
                         console.log(err);

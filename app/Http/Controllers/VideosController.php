@@ -17,7 +17,6 @@ class VideosController extends Controller
     public function get()
     {
         return Video::with('channel')->latest()->get();
-
     }
 
     public function store(Request $request)
@@ -28,7 +27,9 @@ class VideosController extends Controller
     public function update(Request $request, $id)
     {
         $video = Video::find($id);
-        return $video->update($request->all());
+        $video->update($request->all());
+        $video->save();
+        return response()->json("success");
     }
 
     public function delete($id)

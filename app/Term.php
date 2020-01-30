@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Term extends Model
 {
-    protected $fillable = ['body'];
+    protected $fillable = ['name','body'];
 
     public function tags()
     {

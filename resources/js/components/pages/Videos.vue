@@ -63,6 +63,9 @@
                         <template v-slot:item.duration="{ item }">
                             <p v-html="item.duration + ' мин'"></p>
                         </template>
+                        <template v-slot:item.link="{ item }">
+                            <a :href="item.link" target="_blank">{{ item.link }}</a>
+                        </template>
                     </v-data-table>
                 </v-col>
                 <div class="text-center pt-2">
@@ -164,16 +167,46 @@
         <v-dialog v-if="videoToUpdate" v-model="videoToUpdate" width="700px">
             <v-card>
                 <v-card-title class="primary white--text">
-                    Изменить Термин
+                    Изменить Видео
                 </v-card-title>
                 <v-container>
-                    <v-row>
+                    <v-row justify="center">
                         <v-col cols="12">
                             <v-text-field
+                                hide-details
                                 outlined
-                                name="body"
-                                v-model="videoToUpdate.body"
-                                placeholder="Изменить термин здесь"
+                                v-model="videoToUpdate.title"
+                                label="Изменить названия видео здесь"
+                            >
+                            </v-text-field>
+                        </v-col>
+                        <v-col cols="12">
+                            <v-select
+                                hide-details
+                                outlined
+                                :items="channels"
+                                item-value="id"
+                                item-text="name"
+                                v-model="videoToUpdate.channel_id"
+                                label="Изменить канал видео здесь"
+                            >
+                            </v-select>
+                        </v-col>
+                        <v-col cols="12">
+                            <v-text-field
+                                hide-details
+                                outlined
+                                v-model="videoToUpdate.link"
+                                label="Изменить ссылку видео здесь"
+                            >
+                            </v-text-field>
+                        </v-col>
+                        <v-col cols="12">
+                            <v-text-field
+                                hide-details
+                                outlined
+                                v-model="videoToUpdate.duration"
+                                label="Изменить продолжителность видео в минутах здесь"
                             >
                             </v-text-field>
                         </v-col>
@@ -182,9 +215,7 @@
                 <v-card-actions>
                     <v-spacer/>
                     <v-btn dark color="green" @click="updateVideo()">Сохранить</v-btn>
-                    <v-btn dark color="error" @click="dialogUpdate = false"
-                    >Отмена
-                    </v-btn>
+                    <v-btn dark color="error" @click="videoToUpdate = false">Отмена</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -197,14 +228,14 @@
     export default {
         data() {
             return {
-                dialogAdd: true,
+                dialogAdd: false,
                 dialogDelete: false,
                 dialogUpdate: false,
                 dialogShow: false,
-                videoChannel: '',
-                videoTitle: '',
-                videoLink: '',
-                videoDuration: '',
+                videoChannel: "",
+                videoTitle: "",
+                videoLink: "",
+                videoDuration: "",
                 videoToDelete: null,
                 videoToUpdate: null,
                 videoToShow: null,
@@ -218,19 +249,16 @@
                     {
                         text: 'Названия',
                         value: 'title',
-                        align: "center",
                         sortable: false,
                     },
                     {
                         text: 'Каналы',
                         value: 'channel.name',
-                        align: "center",
                         sortable: false,
                     },
                     {
                         text: 'Ссылки',
                         value: 'link',
-                        align: "center",
                         sortable: false
                     },
                     {
@@ -262,46 +290,57 @@
         },
         methods: {
             loadVideos() {
-                axios.get('/api/videos').then(res => {
-                    this.videos = res.data;
-                }).catch(err => {
-                    console.log(err);
-                });
+                axios
+                    .get('/api/videos')
+                    .then(res => {
+                        this.videos = res.data;
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
             },
             addVideo() {
                 axios
                     .post('/api/videos/', {
-                        'title': this.videoTitle,
-                        'channel_id': this.videoChannel,
-                        'link': this.videoLink,
-                        'duration': this.videoDuration
+                        title: this.videoTitle,
+                        channel_id: this.videoChannel,
+                        link: this.videoLink,
+                        duration: this.videoDuration
                     })
                     .then(res => {
-                        this.loadVideos();
                         this.dialogAdd = false;
+                        this.loadVideos();
                     })
-                    .catch((err) => {
-                        console.log(err.res.data)
+                    .catch(err => {
+                        console.log(err)
                     });
             },
             updateVideo() {
                 axios
-                    .put('/api/videos/' + this.videoToUpdate.id)
+                    .put('/api/videos/' + this.videoToUpdate.id, {
+                        title: this.videoToUpdate.title,
+                        channel_id: this.videoToUpdate.channel_id,
+                        link: this.videoToUpdate.link,
+                        duration: this.videoToUpdate.duration
+                    })
                     .then(res => {
+                        this.videoToUpdate = false;
                         this.loadVideos();
-                        this.dialogUpdate = false;
                     })
                     .catch(err => {
                         console.log(err);
                     })
             },
             deleteVideo() {
-                axios.delete('/api/videos/' + this.videoToDelete.id).then(res => {
-                    this.loadVideos();
-                    this.dialogDelete = false;
-                }).catch(err => {
-                    console.log(err);
-                });
+                axios
+                    .delete('/api/videos/' + this.videoToDelete.id)
+                    .then(res => {
+                        this.videoToDelete = false;
+                        this.loadVideos();
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
             }
         },
         computed: {

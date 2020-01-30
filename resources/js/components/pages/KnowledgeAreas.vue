@@ -129,7 +129,7 @@
                     Вы действительно хотите удалить этот область знаний ?
                 </v-card-title>
                 <v-card-actions class="justify-center">
-                    <v-btn color="green darken-1" dark @click="knowledgeAreaToDelete = null">
+                    <v-btn color="green darken-1" dark @click="knowledgeAreaToDelete = false">
                         Нет
                     </v-btn>
                     <v-btn color="red darken-1" dark @click="deleteKnowledgeArea()">Да</v-btn>
@@ -148,16 +148,14 @@
                             <v-text-field
                                 hide-details
                                 outlined
-                                name="name"
                                 v-model="knowledgeAreaToUpdate.name"
-                                placeholder="Изменить области знаний здесь"
+                                label="Изменить области знаний здесь"
                             >
                             </v-text-field>
                         </v-col>
                         <v-col cols="12">
                             <tiptap-vuetify
                                 outlined
-                                name="description"
                                 :extensions="extensions"
                                 v-model="knowledgeAreaToUpdate.description"
                                 placeholder="Изменить области знаний здесь"
@@ -169,7 +167,7 @@
                 <v-card-actions>
                     <v-spacer/>
                     <v-btn dark color="green" @click="updateKnowledgeArea()">Сохранить</v-btn>
-                    <v-btn dark color="error" @click="dialogUpdate = false">Отмена</v-btn>
+                    <v-btn dark color="error" @click="knowledgeAreaToUpdate = false">Отмена</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -181,7 +179,7 @@
                 </v-card-title>
                 <v-card-actions>
                     <v-spacer/>
-                    <v-btn dark color="error" @click="dialogShow = false">Закрыть</v-btn>
+                    <v-btn dark color="error" @click="knowledgeAreaToShow = false">Закрыть</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -247,7 +245,7 @@
                 dialogAdd: false,
                 dialogUpdate: false,
                 dialogDelete: false,
-                dialogShow: true,
+                dialogShow: false,
                 knowledgeAreas: [],
                 page: 1,
                 pageCount: 2,
@@ -291,8 +289,8 @@
                         description: this.knowledgeAreaDescription
                     })
                     .then(res => {
-                        this.loadKnowledgeAreas()
                         this.dialogAdd = false;
+                        this.loadKnowledgeAreas()
                     })
                     .catch((err) => {
                         console.log(err)
@@ -300,11 +298,13 @@
             },
             updateKnowledgeArea() {
                 axios
-                    .put('/api/knowledge-areas/' + this.knowledgeAreaToUpdate.id, this.knowledgeAreaToUpdate)
+                    .put('/api/knowledge-areas/' + this.knowledgeAreaToUpdate.id, {
+                        name: this.knowledgeAreaToUpdate.name,
+                        description: this.knowledgeAreaToUpdate.description
+                    })
                     .then(res => {
-                        console.log(res);
+                        this.knowledgeAreaToUpdate = false;
                         this.loadKnowledgeAreas();
-                        this.dialogUpdate = false;
                     })
                     .catch(err => {
                         console.log(err);
@@ -315,7 +315,7 @@
                     .delete('/api/knowledge-areas/' + this.knowledgeAreaToDelete.id)
                     .then(res => {
                         this.loadKnowledgeAreas();
-                        this.dialogDelete = false;
+                        this.knowledgeAreaToDelete = false;
                     })
                     .catch(err => {
                         console.log(err);

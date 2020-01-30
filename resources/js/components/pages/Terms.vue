@@ -101,7 +101,6 @@
                                 hide-details
                                 outlined
                                 v-model="termName"
-                                name="name"
                                 label="Добаить названия для термин здесь"
                             >
                             </v-text-field>
@@ -109,7 +108,6 @@
                         <v-col cols="12">
                             <tiptap-vuetify
                                 outlined
-                                name="body"
                                 v-model="termBody"
                                 :extensions="extensions"
                                 placeholder="Добаить описания для термин здесь"
@@ -132,7 +130,7 @@
                 >Вы действительно хотите удалить это термин ?
                 </v-card-title>
                 <v-card-actions class="justify-center">
-                    <v-btn color="green darken-1" dark @click="termToDelete = null"
+                    <v-btn color="green darken-1" dark @click="termToDelete = false"
                     >Нет
                     </v-btn>
                     <v-btn color="red darken-1" dark @click="deleteTerm()">Да</v-btn>
@@ -151,8 +149,9 @@
                             <v-text-field
                                 hide-details
                                 outlined
-                                label="Изменить название термина">
-                                :value="termToUpdate.name"
+                                label="Изменить названия термина"
+                                v-model="termToUpdate.name"
+                            >
                             </v-text-field>
                         </v-col>
                         <v-col cols="12">
@@ -170,7 +169,7 @@
                 <v-card-actions>
                     <v-spacer/>
                     <v-btn dark color="green" @click="updateTerm()">Сохранить</v-btn>
-                    <v-btn dark color="error" @click="dialogUpdate = false">Отмена</v-btn>
+                    <v-btn dark color="error" @click="termToUpdate = false">Отмена</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -298,11 +297,13 @@
             },
             updateTerm() {
                 axios
-                    .put("/api/terms/" + this.termToUpdate.id, this.termToUpdate)
+                    .put("/api/terms/" + this.termToUpdate.id, {
+                        name: this.termToUpdate.name,
+                        body: this.termToUpdate.body
+                    })
                     .then(res => {
-                        console.log(res);
                         this.loadTerms();
-                        this.dialogUpdate = false;
+                        this.termToUpdate = false;
                     })
                     .catch(err => {
                         console.log(err);
@@ -313,36 +314,13 @@
                     .delete("/api/terms/" + this.termToDelete.id)
                     .then(res => {
                         this.loadTerms();
-                        this.dialogDelete = false;
+                        this.termToDelete = false;
                     })
                     .catch(err => {
                         console.log(err);
                     });
             },
         },
-        // watch: {
-        //     termToShow(value) {
-        //         if (value) {
-        //             this.dialogShow = true;
-        //         } else {
-        //             this.dialogShow = false;
-        //         }
-        //     },
-        //     termToUpdate(value) {
-        //         if (value) {
-        //             this.dialogUpdate = true;
-        //         } else {
-        //             this.dialogUpdate = false;
-        //         }
-        //     },
-        //     termToDelete(value) {
-        //         if (value) {
-        //             this.dialogDelete = true;
-        //         } else {
-        //             this.dialogDelete = false;
-        //         }
-        //     }
-        // },
         computed: {
             filteredTerms() {
                 return this.terms.filter(term => {

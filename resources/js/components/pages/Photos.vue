@@ -96,9 +96,8 @@
                     <v-icon>mdi-plus</v-icon>
                 </v-btn>
             </template>
-            <span>Добавить термин</span>
+            <span>Добавить фото</span>
         </v-tooltip>
-
         <!-- Add Item Dialog -->
         <v-dialog v-model="dialogAdd" width="700px">
             <v-card>
@@ -112,11 +111,9 @@
                                 prepend-inner-icon="mdi-paperclip"
                                 label="Выберите фото"
                                 prepend-icon=""
-                                name="image"
                                 hide-details
                                 outlined
                             >
-
                             </v-file-input>
                         </v-col>
                         <v-col cols="12">
@@ -125,7 +122,7 @@
                                 required
                                 v-model="photoDescription"
                                 :extensions="extensions"
-                                placeholder="Добаить термин здесь"
+                                placeholder="Добаить описания здесь"
                             >
                             </tiptap-vuetify>
                         </v-col>
@@ -133,7 +130,7 @@
                 </v-container>
                 <v-card-actions>
                     <v-spacer/>
-                    <v-btn dark color="green" @click="addTerm()">Сохранить</v-btn>
+                    <v-btn dark color="green" @click="addPhoto()">Сохранить</v-btn>
                     <v-btn dark color="error" @click="() => (dialogAdd = false)">Отмена</v-btn>
                 </v-card-actions>
             </v-card>
@@ -145,10 +142,8 @@
                 >Вы действительно хотите удалить это термин ?
                 </v-card-title>
                 <v-card-actions class="justify-center">
-                    <v-btn color="green darken-1" dark @click="termToDelete = null"
-                    >Нет
-                    </v-btn>
-                    <v-btn color="red darken-1" dark @click="deleteTerm()">Да</v-btn>
+                    <v-btn color="green darken-1" dark @click="termToDelete = false">Нет</v-btn>
+                    <v-btn color="red darken-1" dark @click="deletePhoto()">Да</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -156,17 +151,19 @@
         <v-dialog v-if="photoToUpdate" v-model="photoToUpdate" width="700px">
             <v-card>
                 <v-card-title class="primary white--text">
-                    Изменить Термин
+                    Изменить Фото
                 </v-card-title>
                 <v-container>
-                    <v-row>
+                    <v-row justify="center">
+                        <v-col cols="12">
+                            
+                        </v-col>
                         <v-col cols="12">
                             <tiptap-vuetify
                                 outlined
-                                name="body"
                                 :extensions="extensions"
                                 v-model="photoToUpdate.description"
-                                placeholder="Изменить термин здесь"
+                                placeholder="Изменить фото здесь"
                             >
                             </tiptap-vuetify>
                         </v-col>
@@ -174,8 +171,8 @@
                 </v-container>
                 <v-card-actions>
                     <v-spacer/>
-                    <v-btn dark color="green" @click="updateTerm()">Сохранить</v-btn>
-                    <v-btn dark color="error" @click="dialogUpdate = false">Отмена</v-btn>
+                    <v-btn dark color="green" @click="updatePhoto()">Сохранить</v-btn>
+                    <v-btn dark color="error" @click="photoToUpdate = false">Отмена</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -198,8 +195,7 @@
                 </v-container>
                 <v-card-actions>
                     <v-spacer/>
-                    <v-btn dark color="green" @click="updateTerm()">Сохранить</v-btn>
-                    <v-btn dark color="error" @click="dialogUpdate = false">Отмена</v-btn>
+                    <v-btn dark color="error" @click="photoToShow = false">Отмена</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -312,35 +308,41 @@
                         console.log(err);
                     });
             },
-            addTerm() {
+            addPhoto() {
+                const formData = new FormData();
+                formData.append("photo", this.photoImage)
                 axios
-                    .post("/api/photos/", {
+                    .post("/api/photos/", formData, {
+                        "Content-Type": "multipart/form-data",
+                        description: this.photoDescription
                     })
                     .then(res => {
                         this.loadPhotos();
                         this.dialogAdd = false;
                     })
                     .catch(err => {
-                        console.log(err.res.data);
+                        console.log(err);
                     });
             },
-            updateTerm() {
+            updatePhoto() {
                 axios
-                    .put("/api/photos/" + this.photoToUpdate.id, this.photoToUpdate)
+                    .put("/api/photos/" + this.photoToUpdate.id, {
+                        description: this.photoToUpdate.description
+                    })
                     .then(res => {
                         this.loadPhotos();
-                        this.dialogUpdate = false;
+                        this.photoToUpdate = false;
                     })
                     .catch(err => {
                         console.log(err);
                     })
             },
-            deleteTerm() {
+            deletePhoto() {
                 axios
                     .delete("/api/photos/" + this.photoToDelete.id)
                     .then(res => {
                         this.loadPhotos();
-                        this.dialogDelete = false;
+                        this.photoToDelete = false;
                     })
                     .catch(err => {
                         console.log(err);

@@ -59,6 +59,9 @@
                                 <v-icon dark>mdi-delete</v-icon>
                             </v-btn>
                         </template>
+                        <template v-slot:item.biography="{ item }">
+                            <div v-html="item.biography"></div>
+                        </template>
                         <template v-slot:item.photo="{ item }">
                             <v-avatar size="78" class="ma-1">
                                 <v-img
@@ -174,7 +177,7 @@
                                 hide-details
                                 outlined
                                 label="Изменить имя автора"
-                                :value="authorToUpdate.name"
+                                v-model="authorToUpdate.name"
                             >
                             </v-text-field>
                         </v-col>
@@ -186,7 +189,7 @@
                                 label="Изменить фото"
                                 prepend-icon=""
                                 prepend-inner-icon="mdi-camera"
-                                :value="authorToUpdate.photo"
+                                v-model="authorToUpdate.photo"
                             >
                             </v-file-input>
                         </v-col>
@@ -223,7 +226,7 @@
                 </v-container>
                 <v-card-actions>
                     <v-spacer/>
-                    <v-btn dark color="error" @click="() => (dialogShow = false)">Закрыть</v-btn>
+                    <v-btn dark color="error" @click="() => (authorToShow = false)">Закрыть</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -251,7 +254,6 @@
         History,
         Image
     } from 'tiptap-vuetify';
-
     export default {
         components: {TiptapVuetify},
         data() {
@@ -282,8 +284,8 @@
                 ],
                 authorName: "",
                 authorBiography: "",
-                authorPhoto: [],
                 search: "",
+                authorPhoto: [],
                 authors: [],
                 page: 1,
                 pageCount: 2,
@@ -345,7 +347,6 @@
                         biography: this.authorBiography
                     })
                     .then(res => {
-                        // console.log(res);
                         this.loadAuthors();
                         this.dialogAdd = false;
                     })
@@ -355,17 +356,16 @@
             },
             updateAuthor() {
                 axios
-                    .put("/api/authors" + this.authorToUpdate.id, {
-                        name: "",
-                        biography: "",
-                        photo: ""
+                    .put("/api/authors/" + this.authorToUpdate.id, {
+                        name: this.authorToUpdate.name,
+                        biography: this.authorToUpdate.biography,
+                        photo: this.authorToUpdate.photo
                     })
                     .then(res => {
-                        console.log(res);
+                        this.authorToUpdate = false;
                         this.loadAuthors();
-                        this.dialogUpdate = false;
                     })
-                    .catch(res => {
+                    .catch(err => {
                         console.log(err);
                     });
             },
@@ -373,8 +373,8 @@
                 axios
                     .delete("/api/authors/" + this.authorToDelete.id)
                     .then(res => {
+                        this.authorToDelete = false;
                         this.loadAuthors();
-                        this.dialogDelete = false;
                     })
                     .catch(err => {
                         console.log(err);
@@ -383,8 +383,8 @@
         },
         computed: {
             filteredAuthors() {
-                return this.authors.filter(authors => {
-                    return authors.name.toLowerCase().includes(this.search.toLowerCase());
+                return this.authors.filter(author => {
+                    return author.name.toLowerCase().includes(this.search.toLowerCase());
                 });
             }
         }

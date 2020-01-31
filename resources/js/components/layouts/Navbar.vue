@@ -45,7 +45,7 @@
         <v-navigation-drawer v-model="drawer" class="primary" app>
             <v-layout column align-center>
                 <v-flex class="mt-5 text-center">
-                    <v-avatar size="150">
+                    <v-avatar size="130">
                         <img :src="'/img/avatars/' + this.users.avatar" alt="John">
                     </v-avatar>
                     <h4 class="white--text subheading mt-2">

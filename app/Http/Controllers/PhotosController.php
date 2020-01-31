@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 
 class PhotosController extends Controller
 {
+    const PHOTOS_PATH = "/img/photos/";
+
     public function index()
     {
         $photos = Photo::orderBy('id')->paginate(12);
@@ -20,27 +22,38 @@ class PhotosController extends Controller
 
     protected function store(Request $request)
     {
-        $photo = Photo::create($request->all());
+        $newPhotoData = $request->only(['description']);
         if ($request->hasFile("image")) {
-            $file = $request->file("image");
-            $extension = $file->getClientOriginalExtension();
-            $filename = time() . "." . $extension;
-            $file->move("/home/bakhodur/Desktop/MyProjects/lafeum/public/img/photos", $filename);
-            $photo->image = $filename;
-        } else {
-            return $request;
-            $photo->photo = "";
-        }
-        $photo->save();
-        return "success";
+            $newPhotoData['image'] = $this->saveImage(time(), $request->image);
+        } 
+        $newPhoto = Photo::create($newPhotoData);
+
+        return $newPhoto;
     }
 
     protected function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'description' => 'required'
+        ]);
+        $photo = Photo::find($id);
+        $photo->update($request->all());
+        $photo->save();
+        return response()->json($photo);
     }
 
     protected function delete($id)
     {
         return Photo::destroy($id);
+    }
+
+    private function saveImage($name, $file)
+    {
+        $extension = $file->extension();
+        $filename = $name . "." . $extension;
+
+        $file->move(public_path(self::PHOTOS_PATH), $filename);
+
+        return self::PHOTOS_PATH . $filename;
     }
 }

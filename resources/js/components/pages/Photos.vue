@@ -33,6 +33,9 @@
                                 </v-img>
                             </div>
                         </template>
+                        <template v-slot:item.description="{ item }">
+                            <div v-html="item.description" class="short-paragraph"/>
+                        </template>
                         <template v-slot:item.action="{ item }">
                             <v-btn
                                 fab
@@ -71,9 +74,6 @@
                                 </v-icon>
                             </v-btn>
                         </template>
-                        <template v-slot:item.description="{ item }">
-                            <div v-html="item.description" class="short-paragraph"/>
-                        </template>
                     </v-data-table>
                 </v-col>
                 <div class="text-center pt-2">
@@ -102,7 +102,7 @@
         <v-dialog v-model="dialogAdd" width="700px">
             <v-card>
                 <v-card-title class="primary white--text">
-                    Создать Термин
+                    Добавить фото
                 </v-card-title>
                 <v-container>
                     <v-row justify="center">
@@ -113,8 +113,9 @@
                                 prepend-icon=""
                                 hide-details
                                 outlined
-                            >
-                            </v-file-input>
+                                v-model="photoImage"
+                            ></v-file-input>
+<!--                            <input type="file" name @change="(e) => photoImage = e.target.files[0]"/>-->
                         </v-col>
                         <v-col cols="12">
                             <tiptap-vuetify
@@ -151,19 +152,17 @@
         <v-dialog v-if="photoToUpdate" v-model="photoToUpdate" width="700px">
             <v-card>
                 <v-card-title class="primary white--text">
-                    Изменить Фото
+                    Изменить описания фото
                 </v-card-title>
                 <v-container>
                     <v-row justify="center">
                         <v-col cols="12">
-                            
-                        </v-col>
-                        <v-col cols="12">
                             <tiptap-vuetify
+                                name="photoDescription"
                                 outlined
                                 :extensions="extensions"
                                 v-model="photoToUpdate.description"
-                                placeholder="Изменить фото здесь"
+                                placeholder="Изменить описания фото здесь"
                             >
                             </tiptap-vuetify>
                         </v-col>
@@ -203,15 +202,12 @@
 </template>
 <script>
     import {
-        // component
         TiptapVuetify,
-        // extensions
         Heading,
         Bold,
         Italic,
         Strike,
         Underline,
-        Code,
         Paragraph,
         BulletList,
         OrderedList,
@@ -252,12 +248,11 @@
                     Paragraph,
                     HardBreak
                 ],
-                valid: false,
                 dialogAdd: false,
                 dialogDelete: false,
                 dialogUpdate: false,
                 dialogShow: false,
-                photoImage: "",
+                photoImage: [],
                 photoDescription: "",
                 bodyRules: [
                     v => !!v || 'Заполните пустое поле',
@@ -310,15 +305,18 @@
             },
             addPhoto() {
                 const formData = new FormData();
-                formData.append("photo", this.photoImage)
+                formData.append("image", this.photoImage);
+                formData.append("description", this.photoDescription);
+
                 axios
-                    .post("/api/photos/", formData, {
-                        "Content-Type": "multipart/form-data",
-                        description: this.photoDescription
+                    .post("/api/photos", formData, {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
                     })
                     .then(res => {
-                        this.loadPhotos();
                         this.dialogAdd = false;
+                        this.loadPhotos();
                     })
                     .catch(err => {
                         console.log(err);

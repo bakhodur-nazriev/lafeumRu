@@ -344,8 +344,8 @@
                         author_id: this.quoteAuthor
                     })
                     .then(res => {
-                        this.loadQuotes();
                         this.dialogAdd = false;
+                        this.loadQuotes();
                     })
                     .catch(err => {
                         console.log(err);

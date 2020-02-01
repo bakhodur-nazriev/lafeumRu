@@ -52,13 +52,12 @@ const vuetifyOptions = {
 // })
 
 Vue.component("admin-dashboard", require("./components/pages/Home.vue").default);
-Vue.component("Search", require("./components/layouts/Navbar.vue").default);
+// Vue.component("Search", require("./components/layouts/Navbar.vue").default);
 Vue.component("pagination", require("laravel-vue-pagination"));
-// Vue.component("tiptap-vuetify", require("tiptap-vuetify"));
 
 const app = new Vue({
     el: "#app",
-    components: {App},
     router,
+    components: {App},
     vuetify: new Vuetify(vuetifyOptions),
 });

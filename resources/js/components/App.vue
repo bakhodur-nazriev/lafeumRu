@@ -53,11 +53,12 @@
         text-overflow: ellipsis;
         width: 52vw;
     }
+
     .short-paragraph {
         /*width: 52vw;*/
     }
 
-    .mine-table-headers{
+    .mine-table-headers {
         font-size: 18px;
     }
 

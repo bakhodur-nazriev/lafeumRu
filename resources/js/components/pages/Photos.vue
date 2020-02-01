@@ -108,14 +108,13 @@
                     <v-row justify="center">
                         <v-col cols="12">
                             <v-file-input
-                                prepend-inner-icon="mdi-paperclip"
+                                prepend-inner-icon="mdi-camera"
                                 label="Выберите фото"
                                 prepend-icon=""
                                 hide-details
                                 outlined
                                 v-model="photoImage"
                             ></v-file-input>
-<!--                            <input type="file" name @change="(e) => photoImage = e.target.files[0]"/>-->
                         </v-col>
                         <v-col cols="12">
                             <tiptap-vuetify

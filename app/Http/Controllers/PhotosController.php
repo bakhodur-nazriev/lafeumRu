@@ -20,18 +20,18 @@ class PhotosController extends Controller
         return $photos = Photo::latest()->get();
     }
 
-    protected function store(Request $request)
+    public function store(Request $request)
     {
         $newPhotoData = $request->only(['description']);
         if ($request->hasFile("image")) {
             $newPhotoData['image'] = $this->saveImage(time(), $request->image);
-        } 
+        }
         $newPhoto = Photo::create($newPhotoData);
 
         return $newPhoto;
     }
 
-    protected function update(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $this->validate($request, [
             'description' => 'required'
@@ -42,7 +42,7 @@ class PhotosController extends Controller
         return response()->json($photo);
     }
 
-    protected function delete($id)
+    public function delete($id)
     {
         return Photo::destroy($id);
     }

@@ -65,7 +65,7 @@
                         <template v-slot:item.photo="{ item }">
                             <v-avatar size="78" class="ma-1">
                                 <v-img
-                                    :src="item.file"
+                                    :src="item.photo"
                                     :alt="item.name"
                                     max-width="6rem"
                                 >
@@ -339,16 +339,18 @@
             },
             addAuthor() {
                 const formData = new FormData();
+                formData.append("name", this.authorName);
+                formData.append("biography", this.authorBiography);
                 formData.append("photo", this.authorPhoto);
                 axios
                     .post("/api/authors", formData, {
-                        "Content-Type": "multipart/form-data",
-                        name: this.authorName,
-                        biography: this.authorBiography
+                        headers: {
+                            "Content-Type": "multipart/form-data",
+                        }
                     })
                     .then(res => {
-                        this.loadAuthors();
                         this.dialogAdd = false;
+                        this.loadAuthors();
                     })
                     .catch(err => {
                         console.log(err);

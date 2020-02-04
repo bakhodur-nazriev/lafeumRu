@@ -91,12 +91,8 @@
     <nav>
         <v-app-bar app color="grey&#45;&#45;text white" flat>
             <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
-            <v-toolbar-title
-                class="text-uppercase grey--text"
-                v-for="link in links"
-                :key="link.text"
-            >
-                <span>{{ link.text }}</span>
+            <v-toolbar-title class="text-uppercase grey--text">
+                <span>Lafeum</span>
             </v-toolbar-title>
             <v-spacer></v-spacer>
 
@@ -167,6 +163,15 @@
 </template>
 
 <script>
+
+    // let phpArray = "[\n";
+    //
+    // for(const item of allItems){
+    //     phpArray += `'${item.innerText}',\n`;
+    // }
+    // phpArray += "]";
+    // console.log(phpArray);
+
     export default {
         props: ["route"],
         data() {
@@ -218,7 +223,7 @@
                         ]
                     },
                     {icon: "mdi-folder", text: "My Projects", route: "/dashboard/projects"},
-                    {icon: "mdi-account-group", text: "Группа", route: "/dashboard/group"},
+                    {icon: "mdi-account-group", text: "Пользователи", route: "/dashboard/users"},
                     {icon: "mdi-post", text: "Публикации", route: "/dashboard/publications"},
                     {icon: "mdi-account", text: "Профил", route: "/dashboard/profile"},
                     {icon: "mdi-settings", text: "Настройка", route: "/dashboard/setting"},

@@ -6,8 +6,15 @@
 Auth::routes();
 
 Route::get('/dashboard{any}', 'AdminController@index')->where('any', '.*');
-
 Route::get('/dashboard', 'AdminController@index')->name('dashboard');
+
+Route::group(['middleware' => ['dashboard']], function () {
+    Route::get('/user', 'AdminController@index')->name('user');
+
+//    Route::group(['middleware' => ['admin']], function () {
+//        Route::get('/admin', 'AdminController@index')->name('admin');
+//    });
+});
 
 Route::get('/', 'AppController@index')->name('home');
 Route::get('/authors', 'AuthorsController@index')->name('authors');

@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use Illuminate\Http\Request;
 
 class VocabularyController extends Controller
 {
     public function index()
     {
-        return view('/vocabulary');
+        $categories = Category::all();
+        return view('/vocabulary', compact('categories'));
     }
 }

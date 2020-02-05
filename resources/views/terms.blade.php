@@ -5,7 +5,11 @@
         <div class="row">
             <div class="col-3">
                 <h3>Темы</h3>
-                <a href="#">фывафыва</a>
+                <div>
+                    @foreach($categories as $category)
+                        <a href="">{{ $category->name }}<br></a>
+                    @endforeach
+                </div>
             </div>
             <div class="col-md-9 col-xl-6">
                 <h3 class="mb-4">Термины</h3>

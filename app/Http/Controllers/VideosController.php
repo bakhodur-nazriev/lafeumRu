@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use Illuminate\Http\Request;
 use App\Channel;
 use App\Video;
@@ -10,8 +11,9 @@ class VideosController extends Controller
 {
     public function index()
     {
+        $categories = Category::all();
         $videos = Video::with('channel')->get();
-        return view('/videos', compact('videos'));
+        return view('/videos', compact(['videos', 'categories']));
     }
 
     public function get()

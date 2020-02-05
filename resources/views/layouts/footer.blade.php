@@ -1,5 +1,8 @@
-<footer id="sticky-footer" class="py-3 text-white-50">
+<footer id="sticky-footer" class="text-white-50">
     <div class="container text-center">
+        <div>
+            <img src="/img/white-footer-logo.png" alt="white logo lafuem">
+        </div>
         <ul class="nav justify-content-center navbar-links">
             <li class="nav-item">
                 <a class="nav-link text-light" href="{{ url('/') }}">Главная</a>
@@ -32,9 +35,6 @@
                 <a class="nav-link text-light" href="{{ url('/contacts') }}">Контакты</a>
             </li>
         </ul>
-        <div>
-            <img src="/img/white-footer-logo.png" alt="white logo lafuem">
-        </div>
         <small>Copyright &copy; Your Website</small>
     </div>
 </footer>

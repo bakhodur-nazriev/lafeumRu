@@ -17,7 +17,6 @@
             </div>
         </div>
         <div class="row d-flex justify-content-center">
-
             @foreach ($authors as $author)
                 <div class="col-md-3 col-xl-2 authors-links p-1 elastic">
                     <li class="list-group">
@@ -25,7 +24,6 @@
                     </li>
                 </div>
             @endforeach
-
         </div>
     </div>
 @endsection

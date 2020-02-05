@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\User;
 use App\Channel;
 use App\Photo;
@@ -18,7 +19,8 @@ class AppController extends Controller
     {
         $channels = Channel::all();
         $photos = Photo::take(3)->get();
-        return view('/home', compact('channels', 'photos'));
+        $categories = Category::all();
+        return view('/home', compact(['channels', 'photos', 'categories']));
     }
 
     // public function show(Request $request)

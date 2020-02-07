@@ -6,7 +6,8 @@
             <v-flex xs12 sm8 md4>
                 <v-layout justify-center class="mb-5">
                     <v-flex xs8>
-                        {{-- <v-img :src="'/img/lafeum.png'" /> --}}
+                        {{-- <                                :rules="nameRules"
+v-img :src="'/img/lafeum.png'" /> --}}
                     </v-flex>
                 </v-layout>
                 <v-card height="100%">
@@ -43,7 +44,8 @@
 
                         </v-card-text>
                         <v-card-actions>
-                            <v-btn text color="primary">Забыл пароль</v-btn>
+                            {{--<v-btn text color="primary">Забыл пароль</v-btn>--}}
+                            <v-btn text color="primary"><a href="{{ route('register') }}">Регистрация</a></v-btn>
                             <v-spacer></v-spacer>
                             <v-btn type="submit" color="primary">Вход</v-btn>
                         </v-card-actions>

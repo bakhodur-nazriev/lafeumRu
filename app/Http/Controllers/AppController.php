@@ -19,7 +19,7 @@ class AppController extends Controller
     {
         $channels = Channel::all();
         $photos = Photo::take(3)->get();
-        $categories = Category::all();
+        $categories = Category::get()->toTree()->unique('name');
         return view('/home', compact(['channels', 'photos', 'categories']));
     }
 

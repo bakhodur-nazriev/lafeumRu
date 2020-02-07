@@ -47,16 +47,16 @@
                             <v-text-field
                                 id="password-confirm"
                                 name="password_confirmation"
+                                required
                                 type="password"
                                 label="Подтвердите пароль"
-                                required
                                 prepend-icon="mdi-lock"
                                 :error-messages="{{ json_encode($errors->get('confirm_password')) }}"
                             ></v-text-field>
                         </v-card-text>
                         <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-btn type="submit" color="primary">Регистрация</v-btn>
+                            <v-btn type="submit" color="primary">Сохранить</v-btn>
                             <v-btn href="{{route('home')}}" color="primary">
                                 <span class="white--text">Отмена</span>
                             </v-btn>

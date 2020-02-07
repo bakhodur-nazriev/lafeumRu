@@ -20,7 +20,6 @@ class QuotesController extends Controller
 
     public function get()
     {
-        return Category::all();
         return Quote::with('author')->latest()->get();
     }
 

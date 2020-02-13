@@ -15,6 +15,7 @@ class AppController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+
     public function index()
     {
         $channels = Channel::all();
@@ -23,9 +24,9 @@ class AppController extends Controller
         return view('/home', compact(['channels', 'photos', 'categories']));
     }
 
-    // public function show(Request $request)
-    // {
-    //     $user = User::find($request->id);
-    //     return view('home', compact('user'));
-    // }
+    /* public function show(Request $request)
+     {
+         $user = User::find($request->id);
+         return view('home', compact('user'));
+     }*/
 }

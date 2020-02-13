@@ -51,10 +51,6 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-12 back-to-top">
-            <button onclick="topFunction()" class="btn btn-primary" id="arrowTop">
-                <img src="/img/top-arrow48.png" alt="back to top">
-            </button>
-        </div>
     </div>
+    <frontend-terms :terms="{{$terms}}"></frontend-terms>
 @endsection

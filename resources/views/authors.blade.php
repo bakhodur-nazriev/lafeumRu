@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('content')
-    <div class="container">
+    {{--<div class="container">
         <div class="row d-flex justify-content-center">
             <div class="col-md-5 col-xl-4">
                 <span class="authors-main-title">
@@ -10,8 +10,8 @@
                 </span>
                 <div class="input-group mb-3">
                     <input type="text" class="form-control"
-                        id="searchInput" placeholder="Поиск по авторам"
-                        aria-label="Поиск по авторам"
+                           id="searchInput" placeholder="Поиск по авторам"
+                           aria-label="Поиск по авторам"
                     >
                 </div>
             </div>
@@ -25,5 +25,6 @@
                 </div>
             @endforeach
         </div>
-    </div>
+    </div>--}}
+    <frontend-authors :authors="{{$authors}}"></frontend-authors>
 @endsection

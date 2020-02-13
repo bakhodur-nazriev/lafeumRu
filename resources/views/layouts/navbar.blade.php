@@ -1,14 +1,14 @@
 {{--<div class="text-end" style="background-color: #04718c;">--}}
 {{--    <a href="#" class="mr-4"><span style="color: white">info@lafeum.org</span> </a>--}}
 {{--</div>--}}
-<div class="text-center hidden-sm-and-down">
+{{--<div class="text-center hidden-sm-and-down">
     <img
         src="/img/lafeum-main-logo.png"
         alt="Logo lafeum"
         style="width: 16vw;
         padding: 20px;"
     >
-</div>
+</div>--}}
 <nav class="navbar navbar-expand-md navbar-light shadow-sm main-navbar py-4">
     <div class="menu-toggle-btn">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"

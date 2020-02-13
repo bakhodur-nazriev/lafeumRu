@@ -9,7 +9,7 @@
 </template>
 
 <script>
-    import Navbar from "./layouts/Navbar";
+    import Navbar from "./admin/Navbar";
 
     export default {
         props: ["users"],

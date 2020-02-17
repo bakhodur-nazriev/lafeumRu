@@ -1,17 +1,17 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "./components/pages/Home";
-import Projects from "./components/pages/Projects";
-import Team from "./components/pages/Team";
-import Publications from "./components/pages/Publications";
-import Profile from "./components/pages/Profile";
-import Quotes from "./components/pages/Quotes";
+import Home from "./components/frontend/Home";
+import Projects from "./components/frontend/Projects";
+import Team from "./components/frontend/Team";
+import Publications from "./components/frontend/Publications";
+import Profile from "./components/frontend/Profile";
+import Quotes from "./components/frontend/Quotes";
 import Authors from "./components/admin/Authors";
-import Photos from "./components/pages/Photos";
+import Photos from "./components/frontend/Photos";
 import Terms from "./components/admin/Terms";
-import KnowledgeAreas from "./components/pages/KnowledgeAreas";
-import Videos from "./components/pages/Videos";
-import Channels from "./components/pages/Channels";
+import KnowledgeAreas from "./components/frontend/KnowledgeAreas";
+import Videos from "./components/frontend/Videos";
+import Channels from "./components/frontend/Channels";
 
 Vue.use(VueRouter);
 export default new VueRouter({

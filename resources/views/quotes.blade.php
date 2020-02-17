@@ -38,17 +38,12 @@
                     <div class="col-12">
                         <nav aria-label="Page navigation example">
                             <div class="row d-flex justify-content-center mt-3">
-                                {!! $quotes->links(); !!}
+                                {{ $quotes->links() }}
                             </div>
                         </nav>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-12 back-to-top">
-            <button onclick="topFunction()" class="btn btn-primary" id="arrowTop">
-                <img src="/img/top-arrow48.png" alt="back to top">
-            </button>
         </div>
     </div>
 @endsection

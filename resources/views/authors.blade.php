@@ -1,30 +1,35 @@
 @extends('layouts.default')
 
 @section('content')
-    {{--<div class="container">
+    <div class="container">
         <div class="row d-flex justify-content-center">
-            <div class="col-md-5 col-xl-4">
+            <div class="col-md-4 col-xl-4">
                 <span class="authors-main-title">
                     <h3>Авторы</h3>
-                    <p>Авторы цитат, афоризмов и высказываний, представленных на сайте.</p>
+                    <p class="ma-3">Авторы цитат, афоризмов и высказываний, представленных на сайте.</p>
                 </span>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control"
-                           id="searchInput" placeholder="Поиск по авторам"
-                           aria-label="Поиск по авторам"
+                <div class=" input-group mb-3">
+                    <input 
+                        type="text" 
+                        id="author-search" 
+                        class="form-control" 
+                        placeholder="Поиск по авторам"
                     >
                 </div>
             </div>
         </div>
-        <div class="row d-flex justify-content-center">
-            @foreach ($authors as $author)
-                <div class="col-md-3 col-xl-2 authors-links p-1 elastic">
-                    <li class="list-group">
+        <div class="row">
+                @foreach ($authors as $author)
+                    <div class="col-3 author py-1">
                         <a href="#">{{ $author->name }}</a>
-                    </li>
-                </div>
-            @endforeach
-        </div>
-    </div>--}}
-    <frontend-authors :authors="{{$authors}}"></frontend-authors>
+                    </div>
+                @endforeach        </div>
+        <script>
+            $(document).ready(() => {
+                $('#author-search').keyup((e) => {
+                    search('.author', e.target.value);
+                })
+            })
+        </script>
+    </div>
 @endsection

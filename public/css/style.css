@@ -175,14 +175,6 @@ footer {
     color: #04718c;
 }
 
-.back-to-top {
-    /*display: flex;*/
-    /*justify-content: flex-end;*/
-    /*position: absolute;*/
-    /*rihgt: 30px;*/
-    /*top: 30px;*/
-}
-
 #arrowTop {
     display: block; /* Hidden by default */
     position: fixed; /* Fixed/sticky position */
@@ -216,4 +208,17 @@ footer {
 
 a {
     color: #04718c !important;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: white;
+}
+
+.navbar-light .navbar-nav .nav-link:hover,
+.navbar-light .navbar-nav .show > .nav-link,
+.navbar-light .navbar-nav .active > .nav-link,
+.navbar-light .navbar-nav .nav-link.show,
+.navbar-light .navbar-nav .nav-link.active {
+    color: #49b108;
+    outline: none;
 }

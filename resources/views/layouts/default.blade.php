@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.frontApp')
 
 @section('layout')
     @include('layouts.navbar')

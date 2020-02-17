@@ -45,13 +45,14 @@ Vue.use(TiptapVuetifyPlugin, {
 });
 
 /* BACKEND PARK */
-Vue.component("admin-dashboard", require("./components/pages/Home.vue").default);
+Vue.component("admin-dashboard", require("./components/frontend/Home.vue").default);
 Vue.component("pagination", require("laravel-vue-pagination"));
 
 /* FRONTEND PART */
 Vue.component("default-footer", require("./components/layouts/Footer").default);
-Vue.component("frontend-authors", require("./components/pages/Authors").default);
-Vue.component("frontend-terms",require("./components/pages/Terms").default);
+Vue.component("frontend-authors", require("./components/frontend/Authors").default);
+Vue.component("frontend-terms",require("./components/frontend/Terms").default);
+Vue.component("frontend-quotes", require("./components/frontend/Quotes").default);
 
 const app = new Vue({
     el: "#app",

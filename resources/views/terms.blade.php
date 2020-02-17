@@ -52,5 +52,4 @@
             </div>
         </div>
     </div>
-    <frontend-terms :terms="{{$terms}}"></frontend-terms>
 @endsection

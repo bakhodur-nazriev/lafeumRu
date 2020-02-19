@@ -1,17 +1,14 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "./components/frontend/Home";
-import Projects from "./components/frontend/Projects";
-import Team from "./components/frontend/Team";
-import Publications from "./components/frontend/Publications";
-import Profile from "./components/frontend/Profile";
-import Quotes from "./components/frontend/Quotes";
+import Home from "./components/admin/Home";
+import Profile from "./components/admin/Profile";
+import Quotes from "./components/admin/Quotes";
 import Authors from "./components/admin/Authors";
-import Photos from "./components/frontend/Photos";
+import Photos from "./components/admin/Photos";
 import Terms from "./components/admin/Terms";
-import KnowledgeAreas from "./components/frontend/KnowledgeAreas";
-import Videos from "./components/frontend/Videos";
-import Channels from "./components/frontend/Channels";
+import KnowledgeAreas from "./components/admin/KnowledgeAreas";
+import Videos from "./components/admin/Videos";
+import Channels from "./components/admin/Channels";
 
 Vue.use(VueRouter);
 export default new VueRouter({
@@ -32,21 +29,6 @@ export default new VueRouter({
             path: "/dashboard/quotes",
             name: '/dashboard/quotes',
             component: Quotes
-        },
-        {
-            path: "/dashboard/projects",
-            name: "/dashboard/projects",
-            component: Projects
-        },
-        {
-            path: "/dashboard/team",
-            name: "/dashboard/team",
-            component: Team
-        },
-        {
-            path: "/dashboard/publications",
-            name: "/dashboard/publications",
-            component: Publications
         },
         {
             path: "/dashboard/profile",

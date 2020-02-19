@@ -18,9 +18,19 @@ class Quote extends Model
     {
         return $this->morphToMany(Tag::class, 'taggable');
     }
-
+    
     public function categories()
     {
         return $this->morphToMany(Category::class, 'categoriable');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
+    public function likes()
+    {
+        return $this->belongsTo('App\Like');
     }
 }

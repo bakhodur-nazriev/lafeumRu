@@ -206,9 +206,9 @@ footer {
     color: #04718c;
 }
 
-a {
+/* a {
     color: #04718c !important;
-}
+} */
 
 .navbar-light .navbar-nav .nav-link {
     color: white;
@@ -221,4 +221,8 @@ a {
 .navbar-light .navbar-nav .nav-link.active {
     color: #49b108;
     outline: none;
+}
+
+.btn:hover{
+    color: #49b108;
 }

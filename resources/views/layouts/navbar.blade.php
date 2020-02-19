@@ -77,59 +77,43 @@
             </li>
             @endif
             @else
-            {{-- <li class="nav-item dropdown">
-                    <a
-                        id="navbarDropdown"
-                        class="nav-link dropdown-toggle text-light"
-                        href="#"
-                        role="button"
-                        data-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                    >
-                        {{ Auth::user()->name }} <span class="caret"></span>
-            </a>
-
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item " href="{{ route('dashboard') }}">
-                    {{ __('Кабинет') }}
-                </a>
-
-                <a class="dropdown-item " href="{{ route('logout') }}" onclick="event.preventDefault();
-                                document.getElementById('logout-form').submit();">
-                    {{ __('Выход') }}
-                </a>
-
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
-            </div>
-            </li> --}}
             <li class="nav-item dropdown">
-                <button 
-                    class="nav-link color dropdown-toggle lol"
-                    href="#" 
-                    id="dropdownMenuLink" 
-                    data-toggle="dropdown" 
-                    aria-haspopup="true" 
-                    aria-expanded="false"
-                >
-                    {{ Auth::user()->name }}
-                </button>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false" v-pre>
+                    {{ Auth::user()->name }}<span class="caret"></span>
+                </a>
+
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="{{route('dashboard')}}">{{ __('Кабинет') }}</a>
-                    <a class="dropdown-item" href="#"
-                        onclick="logout( {{ route('logout') }}, '{{ csrf_token() }}' )">{{ __('Выход') }}</a>
+                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                     document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+                    </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
                 </div>
-                <script>
-                    function logout(url, csrfToken){
+            </li>
+            {{-- <li class="nav-item dropdown">
+                <button class="nav-link color dropdown-toggle lol" href="#" id="dropdownMenuLink" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    {{ Auth::user()->name }}
+            </button>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{{route('dashboard')}}">{{ __('Кабинет') }}</a>
+                <a class="dropdown-item" href="#"
+                    onclick="logout( '{{ route('logout') }}', '{{ csrf_token() }}' )">{{ __('Выход') }}</a>
+            </div>
+            <script>
+                function logout(url, csrfToken){
                         $.post(url, {
                             name: '_token',
                             value: csrfToken
                         }).then(() => window.location.reload());
                     }
-                </script>
-            </li>
+            </script>
+            </li> --}}
             @endguest
         </ul>
     </div>

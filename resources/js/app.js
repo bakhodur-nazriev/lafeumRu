@@ -2,20 +2,16 @@ import Vue from "vue";
 import Vuetify from "vuetify";
 import "vuetify/dist/vuetify.min.css";
 import "@mdi/font/css/materialdesignicons.css";
-import {TiptapVuetifyPlugin} from "tiptap-vuetify";
 import "tiptap-vuetify/dist/main.css";
 import router from "./router.js";
 import App from "./components/App";
-import draggable from 'vuedraggable';
+import draggable from "vuedraggable";
+// import plugin tip-tap vuetify
+import { TiptapVuetifyPlugin } from "tiptap-vuetify";
 
 require("./bootstrap");
 window.Vue = require("vue");
 
-const vuetify = new Vuetify({
-    lang: {
-        current: "en" // en | es | fr | pl | ru
-    }
-});
 const iconsGroup = localStorage.getItem("current_icons_group") || "fa";
 const vuetifyOptions = {
     icons: {
@@ -36,27 +32,44 @@ const vuetifyOptions = {
         }
     }
 };
+const vuetify = new Vuetify({
+    icons: {
+        iconfont: "mdi"
+    },
+    lang: {
+        current: "ru" // en | es | fr | pl | ru
+    }
+});
 
-Vue.use('draggable');
+Vue.use("draggable");
 Vue.use(Vuetify);
 Vue.use(TiptapVuetifyPlugin, {
     vuetify,
-    iconsGroup: 'mdi'
+    iconsGroup: "mdi"
 });
 
 /* BACKEND PARK */
-Vue.component("admin-dashboard", require("./components/frontend/Home.vue").default);
-Vue.component("pagination", require("laravel-vue-pagination"));
+Vue.component(
+    "admin-dashboard",
+    require("./components/admin/Home.vue").default
+);
+// Vue.component("pagination", require("laravel-vue-pagination"));
 
 /* FRONTEND PART */
-Vue.component("default-footer", require("./components/layouts/Footer").default);
-Vue.component("frontend-authors", require("./components/frontend/Authors").default);
-Vue.component("frontend-terms",require("./components/frontend/Terms").default);
-Vue.component("frontend-quotes", require("./components/frontend/Quotes").default);
+// Vue.component("default-footer", require("./components/layouts/Footer").default);
+// Vue.component(
+//     "frontend-authors",
+//     require("./components/frontend/Authors").default
+// );
+// Vue.component("frontend-terms", require("./components/frontend/Terms").default);
+// Vue.component(
+//     "frontend-quotes",
+//     require("./components/frontend/Quotes").default
+// );
 
 const app = new Vue({
     el: "#app",
     router,
-    components: {App},
-    vuetify: new Vuetify(vuetifyOptions),
+    components: { App },
+    vuetify: new Vuetify(vuetifyOptions)
 });

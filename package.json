@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "@mdi/font": "^4.8.95",
+        "font-awesome": "^4.7.0",
         "laravel-vue-pagination": "^2.3.1",
         "lightbox2": "^2.11.1",
         "tiptap-extensions": "^1.28.6",

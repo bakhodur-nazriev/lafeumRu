@@ -16,6 +16,8 @@ function getRandomId($collection, $exceptions = [])
 $factory->define(Quote::class, function (Faker $faker) {
     return [
         'body' => $faker->text(160),
+        // 'thumb_up' => $faker->randomNumber(),
+        // 'thumb_down' => $faker->randomNumber(),
         'author_id' => getRandomId(Author::all())
     ];
 });

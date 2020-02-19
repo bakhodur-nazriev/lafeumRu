@@ -10,14 +10,14 @@ class TermsController extends Controller
 {
     public function index()
     {
-        $terms = Term::with('tags')->paginate(8);
+        $terms = Term::with('tags')->latest()->paginate(8);
         $categories = Category::all();
         return view('/terms', compact(['terms', 'categories']));
     }
 
     public function get()
     {
-        return Term::latest()->get();
+        return Term::with('tags')->latest()->get();
     }
 
     public function store(Request $request)

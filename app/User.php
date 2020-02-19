@@ -33,6 +33,15 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Role');
     }
 
+    public function likes()
+    {
+        return $this->hasMany('App\Like');
+    }
+
+    public function quote()
+    {
+        return $this->hasMany('App\Like');
+    }
     /**
      * The attributes that should be cast to native types.
      *

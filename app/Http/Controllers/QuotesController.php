@@ -8,6 +8,7 @@ use App\Tag;
 use App\Author;
 use http\Env\Response;
 use Illuminate\Http\Request;
+use App\Like;
 
 class QuotesController extends Controller
 {

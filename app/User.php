@@ -38,6 +38,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Like');
     }
 
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class);
+    }
+
     public function quote()
     {
         return $this->hasMany('App\Like');

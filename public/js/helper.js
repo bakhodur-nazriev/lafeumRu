@@ -18,7 +18,3 @@ function search(selector, filter) {
         }
     }
 }
-
-$('.like').on('click', function(event){
-    console.log(event);
-});

@@ -123,13 +123,11 @@
 
             <v-list dark>
                 <div v-for="link in links" :key="link.text">
-                    <v-list-item v-if="!link.links">
-                        <v-list-item-icon>
-                            <v-icon>{{ link.icon }}</v-icon>
-                        </v-list-item-icon>
+                    <!-- <v-list-item v-if="!link.links">
+
 
                         <v-list-item-title>{{ link.text }}</v-list-item-title>
-                    </v-list-item>
+                    </v-list-item> -->
 
                     <v-list-group
                         :prepend-icon="link.icon"
@@ -148,7 +146,7 @@
                             v-for="(subLink, i) in link.links"
                             :key="i"
                             :to="subLink.route"
-                            router
+                            class="text-decoration-none"
                             active-class="white--text"
                         >
                             <v-list-item-content>
@@ -156,6 +154,20 @@
                             </v-list-item-content>
                         </v-list-item>
                     </v-list-group>
+                    
+                    <v-list-item
+                        :to="link.route"
+                        class="text-decoration-none"
+                        active-class="white--text"
+                        v-else
+                    >
+                        <v-list-item-icon>
+                            <v-icon>{{ link.icon }}</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-content>
+                            <v-list-item-title v-text="link.text"/>
+                        </v-list-item-content>
+                    </v-list-item>
                 </div>
             </v-list>
         </v-navigation-drawer>
@@ -224,7 +236,7 @@
                     },
                     {icon: "mdi-folder", text: "My Projects", route: "/dashboard/projects"},
                     {icon: "mdi-account-group", text: "Пользователи", route: "/dashboard/users"},
-                    {icon: "mdi-post", text: "Публикации", route: "/dashboard/publications"},
+                    {icon: "mdi-star", text: "Избранный", route: "/dashboard/favorite"},
                     {icon: "mdi-account", text: "Профил", route: "/dashboard/profile"},
                     {icon: "mdi-settings", text: "Настройка", route: "/dashboard/setting"},
                     {icon: "mdi-chat", text: "Чат", route: "/dashboard/chat"}

@@ -9,6 +9,7 @@ import Terms from "./components/admin/Terms";
 import KnowledgeAreas from "./components/admin/KnowledgeAreas";
 import Videos from "./components/admin/Videos";
 import Channels from "./components/admin/Channels";
+import Favorite from "./components/admin/Favorite";
 
 Vue.use(VueRouter);
 export default new VueRouter({
@@ -16,18 +17,18 @@ export default new VueRouter({
     routes: [
         {
             path: "/dashboard",
-            name: '/dashboard/home',
+            name: "/dashboard/home",
             component: Home
         },
         {
             path: "/dashboard/authors",
-            name: '/dashboard/authors',
+            name: "/dashboard/authors",
             component: Authors
         },
 
         {
             path: "/dashboard/quotes",
-            name: '/dashboard/quotes',
+            name: "/dashboard/quotes",
             component: Quotes
         },
         {
@@ -59,6 +60,11 @@ export default new VueRouter({
             path: "/dashboard/channels",
             name: "/dashboard/channels",
             component: Channels
+        },
+        {
+            path: "/dashboard/favorite",
+            name: "/dashboard/favorite",
+            component: Favorite
         }
     ]
 });

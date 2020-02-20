@@ -42,6 +42,11 @@
                         </i>
                     </a>
                 </div>
+                @if (Auth::check())
+                <div class="panel-footer">
+                    <favorite :quote={{ $quote->id }}></favorite>
+                </div>
+                @endif
                 <button class="btn qouter-share">Поделиться</button>
             </div>
             @endforeach
@@ -58,5 +63,3 @@
     </div>
 </div>
 @endsection
-
-{{-- <script src="{{ asset('/js/helper.js') }}"></script> --}}

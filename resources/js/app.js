@@ -53,6 +53,7 @@ Vue.component(
     "admin-dashboard",
     require("./components/admin/Home.vue").default
 );
+Vue.component("admin-favorite", require("./components/admin/Favorite.vue").default);
 // Vue.component("pagination", require("laravel-vue-pagination"));
 
 /* FRONTEND PART */

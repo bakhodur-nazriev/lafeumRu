@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Quote extends Model
 {
 
-    protected $fillable = ['body', 'author_id'];
+    protected $fillable = ['body', 'author_id', 'user_id'];
 
     public function author()
     {
@@ -18,7 +18,7 @@ class Quote extends Model
     {
         return $this->morphToMany(Tag::class, 'taggable');
     }
-    
+
     public function categories()
     {
         return $this->morphToMany(Category::class, 'categoriable');
@@ -26,11 +26,11 @@ class Quote extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo(User::class);
     }
 
-    public function likes()
+    public function favorite()
     {
-        return $this->belongsTo('App\Like');
+        return $this->hasMany(Favorite::class);
     }
 }

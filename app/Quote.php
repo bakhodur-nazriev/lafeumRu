@@ -1,13 +1,16 @@
 <?php
 
 namespace App;
+use ChristianKuri\LaravelFavorite\Traits\Favoriteable;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Quote extends Model
 {
 
-    protected $fillable = ['body', 'author_id', 'user_id'];
+    use Favoriteable;
+
+    protected $fillable = ['body', 'author_id'];
 
     public function author()
     {
@@ -27,10 +30,5 @@ class Quote extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function favorite()
-    {
-        return $this->hasMany(Favorite::class);
     }
 }

@@ -176,6 +176,8 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    :style="'background: ' + project.backgroundChip"
     <!-- Show Quote Dialog -->
     <v-dialog v-if="termToShow" v-model="termToShow">
       <v-card class="mx-auto" max-width="344">

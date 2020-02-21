@@ -17,7 +17,6 @@ class CreateQuotesTable extends Migration
             $table->bigIncrements('id');
             $table->text('body');
             $table->integer('author_id');
-            $table->integer('user_id');
             $table->timestamps();
         });
     }

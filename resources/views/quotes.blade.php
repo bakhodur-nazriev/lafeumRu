@@ -7,7 +7,7 @@
             <h3>Темы</h3>
             <div>
                 @foreach($categories as $category)
-                <a href="">{{ $category->name }}<br></a>
+                    <a href="">{{ $category->name }}<br></a>
                 @endforeach
             </div>
         </div>
@@ -42,11 +42,6 @@
                         </i>
                     </a>
                 </div>
-                @if (Auth::check())
-                <div class="panel-footer">
-                    <favorite :quote={{ $quote->id }}></favorite>
-                </div>
-                @endif
                 <button class="btn qouter-share">Поделиться</button>
             </div>
             @endforeach

@@ -5,11 +5,12 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use ChristianKuri\LaravelFavorite\Traits\Favoriteability;
 
 class User extends Authenticatable
 {
     use Notifiable;
-
+    use Favoriteability;
     /**
      * The attributes that are mass assignable.
      *
@@ -33,20 +34,11 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Role');
     }
 
-    public function likes()
-    {
-        return $this->hasMany('App\Like');
-    }
+    // public function quotes()
+    // {
+    //     return $this->hasMany('App\Quote');
+    // }
 
-    public function favorites()
-    {
-        return $this->hasMany(Favorite::class);
-    }
-
-    public function quote()
-    {
-        return $this->hasMany('App\Like');
-    }
     /**
      * The attributes that should be cast to native types.
      *

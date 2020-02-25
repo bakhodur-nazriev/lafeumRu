@@ -14,6 +14,8 @@ class QuotesController extends Controller
 {
     public function index()
     {
+        // Quote::find(1)->addFavorite();
+        // return dd(Quote::find(1)->isFavorited());
         $quotes = Quote::with(['author', 'tags'])->paginate(8);
         $categories = Category::all();
         return view('/quotes', compact(['quotes', 'categories']));

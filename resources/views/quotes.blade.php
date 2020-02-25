@@ -30,19 +30,24 @@
                     @endforeach
                 </div>
                 <div class="my-main-divider"></div>
+                {{-- <div>
+                    <button>
+                        <i class="fa fa-thumbs-up"></i>
+                    </button>
+                    <button>
+                        <i class="fa fa-thumbs-down"></i>
+                    </button>
+                </div> --}}
                 <div>
-                    <a href="#" class="like">
-                        <i class="fa fa-thumbs-up" style="color: #909090;">
-                            {{$quote->thumb_up}}
-                        </i>
-                    </a>
-                    <a href="#" class="like">
-                        <i class="fa fa-thumbs-down" style="color: #909090;">
-                            {{$quote->thumb_down}}
-                        </i>
-                    </a>
+                    <button type="button" onclick="quoteToggleFavourite({{$quote->id}})"
+                        class="btn qouter-share  {{$quote->isFavorited() ? " favourite-active": ""}}"
+                        data-isfavourite={{$quote->isFavorited() ? "1": "0"}} data-tooltip data-placement="top"
+                        title="Избранный">
+                        <i class="fa fa-star"></i>
+                    </button>
+                    <button class="btn qouter-share">Поделиться</button>
                 </div>
-                <button class="btn qouter-share">Поделиться</button>
+                <div id="getRequestData"></div>
             </div>
             @endforeach
             <div class="row">
@@ -57,4 +62,16 @@
         </div>
     </div>
 </div>
+
+<script>
+    function quoteToggleFavourite(quoteId){
+        const quoteModel = "App\\Quote";
+        $.ajax({ url: '/api/toggle-favourite', method: 'PUT', data:{
+            favouritable: quoteModel,
+            id: quoteId
+        }}).then((res) => {
+            console.log(res);
+        });
+    }
+</script>
 @endsection

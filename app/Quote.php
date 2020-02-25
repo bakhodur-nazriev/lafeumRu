@@ -1,9 +1,12 @@
 <?php
 
 namespace App;
+
+use ChristianKuri\LaravelFavorite\Models\Favorite;
 use ChristianKuri\LaravelFavorite\Traits\Favoriteable;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 class Quote extends Model
 {
@@ -26,6 +29,11 @@ class Quote extends Model
     {
         return $this->morphToMany(Category::class, 'categoriable');
     }
+
+    // public function favorites()
+    // {
+    //     return $this->morphToMany(Favorite::class, 'favoriteable');
+    // }
 
     public function user()
     {

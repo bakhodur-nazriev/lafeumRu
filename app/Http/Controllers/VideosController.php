@@ -12,7 +12,7 @@ class VideosController extends Controller
     public function index()
     {
         $categories = Category::all();
-        $videos = Video::with('channel')->get();
+        $videos = Video::with(['channel', 'favorites'])->get();
         return view('/videos', compact(['videos', 'categories']));
     }
 

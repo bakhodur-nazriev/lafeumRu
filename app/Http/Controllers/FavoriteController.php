@@ -14,15 +14,12 @@ class FavoriteController extends Controller
             'favouritable' => 'required',
             'id' => 'required'
         ]);
-        
-        return Auth::id();
 
         $favouritableClass = $request->favouritable;
         $modelToFavourite = $favouritableClass::find($request->id);
-
         $modelToFavourite->toggleFavorite();
 
-        return $modelToFavourite->isFavorite();
+        return response()->json($modelToFavourite->isFavorited());
     }
 
     public function ajaxAddFavorite(Request $request)

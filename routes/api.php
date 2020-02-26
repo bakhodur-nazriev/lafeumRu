@@ -47,6 +47,3 @@ Route::get('/channels', 'ChannelsController@get');
 Route::post('/channels', 'ChannelsController@store');
 Route::put('/channels/{id}', 'ChannelsController@update');
 Route::delete('/channels/{id}', 'ChannelsController@delete');
-
-//Favorite
-Route::put('/toggle-favourite', 'FavoriteController@toggle');

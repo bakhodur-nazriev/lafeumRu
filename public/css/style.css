@@ -54,9 +54,9 @@ footer {
 }
 
 .quotes-blocks {
-    display: flex;
+    /*display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: start;*/
     padding: 20px;
     background-color: white;
     border-radius: 5px;
@@ -198,7 +198,7 @@ footer {
 
 .tags-block {
     display: flex;
-    justify-content: center;
+    justify-content: start;
 }
 
 .tags-block a {
@@ -223,10 +223,24 @@ footer {
     outline: none;
 }
 
-.btn:hover{
+.btn:hover {
     color: #49b108;
 }
 
-.favourite-active{
-    color: #ffec00;
+.fa-star-active {
+    color: #ffec00 !important;
 }
+
+.favourite-quote-btn {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.fa-star {
+    color: #d3d2ce;
+}
+
+.tooltip{
+    font-size: 14px !important;
+}
+

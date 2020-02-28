@@ -2,7 +2,7 @@
     <v-content class="pa-0">
         <v-container>
             <v-row justify="center">
-                <v-col cols="6">
+                <v-col md="6">
                     <v-text-field
                         class="mb-1"
                         hide-details

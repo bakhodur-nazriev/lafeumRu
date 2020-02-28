@@ -16,12 +16,21 @@ class QuotesController extends Controller
     {
         $quotes = Quote::with(['author', 'tags'])->paginate(8);
         $categories = Category::all();
+
         return view('/quotes', compact(['quotes', 'categories']));
     }
 
-    public function get()
+    public function get(Request $request)
     {
-        return Quote::with('author')->latest()->get();
+        return $quotesQuery = Quote::with('author');
+
+        /*if($request->has('favourite')){
+            $quotesQuery->whereHas('favorites', function ($query){
+                $query->where('user_id', Auth::id());
+            });
+        }
+
+        return $quotesQuery->latest()->get();*/
     }
 
     public function store(Request $request)

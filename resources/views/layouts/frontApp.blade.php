@@ -48,9 +48,6 @@
         'avatars_path' => asset('img/avatars')
     ]); !!}
 
-    /*$(function () {
-        $('[data-tooltip]').tooltip();
-    });*/
     $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();
     });

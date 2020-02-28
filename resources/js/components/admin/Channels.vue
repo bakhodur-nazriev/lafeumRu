@@ -2,11 +2,11 @@
     <v-content class="pa-0">
         <v-container>
             <v-row justify="center">
-                <v-col cols="6">
+                <v-col md="6">
                     <v-text-field
+                        solo
                         class="mb-1"
                         hide-details
-                        solo
                         label="Поиск"
                         append-icon="mdi-magnify"
                         v-model="search"
@@ -197,6 +197,7 @@
         History,
         Image
     } from 'tiptap-vuetify';
+
     export default {
         components: {TiptapVuetify},
         data() {

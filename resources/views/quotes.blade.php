@@ -73,9 +73,9 @@
     <script>
         function quoteToggleFavourite(quoteId, onSuccess = null, onFailure = null) {
             const quoteModel = "App\\Quote";
-
             $.ajax({
-                url: '/toggle-favourite', method: 'PUT',
+                url: '/toggle-favourite',
+                method: 'PUT',
                 data: {
                     "_token": window.Laravel.csrf_token,
                     favouritable: quoteModel,

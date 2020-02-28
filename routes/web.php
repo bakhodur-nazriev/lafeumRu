@@ -21,7 +21,6 @@ Route::group(['middleware' => ['dashboard']], function () {
 Route::get('/', 'AppController@index')->name('home');
 Route::get('/authors', 'AuthorsController@index')->name('authors');
 Route::get('/channels', 'ChannelsController@index')->name('channels');
-
 Route::get('/contacts', 'ContactsController@create')->name('contacts');
 Route::post('/contacts', 'ContactsController@store')->name('contacts');
 

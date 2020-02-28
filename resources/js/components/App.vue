@@ -61,4 +61,8 @@
     .tiptap-vuetify-editor__toolbar .v-toolbar {
         justify-content: center;
     }
+
+    :focus {
+        outline: none !important;
+    }
 </style>

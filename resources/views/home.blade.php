@@ -59,27 +59,28 @@
             </div>
         </div>
         <div class="row">
-            <div class="col">
+            <div class="col-md-12">
                 <h3 class="text-center">Фото</h3>
-
-                <div id="carouselExampleControls" class="carousel slide my-4">
-                    <div class="carousel-inner main-page-carousel-inner">
-                        <div class="carousel-item active">
-                            @foreach ($photos as $photo)
-                                <img src="{{ $photo->image }}" class="d-inline-block" alt="{{ $photo->description }}">
-                            @endforeach
-                        </div>
-                    </div>
-                    {{--<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>--}}
-                </div>
             </div>
+            {{--<div class="col-md-12 d-inline-block">--}}
+                @foreach ($photos as $photo)
+                    <div id="carouselExampleControls" class="carousel slide my-2 d-inline-block col-md-4">
+                        <div class="carousel-inner main-page-carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="{{ $photo->image }}" class="d-inline-block" alt="{{ $photo->description }}">
+                            </div>
+                        </div>
+                        {{--<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>--}}
+                    </div>
+                @endforeach
+            {{--</div>--}}
         </div>
     </div>
 @endsection

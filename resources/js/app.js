@@ -6,7 +6,6 @@ import "tiptap-vuetify/dist/main.css";
 import router from "./router.js";
 import App from "./components/App";
 import draggable from "vuedraggable";
-// import plugin tip-tap vuetify
 import { TiptapVuetifyPlugin } from "tiptap-vuetify";
 
 require("./bootstrap");
@@ -54,19 +53,19 @@ Vue.component(
     require("./components/admin/Home.vue").default
 );
 Vue.component("admin-favorite", require("./components/admin/Favorite.vue").default);
-// Vue.component("pagination", require("laravel-vue-pagination"));
+/*Vue.component("pagination", require("laravel-vue-pagination"));*/
 
 /* FRONTEND PART */
-// Vue.component("default-footer", require("./components/layouts/Footer").default);
-// Vue.component(
-//     "frontend-authors",
-//     require("./components/frontend/Authors").default
-// );
-// Vue.component("frontend-terms", require("./components/frontend/Terms").default);
-// Vue.component(
-//     "frontend-quotes",
-//     require("./components/frontend/Quotes").default
-// );
+/*Vue.component("default-footer", require("./components/layouts/Footer").default);
+Vue.component(
+    "frontend-authors",
+    require("./components/frontend/Authors").default
+);
+Vue.component("frontend-terms", require("./components/frontend/Terms").default);
+Vue.component(
+    "frontend-quotes",
+    require("./components/frontend/Quotes").default
+);*/
 
 const app = new Vue({
     el: "#app",

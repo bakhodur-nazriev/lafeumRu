@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Term extends Model
 {
     use Favoriteable;
+
     protected $fillable = ['name','body'];
 
     public function tags()

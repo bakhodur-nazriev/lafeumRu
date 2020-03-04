@@ -2,14 +2,15 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
-            <div class="col-3">
+        <div class="row card-main-block">
+            <div class="col-md-3 col-sm-12">
                 <h3>Темы</h3>
-                <div>
-                    @foreach($categories as $category)
-                        <a href="">{{ $category->name }}<br></a>
+                @foreach($categories as $category)
+                    <a href="#"><b>{{ $category->name }}</b></a>
+                    @foreach($category->children as $subCategory)
+                        <div><a href="#">{{$subCategory->name}}</a></div>
                     @endforeach
-                </div>
+                @endforeach
             </div>
             <div class="col-md-9 col-xl-8 col-sm-12">
                 <h3>Цитаты и Афоризмы</h3>
@@ -17,9 +18,9 @@
                     писателей и философов. Понятия и суждения компетентных ученых и специалистов.
                 </p>
                 @foreach ($quotes as $quote)
-                    <div class="quotes-blocks">
+                    <div class="card-block">
                         <div class="row mb-2">
-                            <div class="col py-0">
+                            <div class="py-0">
                                 <a href="#">
                                     <img src="/img/person-60.png" alt=""
                                          class="qouter-authors-image">{{ $quote->author->name }}
@@ -38,23 +39,16 @@
                         <div class="tags-block">
                             @foreach($quote->tags as $tag)
                                 <a href="#">
-                                    <img src="/img/tag.png" alt="" class="qouter-authors-image">{{ $tag->name }}
+                                    <img src="/img/tag.png" alt="" class="qouter-authors-image">
+                                    {{ $tag->name }}
                                 </a>
                             @endforeach
                         </div>
                         <div class="my-main-divider"></div>
-                        {{-- <div>
-                            <button>
-                                <i class="fa fa-thumbs-up"></i>
-                            </button>
-                            <button>
-                                <i class="fa fa-thumbs-down"></i>
-                            </button>
-                        </div> --}}
                         <div>
-                            <button class="btn qouter-share">Поделиться</button>
+                            <button class="btn share-button">Поделиться</button>
                         </div>
-                        <div id="getRequestData"></div>
+                        {{--<div id="getRequestData"></div>--}}
                     </div>
                 @endforeach
                 <div class="row">

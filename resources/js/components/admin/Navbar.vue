@@ -3,7 +3,7 @@
         <v-app-bar app color="grey&#45;&#45;text white" flat>
             <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
             <v-toolbar-title class="text-uppercase grey--text">
-                <span>Lafeum</span>
+                <span>{{$route.meta.title}}</span>
             </v-toolbar-title>
             <v-spacer></v-spacer>
 
@@ -24,7 +24,7 @@
             <v-layout column align-center>
                 <v-flex class="mt-5 text-center">
                     <v-avatar size="130">
-                        <img :src="'/img/avatars/' + this.users.avatar" alt="John"/>
+                        <img :src="'/img/avatars/' + this.users.avatar" alt=""/>
                     </v-avatar>
                     <h4 class="white--text subheading mt-2">
                         {{ this.users.name }}
@@ -33,43 +33,44 @@
             </v-layout>
 
             <v-list dark>
-                <div v-for="link in links" :key="link.text">
+                <div v-for="link in links" :key="link.meta.title">
                     <v-list-group
-                        :prepend-icon="link.icon"
+                        :prepend-icon="link.meta.icon"
                         v-model="link.active"
                         active-class="white--text"
+                        v-if="link.subLinks"
                         no-action
-                        v-if="link.links"
                     >
                         <template v-slot:activator>
                             <v-list-item-content>
-                                <v-list-item-title>{{ link.text }}</v-list-item-title>
+                                <v-list-item-title>{{ link.meta.title }}</v-list-item-title>
                             </v-list-item-content>
                         </template>
                         <v-list-item
-                            v-for="(subLink, i) in link.links"
+                            v-for="(subLink, i) in link.subLinks"
                             :key="i"
-                            :to="subLink.route"
+                            :to="subLink.path"
                             class="text-decoration-none"
                             active-class="white--text"
+                            :prepend-icon="subLink.meta.icon"
                         >
                             <v-list-item-content>
-                                <v-list-item-title v-text="subLink.text"/>
+                                <v-list-item-title v-text="subLink.meta.title"/>
                             </v-list-item-content>
                         </v-list-item>
                     </v-list-group>
 
                     <v-list-item
-                        :to="link.route"
+                        :to="link.path"
                         class="text-decoration-none"
                         active-class="white--text"
                         v-else
                     >
                         <v-list-item-icon>
-                            <v-icon>{{ link.icon }}</v-icon>
+                            <v-icon>{{ link.meta.icon }}</v-icon>
                         </v-list-item-icon>
                         <v-list-item-content>
-                            <v-list-item-title v-text="link.text"/>
+                            <v-list-item-title v-text="link.meta.title"/>
                         </v-list-item-content>
                     </v-list-item>
                 </div>
@@ -79,98 +80,17 @@
 </template>
 
 <script>
+    import {sidebarRoutes} from "../../routes";
+
     export default {
-        props: ["route"],
         data() {
             return {
                 csrf: window.Laravel.csrf_token,
                 users: window.Laravel.auth,
                 drawer: true,
                 currentLink: [],
-                links: [
-                    {
-                        icon: "mdi-plus",
-                        text: "Все записи",
-                        links: [
-                            {
-                                icon: "mdi-tag",
-                                text: "Цитаты",
-                                route: "/dashboard/quotes"
-                            },
-                            {
-                                icon: "mdi-person",
-                                text: "Авторы",
-                                route: "/dashboard/authors"
-                            },
-                            {
-                                icon: "mdi-tag",
-                                text: "Термины",
-                                route: "/dashboard/terms"
-                            },
-                            {
-                                icon: "mdi-tag",
-                                text: "Области Знаний",
-                                route: "/dashboard/knowledge-areas"
-                            },
-                            {
-                                icon: "mdi-youtube",
-                                text: "Видео",
-                                route: "/dashboard/videos"
-                            },
-                            {
-                                icon: "mdi-youtube",
-                                text: "Каналы",
-                                route: "/dashboard/channels"
-                            },
-                            {
-                                icon: "mdi-image",
-                                text: "Фото",
-                                route: "/dashboard/photos"
-                            }
-                        ]
-                    },
-                    {
-                        icon: "mdi-folder",
-                        text: "My Projects",
-                        route: "/dashboard/projects"
-                    },
-                    {
-                        icon: "mdi-account-group",
-                        text: "Пользователи",
-                        route: "/dashboard/users"
-                    },
-                    {
-                        icon: "mdi-star",
-                        text: "Избранный",
-                        route: "/dashboard/favorite"
-                    },
-                    {
-                        icon: "mdi-account",
-                        text: "Профил",
-                        route: "/dashboard/profile"
-                    },
-                    {
-                        icon: "mdi-settings",
-                        text: "Настройка",
-                        route: "/dashboard/setting"
-                    },
-                    {
-                        icon: "mdi-chat",
-                        text: "Чат",
-                        route: "/dashboard/chat"
-                    }
-                ]
+                links: sidebarRoutes
             };
         },
-        methods: {
-            updateImage() {
-                axios
-                    .put("")
-                    .then()
-                    .catch(err => {
-                        console.log(err);
-                    });
-            }
-        }
     };
 </script>

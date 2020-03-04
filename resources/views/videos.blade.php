@@ -78,10 +78,10 @@
                     {{--                                        <a href="#"><img src="/img/social_icons/whatsapp.png" alt=""></a>--}}
                     {{--                                        <a href="#"><img src="/img/social_icons/telegram.png" alt="telegram link"></a>--}}
                     {{--                                    </div>--}}
-                    {{--                                </div>--}}
-                    {{--                            </div>--}}
-                    {{--                        </div>--}}
-                    {{--                    </div>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
                     {{-- </div> --}}
                 </div>
             @endforeach

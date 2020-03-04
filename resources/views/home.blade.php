@@ -21,66 +21,45 @@
             </div>
         </div>
         <div class="row justify-center">
-            <div class="col-md-12 col-xl-12 text-left">
-                <h3 class="text-center mb-5">Темы</h3>
-                <div class="row">
-                    @foreach($categories as $category)
-                        <div class="mb-5 col-md-3 w-25 d-inline-block align-top">
-                            <a href="/">
-                                <b>{{ $category->name }}</b>
-                            </a>
-                            <br>
-                            @foreach($category->children as $subCategory)
-                                <div>
-                                    <a href="/">{{$subCategory->name}}</a><br>
-                                </div>
-                            @endforeach
+            <div class="col-md-12 col-xl-12">
+                <h3 class="text-center">Темы</h3>
+            </div>
+        </div>
+        <div class="row">
+            @foreach($categories as $category)
+                <div class="col-md-3 d-inline-block align-top mb-3">
+                    <a href="#">
+                        <b>{{ $category->name }}</b>
+                    </a>
+                    @foreach($category->children as $subCategory)
+                        <div>
+                            <a href="#">{{$subCategory->name}}</a><br>
                         </div>
                     @endforeach
                 </div>
-
-                <template>
-                    <v-row justify="center">
-                        {{--<v-expansion-panels accordion>
-                            <v-expansion-panel
-                                v-for="(item,i) in 5"
-                                :key="i"
-                            >
-                                <v-expansion-panel-header>Item</v-expansion-panel-header>
-                                <v-expansion-panel-content>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                </v-expansion-panel-content>
-                            </v-expansion-panel>
-                        </v-expansion-panels>--}}
-                    </v-row>
-                </template>
-            </div>
+            @endforeach
         </div>
         <div class="row">
             <div class="col-md-12">
                 <h3 class="text-center">Фото</h3>
             </div>
-            {{--<div class="col-md-12 d-inline-block">--}}
-                @foreach ($photos as $photo)
-                    <div id="carouselExampleControls" class="carousel slide my-2 d-inline-block col-md-4">
-                        <div class="carousel-inner main-page-carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="{{ $photo->image }}" class="d-inline-block" alt="{{ $photo->description }}">
-                            </div>
+            @foreach ($photos as $photo)
+                <div id="carouselExampleControls" class="carousel slide my-2 d-inline-block col-md-4">
+                    <div class="carousel-inner main-page-carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="{{ $photo->image }}" class="d-inline-block" alt="{{ $photo->description }}">
                         </div>
-                        {{--<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>--}}
                     </div>
-                @endforeach
-            {{--</div>--}}
+                    {{--<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>--}}
+                </div>
+            @endforeach
         </div>
     </div>
 @endsection

@@ -11,11 +11,16 @@ class TermsController extends Controller
     public function index()
     {
         $terms = Term::with('tags')->latest()->paginate(8);
-        $categories = Category::all();
+        $categories = Category::get()->toTree()->unique('name');
         return view('/terms', compact(['terms', 'categories']));
     }
 
-    public function get()
+    public function show(Term $term)
+    {
+        return view('shows.showTerm', compact('term'));
+    }
+
+    public function get(Request $request)
     {
         return Term::with('tags')->latest()->get();
     }

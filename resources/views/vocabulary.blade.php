@@ -1,6 +1,6 @@
-@extends('layouts.default')
+@extends("layouts.default")
 
-@section('content')
+@section("content")
     <div class="container">
         <div class="row">
             <div class="col-3">
@@ -11,7 +11,7 @@
                     @endforeach
                 </div>
             </div>
-            <div class="col-xl-6 col-md-9">
+            <div class="col-md-9">
                 <h3>Словарь «Лафеюм»</h3>
                 <p>Словарь «ЛАФЕЮМ» на сегодня содержит более одной тысячи основных терминов, соответствующих тематики
                     сайта.
@@ -23,49 +23,23 @@
                     ссылки на Викисловарь.
                     По мере обновления на основном источнике здесь они будут равным образом обновляться.</p>
                 <div class="row d-flex justify-content-center">
-                    <div class="col-5">
-                    <span class="authors-main-title">
-                        <h4>
-                            <strong>Ведите термин</strong>
-                        </h4>
-                    </span>
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Поиск по термину"
-                                   aria-label="Поиск по авторам" aria-describedby="button-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" type="button" id="button-addon2">
-                                    <span>Поиск</span>
-                                </button>
-                            </div>
-                        </div>
+                    <div class="col-md-5 input-group mb-3">
+                        <input
+                            type="text"
+                            id="author-search"
+                            class="form-control"
+                            placeholder="Поиск по авторам"
+                        >
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-4 authors-links">
-                        <a href="#">Lorem, ipsum dolor.</a>
-                        <a href="#">Lorem, ipsum dolor.</a>
-                        <a href="#">Lorem, ipsum dolor.</a>
-                        <a href="#">Lorem, ipsum dolor.</a>
-                        <a href="#">Lorem, ipsum dolor.</a>
-                        <a href="#">Lorem, ipsum dolor.</a>
-                    </div>
-                    <div class="col-4 authors-links">
-                        <a href="#">Lorem, ipsum dolor.</a>
-                        <a href="#">Lorem, ipsum dolor.</a>
-                        <a href="#">Lorem, ipsum dolor.</a>
-                        <a href="#">Lorem, ipsum dolor.</a>
-                        <a href="#">Lorem, ipsum dolor.</a>
-                        <a href="#">Lorem, ipsum dolor.</a>
-                    </div>
-                    <div class="col-4 authors-links">
-                        <a href="#">Lorem, ipsum dolor.</a>
-                        <a href="#">Lorem, ipsum dolor.</a>
-                        <a href="#">Lorem, ipsum dolor.</a>
-                        <a href="#">Lorem, ipsum dolor.</a>
-                        <a href="#">Lorem, ipsum dolor.</a>
-                        <a href="#">Lorem, ipsum dolor.</a>
-                        <a href="#">Lorem, ipsum dolor.</a>
-                    </div>
+                    @foreach($vocabularies as $vocabulary)
+                        <div class="col-md-4 py-1">
+                            <a href="/terms/{{$vocabulary->id}}">
+                                {{$vocabulary->name}}
+                            </a>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>

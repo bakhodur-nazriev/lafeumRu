@@ -3,7 +3,7 @@
 @section("content")
     <div class="container">
         <div class="row card-block my-2">
-            <div class="col-md-11 my-0 lol">
+            <div class="col-md-11 my-0">
                 {!! $term->body !!}
             </div>
             <div class="col-md-1 text-center">

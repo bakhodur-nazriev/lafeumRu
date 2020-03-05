@@ -37,8 +37,8 @@ class Category extends Model
         return $this->morphedByMany(Video::class, 'categoriable');
     }
 
-    public function vocabulary()
+    /*public function vocabulary()
     {
         return $this->morphedByMany(Vocabulary::class, 'categoriable');
-    }
+    }*/
 }

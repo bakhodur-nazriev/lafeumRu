@@ -35,9 +35,7 @@
 
 <body>
 
-<div>
-    @yield('layout')
-</div>
+@yield('layout')
 
 
 <script>

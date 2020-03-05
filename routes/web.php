@@ -3,8 +3,6 @@
 // use Symfony\Component\Routing\Annotation\Route;
 // use Illuminate\Routing\Route;
 
-// use Illuminate\Routing\Route;
-
 Auth::routes();
 
 Route::get("/dashboard{any}", "AdminController@index")->where("any", ".*");

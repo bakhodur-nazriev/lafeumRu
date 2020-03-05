@@ -1,11 +1,15 @@
-body {
-    background-color: #e7ebf2;
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
 }
 
-/*p,*/
-/*a {*/
-/*    font-size: 18px;*/
-/*}*/
+body {
+    background-color: #e7ebf2;
+    min-height: 100vh;
+    position: relative;
+    padding-bottom: 222px;
+}
 
 h3 {
     color: #a6192e;
@@ -17,7 +21,6 @@ h3 {
 
 .navbar-links {
     font-size: 16px;
-    /*text-transform: uppercase;*/
 }
 
 .about-us-section img {
@@ -29,17 +32,12 @@ h3 {
     margin-top: 15px;
 }
 
-footer {
-    /*position: absolute;*/
-    bottom: -1px;
+.footer {
+    position: absolute;
+    bottom: 0;
     width: 100%;
-    /* height: 100%; */
     line-height: 40px;
     background-color: #04718c;
-}
-
-.container {
-    height: 100%;
 }
 
 .carousel-item > img {
@@ -251,10 +249,6 @@ footer {
 
 .navbar-nav .dropdown-menu {
     position: absolute;
-}
-
-.lol > p{
-    margin-bottom: 0;
 }
 
 @media (max-width: 768px) {

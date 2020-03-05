@@ -3,13 +3,14 @@
 @section("content")
     <div class="container">
         <div class="row">
-            <div class="col-3">
+            <div class="col-md-3 col-sm-12">
                 <h3>Темы</h3>
-                <div>
-                    @foreach($categories as $category)
-                        <a href="">{{ $category->name }}<br></a>
+                @foreach($categories as $category)
+                    <a href="#"><b>{{ $category->name }}</b></a>
+                    @foreach($category->children as $subCategory)
+                        <div><a href="#">{{$subCategory->name}}</a></div>
                     @endforeach
-                </div>
+                @endforeach
             </div>
             <div class="col-md-9">
                 <h3>Словарь «Лафеюм»</h3>
@@ -26,21 +27,26 @@
                     <div class="col-md-5 input-group mb-3">
                         <input
                             type="text"
-                            id="author-search"
+                            id="vocabulary-search"
                             class="form-control"
-                            placeholder="Поиск по авторам"
+                            placeholder="Поиск"
                         >
                     </div>
                 </div>
                 <div class="row">
                     @foreach($vocabularies as $vocabulary)
-                        <div class="col-md-4 py-1">
-                            <a href="/terms/{{$vocabulary->id}}">
-                                {{$vocabulary->name}}
-                            </a>
+                        <div class="col-md-4 py-1 vocabulary">
+                            <a href="/terms/{{$vocabulary->id}}">{{$vocabulary->name}}</a>
                         </div>
                     @endforeach
                 </div>
+                <script>
+                    $(document).ready(() => {
+                        $("#vocabulary-search").keyup((e) => {
+                            search(".vocabulary", e.target.value);
+                        })
+                    })
+                </script>
             </div>
         </div>
     </div>

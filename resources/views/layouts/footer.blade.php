@@ -1,4 +1,4 @@
-<footer id="sticky-footer" class="text-white-50">
+<footer class="text-white-50 footer">
   <div class="container text-center">
       <div>
           <img src="/img/white-footer-logo.png" alt="white logo lafuem">

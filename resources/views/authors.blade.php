@@ -1,6 +1,6 @@
-@extends('layouts.default')
+@extends("layouts.default")
 
-@section('content')
+@section("content")
     <div class="container">
         <div class="row d-flex justify-content-center">
             <div class="col-md-4 col-xl-4">
@@ -8,7 +8,7 @@
                     <h3>Авторы</h3>
                     <p class="ma-3">Авторы цитат, афоризмов и высказываний, <br>представленных на сайте.</p>
                 </span>
-                <div class=" input-group mb-3">
+                <div class="input-group mb-3">
                     <input
                         type="text"
                         id="author-search"
@@ -27,10 +27,11 @@
         </div>
         <script>
             $(document).ready(() => {
-                $('#author-search').keyup((e) => {
-                    search('.author', e.target.value);
+                $("#author-search").keyup((e) => {
+                    search(".author", e.target.value);
                 })
             })
         </script>
     </div>
 @endsection
+

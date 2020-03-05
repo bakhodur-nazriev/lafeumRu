@@ -12,7 +12,7 @@ class VocabularyController extends Controller
     {
         $vocabularies = Term::latest()->get();
         $categories = Category::get()->toTree()->unique("name");
-        return view("/vocabulary", compact("vocabularies", "categories"));
+        return view("/vocabulary", compact(["vocabularies", "categories"]));
     }
 
     public function show(Term $term)

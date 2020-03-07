@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Channel;
 use Illuminate\Http\Request;
 
@@ -10,7 +11,14 @@ class ChannelsController extends Controller
     public function index()
     {
         $channels = Channel::all();
-        return view('/channels', compact('channels'));
+        return view("/channels", compact("channels"));
+    }
+
+    public function show($id)
+    {
+        $categories = Category::get()->toTree()->unique("name");
+        $channels = Channel::with("videos")->find($id);
+        return view("/shows.showChannel", compact(["channels", "categories"]));
     }
 
     public function get()

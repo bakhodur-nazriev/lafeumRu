@@ -3,14 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Knowledge;
+use App\Term;
 use Illuminate\Http\Request;
 
 class KnowledgesController extends Controller
 {
     public function index()
     {
-        $knowledgeAreas = Knowledge::all();
-        return view('/knowledge.index', compact('knowledgeAreas'));
+        $knowledgeAreas = Term::latest()->get();
+        return view('knowledgeArea', compact('knowledgeAreas'));
+    }
+
+    public function show()
+    {
+        return view("shows.knowledgeArea");
     }
 
     public function get()

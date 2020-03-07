@@ -14,11 +14,11 @@ class Video extends Model
     {
         return $this->belongsTo(Channel::class);
     }
-    //
-    //    public function tag()
-    //    {
-    //        return $this->hasMany(Tag::class);
-    //    }
+
+    /*public function tag()
+    {
+        return $this->hasMany(Tag::class);
+    }*/
 
     public function tags()
     {

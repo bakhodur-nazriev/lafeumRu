@@ -14,18 +14,18 @@ class QuotesController extends Controller
 {
     public function index()
     {
-        $quotes = Quote::with(['author', 'tags'])->paginate(8);
-        $categories = Category::get()->toTree()->unique('name');
-        return view('/quotes', compact(['quotes', 'categories']));
+        $quotes = Quote::with(["author", "tags"])->paginate(8);
+        $categories = Category::get()->toTree()->unique("name");
+        return view("/quotes", compact(["quotes", "categories"]));
     }
 
     public function get(Request $request)
     {
-        return $quotesQuery = Quote::with('author');
+        return $quotesQuery = Quote::with("author");
 
-        /*if($request->has('favourite')){
-            $quotesQuery->whereHas('favorites', function ($query){
-                $query->where('user_id', Auth::id());
+        /*if($request->has("favourite")){
+            $quotesQuery->whereHas("favorites", function ($query){
+                $query->where("user_id", Auth::id());
             });
         }
 

@@ -10,7 +10,7 @@ class Channel extends Model
     use Favoriteable;
     protected $fillable = ['name', 'description'];
 
-    public function video()
+    public function videos()
     {
         return $this->hasMany(Video::class);
     }

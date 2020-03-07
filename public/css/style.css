@@ -89,10 +89,7 @@ h3 {
 
 .authors-links,
 .home-tems-links {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 1px !important;
+    padding: 2px !important;
 }
 
 .tags {
@@ -272,3 +269,5 @@ h3 {
         flex-direction: row-reverse;
     }
 }
+
+

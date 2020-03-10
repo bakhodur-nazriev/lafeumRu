@@ -12,7 +12,7 @@ $factory->define(Video::class, function (Faker $faker) {
     return [
         'title' => $faker->name(),
         'channel_id' => getRandomId(Channel::all()),
-        'link' => $faker->url(),
+        'link' => 'https://www.youtube.com/embed/xZs844YwNB4',
         'duration' => $faker->randomDigitNotNull()
     ];
 });

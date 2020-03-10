@@ -11,14 +11,15 @@ class VideosController extends Controller
 {
     public function index()
     {
-        $categories = Category::all();
-        $videos = Video::with(['channel', 'favorites'])->get();
-        return view('/videos', compact(['videos', 'categories']));
+        $categories = Category::get()->toTree()->unique("name");
+        $channels = Channel::with("videos")->get();
+        $videos = Video::with(["channel", "favorites", "tags"])->get();
+        return view("/videos", compact(["channels","videos", "categories"]));
     }
 
     public function get()
     {
-        return Video::with('channel')->latest()->get();
+        return Video::with("channel")->latest()->get();
     }
 
     public function store(Request $request)

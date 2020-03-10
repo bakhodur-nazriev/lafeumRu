@@ -1,26 +1,26 @@
 @extends('layouts.default')
 
 @section('content')
-    <v-container fluid>
-        <v-row justify="center">
-            <v-col md5 lg4>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
                 <span class="authors-main-title">
                     <h3>Фотографии</h3>
-                    <p>В данном разделе подборка фотографий на тему жизни и ее красоты.</p>
+                    <p class="mb-0">В данном разделе подборка фотографий на тему жизни и ее красоты.</p>
                 </span>
-            </v-col>
-        </v-row>
-        <v-row justify="center">
+            </div>
+        </div>
+        <div class="row justify-content-center">
             @foreach($photos as $photo)
-                <a href="{{ $photo->image }}" data-fancybox="gallery" class="pa-2">
-                    <v-card class="mx-auto" max-width="400">
-                        <img src="{{ $photo->image }}" class="rounded card-img-top shadow-sm" alt="">
-                    </v-card>
-                </a>
+                <div class="col-md-4">
+                    <a href="{{ $photo->image }}" data-fancybox="gallery" class="pa-2">
+                        <img src="{{ $photo->image }}" class="card-img-top" alt="">
+                    </a>
+                </div>
             @endforeach
-        </v-row>
-        <v-row justify="center" class="mt-6">
-            {!! $photos->links(); !!}
-        </v-row>
-    </v-container>
+            <div class="mt-3">
+                {!! $photos->links(); !!}
+            </div>
+        </div>
+    </div>
 @endsection

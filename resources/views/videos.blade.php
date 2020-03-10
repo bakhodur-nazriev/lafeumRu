@@ -2,90 +2,46 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
-            <div class="col-md-3">
+        <div class="row card-main-block">
+            <div class="col-md-3 col-sm-12">
                 <h3>Темы</h3>
-                <div>
-                    @foreach($categories as $category)
-                        <a href="">{{ $category->name }}<br></a>
+                @foreach($categories as $category)
+                    <a href="#"><b>{{ $category->name }}</b></a>
+                    @foreach($category->children as $subCategory)
+                        <div><a href="#">{{$subCategory->name}}</a></div>
+                    @endforeach
+                @endforeach
+            </div>
+
+            <div class="col-md">
+                <div class="row">
+                    @foreach($videos as $video)
+                        <div class="col-6">
+                            <div class="card">
+                                <iframe class="youtube-videos" src="{{$video->link}}" frameborder="0"></iframe>
+                                <div class="card-body">
+                                    <h5 class="card-title mb-0">{{$video->title}}</h5>
+                                    <small class="text-muted">
+                                        <a href="#" class="d-block">{{$video->channel->name}}</a>
+                                    </small>
+                                    @foreach($video->tags as $tag)
+                                        <p class="mb-0 mr-1 d-inline-block">
+                                            <a href="#"><i class="fa fa-tags mr-1"></i>{{$tag->name}},</a>
+                                        </p>
+                                    @endforeach
+                                </div>
+                                <div class="card-footer d-flex justify-content-between align-items-center">
+                                    <span>
+                                        <i class="fa fa-clock-o mr-1"></i>{{$video->duration}}
+                                        <span> мин.</span>
+                                    </span>
+                                    <button class="btn share-button">Поделиться</button>
+                                </div>
+                            </div>
+                        </div>
                     @endforeach
                 </div>
             </div>
-
-            {{--            <div class="col-md-9">--}}
-            @foreach ($videos as $video)
-                <div class="col-md-3">
-                    <div class="card mb-4 shadow-sm">
-                        <iframe src="{{ $video->link }}"></iframe>
-                        <div class="card-body">
-                            <p class="card-text">This is a wider card with supporting text below as a natural
-                                lead-in to additional content. This content is a little bit longer.</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                                </div>
-                                <small class="text-muted">{{$video->duration}} mins</small>
-                            </div>
-                        </div>
-                    </div>
-                    {{-- <div class="col-md-4 m-3"> --}}
-                    {{--                    <div class="card mb-4 m-3 shadow-sm single-video-block">--}}
-                    {{--                        <div class="videos-channels-title">--}}
-                    {{--                            <a href="#">--}}
-                    {{--                                <img src="/img/youtube.png" alt="">--}}
-                    {{--                                <span>{{ $video->title }}</span>--}}
-                    {{--                            </a>--}}
-                    {{--                        </div>--}}
-                    {{--                        <div class="main-content-video">--}}
-                    {{--                            --}}
-                    {{--                            --}}{{--<iframe src="{{ $video->link }}">--}}
-
-                    {{--                            </iframe>--}}
-                    {{--                            --}}{{--<svg class="bd-placeholder-img card-img-top"--}}
-                    {{--                                 width="100%"--}}
-                    {{--                                 height="225"--}}
-                    {{--                                 xmlns="http://www.w3.org/2000/svg"--}}
-                    {{--                                 preserveAspectRatio="xMidYMid slice"--}}
-                    {{--                                 focusable="false"--}}
-                    {{--                                 role="img"--}}
-                    {{--                                 aria-label="Placeholder: Thumbnail"--}}
-                    {{--                            >--}}
-                    {{--                                <rect width="100%" height="100%" fill="#55595c"/>--}}
-                    {{--                            </svg>--}}
-                    {{--                        </div>--}}
-                    {{--                        <div class="card-body">--}}
-                    {{--                            <p>{{ $video->channel->description }}</p>--}}
-                    {{--                            <div class="d-flex justify-content-end text-muted mb-2">--}}
-                    {{--                                --}}{{--<v-icon left prepend-icon="mdi-clock-outline"></v-icon>--}}
-                    {{--                                9 mins--}}
-                    {{--                            </div>--}}
-                    {{--                            <div class="dropdown-divider"></div>--}}
-                    {{--                            <div class="d-flex justify-content-between align-items-center flex-wrap">--}}
-
-                    {{--                                <div class="btn-group">--}}
-                    {{--                                    <button--}}
-                    {{--                                        type="button"--}}
-                    {{--                                        class￼="btn btn-sm btn-outline-secondary"--}}
-                    {{--                                    >Поделиться--}}
-                    {{--                                    </button>--}}
-                    {{--                                    <div class="video-share">--}}
-                    {{--                                        <a href="#"><img src="/img/social_icons/vk.png" alt=""></a>--}}
-                    {{--                                        <a href="#"><img src="/img/social_icons/facebook.png" alt=""></a>--}}
-                    {{--                                        <a href="#"><img src="/img/social_icons/odnoklassniki.png" alt=""></a>--}}
-                    {{--                                        <a href="#"><img src="/img/social_icons/twitter.png" alt=""></a>--}}
-                    {{--                                        <a href="#"><img src="/img/social_icons/viber.png" alt=""></a>--}}
-                    {{--                                        <a href="#"><img src="/img/social_icons/whatsapp.png" alt=""></a>--}}
-                    {{--                                        <a href="#"><img src="/img/social_icons/telegram.png" alt="telegram link"></a>--}}
-                    {{--                                    </div>--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    {{-- </div> --}}
-                </div>
-            @endforeach
-            {{--</div>--}}
 
         </div>
     </div>

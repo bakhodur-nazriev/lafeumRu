@@ -11,8 +11,8 @@ class PhotosController extends Controller
 
     public function index()
     {
-        $photos = Photo::orderBy('id')->paginate(12);
-        return view('/photos', compact('photos'));
+        $photos = Photo::orderBy("id")->paginate(12);
+        return view("/photos", compact("photos"));
     }
 
     public function get()
@@ -22,9 +22,9 @@ class PhotosController extends Controller
 
     public function store(Request $request)
     {
-        $newPhotoData = $request->only(['description']);
+        $newPhotoData = $request->only(["description"]);
         if ($request->hasFile("image")) {
-            $newPhotoData['image'] = $this->saveImage(time(), $request->image);
+            $newPhotoData["image"] = $this->saveImage(time(), $request->image);
         }
         $newPhoto = Photo::create($newPhotoData);
 
@@ -34,7 +34,7 @@ class PhotosController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'description' => 'required'
+            "description" => "required"
         ]);
         $photo = Photo::find($id);
         $photo->update($request->all());

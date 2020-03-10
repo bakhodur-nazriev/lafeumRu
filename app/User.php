@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        "name", "email", "password", "type"
     ];
 
     // public function favorite()
@@ -33,17 +33,17 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        "password", "remember_token",
     ];
 
     public function roles()
     {
-        return $this->belongsToMany('App\Role');
+        return $this->belongsToMany("App\Role");
     }
 
     // public function quotes()
     // {
-    //     return $this->hasMany('App\Quote');
+    //     return $this->hasMany("App\Quote");
     // }
 
     /**
@@ -52,6 +52,6 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        "email_verified_at" => "datetime",
     ];
 }

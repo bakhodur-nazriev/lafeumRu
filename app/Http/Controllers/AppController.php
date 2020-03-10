@@ -24,9 +24,18 @@ class AppController extends Controller
         return view('/home', compact(['channels', 'photos', 'categories']));
     }
 
-    /* public function show(Request $request)
-     {
-         $user = User::find($request->id);
-         return view('home', compact('user'));
-     }*/
+    public function admin(Request $request)
+    {
+        return view("middleware")->withMessage("Admin");
+    }
+
+    public function author(Request $request)
+    {
+        return view("middleware")->withMessage("Author");
+    }
+
+    public function member(Request $request)
+    {
+        return view("middleware")->withMessage("Member");
+    }
 }

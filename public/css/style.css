@@ -248,6 +248,10 @@ h3 {
     position: absolute;
 }
 
+.youtube-videos {
+    height: 224px;
+}
+
 @media (max-width: 768px) {
     .small-nav-display {
         flex-direction: column;

@@ -18,14 +18,14 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        "name", "email", "password", "type"
+        "name", "email", "password"
     ];
 
-    // public function favorite()
-    // {
-    //     $user = Auth::user();
-    //     $user->favorite(Quote::class);
-    // }
+    /* public function favorite()
+     {
+         $user = Auth::user();
+         $user->favorite(Quote::class);
+     }*/
 
     /**
      * The attributes that should be hidden for arrays.
@@ -36,15 +36,10 @@ class User extends Authenticatable
         "password", "remember_token",
     ];
 
-    public function roles()
-    {
-        return $this->belongsToMany("App\Role");
-    }
-
-    // public function quotes()
-    // {
-    //     return $this->hasMany("App\Quote");
-    // }
+    /*public function quotes()
+     {
+         return $this->hasMany("App\Quote");
+     }*/
 
     /**
      * The attributes that should be cast to native types.
@@ -54,4 +49,25 @@ class User extends Authenticatable
     protected $casts = [
         "email_verified_at" => "datetime",
     ];
+
+    public function roles()
+    {
+        return $this->belongsToMany("App\Role");
+    }
+
+    public function hasAnyRoles($roles)
+    {
+        if ($this->roles()->whereIn("name", $roles)->first()) {
+            return true;
+        }
+        return false;
+    }
+
+    public function hasRole($role)
+    {
+        if ($this->roles()->where("name", $role)->first()) {
+            return true;
+        }
+        return false;
+    }
 }

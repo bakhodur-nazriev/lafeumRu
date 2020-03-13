@@ -1,7 +1,6 @@
 <?php
 
-// use Symfony\Component\Routing\Annotation\Route;
-// use Illuminate\Routing\Route;
+//use Illuminate\Routing\Route;
 
 Auth::routes();
 
@@ -32,18 +31,8 @@ Route::get("/vocabulary", "VocabularyController@index")->name("vocabulary");
 //Favorite
 Route::put("/toggle-favourite", "FavoriteController@toggle")->middleware("auth");
 
-Route::group(["middleware" => "App\Http\Middleware\AdminMiddleware"],
-    function () {
-        Route::match(["get", "post"], "/adminPage", "HomeController@admin");
-    });
 
-Route::group(["middleware" => "App\Http\Middleware\AuthorMiddleware"],
-    function () {
-        Route::match(["get", "post"], "/authorPage", "HomeController@author");
-    });
 
-Route::group(["middleware" => "App\Http\Middleware\MemberMiddleware"],
-    function () {
-        Route::match(["get", "post"], "/memberPage", "HomeController@member");
-    });
-
+Route::namespace("Admin")->prefix("admin")->name("admin.")->middleware("can:manage-users")->group(function () {
+    Route::resource("/users", "UsersController", ["except" => ["show", "create", "store"]]);
+});

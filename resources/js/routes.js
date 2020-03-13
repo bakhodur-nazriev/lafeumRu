@@ -5,6 +5,7 @@ import KnowledgeAreas from "./components/admin/KnowledgeAreas";
 import Videos from "./components/admin/Videos";
 import Channels from "./components/admin/Channels";
 import Photos from "./components/admin/Photos";
+import Users from "./components/admin/Users"
 // import Vocabulary from "./components/admin/Vocabulary";
 import Profile from "./components/admin/Profile";
 import Favorite from "./components/admin/Favorite";
@@ -82,6 +83,15 @@ export const sidebarRoutes = [
                 }
             },
         ]
+    },
+    {
+        meta: {
+            icon: "mdi-account",
+            title: "Все пользователи"
+        },
+        path: "/dashboard/users",
+        name: "/dashboard/users",
+        component: Users
     },
     {
         meta: {

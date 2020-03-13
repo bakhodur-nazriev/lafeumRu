@@ -23,10 +23,6 @@ const vuetifyOptions = {
                 primary: "#04718c",
                 error: "#EF5350",
                 headary: "#a6192e"
-                // accent: "#689F38",
-                // success: "#4caf50",
-                // warning: "#ffeb3b",
-                // info: "#2196f3",
             }
         }
     }
@@ -47,25 +43,11 @@ Vue.use(TiptapVuetifyPlugin, {
     iconsGroup: "mdi"
 });
 
-/* BACKEND PARK */
 Vue.component(
     "admin-dashboard",
     require("./components/admin/Home.vue").default
 );
-Vue.component("admin-favorite", require("./components/admin/Favorite.vue").default);
-/*Vue.component("pagination", require("laravel-vue-pagination"));*/
-
-/* FRONTEND PART */
-/*Vue.component("default-footer", require("./components/layouts/Footer").default);
-Vue.component(
-    "frontend-authors",
-    require("./components/frontend/Authors").default
-);
-Vue.component("frontend-terms", require("./components/frontend/Terms").default);
-Vue.component(
-    "frontend-quotes",
-    require("./components/frontend/Quotes").default
-);*/
+/*Vue.component("admin-favorite", require("./components/admin/Favorite.vue").default);*/
 
 const app = new Vue({
     el: "#app",

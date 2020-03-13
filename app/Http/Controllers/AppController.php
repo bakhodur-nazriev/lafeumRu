@@ -23,19 +23,4 @@ class AppController extends Controller
         $categories = Category::get()->toTree()->unique('name');
         return view('/home', compact(['channels', 'photos', 'categories']));
     }
-
-    public function admin(Request $request)
-    {
-        return view("middleware")->withMessage("Admin");
-    }
-
-    public function author(Request $request)
-    {
-        return view("middleware")->withMessage("Author");
-    }
-
-    public function member(Request $request)
-    {
-        return view("middleware")->withMessage("Member");
-    }
 }

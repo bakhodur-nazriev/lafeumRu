@@ -28,7 +28,6 @@ class QuotesController extends Controller
                 $query->where("user_id", Auth::id());
             });
         }
-
         return $quotesQuery->latest()->get();*/
     }
 

@@ -1,11 +1,10 @@
 <?php
 
-//use Illuminate\Routing\Route;
 
 Auth::routes();
 
-Route::get("/dashboard{any}", "AdminController@index")->where("any", ".*");
-Route::get("/dashboard", "AdminController@index")->name("dashboard");
+Route::get("/dashboard{any}", "UsersController@index")->where("any", ".*");
+Route::get("/dashboard", "UsersController@index")->name("dashboard");
 
 Route::get("/", "AppController@index")->name("home");
 Route::get("/authors", "AuthorsController@index")->name("authors");
@@ -30,7 +29,6 @@ Route::get("/vocabulary", "VocabularyController@index")->name("vocabulary");
 
 //Favorite
 Route::put("/toggle-favourite", "FavoriteController@toggle")->middleware("auth");
-
 
 
 Route::namespace("Admin")->prefix("admin")->name("admin.")->middleware("can:manage-users")->group(function () {

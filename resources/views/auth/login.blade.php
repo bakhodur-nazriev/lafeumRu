@@ -1,4 +1,4 @@
-@extends('layouts.empty')
+ @extends('layouts.empty')
 
 @section('content')
     <v-container fluid fill-height>

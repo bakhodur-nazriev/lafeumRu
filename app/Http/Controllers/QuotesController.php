@@ -21,14 +21,15 @@ class QuotesController extends Controller
 
     public function get(Request $request)
     {
-        return $quotesQuery = Quote::with("author");
+        $quotesQuery = Quote::with("author");
 
         /*if($request->has("favourite")){
             $quotesQuery->whereHas("favorites", function ($query){
                 $query->where("user_id", Auth::id());
             });
-        }
-        return $quotesQuery->latest()->get();*/
+        }*/
+
+        return $quotesQuery->latest()->get();
     }
 
     public function store(Request $request)

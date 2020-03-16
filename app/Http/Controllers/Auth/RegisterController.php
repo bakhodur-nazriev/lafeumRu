@@ -72,7 +72,7 @@ class RegisterController extends Controller
             "api_token" => Str::random(80)
         ]);
 
-        $role = Role::select("id")->where("name", "user")->first();
+        $role = Role::select("id")->where("name", "member")->first();
         $user->roles()->attach($role);
         return $user;
     }

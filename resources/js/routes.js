@@ -6,7 +6,7 @@ import Videos from "./components/admin/Videos";
 import Channels from "./components/admin/Channels";
 import Photos from "./components/admin/Photos";
 import Users from "./components/admin/Users"
-// import Vocabulary from "./components/admin/Vocabulary";
+/*import Vocabulary from "./components/admin/Vocabulary";*/
 import Profile from "./components/admin/Profile";
 import Favorite from "./components/admin/Favorite";
 import Settings from "./components/admin/Settings";
@@ -86,7 +86,7 @@ export const sidebarRoutes = [
     },
     {
         meta: {
-            icon: "mdi-account",
+            icon: "mdi-account-group",
             title: "Все пользователи"
         },
         path: "/dashboard/users",

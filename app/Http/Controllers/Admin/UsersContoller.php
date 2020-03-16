@@ -6,10 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Role;
 use App\User;
 use Gate;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
+    use AuthenticatesUsers;
+
     public function __construct()
     {
         $this->middleware("auth");
@@ -23,7 +27,7 @@ class UsersController extends Controller
     public function index()
     {
         $users = User::all();
-        return view("admin.users.index", compact("users"));
+        return view("auth.dashboard", compact("users"), ["user" => Auth::user()]);
     }
 
     /**
@@ -60,9 +64,9 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        /*if (Gate::denies("delete-users")){
+        if (Gate::denies("delete-users")) {
             return redirect(route("admin.users.index"));
-        }*/
+        }
         $user->name = $request->name;
         $user->email = $request->email;
         $user->save();

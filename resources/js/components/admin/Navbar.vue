@@ -89,8 +89,30 @@
                 users: window.Laravel.auth,
                 drawer: true,
                 currentLink: [],
-                links: sidebarRoutes
+                links: sidebarRoutes,
+                avatarToUpdate: null
             };
         },
+        mounted() {
+            console.log(this.users);
+        },
+        methods: {
+            updateAvatar() {
+                const formData = new FormData();
+                formData.append("avatar", this.avatarToUpdate.avatar);
+                axios
+                    .post("/api/users/" + this.avatarToUpdate.id, formData, {
+                        headers: {
+                            "Content-Type": "multipart/form-data"
+                        }
+                    })
+                    .then(res => {
+                        this.users();
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })
+            }
+        }
     };
 </script>

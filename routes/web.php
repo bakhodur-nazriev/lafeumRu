@@ -29,8 +29,3 @@ Route::get("/vocabulary", "VocabularyController@index")->name("vocabulary");
 
 //Favorite
 Route::put("/toggle-favourite", "FavoriteController@toggle")->middleware("auth");
-
-
-Route::namespace("Admin")->prefix("admin")->name("admin.")->middleware("can:manage-users")->group(function () {
-    Route::resource("/users", "UsersController", ["except" => ["show", "create", "store"]]);
-});

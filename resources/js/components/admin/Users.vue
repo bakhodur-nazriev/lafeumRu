@@ -70,7 +70,7 @@
         methods: {
             loadUsers() {
                 axios
-                    .get("/admin/users")
+                    .get("/api/users")
                     .then(res => {
                         this.users = res.data;
                     })

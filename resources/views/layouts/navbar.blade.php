@@ -33,11 +33,11 @@
                             {{ __('Logout') }}
                         </a>
 
-                        @can("manage-users")
+                        {{--@can("manage-users")
                             <a class="dropdown-item" href="{{route("admin.users.index")}}">
                                 User Manager
                             </a>
-                        @endcan
+                        @endcan--}}
 
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf

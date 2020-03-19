@@ -167,6 +167,7 @@
                                 outlined
                                 :extensions="extensions"
                                 v-model="quoteToUpdate.body"
+                                :card-props="{ flat: true, color: '#26c6da' }"
                             >
                             </tiptap-vuetify>
                         </v-col>

@@ -6,7 +6,7 @@ import "tiptap-vuetify/dist/main.css";
 import router from "./router.js";
 import App from "./components/App";
 import draggable from "vuedraggable";
-import { TiptapVuetifyPlugin } from "tiptap-vuetify";
+import {TiptapVuetifyPlugin} from "tiptap-vuetify";
 
 require("./bootstrap");
 window.Vue = require("vue");
@@ -47,11 +47,10 @@ Vue.component(
     "admin-dashboard",
     require("./components/admin/Home.vue").default
 );
-/*Vue.component("admin-favorite", require("./components/admin/Favorite.vue").default);*/
 
 const app = new Vue({
     el: "#app",
     router,
-    components: { App },
+    components: {App},
     vuetify: new Vuetify(vuetifyOptions)
 });

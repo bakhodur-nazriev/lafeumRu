@@ -358,11 +358,16 @@
                     });
             },
             updateAuthor() {
+                const formData = new FormData();
+                formData.append("name", this.authorToUpdate.name);
+                formData.append("biography", this.authorToUpdate.biography);
+                formData.append("photo", this.authorToUpdate.photo);
+                formData.append("_method", "put");
                 axios
-                    .put("/api/authors/" + this.authorToUpdate.id, {
-                        name: this.authorToUpdate.name,
-                        biography: this.authorToUpdate.biography,
-                        photo: this.authorToUpdate.photo
+                    .post("/api/authors/" + this.authorToUpdate.id, formData, {
+                        headers: {
+                            "Content-Type": "multipart/form-data",
+                        }
                     })
                     .then(res => {
                         this.authorToUpdate = false;

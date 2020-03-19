@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class PhotosController extends Controller
 {
-    const PHOTOS_PATH = "/img/photos/";
+    const PHOTOS_PATH = "/photos/";
 
     public function index()
     {
@@ -33,13 +33,13 @@ class PhotosController extends Controller
 
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            "description" => "required"
-        ]);
-        $photo = Photo::find($id);
-        $photo->update($request->all());
-        $photo->save();
-        return response()->json($photo);
+        $image = Photo::find($id);
+        $newPhotoData = $request->only(["description"]);
+        if ($request->hasFile("image")) {
+            $newPhotoData["image"] = $this->saveImage(time(), $request->image, self::PHOTOS_PATH);
+        }
+        $image->update($newPhotoData);
+        return $image;
     }
 
     public function delete($id)
@@ -47,13 +47,6 @@ class PhotosController extends Controller
         return Photo::destroy($id);
     }
 
-    private function saveImage($name, $file)
-    {
-        $extension = $file->extension();
-        $filename = $name . "." . $extension;
 
-        $file->move(public_path(self::PHOTOS_PATH), $filename);
 
-        return self::PHOTOS_PATH . $filename;
-    }
 }

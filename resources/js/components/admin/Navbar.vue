@@ -24,10 +24,10 @@
             <v-layout column align-center>
                 <v-flex class="mt-5 text-center">
                     <v-avatar size="130">
-                        <img :src="'/img/avatars/' + this.users.avatar" alt=""/>
+                        <img :src="'/img/avatars/' + this.user.avatar" alt=""/>
                     </v-avatar>
                     <h4 class="white--text subheading mt-2">
-                        {{ this.users.name }}
+                        {{ this.user.name }}
                     </h4>
                 </v-flex>
             </v-layout>
@@ -86,7 +86,7 @@
         data() {
             return {
                 csrf: window.Laravel.csrf_token,
-                users: window.Laravel.auth,
+                user: window.Laravel.auth,
                 drawer: true,
                 currentLink: [],
                 links: sidebarRoutes,
@@ -94,7 +94,6 @@
             };
         },
         mounted() {
-            console.log(this.users);
         },
         methods: {
             updateAvatar() {
@@ -107,7 +106,7 @@
                         }
                     })
                     .then(res => {
-                        this.users();
+                        this.user();
                     })
                     .catch(err => {
                         console.log(err);

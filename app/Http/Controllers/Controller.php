@@ -14,6 +14,7 @@ class Controller extends BaseController
     const IMAGES_PATH = "/img/";
 
     protected function saveImage($name, $file, $pathFromPublic = self::IMAGES_PATH)
+
     {
         $extension = $file->extension();
         $filename = $name . "." . $extension;

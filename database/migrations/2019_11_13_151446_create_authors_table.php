@@ -18,6 +18,8 @@ class CreateAuthorsTable extends Migration
             $table->string('name');
             $table->text('biography');
             $table->text('photo')->nullable();
+            $table->integer('author_group_id');
+            $table->string('slug');
             $table->timestamps();
         });
     }

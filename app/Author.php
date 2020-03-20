@@ -13,4 +13,9 @@ class Author extends Model
     {
         return $this->hasMany(Quote::class);
     }
+
+    public function authorGroup()
+    {
+        return $this->belongsTo(AuthorGroup::class);
+    }
 }

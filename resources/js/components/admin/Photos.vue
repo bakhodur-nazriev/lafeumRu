@@ -165,18 +165,6 @@
                             >
                             </tiptap-vuetify>
                         </v-col>
-                        <v-col cols="12">
-                            <v-file-input
-                                hide-details
-                                outlined
-                                name="image"
-                                label="Изменить фото"
-                                prepend-icon=""
-                                prepend-inner-icon="mdi-camera"
-                                v-model="photoToUpdate.image"
-                            >
-                            </v-file-input>
-                        </v-col>
                     </v-row>
                 </v-container>
                 <v-card-actions>
@@ -333,15 +321,9 @@
                     });
             },
             updatePhoto() {
-                const formData = new FormData();
-                formData.append("description", this.photoToUpdate.description);
-                formData.append("image", this.photoToUpdate.image);
-                formData.append("_method", "put");
                 axios
-                    .post("/api/photos/" + this.photoToUpdate.id, formData, {
-                        headers: {
-                            "Content-Type": "multipart/form-data",
-                        }
+                    .put("/api/photos/" + this.photoToUpdate.id, {
+                        description: this.photoToUpdate.description
                     })
                     .then(res => {
                         this.photoToUpdate = false;

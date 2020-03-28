@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Author extends Model
 {
 
-    protected $fillable = ["name", "biography", "photo"];
+    protected $fillable = ["name", "biography", "photo", "author_group_id"];
 
     public function quote()
     {

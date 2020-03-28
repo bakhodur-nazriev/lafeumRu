@@ -13,9 +13,9 @@ class CreateAuthorGroupsTable extends Migration
      */
     public function up()
     {
-        Schema::create('author_groups', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name');
+        Schema::create("author_groups", function (Blueprint $table) {
+            $table->bigIncrements("id");
+            $table->string("name");
         });
     }
 
@@ -26,6 +26,6 @@ class CreateAuthorGroupsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('author_groups');
+        Schema::dropIfExists("author_groups");
     }
 }

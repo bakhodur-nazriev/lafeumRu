@@ -13,11 +13,11 @@ class CreateKnowledgesTable extends Migration
      */
     public function up()
     {
-        Schema::create('knowledge', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('description');
-            $table->string('slug');
+        Schema::create("knowledge", function (Blueprint $table) {
+            $table->bigIncrements("id");
+            $table->string("name");
+            $table->string("description");
+            $table->string("slug");
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateKnowledgesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('knowledge');
+        Schema::dropIfExists("knowledge");
     }
 }

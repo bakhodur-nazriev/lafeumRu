@@ -20,7 +20,7 @@ class UsersController extends Controller
 
     public function index()
     {
-        $users = User::all();
+        $users = User::with("roles")->first();
         return view("auth.dashboard", compact("users"), ["user" => Auth::user()]);
     }
 

@@ -13,11 +13,11 @@ class CreateChannelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('channels', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name');
-            $table->text('description');
-            $table->string('slug');
+        Schema::create("channels", function (Blueprint $table) {
+            $table->bigIncrements("id");
+            $table->string("name");
+            $table->text("description");
+            $table->string("slug");
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateChannelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('channels');
+        Schema::dropIfExists("channels");
     }
 }

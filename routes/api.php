@@ -7,9 +7,11 @@ Route::middleware("auth:api")->get("/users", function (Request $request) {
     return $request->user();
 });
 
-/*Route::middleware("can:manage-users")->group(function () {
-    Route::resource("/users", "UsersController", ["except" => ["show", "create", "store"]]);
-});*/
+/* Users */
+Route::get("/users", "UsersController@index");
+Route::post("/users/{id}", "UsersController@update");
+Route::put("/users/{id}", "UsersController@update");
+Route::delete("/users/{id}", "UsersController@delete");
 
 /* Quotes */
 Route::get("/quotes", "QuotesController@get");
@@ -53,7 +55,3 @@ Route::post("/channels", "ChannelsController@store");
 Route::put("/channels/{id}", "ChannelsController@update");
 Route::delete("/channels/{id}", "ChannelsController@delete");
 
-/* Users */
-Route::get("/users", "UsersController@index");
-Route::put("/users/{id}", "UsersController@update");
-Route::delete("/users/{id}", "UsersController@delete");

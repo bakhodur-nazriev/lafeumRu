@@ -343,6 +343,7 @@
                 formData.append("name", this.authorName);
                 formData.append("biography", this.authorBiography);
                 formData.append("photo", this.authorPhoto);
+                formData.append("_method", "post");
                 axios
                     .post("/api/authors", formData, {
                         headers: {

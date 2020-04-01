@@ -27,6 +27,21 @@ const vuetifyOptions = {
         }
     }
 };
+
+window.Event = new (class {
+    constructor() {
+        this.vue = new Vue();
+    }
+
+    fire(event, data = null) {
+        this.vue.$emit(event, data);
+    }
+
+    listen(event, callback) {
+        this.vue.$on(event, callback);
+    }
+})();
+
 const vuetify = new Vuetify({
     icons: {
         iconfont: "mdi"
@@ -54,3 +69,5 @@ const app = new Vue({
     components: {App},
     vuetify: new Vuetify(vuetifyOptions)
 });
+
+

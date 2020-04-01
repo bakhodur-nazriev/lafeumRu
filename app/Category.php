@@ -22,19 +22,9 @@ class Category extends Model
         return $this->hasMany(self::class);
     }
 
-    public function quote()
+    public function categoriable()
     {
-        return $this->morphedByMany(Quote::class, 'categoriable');
-    }
-
-    public function terms()
-    {
-        return $this->morphedByMany(Terms::class, 'categoriable');
-    }
-
-    public function video()
-    {
-        return $this->morphedByMany(Video::class, 'categoriable');
+        return $this->morphTo();
     }
 
     /*public function vocabulary()

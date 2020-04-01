@@ -27,6 +27,6 @@ class Video extends Model
 
     public function categories()
     {
-        return $this->morphToMany(Category::class, 'categoriable');
+        return $this->morphMany(Category::class, 'categoriable');
     }
 }

@@ -27,13 +27,13 @@ class Quote extends Model
 
     public function categories()
     {
-        return $this->morphToMany(Category::class, 'categoriable');
+        return $this->morphMany(Category::class, 'categoriable');
     }
 
-    // public function favorites()
-    // {
-    //     return $this->morphToMany(Favorite::class, 'favoriteable');
-    // }
+    /*public function favorites()
+     {
+         return $this->morphToMany(Favorite::class, 'favoriteable');
+     }*/
 
     public function user()
     {

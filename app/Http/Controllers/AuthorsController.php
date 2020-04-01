@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class AuthorsController extends Controller
 {
-    const AUTHORS_PHOTOS_PATH = "authors";
+    const AUTHORS_PHOTOS_PATH = "/authors/";
 
     public function index()
     {
@@ -36,7 +36,7 @@ class AuthorsController extends Controller
 
         $newPhotoData = $request->only(["name", "biography"]);
         if ($request->hasFile("photo")) {
-            $newPhotoData["photo"] = $this->saveImage(time(), $request->photo);
+            $newPhotoData["photo"] = $this->saveImage(time(), $request->photo, self::AUTHORS_PHOTOS_PATH);
         }
         return Author::create($newPhotoData);
     }

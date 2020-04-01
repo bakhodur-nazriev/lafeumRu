@@ -11,12 +11,14 @@ use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
+    const USERS_AVATARS_PATH = "/img/avatars/";
+
     use AuthenticatesUsers;
 
-    public function __construct()
+    /*public function __construct()
     {
         $this->middleware("auth");
-    }
+    }*/
 
     public function index()
     {
@@ -36,22 +38,23 @@ class UsersController extends Controller
         ]);
     }
 
-    public function update(Request $request, User $user, $id)
+    public function update(Request $request, $id)
     {
-        if (Gate::denies("delete-users")) {
+        /*if (Gate::denies("delete-users")) {
             return redirect(route("admin.users.index"));
         }
         $user->name = $request->name;
-        $user->email = $request->email;
+        $user->email = $request->email;*/
 
         $user = User::find($id);
-        $newPhotoData = $request->only(["name", "email", "password"]);
-        if ($request->hasFile("avatar")) {
-            $newPhotoData["avatar"] = $this->saveImage(time(), $request->avatar);
-        }
-        $user->update($newPhotoData);
+        $newUserData = $request->only(["name", "email", "password"]);
 
-        $user->roles()->sync($request->roles);
+        if ($request->hasFile("avatar")) {
+            $newUserData['avatar'] = $this->saveImage(time(), $request->avatar, self::USERS_AVATARS_PATH);
+        }
+        $user->update($newUserData);
+
+        /*$user->roles()->sync($request->roles);*/
         return $user;
     }
 

@@ -24,7 +24,7 @@
             <v-layout column align-center>
                 <v-flex class="mt-5 text-center">
                     <v-avatar size="130">
-                        <img :src="'/img/avatars/' + this.user.avatar" alt=""/>
+                        <img :src="user.avatar" alt=""/>
                     </v-avatar>
                     <h4 class="white--text subheading mt-2">
                         {{ this.user.name }}
@@ -90,27 +90,14 @@
                 drawer: true,
                 currentLink: [],
                 links: sidebarRoutes,
-                avatarToUpdate: null
             };
         },
-        mounted() {
+        created() {
+            Event.listen('profileUpdated', this.updateProfile);
         },
         methods: {
-            updateAvatar() {
-                const formData = new FormData();
-                formData.append("avatar", this.avatarToUpdate.avatar);
-                axios
-                    .post("/api/users/" + this.avatarToUpdate.id, formData, {
-                        headers: {
-                            "Content-Type": "multipart/form-data"
-                        }
-                    })
-                    .then(res => {
-                        this.user();
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    })
+            updateProfile(newProfile) {
+                this.user = newProfile;
             }
         }
     };

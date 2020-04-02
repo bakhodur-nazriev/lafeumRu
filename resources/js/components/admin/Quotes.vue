@@ -315,6 +315,7 @@
         },
         mounted() {
             this.loadQuotes();
+            console.log(this.loadQuotes());
             axios
                 .get("/api/authors")
                 .then(res => {

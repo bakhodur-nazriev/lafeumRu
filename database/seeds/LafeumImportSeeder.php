@@ -82,13 +82,13 @@ class LafeumImportSeeder extends Seeder
             Category::has('quote')->get();
 
             foreach ($quote['categories'] as $category) {
-//                Category::whereHas('quote', function ($query){$query->where('categoriable_type', Quote::class);})->get();
-//                $newQuoteCategoryIds[] =
-//                );
-//                where('type', Quote::class)
-//                    ->where('name', $category['name'])
-//                    ->first()
-//                    ->id;
+                /* Category::whereHas('quote', function ($query){$query->where('categoriable_type', Quote::class);})->get();
+                 $newQuoteCategoryIds[] =
+                 );
+                 where('type', Quote::class)
+                     ->where('name', $category['name'])
+                     ->first()
+                     ->id; */
             }
 
             $newQuote->categoties()->attach($newQuoteCategoryIds);

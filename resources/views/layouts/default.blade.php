@@ -2,6 +2,6 @@
 
 @section('layout')
     @include('layouts.navbar')
-        @yield('content')
+    @yield('content')
     @include('layouts.footer')
 @endsection

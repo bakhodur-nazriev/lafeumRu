@@ -252,6 +252,14 @@ h3 {
     height: 224px;
 }
 
+.categories-main-name {
+    margin: 15px 0 3px 0;
+}
+
+.categories-main-name > a{
+    font-size: 18px;
+}
+
 @media (max-width: 768px) {
     .small-nav-display {
         flex-direction: column;

@@ -198,6 +198,7 @@
                         <v-col cols="12">
                             <v-text-field
                                 :label="this.user.email"
+                                :rules="[rules.required, rules.email]"
                                 hide-details
                                 outlined
                                 name="name"
@@ -239,14 +240,12 @@
                             ></v-text-field>-->
                             <v-text-field
                                 v-model="profileToUpdate.password"
-                                :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                                :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
                                 :rules="[rules.required, rules.min]"
-                                :type="show1 ? 'text' : 'password'"
-                                name="input-10-1"
-                                label="Normal with hint text"
-                                hint="At least 8 characters"
-                                counter
-                                @click:append="show1 = !show1"
+                                :type="showPass ? 'text' : 'password'"
+                                name="newPass"
+                                label="Новый пароль"
+                                @click:append="showPass = !showPass"
                             ></v-text-field>
                         </v-col>
                     </v-row>
@@ -271,15 +270,21 @@
                     password: null,
                     avatar: null
                 },
+                showPass: false,
                 user: window.Laravel.auth,
                 token: window.Laravel.csrf_token,
                 dialogChangeAvatar: false,
                 dialogChangeName: false,
                 dialogChangeEmail: false,
                 dialogChangePassword: false,
-                rules: [
-                    v => !!v || "Объязательное поле. Формат файла должен быть .jpg, .jpeg или .png"
-                ],
+                rules: {
+                    required: value => !!value || 'Required.',
+                    min: v => v.length >= 3 || 'Минимум 3 символов',
+                    email: value => {
+                        const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                        return pattern.test(value) || 'Invalid e-mail.'
+                    },
+                },
             }
         },
         mounted() {
@@ -350,35 +355,6 @@
             }
         }
     }
-
-    /*Loop*/
-    function multiply(arr, n) {
-        var product = 1;
-        for (var i = 0; i < n; i++) {
-            product *= arr[i];
-        }
-        return product;
-    }
-
-    /*Recursion*/
-    function sum(arr, n) {
-        // Only change code below this line
-        if (n <= 0) {
-            return 0;
-        } else {
-            return sum(arr, n - 1) + arr[n - 1];
-        }
-        // Only change code above this line
-    }
-
-    function multiply(arr, n) {
-        if (n <= 0) {
-            return 1;
-        } else {
-            return multiply(arr, n - 1) * arr[n - 1];
-        }
-    }
-
 </script>
 <style>
     .change-avatar {

@@ -33,5 +33,11 @@
             })
         </script>
     </div>
+
+    {{--<style>
+        .card-main-block {
+            margin: 15px 0 3px 0;
+        }
+    </style>--}}
 @endsection
 

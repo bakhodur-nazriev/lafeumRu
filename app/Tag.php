@@ -18,6 +18,11 @@ class Tag extends Model
         return $this->morphedByMany(Quote::class, 'taggable');
     }
 
+    public function knowledgeAreas()
+    {
+        return $this->morphedByMany(Knowledge::class, 'taggable');
+    }
+
     public function videos()
     {
         return $this->morphedByMany(Video::class, 'taggable');

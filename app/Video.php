@@ -15,18 +15,8 @@ class Video extends Model
         return $this->belongsTo(Channel::class);
     }
 
-    /*public function tag()
-    {
-        return $this->hasMany(Tag::class);
-    }*/
-
-    public function tags()
-    {
-        return $this->morphToMany(Tag::class, 'taggable');
-    }
-
     public function categories()
     {
-        return $this->morphMany(Category::class, 'categoriable');
+        return $this->morphToMany(Category::class, 'categoriable');
     }
 }

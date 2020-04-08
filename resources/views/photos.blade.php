@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-12">
                 <span class="authors-main-title">
-                    <h3>Фотографии</h3>
+                    <h3 class="secondary">Фотографии</h3>
                     <p class="mb-0">В данном разделе подборка фотографий на тему жизни и ее красоты.</p>
                 </span>
             </div>
@@ -19,7 +19,7 @@
                 </div>
             @endforeach
             <div class="mt-3">
-                {!! $photos->links(); !!}
+                {!! $photos->onEachSide(1)->links(); !!}
             </div>
         </div>
     </div>

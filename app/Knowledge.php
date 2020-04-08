@@ -8,10 +8,10 @@ use ChristianKuri\LaravelFavorite\Traits\Favoriteable;
 class Knowledge extends Model
 {
     use Favoriteable;
-    protected $fillable = ["name", "description","slug"];
+    protected $fillable = ["name", "description", "slug"];
 
-    public function tags()
+    public function categories()
     {
-        return $this->morphToMany(Tag::class, "taggable");
+        return $this->morphMany(Category::class, 'categoriable');
     }
 }

@@ -57,7 +57,7 @@
                 <a class="nav-link text-light" href="{{ url('/quotes') }}">Цитаты</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-light" href="{{ url('/authors') }}">Авторы</a>
+                <a class="nav-link text-light" href="{{ url('/author') }}">Авторы</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-light" href="{{ url('/terms') }}">Термины</a>
@@ -75,7 +75,7 @@
                 <a class="nav-link text-light" href="{{ url('/channels') }}">Каналы</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-light" href="{{ url('/photos') }}">Фотографии</a>
+                <a class="nav-link text-light" href="{{ url('/photo') }}">Фотографии</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-light" href="{{ url('/contacts') }}">Контакты</a>

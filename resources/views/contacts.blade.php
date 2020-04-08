@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
+        <div class="row mb-5">
             <div class="col-sm-12 col-md-8 col-lg-8">
                 <h3>Контакты</h3>
                 <p>Мы рады, что Вы посетили наш сайт и ознакомились с находящейся на нем информацией.
@@ -15,7 +15,7 @@
             </div>
             <div class="col-sm-8 offet-sm-2 col-md-4 offset-md-0 col-lg-4">
                 <h3 class="mb-4">Свяжитесь с нами</h3>
-                <div class="contact-form-block mb-4">
+                <div class="contact-form-block">
                     <form action="/contacts" method="POST">
                         <div class="form-group">
                             <label for="name">Ваше имя</label>

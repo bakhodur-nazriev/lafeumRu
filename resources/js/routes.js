@@ -67,7 +67,7 @@ export const sidebarRoutes = [
             },
         ]
     },
-    {
+    /*{
         meta: {
             icon: "mdi-plus",
             title: "Все категории",
@@ -83,7 +83,7 @@ export const sidebarRoutes = [
                 }
             },
         ]
-    },
+    },*/
     {
         meta: {
             icon: "mdi-account-group",
@@ -111,7 +111,7 @@ export const sidebarRoutes = [
         name: "/dashboard/favorite",
         component: Favorite
     },
-    {
+    /*{
         meta: {
             icon: "mdi-settings",
             title: "Настройки",
@@ -119,15 +119,15 @@ export const sidebarRoutes = [
         name: "/dashboard/setting",
         path: "/dashboard/setting",
         component: Settings
-    },
-    {
+    },*/
+    /*{
         meta: {
             icon: "mdi-chat",
             title: "Чат",
         },
         path: "/dashboard/chat",
         component: Chat
-    }
+    }*/
 ];
 
 export default [...sidebarRoutes, ...sidebarRoutes[0].subLinks];

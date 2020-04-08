@@ -5,9 +5,9 @@
         <div class="row d-flex justify-content-center">
             <div class="col-md-5 col-xl-4">
                 <span class="authors-main-title">
-                    <h3>Каналы YouTube</h3>
+                    <h3 class="secondary">YouTube Каналы</h3>
                 </span>
-                <div class="input-group mb-3">
+                <div class="input-group my-4">
                     <input
                         type="text"
                         id="channels-search"

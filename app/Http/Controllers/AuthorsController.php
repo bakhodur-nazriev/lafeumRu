@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Author;
+use App\Category;
 use Illuminate\Http\Request;
 
 class AuthorsController extends Controller
@@ -15,6 +16,12 @@ class AuthorsController extends Controller
         return view("/authors", compact("authors"));
     }
 
+    public function show(Author $author)
+    {
+        $categories = Category::get()->toTree()->unique("name");
+        return view("shows.showAuthor", compact(["author", "categories"]));
+    }
+
     public function get()
     {
         return Author::latest()->get();
@@ -22,7 +29,7 @@ class AuthorsController extends Controller
 
     public function store(Request $request)
     {
-        /*$author = Author::create($request->all());
+        /*$author = author::create($request->all());
         if ($request->hasfile("photo")) {
             $file = $request->file("photo");
             $extension = $file->getClientOriginalExtension(); //getting image extension

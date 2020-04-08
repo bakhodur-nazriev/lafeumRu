@@ -11,9 +11,19 @@ body {
     padding-bottom: 222px;
 }
 
-h3 {
+/*h3 {
+    color: #a6192e;
+}*/
+
+/* ------------ COLORS  ---------- */
+.secondary {
     color: #a6192e;
 }
+
+/*.primary{
+    color: #04718c;
+}*/
+/* ------------ COLORS  ---------- */
 
 .main-navbar {
     background-color: #04718c;
@@ -55,7 +65,7 @@ h3 {
     /*display: flex;
     flex-direction: column;
     align-items: start;*/
-    padding: 20px;
+    padding: 15px 20px 15px 20px;
     background-color: white;
     border-radius: 5px;
     margin-bottom: 25px;
@@ -69,6 +79,7 @@ h3 {
 .share-button {
     background-color: #04718c;
     color: white;
+    padding: 5px 10px;
 }
 
 .qouter-authors-image {
@@ -256,7 +267,7 @@ h3 {
     margin: 15px 0 3px 0;
 }
 
-.categories-main-name > a{
+.categories-main-name > a {
     font-size: 18px;
 }
 
@@ -274,6 +285,7 @@ h3 {
         text-align: center;
         line-height: 1em;
     }
+
 }
 
 @media (min-width: 768px) {

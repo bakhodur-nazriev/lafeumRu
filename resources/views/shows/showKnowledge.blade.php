@@ -2,56 +2,62 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
-            <div class="col-3">
-                <h3>Темы</h3>
-                <a href="#">фывафыва</a>
+        <div class="row card-main-block">
+            <div class="col-md-3 col-sm-12">
+                <h3 class="secondary">Темы</h3>
+                @foreach($categories as $category)
+                    <div class="categories-main-name">
+                        <a href="#"><b>{{ $category->name }}</b></a>
+                    </div>
+                    @foreach($category->children as $subCategory)
+                        <div><a href="#">{{$subCategory->name}}</a></div>
+                    @endforeach
+                @endforeach
             </div>
-            <div class="col-md-9 col-xl-6">
-                <h3 class="mb-4">Термины</h3>
-                {{-- @foreach($knowledge as $knowledge) --}}
-                    <div class="quotes-blocks">
-                        <p>
-                            <a href="#">Факторы производства</a> — экономические ресурсы, необходимые для производства
-                            товаров и услуг.
-                            Традиционно выделяют следующие факторы производства: земля (земельные ресурсы и природные
-                            ресурсы);
-                            труд (трудовые ресурсы); капитал (финансовые ресурсы). Также в настоящее время к ним
-                            традиционно
-                            добавляют:
-                            предпринимательская способность (предпринимательство); информация (информационные ресурсы).
-                            <a href="#">Категория в Википедии.</a>
-                            {{-- {{ $term->body }} --}}
-                        </p>
+            <div class="col-md-9 col-xl-9">
+                <h3 class="secondary mb-4">{{ $knowledge->name }}</h3>
+                <p>{{ $knowledge->name }} - здесь собраны термины, определения и комментарии в данной области
+                    знаний.</p>
+                {{--@foreach($knowledgeAreas as $knowledge)--}}
+                <div class="card-block">
+                    <div class="row px-3">
+                        <div class="py-0">
+                            <p>
+                                <i class="fa fa-diamond secondary"></i>
+                                <i class="fa fa-diamond secondary"></i>
+                                <i class="fa fa-diamond secondary"></i>
+                            </p>
+                            <p>
+                                {{--{{ $knowledge->description }}--}}
+                            </p>
+                        </div>
+                        <div class="col py-0 text-right">
+                        </div>
+                    </div>
 
                         <div class="tags-block">
                             {{-- @foreach($term->tags as $tag) --}}
-                                <a href="#">
-                                    <img src="/img/tag.png" alt="" class="qouter-authors-image">
-                                    {{-- {{ $tag->name }} --}}
-                                </a>
+                            <a href="#">
+                                <i class="fa fa-tags"></i>
+                                {{-- {{ $tag->name }} --}}
+                            </a>
                             {{-- @endforeach --}}
                         </div>
-
                         <div class="my-main-divider"></div>
-                        <button class="btn qouter-share">Поделиться</button>
-                    </div>
-                {{-- @endforeach --}}
-                <div class="row">
-                    <div class="col-12">
-                        <nav aria-label="Page navigation example">
-                            <div class="row d-flex justify-content-center my-6">
-                                {{-- {!! $terms->links(); !!} --}}
-                            </div>
-                        </nav>
+                        <button class="btn share-button">Поделиться</button>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-12 back-to-top">
-            <button onclick="topFunction()" class="btn btn-primary" id="arrowTop">
-                <img src="/img/top-arrow48.png" alt="back to top">
-            </button>
+            {{--@endforeach--}}
+            <div class="row">
+                <div class="col-12">
+                    <nav aria-label="Page navigation example">
+                        <div class="row d-flex justify-content-center my-6">
+                            {{-- {!! $terms->links(); !!} --}}
+                        </div>
+                    </nav>
+                </div>
+            </div>
         </div>
     </div>
 @endsection

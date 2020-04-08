@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row card-main-block">
             <div class="col-md-3 col-sm-12">
-                <h3>Темы</h3>
+                <h3 class="secondary">Темы</h3>
                 <div>
                     @foreach($categories as $category)
                         <div class="categories-main-name">
@@ -17,7 +17,7 @@
                 </div>
             </div>
             <div class="col-md-9 col-sm-12">
-                <h3 class="mb-4">Термины</h3>
+                <h3 class="secondary mb-4">Термины</h3>
                 @foreach($terms as $term)
                     <div class="card-block">
                         <div class="row">
@@ -39,7 +39,6 @@
                                 </a>
                             @endforeach
                         </div>
-
                         <div class="my-main-divider"></div>
                         <button class="btn share-button">Поделиться</button>
                     </div>

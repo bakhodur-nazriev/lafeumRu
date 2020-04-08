@@ -1,10 +1,13 @@
 <?php
 
+use App\Video;
 use App\Author;
 use App\Channel;
+use App\Term;
 use App\Knowledge;
 use App\AuthorGroup;
 use App\Quote;
+use App\Category;
 use Illuminate\Database\Seeder;
 
 class LafeumImportSeeder extends Seeder
@@ -17,11 +20,14 @@ class LafeumImportSeeder extends Seeder
     public function run()
     {
         $this->importChannels();
-        $this->importKnowledgeAreas();
         $this->importAuthors();
-
+        $this->call(PhotoTableSeeder::class);
         $this->call(CategoryTableSeeder::class);
-        /* $this->importQuotes(); */
+
+//      $this->importVideos();
+        $this->importKnowledgeAreas();
+        /*$this->importTerms();*/
+        $this->importQuotes();
     }
 
     public function importChannels()
@@ -46,6 +52,18 @@ class LafeumImportSeeder extends Seeder
         }
     }
 
+    public function importVideos()
+    {
+        $videos = require(app_path("/LafeumData/lafeumVideos.php"));
+
+        Video::truncate();
+
+        foreach ($videos as $video) {
+            Video::create($video);
+        }
+
+    }
+
     public function importAuthors()
     {
         $authorGroups = require(app_path("/LafeumData/lafeumAuthors.php"));
@@ -64,6 +82,29 @@ class LafeumImportSeeder extends Seeder
         }
     }
 
+    public function importTerms()
+    {
+        $terms = require(app_path("/LafeumData/lafeumTerms.php"));
+
+        Term::truncate();
+
+        foreach ($terms as $term) {
+            $newTermData['id'] = $term['id'];
+            $newTermData['name'] = $term['name'];
+            $newTermData['body'] = $term['body'];
+
+            $newTerm = Term::create($newTermData);
+
+            foreach ($term['categories'] as $category) {
+                $newTermCategory = Category::where('type', Term::class)
+                    ->where('name', $category['name'])
+                    ->first();
+
+                $newTerm->categories->save($newTermCategory);
+            }
+        }
+    }
+
     public function importQuotes()
     {
         $quotes = require(app_path("/LafeumData/lafeumQuotes.php"));
@@ -77,21 +118,13 @@ class LafeumImportSeeder extends Seeder
 
             $newQuote = Quote::create($newQuoteData);
 
-            $newQuoteCategoryIds = [];
-
-            Category::has('quote')->get();
-
             foreach ($quote['categories'] as $category) {
-                /* Category::whereHas('quote', function ($query){$query->where('categoriable_type', Quote::class);})->get();
-                 $newQuoteCategoryIds[] =
-                 );
-                 where('type', Quote::class)
-                     ->where('name', $category['name'])
-                     ->first()
-                     ->id; */
-            }
+                $newQuoteCategory = Category::where('type', Quote::class)
+                    ->where('name', $category['name'])
+                    ->first();
 
-            $newQuote->categoties()->attach($newQuoteCategoryIds);
+                $newQuote->categories()->save($newQuoteCategory);
+            }
         }
     }
 }

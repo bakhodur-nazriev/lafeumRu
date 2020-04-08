@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col text-center about-us-section">
-                <h3>О Сайте</h3>
+                <h3 class="secondary">О Сайте</h3>
                 <img src="/img/lafeum-main-logo.png" alt="Logo lafeum">
                 <p>Информированность о методах развития личности и совершенствования профессиональных знаний,
                     С этой целью и создан данный ресурс, который посвящен самореализации. Здесь собраны, соответствующие
@@ -22,7 +22,7 @@
         </div>
         <div class="row justify-center">
             <div class="col-md-12 col-xl-12">
-                <h3 class="text-center">Темы</h3>
+                <h3 class="secondary text-center">Темы</h3>
             </div>
         </div>
         <div class="row">
@@ -39,7 +39,7 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <h3 class="text-center">Фото</h3>
+                <h3 class="secondary text-center">Фото</h3>
             </div>
             @foreach ($photos as $photo)
                 <div id="carouselExampleControls" class="carousel slide my-2 d-inline-block col-md-4">

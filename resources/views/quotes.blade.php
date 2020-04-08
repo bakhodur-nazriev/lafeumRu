@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row card-main-block">
             <div class="col-md-3 col-sm-12">
-                <h3>Темы</h3>
+                <h3 class="secondary">Темы</h3>
                 @foreach($categories as $category)
                     <div class="categories-main-name">
                         <a href="#"><b>{{ $category->name }}</b></a>
@@ -15,44 +15,47 @@
                 @endforeach
             </div>
             <div class="col-md-9 col-xl-8 col-sm-12">
-                <h3>Цитаты и Афоризмы</h3>
+                <h3 class="secondary">Цитаты и Афоризмы</h3>
                 <p>Красивые цитаты и афоризмы великих людей, жизненные со смыслом высказывания известнейших поэтов,
                     писателей и философов. Понятия и суждения компетентных ученых и специалистов.
                 </p>
-                @foreach ($quotes as $quote)
-                    <div class="card-block">
-                        <div class="row mb-2">
-                            <div class="py-0">
-                                <a href="#">
-                                    <img src="/img/person-60.png" alt=""
-                                         class="qouter-authors-image">{{ $quote->author->name }}
-                                </a>
-                            </div>
-                            <div class="col py-0 text-right">
-                                <i data-id="{{$quote->id}}"
-                                   class="fa fa-star favourite-quote-btn {{$quote->isFavorited() ? " fa-star-active": ""}}"
-                                   data-toggle="tooltip"
-                                   data-placement="top"
-                                   title="Избранный"
-                                ></i>
-                            </div>
+                {{--@foreach ($quotes as $quote)--}}
+                <div class="card-block">
+                    <div class="row px-3 mb-2">
+                        <div class="py-0">
+                            {{--<a href="/quotes/{{$quotes->id}}">
+                                <i class="fa fa-user"></i>
+                                {{$quotes->name}}
+                            </a>--}}
+                            <a href="#" class="secondary">
+                                <i class="fa fa-user" style="margin-right: 5px;"></i>Just Test!
+                            </a>
                         </div>
-                        <div>{!! $quote->body !!}</div>
-                        <div class="tags-block">
-                            @foreach($quote->tags as $tag)
-                                <a href="#">
-                                    <img src="/img/tag.png" alt="" class="qouter-authors-image">
-                                    {{ $tag->name }}
-                                </a>
-                            @endforeach
+                        <div class="col py-0 text-right">
+                            {{--<i data-id="{{$quote->id}}"
+                               class="fa fa-star favourite-quote-btn {{$quote->isFavorited() ? " fa-star-active": ""}}"
+                               data-toggle="tooltip"
+                               data-placement="top"
+                               title="Избранный"
+                            ></i>--}}
                         </div>
-                        <div class="my-main-divider"></div>
-                        <div>
-                            <button class="btn share-button">Поделиться</button>
-                        </div>
-                        {{--<div id="getRequestData"></div>--}}
                     </div>
-                @endforeach
+                    {{--<div>{!! $quote->body !!}</div>--}}
+                    <div class="tags-block">
+                        {{--@foreach($quote->tags as $tag)--}}
+                        <a href="#">
+                            <i class="fa fa-tags"></i>
+                            {{--{{ $tag->name }}--}}
+                        </a>
+                        {{--@endforeach--}}
+                    </div>
+                    <div class="my-main-divider"></div>
+                    <div>
+                        <button class="btn share-button">Поделиться</button>
+                    </div>
+                    {{--<div id="getRequestData"></div>--}}
+                </div>
+                {{--@endforeach--}}
                 <div class="row">
                     <div class="col-12">
                         <nav aria-label="Page navigation example">

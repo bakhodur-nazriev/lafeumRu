@@ -4,33 +4,42 @@
     <div class="container">
         <div class="row card-main-block">
             <div class="col-md-3 col-sm-12">
-                <h3>Темы</h3>
-                @foreach($categories as $category)
-                    <a href="#"><b>{{ $category->name }}</b></a>
-                    @foreach($category->children as $subCategory)
-                        <div><a href="#">{{$subCategory->name}}</a></div>
-                    @endforeach
+                <h3 class="secondary">Темы</h3>
+                @foreach($channels as $channelItem)
+                    <a href="/channels/{{$channelItem->slug}}">
+                        <b>{{ $channelItem->name }}</b>
+                    </a><br>
                 @endforeach
             </div>
             <div class="col-md">
-                <h3>{{ $channels->name }}</h3>
-                <p>{{ $channels->description }}</p>
+                <h3 class="secondary">{{ $channel->name }}</h3>
+                <p>{{ $channel->description }}</p>
 
                 <div class="row">
                     @foreach($channels->videos as $video)
                         <div class="col-6">
                             <div class="card">
-                                <iframe class="youtube-videos" src="{{$video->link}}" frameborder="0"></iframe>
-                                <div class="card-body">
-                                    <p class="card-text mb-0">{{$video->title}}</p>
-                                    @foreach($video->tags as $tag)
-                                        <p class="mb-0 mr-1 d-inline-block">
-                                            <a href=""><i class="fa fa-tags mr-1"></i>{{$tag->name}},</a>
-                                        </p>
-                                    @endforeach
+                                <div class="card-body ">
+                                    <h5 class="card-title mb-0">{{$video->title}}</h5>
+                                    <p class="text-muted">
+                                        {{--<a href="/channels/{{$channels->id}}" class="d-block secondary">
+                                            <i class="fa fa-youtube-play mr-2"></i>{{$channels->name}}
+                                        </a>--}}
+                                    </p>
+                                    <iframe class="youtube-videos" src="{{--{{$video->link}}--}}"
+                                            frameborder="0"></iframe>
+                                    {{--@foreach($videos->tags as $tag)--}}
+                                    <p class="mb-0 mr-1">
+                                        <a href="#"><i class="fa fa-tags mr-1"></i>{{--{{$tag->name}},--}}</a>
+                                    </p>
+                                    {{--@endforeach--}}
                                 </div>
-                                <div class="card-footer">
-                                    <i class="fa fa-clock-o mr-1"></i>{{$video->duration}}<span> мин.</span>
+                                <div class="card-footer d-flex justify-content-between align-items-center">
+                                <span>
+                                    <i class="fa fa-clock-o mr-1"></i>{{--{{$video->duration}}--}}
+                                    <span> мин.</span>
+                                </span>
+                                    <button class="btn share-button">Поделиться</button>
                                 </div>
                             </div>
                         </div>

@@ -27,7 +27,7 @@ class Quote extends Model
 
     public function categories()
     {
-        return $this->morphMany(Category::class, 'categoriable');
+        return $this->morphToMany(Category::class, 'categoriable');
     }
 
     /*public function favorites()

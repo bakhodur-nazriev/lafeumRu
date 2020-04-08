@@ -18,4 +18,9 @@ class Author extends Model
     {
         return $this->belongsTo(AuthorGroup::class);
     }
+
+    public function categories()
+    {
+        return $this->morphMany(Category::class, 'categoriable');
+    }
 }

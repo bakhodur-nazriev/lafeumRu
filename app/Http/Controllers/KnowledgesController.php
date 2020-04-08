@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Knowledge;
 use App\Term;
 use Illuminate\Http\Request;
@@ -10,13 +11,14 @@ class KnowledgesController extends Controller
 {
     public function index()
     {
-        $knowledgeAreas = Term::latest()->get();
+        $knowledgeAreas = Knowledge::latest()->get();
         return view('knowledgeArea', compact('knowledgeAreas'));
     }
 
-    public function show()
+    public function show(Knowledge $knowledge)
     {
-        return view("shows.knowledgeArea");
+        $categories = Category::get()->toTree()->unique("name");
+        return view("shows.showKnowledge", compact(['knowledge', 'categories']));
     }
 
     public function get()

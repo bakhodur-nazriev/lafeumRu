@@ -11,7 +11,8 @@ class PhotosController extends Controller
 
     public function index()
     {
-        $photos = Photo::orderBy("id")->paginate(12);
+        /*$photos = Photo::orderBy("id")->paginate(15);*/
+        $photos = Photo::paginate(15);
         return view("/photos", compact("photos"));
     }
 

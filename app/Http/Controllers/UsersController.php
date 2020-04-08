@@ -15,10 +15,10 @@ class UsersController extends Controller
 
     use AuthenticatesUsers;
 
-    /*public function __construct()
+    public function __construct()
     {
         $this->middleware("auth");
-    }*/
+    }
 
     public function index()
     {
@@ -40,21 +40,22 @@ class UsersController extends Controller
 
     public function update(Request $request, $id)
     {
-        /*if (Gate::denies("delete-users")) {
+        if (Gate::denies("delete-users")) {
             return redirect(route("admin.users.index"));
         }
-        $user->name = $request->name;
-        $user->email = $request->email;*/
 
         $user = User::find($id);
         $newUserData = $request->only(["name", "email", "password"]);
+
+        $user->name = $request->name;
+        $user->email = $request->email;
 
         if ($request->hasFile("avatar")) {
             $newUserData['avatar'] = $this->saveImage(time(), $request->avatar, self::USERS_AVATARS_PATH);
         }
         $user->update($newUserData);
 
-        /*$user->roles()->sync($request->roles);*/
+        $user->roles()->sync($request->roles);
         return $user;
     }
 

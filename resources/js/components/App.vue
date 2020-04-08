@@ -1,6 +1,6 @@
 <template>
     <v-app class="grey lighten-4">
-        <Navbar/>
+        <adminNavbar/>
 
         <v-content class="mx-4 my-2">
             <router-view/>
@@ -9,15 +9,17 @@
 </template>
 
 <script>
-    import Navbar from "./admin/Navbar";
+    import adminNavbar from "./admin/Navbar";
+    import authorNavbar from "./author/Navbar";
+    import memberNavbar from "./member/Navbar";
 
     export default {
         props: ["users"],
         name: "App",
-        components: {Navbar},
+        components: {adminNavbar, authorNavbar, memberNavbar},
         data() {
             return {};
-        }
+        },
     };
 </script>
 

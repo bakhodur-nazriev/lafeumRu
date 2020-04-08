@@ -4,16 +4,18 @@
     <div class="container">
         <div class="row">
             <div class="col-md-3 col-sm-12">
-                <h3>Темы</h3>
+                <h3 class="secondary">Темы</h3>
                 @foreach($categories as $category)
-                    <a href="#"><b>{{ $category->name }}</b></a>
+                    <div class="categories-main-name">
+                        <a href="#"><b>{{ $category->name }}</b></a>
+                    </div>
                     @foreach($category->children as $subCategory)
                         <div><a href="#">{{$subCategory->name}}</a></div>
                     @endforeach
                 @endforeach
             </div>
             <div class="col-md-9">
-                <h3>Словарь «Лафеюм»</h3>
+                <h3 class="secondary">Словарь «Лафеюм»</h3>
                 <p>Словарь «ЛАФЕЮМ» на сегодня содержит более одной тысячи основных терминов, соответствующих тематики
                     сайта.
                     Для удобства чтения и пользования словарем термины дополнительно разбиты на темы.

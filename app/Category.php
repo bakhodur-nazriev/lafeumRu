@@ -12,23 +12,18 @@ class Category extends Model
 
     protected $guarded = [];
 
-    public function parent()
+    public function quote()
     {
-        return $this->belongsTo(self::class);
+        return $this->morphedByMany(Quote::class, 'categoriable');
     }
 
-    public function children()
+    public function terms()
     {
-        return $this->hasMany(self::class);
+        return $this->morphedByMany(Terms::class, 'categoriable');
     }
 
-    public function categoriable()
+    public function video()
     {
-        return $this->morphTo();
+        return $this->morphedByMany(Video::class, 'categoriable');
     }
-
-    /*public function vocabulary()
-    {
-        return $this->morphedByMany(Vocabulary::class, 'categoriable');
-    }*/
 }

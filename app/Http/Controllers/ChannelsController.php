@@ -14,11 +14,11 @@ class ChannelsController extends Controller
         return view("/channels", compact("channels"));
     }
 
-    public function show($id)
+    public function show($slug)
     {
-        $categories = Category::get()->toTree()->unique("name");
-        $channels = Channel::with("videos")->find($id);
-        return view("/shows.showChannel", compact(["channels", "categories"]));
+        $channel = Channel::with(["videos"])->where("slug", $slug)->first();
+        $channels = Channel::all();
+        return view("shows.showChannel", compact("channel", "channels"));
     }
 
     public function get()

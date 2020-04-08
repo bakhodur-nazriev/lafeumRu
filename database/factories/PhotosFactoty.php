@@ -6,9 +6,11 @@
 use App\Photo;
 use Faker\Generator as Faker;
 
-$factory->define(Photo::class, function (Faker $faker) {
+
+
+/*$factory->define(Photo::class, function (Faker $faker) {
     return [
-        'image' => "https://placekitten.com/640/360",
+        'image' => 'public/img/photos/1.jpg',
         'description' => $faker->text(50)
     ];
-});
+});*/

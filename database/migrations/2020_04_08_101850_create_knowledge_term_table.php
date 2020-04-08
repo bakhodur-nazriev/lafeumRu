@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCategoriablesTable extends Migration
+class CreateKnowledgeTermTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateCategoriablesTable extends Migration
      */
     public function up()
     {
-        Schema::create('categoriables', function (Blueprint $table) {
-            $table->integer('category_id');
-            $table->integer('categoriable_id');
-            $table->string('categoriable_type');
+        Schema::create('knowledge_terms', function (Blueprint $table) {
+            $table->integer('knowledge_id');
+            $table->integer('term_id');
         });
     }
 
@@ -27,6 +26,6 @@ class CreateCategoriablesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categoriables');
+        Schema::dropIfExists('knowledge_term');
     }
 }

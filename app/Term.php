@@ -11,13 +11,18 @@ class Term extends Model
 
     protected $fillable = ['name','body'];
 
-    public function tags()
-    {
-        return $this->morphToMany(Tag::class, 'taggable');
-    }
+//    public function tags()
+//    {
+//        return $this->morphToMany(Tag::class, 'taggable');
+//    }
 
     public function categories()
     {
-        return $this->morphMany(Category::class, 'categoriable');
+        return $this->morphToMany(Category::class, 'categoriable');
+    }
+
+    public function knowledge()
+    {
+        return $this->belongsToMany(Knowledge::class, 'knowledge_terms');
     }
 }

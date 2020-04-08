@@ -19,15 +19,36 @@ class LafeumImportSeeder extends Seeder
      */
     public function run()
     {
-        $this->importChannels();
-        $this->importAuthors();
-        $this->call(PhotoTableSeeder::class);
         $this->call(CategoryTableSeeder::class);
+        $this->call(PhotoTableSeeder::class);
 
-//      $this->importVideos();
+        $this->importAuthors();
         $this->importKnowledgeAreas();
-        /*$this->importTerms();*/
+        $this->importChannels();
+
+        DB::table("categoriables")->truncate();
+
+        $this->importVideos();
         $this->importQuotes();
+        $this->importTerms();
+    }
+
+    public function importAuthors()
+    {
+        $authorGroups = require(app_path("/LafeumData/lafeumAuthors.php"));
+
+        Author::truncate();
+        AuthorGroup::truncate();
+
+        foreach ($authorGroups as $groupName => $authors) {
+
+            $authorGroup = AuthorGroup::create(["name" => $groupName]);
+
+            foreach ($authors as $author) {
+                $author["author_group_id"] = $authorGroup->id;
+                Author::create($author);
+            }
+        }
     }
 
     public function importChannels()
@@ -59,26 +80,24 @@ class LafeumImportSeeder extends Seeder
         Video::truncate();
 
         foreach ($videos as $video) {
-            Video::create($video);
-        }
+            $newVideoData['id'] = $video['id'];
+            $newVideoData['title'] = $video['title'];
+            $newVideoData['duration'] = $video['duration'];
+            $newVideoData['link'] = "https://www.youtube.com/embed/" . $video['video_id'];
 
-    }
+            echo $video['title'] . PHP_EOL;
 
-    public function importAuthors()
-    {
-        $authorGroups = require(app_path("/LafeumData/lafeumAuthors.php"));
+            $newVideoData['channel_id'] = Channel::where('slug', $video['channel']['slug'])->first()->id;
 
-        Author::truncate();
-        AuthorGroup::truncate();
+            $newVideo = Video::create($newVideoData);
 
-        foreach ($authorGroups as $groupName => $authors) {
+            $categoryNames = collect($video['categories'])->pluck('name');
 
-            $authorGroup = AuthorGroup::create(["name" => $groupName]);
-
-            foreach ($authors as $author) {
-                $author["author_group_id"] = $authorGroup->id;
-                Author::create($author);
-            }
+            $this->attachCategories(
+                $newVideo,
+                $categoryNames,
+                Video::class
+            );
         }
     }
 
@@ -90,18 +109,27 @@ class LafeumImportSeeder extends Seeder
 
         foreach ($terms as $term) {
             $newTermData['id'] = $term['id'];
-            $newTermData['name'] = $term['name'];
             $newTermData['body'] = $term['body'];
+
+            echo $term['body'] . PHP_EOL;
+
+            $termKnowledge = [];
+
+            foreach ($term['knowledge_areas'] as $knowledgeArea){
+                $termKnowledge[] = Knowledge::where('slug', $knowledgeArea['slug'])->first()->id;
+            }
 
             $newTerm = Term::create($newTermData);
 
-            foreach ($term['categories'] as $category) {
-                $newTermCategory = Category::where('type', Term::class)
-                    ->where('name', $category['name'])
-                    ->first();
+            $newTerm->knowledge()->attach($termKnowledge);
 
-                $newTerm->categories->save($newTermCategory);
-            }
+            $categoryNames = collect($term['categories'])->pluck('name');
+
+            $this->attachCategories(
+                $newTerm,
+                $categoryNames,
+                Term::class
+            );
         }
     }
 
@@ -114,17 +142,29 @@ class LafeumImportSeeder extends Seeder
         foreach ($quotes as $quote) {
             $newQuoteData['id'] = $quote['id'];
             $newQuoteData['body'] = $quote['body'];
-            $newQuoteData['author_id'] = Author::where('name', $quote['author']['name'])->first()->id;
+            echo $quote['body'] . PHP_EOL;
+            $newQuoteData['author_id'] = Author::where('slug', $quote['author']['slug'])->first()->id;
 
             $newQuote = Quote::create($newQuoteData);
 
-            foreach ($quote['categories'] as $category) {
-                $newQuoteCategory = Category::where('type', Quote::class)
-                    ->where('name', $category['name'])
-                    ->first();
+            $categoryNames = collect($quote['categories'])->pluck('name');
 
-                $newQuote->categories()->save($newQuoteCategory);
-            }
+            $this->attachCategories(
+                $newQuote,
+                $categoryNames,
+                Quote::class
+            );
+        }
+    }
+
+    private function attachCategories($modelItem, $categoryNames, $categoryModel)
+    {
+        foreach ($categoryNames as $categoryName) {
+            $modelItemCategories = Category::where('type', $categoryModel)
+                ->where('name', $categoryName)
+                ->first();
+
+            $modelItem->categories()->save($modelItemCategories);
         }
     }
 }

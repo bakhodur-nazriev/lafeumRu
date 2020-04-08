@@ -14,7 +14,7 @@ class QuotesController extends Controller
 {
     public function index()
     {
-        $quotes = Quote::with(["author", "tags"])->paginate(8);
+        $quotes = Quote::with("author")->paginate(8);
         $categories = Category::get()->toTree()->unique("name");
         return view("/quotes", compact(["quotes", "categories"]));
     }

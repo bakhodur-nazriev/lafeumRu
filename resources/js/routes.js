@@ -1,16 +1,16 @@
 import Quotes from "./components/admin/Quotes";
 import Authors from "./components/admin/Authors";
 import Terms from "./components/admin/Terms";
-import KnowledgeAreas from "./components/admin/KnowledgeAreas";
 import Videos from "./components/admin/Videos";
-import Channels from "./components/admin/Channels";
 import Photos from "./components/admin/Photos";
 import Users from "./components/admin/Users"
-/*import Vocabulary from "./components/admin/Vocabulary";*/
 import Profile from "./components/admin/Profile";
 import Favorite from "./components/admin/Favorite";
+/*import Channels from "./components/admin/Channels";
+import KnowledgeAreas from "./components/admin/KnowledgeAreas";
+import Vocabulary from "./components/admin/Vocabulary";
 import Settings from "./components/admin/Settings";
-import Chat from "./components/admin/Chat";
+import Chat from "./components/admin/Chat";*/
 
 export const sidebarRoutes = [
     {
@@ -75,12 +75,30 @@ export const sidebarRoutes = [
         path: "",
         subLinks: [
             {
-                path: "",
-                name: "/dashboard/author",
+                path: "/dashboard/quotes",
+                name: "/dashboard/quotes",
+                meta: {
+                    icon: "mdi-quote",
+                    title: "Категория цитаты",
+                },
+                path: "/dashboard/terms",
+                name: "/dashboard/terms",
                 meta: {
                     icon: "mdi-",
-                    title: "",
-                }
+                    title: "Категория термини",
+                },
+                path: "dashboard/vocabulary",
+                name: "/dashboard/vocabulary",
+                meta: {
+                    icon: "mdi-",
+                    title: "Категория словары",
+                },
+                path: "/dashboard/videos",
+                name: "/dashboard/videos",
+                meta: {
+                    icon: "mdi-",
+                    title: "Категория видео",
+                },
             },
         ]
     },*/

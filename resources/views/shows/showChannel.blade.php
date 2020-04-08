@@ -16,11 +16,11 @@
                 <p>{{ $channel->description }}</p>
 
                 <div class="row">
-                    @foreach($channels->videos as $video)
+                    {{--@foreach($channels->videos as $video)--}}
                         <div class="col-6">
                             <div class="card">
                                 <div class="card-body ">
-                                    <h5 class="card-title mb-0">{{$video->title}}</h5>
+                                    <h5 class="card-title mb-0">{{--{{$video->title}}--}}</h5>
                                     <p class="text-muted">
                                         {{--<a href="/channels/{{$channels->id}}" class="d-block secondary">
                                             <i class="fa fa-youtube-play mr-2"></i>{{$channels->name}}
@@ -43,7 +43,7 @@
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                    {{--@endforeach--}}
                 </div>
             </div>
         </div>

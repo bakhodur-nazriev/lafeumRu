@@ -20,11 +20,6 @@ class Quote extends Model
         return $this->belongsTo(Author::class);
     }
 
-    public function tags()
-    {
-        return $this->morphToMany(Tag::class, 'taggable');
-    }
-
     public function categories()
     {
         return $this->morphToMany(Category::class, 'categoriable');

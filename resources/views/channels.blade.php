@@ -21,7 +21,7 @@
             @foreach ($channels as $channel)
                 <div class="col-md-3 channel authors-links">
                     <li class="list-group">
-                        <a href="/channels/{{$channel->id}}">{{ $channel->name }}</a>
+                        <a href="/channels/{{$channel->slug}}">{{ $channel->name }}</a>
                     </li>
                 </div>
             @endforeach

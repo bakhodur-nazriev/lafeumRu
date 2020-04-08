@@ -35,28 +35,27 @@
                         </div>
                     </div>
 
-                        <div class="tags-block">
-                            {{-- @foreach($term->tags as $tag) --}}
-                            <a href="#">
-                                <i class="fa fa-tags"></i>
-                                {{-- {{ $tag->name }} --}}
-                            </a>
-                            {{-- @endforeach --}}
-                        </div>
-                        <div class="my-main-divider"></div>
-                        <button class="btn share-button">Поделиться</button>
+                    <div class="tags-block">
+                        {{-- @foreach($term->tags as $tag) --}}
+                        <a href="#">
+                            <i class="fa fa-tags"></i>
+                            {{-- {{ $tag->name }} --}}
+                        </a>
+                        {{-- @endforeach --}}
                     </div>
+                    <div class="my-main-divider"></div>
+                    <button class="btn share-button">Поделиться</button>
                 </div>
             </div>
-            {{--@endforeach--}}
-            <div class="row">
-                <div class="col-12">
-                    <nav aria-label="Page navigation example">
-                        <div class="row d-flex justify-content-center my-6">
-                            {{-- {!! $terms->links(); !!} --}}
-                        </div>
-                    </nav>
-                </div>
+        </div>
+        {{--@endforeach--}}
+        <div class="row">
+            <div class="col-12">
+                <nav aria-label="Page navigation example">
+                    <div class="row d-flex justify-content-center my-6">
+                        {{-- {!! $terms->links(); !!} --}}
+                    </div>
+                </nav>
             </div>
         </div>
     </div>

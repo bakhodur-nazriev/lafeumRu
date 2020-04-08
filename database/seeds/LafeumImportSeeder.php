@@ -109,6 +109,8 @@ class LafeumImportSeeder extends Seeder
 
         foreach ($terms as $term) {
             $newTermData['id'] = $term['id'];
+            $newTermData['name'] = $term['name'];
+            $newTermData['link'] = $term['link'];
             $newTermData['body'] = $term['body'];
 
             echo $term['body'] . PHP_EOL;

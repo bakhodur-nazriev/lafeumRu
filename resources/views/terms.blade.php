@@ -5,16 +5,14 @@
         <div class="row card-main-block">
             <div class="col-md-3 col-sm-12">
                 <h3 class="secondary">Темы</h3>
-                <div>
-                    @foreach($categories as $category)
-                        <div class="categories-main-name">
-                            <a href="#"><b>{{ $category->name }}</b></a>
-                        </div>
-                        @foreach($category->children as $subCategory)
-                            <div><a href="#">{{$subCategory->name}}</a></div>
-                        @endforeach
+                @foreach($categories as $category)
+                    <div class="categories-main-name">
+                        <a href="#"><b>{{ $category->name }}</b></a>
+                    </div>
+                    @foreach($category->children as $subCategory)
+                        <div><a href="#">{{$subCategory->name}}</a></div>
                     @endforeach
-                </div>
+                @endforeach
             </div>
             <div class="col-md-9 col-sm-12">
                 <h3 class="secondary mb-4">Термины</h3>
@@ -22,20 +20,25 @@
                     <div class="card-block">
                         <div class="row">
                             <div class="col py-0 text-right">
-                                <i data-id="{{$term->id}}"
+                                {{--<i data-id="{{$term->id}}"
                                    class="fa fa-star favourite-quote-btn {{$term->isFavorited() ? " fa-star-active": ""}}"
                                    data-toggle="tooltip"
                                    data-placement="top"
                                    title="Избранный"
-                                ></i>
+                                ></i>--}}
                             </div>
                         </div>
+                        <p class="mb-1">
+                            <i class="fa fa-diamond secondary"></i>
+                            <i class="fa fa-diamond secondary"></i>
+                            <i class="fa fa-diamond secondary"></i>
+                        </p>
                         <p>{!! $term->body !!}</p>
                         <div class="tags-block">
-                            @foreach($term->tags as $tag)
+                            @foreach($term->categories as $category)
                                 <a href="#">
-                                    <img src="/img/tag.png" alt="" class="qouter-authors-image">
-                                    {{ $tag->name }}
+                                    <i class="fa fa-tags"></i>
+                                    {{ $category->name }}
                                 </a>
                             @endforeach
                         </div>

@@ -26,10 +26,12 @@ Route::get("/quotes", "QuotesController@index")->name("quotes");
 Route::get("/quotes/{quote}", "QuotesController@index")->name("quotes");
 
 Route::get("/terms", "TermsController@index")->name("terms");
-Route::get("/terms/{term}", "VocabularyController@show");
+Route::get("/terms/{slug}", "TermsController@show");
+
+Route::get("/vocabulary", "TermsController@indexVocabulary")->name("vocabulary");
+Route::get("/vocabulary/{slug}", "TermsController@showVocabulary")->name("vocabulary");
 
 Route::get("/videos", "VideosController@index")->name("videos");
-Route::get("/vocabulary", "VocabularyController@index")->name("vocabulary");
 
 //Favorite
 Route::put("/toggle-favourite", "FavoriteController@toggle")->middleware("auth");

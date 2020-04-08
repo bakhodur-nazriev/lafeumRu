@@ -17,7 +17,7 @@
             <div class="col-md-9 col-xl-9">
                 <h3 class="secondary mb-4">{{$author->name}}</h3>
                 <p>{{$author->biography}}</p>
-                {{--@foreach($knowledgeArea as $knowledge)--}}
+                @foreach($knowledgeArea as $knowledge)
                 <div class="card-block">
                     <div class="row px-3 mb-2">
                         <div class="py-0">

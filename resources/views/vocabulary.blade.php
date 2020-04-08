@@ -26,6 +26,12 @@
                     ссылки на Викисловарь.
                     По мере обновления на основном источнике здесь они будут равным образом обновляться.</p>
                 <div class="row d-flex justify-content-center">
+                    <div class="col-12 text-center">
+                        Примеры информативных поисковых запросов: «нау», «логия», «ика», «изм», «фило», «само»,<br>
+                        «чело»,
+                        «соц», «пси», «лич», «упр», «жи» , «кул», «эво» и т.п.<br>
+                        <b>Введите термин</b>
+                    </div>
                     <div class="col-md-5 input-group mb-3">
                         <input
                             type="text"
@@ -38,7 +44,7 @@
                 <div class="row">
                     @foreach($vocabularies as $vocabulary)
                         <div class="col-md-4 py-1 vocabulary">
-                            <a href="/terms/{{$vocabulary->id}}">{{$vocabulary->name}}</a>
+                            <a href="/vocabulary/{{$vocabulary->slug}}">{{$vocabulary->name}}</a>
                         </div>
                     @endforeach
                 </div>

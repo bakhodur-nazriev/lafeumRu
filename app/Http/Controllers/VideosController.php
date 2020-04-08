@@ -4,17 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use Illuminate\Http\Request;
-use App\Channel;
 use App\Video;
 
 class VideosController extends Controller
 {
     public function index()
     {
-        $categories = Category::get()->toTree()->unique("name");
-        $channels = Channel::with("videos")->get();
-        $videos = Video::with(["channel", "favorites", "tags"])->get();
-        return view("/videos", compact(["channels","videos", "categories"]));
+        $categories = Category::where('type', Video::class)->get()->toTree()->unique("name");
+        $videos = Video::with(["channel", "favorites", "categories"])->paginate(10);
+        return view("/videos", compact(["videos", "categories"]));
     }
 
     public function get()

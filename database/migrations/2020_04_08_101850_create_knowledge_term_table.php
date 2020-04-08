@@ -26,6 +26,6 @@ class CreateKnowledgeTermTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('knowledge_term');
+        Schema::dropIfExists('knowledge_terms');
     }
 }

@@ -10,14 +10,29 @@ class TermsController extends Controller
 {
     public function index()
     {
-        $terms = Term::with('tags')->latest()->paginate(8);
-        $categories = Category::get()->toTree()->unique('name');
+        $terms = Term::with('categories')->latest()->paginate(15);
+        $categories = Category::where('type', Term::class)->get()->toTree()->unique("name");
         return view('/terms', compact(['terms', 'categories']));
     }
 
     public function show(Term $term)
     {
         return view('shows.showTerm', compact('term'));
+    }
+
+    public function indexVocabulary()
+    {
+        $vocabularies = Term::all();
+        $categories = Category::where('type', Term::class)->get()->toTree()->unique("name");
+
+        return view("/vocabulary", compact(["vocabularies", "categories"]));
+    }
+
+    public function showVocabulary($slug)
+    {
+        $categories = Category::where('type', Term::class)->get()->toTree()->unique("name");
+        $vocabulary = Term::with(["videos"])->where("slug", $slug)->first();
+        return view("shows.showVocabulary", compact("vocabulary","categories"));
     }
 
     public function get(Request $request)

@@ -3,17 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row card-main-block">
-            <div class="col-md-3 col-sm-12">
-                <h3 class="secondary">Темы</h3>
-                @foreach($categories as $category)
-                    <div class="categories-main-name">
-                        <a href="#"><b>{{ $category->name }}</b></a>
-                    </div>
-                    @foreach($category->children as $subCategory)
-                        <div><a href="#">{{$subCategory->name}}</a></div>
-                    @endforeach
-                @endforeach
-            </div>
+            @include('layouts.categories', ['type' => 'App\Quote'])
             <div class="col-md-9 col-xl-8 col-sm-12">
                 <h3 class="secondary">Цитаты и Афоризмы</h3>
                 <p>Красивые цитаты и афоризмы великих людей, жизненные со смыслом высказывания известнейших поэтов,
@@ -38,18 +28,25 @@
                         </div>
                         <div>{!! $quote->body !!}</div>
                         <div class="tags-block">
-                           @foreach($quote->categories as $category)
+                            @foreach($quote->categories as $category)
                                 <a href="#">
                                     <i class="fa fa-tags"></i>
                                     {{ $category->name }}
                                 </a>
                             @endforeach
                         </div>
+
                         <div class="my-main-divider"></div>
-                        <div>
-                            <button class="btn share-button">Поделиться</button>
-                        </div>
-                        {{--<div id="getRequestData"></div>--}}
+
+                        <script src="https://yastatic.net/es5-shims/0.0.2/es5-shims.min.js"></script>
+                        <script src="https://yastatic.net/share2/share.js"></script>
+                        <a class="share-button">
+                            <span class="share-text">Поделиться</span>
+                            <span class="share-icons">
+                                <div class="ya-share2"
+                                     data-services="vkontakte,facebook,odnoklassniki,twitter,viber,whatsapp,telegram"></div>
+                            </span>
+                        </a>
                     </div>
                 @endforeach
                 <div class="row">

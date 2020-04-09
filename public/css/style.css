@@ -11,11 +11,8 @@ body {
     padding-bottom: 222px;
 }
 
-/*h3 {
-    color: #a6192e;
-}*/
-
 /* ------------ COLORS  ---------- */
+
 .secondary {
     color: #a6192e;
 }
@@ -23,7 +20,19 @@ body {
 /*.primary{
     color: #04718c;
 }*/
+
 /* ------------ COLORS  ---------- */
+
+.vocabulary {
+    padding: 0 15px;
+}
+
+.themes-block {
+    padding: 15px;
+    border-radius: 5px;
+    height: 100%;
+    background-color: white;
+}
 
 .main-navbar {
     background-color: #04718c;
@@ -62,13 +71,38 @@ body {
 }
 
 .card-block {
-    /*display: flex;
-    flex-direction: column;
-    align-items: start;*/
     padding: 15px 20px 15px 20px;
     background-color: white;
     border-radius: 5px;
     margin-bottom: 25px;
+}
+
+.share-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+    border-radius: 50%;
+    padding: 5px;
+    margin: 0 2px;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+}
+
+.share-links:hover {
+    text-decoration: none;
+    color: rgb(156, 170, 185);
+}
+
+.share-button > a {
+    display: none;
+}
+
+.share-button-block {
+    display: flex;
+    align-items: center;
 }
 
 .card-block > a {
@@ -77,9 +111,28 @@ body {
 }
 
 .share-button {
+    display: flex;
+    align-items: center;
+    background-color: hsla(0, 0%, 100%, .12);
+    border-radius: 5px;
+    padding: 8px 12px 8px 0;
+}
+
+.share-button > .share-text {
+    cursor: pointer;
+    color: #fff;
+    margin-right: 7px;
+    border-radius: 5px;
+    padding: 5px 15px;
     background-color: #04718c;
-    color: white;
-    padding: 5px 10px;
+}
+
+.share-button > .share-icons {
+    display: none;
+}
+
+.share-button > .share-icons:hover {
+    display: block;
 }
 
 .qouter-authors-image {
@@ -150,12 +203,6 @@ body {
 .video-share a img {
     width: 22px;
     vertical-align: center;
-}
-
-.single-video-block {
-    max-width: 360px;
-    min-height: 480px;
-    float: left;
 }
 
 #ShowHide1 {

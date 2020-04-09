@@ -43,7 +43,7 @@
                 </div>
                 <div class="row">
                     @foreach($vocabularies as $vocabulary)
-                        <div class="col-md-4 py-1 vocabulary">
+                        <div class="col-md-4 vocabulary">
                             <a href="/vocabulary/{{$vocabulary->slug}}">{{$vocabulary->name}}</a>
                         </div>
                     @endforeach

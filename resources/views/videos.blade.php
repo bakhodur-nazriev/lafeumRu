@@ -3,17 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row card-main-block">
-            <div class="col-md-3 col-sm-12">
-                <h3 class="secondary">Темы</h3>
-                @foreach($categories as $category)
-                    <div class="categories-main-name">
-                        <a href="#"><b>{{ $category->name }}</b></a>
-                    </div>
-                    @foreach($category->children as $subCategory)
-                        <div><a href="#">{{$subCategory->name}}</a></div>
-                    @endforeach
-                @endforeach
-            </div>
+            @include('layouts.categories', ['type' => 'App\Video'])
             <div class="col-md-9 col-xl-9">
                 <h3 class="secondary ml-3">Видео</h3>
                 <div class="row">
@@ -22,12 +12,13 @@
                             <div class="card h-100">
                                 <iframe class="youtube-videos" src="{{$video->link}}" frameborder="0"
                                         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                        allowfullscreen=""></iframe>
+                                        allowfullscreen="">
+                                </iframe>
                                 <div class="card-body d-flex flex-column justify-content-between">
                                     <h5 class="card-title">{{$video->title}}</h5>
                                     <div>
                                         <p class="text-muted mb-0">
-                                            <a href="#" class="d-block">
+                                            <a href="/channels/{{ $video->channel->slug }}" class="d-block">
                                                 <i class="fa fa-youtube-play secondary mr-2"></i>{{$video->channel->name}}
                                             </a>
                                         </p>
@@ -39,10 +30,10 @@
                                     </div>
                                 </div>
                                 <div class="card-footer d-flex justify-content-between align-items-center">
-                                <span>
-                                <i class="fa fa-clock-o mr-1"></i>{{$video->duration}}
-                                <span> мин.</span>
-                            </span>
+                                    <span>
+                                        <i class="fa fa-clock-o mr-1"></i>{{$video->duration}}
+                                        <span> мин.</span>
+                                    </span>
                                     <button class="btn share-button">Поделиться</button>
                                 </div>
                             </div>

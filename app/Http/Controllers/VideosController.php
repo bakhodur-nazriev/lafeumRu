@@ -10,9 +10,8 @@ class VideosController extends Controller
 {
     public function index()
     {
-        $categories = Category::where('type', Video::class)->get()->toTree()->unique("name");
         $videos = Video::with(["channel", "favorites", "categories"])->paginate(10);
-        return view("/videos", compact(["videos", "categories"]));
+        return view("/videos", compact("videos"));
     }
 
     public function get()

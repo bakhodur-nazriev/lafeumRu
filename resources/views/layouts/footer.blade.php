@@ -35,6 +35,6 @@
               <a class="nav-link text-light" href="{{ url('/contacts') }}">Контакты</a>
           </li>
       </ul>
-      <small>Copyright &copy; Your Website</small>
+      <small style="color: white">&copy; 2017-2020 LAFEUM. ВСЕ ПРАВА ЗАЩИЩЕНЫ.</small>
   </div>
 </footer>

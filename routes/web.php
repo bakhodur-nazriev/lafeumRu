@@ -22,7 +22,7 @@ Route::get("/knowledges/{knowledge}", "KnowledgesController@show")->name("knowle
 
 Route::get("/photo", "PhotosController@index")->name("photo");
 
-Route::get("/citaty", "QuotesController@index")->name("citaty");
+Route::get("/quotes", "QuotesController@index")->name("quotes");
 Route::get("/quotes/{quote}", "QuotesController@index")->name("quotes");
 
 Route::get("/terms", "TermsController@index")->name("terms");

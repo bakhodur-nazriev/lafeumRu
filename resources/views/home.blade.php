@@ -32,7 +32,16 @@
                         <a href="#"><b>{{ $category->name }}</b></a>
                     </div>
                     @foreach($category->children as $subCategory)
-                        <div><a href="#">{{$subCategory->name}}</a><br></div>
+                        <div class="dropdown" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                             aria-expanded="false">
+                            <a href="#">{{$subCategory->name}}</a><br>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">Цитаты</a>
+                                <a class="dropdown-item" href="#">Видео</a>
+                                <a class="dropdown-item" href="#">Термины</a>
+                                <a class="dropdown-item" href="#">Словарь</a>
+                            </div>
+                        </div>
                     @endforeach
                 </div>
             @endforeach

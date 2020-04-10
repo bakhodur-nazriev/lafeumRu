@@ -9,6 +9,7 @@ body {
     min-height: 100vh;
     position: relative;
     padding-bottom: 222px;
+    width: 100%;
 }
 
 /* ------------ COLORS  ---------- */
@@ -147,6 +148,18 @@ body {
     margin-top: 10px;
 }
 
+.list-of-authors {
+    column-count: 4;
+}
+
+.list-of-knowledge{
+    column-count: 3;
+}
+
+.list-of-authors > .author {
+    margin-bottom: 3px;
+}
+
 .authors-main-title {
     text-align: center;
 }
@@ -200,10 +213,19 @@ body {
     /* display: none; */
 }
 
+.video-link-block {
+    padding: 15px 15px 0 15px;
+}
+
 .video-share a img {
     width: 22px;
     vertical-align: center;
 }
+
+.video-channel-link {
+    margin-bottom: 0;
+}
+
 
 #ShowHide1 {
     cursor: pointer;
@@ -307,11 +329,16 @@ body {
 }
 
 .youtube-videos {
-    height: 224px;
+    height: 230px;
+    padding: 15px;
 }
 
 .categories-main-name {
     margin: 15px 0 3px 0;
+}
+
+.single-image {
+    height: 100%;
 }
 
 .categories-main-name > a {

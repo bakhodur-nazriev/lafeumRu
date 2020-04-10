@@ -1,20 +1,20 @@
 function search(selector, filter) {
-    let upperFilter = filter.toUpperCase();
+    let upperFilter = filter.toLowerCase();
 
-    let elements  = document.querySelectorAll(selector);
-    
-    for (const element of elements) {
-        let elementContent = element.innerText || element.textContent;
+    let elements = document.querySelectorAll(selector);
 
-        let elementConatainsFilter = 
+    for (let i = 0; i < elements.length; i++) {
+        let elementContent = elements[i].innerText || elements[i].textContent;
+
+        let elementConatainsFilter =
             elementContent
-            .toUpperCase()
-            .indexOf(upperFilter) > -1;
+                .toLowerCase()
+                .indexOf(upperFilter) > -1;
 
-        if(elementConatainsFilter){
-            element.style.display = "";
+        if (elementConatainsFilter) {
+            elements[i].style.display = "";
         } else {
-            element.style.display = "none";
+            elements[i].style.display = "none";
         }
     }
 }

@@ -10,7 +10,7 @@
                 </span>
                 <div class="input-group mb-3">
                     <input
-                        type="text"
+                        type="search"
                         id="author-search"
                         class="form-control"
                         placeholder="Поиск по авторам"
@@ -19,17 +19,20 @@
             </div>
         </div>
         <div class="row">
-            @foreach ($authors as $author)
-                <div class="col-sm-6 col-md-3 author py-1">
-                    <a href="/author/{{$author->id}}">{{ $author->name }}</a>
-                </div>
-            @endforeach
+            <ul class="list-inline py-1 list-of-authors">
+                @foreach ($authors as $author)
+                    <li class="author">
+                        <a href="/author/{{$author->id}}">{{ $author->name }}</a>
+                    </li>
+                @endforeach
+            </ul>
         </div>
         <script>
             $(document).ready(() => {
+
                 $("#author-search").keyup((e) => {
                     search(".author", e.target.value);
-                })
+                });
             })
         </script>
     </div>

@@ -42,11 +42,13 @@
                     </div>
                 </div>
                 <div class="row">
-                    @foreach($vocabularies as $vocabulary)
-                        <div class="col-md-4 vocabulary">
-                            <a href="/vocabulary/{{$vocabulary->slug}}">{{$vocabulary->name}}</a>
-                        </div>
-                    @endforeach
+                    <ul class="list-inline py-1 list-of-knowledge">
+                        @foreach($vocabularies as $vocabulary)
+                            <li class="vocabulary">
+                                <a href="/vocabulary/{{$vocabulary->slug}}">{{$vocabulary->name}}</a>
+                            </li>
+                        @endforeach
+                    </ul>
                 </div>
                 <script>
                     $(document).ready(() => {

@@ -8,24 +8,26 @@
                 <h3 class="secondary ml-3">Видео</h3>
                 <div class="row">
                     @foreach($videos as $video)
-                        <div class="col-6">
+                        <div class="col-md-6">
                             <div class="card h-100">
+                                <div class="video-link-block">
+                                    <p class="video-channel-link">
+                                        <a href="/channels/{{ $video->channel->slug }}" class="secondary">
+                                            <i class="fa fa-youtube-play mr-2"></i>{{$video->channel->name}}
+                                        </a>
+                                    </p>
+                                </div>
                                 <iframe class="youtube-videos" src="{{$video->link}}" frameborder="0"
                                         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                                         allowfullscreen="">
                                 </iframe>
-                                <div class="card-body d-flex flex-column justify-content-between">
+                                <div class="card-body d-flex flex-column justify-content-between pt-0">
                                     <h5 class="card-title">{{$video->title}}</h5>
-                                    <div>
-                                        <p class="text-muted mb-0">
-                                            <a href="/channels/{{ $video->channel->slug }}" class="d-block">
-                                                <i class="fa fa-youtube-play secondary mr-2"></i>{{$video->channel->name}}
-                                            </a>
-                                        </p>
+                                    <div class="inner-categories mb-0">
                                         @foreach($video->categories as $category)
-                                            <p class="d-inline-block mb-0">
-                                                <a href="#"><i class="fa fa-tags mr-1"></i>{{$category->name}},</a>
-                                            </p>
+                                            <a href="#" class="mr-1">
+                                                <i class="fa fa-tags mr-1"></i>{{$category->name}},
+                                            </a>
                                         @endforeach
                                     </div>
                                 </div>
@@ -34,7 +36,6 @@
                                         <i class="fa fa-clock-o mr-1"></i>{{$video->duration}}
                                         <span> мин.</span>
                                     </span>
-                                    <button class="btn share-button">Поделиться</button>
                                 </div>
                             </div>
                         </div>

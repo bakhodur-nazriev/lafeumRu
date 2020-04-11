@@ -18,21 +18,23 @@
                 <h3 class="secondary mb-4">Термины</h3>
                 @foreach($terms as $term)
                     <div class="card-block">
-                        <div class="row">
-                            <div class="col py-0 text-right">
-                                {{--<i data-id="{{$term->id}}"
-                                   class="fa fa-star favourite-quote-btn {{$term->isFavorited() ? " fa-star-active": ""}}"
+                        <div class="row px-3 mb-2 d-flex">
+                            <div class="col-6 p-0">
+                                <p class="mb-1">
+                                    <i class="fa fa-diamond secondary"></i>
+                                    <i class="fa fa-diamond secondary"></i>
+                                    <i class="fa fa-diamond secondary"></i>
+                                </p>
+                            </div>
+                            <div class="col-6 p-0 text-right">
+                                <i data-id="{{$term->id}}"
+                                   class="fa fa-star favourite-term-btn {{$term->isFavorited() ? " fa-star-active": ""}}"
                                    data-toggle="tooltip"
                                    data-placement="top"
                                    title="Избранный"
-                                ></i>--}}
+                                ></i>
                             </div>
                         </div>
-                        <p class="mb-1">
-                            <i class="fa fa-diamond secondary"></i>
-                            <i class="fa fa-diamond secondary"></i>
-                            <i class="fa fa-diamond secondary"></i>
-                        </p>
                         <p>{!! $term->body !!}</p>
                         <div class="tags-block">
                             @foreach($term->categories as $category)

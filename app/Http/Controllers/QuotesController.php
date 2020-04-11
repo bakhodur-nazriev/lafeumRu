@@ -23,12 +23,11 @@ class QuotesController extends Controller
     {
         $quotesQuery = Quote::with("author");
 
-        /*if($request->has("favourite")){
-            $quotesQuery->whereHas("favorites", function ($query){
+        if ($request->has("favourite")) {
+            $quotesQuery->whereHas("favorites", function ($query) {
                 $query->where("user_id", Auth::id());
             });
-        }*/
-
+        }
         return $quotesQuery->latest()->get();
     }
 

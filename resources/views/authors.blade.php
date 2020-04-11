@@ -29,9 +29,8 @@
         </div>
         <script>
             $(document).ready(() => {
-
                 $("#author-search").keyup((e) => {
-                    search(".author", e.target.value);
+                    search(".list-of-authors", e.target.value);
                 });
             })
         </script>

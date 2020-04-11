@@ -17,13 +17,13 @@
                                     <i class="fa fa-user" style="margin-right: 5px;"></i>{{$quote->author->name}}
                                 </a>
                             </div>
-                            <div class="col py-0 text-right">
-                                {{--<i data-id="{{$quote->id}}"
+                            <div class="col p-0 text-right">
+                                <i data-id="{{$quote->id}}"
                                    class="fa fa-star favourite-quote-btn {{$quote->isFavorited() ? " fa-star-active": ""}}"
                                    data-toggle="tooltip"
                                    data-placement="top"
                                    title="Избранный"
-                                ></i>--}}
+                                ></i>
                             </div>
                         </div>
                         <div>{!! $quote->body !!}</div>

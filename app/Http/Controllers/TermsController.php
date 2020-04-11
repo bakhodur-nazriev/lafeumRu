@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Term;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TermsController extends Controller
 {
@@ -32,12 +33,18 @@ class TermsController extends Controller
     {
         $categories = Category::where('type', Term::class)->get()->toTree()->unique("name");
         $vocabulary = Term::with(["videos"])->where("slug", $slug)->first();
-        return view("shows.showVocabulary", compact("vocabulary","categories"));
+        return view("shows.showVocabulary", compact("vocabulary", "categories"));
     }
 
     public function get(Request $request)
     {
-        return Term::with('tags')->latest()->get();
+        $termsQuery = Term::all();
+        if ($request->has("favorite")) {
+            $termsQuery->whereHas("favorites", function ($query) {
+                $query->where("user_id", Auth::id());
+            });
+        }
+        return $termsQuery->latest()->get();
     }
 
     public function store(Request $request)

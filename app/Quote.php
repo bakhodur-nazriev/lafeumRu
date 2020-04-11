@@ -25,11 +25,6 @@ class Quote extends Model
         return $this->morphToMany(Category::class, 'categoriable');
     }
 
-    /*public function favorites()
-     {
-         return $this->morphToMany(Favorite::class, 'favoriteable');
-     }*/
-
     public function user()
     {
         return $this->belongsTo(User::class);

@@ -1,7 +1,10 @@
-function search(selector, filter) {
+function search(parentSelector, filter) {
     let upperFilter = filter.toLowerCase();
 
-    let elements = document.querySelectorAll(selector);
+    let wrapper = document.querySelector(parentSelector);
+    let elements = wrapper.cloneNode(true).children;
+
+    wrapper.textContent = "";
 
     for (let i = 0; i < elements.length; i++) {
         let elementContent = elements[i].innerText || elements[i].textContent;
@@ -17,4 +20,6 @@ function search(selector, filter) {
             elements[i].style.display = "none";
         }
     }
+
+    wrapper.append(...elements);
 }

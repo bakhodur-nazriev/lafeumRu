@@ -5,7 +5,7 @@ import Videos from "./components/admin/Videos";
 import Photos from "./components/admin/Photos";
 import Users from "./components/admin/Users"
 import Profile from "./components/admin/Profile";
-import Favorite from "./components/admin/Favorite";
+import Favorite from "./components/admin/Favourites";
 /*import Channels from "./components/admin/Channels";
 import KnowledgeAreas from "./components/admin/KnowledgeAreas";
 import Vocabulary from "./components/admin/Vocabulary";

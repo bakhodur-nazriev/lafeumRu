@@ -10,12 +10,18 @@
                     @foreach($videos as $video)
                         <div class="col-md-6">
                             <div class="card h-100">
-                                <div class="video-link-block">
+                                <div class="col video-link-block">
                                     <p class="video-channel-link">
                                         <a href="/channels/{{ $video->channel->slug }}" class="secondary">
                                             <i class="fa fa-youtube-play mr-2"></i>{{$video->channel->name}}
                                         </a>
                                     </p>
+                                    <i data-id="{{$video->id}}"
+                                       class="fa fa-star favourite-video-btn {{$video->isFavorited() ? " fa-star-active": ""}}"
+                                       data-toggle="tooltip"
+                                       data-placement="top"
+                                       title="Избранный"
+                                    ></i>
                                 </div>
                                 <iframe class="youtube-videos" src="{{$video->link}}" frameborder="0"
                                         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
@@ -53,5 +59,31 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function videoToggleFavourite(videoId, onSuccess = null, onFailure = null) {
+            const videoModel = "App\\Video";
+            $.ajax({
+                url: '/toggle-favourite',
+                method: 'PUT',
+                data: {
+                    "_token": window.Laravel.csrf_token,
+                    favouritable: videoModel,
+                    id: videoId
+                }
+            }).then(onSuccess).catch(onFailure);
+        }
+
+        $(document).ready(() => {
+            $('.favourite-video-btn').click(e => {
+                let button = e.target;
+                let id = button.dataset.id;
+
+                videoToggleFavourite(id, (isFavourite) => {
+                    button.classList.toggle('fa-star-active', isFavourite);
+                });
+            });
+        });
+    </script>
 @endsection
 

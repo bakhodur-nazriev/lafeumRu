@@ -152,12 +152,12 @@ body {
     column-count: 4;
 }
 
-.list-of-knowledge{
-    column-count: 3;
+.list-of-knowledge, .list-of-knowledge {
+    column-count: 4;
 }
 
-.list-of-authors > .author {
-    margin-bottom: 3px;
+.list-of-authors > .author,.knowledge {
+    margin-bottom: 5px;
 }
 
 .authors-main-title {
@@ -213,8 +213,15 @@ body {
     /* display: none; */
 }
 
+.favourite-video-btn {
+    font-size: large;
+    cursor: pointer;
+}
+
 .video-link-block {
-    padding: 15px 15px 0 15px;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 0;
 }
 
 .video-share a img {
@@ -303,7 +310,8 @@ body {
     color: #ffec00 !important;
 }
 
-.favourite-quote-btn {
+.favourite-quote-btn,
+.favourite-term-btn {
     font-size: 20px;
     cursor: pointer;
 }

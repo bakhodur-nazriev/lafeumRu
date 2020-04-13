@@ -8,6 +8,7 @@ use ChristianKuri\LaravelFavorite\Traits\Favoriteable;
 class Video extends Model
 {
     use Favoriteable;
+
     protected $fillable = ["title", "channel_id", "link", "duration"];
 
     public function channel()

@@ -73,11 +73,11 @@
                             </v-avatar>
                         </template>
                     </v-data-table>
-                    <v-col cols="4" offset="4">
+                    <v-col class="text-center mt-2">
                         <v-pagination
                             v-model="page"
                             :length="pageCount"
-                            class="my-4"
+                            :total-visible="7"
                         >
                         </v-pagination>
                     </v-col>

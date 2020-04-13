@@ -21,16 +21,18 @@
                     </div>
                 </div>
                 <div class="row">
-                    @foreach ($knowledgeAreas as $knowledgeArea)
-                        <div class="col-md-3 col-xl-3 knowledge authors-links">
-                            <a href="/knowledges/{{$knowledgeArea->id}}">{{$knowledgeArea->name}}</a>
-                        </div>
-                    @endforeach
+                    <ul class="list-inline py-1 list-of-knowledge">
+                        @foreach ($knowledgeAreas as $knowledgeArea)
+                            <li class="knowledge">
+                                <a href="/knowledges/{{$knowledgeArea->id}}">{{$knowledgeArea->name}}</a>
+                            </li>
+                        @endforeach
+                    </ul>
                 </div>
                 <script>
                     $(document).ready(() => {
                         $("#knowledge-area-search").keyup((e) => {
-                            search(".knowledge", e.target.value);
+                            search(".list-of-knowledge", e.target.value);
                         })
                     })
                 </script>

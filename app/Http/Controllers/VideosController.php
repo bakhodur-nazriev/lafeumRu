@@ -14,9 +14,18 @@ class VideosController extends Controller
         return view("/videos", compact("videos"));
     }
 
-    public function get()
+    public function get(Request $request)
     {
-        return Video::with("channel")->latest()->get();
+        $videosQuery = Video::with("channel");
+
+        if ($request->has("favourite")) {
+            $videosQuery->whereHas("favorites", function ($query) {
+                $query->where("user_id", Auth::id());
+            });
+        }
+
+        /*return Video::with("channel")->latest()->get();*/
+        return $videosQuery->latest()->with("favorites")->first();
     }
 
     public function store(Request $request)

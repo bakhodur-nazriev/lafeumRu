@@ -76,9 +76,9 @@
                         </template>
                     </v-data-table>
                 </v-col>
-                <div class="text-center pt-2">
-                    <v-pagination v-model="page" :length="pageCount"></v-pagination>
-                </div>
+                <v-col class="text-center pt-2">
+                    <v-pagination :total-visible="7" v-model="page" :length="pageCount"></v-pagination>
+                </v-col>
             </v-row>
         </v-container>
         <v-tooltip top>
@@ -307,7 +307,7 @@
                 formData.append("image", this.photoImage);
                 formData.append("description", this.photoDescription);
                 axios
-                    .post("/api/photos", formData, {
+                    .post("/api/photos/", formData, {
                         headers: {
                             'Content-Type': 'multipart/form-data'
                         }
@@ -349,8 +349,8 @@
             filteredPhotos() {
                 return this.photos.filter(photo => {
                     return photo.description.toLowerCase().includes(this.search.toLowerCase());
-                });
+                })
             }
-        },
+        }
     };
 </script>

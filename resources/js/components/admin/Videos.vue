@@ -35,7 +35,7 @@
                             >
                                 <v-icon dark>mdi-pen</v-icon>
                             </v-btn>
-                            <v-btn
+                            <!--<v-btn
                                 fab
                                 dark
                                 small
@@ -45,7 +45,7 @@
                                 @click="videoToShow = {...item}"
                             >
                                 <v-icon dark>mdi-file-eye-outline</v-icon>
-                            </v-btn>
+                            </v-btn>-->
                             <v-btn
                                 fab
                                 dark
@@ -68,9 +68,9 @@
                         </template>
                     </v-data-table>
                 </v-col>
-                <div class="text-center pt-2">
-                    <v-pagination v-model="page" :length="pageCount"></v-pagination>
-                </div>
+                <v-col class="text-center pt-2">
+                    <v-pagination :total-visible="7" v-model="page" :length="pageCount"></v-pagination>
+                </v-col>
             </v-row>
         </v-container>
         <v-tooltip top>
@@ -220,7 +220,7 @@
             </v-card>
         </v-dialog>
         <!-- Show Quote Dialog -->
-        <v-dialog v-if="videoToShow" v-model="videoToShow"></v-dialog>
+        <!--<v-dialog v-if="videoToShow" v-model="videoToShow"></v-dialog>-->
     </v-content>
 </template>
 
@@ -262,7 +262,7 @@
                         sortable: false
                     },
                     {
-                        text: 'Продолжительность',
+                        text: 'Время',
                         value: 'duration',
                         align: "center",
                         sortable: false

@@ -62,9 +62,9 @@
                             <div v-html="item.body" class="short-paragraph"></div>
                         </template>
                     </v-data-table>
-                    <div class="text-center pt-2">
-                        <v-pagination v-model="page" :length="pageCount"></v-pagination>
-                    </div>
+                    <v-col class="text-center mt-2">
+                        <v-pagination :total-visible="7" v-model="page" :length="pageCount"></v-pagination>
+                    </v-col>
                 </v-col>
             </v-row>
         </v-container>
@@ -97,7 +97,7 @@
                             <v-select
                                 hide-details
                                 outlined
-                                :items="authors"
+                                :items="quotes.author_id"
                                 item-value="id"
                                 item-text="name"
                                 label="Автор"
@@ -156,7 +156,7 @@
                                 item-value="id"
                                 item-text="name"
                                 label="Авторы"
-                                :items="authors"
+                                :items="quotes.author_id"
                                 v-model="quoteToUpdate.author_id"
                             >
                             </v-select>
@@ -167,8 +167,8 @@
                                 outlined
                                 :extensions="extensions"
                                 v-model="quoteToUpdate.body"
-                                :card-props="{ flat: true, color: '#26c6da' }"
                             >
+                                <!--:card-props="{ flat: true, color: '#26c6da' }"-->
                             </tiptap-vuetify>
                         </v-col>
                     </v-row>
@@ -194,7 +194,7 @@
                         <v-col cols="12">
                             <v-select
                                 outlined
-                                :items="authors"
+                                :items="quotes"
                                 item-value="id"
                                 item-text="name"
                                 label="Авторы"
@@ -275,14 +275,11 @@
                 quoteBody: "",
                 quoteAuthor: "",
                 search: "",
-                authors: [],
-                quotes: [],
                 quoteToDelete: null,
                 quoteToUpdate: null,
                 quoteToShow: null,
                 page: 1,
                 pageCount: 2,
-                pagination: {},
                 dialogShow: false,
                 dialogAdd: false,
                 dialogDelete: false,
@@ -310,20 +307,12 @@
                         sortable: false,
                         width: "160px"
                     }
-                ]
+                ],
+                quotes: []
             };
         },
         mounted() {
             this.loadQuotes();
-            console.log(this.loadQuotes());
-            axios
-                .get("/api/authors")
-                .then(res => {
-                    this.authors = res.data;
-                })
-                .catch(err => {
-                    console.log(err);
-                });
         },
         methods: {
             loadQuotes() {
@@ -380,8 +369,8 @@
             filteredQuotes() {
                 return this.quotes.filter(quote => {
                     return quote.body.toLowerCase().includes(this.search.toLowerCase());
-                });
+                })
             }
         }
-    };
+    }
 </script>

@@ -17,8 +17,10 @@ class KnowledgesController extends Controller
 
     public function show(Knowledge $knowledge)
     {
-        $categories = Category::get()->toTree()->unique("name");
-        return view("shows.showKnowledge", compact(['knowledge', 'categories']));
+        $terms = Term::paginate(15);
+        /*$categories = Category::get()->toTree()->unique('name');*/
+        $categories = Category::where('type', Term::class)->get()->toTree()->unique("name");
+        return view('shows.showKnowledge', compact(['terms', 'knowledge', 'categories']));
     }
 
     public function get()

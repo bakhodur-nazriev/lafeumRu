@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Auth;
 
 class FavoriteController extends Controller
 {
+    public function index(Request $request)
+    {
+        return Favorite::with('favoriteable')->get();
+    }
+
     public function toggle(Request $request)
     {
         $this->validate($request, [

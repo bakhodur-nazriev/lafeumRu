@@ -3,12 +3,15 @@
 @section("content")
     <div class="container">
         <div class="row card-main-block">
-            <div class="col-md-3 col-sm-12 themes-block">
+            <div class="col-md-3 col-sm-12">
                 <h3 class="secondary">Каналы YouTube</h3>
-                <input type="text">
+                <div>
+                    <p>Введите название канала</p>
+                    <input type="text">
+                </div>
                 @foreach($channels as $channelItem)
                     <a href="/channels/{{$channelItem->slug}}">
-                        <b>{{ $channelItem->name }}</b>
+                        {{ $channelItem->name }}
                     </a><br>
                 @endforeach
             </div>

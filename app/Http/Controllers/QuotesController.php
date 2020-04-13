@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Quote;
-use App\Tag;
 use App\Author;
 use http\Env\Response;
 use Illuminate\Http\Request;
@@ -23,11 +22,12 @@ class QuotesController extends Controller
     {
         $quotesQuery = Quote::with("author");
 
-        if ($request->has("favourite")) {
-            $quotesQuery->whereHas("favorites", function ($query) {
-                $query->where("user_id", Auth::id());
-            });
-        }
+        // if ($request->has("favourite")) {
+        //     $quotesQuery->whereHas("favorites", function ($query) {
+        //         $query->where("user_id", Auth::id());
+        //     });
+        // }
+        
         return $quotesQuery->latest()->get();
     }
 

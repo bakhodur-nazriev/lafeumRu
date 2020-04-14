@@ -10,32 +10,32 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
-        "@babel/core": "^7.8.7",
-        "@babel/preset-env": "^7.8.7",
+        "@babel/core": "^7.9.0",
+        "@babel/preset-env": "^7.9.5",
         "axios": "^0.19.2",
-        "babel-loader": "^8.0.6",
+        "babel-loader": "^8.1.0",
         "bootstrap": "^4.4.1",
         "cross-env": "^5.1",
-        "jquery": "^3.4.1",
+        "jquery": "^3.5.0",
         "laravel-mix": "^4.0.7",
         "lodash": "^4.17.13",
         "popper.js": "^1.16.1",
         "resolve-url-loader": "^2.3.1",
-        "sass": "^1.25.0",
+        "sass": "^1.26.3",
         "sass-loader": "7.*",
         "vue": "^2.6.11",
         "vue-template-compiler": "^2.6.11",
-        "webpack": "^4.42.0"
+        "webpack": "^4.42.1"
     },
     "dependencies": {
-        "@mdi/font": "^4.8.95",
+        "@mdi/font": "^4.9.95",
         "font-awesome": "^4.7.0",
         "laravel-vue-pagination": "^2.3.1",
         "lightbox2": "^2.11.1",
-        "tiptap-extensions": "^1.28.6",
-        "tiptap-vuetify": "^2.11.0",
-        "vue-router": "^3.1.5",
+        "tiptap-extensions": "^1.29.0",
+        "tiptap-vuetify": "^2.13.2",
+        "vue-router": "^3.1.6",
         "vuedraggable": "^2.23.2",
-        "vuetify": "^2.2.6"
+        "vuetify": "^2.2.21"
     }
 }

@@ -17,6 +17,7 @@ class KnowledgesController extends Controller
 
     public function show(Knowledge $knowledge)
     {
+        return $knowledge;
         $terms = Term::paginate(15);
         /*$categories = Category::get()->toTree()->unique('name');*/
         $categories = Category::where('type', Term::class)->get()->toTree()->unique("name");

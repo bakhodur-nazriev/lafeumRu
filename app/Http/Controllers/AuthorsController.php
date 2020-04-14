@@ -19,6 +19,7 @@ class AuthorsController extends Controller
     public function show(Author $author)
     {
         $categories = Category::get()->toTree()->unique("name");
+//        $authors = Author::with('quote')->get();
         return view("shows.showAuthor", compact(["author", "categories"]));
     }
 

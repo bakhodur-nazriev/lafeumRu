@@ -7,7 +7,7 @@
                 <h3 class="secondary">Каналы YouTube</h3>
                 <div>
                     <p>Введите название канала</p>
-                    <input type="text">
+                    <input type="text" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
                 </div>
                 @foreach($channels as $channelItem)
                     <a href="/channels/{{$channelItem->slug}}">

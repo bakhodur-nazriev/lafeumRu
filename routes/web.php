@@ -9,7 +9,7 @@ Route::get("/dashboard", "UsersController@index")->name("dashboard");
 Route::get("/", "AppController@index")->name("home");
 
 Route::get("/author", "AuthorsController@index")->name("author");
-Route::get("/author/{author}", "AuthorsController@show")->name("author");
+Route::get("/author/{slug}", "AuthorsController@show")->name("author");
 
 Route::get("/channels", "ChannelsController@index")->name("channels");
 Route::get("/channels/{slug}", "ChannelsController@show")->name("channels");;

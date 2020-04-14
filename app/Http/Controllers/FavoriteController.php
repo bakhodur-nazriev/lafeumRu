@@ -2,15 +2,38 @@
 
 namespace App\Http\Controllers;
 
+use App\Quote;
+use App\Term;
+use App\Video;
 use ChristianKuri\LaravelFavorite\Models\Favorite;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class FavoriteController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        return Favorite::with('favoriteable')->get();
+        $favourites = Favorite::with('favoriteable')->get();
+
+        foreach ($favourites as $favourite) {
+            
+            $favouriteType = $favourite->favoriteable_type;
+
+            switch($favouriteType){
+                case Quote::class: 
+                    $favourite->favoriteable->load(['author', 'categories']);
+                break;
+
+                case Term::class:
+                    $favourite->favoriteable->load(['categories']);
+                break;
+
+                case Video::class:
+                    $favourite->favoriteable->load(['channel', 'categories']);
+                break;
+            }
+        }
+
+        return $favourites;
     }
 
     public function toggle(Request $request)

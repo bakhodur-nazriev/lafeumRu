@@ -6,6 +6,7 @@ import Photos from "./components/admin/Photos";
 import Users from "./components/admin/Users"
 import Profile from "./components/admin/Profile";
 import Favorite from "./components/admin/Favourites";
+import Categories from "./components/admin/Categories";
 /*import Channels from "./components/admin/Channels";
 import KnowledgeAreas from "./components/admin/KnowledgeAreas";
 import Vocabulary from "./components/admin/Vocabulary";
@@ -13,6 +14,7 @@ import Settings from "./components/admin/Settings";
 import Chat from "./components/admin/Chat";*/
 
 export const sidebarRoutes = [
+    /* Posts Section */
     {
         meta: {
             icon: "mdi-plus",
@@ -67,41 +69,17 @@ export const sidebarRoutes = [
             },
         ]
     },
-    /*{
+
+    /* Categories Section */
+    {
         meta: {
-            icon: "mdi-plus",
-            title: "Все категории",
+            icon: "mdi-format-list-bulleted",
+            title: "Все категории"
         },
-        path: "",
-        subLinks: [
-            {
-                path: "/dashboard/quotes",
-                name: "/dashboard/quotes",
-                meta: {
-                    icon: "mdi-quote",
-                    title: "Категория цитаты",
-                },
-                path: "/dashboard/terms",
-                name: "/dashboard/terms",
-                meta: {
-                    icon: "mdi-",
-                    title: "Категория термини",
-                },
-                path: "dashboard/vocabulary",
-                name: "/dashboard/vocabulary",
-                meta: {
-                    icon: "mdi-",
-                    title: "Категория словары",
-                },
-                path: "/dashboard/videos",
-                name: "/dashboard/videos",
-                meta: {
-                    icon: "mdi-",
-                    title: "Категория видео",
-                },
-            },
-        ]
-    },*/
+        path: "/dashboard/categories",
+        name: "/dashboard/categories",
+        component: Categories
+    },
     {
         meta: {
             icon: "mdi-account-group",

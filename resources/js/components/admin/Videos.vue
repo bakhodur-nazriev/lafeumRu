@@ -1,6 +1,6 @@
 <template>
     <v-content class="pa-0">
-        <v-container>
+        <v-container fluid>
             <v-row justify="center">
                 <v-col md="6">
                     <v-text-field
@@ -35,17 +35,6 @@
                             >
                                 <v-icon dark>mdi-pen</v-icon>
                             </v-btn>
-                            <!--<v-btn
-                                fab
-                                dark
-                                small
-                                color="primary"
-                                elevation="2"
-                                outlined
-                                @click="videoToShow = {...item}"
-                            >
-                                <v-icon dark>mdi-file-eye-outline</v-icon>
-                            </v-btn>-->
                             <v-btn
                                 fab
                                 dark
@@ -219,8 +208,6 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
-        <!-- Show Quote Dialog -->
-        <!--<v-dialog v-if="videoToShow" v-model="videoToShow"></v-dialog>-->
     </v-content>
 </template>
 
@@ -231,14 +218,12 @@
                 dialogAdd: false,
                 dialogDelete: false,
                 dialogUpdate: false,
-                dialogShow: false,
                 videoChannel: "",
                 videoTitle: "",
                 videoLink: "",
                 videoDuration: "",
                 videoToDelete: null,
                 videoToUpdate: null,
-                videoToShow: null,
                 videos: [],
                 channels: [],
                 search: "",

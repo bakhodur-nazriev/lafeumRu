@@ -1,6 +1,6 @@
 <template>
     <v-content class="pa-0">
-        <v-container>
+        <v-container fluid>
             <v-row justify="center">
                 <v-col md="6">
                     <v-text-field
@@ -34,17 +34,6 @@
                                 @click="termToUpdate = { ...item }"
                             >
                                 <v-icon dark>mdi-pen</v-icon>
-                            </v-btn>
-                            <v-btn
-                                fab
-                                dark
-                                small
-                                color="primary"
-                                elevation="2"
-                                outlined
-                                @click="termToShow = item"
-                            >
-                                <v-icon dark>mdi-file-eye-outline</v-icon>
                             </v-btn>
                             <v-btn
                                 fab
@@ -177,27 +166,6 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
-        <!-- Show Quote Dialog -->
-        <v-dialog v-if="termToShow" v-model="termToShow">
-            <v-card class="mx-auto" max-width="344">
-                <v-card-text>
-                    <div>Word of the Day</div>
-                    <p class="display-1 text--primary">
-                        be•nev•o•lent
-                    </p>
-                    <p>adjective</p>
-                    <div class="text--primary">
-                        well meaning and kindly.<br/>
-                        "a benevolent smile"
-                    </div>
-                </v-card-text>
-                <v-card-actions>
-                    <v-btn text color="deep-purple accent-4">
-                        Learn More
-                    </v-btn>
-                </v-card-actions>
-            </v-card>
-        </v-dialog>
     </v-content>
 </template>
 <script>
@@ -254,7 +222,6 @@
                 dialogAdd: false,
                 dialogDelete: false,
                 dialogUpdate: false,
-                dialogShow: false,
                 termName: "",
                 termBody: "",
                 terms: [],
@@ -264,7 +231,6 @@
                 itemsPerPage: 12,
                 termToDelete: null,
                 termToUpdate: null,
-                termToShow: null,
                 headers: [
                     {
                         text: "Название",

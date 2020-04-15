@@ -32,8 +32,8 @@
                 </v-flex>
             </v-layout>
 
-            <v-list dark>
-                <div v-for="link in links" :key="link.meta.title">
+            <v-list dark color="transparent">
+            <div v-for="link in links" :key="link.meta.title">
                     <v-list-group
                         :prepend-icon="link.meta.icon"
                         v-model="link.active"

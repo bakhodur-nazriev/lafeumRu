@@ -39,17 +39,6 @@
                                 fab
                                 dark
                                 small
-                                color="primary"
-                                elevation="2"
-                                outlined
-                                @click="quoteToShow = item"
-                            >
-                                <v-icon dark>mdi-file-eye-outline</v-icon>
-                            </v-btn>
-                            <v-btn
-                                fab
-                                dark
-                                small
                                 color="error"
                                 elevation="2"
                                 outlined
@@ -127,16 +116,13 @@
             </v-card>
         </v-dialog>
         <!-- Delete Item Dialog -->
-        <v-dialog v-if="quoteToDelete" v-model="quoteToDelete" width="500">
+        <v-dialog v-if="quoteToDelete = true" v-model="quoteToDelete" width="500">
             <v-card class="pa-2">
                 <v-card-title class="pt-1 regular headline text-center"
                 >Вы действительно хотите удалить эту цитату ?
                 </v-card-title>
                 <v-card-actions class="justify-center">
-                    <v-btn color="green darken-1" dark @click="quoteToDelete = null"
-                    >Нет
-                    </v-btn
-                    >
+                    <v-btn color="green darken-1" dark @click="quoteToDelete = null">Нет</v-btn>
                     <v-btn color="red darken-1" dark @click="deleteQuote()">Да</v-btn>
                 </v-card-actions>
             </v-card>
@@ -180,42 +166,6 @@
                     >Отмена
                     </v-btn
                     >
-                </v-card-actions>
-            </v-card>
-        </v-dialog>
-        <!-- Show Quote Dialog -->
-        <v-dialog v-if="quoteToShow" v-model="quoteToShow" width="700">
-            <v-card>
-                <v-card-title class="primary white--text">
-                    Цитата
-                </v-card-title>
-                <v-container>
-                    <v-row justify="center">
-                        <v-col cols="12">
-                            <v-select
-                                outlined
-                                :items="quotes"
-                                item-value="id"
-                                item-text="name"
-                                label="Авторы"
-                                :value="quotes.author_id"
-                            >
-                            </v-select>
-                        </v-col>
-                        <v-col cols="12">
-                            <v-textarea
-                                outlined
-                                label="Изменить цитату здесь"
-                                :value="quotes.body"
-                                name="body"
-                            >
-                            </v-textarea>
-                        </v-col>
-                    </v-row>
-                </v-container>
-                <v-card-actions>
-                    <v-spacer/>
-                    <v-btn dark color="error" @click="quoteToShow = false">Закрыть</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -277,16 +227,15 @@
                 search: "",
                 quoteToDelete: null,
                 quoteToUpdate: null,
-                quoteToShow: null,
                 page: 1,
                 pageCount: 2,
-                dialogShow: false,
                 dialogAdd: false,
                 dialogDelete: false,
                 dialogUpdate: false,
                 itemsPerPage: 15,
                 editedIndex: -1,
                 indexIterator: null,
+                quotes: [],
                 headers: [
                     {
                         text: "Цитаты",
@@ -307,8 +256,7 @@
                         sortable: false,
                         width: "160px"
                     }
-                ],
-                quotes: []
+                ]
             };
         },
         mounted() {

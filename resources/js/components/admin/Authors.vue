@@ -1,6 +1,6 @@
 <template>
     <v-content class="pa-0">
-        <v-container>
+        <v-container fluid>
             <v-row justify="center">
                 <v-col md="6">
                     <v-text-field
@@ -35,17 +35,6 @@
                                 @click="authorToUpdate = item"
                             >
                                 <v-icon dark>mdi-pen</v-icon>
-                            </v-btn>
-                            <v-btn
-                                fab
-                                dark
-                                small
-                                color="primary"
-                                elevation="2"
-                                outlined
-                                @click="authorToShow = item"
-                            >
-                                <v-icon dark>mdi-file-eye-outline</v-icon>
                             </v-btn>
                             <v-btn
                                 fab
@@ -211,25 +200,6 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
-        <!-- Show Item Dialog -->
-        <v-dialog v-if="authorToShow" v-model="authorToShow" width="700px">
-            <v-card>
-                <v-card-title class="primary white--text">
-                    Создать Автора
-                </v-card-title>
-                <v-container>
-                    <v-row>
-                        <v-col cols="12">
-                            <h1>Hello World</h1>
-                        </v-col>
-                    </v-row>
-                </v-container>
-                <v-card-actions>
-                    <v-spacer/>
-                    <v-btn dark color="error" @click="() => (authorToShow = false)">Закрыть</v-btn>
-                </v-card-actions>
-            </v-card>
-        </v-dialog>
     </v-content>
 </template>
 <script>
@@ -292,9 +262,7 @@
                 pageCount: 2,
                 authorToDelete: null,
                 authorToUpdate: null,
-                authorToShow: null,
                 dialogAdd: false,
-                dialogShow: false,
                 dialogDelete: false,
                 itemsPerPage: 12,
                 headers: [

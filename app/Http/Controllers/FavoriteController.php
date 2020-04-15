@@ -15,21 +15,21 @@ class FavoriteController extends Controller
         $favourites = Favorite::with('favoriteable')->get();
 
         foreach ($favourites as $favourite) {
-            
+
             $favouriteType = $favourite->favoriteable_type;
 
-            switch($favouriteType){
-                case Quote::class: 
+            switch ($favouriteType) {
+                case Quote::class:
                     $favourite->favoriteable->load(['author', 'categories']);
-                break;
+                    break;
 
                 case Term::class:
                     $favourite->favoriteable->load(['categories']);
-                break;
+                    break;
 
                 case Video::class:
                     $favourite->favoriteable->load(['channel', 'categories']);
-                break;
+                    break;
             }
         }
 
@@ -48,16 +48,5 @@ class FavoriteController extends Controller
         $modelToFavourite->toggleFavorite();
 
         return response()->json($modelToFavourite->isFavorited());
-    }
-
-    public function ajaxAddFavorite(Request $request)
-    {
-        return Favorite::create($request->all());
-    }
-
-    public function ajaxDeleteFavorite($id)
-    {
-        Favorite::destroy($id);
-        return response()->json("ok");
     }
 }

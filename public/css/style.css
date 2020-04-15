@@ -353,6 +353,10 @@ body {
     font-size: 18px;
 }
 
+.dropdown-item:active{
+    background-color: #04718c;
+}
+
 @media (max-width: 768px) {
     .small-nav-display {
         flex-direction: column;

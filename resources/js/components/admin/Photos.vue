@@ -1,6 +1,6 @@
 <template>
     <v-content class="pa-0">
-        <v-container>
+        <v-container fluid>
             <v-row justify="center">
                 <v-col cols="6">
                     <v-text-field
@@ -47,17 +47,6 @@
                                 @click="photoToUpdate = {...item}"
                             >
                                 <v-icon dark>mdi-pen</v-icon>
-                            </v-btn>
-                            <v-btn
-                                fab
-                                dark
-                                small
-                                color="primary"
-                                elevation="2"
-                                outlined
-                                @click="photoToShow = {...item}"
-                            >
-                                <v-icon dark>mdi-file-eye-outline</v-icon>
                             </v-btn>
                             <v-btn
                                 fab
@@ -174,29 +163,6 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
-        <!-- Show Quote Dialog -->
-        <v-dialog v-if="photoToShow" v-model="photoToShow" width="700px">
-            <v-card>
-                <v-card-title class="primary white--text">
-                    Фото
-                </v-card-title>
-                <v-container>
-                    <v-row justify="center">
-                        <v-col cols="12">
-
-                        </v-col>
-                        <v-col>
-                            <v-text-field>
-                            </v-text-field>
-                        </v-col>
-                    </v-row>
-                </v-container>
-                <v-card-actions>
-                    <v-spacer/>
-                    <v-btn dark color="error" @click="photoToShow = false">Отмена</v-btn>
-                </v-card-actions>
-            </v-card>
-        </v-dialog>
     </v-content>
 </template>
 <script>
@@ -250,7 +216,6 @@
                 dialogAdd: false,
                 dialogDelete: false,
                 dialogUpdate: false,
-                dialogShow: false,
                 photoImage: [],
                 photoDescription: "",
                 bodyRules: [
@@ -261,7 +226,6 @@
                 page: 1,
                 pageCount: 2,
                 itemsPerPage: 12,
-                photoToShow: null,
                 photoToDelete: null,
                 photoToUpdate: null,
                 headers: [

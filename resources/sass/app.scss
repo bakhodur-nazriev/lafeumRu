@@ -10,6 +10,13 @@
 // Vuetify
 @import "~vuetify/dist/vuetify.min.css";
 
+.three-line-truncate {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
 // Font Awesome 
 // @import '~@fortawesome/fontawesome-free/scss/fontawesome';
 // @import '~@fortawesome/fontawesome-free/scss/regular';

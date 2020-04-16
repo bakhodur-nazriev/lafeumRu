@@ -51,6 +51,7 @@
                                             fab
                                             dark
                                             small
+                                            depressed
                                             color="red"
                                             v-on="on"
                                             @click="unFavourite(quote.favoriteable.id, 'App\\Quote')"
@@ -101,6 +102,7 @@
                                             fab
                                             dark
                                             small
+                                            depressed
                                             color="red"
                                             v-on="on"
                                             @click="unFavourite(term.favoriteable.id, 'App\\Term')"

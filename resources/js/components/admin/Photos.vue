@@ -22,6 +22,8 @@
                         @page-count="pageCount = $event"
                         hide-default-footer
                         class="elevation-1"
+                        :loading="loadingPhotos"
+                        loading-text="Загрузка..."
                     >
                         <template v-slot:item.image="{ item }">
                             <div class="text-center pa-2">
@@ -34,7 +36,7 @@
                             </div>
                         </template>
                         <template v-slot:item.description="{ item }">
-                            <div v-html="item.description" class="short-paragraph"/>
+                            <div v-html="item.description" class="short-paragraph my-3 three-line-truncate"/>
                         </template>
                         <template v-slot:item.action="{ item }">
                             <v-btn
@@ -222,6 +224,7 @@
                     v => !!v || 'Заполните пустое поле',
                 ],
                 photos: [],
+                loadingPhotos: false,
                 search: "",
                 page: 1,
                 pageCount: 2,
@@ -257,12 +260,15 @@
         },
         methods: {
             loadPhotos() {
+                this.loadingPhotos = true;
                 axios
                     .get("/api/photos/")
                     .then(res => {
+                        this.loadingPhotos = false;
                         this.photos = res.data;
                     })
                     .catch(err => {
+                        this.loadingPhotos = false;
                         console.log(err);
                     });
             },

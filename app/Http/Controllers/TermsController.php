@@ -38,12 +38,7 @@ class TermsController extends Controller
 
     public function get(Request $request)
     {
-        $termsQuery = Term::all();
-        if ($request->has("favorite")) {
-            $termsQuery->whereHas("favorites", function ($query) {
-                $query->where("user_id", Auth::id());
-            });
-        }
+        $termsQuery = Term::with('categories');
         return $termsQuery->latest()->get();
     }
 

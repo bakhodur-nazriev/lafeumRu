@@ -2,7 +2,7 @@
     <v-content class="pa-0">
         <v-container fluid>
             <v-row justify="center">
-                <v-col md="6">
+                <v-col md="6" xl="4">
                     <v-text-field
                         solo
                         hide-details
@@ -22,33 +22,19 @@
                         @page-count="pageCount = $event"
                         hide-default-footer
                         class="elevation-2"
+                        :loading="loadingQuotes"
+                        loading-text="Загрузка..."
                     >
                         <template v-slot:item.action="{ item }">
-                            <v-btn
-                                fab
-                                dark
-                                small
-                                color="primary"
-                                elevation="2"
-                                outlined
-                                @click="quoteToUpdate = item"
-                            >
+                            <v-btn fab dark small color="primary" elevation="2" outlined @click="quoteToUpdate = item">
                                 <v-icon dark>mdi-pen</v-icon>
                             </v-btn>
-                            <v-btn
-                                fab
-                                dark
-                                small
-                                color="error"
-                                elevation="2"
-                                outlined
-                                @click="quoteToDelete = item"
-                            >
+                            <v-btn fab dark small color="error" elevation="2" outlined @click="quoteToDelete = item">
                                 <v-icon dark>mdi-delete</v-icon>
                             </v-btn>
                         </template>
                         <template v-slot:item.body="{ item }">
-                            <div v-html="item.body" class="short-paragraph"></div>
+                            <div v-html="item.body" class="short-paragraph my-3 three-line-truncate"/>
                         </template>
                     </v-data-table>
                     <v-col class="text-center mt-2">
@@ -59,16 +45,7 @@
         </v-container>
         <v-tooltip top>
             <template v-slot:activator="{ on }">
-                <v-btn
-                    bottom
-                    color="primary"
-                    v-on="on"
-                    dark
-                    fab
-                    fixed
-                    right
-                    @click="dialogAdd = !dialogAdd"
-                >
+                <v-btn bottom color="primary" v-on="on" dark fab fixed right @click="dialogAdd = !dialogAdd">
                     <v-icon>mdi-plus</v-icon>
                 </v-btn>
             </template>
@@ -95,6 +72,18 @@
                             </v-select>
                         </v-col>
                         <v-col cols="12">
+                            <v-select
+                                hide-details
+                                outlined
+                                :items="quotes.categories"
+                                item-value="id"
+                                item-text=""
+                                label="Категории"
+                                v-model="quoteCategories"
+                            >
+                            </v-select>
+                        </v-col>
+                        <v-col cols="12">
                             <tiptap-vuetify
                                 outlined
                                 :extensions="extensions"
@@ -116,7 +105,7 @@
             </v-card>
         </v-dialog>
         <!-- Delete Item Dialog -->
-        <v-dialog v-if="quoteToDelete = true" v-model="quoteToDelete" width="500">
+        <v-dialog v-if="quoteToDelete" v-model="quoteToDelete" width="500">
             <v-card class="pa-2">
                 <v-card-title class="pt-1 regular headline text-center"
                 >Вы действительно хотите удалить эту цитату ?
@@ -148,13 +137,25 @@
                             </v-select>
                         </v-col>
                         <v-col cols="12">
+                            <v-select
+                                hide-details
+                                outlined
+                                multiple
+                                item-value="id"
+                                item-text="name"
+                                label="Категории"
+                                :items="quotes.categories"
+                                v-model="quoteToUpdate.categories"
+                            >
+                            </v-select>
+                        </v-col>
+                        <v-col cols="12">
                             <tiptap-vuetify
                                 label="Изменить цитату здесь"
                                 outlined
                                 :extensions="extensions"
                                 v-model="quoteToUpdate.body"
                             >
-                                <!--:card-props="{ flat: true, color: '#26c6da' }"-->
                             </tiptap-vuetify>
                         </v-col>
                     </v-row>
@@ -162,10 +163,7 @@
                 <v-card-actions>
                     <v-spacer/>
                     <v-btn dark color="green" @click="updateQuote()">Сохранить</v-btn>
-                    <v-btn dark color="error" @click="quoteToUpdate = false"
-                    >Отмена
-                    </v-btn
-                    >
+                    <v-btn dark color="error" @click="quoteToUpdate = false">Отмена</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -224,6 +222,7 @@
                 ],
                 quoteBody: "",
                 quoteAuthor: "",
+                quoteCategories: "",
                 search: "",
                 quoteToDelete: null,
                 quoteToUpdate: null,
@@ -236,6 +235,7 @@
                 editedIndex: -1,
                 indexIterator: null,
                 quotes: [],
+                loadingQuotes: false,
                 headers: [
                     {
                         text: "Цитаты",
@@ -250,13 +250,20 @@
                         sortable: false
                     },
                     {
+                        text: "Категория",
+                        value: "category",
+                        align: "center",
+                        sortable: false
+                    },
+                    {
                         text: "Действия",
                         value: "action",
                         align: "center",
                         sortable: false,
                         width: "160px"
                     }
-                ]
+                ],
+
             };
         },
         mounted() {
@@ -264,12 +271,15 @@
         },
         methods: {
             loadQuotes() {
+                this.loadingQuotes = true;
                 axios
                     .get("/api/quotes")
                     .then(res => {
+                        this.loadingQuotes = false;
                         this.quotes = res.data;
                     })
                     .catch(err => {
+                        this.loadingPhotos = false;
                         console.log(err);
                     });
             },
@@ -277,7 +287,8 @@
                 axios
                     .post("/api/quotes/", {
                         body: this.quoteBody,
-                        author_id: this.quoteAuthor
+                        author_id: this.quoteAuthor,
+                        categories: this.quoteCategories
                     })
                     .then(res => {
                         this.dialogAdd = false;

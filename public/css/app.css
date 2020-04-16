@@ -11363,3 +11363,10 @@ a.text-dark:focus {
   }
 }
 
+.three-line-truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+

@@ -22,6 +22,8 @@
                         @page-count="pageCount = $event"
                         hide-default-footer
                         class="elevation-1"
+                        :loading="loadingVideos"
+                        loading-text="Загрузка..."
                     >
                         <template v-slot:item.action="{ item }">
                             <v-btn
@@ -225,6 +227,7 @@
                 videoToDelete: null,
                 videoToUpdate: null,
                 videos: [],
+                loadingVideos: false,
                 channels: [],
                 search: "",
                 page: 1,
@@ -275,12 +278,15 @@
         },
         methods: {
             loadVideos() {
+                this.loadingVideos = true;
                 axios
                     .get('/api/videos')
                     .then(res => {
+                        this.loadingVideos = false;
                         this.videos = res.data;
                     })
                     .catch(err => {
+                        this.loadingVideos = false;
                         console.log(err);
                     });
             },

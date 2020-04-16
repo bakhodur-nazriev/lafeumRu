@@ -2,7 +2,7 @@
     <v-content class="pa-0">
         <v-container fluid>
             <v-row justify="center">
-                <v-col md="6">
+                <v-col md="6" xl="4">
                     <v-text-field
                         class="mb-1"
                         hide-details
@@ -22,6 +22,8 @@
                         @page-count="pageCount = $event"
                         hide-default-footer
                         class="elevation-1"
+                        :loading="loadingTerms"
+                        loading-text="Загрузка..."
                     >
                         <template v-slot:item.action="{ item }">
                             <v-btn
@@ -44,18 +46,20 @@
                                 outlined
                                 @click="termToDelete = item"
                             >
-                                <v-icon dark>
-                                    mdi-delete
-                                </v-icon>
+                                <v-icon dark>mdi-delete</v-icon>
                             </v-btn>
                         </template>
                         <template v-slot:item.body="{ item }">
-                            <div v-html="item.body" class="short-paragraph"/>
+                            <div v-html="item.body" class="short-paragraph my-3 three-line-truncate"/>
                         </template>
                     </v-data-table>
                 </v-col>
                 <div class="text-center pt-2">
-                    <v-pagination v-model="page" :length="pageCount"></v-pagination>
+                    <v-pagination
+                        :total-visible="7"
+                        v-model="page"
+                        :length="pageCount"
+                    ></v-pagination>
                 </div>
             </v-row>
         </v-container>
@@ -76,7 +80,6 @@
             </template>
             <span>Добавить термин</span>
         </v-tooltip>
-
         <!-- Add Item Dialog -->
         <v-dialog v-model="dialogAdd" width="700px">
             <v-card>
@@ -108,11 +111,13 @@
                 </v-container>
                 <v-card-actions>
                     <v-spacer/>
-                    <v-btn dark color="green" @click="addTerm()">Сохранить</v-btn>
-                    <v-btn dark color="error" @click="() => (dialogAdd = false)"
-                    >Отмена
+                    <v-btn dark color="green" @click="addTerm()"
+                    >Сохранить
                     </v-btn
                     >
+                    <v-btn dark color="error" @click="() => (dialogAdd = false)"
+                    >Отмена
+                    </v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -123,10 +128,16 @@
                 >Вы действительно хотите удалить это термин ?
                 </v-card-title>
                 <v-card-actions class="justify-center">
-                    <v-btn color="green darken-1" dark @click="termToDelete = false"
+                    <v-btn
+                        color="green darken-1"
+                        dark
+                        @click="termToDelete = false"
                     >Нет
                     </v-btn>
-                    <v-btn color="red darken-1" dark @click="deleteTerm()">Да</v-btn>
+                    <v-btn color="red darken-1" dark @click="deleteTerm()"
+                    >Да
+                    </v-btn
+                    >
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -161,8 +172,14 @@
                 </v-container>
                 <v-card-actions>
                     <v-spacer/>
-                    <v-btn dark color="green" @click="updateTerm()">Сохранить</v-btn>
-                    <v-btn dark color="error" @click="termToUpdate = false">Отмена</v-btn>
+                    <v-btn dark color="green" @click="updateTerm()"
+                    >Сохранить
+                    </v-btn
+                    >
+                    <v-btn dark color="error" @click="termToUpdate = false"
+                    >Отмена
+                    </v-btn
+                    >
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -231,6 +248,7 @@
                 itemsPerPage: 12,
                 termToDelete: null,
                 termToUpdate: null,
+                loadingTerms: false,
                 headers: [
                     {
                         text: "Название",
@@ -241,7 +259,7 @@
                         text: "Термины",
                         value: "body",
                         sortable: false,
-                        class: "font-size: 20px"
+                        class: "ma-3"
                     },
                     {
                         text: "Действия",
@@ -255,16 +273,18 @@
         },
         mounted() {
             this.loadTerms();
-            console.log(this.loadTerms());
         },
         methods: {
             loadTerms() {
+                this.loadingTerms = true;
                 axios
                     .get("/api/terms")
                     .then(res => {
+                        this.loadingTerms = false;
                         this.terms = res.data;
                     })
                     .catch(err => {
+                        this.loadingPhotos = false;
                         console.log(err);
                     });
             },
@@ -311,7 +331,9 @@
         computed: {
             filteredTerms() {
                 return this.terms.filter(term => {
-                    return term.body.toLowerCase().includes(this.search.toLowerCase());
+                    return term.body
+                        .toLowerCase()
+                        .includes(this.search.toLowerCase());
                 });
             }
         }

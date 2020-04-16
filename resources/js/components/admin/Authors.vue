@@ -23,33 +23,19 @@
                         @page-count="pageCount = $event"
                         hide-default-footer
                         class="elevation-2"
+                        :loading="loadingAuthors"
+                        loading-text="Загрузка..."
                     >
                         <template v-slot:item.action="{ item }">
-                            <v-btn
-                                fab
-                                dark
-                                small
-                                color="primary"
-                                elevation="2"
-                                outlined
-                                @click="authorToUpdate = item"
-                            >
+                            <v-btn fab dark small color="primary" elevation="2" outlined @click="authorToUpdate = item">
                                 <v-icon dark>mdi-pen</v-icon>
                             </v-btn>
-                            <v-btn
-                                fab
-                                dark
-                                small
-                                color="error"
-                                elevation="2"
-                                outlined
-                                @click="authorToDelete = item"
-                            >
+                            <v-btn fab dark small color="error" elevation="2" outlined @click="authorToDelete = item">
                                 <v-icon dark>mdi-delete</v-icon>
                             </v-btn>
                         </template>
                         <template v-slot:item.biography="{ item }">
-                            <div v-html="item.biography"></div>
+                            <div v-html="item.biography" class="my-3 three-line-truncate"/>
                         </template>
                         <template v-slot:item.photo="{ item }">
                             <v-avatar size="78" class="ma-1">
@@ -258,6 +244,7 @@
                 search: "",
                 authorPhoto: [],
                 authors: [],
+                loadingAuthors: false,
                 page: 1,
                 pageCount: 2,
                 authorToDelete: null,
@@ -297,12 +284,15 @@
         },
         methods: {
             loadAuthors() {
+                this.loadingAuthors = true;
                 axios
                     .get("/api/authors")
                     .then(res => {
+                        this.loadingAuthors = false;
                         this.authors = res.data;
                     })
                     .catch(err => {
+                        this.loadingPhotos = false;
                         console.log(err);
                     });
             },

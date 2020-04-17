@@ -1,3 +1,5 @@
+require("./constants");
+
 import Vue from "vue";
 import Vuetify from "vuetify";
 import "vuetify/dist/vuetify.min.css";
@@ -5,7 +7,6 @@ import "@mdi/font/css/materialdesignicons.css";
 import "tiptap-vuetify/dist/main.css";
 import router from "./router.js";
 import App from "./components/App";
-import draggable from "vuedraggable";
 import {TiptapVuetifyPlugin} from "tiptap-vuetify";
 
 require("./bootstrap");

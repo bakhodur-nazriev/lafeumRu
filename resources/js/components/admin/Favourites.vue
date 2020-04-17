@@ -54,7 +54,7 @@
                                             depressed
                                             color="red"
                                             v-on="on"
-                                            @click="unFavourite(quote.favoriteable.id, 'App\\Quote')"
+                                            @click="unFavourite(quote.favoriteable.id, QUOTE_TYPE)"
                                         >
                                             <v-icon dark>mdi-delete-empty</v-icon>
                                         </v-btn>
@@ -105,7 +105,7 @@
                                             depressed
                                             color="red"
                                             v-on="on"
-                                            @click="unFavourite(term.favoriteable.id, 'App\\Term')"
+                                            @click="unFavourite(term.favoriteable.id, TERM_TYPE)"
                                         >
                                             <v-icon dark>mdi-delete-empty</v-icon>
                                         </v-btn>
@@ -155,7 +155,7 @@
                                                             color="red"
                                                             depressed
                                                             v-on="on"
-                                                            @click="unFavourite(video.favoriteable.id, 'App\\Video')"
+                                                            @click="unFavourite(video.favoriteable.id, VIDEO_TYPE)"
                                                         >
                                                             <v-icon dark>mdi-delete-empty</v-icon>
                                                         </v-btn>
@@ -206,10 +206,6 @@
 </template>
 
 <script>
-    const QUOTE_TYPE = "App\\Quote";
-    const TERM_TYPE = "App\\Term";
-    const VIDEO_TYPE = "App\\Video";
-
     export default {
         data() {
             return {

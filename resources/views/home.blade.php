@@ -27,20 +27,27 @@
         </div>
         <div class="row">
             @foreach($categories as $category)
-                <div class="col-md-3 d-inline-block align-top mb-3">
+                <div class="col-md-3 offset-1 d-inline-block align-top mb-3">
                     <div class="categories-main-name">
                         <a href="#"><b>{{ $category->name }}</b></a>
                     </div>
                     @foreach($category->children as $subCategory)
-                        <div class="dropdown" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                             aria-expanded="false">
-                            <a href="#">{{$subCategory->name}}</a><br>
+                        {{--<div
+                            class="dropdown"
+                            id="dropdownMenuButton"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                        >
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" href="#">Цитаты</a>
                                 <a class="dropdown-item" href="#">Видео</a>
                                 <a class="dropdown-item" href="#">Термины</a>
                                 <a class="dropdown-item" href="#">Словарь</a>
                             </div>
+                        </div>--}}
+                        <div class="subcategories-block">
+                            <a href="#">{{$subCategory->name}}</a><br>
                         </div>
                     @endforeach
                 </div>
@@ -59,6 +66,35 @@
                     </div>
                 </div>
             @endforeach
+        </div>
+        <div class="row my-4">
+            <div class="col text-center text-uppercase">
+                <div class="px-4 py-3" style="background-color: #04718c; color: white">посетителей</div>
+                <div class="px-4 py-3" style="background-color: #e0e0e0; font-size: 24px; font-weight: bold;">150</div>
+            </div>
+            <div class="col text-center text-uppercase">
+                <div class="px-4 py-3" style="background-color: #04718c; color: white">стран</div>
+                <div class="px-4 py-3" style="background-color: #e0e0e0; font-size: 24px; font-weight: bold;">50</div>
+            </div>
+            <div class="col text-center text-uppercase">
+                <div class="px-4 py-3" style="background-color: #04718c; color: white">цитат</div>
+                <div class="px-4 py-3" style="background-color: #e0e0e0; font-size: 24px; font-weight: bold;">2500</div>
+            </div>
+            <div class="col text-center text-uppercase">
+                <div class="px-4 py-3" style="background-color: #04718c; color: white">авторов</div>
+                <div class="px-4 py-3" style="background-color: #e0e0e0; font-size: 24px; font-weight: bold;">400
+                </div>
+            </div>
+            <div class="col text-center text-uppercase">
+                <div class="px-4 py-3" style="background-color: #04718c; color: white">терминов</div>
+                <div class="px-4 py-3" style="background-color: #e0e0e0; font-size: 24px; font-weight: bold;">145000
+                </div>
+            </div>
+            <div class="col text-center text-uppercase">
+                <div class="px-4 py-3" style="background-color: #04718c; color: white">медикомента</div>
+                <div class="px-4 py-3" style="background-color: #e0e0e0; font-size: 24px; font-weight: bold;">25000
+                </div>
+            </div>
         </div>
     </div>
 @endsection

@@ -251,7 +251,7 @@
                     },
                     {
                         text: "Категория",
-                        value: "category",
+                        value: "",
                         align: "center",
                         sortable: false
                     },

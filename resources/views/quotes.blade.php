@@ -35,17 +35,10 @@
                                 </a>
                             @endforeach
                         </div>
-
                         <div class="my-main-divider"></div>
-
-                        <script src="https://yastatic.net/es5-shims/0.0.2/es5-shims.min.js"></script>
-                        <script src="https://yastatic.net/share2/share.js"></script>
                         <a class="share-button">
                             <span class="share-text">Поделиться</span>
-                            <span class="share-icons">
-                                <div class="ya-share2"
-                                     data-services="vkontakte,facebook,odnoklassniki,twitter,viber,whatsapp,telegram"></div>
-                            </span>
+                            <div class="share"></div>
                         </a>
                     </div>
                 @endforeach

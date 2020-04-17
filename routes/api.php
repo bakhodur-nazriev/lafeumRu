@@ -13,6 +13,9 @@ Route::post("/users/{id}", "UsersController@update");
 Route::put("/users/{id}", "UsersController@update");
 Route::delete("/users/{id}", "UsersController@delete");
 
+/* Categories */
+Route::get("/categories", "CategoriesController@get");
+
 /* Quotes */
 Route::get("/quotes", "QuotesController@get");
 Route::post("/quotes", "QuotesController@store");

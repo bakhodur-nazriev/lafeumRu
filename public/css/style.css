@@ -156,7 +156,7 @@ body {
     column-count: 4;
 }
 
-.list-of-authors > .author,.knowledge {
+.list-of-authors > .author, .knowledge {
     margin-bottom: 5px;
 }
 
@@ -353,8 +353,46 @@ body {
     font-size: 18px;
 }
 
-.dropdown-item:active{
+.dropdown-item:active {
     background-color: #04718c;
+}
+
+
+/* --------- SHARE BUTTON STYLES --------- */
+.jssocials-share-link, .jssocials-share-link:hover {
+    border-radius: 50%;
+    border: none !important;
+}
+
+.jssocials-share {
+    margin: 0 0.6em 0 0
+}
+
+.jssocials-shares {
+    margin: 0;
+}
+
+.jssocials-share-logo {
+    color: #fff;
+    font-size: 1rem;
+}
+
+.share {
+    padding: 0;
+}
+
+.share-button > .share {
+    display: none !important;
+}
+
+.share-button:hover > .share {
+    display: inline-block !important;
+}
+
+@media (min-width: 768px) {
+    .main-navbar {
+        flex-direction: row-reverse;
+    }
 }
 
 @media (max-width: 768px) {
@@ -371,13 +409,8 @@ body {
         text-align: center;
         line-height: 1em;
     }
-
 }
 
-@media (min-width: 768px) {
-    .main-navbar {
-        flex-direction: row-reverse;
-    }
+@media (max-width: 992px) {
+
 }
-
-

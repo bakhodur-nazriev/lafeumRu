@@ -21,6 +21,8 @@
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
     </script>
     <script src="{{ asset('js/helper.js') }}" defer></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.min.js"></script>
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -29,14 +31,25 @@
     <!-- Styles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css"/>
+
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.css"/>
+
+    <link type="text/css" rel="stylesheet"
+          href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials-theme-flat.css"/>
+    <link type="text/css" rel="stylesheet"
+          href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials-theme-classic.css"/>
+    <link type="text/css" rel="stylesheet"
+          href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials-theme-minima.css"/>
+    <link type="text/css" rel="stylesheet"
+          href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials-theme-plain.css"/>
+
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-</head>
 
+</head>
 <body>
 
 @yield('layout')
-
 
 <script>
     window.Laravel = {!! json_encode([
@@ -48,6 +61,13 @@
 
     $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();
+    });
+
+    $(".share").jsSocials({
+        showLabel: false,
+        showCount: false,
+        flat: true,
+        shares: ["vkontakte" ,"facebook", "twitter", "viber", "whatsapp", "telegram"]
     });
 </script>
 </body>

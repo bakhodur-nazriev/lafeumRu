@@ -30,12 +30,12 @@
     "dependencies": {
         "@mdi/font": "^4.9.95",
         "font-awesome": "^4.7.0",
+        "he-tree-vue": "^1.2.1",
         "laravel-vue-pagination": "^2.3.1",
         "lightbox2": "^2.11.1",
         "tiptap-extensions": "^1.29.0",
         "tiptap-vuetify": "^2.13.2",
         "vue-router": "^3.1.6",
-        "vuedraggable": "^2.23.2",
         "vuetify": "^2.2.22"
     }
 }

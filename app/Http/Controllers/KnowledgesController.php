@@ -15,13 +15,11 @@ class KnowledgesController extends Controller
         return view('knowledgeArea', compact('knowledgeAreas'));
     }
 
-    public function show(Knowledge $knowledge)
+    public function show($slug)
     {
-        return $knowledge;
-        $terms = Term::paginate(15);
-        /*$categories = Category::get()->toTree()->unique('name');*/
-        $categories = Category::where('type', Term::class)->get()->toTree()->unique("name");
-        return view('shows.showKnowledge', compact(['terms', 'knowledge', 'categories']));
+        $knowledgeAreas = Knowledge::all();
+        $currentKnowledgeArea = Knowledge::with('terms')->where('slug', $slug)->first();
+        return view('shows.showKnowledge', compact(['currentKnowledgeArea', 'knowledgeAreas']));
     }
 
     public function get()

@@ -25,7 +25,6 @@ class TermsController extends Controller
     {
         $vocabularies = Term::all();
         $categories = Category::where('type', Term::class)->get()->toTree()->unique("name");
-
         return view("/vocabulary", compact(["vocabularies", "categories"]));
     }
 

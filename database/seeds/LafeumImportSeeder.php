@@ -9,6 +9,7 @@ use App\AuthorGroup;
 use App\Quote;
 use App\Category;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class LafeumImportSeeder extends Seeder
 {
@@ -106,6 +107,7 @@ class LafeumImportSeeder extends Seeder
         $terms = require(app_path("/LafeumData/lafeumTerms.php"));
 
         Term::truncate();
+        DB::table('knowledge_terms')->truncate();
 
         foreach ($terms as $term) {
             $newTermData['id'] = $term['id'];

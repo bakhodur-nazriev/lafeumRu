@@ -25,14 +25,12 @@
                                 name="remember"
                                 value="1"
                             />
-
                             <v-text-field
                                 name="email"
                                 label="Email"
                                 prepend-icon="mdi-account"
                                 :error-messages="{{ json_encode($errors->get('email')) }}"
                             ></v-text-field>
-
                             <v-text-field
                                 name="password"
                                 type="password"
@@ -40,7 +38,6 @@
                                 prepend-icon="mdi-lock"
                                 :error-messages="{{ json_encode($errors->get('password')) }}"
                             ></v-text-field>
-
                         </v-card-text>
                         <v-card-actions>
                             {{--<v-btn text color="primary">Забыл пароль</v-btn>--}}

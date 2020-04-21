@@ -45,7 +45,10 @@
                             @endforeach
                         </div>
                         <div class="my-main-divider"></div>
-                        <button class="btn share-button">Поделиться</button>
+                        <a class="share-button">
+                            <div class="share-text">Поделиться</div>
+                            <div class="share"></div>
+                        </a>
                     </div>
                 @endforeach
                 <div class="row">

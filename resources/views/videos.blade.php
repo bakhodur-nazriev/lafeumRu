@@ -38,6 +38,10 @@
                                     </div>
                                 </div>
                                 <div class="card-footer d-flex justify-content-between align-items-center">
+                                    <a class="share-button video-share-button">
+                                        <div class="share-text">Поделиться</div>
+                                        <div class="share"></div>
+                                    </a>
                                     <span>
                                         <i class="fa fa-clock-o mr-1"></i>{{$video->duration}}
                                         <span> мин.</span>

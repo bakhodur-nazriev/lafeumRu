@@ -16,11 +16,11 @@ class AuthorsController extends Controller
         return view("/authors", compact("authors"));
     }
 
-    public function show(Author $author)
+    public function show($slug)
     {
-        $categories = Category::get()->toTree()->unique("name");
-//        $authors = Author::with('quote')->get();
-        return view("shows.showAuthor", compact(["author", "categories"]));
+        $authors = Author::all();
+        $currentAuthor = Author::with('quotes.categories')->where('slug', $slug)->first();
+        return view("shows.showAuthor", compact("authors", "currentAuthor"));
     }
 
     public function get()

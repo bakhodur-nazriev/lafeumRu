@@ -7,6 +7,10 @@
             </v-toolbar-title>
             <v-spacer></v-spacer>
 
+            <v-btn class="text-decoration-none" text dark color="grey" href="/">
+                <span>Домой</span>
+                <v-icon right>mdi-home-export-outline</v-icon>
+            </v-btn>
             <v-btn text dark color="grey" @click="$refs.logoutform.submit()">
                 <span>Выход</span>
                 <v-icon right>mdi-exit-to-app</v-icon>
@@ -33,7 +37,7 @@
             </v-layout>
 
             <v-list dark color="transparent">
-            <div v-for="link in links" :key="link.meta.title">
+                <div v-for="link in links" :key="link.meta.title">
                     <v-list-group
                         :prepend-icon="link.meta.icon"
                         v-model="link.active"

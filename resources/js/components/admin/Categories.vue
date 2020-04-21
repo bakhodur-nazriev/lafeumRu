@@ -1,17 +1,17 @@
 <template>
     <v-container fluid>
         <v-row justify="center">
-            <v-card class="col-lg-12 col-xl-8 pa-4" v-if="categories">
-                <!-- <NestedCategories :categories="categories"/> -->
+            <v-card class="col-lg-12 col-xl-8 pa-4" v-if="categories.length">
+                <h2>Категории</h2>
                 <Tree v-model="categories">
                     <div
                         :style="{ cursor: 'pointer' }"
                         slot-scope="{ node, tree, path }"
+                        @click="tree.toggleFold(node, path)"
                     >
                         <v-icon
                             class="mr-2"
                             v-if="node.children.length"
-                            @click="tree.toggleFold(node, path)"
                             small
                             color="black"
                         >
@@ -20,33 +20,32 @@
                         {{ node.name }}
                     </div>
                 </Tree>
-
-                <v-card-actions>
+                <div class="mt-3 d-flex">
+                    <v-spacer/>
                     <v-btn
                         color="green accent-4 white--text"
                         @click="saveCategoryTree"
                     >
                         Сохранить
                     </v-btn>
-                </v-card-actions>
+                </div>
             </v-card>
+            <v-progress-circular indeterminate color="primary" v-else />
         </v-row>
     </v-container>
 </template>
 
 <script>
-import NestedCategories from "./NestedCategories";
 import "he-tree-vue/dist/he-tree-vue.css";
 import { Tree, Draggable, Fold, foldAll, getPureTreeData } from "he-tree-vue";
 
 export default {
     components: {
-        NestedCategories,
         Tree: Tree.mixPlugins([Draggable, Fold])
     },
     data() {
         return {
-            categories: []
+            categories: [],
         };
     },
     mounted() {
@@ -61,12 +60,15 @@ export default {
                 .catch(e => console.log(e));
         },
         saveCategoryTree() {
+            let categoryType = this.$route.meta.type;
             axios
-                .put("/api/categories", {
+                .put("/api/categories?type=" + categoryType, {
                     categories: getPureTreeData(this.categories)
                 })
                 .then(({ data }) => this.setCategories(data))
                 .catch(e => console.log(e));
+
+            this.setCategories([]);
         },
         setCategories(categories) {
             this.categories = categories;

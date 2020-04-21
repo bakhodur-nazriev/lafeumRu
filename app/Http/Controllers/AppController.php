@@ -18,9 +18,8 @@ class AppController extends Controller
 
     public function index()
     {
-        $channels = Channel::all();
         $photos = Photo::take(3)->get();
         $categories = Category::get()->toTree()->unique('name');
-        return view('/home', compact(['channels', 'photos', 'categories']));
+        return view('/home', compact(['photos', 'categories']));
     }
 }

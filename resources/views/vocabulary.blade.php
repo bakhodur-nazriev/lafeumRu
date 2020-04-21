@@ -30,7 +30,7 @@
                         Примеры информативных поисковых запросов: «нау», «логия», «ика», «изм», «фило», «само»,<br>
                         «чело»,
                         «соц», «пси», «лич», «упр», «жи» , «кул», «эво» и т.п.<br>
-                        <b>Введите термин</b>
+                        <h5 class="mt-2 mb-0"><b>Введите термин</b></h5>
                     </div>
                     <div class="col-md-5 input-group mb-3">
                         <input
@@ -53,7 +53,7 @@
                 <script>
                     $(document).ready(() => {
                         $("#vocabulary-search").keyup((e) => {
-                            search(".vocabulary", e.target.value);
+                            search(".list-of-knowledge", e.target.value);
                         })
                     })
                 </script>

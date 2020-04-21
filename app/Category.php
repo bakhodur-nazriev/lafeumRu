@@ -12,14 +12,14 @@ class Category extends Model
 
     protected $guarded = [];
 
-    public function quote()
+    public function quotes()
     {
         return $this->morphedByMany(Quote::class, 'categoriable');
     }
 
     public function terms()
     {
-        return $this->morphedByMany(Terms::class, 'categoriable');
+        return $this->morphedByMany(Term::class, 'categoriable');
     }
 
     public function video()

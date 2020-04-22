@@ -19,4 +19,14 @@ class CategoriesController extends Controller
         return $categoriesQuery->get()->toTree();
     }
 
+    public function updateTree(Request $request)
+    {
+        $request->validate([
+            'type' => 'required'
+        ]);
 
+        Category::where('type', $request->type)->rebuildTree($request->categories, true);
+        
+        return $request->categories;
+    }
+}

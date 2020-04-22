@@ -3,17 +3,7 @@
 @section("content")
     <div class="container">
         <div class="row">
-            <div class="col-md-3 col-sm-12">
-                <h3 class="secondary">Темы</h3>
-                @foreach($categories as $category)
-                    <div class="categories-main-name">
-                        <a href="#"><b>{{ $category->name }}</b></a>
-                    </div>
-                    @foreach($category->children as $subCategory)
-                        <div><a href="#">{{$subCategory->name}}</a></div>
-                    @endforeach
-                @endforeach
-            </div>
+            @include('layouts.categories', ['type' => 'App\Term'])
             <div class="col-md-9">
                 <h3 class="secondary">Словарь «Лафеюм»</h3>
                 <p>Словарь «ЛАФЕЮМ» на сегодня содержит более одной тысячи основных терминов, соответствующих тематики
@@ -45,7 +35,7 @@
                     <ul class="list-inline py-1 list-of-knowledge">
                         @foreach($vocabularies as $vocabulary)
                             <li class="vocabulary">
-                                <a href="/vocabulary/{{$vocabulary->slug}}">{{$vocabulary->name}}</a>
+                                <a href="/vocabulary/{{$vocabulary->id}}">{{$vocabulary->name}}</a>
                             </li>
                         @endforeach
                     </ul>

@@ -1,4 +1,4 @@
-<div class="col-md-3 col-sm-12 ">
+<div class="col-md-3 col-xl-3 col-sm-12">
     <h3 class="secondary">Темы</h3>
     @foreach($categories as $category)
         <div class="categories-main-name">

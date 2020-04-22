@@ -3,17 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row card-main-block">
-            <div class="col-md-3 col-sm-12">
-                <h3 class="secondary">Темы</h3>
-                @foreach($categories as $category)
-                    <div class="categories-main-name">
-                        <a href="#"><b>{{ $category->name }}</b></a>
-                    </div>
-                    @foreach($category->children as $subCategory)
-                        <div><a href="#">{{$subCategory->name}}</a></div>
-                    @endforeach
-                @endforeach
-            </div>
+            @include('layouts.categories', ['type' => 'App\Term'])
             <div class="col-md-9 col-sm-12">
                 <h3 class="secondary mb-4">Термины</h3>
                 @foreach($terms as $term)

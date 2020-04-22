@@ -28,11 +28,10 @@ class TermsController extends Controller
         return view("/vocabulary", compact(["vocabularies", "categories"]));
     }
 
-    public function showVocabulary($slug)
+    public function showVocabulary($id)
     {
-        $categories = Category::where('type', Term::class)->get()->toTree()->unique("name");
-        $vocabulary = Term::with(["videos"])->where("slug", $slug)->first();
-        return view("shows.showVocabulary", compact("vocabulary", "categories"));
+        $vocabulary = Term::with('categories')->where('id', $id)->first();
+        return view("shows.showVocabulary", compact("vocabulary"));
     }
 
     public function get(Request $request)

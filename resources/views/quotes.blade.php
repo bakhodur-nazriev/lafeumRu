@@ -1,10 +1,10 @@
 @extends('layouts.default')
 
 @section('content')
-    <div class="container">
+    <div class="mx-0 container" style="max-width: 100%">
         <div class="row card-main-block">
             @include('layouts.categories', ['type' => 'App\Quote'])
-            <div class="col-md-9 col-xl-8 col-sm-12">
+            <div class="col-md-6 col-xl-6 col-sm-12">
                 <h3 class="secondary">Цитаты и Афоризмы</h3>
                 <p>Красивые цитаты и афоризмы великих людей, жизненные со смыслом высказывания известнейших поэтов,
                     писателей и философов. Понятия и суждения компетентных ученых и специалистов.
@@ -52,6 +52,7 @@
                     </div>
                 </div>
             </div>
+            @include('layouts.rightSidebar')
         </div>
     </div>
 

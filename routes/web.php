@@ -29,7 +29,7 @@ Route::get("/terms", "TermsController@index")->name("terms");
 Route::get("/terms/{slug}", "TermsController@show");
 
 Route::get("/vocabulary", "TermsController@indexVocabulary")->name("vocabulary");
-Route::get("/vocabulary/{slug}", "TermsController@showVocabulary")->name("vocabulary");
+Route::get("/vocabulary/{slug}", "TermsController@showVocabulary");
 
 Route::get("/videos", "VideosController@index")->name("videos");
 

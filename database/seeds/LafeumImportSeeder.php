@@ -8,6 +8,8 @@ use App\Knowledge;
 use App\AuthorGroup;
 use App\Quote;
 use App\Category;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -41,15 +43,19 @@ class LafeumImportSeeder extends Seeder
         Author::truncate();
         AuthorGroup::truncate();
 
+        $authorsToInsert = [];
+
         foreach ($authorGroups as $groupName => $authors) {
 
             $authorGroup = AuthorGroup::create(["name" => $groupName]);
 
             foreach ($authors as $author) {
                 $author["author_group_id"] = $authorGroup->id;
-                Author::create($author);
+                $authorsToInsert[] = $author;
             }
         }
+
+        $this->insertChunked(Author::class, $authorsToInsert, true);
     }
 
     public function importChannels()
@@ -58,9 +64,7 @@ class LafeumImportSeeder extends Seeder
 
         Channel::truncate();
 
-        foreach ($channels as $channel) {
-            Channel::create($channel);
-        }
+        $this->insertChunked(Channel::class, $channels, true);
     }
 
     public function importKnowledgeAreas()
@@ -69,9 +73,7 @@ class LafeumImportSeeder extends Seeder
 
         Knowledge::truncate();
 
-        foreach ($knowledgeAreas as $knowledgeArea) {
-            Knowledge::create($knowledgeArea);
-        }
+        $this->insertChunked(Knowledge::class, $knowledgeAreas, true);
     }
 
     public function importVideos()
@@ -119,7 +121,7 @@ class LafeumImportSeeder extends Seeder
 
             $termKnowledge = [];
 
-            foreach ($term['knowledge_areas'] as $knowledgeArea){
+            foreach ($term['knowledge_areas'] as $knowledgeArea) {
                 $termKnowledge[] = Knowledge::where('slug', $knowledgeArea['slug'])->first()->id;
             }
 
@@ -161,6 +163,10 @@ class LafeumImportSeeder extends Seeder
         }
     }
 
+    /**
+     * Helpers
+     */
+
     private function attachCategories($modelItem, $categoryNames, $categoryModel)
     {
         foreach ($categoryNames as $categoryName) {
@@ -170,5 +176,31 @@ class LafeumImportSeeder extends Seeder
 
             $modelItem->categories()->save($modelItemCategories);
         }
+    }
+
+    private function insertChunked($model, $dataToChunk, $withTimestamps = false, $size = 100)
+    {
+        if ($withTimestamps) {
+            $dataToChunk = $this->addDefaultTimestamps($dataToChunk);
+        }
+
+        $chunked = array_chunk($dataToChunk, $size);
+
+        foreach ($chunked as $chunk) {
+            $model::insert($chunk);
+        }
+    }
+
+    private function addDefaultTimestamps($array)
+    {
+        $itemsWithTimestamps = [];
+
+        foreach ($array as $item) {
+            $item["created_at"] = Carbon::now()->toDateTimeString();
+            $item["updated_at"] = Carbon::now()->toDateTimeString();
+            $itemsWithTimestamps[] = $item;
+        }
+
+        return $itemsWithTimestamps;
     }
 }

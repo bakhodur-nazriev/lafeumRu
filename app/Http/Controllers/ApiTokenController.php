@@ -18,3 +18,4 @@ class ApiTokenController extends Controller
         return ['token' => $token];
     }
 }
+

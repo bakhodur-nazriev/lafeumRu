@@ -159,7 +159,7 @@ export const sidebarRoutes = [
 
 function flatSideBarRoutes() {
     let appRoutes = [];
-    
+
     for (const route of sidebarRoutes) {
         if (route.subLinks) {
             for (const subLink of route.subLinks) {
@@ -167,7 +167,7 @@ function flatSideBarRoutes() {
             }
             continue;
         }
-    
+
         appRoutes.push(route);
     }
 

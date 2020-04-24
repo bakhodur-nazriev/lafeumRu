@@ -6,7 +6,7 @@ import PhotosPage from "./views/PhotosPage";
 import UsersPage from "./views/UsersPage";
 import ProfilePage from "./views/ProfilePage";
 import FavouritesPage from "./views/FavouritesPage";
-import CategoriesPage from "./views/categories/CategoriesPage";
+import CategoriesPage from "./views/CategoriesPage";
 /*import Channels from "./views/Channels";
 import KnowledgeAreas from "./views/KnowledgeAreas";
 import Vocabulary from "./components/admin/Vocabulary";

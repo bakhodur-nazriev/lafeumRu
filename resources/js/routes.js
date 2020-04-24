@@ -1,14 +1,14 @@
-import Quotes from "./components/admin/Quotes";
-import Authors from "./components/admin/Authors";
-import Terms from "./components/admin/Terms";
-import Videos from "./components/admin/Videos";
-import Photos from "./components/admin/Photos";
-import Users from "./components/admin/Users";
-import Profile from "./components/admin/Profile";
-import Favorite from "./components/admin/Favourites";
-import Categories from "./components/admin/Categories";
-/*import Channels from "./components/admin/Channels";
-import KnowledgeAreas from "./components/admin/KnowledgeAreas";
+import QuotesPage from "./views/QuotesPage";
+import AuthorsPage from "./views/AuthorsPage";
+import TermsPage from "./views/TermsPage";
+import VideosPage from "./views/VideosPage";
+import PhotosPage from "./views/PhotosPage";
+import UsersPage from "./views/UsersPage";
+import ProfilePage from "./views/ProfilePage";
+import FavouritesPage from "./views/FavouritesPage";
+import CategoriesPage from "./views/CategoriesPage";
+/*import Channels from "./views/Channels";
+import KnowledgeAreas from "./views/KnowledgeAreas";
 import Vocabulary from "./components/admin/Vocabulary";
 import Settings from "./components/admin/Settings";
 import Chat from "./components/admin/Chat";*/
@@ -30,7 +30,7 @@ export const sidebarRoutes = [
                     icon: "mdi-plus",
                     title: "Цитаты"
                 },
-                component: Quotes
+                component: QuotesPage
             },
             {
                 meta: {
@@ -39,7 +39,7 @@ export const sidebarRoutes = [
                 },
                 path: "/dashboard/authors",
                 name: "/dashboard/authors",
-                component: Authors
+                component: AuthorsPage
             },
             {
                 meta: {
@@ -48,7 +48,7 @@ export const sidebarRoutes = [
                 },
                 path: "/dashboard/terms",
                 name: "/dashboard/terms",
-                component: Terms
+                component: TermsPage
             },
             {
                 meta: {
@@ -57,7 +57,7 @@ export const sidebarRoutes = [
                 },
                 path: "/dashboard/videos",
                 name: "/dashboard/videos",
-                component: Videos
+                component: VideosPage
             },
             {
                 meta: {
@@ -66,12 +66,12 @@ export const sidebarRoutes = [
                 },
                 path: "/dashboard/photos",
                 name: "/dashboard/photos",
-                component: Photos
+                component: PhotosPage
             }
         ]
     },
 
-    /* Categories Section */
+    /* CategoriesPage Section */
     {
         meta: {
             icon: "mdi-format-list-bulleted",
@@ -87,7 +87,7 @@ export const sidebarRoutes = [
                     title: "Цитаты",
                     type: QUOTE_TYPE
                 },
-                component: Categories
+                component: CategoriesPage
             },
             {
                 meta: {
@@ -97,7 +97,7 @@ export const sidebarRoutes = [
                 },
                 path: "/dashboard/categories/terms",
                 name: "/dashboard/categories/terms",
-                component: Categories
+                component: CategoriesPage
             },
             {
                 meta: {
@@ -107,7 +107,7 @@ export const sidebarRoutes = [
                 },
                 path: "/dashboard/categories/videos",
                 name: "/dashboard/categories/videos",
-                component: Categories
+                component: CategoriesPage
             }
         ]
     },
@@ -118,7 +118,7 @@ export const sidebarRoutes = [
         },
         path: "/dashboard/users",
         name: "/dashboard/users",
-        component: Users
+        component: UsersPage
     },
     {
         meta: {
@@ -127,7 +127,7 @@ export const sidebarRoutes = [
         },
         path: "/dashboard/profile",
         name: "/dashboard/profile",
-        component: Profile
+        component: ProfilePage
     },
     {
         meta: {
@@ -136,7 +136,7 @@ export const sidebarRoutes = [
         },
         path: "/dashboard/favorite",
         name: "/dashboard/favorite",
-        component: Favorite
+        component: FavouritesPage
     }
     /*{
         meta: {

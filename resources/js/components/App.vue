@@ -9,7 +9,7 @@
 </template>
 
 <script>
-    import adminNavbar from "./admin/Navbar";
+    import adminNavbar from "./layouts/Navbar";
     import authorNavbar from "./author/Navbar";
     import memberNavbar from "./member/Navbar";
 

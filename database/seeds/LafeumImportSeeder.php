@@ -8,8 +8,8 @@ use App\Knowledge;
 use App\AuthorGroup;
 use App\Quote;
 use App\Category;
+use App\Photo;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -23,11 +23,11 @@ class LafeumImportSeeder extends Seeder
     public function run()
     {
         $this->call(CategoryTableSeeder::class);
-        $this->call(PhotoTableSeeder::class);
 
         $this->importAuthors();
-        $this->importKnowledgeAreas();
         $this->importChannels();
+        $this->importKnowledgeAreas();
+        $this->importPhotos();
 
         DB::table("categoriables")->truncate();
 
@@ -74,6 +74,24 @@ class LafeumImportSeeder extends Seeder
         Knowledge::truncate();
 
         $this->insertChunked(Knowledge::class, $knowledgeAreas, true);
+    }
+
+    public function importPhotos()
+    {
+        $photos = require(app_path("/LafeumData/lafeumPhotos.php"));
+
+        Photo::truncate();
+
+        $preparedPhotos = [];
+
+        foreach ($photos as $photo) {
+            $preparedPhotos[] = [
+                'path' => '/img/photos/' . $photo['file'],
+                'description' => $photo['description']
+            ];
+        }
+
+        $this->insertChunked(Photo::class, $preparedPhotos, true);
     }
 
     public function importVideos()

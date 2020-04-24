@@ -28,7 +28,7 @@
                         <template v-slot:item.image="{ item }">
                             <div class="text-center pa-2">
                                 <v-img
-                                    :src="item.image"
+                                    :src="item.path"
                                     :alt="item.description"
                                     max-width="6rem"
                                 >

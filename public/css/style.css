@@ -393,8 +393,16 @@ body {
     display: inline-block !important;
 }
 
-.video-share-button > .share .jssocials-shares .jssocials-share{
+.video-share-button > .share .jssocials-shares .jssocials-share {
     margin: 0 2px 0 0;
+}
+
+.right-block-sidebar {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    right: 0;
+    top: 7.3%;
 }
 
 @media (min-width: 768px) {

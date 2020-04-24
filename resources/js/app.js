@@ -59,16 +59,9 @@ Vue.use(TiptapVuetifyPlugin, {
     iconsGroup: "mdi"
 });
 
-Vue.component(
-    "admin-dashboard",
-    require("./components/admin/Home.vue").default
-);
-
 const app = new Vue({
     el: "#app",
     router,
     components: {App},
     vuetify: new Vuetify(vuetifyOptions)
 });
-
-

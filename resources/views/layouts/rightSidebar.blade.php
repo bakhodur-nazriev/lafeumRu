@@ -54,24 +54,18 @@
         @endguest
         @auth
             <ul class="list-group">
-                <a href="#">
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Цитаты
-                        <span class="badge background-primary badge-pill">{{ $countOfFavoritesQuotes }}</span>
-                    </li>
-                </a>
-                <a href="#">
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Термины
-                        <span class="badge background-primary badge-pill">{{ $countOfFavoritesTerms }}</span>
-                    </li>
-                </a>
-                <a href="#">
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Видео
-                        <span class="badge background-primary badge-pill">{{ $countOfFavoritesVideos }}</span>
-                    </li>
-                </a>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <a href="#" class="text-decoration-none">Цитаты</a>
+                    <span class="badge background-primary badge-pill">{{ $countOfFavoritesQuotes }}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <a href="#" class="text-decoration-none">Термины</a>
+                    <span class="badge background-primary badge-pill">{{ $countOfFavoritesTerms }}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <a href="#" class="text-decoration-none">Видео</a>
+                    <span class="badge background-primary badge-pill">{{ $countOfFavoritesVideos }}</span>
+                </li>
             </ul>
         @endauth
     </div>

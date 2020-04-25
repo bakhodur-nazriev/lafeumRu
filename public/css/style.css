@@ -411,13 +411,6 @@ body {
     padding: 0.5em 1em 0.4em 1em;
 }
 
-.list-group > a {
-    text-decoration: none;
-}
-
-.list-group > a > li:hover{
-    background-color: #e8e9ea;
-}
 
 @media (min-width: 768px) {
     .main-navbar {

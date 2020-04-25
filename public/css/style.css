@@ -18,9 +18,10 @@ body {
     color: #a6192e;
 }
 
-/*.primary{
-    color: #04718c;
-}*/
+.background-primary {
+    background-color: #04718c;
+    color: #fff;
+}
 
 /* ------------ COLORS  ---------- */
 
@@ -403,6 +404,19 @@ body {
     position: absolute;
     right: 0;
     top: 7.3%;
+}
+
+.badge {
+    line-height: 0.8;
+    padding: 0.5em 1em 0.4em 1em;
+}
+
+.list-group > a {
+    text-decoration: none;
+}
+
+.list-group > a > li:hover{
+    background-color: #e8e9ea;
 }
 
 @media (min-width: 768px) {

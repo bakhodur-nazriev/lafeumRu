@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use ChristianKuri\LaravelFavorite\Models\Favorite;
 use Illuminate\Http\Request;
 use App\Video;
 
@@ -10,8 +11,18 @@ class VideosController extends Controller
 {
     public function index()
     {
-        $videos = Video::with(["channel", "favorites", "categories"])->paginate(10);
-        return view("/videos", compact("videos"));
+        $countOfFavoritesQuotes = Favorite::where('favoriteable_type', 'App\Quote')->count();
+        $countOfFavoritesTerms = Favorite::where('favoriteable_type', 'App\Term')->count();
+        $countOfFavoritesVideos = Favorite::where('favoriteable_type', 'App\Video')->count();
+
+        $videos = Video::with(['channel', 'favorites', 'categories'])->paginate(10);
+        return view('/videos', compact([
+                'videos',
+                'countOfFavoritesQuotes',
+                'countOfFavoritesTerms',
+                'countOfFavoritesVideos'
+            ])
+        );
     }
 
     public function get(Request $request)

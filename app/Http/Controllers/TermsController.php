@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Term;
+use ChristianKuri\LaravelFavorite\Models\Favorite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -11,9 +12,20 @@ class TermsController extends Controller
 {
     public function index()
     {
+        $countOfFavoritesQuotes = Favorite::where('favoriteable_type', 'App\Quote')->count();
+        $countOfFavoritesTerms = Favorite::where('favoriteable_type', 'App\Term')->count();
+        $countOfFavoritesVideos = Favorite::where('favoriteable_type', 'App\Video')->count();
+
         $terms = Term::with('categories')->latest()->paginate(15);
-        $categories = Category::where('type', Term::class)->get()->toTree()->unique("name");
-        return view('/terms', compact(['terms', 'categories']));
+        $categories = Category::where('type', Term::class)->get()->toTree()->unique('name');
+        return view('/terms', compact([
+                'terms',
+                'categories',
+                'countOfFavoritesQuotes',
+                'countOfFavoritesTerms',
+                'countOfFavoritesVideos'
+            ])
+        );
     }
 
     public function show(Term $term)

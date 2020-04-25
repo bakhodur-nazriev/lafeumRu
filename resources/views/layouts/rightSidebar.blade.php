@@ -1,5 +1,5 @@
 <div class="col-md-3 col-xl-3 right-block-sidebar">
-    <div class="mb-0 card-block" style="width: 260px">
+    <div class="mb-0 card-block" style="width: 280px">
         @guest
             <form method="POST" action="{{ route('login') }}">
                 @csrf
@@ -45,7 +45,7 @@
 
                 <div class="form-group row mb-0">
                     <div class="col-md-12">
-                        <button type="submit" class="btn" style="background-color: #04718c; color: white">
+                        <button type="submit" class="btn" style="background-color: #04718c; color: white; width: 100%;">
                             {{ __('Login') }}
                         </button>
                     </div>
@@ -53,10 +53,25 @@
             </form>
         @endguest
         @auth
-            <ul>
-                @foreach($favorites as $favorite)
-                    <li>{{ $favorite }}</li>
-                @endforeach
+            <ul class="list-group">
+                <a href="#">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Цитаты
+                        <span class="badge background-primary badge-pill">{{ $countOfFavoritesQuotes }}</span>
+                    </li>
+                </a>
+                <a href="#">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Термины
+                        <span class="badge background-primary badge-pill">{{ $countOfFavoritesTerms }}</span>
+                    </li>
+                </a>
+                <a href="#">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Видео
+                        <span class="badge background-primary badge-pill">{{ $countOfFavoritesVideos }}</span>
+                    </li>
+                </a>
             </ul>
         @endauth
     </div>

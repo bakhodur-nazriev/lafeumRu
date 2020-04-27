@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Author;
 use App\Category;
+use ChristianKuri\LaravelFavorite\Models\Favorite;
 use Illuminate\Http\Request;
 
 class AuthorsController extends Controller
@@ -18,9 +19,20 @@ class AuthorsController extends Controller
 
     public function show($slug)
     {
+        $countOfFavoritesQuotes = Favorite::where('favoriteable_type', 'App\Quote')->count();
+        $countOfFavoritesTerms = Favorite::where('favoriteable_type', 'App\Term')->count();
+        $countOfFavoritesVideos = Favorite::where('favoriteable_type', 'App\Video')->count();
+
         $authors = Author::all();
         $currentAuthor = Author::with('quotes.categories')->where('slug', $slug)->first();
-        return view("shows.showAuthor", compact("authors", "currentAuthor"));
+        return view('shows.showAuthor', compact([
+                'authors',
+                'currentAuthor',
+                'countOfFavoritesQuotes',
+                'countOfFavoritesVideos',
+                'countOfFavoritesTerms'
+            ])
+        );
     }
 
     public function get()

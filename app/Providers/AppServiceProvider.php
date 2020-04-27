@@ -26,6 +26,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
+        /* View Categories */
         View::composer('layouts.categories', function ($view) {
             $categoryType = $view->getData();
 
@@ -39,6 +41,11 @@ class AppServiceProvider extends ServiceProvider
             }
 
             $view->with('categories', $categories);
+        });
+
+        /* Right Sidebar View */
+        View::composer('layouts.rightSidebar', function ($view) {
+
         });
     }
 }

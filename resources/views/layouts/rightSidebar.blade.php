@@ -1,7 +1,7 @@
-<div class="col-md-3 col-xl-3 right-block-sidebar">
-    <div class="mb-0 card-block" style="width: 280px">
+<div class="col-md-3 col-xl-3 d-flex justify-content-center">
+    <div class="right-block-sidebar">
         @guest
-            <form method="POST" action="{{ route('login') }}">
+            <form style="width: 100%;" method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="mb-0 form-group row">
                     <div class="col-md-12">
@@ -53,7 +53,7 @@
             </form>
         @endguest
         @auth
-            <ul class="list-group">
+            <ul class="list-group" style="width: 300px;">
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <a href="#" class="text-decoration-none">Цитаты</a>
                     <span class="badge background-primary badge-pill">{{ $countOfFavoritesQuotes }}</span>

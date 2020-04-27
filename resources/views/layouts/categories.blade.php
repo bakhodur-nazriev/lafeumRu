@@ -1,5 +1,5 @@
-<div class="col-md-3 col-xl-3 col-sm-12">
-    <div style="background-color: white; max-width: 280px; padding: 15px; border-radius: 5px">
+<div class="col-md-3 col-xl-3 col-sm-12 p-0">
+    <div class="left-sidebar-block">
         <h3 class="secondary">Темы</h3>
         @foreach($categories as $category)
             <div class="categories-main-name">

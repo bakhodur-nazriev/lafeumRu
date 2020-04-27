@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Channel;
+use ChristianKuri\LaravelFavorite\Models\Favorite;
 use Illuminate\Http\Request;
 
 class ChannelsController extends Controller
@@ -11,14 +12,25 @@ class ChannelsController extends Controller
     public function index()
     {
         $channels = Channel::all();
-        return view("/channels", compact("channels"));
+        return view('/channels', compact('channels'));
     }
 
     public function show($slug)
     {
-        $channel = Channel::with(["videos"])->where("slug", $slug)->first();
+        $countOfFavoritesQuotes = Favorite::where('favoriteable_type', 'App\Quote')->count();
+        $countOfFavoritesTerms = Favorite::where('favoriteable_type', 'App\Term')->count();
+        $countOfFavoritesVideos = Favorite::where('favoriteable_type', 'App\Video')->count();
+
+        $channel = Channel::with(['videos'])->where('slug', $slug)->first();
         $channels = Channel::all();
-        return view("shows.showChannel", compact("channel", "channels"));
+        return view('shows.showChannel', compact([
+                'channel',
+                'channels',
+                'countOfFavoritesQuotes',
+                'countOfFavoritesVideos',
+                'countOfFavoritesTerms'
+            ])
+        );
     }
 
     public function get()
@@ -42,6 +54,6 @@ class ChannelsController extends Controller
     public function delete($id)
     {
         Channel::destroy($id);
-        return response()->json("ok");
+        return response()->json('ok');
     }
 }

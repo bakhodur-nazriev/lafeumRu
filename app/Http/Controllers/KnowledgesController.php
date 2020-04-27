@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Knowledge;
 use App\Term;
+use ChristianKuri\LaravelFavorite\Models\Favorite;
 use Illuminate\Http\Request;
 
 class KnowledgesController extends Controller
@@ -17,9 +18,20 @@ class KnowledgesController extends Controller
 
     public function show($slug)
     {
+        $countOfFavoritesQuotes = Favorite::where('favoriteable_type', 'App\Quote')->count();
+        $countOfFavoritesTerms = Favorite::where('favoriteable_type', 'App\Term')->count();
+        $countOfFavoritesVideos = Favorite::where('favoriteable_type', 'App\Video')->count();
+
         $knowledgeAreas = Knowledge::all();
         $currentKnowledgeArea = Knowledge::with('terms')->where('slug', $slug)->first();
-        return view('shows.showKnowledge', compact(['currentKnowledgeArea', 'knowledgeAreas']));
+        return view('shows.showKnowledge', compact([
+                'currentKnowledgeArea',
+                'knowledgeAreas',
+                'countOfFavoritesQuotes',
+                'countOfFavoritesVideos',
+                'countOfFavoritesTerms'
+            ])
+        );
     }
 
     public function get()

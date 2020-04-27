@@ -51,13 +51,13 @@
         <category-edit-dialog
             :category="categoryToEdit"
             @close="categoryToEdit = null"
-            @edited="saveEditedCategory"
+            @updated="categoryUpdated"
         />
 
         <category-delete-dialog
             :category="categoryToDelete"
             @close="categoryToDelete = null"
-            @confirmed="deleteConfirmedCategory"
+            @deleted="categoryDeleted"
         />
 
     </v-container>
@@ -120,11 +120,11 @@ export default {
             this.categoryToDelete = { ...category };
             this.categoryToShow = null;
         },
-        saveEditedCategory(editedCategory){
-            console.log("EDITED:", editedCategory);
+        categoryUpdated(updatedCategory){
+            console.log("EDITED:", updatedCategory);
         },
-        deleteConfirmedCategory(confirmedCategory){
-            console.log("CONFIRMED:", confirmedCategory);
+        categoryDeleted(){
+            console.log("CONFIRMED:");
         }
     },
     watch: {

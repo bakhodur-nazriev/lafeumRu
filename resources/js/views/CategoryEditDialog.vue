@@ -23,7 +23,7 @@
                 <v-btn
                     color="green darken-1"
                     text
-                    @click="categoryEdited"
+                    @click="updateCategory"
                 >
                     Сохранить
                 </v-btn>
@@ -48,9 +48,9 @@ export default {
         closeDialog() {
             this.$emit("close");
         },
-        categoryEdited() {
-            this.$emit("edited", this.category);
-        }
+        updateCategory(){
+            this.$emit("updated", this.category);
+        },
     },
     computed: {
         showDialog: {

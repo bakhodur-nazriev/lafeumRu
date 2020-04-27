@@ -2,6 +2,8 @@
 
 @section('layout')
     @include('layouts.navbar')
-    @yield('content')
+    <div class="pt-0 container" style="max-width: 100%">
+        @yield('content')
+    </div>
     @include('layouts.footer')
 @endsection

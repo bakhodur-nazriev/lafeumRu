@@ -1,7 +1,7 @@
-<div class="col-md-3 col-xl-3 right-block-sidebar">
-    <div class="mb-0 card-block" style="width: 260px">
+<div class="col-md-3 col-xl-3 d-flex justify-content-center">
+    <div class="right-block-sidebar">
         @guest
-            <form method="POST" action="{{ route('login') }}">
+            <form style="width: 100%;" method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="mb-0 form-group row">
                     <div class="col-md-12">
@@ -45,7 +45,7 @@
 
                 <div class="form-group row mb-0">
                     <div class="col-md-12">
-                        <button type="submit" class="btn" style="background-color: #04718c; color: white">
+                        <button type="submit" class="btn" style="background-color: #04718c; color: white; width: 100%;">
                             {{ __('Login') }}
                         </button>
                     </div>
@@ -53,10 +53,19 @@
             </form>
         @endguest
         @auth
-            <ul>
-                @foreach($favorites as $favorite)
-                    <li>{{ $favorite }}</li>
-                @endforeach
+            <ul class="list-group" style="width: 300px;">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <a href="#" class="text-decoration-none">Цитаты</a>
+                    <span class="badge background-primary badge-pill">{{ $countOfFavoritesQuotes }}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <a href="#" class="text-decoration-none">Термины</a>
+                    <span class="badge background-primary badge-pill">{{ $countOfFavoritesTerms }}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <a href="#" class="text-decoration-none">Видео</a>
+                    <span class="badge background-primary badge-pill">{{ $countOfFavoritesVideos }}</span>
+                </li>
             </ul>
         @endauth
     </div>

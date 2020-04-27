@@ -40,73 +40,26 @@
             </v-card>
             <v-progress-circular indeterminate color="primary" v-else />
         </v-row>
-        <v-dialog v-model="showDialog" width="600">
-            <v-card v-if="showDialog">
-                <v-card-title class="headline pr-2">
-                    {{ categoryToShow.name }}
-                    <v-spacer />
-                    <v-btn icon @click="categoryToEdit = {...categoryToShow}">
-                        <v-icon small>mdi-pencil</v-icon>
-                    </v-btn>
-                    <v-btn icon>
-                        <v-icon small>mdi-delete</v-icon>
-                    </v-btn>
-                </v-card-title>
 
-                <v-card-text>
-                    {{ categoryToShow.description }}
-                </v-card-text>
+        <category-show-dialog
+            :category="categoryToShow"
+            @close="categoryToShow = null"
+            @edit="editCategory"
+            @delete="deleteCategory"
+        />
 
-                <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn
-                        color="primary darken-1"
-                        text
-                        @click="categoryToShow = null"
-                    >
-                        Закрыть
-                    </v-btn>
-                </v-card-actions>
-            </v-card>
-        </v-dialog>
-        <v-dialog v-model="showEditDialog" width="600">
-            <v-card v-if="showEditDialog">
-                <v-card-title class="headline pr-2">
-                    Изменение категории
-                </v-card-title>
+        <category-edit-dialog
+            :category="categoryToEdit"
+            @close="categoryToEdit = null"
+            @edited="saveEditedCategory"
+        />
 
-                <v-card-text>
-                    <v-text-field 
-                        label="Название"
-                        outlined
-                        v-model="categoryToEdit.name"
-                    />
-                    <v-textarea
-                        label="Описание"
-                        v-model="categoryToEdit.description"
-                        outlined
-                    />
-                </v-card-text>
+        <category-delete-dialog
+            :category="categoryToDelete"
+            @close="categoryToDelete = null"
+            @confirmed="deleteConfirmedCategory"
+        />
 
-                <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn
-                        color="green darken-1"
-                        text
-                        @click="categoryToEdit = null"
-                    >
-                        Сохранить
-                    </v-btn>
-                    <v-btn
-                        color="primary darken-1"
-                        text
-                        @click="categoryToEdit = null"
-                    >
-                        Отмена
-                    </v-btn>
-                </v-card-actions>
-            </v-card>
-        </v-dialog>
     </v-container>
 </template>
 
@@ -114,43 +67,27 @@
 import "he-tree-vue/dist/he-tree-vue.css";
 import { Tree, Draggable, Fold, foldAll, getPureTreeData } from "he-tree-vue";
 
+import CategoryShowDialog from "./CategoryShowDialog";
+import CategoryEditDialog from "./CategoryEditDialog";
+import CategoryDeleteDialog from "./CategoryDeleteDialog";
+
 export default {
     components: {
-        Tree: Tree.mixPlugins([Draggable, Fold])
+        Tree: Tree.mixPlugins([Draggable, Fold]),
+        "category-show-dialog": CategoryShowDialog,
+        "category-edit-dialog": CategoryEditDialog,
+        "category-delete-dialog": CategoryDeleteDialog
     },
     data() {
         return {
             categories: [],
             categoryToShow: null,
-            categoryToEdit: null
+            categoryToEdit: null,
+            categoryToDelete: null
         };
     },
     mounted() {
         this.loadCategories();
-    },
-    computed: {
-        showDialog: {
-            get() {
-                return this.categoryToShow;
-            },
-            set(v) {
-                if (!v) {
-                    this.categoryToShow = null;
-                }
-            }
-        },
-        showEditDialog: {
-            get() {
-                return this.categoryToEdit;
-            },
-            set(v) {
-                if (!v) {
-                    this.categoryToEdit = null;
-                } else {
-                    this.categoryToShow = null;
-                }
-            }
-        }
     },
     methods: {
         loadCategories() {
@@ -174,6 +111,20 @@ export default {
         setCategories(categories) {
             this.categories = categories;
             foldAll(this.categories);
+        },
+        editCategory(category) {
+            this.categoryToEdit = { ...category };
+            this.categoryToShow = null;
+        },
+        deleteCategory(category) {
+            this.categoryToDelete = { ...category };
+            this.categoryToShow = null;
+        },
+        saveEditedCategory(editedCategory){
+            console.log("EDITED:", editedCategory);
+        },
+        deleteConfirmedCategory(confirmedCategory){
+            console.log("CONFIRMED:", confirmedCategory);
         }
     },
     watch: {

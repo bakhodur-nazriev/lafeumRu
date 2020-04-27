@@ -15,7 +15,7 @@
                 <v-btn
                     color="red darken-1"
                     text
-                    @click="deleteConfirmed"
+                    @click="deleteCategory"
                 >
                     Удалить
                 </v-btn>
@@ -40,8 +40,8 @@ export default {
         closeDialog() {
             this.$emit("close");
         },
-        deleteConfirmed(){
-            this.$emit('confirmed', this.category);
+        deleteCategory(){
+            this.$emit('deleted', this.category);
         }
     },
     computed: {

@@ -16,7 +16,7 @@ class CreateKnowledgesTable extends Migration
         Schema::create("knowledge", function (Blueprint $table) {
             $table->bigIncrements("id");
             $table->string("name");
-            $table->string("description");
+            $table->string("description")->nullable();
             $table->string("slug");
             $table->timestamps();
         });

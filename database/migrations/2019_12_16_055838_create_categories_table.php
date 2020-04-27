@@ -17,7 +17,7 @@ class CreateCategoriesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('type');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->nestedSet();
         });
     }

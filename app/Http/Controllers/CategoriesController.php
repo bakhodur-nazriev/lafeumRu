@@ -33,4 +33,26 @@ class CategoriesController extends Controller
 
         return $request->categories;
     }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'type' => 'required'
+        ]);
+        
+        $newCategory = new Category(
+            $request->only(['name', 'description', 'type'])
+        );
+        
+        $parent = Category::find($request->parentId);
+        
+        $newCategory->save();
+
+        if ($parent) {
+            $newCategory->appendToNode($parent)->save();
+        }
+        
+        return $newCategory;
+    }
 }

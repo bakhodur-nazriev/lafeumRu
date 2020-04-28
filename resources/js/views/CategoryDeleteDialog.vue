@@ -41,7 +41,13 @@ export default {
             this.$emit("close");
         },
         deleteCategory(){
-            this.$emit('deleted', this.category);
+
+            axios
+                .delete('/api/categories/' + this.category.id)
+                .then(res => {
+                    this.$emit('deleted', this.category);
+                })
+                .catch(e => console.log(e));
         }
     },
     computed: {

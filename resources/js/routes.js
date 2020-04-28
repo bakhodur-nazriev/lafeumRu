@@ -85,6 +85,7 @@ export const sidebarRoutes = [
                 meta: {
                     icon: "mdi-plus",
                     title: "Цитаты",
+                    pageTitle: "Категории цитат",
                     type: QUOTE_TYPE
                 },
                 component: CategoriesPage
@@ -93,6 +94,7 @@ export const sidebarRoutes = [
                 meta: {
                     icon: "mdi-tag",
                     title: "Термины",
+                    pageTitle: "Категории терминов",
                     type: TERM_TYPE
                 },
                 path: "/dashboard/categories/terms",
@@ -103,6 +105,7 @@ export const sidebarRoutes = [
                 meta: {
                     icon: "mdi-youtube",
                     title: "Видео",
+                    pageTitle: "Категории видео",
                     type: VIDEO_TYPE
                 },
                 path: "/dashboard/categories/videos",

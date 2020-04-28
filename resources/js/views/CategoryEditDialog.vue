@@ -49,7 +49,14 @@ export default {
             this.$emit("close");
         },
         updateCategory(){
-            this.$emit("updated", this.category);
+
+            axios
+                .put('/api/categories/' + this.category.id, this.category)
+                .then(res => {
+                    this.$emit("updated", res.data);
+                })
+                .catch(e => console.log(e));
+
         },
     },
     computed: {

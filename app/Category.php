@@ -11,7 +11,7 @@ class Category extends Model
 
     public $timestamps = false;
 
-    protected $guarded = [];
+    protected $fillable = ['name', 'description', 'type'];
 
     public function quotes()
     {

@@ -12,11 +12,15 @@ class CategoriesController extends Controller
     {
         $categoriesQuery = Category::query();
 
-        if($request->has('type')){
+        if ($request->has('type')) {
             $categoriesQuery->where('type', $request->type);
         }
 
-        return $categoriesQuery->get()->toTree();
+        if ($request->has('tree')) {
+            return $categoriesQuery->get()->toTree();
+        }
+
+        return $categoriesQuery->get();
     }
 
     public function updateTree(Request $request)
@@ -26,7 +30,43 @@ class CategoriesController extends Controller
         ]);
 
         Category::where('type', $request->type)->rebuildTree($request->categories, true);
-        
+
         return $request->categories;
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'type' => 'required'
+        ]);
+        
+        $newCategory = new Category(
+            $request->only(['name', 'description', 'type'])
+        );
+        
+        $parent = Category::find($request->parentId);
+        
+        $newCategory->save();
+
+        if ($parent) {
+            $newCategory->appendToNode($parent)->save();
+        }
+        
+        return $newCategory;
+    }
+
+    public function update($id, Request $request)
+    {
+        $categoryToUpdate = Category::find($id);
+
+        $categoryToUpdate->update($request->all());
+
+        return $categoryToUpdate;
+    }
+
+    public function delete($id)
+    {
+        Category::where('id', $id)->delete();
     }
 }

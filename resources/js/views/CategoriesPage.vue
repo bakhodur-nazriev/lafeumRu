@@ -62,7 +62,7 @@
                     <v-icon>mdi-plus</v-icon>
                 </v-btn>
             </template>
-            <span>Добавить фото</span>
+            <span>Добавить категорию</span>
         </v-tooltip>
 
         <category-create-dialog

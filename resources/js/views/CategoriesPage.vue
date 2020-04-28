@@ -6,7 +6,6 @@
                     class="col-lg-12 col-xl-8 pa-4"
                     v-if="!categoriesLoading"
                 >
-                    <h2>Категории</h2>
                     <Tree v-model="categories">
                         <div
                             class="category-tree-node"
@@ -62,7 +61,7 @@
                     <v-icon>mdi-plus</v-icon>
                 </v-btn>
             </template>
-            <span>Добавить фото</span>
+            <span>Добавить категорию</span>
         </v-tooltip>
 
         <category-create-dialog

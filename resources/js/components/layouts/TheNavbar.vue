@@ -3,7 +3,7 @@
         <v-app-bar app color="grey&#45;&#45;text white" flat>
             <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
             <v-toolbar-title class="text-uppercase grey--text">
-                <span>{{$route.meta.title}}</span>
+                <span>{{$route.meta.pageTitle || $route.meta.title}}</span>
             </v-toolbar-title>
             <v-spacer></v-spacer>
 

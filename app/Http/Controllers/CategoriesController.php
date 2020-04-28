@@ -12,11 +12,15 @@ class CategoriesController extends Controller
     {
         $categoriesQuery = Category::query();
 
-        if($request->has('type')){
+        if ($request->has('type')) {
             $categoriesQuery->where('type', $request->type);
         }
 
-        return $categoriesQuery->get()->toTree();
+        if ($request->has('tree')) {
+            return $categoriesQuery->get()->toTree();
+        }
+
+        return $categoriesQuery->get();
     }
 
     public function updateTree(Request $request)
@@ -26,7 +30,7 @@ class CategoriesController extends Controller
         ]);
 
         Category::where('type', $request->type)->rebuildTree($request->categories, true);
-        
+
         return $request->categories;
     }
 }

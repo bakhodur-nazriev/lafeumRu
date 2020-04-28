@@ -36,9 +36,10 @@
                         <v-spacer />
                         <v-btn
                             color="green accent-4 white--text"
+                            outlined
                             @click="saveCategoryTree"
                         >
-                            Сохранить
+                            Сохранить структуру
                         </v-btn>
                     </div>
                 </v-card>

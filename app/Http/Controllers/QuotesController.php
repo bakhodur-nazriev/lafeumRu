@@ -43,7 +43,17 @@ class QuotesController extends Controller
 
     public function store(Request $request)
     {
-        return Quote::create($request->all());
+        $request->validate([
+            'author_id' => 'required',
+            'body' => 'required',
+            'categories' => 'required|array'
+        ]);
+
+        $newQuote = Quote::create($request->all());
+
+        $newQuote->categories()->attach($request->categories);
+
+        return $newQuote->load('author', 'categories');
     }
 
     public function update(Request $request, $id)

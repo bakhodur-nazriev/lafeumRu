@@ -36,7 +36,7 @@ class KnowledgesController extends Controller
 
     public function get()
     {
-        return $knowledgeAreas = Knowledge::latest()->get();
+        return Knowledge::latest()->get();
     }
 
     public function store(Request $request)

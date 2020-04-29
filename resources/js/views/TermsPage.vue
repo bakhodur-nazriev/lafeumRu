@@ -87,10 +87,10 @@
         <v-dialog v-model="dialogAdd" width="700px">
             <v-card>
                 <v-form ref="createForm" @submit="addTerm">
-                    <v-card-title class="primary white--text">
+                    <v-card-title class="primary white--text mb-5">
                         Создать Термин
                     </v-card-title>
-                    <v-container>
+                    <v-card-text>
                         <v-text-field
                             outlined
                             v-model="newTerm.name"
@@ -129,7 +129,7 @@
                             placeholder="Введите описание"
                             :card-props="{ flat: true, color: '#21252921' }"
                         />
-                    </v-container>
+                    </v-card-text>
                     <v-card-actions>
                         <v-spacer />
                         <v-btn dark color="green" type="submit"

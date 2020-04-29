@@ -126,6 +126,7 @@
                         <v-btn
                             dark
                             color="error"
+                            type="button"
                             @click="() => (dialogAdd = false)"
                         >
                             Отмена

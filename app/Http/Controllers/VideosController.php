@@ -27,21 +27,24 @@ class VideosController extends Controller
 
     public function get(Request $request)
     {
-        $videosQuery = Video::with("channel");
-
-        if ($request->has("favourite")) {
-            $videosQuery->whereHas("favorites", function ($query) {
-                $query->where("user_id", Auth::id());
-            });
-        }
-
-        /*return Video::with("channel")->latest()->get();*/
-        return $videosQuery->latest()->with("favorites")->first();
+        return Video::with("channel")->latest()->get();
     }
 
     public function store(Request $request)
     {
-        return Video::create($request->all());
+        $request->validate([
+            'title' => 'required',
+            'link' => 'required',
+            'duration' => 'required',
+            'channel_id' => 'required',
+            'categories' => 'required|array'
+        ]);
+
+        $newVideo = Video::create($request->all());
+        
+        $newVideo->categories()->attach($request->categories);
+
+        return $newVideo->load(['channel', 'categories']);
     }
 
     public function update(Request $request, $id)

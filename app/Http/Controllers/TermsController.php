@@ -54,7 +54,19 @@ class TermsController extends Controller
 
     public function store(Request $request)
     {
-        return Term::create($request->all());
+        $request->validate([
+            'name' => 'required',
+            'body' => 'required',
+            'knowledgeAreas' => 'required|array',
+            'categories' => 'required|array',
+        ]);
+
+        $newTerm = Term::create($request->all());
+
+        $newTerm->knowledge()->attach($request->knowledgeAreas);
+        $newTerm->categories()->attach($request->categories);
+
+        return $newTerm->load(['categories', 'knowledge']);
     }
 
     public function update(Request $request, $id)

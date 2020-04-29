@@ -312,7 +312,7 @@ export default {
     },
     mounted() {
         this.loadAuthors();
-        this.loadCategories();
+        this.loadQuoteCategories();
         this.loadQuotes();
     },
     methods: {
@@ -335,9 +335,9 @@ export default {
                 .then(res => (this.authors = res.data))
                 .catch(e => console.log(e));
         },
-        loadCategories() {
+        loadQuoteCategories() {
             axios
-                .get("/api/categories")
+                .get("/api/categories?type=" + QUOTE_TYPE)
                 .then(res => (this.categories = res.data))
                 .catch(e => console.log(e));
         },

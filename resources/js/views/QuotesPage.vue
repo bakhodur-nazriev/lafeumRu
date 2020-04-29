@@ -341,13 +341,10 @@ export default {
                 .then(res => (this.categories = res.data))
                 .catch(e => console.log(e));
         },
-        resetNewQuote() {
-            this.$refs.createForm.resetValidation();
-            this.newQuote = {
-                body: "",
-                author_id: null,
-                categories: null
-            };
+        resetNewQuoteForm() {
+            this.newQuote = this.defaultQuote;
+            this.$refs.createForm.reset();
+            this.dialogAdd = false;
         },
         addQuote(e) {
             e.preventDefault();
@@ -359,9 +356,8 @@ export default {
             axios
                 .post("/api/quotes/", this.newQuote)
                 .then(res => {
-                    this.dialogAdd = false;
-                    this.resetNewQuote();
-                    this.loadQuotes();
+                    this.resetNewQuoteForm();
+                    this.loadQuotes();        
                 })
                 .catch(err => {
                     console.log(err);
@@ -394,6 +390,13 @@ export default {
         }
     },
     computed: {
+        defaultQuote() {
+            return {
+                body: "",
+                author_id: null,
+                categories: null
+            };
+        },
         filteredQuotes() {
             return this.quotes.filter(quote => {
                 return quote.body

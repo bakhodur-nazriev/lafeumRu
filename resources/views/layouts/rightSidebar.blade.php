@@ -54,11 +54,11 @@
         @endguest
         @auth
             <ul class="list-group" style="width: 300px;">
-                <div class="mb-0 form-group row">
-                    <div class="p-0 col-md-12">
-                        <h3 class="text-center"></h3>
-                        <img src="" class="rounded float-left" alt="...">
-                    </div>
+                <div class="p-0 mb-3">
+                    <img src="{{ Auth::user()->avatar }}" style="max-width: 50px;" class="float-left"
+                    alt="...">
+                    <span class="text-center">{{ Auth::user()->name }}</span>
+                    <span>{{ Auth::user()->role }}</span>
                 </div>
 
                 <li class="list-group-item d-flex justify-content-between align-items-center">

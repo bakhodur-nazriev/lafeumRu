@@ -45,7 +45,7 @@ class QuotesController extends Controller
             'categories' => 'required|array'
         ]);
 
-        $newQuote = Quote::create($request->only(['author_id', 'body']));
+        $newQuote = Quote::create($request->all());
 
         $newQuote->categories()->attach($request->categories);
 

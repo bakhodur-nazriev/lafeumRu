@@ -263,11 +263,7 @@ export default {
             ],
             authors: [],
             categories: [],
-            newQuote: {
-                body: "",
-                author_id: null,
-                categories: null
-            },
+            newQuote: null,
             search: "",
             quoteToDelete: null,
             quoteToUpdate: null,
@@ -310,6 +306,9 @@ export default {
             ]
         };
     },
+    beforeMount(){
+        this.newQuote = this.getDefaultQuote();
+    },
     mounted() {
         this.loadAuthors();
         this.loadQuoteCategories();
@@ -341,8 +340,15 @@ export default {
                 .then(res => (this.categories = res.data))
                 .catch(e => console.log(e));
         },
+        getDefaultQuote() {
+            return {
+                body: "",
+                author_id: null,
+                categories: null
+            };
+        },
         resetNewQuoteForm() {
-            this.newQuote = this.defaultQuote;
+            this.newQuote = this.getDefaultQuote();
             this.$refs.createForm.reset();
             this.dialogAdd = false;
         },
@@ -390,13 +396,6 @@ export default {
         }
     },
     computed: {
-        defaultQuote() {
-            return {
-                body: "",
-                author_id: null,
-                categories: null
-            };
-        },
         filteredQuotes() {
             return this.quotes.filter(quote => {
                 return quote.body

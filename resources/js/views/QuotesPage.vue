@@ -341,6 +341,14 @@ export default {
                 .then(res => (this.categories = res.data))
                 .catch(e => console.log(e));
         },
+        resetNewQuote() {
+            this.$refs.createForm.resetValidation();
+            this.newQuote = {
+                body: "",
+                author_id: null,
+                categories: null
+            };
+        },
         addQuote(e) {
             e.preventDefault();
 
@@ -352,6 +360,7 @@ export default {
                 .post("/api/quotes/", this.newQuote)
                 .then(res => {
                     this.dialogAdd = false;
+                    this.resetNewQuote();
                     this.loadQuotes();
                 })
                 .catch(err => {

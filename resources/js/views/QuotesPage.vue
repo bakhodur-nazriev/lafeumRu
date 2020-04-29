@@ -26,26 +26,58 @@
                         loading-text="Загрузка..."
                     >
                         <template v-slot:item.action="{ item }">
-                            <v-btn fab dark small color="primary" elevation="2" outlined @click="quoteToUpdate = item">
+                            <v-btn
+                                fab
+                                dark
+                                small
+                                color="primary"
+                                elevation="2"
+                                outlined
+                                @click="quoteToUpdate = item"
+                            >
                                 <v-icon dark>mdi-pen</v-icon>
                             </v-btn>
-                            <v-btn fab dark small color="error" elevation="2" outlined @click="quoteToDelete = item">
+                            <v-btn
+                                fab
+                                dark
+                                small
+                                color="error"
+                                elevation="2"
+                                outlined
+                                @click="quoteToDelete = item"
+                            >
                                 <v-icon dark>mdi-delete</v-icon>
                             </v-btn>
                         </template>
                         <template v-slot:item.body="{ item }">
-                            <div v-html="item.body" class="short-paragraph my-3 three-line-truncate"/>
+                            <div
+                                v-html="item.body"
+                                class="short-paragraph my-3 three-line-truncate"
+                            />
                         </template>
                     </v-data-table>
                     <v-col class="text-center mt-2">
-                        <v-pagination :total-visible="7" v-model="page" :length="pageCount"></v-pagination>
+                        <v-pagination
+                            :total-visible="7"
+                            v-model="page"
+                            :length="pageCount"
+                        ></v-pagination>
                     </v-col>
                 </v-col>
             </v-row>
         </v-container>
         <v-tooltip top>
             <template v-slot:activator="{ on }">
-                <v-btn bottom color="primary" v-on="on" dark fab fixed right @click="dialogAdd = !dialogAdd">
+                <v-btn
+                    bottom
+                    color="primary"
+                    v-on="on"
+                    dark
+                    fab
+                    fixed
+                    right
+                    @click="dialogAdd = !dialogAdd"
+                >
                     <v-icon>mdi-plus</v-icon>
                 </v-btn>
             </template>
@@ -54,65 +86,70 @@
         <!-- Add Item Dialog -->
         <v-dialog v-model="dialogAdd" width="700">
             <v-card>
-                <v-card-title class="primary white--text">
-                    Создать Цитату
-                </v-card-title>
-                <v-container>
-                    <v-row justify="center">
-                        <v-col cols="12">
-                            <v-select
-                                hide-details
-                                outlined
-                                :items="quotes.author_id"
-                                item-value="id"
-                                item-text="name"
-                                label="Автор"
-                                v-model="quoteAuthor"
-                            >
-                            </v-select>
-                        </v-col>
-                        <v-col cols="12">
-                            <v-select
-                                hide-details
-                                outlined
-                                :items="quotes.categories"
-                                item-value="id"
-                                item-text=""
-                                label="Категории"
-                                v-model="quoteCategories"
-                            >
-                            </v-select>
-                        </v-col>
-                        <v-col cols="12">
-                            <tiptap-vuetify
-                                outlined
-                                :extensions="extensions"
-                                v-model="quoteBody"
-                                label="Добаить цитату здесь"
-                            >
-                            </tiptap-vuetify>
-                        </v-col>
-                    </v-row>
-                </v-container>
-                <v-card-actions>
-                    <v-spacer/>
-                    <v-btn dark color="green" @click="addQuote()">Сохранить</v-btn>
-                    <v-btn dark color="error" @click="() => (dialogAdd = false)"
-                    >Отмена
-                    </v-btn
-                    >
-                </v-card-actions>
+                <v-form @submit="addQuote" ref="createForm">
+                    <v-card-title class="primary white--text mb-5">
+                        Создать Цитату
+                    </v-card-title>
+                    <v-card-text>
+                        <v-select
+                            outlined
+                            :items="authors"
+                            item-value="id"
+                            item-text="name"
+                            label="Автор"
+                            :rules="requiredField"
+                            v-model="newQuote.author_id"
+                        />
+                        <v-select
+                            outlined
+                            :items="categories"
+                            multiple
+                            item-value="id"
+                            item-text="name"
+                            label="Категории"
+                            :rules="requiredField"
+                            v-model="newQuote.categories"
+                        />
+                        <tiptap-vuetify
+                            outlined
+                            :extensions="extensions"
+                            v-model="newQuote.body"
+                            required
+                            label="Введите цитату здесь"
+                        />
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-spacer />
+                        <v-btn dark color="green" type="submit">
+                            Сохранить
+                        </v-btn>
+                        <v-btn
+                            dark
+                            color="error"
+                            @click="() => (dialogAdd = false)"
+                        >
+                            Отмена
+                        </v-btn>
+                    </v-card-actions>
+                </v-form>
             </v-card>
         </v-dialog>
         <!-- Delete Item Dialog -->
         <v-dialog v-if="quoteToDelete" v-model="quoteToDelete" width="500">
             <v-card class="pa-2">
                 <v-card-title class="pt-1 regular headline text-center"
-                >Вы действительно хотите удалить эту цитату ?
+                    >Вы действительно хотите удалить эту цитату ?
                 </v-card-title>
                 <v-card-actions class="justify-center">
-                    <v-btn color="green darken-1" dark @click="quoteToDelete = null">Нет</v-btn>
-                    <v-btn color="red darken-1" dark @click="deleteQuote()">Да</v-btn>
+                    <v-btn
+                        color="green darken-1"
+                        dark
+                        @click="quoteToDelete = null"
+                        >Нет</v-btn
+                    >
+                    <v-btn color="red darken-1" dark @click="deleteQuote()"
+                        >Да</v-btn
+                    >
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -161,9 +198,13 @@
                     </v-row>
                 </v-container>
                 <v-card-actions>
-                    <v-spacer/>
-                    <v-btn dark color="green" @click="updateQuote()">Сохранить</v-btn>
-                    <v-btn dark color="error" @click="quoteToUpdate = false">Отмена</v-btn>
+                    <v-spacer />
+                    <v-btn dark color="green" @click="updateQuote()"
+                        >Сохранить</v-btn
+                    >
+                    <v-btn dark color="error" @click="quoteToUpdate = false"
+                        >Отмена</v-btn
+                    >
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -171,165 +212,201 @@
 </template>
 
 <script>
-    import {
-        // component
-        TiptapVuetify,
-        // extensions
-        Heading,
-        Bold,
-        Italic,
-        Strike,
-        Underline,
-        Paragraph,
-        BulletList,
-        OrderedList,
-        ListItem,
-        Link,
-        Blockquote,
-        HardBreak,
-        HorizontalRule,
-        History,
-        Image
-    } from "tiptap-vuetify";
+import {
+    // component
+    TiptapVuetify,
+    // extensions
+    Heading,
+    Bold,
+    Italic,
+    Strike,
+    Underline,
+    Paragraph,
+    BulletList,
+    OrderedList,
+    ListItem,
+    Link,
+    Blockquote,
+    HardBreak,
+    HorizontalRule,
+    History,
+    Image
+} from "tiptap-vuetify";
 
-    export default {
-        components: {TiptapVuetify},
-        data() {
-            return {
-                extensions: [
-                    History,
-                    Blockquote,
-                    Link,
-                    Underline,
-                    Strike,
-                    Italic,
-                    ListItem,
-                    BulletList,
-                    OrderedList,
-                    Image,
-                    [
-                        Heading,
-                        {
-                            options: {
-                                levels: [1, 2, 3]
-                            }
+export default {
+    components: { TiptapVuetify },
+    data() {
+        return {
+            extensions: [
+                History,
+                Blockquote,
+                Link,
+                Underline,
+                Strike,
+                Italic,
+                ListItem,
+                BulletList,
+                OrderedList,
+                Image,
+                [
+                    Heading,
+                    {
+                        options: {
+                            levels: [1, 2, 3]
                         }
-                    ],
-                    Bold,
-                    HorizontalRule,
-                    Paragraph,
-                    HardBreak
-                ],
-                quoteBody: "",
-                quoteAuthor: "",
-                quoteCategories: "",
-                search: "",
-                quoteToDelete: null,
-                quoteToUpdate: null,
-                page: 1,
-                pageCount: 2,
-                dialogAdd: false,
-                dialogDelete: false,
-                dialogUpdate: false,
-                itemsPerPage: 15,
-                editedIndex: -1,
-                indexIterator: null,
-                quotes: [],
-                loadingQuotes: false,
-                headers: [
-                    {
-                        text: "Цитаты",
-                        value: "body",
-                        align: "left",
-                        sortable: false
-                    },
-                    {
-                        text: "Автор",
-                        value: "author.name",
-                        align: "center",
-                        sortable: false
-                    },
-                    {
-                        text: "Категория",
-                        value: "",
-                        align: "center",
-                        sortable: false
-                    },
-                    {
-                        text: "Действия",
-                        value: "action",
-                        align: "center",
-                        sortable: false,
-                        width: "160px"
                     }
                 ],
-
-            };
-        },
-        mounted() {
-            this.loadQuotes();
-        },
-        methods: {
-            loadQuotes() {
-                this.loadingQuotes = true;
-                axios
-                    .get("/api/quotes")
-                    .then(res => {
-                        this.loadingQuotes = false;
-                        this.quotes = res.data;
-                    })
-                    .catch(err => {
-                        this.loadingPhotos = false;
-                        console.log(err);
-                    });
+                Bold,
+                HorizontalRule,
+                Paragraph,
+                HardBreak
+            ],
+            authors: [],
+            categories: [],
+            newQuote: {
+                body: "",
+                author_id: null,
+                categories: null
             },
-            addQuote() {
-                axios
-                    .post("/api/quotes/", {
-                        body: this.quoteBody,
-                        author_id: this.quoteAuthor,
-                        categories: this.quoteCategories
-                    })
-                    .then(res => {
-                        this.dialogAdd = false;
-                        this.loadQuotes();
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    });
-            },
-            updateQuote() {
-                axios
-                    .put("/api/quotes/" + this.quoteToUpdate.id, {
-                        body: this.quoteToUpdate.body,
-                        author_id: this.quoteToUpdate.author_id
-                    })
-                    .then(res => {
-                        this.quoteToUpdate = false;
-                        this.loadQuotes();
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    });
-            },
-            deleteQuote() {
-                axios
-                    .delete("/api/quotes/" + this.quoteToDelete.id)
-                    .then(res => {
-                        this.loadQuotes();
-                        this.quoteToDelete = false;
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    });
-            }
-        },
-        computed: {
-            filteredQuotes() {
-                return this.quotes.filter(quote => {
-                    return quote.body.toLowerCase().includes(this.search.toLowerCase());
+            search: "",
+            quoteToDelete: null,
+            quoteToUpdate: null,
+            page: 1,
+            pageCount: 2,
+            dialogAdd: false,
+            dialogDelete: false,
+            dialogUpdate: false,
+            itemsPerPage: 15,
+            editedIndex: -1,
+            indexIterator: null,
+            quotes: [],
+            loadingQuotes: false,
+            headers: [
+                {
+                    text: "Цитаты",
+                    value: "body",
+                    align: "left",
+                    sortable: false
+                },
+                {
+                    text: "Автор",
+                    value: "author.name",
+                    align: "center",
+                    sortable: false
+                },
+                {
+                    text: "Категория",
+                    value: "",
+                    align: "center",
+                    sortable: false
+                },
+                {
+                    text: "Действия",
+                    value: "action",
+                    align: "center",
+                    sortable: false,
+                    width: "160px"
+                }
+            ]
+        };
+    },
+    mounted() {
+        this.loadAuthors();
+        this.loadCategories();
+        this.loadQuotes();
+    },
+    methods: {
+        loadQuotes() {
+            this.loadingQuotes = true;
+            axios
+                .get("/api/quotes")
+                .then(res => {
+                    this.loadingQuotes = false;
+                    this.quotes = res.data;
                 })
-            }
+                .catch(err => {
+                    this.loadingPhotos = false;
+                    console.log(err);
+                });
+        },
+        loadAuthors() {
+            axios
+                .get("/api/authors")
+                .then(res => (this.authors = res.data))
+                .catch(e => console.log(e));
+        },
+        loadCategories() {
+            axios
+                .get("/api/categories")
+                .then(res => (this.categories = res.data))
+                .catch(e => console.log(e));
+        },
+        addQuote(e) {
+            e.preventDefault();
+
+            const validForm = this.$refs.createForm.validate();
+
+            if (!validForm) return;
+
+            axios
+                .post("/api/quotes/", this.newQuote)
+                .then(res => {
+                    this.dialogAdd = false;
+                    this.loadQuotes();
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        },
+        updateQuote() {
+            axios
+                .put("/api/quotes/" + this.quoteToUpdate.id, {
+                    body: this.quoteToUpdate.body,
+                    author_id: this.quoteToUpdate.author_id
+                })
+                .then(res => {
+                    this.quoteToUpdate = false;
+                    this.loadQuotes();
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        },
+        deleteQuote() {
+            axios
+                .delete("/api/quotes/" + this.quoteToDelete.id)
+                .then(res => {
+                    this.loadQuotes();
+                    this.quoteToDelete = false;
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        }
+    },
+    computed: {
+        filteredQuotes() {
+            return this.quotes.filter(quote => {
+                return quote.body
+                    .toLowerCase()
+                    .includes(this.search.toLowerCase());
+            });
+        },
+        requiredField() {
+            return [
+                v => {
+                    if (Array.isArray(v) && v.length == 0) {
+                        return "Обязательное поле";
+                    }
+
+                    if (!v) {
+                        return "Обязательное поле";
+                    }
+
+                    return true;
+                }
+            ];
         }
     }
+};
 </script>

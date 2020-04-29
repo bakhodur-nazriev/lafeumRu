@@ -6,7 +6,7 @@
             <v-flex xs12 sm8 md4>
                 <v-layout justify-center class="mb-5">
                     <v-flex xs8>
-                        {{-- < :rules="nameRules" v-img :src="'/img/lafeum.png'" /> --}}
+                        {{-- < :rules="nameRules" v-img :src="" /> --}}
                     </v-flex>
                 </v-layout>
                 <v-card height="100%">

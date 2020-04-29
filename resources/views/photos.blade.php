@@ -14,7 +14,7 @@
             @foreach($photos as $photo)
                 <div class="col-md-4">
                     <a href="{{ $photo->image }}" data-fancybox="gallery" class="pa-2">
-                        <img src="{{ $photo->image }}" class="card-img-top single-image" alt="">
+                        <img src="{{ $photo->path }}" class="card-img-top single-image" alt="">
                     </a>
                 </div>
             @endforeach

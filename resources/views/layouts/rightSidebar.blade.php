@@ -46,7 +46,7 @@
                 <div class="form-group row mb-0">
                     <div class="col-md-12">
                         <button type="submit" class="btn" style="background-color: #04718c; color: white; width: 100%;">
-                            {{ __('Login') }}
+                            {{ __('Вход') }}
                         </button>
                     </div>
                 </div>
@@ -54,6 +54,13 @@
         @endguest
         @auth
             <ul class="list-group" style="width: 300px;">
+                <div class="mb-0 form-group row">
+                    <div class="p-0 col-md-12">
+                        <h3 class="text-center"></h3>
+                        <img src="" class="rounded float-left" alt="...">
+                    </div>
+                </div>
+
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <a href="#" class="text-decoration-none">Цитаты</a>
                     <span class="badge background-primary badge-pill">{{ $countOfFavoritesQuotes }}</span>

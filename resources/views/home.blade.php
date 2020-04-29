@@ -47,7 +47,7 @@
                 <div id="carouselExampleControls" class="carousel slide my-2 d-inline-block col-md-4">
                     <div class="carousel-inner main-page-carousel-inner">
                         <div class="carousel-item active">
-                            <img src="{{ $photo->image }}" class="d-inline-block" alt="{{ $photo->description }}">
+                            <img src="{{ $photo->path }}" class="d-inline-block" alt="{{ $photo->description }}">
                         </div>
                     </div>
                 </div>
@@ -77,7 +77,7 @@
                 </div>
             </div>
             <div class="col text-center text-uppercase">
-                <div class="px-4 py-3" style="background-color: #04718c; color: white">медикомента</div>
+                <div class="px-4 py-3" style="background-color: #04718c; color: white">медиаконтент</div>
                 <div class="px-4 py-3" style="background-color: #e0e0e0; font-size: 24px; font-weight: bold;">25000
                 </div>
             </div>

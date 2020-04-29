@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Quote;
 use App\Author;
+use App\User;
 use ChristianKuri\LaravelFavorite\Models\Favorite;
 use http\Env\Response;
 use Illuminate\Http\Request;
@@ -18,6 +19,10 @@ class QuotesController extends Controller
         $countOfFavoritesTerms = Favorite::where('favoriteable_type', 'App\Term')->count();
         $countOfFavoritesVideos = Favorite::where('favoriteable_type', 'App\Video')->count();
 
+
+        return User::with('roles')->first();
+//        return view('/home', compact('user'));
+
         $quotes = Quote::with('author', 'categories')->paginate(10);
         $categories = Category::where('type', Quote::class)->get()->toTree()->unique('name');
         return view('/quotes', compact([
@@ -28,7 +33,6 @@ class QuotesController extends Controller
                 'countOfFavoritesTerms'
             ])
         );
-
     }
 
     public function get(Request $request)

@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Auth;
 
 class TermsController extends Controller
 {
+    public function __construct() {
+        $this->authorizeResource(Term::class);
+    }
+
     public function index()
     {
         $countOfFavoritesQuotes = Favorite::where('favoriteable_type', 'App\Quote')->count();

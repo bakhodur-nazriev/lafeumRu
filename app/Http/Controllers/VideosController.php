@@ -9,6 +9,10 @@ use App\Video;
 
 class VideosController extends Controller
 {
+    public function __construct() {
+        $this->authorizeResource(Video::class);
+    }
+
     public function index()
     {
         $countOfFavoritesQuotes = Favorite::where('favoriteable_type', 'App\Quote')->count();

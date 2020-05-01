@@ -9,6 +9,10 @@ class PhotosController extends Controller
 {
     const PHOTOS_PATH = "/photos/";
 
+    public function __construct() {
+        $this->authorizeResource(Photo::class);
+    }
+
     public function index()
     {
         $photos = Photo::paginate(15);

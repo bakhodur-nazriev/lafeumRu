@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Auth;
 
 class QuotesController extends Controller
 {
+    public function __construct() {
+        $this->authorizeResource(Quote::class);
+    }
+
     public function index()
     {
         $countOfFavoritesQuotes = Favorite::where('favoriteable_type', 'App\Quote')->count();

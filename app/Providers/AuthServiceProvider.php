@@ -2,7 +2,12 @@
 
 namespace App\Providers;
 
+use App\Author;
+use App\Category;
+use App\Channel;
+use App\Knowledge;
 use App\Photo;
+use App\Policies\CategoriesPolicy;
 use App\Policies\PostsPolicy;
 use App\Quote;
 use App\Term;
@@ -26,6 +31,10 @@ class AuthServiceProvider extends ServiceProvider
         Video::class => PostsPolicy::class,
         Photo::class => PostsPolicy::class,
         
+        Category::class => CategoriesPolicy::class,
+        Author::class => CategoriesPolicy::class,
+        Knowledge::class => CategoriesPolicy::class,
+        Channel::class => CategoriesPolicy::class
     ];
 
     /**

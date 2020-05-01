@@ -11,6 +11,10 @@ class AuthorsController extends Controller
 {
     const AUTHORS_PHOTOS_PATH = "/authors/";
 
+    public function __construct() {
+        $this->authorizeResource(Author::class);
+    }
+
     public function index()
     {
         $authors = Author::all();

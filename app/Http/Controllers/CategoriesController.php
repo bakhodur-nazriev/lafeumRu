@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 class CategoriesController extends Controller
 {
 
+    public function __construct() {
+        $this->authorizeResource(Category::class);
+    }
+
     public function get(Request $request)
     {
         $categoriesQuery = Category::query();

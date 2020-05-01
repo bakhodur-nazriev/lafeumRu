@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 
 class ChannelsController extends Controller
 {
+    public function __construct() {
+        $this->authorizeResource(Channel::class);
+    }
+
     public function index()
     {
         $channels = Channel::all();

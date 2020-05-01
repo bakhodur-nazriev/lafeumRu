@@ -10,6 +10,10 @@ use Illuminate\Http\Request;
 
 class KnowledgesController extends Controller
 {
+    public function __construct() {
+        $this->authorizeResource(Knowledge::class, 'knowledge');
+    }
+
     public function index()
     {
         $knowledgeAreas = Knowledge::latest()->get();

@@ -31,19 +31,18 @@ class PhotosController extends Controller
         return $newPhoto;
     }
 
-    public function update(Request $request, $id)
+    public function update(Photo $photo, Request $request)
     {
-        $image = Photo::find($id);
         $newPhotoData = $request->only(["description"]);
         if ($request->hasFile("image")) {
             $newPhotoData["image"] = $this->saveImage(time(), $request->image, self::PHOTOS_PATH);
         }
-        $image->update($newPhotoData);
-        return $image;
+        $photo->update($newPhotoData);
+        return $photo;
     }
 
-    public function delete($id)
+    public function destroy(Photo $photo)
     {
-        return Photo::destroy($id);
+        $photo->delete();
     }
 }

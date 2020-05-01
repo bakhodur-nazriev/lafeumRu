@@ -38,13 +38,12 @@ class UsersController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(User $user, Request $request)
     {
         if (Gate::denies("delete-users")) {
             return redirect(route("admin.users.index"));
         }
 
-        $user = User::find($id);
         $newUserData = $request->only(["name", "email", "password"]);
 
         $user->name = $request->name;
@@ -59,7 +58,7 @@ class UsersController extends Controller
         return $user;
     }
 
-    public function delete(User $user)
+    public function destroy(User $user)
     {
         $user->roles()->detach();
         $user->delete();

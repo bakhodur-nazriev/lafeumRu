@@ -56,17 +56,15 @@ class CategoriesController extends Controller
         return $newCategory;
     }
 
-    public function update($id, Request $request)
+    public function update(Category $category, Request $request)
     {
-        $categoryToUpdate = Category::find($id);
+        $category->update($request->all());
 
-        $categoryToUpdate->update($request->all());
-
-        return $categoryToUpdate;
+        return $category;
     }
 
-    public function delete($id)
+    public function destroy(Category $category)
     {
-        Category::where('id', $id)->delete();
+        $category->delete();
     }
 }

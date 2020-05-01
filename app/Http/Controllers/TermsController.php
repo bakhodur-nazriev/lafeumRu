@@ -69,17 +69,15 @@ class TermsController extends Controller
         return $newTerm->load(['categories', 'knowledge']);
     }
 
-    public function update(Request $request, $id)
+    public function update(Term $term, Request $request)
     {
-        $term = Term::find($id);
         $term->update($request->all());
-        $term->save();
-        return response()->json($term);
+
+        return $term;
     }
 
-    public function delete($id)
+    public function destroy(Term $term)
     {
-        Term::destroy($id);
-        return response()->json("ok");
+        $term->delete();
     }
 }

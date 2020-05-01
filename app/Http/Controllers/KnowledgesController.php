@@ -44,17 +44,15 @@ class KnowledgesController extends Controller
         return Knowledge::create($request->all());
     }
 
-    public function update(Request $request, $id)
+    public function update(Knowledge $knowledge, Request $request)
     {
-        $knowledge = Knowledge::find($id);
         $knowledge->update($request->all());
-        $knowledge->save();
-        return response()->json($knowledge);
+        
+        return $knowledge;
     }
 
-    public function delete($id)
+    public function destroy(Knowledge $knowledge)
     {
-        Knowledge::destroy($id);
-        return response()->json("ok");
+        $knowledge->delete();
     }
 }

@@ -56,17 +56,15 @@ class QuotesController extends Controller
         return $newQuote->load('author', 'categories');
     }
 
-    public function update(Request $request, $id)
+    public function update(Quote $quote, Request $request)
     {
-        $quote = Quote::find($id);
         $quote->update($request->all());
-        $quote->save();
-        return response()->json($quote);
+
+        return $quote;
     }
 
-    public function delete($id)
+    public function destroy(Quote $quote)
     {
-        Quote::destroy($id);
-        return response()->json("ok");
+        $quote->delete();
     }
 }

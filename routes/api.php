@@ -6,61 +6,59 @@ Route::group(['middleware' => 'auth:api'], function (){
 
     /* Users */
     Route::get("/users", "UsersController@index");
-    Route::post("/users/{id}", "UsersController@update");
-    Route::put("/users/{id}", "UsersController@update");
-    Route::delete("/users/{id}", "UsersController@delete");
+    Route::put("/users/{user}", "UsersController@update");
+    Route::delete("/users/{user}", "UsersController@destroy");
     
     /* Categories */
     Route::get("/categories", "CategoriesController@get");
     Route::put("/categories", "CategoriesController@updateTree");
     Route::post("/categories", "CategoriesController@store");
-    Route::put("/categories/{id}", "CategoriesController@update");
-    Route::delete("/categories/{id}", "CategoriesController@delete");
+    Route::put("/categories/{category}", "CategoriesController@update");
+    Route::delete("/categories/{category}", "CategoriesController@destroy");
     
     /* Quotes */
     Route::get("/quotes", "QuotesController@get");
     Route::post("/quotes", "QuotesController@store");
-    Route::put("/quotes/{id}", "QuotesController@update");
-    Route::delete("/quotes/{id}", "QuotesController@delete");
+    Route::put("/quotes/{quote}", "QuotesController@update");
+    Route::delete("/quotes/{quote}", "QuotesController@destroy");
     
     /* Authors */
     Route::get("/authors", "AuthorsController@get");
     Route::post("/authors", "AuthorsController@store");
-    Route::put("/authors/{id}", "AuthorsController@update");
-    Route::delete("/authors/{id}", "AuthorsController@delete");
+    Route::put("/authors/{author}", "AuthorsController@update");
+    Route::delete("/authors/{author}", "AuthorsController@destroy");
     
     /* Photos */
     Route::get("/photos", "PhotosController@get");
     Route::post("/photos", "PhotosController@store");
-    Route::put("/photos/{id}", "PhotosController@update");
-    Route::delete("/photos/{id}", "PhotosController@delete");
+    Route::put("/photos/{photo}", "PhotosController@update");
+    Route::delete("/photos/{photo}", "PhotosController@destroy");
     
     /* Terms */
     Route::get("/terms", "TermsController@get");
     Route::post("/terms", "TermsController@store");
-    Route::put("/terms/{id}", "TermsController@update");
-    Route::delete("/terms/{id}", "TermsController@delete");
+    Route::put("/terms/{term}", "TermsController@update");
+    Route::delete("/terms/{term}", "TermsController@destroy");
     
     /* Knowledge Areas */
     Route::get("/knowledge-areas", "KnowledgesController@get");
     Route::post("/knowledge-areas", "KnowledgesController@store");
-    Route::put("/knowledge-areas/{id}", "KnowledgesController@update");
-    Route::delete("/knowledge-areas/{id}", "KnowledgesController@delete");
+    Route::put("/knowledge-areas/{knowledge}", "KnowledgesController@update");
+    Route::delete("/knowledge-areas/{knowledge}", "KnowledgesController@destroy");
     
     /* Videos */
     Route::get("/videos", "VideosController@get");
     Route::post("/videos", "VideosController@store");
-    Route::put("/videos/{id}", "VideosController@update");
-    Route::delete("/videos/{id}", "VideosController@delete");
+    Route::put("/videos/{video}", "VideosController@update");
+    Route::delete("/videos/{video}", "VideosController@destroy");
     
     /* Channels */
     Route::get("/channels", "ChannelsController@get");
     Route::post("/channels", "ChannelsController@store");
-    Route::put("/channels/{id}", "ChannelsController@update");
-    Route::delete("/channels/{id}", "ChannelsController@delete");
+    Route::put("/channels/{channel}", "ChannelsController@update");
+    Route::delete("/channels/{channel}", "ChannelsController@destroy");
     
     /* Favourites */
     Route::get("/favourites", "FavoriteController@index");
-    Route::delete("/favourites/{id}", "FavoriteController@delete");
 
 });

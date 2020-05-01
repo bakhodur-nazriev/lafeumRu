@@ -43,17 +43,15 @@ class ChannelsController extends Controller
         return Channel::create($request->all());
     }
 
-    public function update(Request $request, $id)
+    public function update(Channel $channel,  Request $request)
     {
-        $channel = Channel::find($id);
         $channel->update($request->all());
-        $channel->save();
-        return response()->json($channel);
+        
+        return $channel;
     }
 
-    public function delete($id)
+    public function destroy(Channel $channel)
     {
-        Channel::destroy($id);
-        return response()->json('ok');
+        $channel->delete();
     }
 }

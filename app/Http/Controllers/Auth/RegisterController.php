@@ -69,11 +69,9 @@ class RegisterController extends Controller
             "name" => $data["name"],
             "email" => $data["email"],
             "password" => Hash::make($data["password"]),
-            "api_token" => Str::random(80)
+            "role_id"  => Role::where('name', Role::MEMBER_ROLE_NAME)->first()->id
         ]);
-
-        $role = Role::select("id")->where("name", "member")->first();
-        $user->roles()->attach($role);
+        
         return $user;
     }
 }

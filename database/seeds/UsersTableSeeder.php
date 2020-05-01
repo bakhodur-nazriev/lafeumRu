@@ -16,32 +16,31 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         User::truncate();
-        DB::table("role_user")->truncate();
 
-        $adminRole = Role::where("name", "admin")->first();
-        $authorRole = Role::where("name", "author")->first();
-        $memberRole = Role::where("name", "member")->first();
+        $adminRoleId = Role::where("name", Role::ADMIN_ROLE_NAME)->first()->id;
+        $authorRoleId = Role::where("name", Role::AUTHOR_ROLE_NAME)->first()->id;
+        $memberRoleId = Role::where("name", Role::MEMBER_ROLE_NAME)->first()->id;
 
-        $admin = User::create([
+        User::create([
             "name" => "Admin",
             "email" => "admin@gmail.com",
-            "password" => Hash::make("pass")
+            "password" => Hash::make("pass"),
+            "role_id" => $adminRoleId
         ]);
 
-        $author = User::create([
-            "name" => "author",
+        User::create([
+            "name" => "Author",
             "email" => "author@gmail.com",
-            "password" => Hash::make("pass")
+            "password" => Hash::make("pass"),
+            "role_id" => $authorRoleId
         ]);
 
-        $member = User::create([
+        User::create([
             "name" => "Member",
             "email" => "member@gmail.com",
-            "password" => Hash::make("pass")
+            "password" => Hash::make("pass"),
+            "role_id" => $memberRoleId
         ]);
-
-        $admin->roles()->attach($adminRole);
-        $author->roles()->attach($authorRole);
-        $member->roles()->attach($memberRole);
+        
     }
 }

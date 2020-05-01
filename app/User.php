@@ -48,24 +48,18 @@ class User extends Authenticatable
         "email_verified_at" => "datetime",
     ];
 
-    public function roles()
+    public function role()
     {
-        return $this->belongsToMany("App\Role");
+        return $this->belongsTo("App\Role");
     }
 
     public function hasAnyRoles($roles)
     {
-        if ($this->roles()->whereIn("name", $roles)->first()) {
-            return true;
-        }
-        return false;
+        return in_array($this->role->name, $roles);
     }
 
     public function hasRole($role)
     {
-        if ($this->roles()->where("name", $role)->first()) {
-            return true;
-        }
-        return false;
+        return $this->role->name === $role;
     }
 }

@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Category;
 use App\Video;
+use ChristianKuri\LaravelFavorite\Models\Favorite;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Passport\Passport;
@@ -27,7 +28,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
         /* View Categories */
         View::composer('layouts.categories', function ($view) {
             $categoryType = $view->getData();
@@ -46,7 +46,17 @@ class AppServiceProvider extends ServiceProvider
 
         /* Right Sidebar View */
         View::composer('layouts.rightSidebar', function ($view) {
+            $quoteCount = Favorite::where('favoriteable_type', 'App\Quote')->count();
+            $termCount = Favorite::where('favoriteable_type', 'App\Term')->count();
+            $videoCount = Favorite::where('favoriteable_type', 'App\Video')->count();
 
+            $favouriteCount = [
+                'quote' => $quoteCount,
+                'term' => $termCount,
+                'video' => $videoCount
+            ];
+
+            $view->with('favouriteCount', $favouriteCount);
         });
     }
 }

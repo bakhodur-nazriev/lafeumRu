@@ -24,7 +24,7 @@
                             ></i>
                         </div>
                     </div>
-                    <p>{!! $term->body !!}</p>
+                    <div class="mb-1">{!! $term->body !!}</div>
                     <div class="tags-block">
                         @foreach($term->categories as $category)
                             <a href="#">

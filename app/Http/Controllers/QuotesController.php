@@ -19,20 +19,9 @@ class QuotesController extends Controller
 
     public function index()
     {
-        $countOfFavoritesQuotes = Favorite::where('favoriteable_type', 'App\Quote')->count();
-        $countOfFavoritesTerms = Favorite::where('favoriteable_type', 'App\Term')->count();
-        $countOfFavoritesVideos = Favorite::where('favoriteable_type', 'App\Video')->count();
-
         $quotes = Quote::with('author', 'categories')->paginate(10);
         $categories = Category::where('type', Quote::class)->get()->toTree()->unique('name');
-        return view('/quotes', compact([
-                'quotes',
-                'categories',
-                'countOfFavoritesQuotes',
-                'countOfFavoritesVideos',
-                'countOfFavoritesTerms'
-            ])
-        );
+        return view('/quotes', compact(['quotes', 'categories',]));
     }
 
     public function get(Request $request)

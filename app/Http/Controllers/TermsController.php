@@ -16,20 +16,9 @@ class TermsController extends Controller
 
     public function index()
     {
-        $countOfFavoritesQuotes = Favorite::where('favoriteable_type', 'App\Quote')->count();
-        $countOfFavoritesTerms = Favorite::where('favoriteable_type', 'App\Term')->count();
-        $countOfFavoritesVideos = Favorite::where('favoriteable_type', 'App\Video')->count();
-
         $terms = Term::with('categories')->latest()->paginate(15);
         $categories = Category::where('type', Term::class)->get()->toTree()->unique('name');
-        return view('/terms', compact([
-                'terms',
-                'categories',
-                'countOfFavoritesQuotes',
-                'countOfFavoritesTerms',
-                'countOfFavoritesVideos'
-            ])
-        );
+        return view('/terms', compact(['terms', 'categories',]));
     }
 
     public function show(Term $term)
@@ -47,7 +36,7 @@ class TermsController extends Controller
     public function showVocabulary($id)
     {
         $vocabulary = Term::with('categories')->where('id', $id)->first();
-        return view("shows.showVocabulary", compact("vocabulary"));
+        return view("shows.showVocabulary", compact(['vocabulary']));
     }
 
     public function get(Request $request)

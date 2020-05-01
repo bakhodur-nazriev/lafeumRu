@@ -284,6 +284,7 @@ body {
 .tags-block {
     display: flex;
     justify-content: start;
+    flex-wrap: wrap;
 }
 
 .tags-block a {
@@ -418,6 +419,18 @@ body {
     padding: 15px;
 }
 
+.right-sidebar-image-block {
+    display: flex;
+    justify-content: center;
+}
+
+.right-sidebar-image {
+    max-width: 60px;
+    padding: 2px;
+    background-color: #b9bbbe;
+    border-radius: 50%;
+}
+
 @media (min-width: 768px) {
     .main-navbar {
         flex-direction: row-reverse;
@@ -440,17 +453,16 @@ body {
     }
 }
 
-@media (min-width: 992px) {
-}
-
 @media (min-width: 1200px) {
     .right-block-sidebar {
-        margin-top: 100px;
         width: 300px;
+        position: relative;
+        top: 122px;
     }
+}
 
+@media (min-width: 1392px) {
     .right-block-sidebar {
-        margin-top: 100px;
-        width: 280px;
+        top: 100px;
     }
 }

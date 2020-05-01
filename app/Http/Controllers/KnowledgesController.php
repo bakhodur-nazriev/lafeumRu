@@ -22,20 +22,9 @@ class KnowledgesController extends Controller
 
     public function show($slug)
     {
-        $countOfFavoritesQuotes = Favorite::where('favoriteable_type', 'App\Quote')->count();
-        $countOfFavoritesTerms = Favorite::where('favoriteable_type', 'App\Term')->count();
-        $countOfFavoritesVideos = Favorite::where('favoriteable_type', 'App\Video')->count();
-
         $knowledgeAreas = Knowledge::all();
         $currentKnowledgeArea = Knowledge::with('terms')->where('slug', $slug)->first();
-        return view('shows.showKnowledge', compact([
-                'currentKnowledgeArea',
-                'knowledgeAreas',
-                'countOfFavoritesQuotes',
-                'countOfFavoritesVideos',
-                'countOfFavoritesTerms'
-            ])
-        );
+        return view('shows.showKnowledge', compact(['currentKnowledgeArea', 'knowledgeAreas',]));
     }
 
     public function get()

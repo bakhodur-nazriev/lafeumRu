@@ -12,14 +12,17 @@ import KnowledgeAreas from "./views/KnowledgeAreas";
 import Vocabulary from "./components/admin/Vocabulary";
 import Settings from "./components/admin/Settings";
 import Chat from "./components/admin/Chat";*/
-require('../js/constants');
 
-export const sidebarRoutes = [
+import role from "./role";
+require("../js/constants");
+
+let allSidebarRoutes = [
     /* Posts Section */
     {
         meta: {
             icon: "mdi-plus",
-            title: "Все записи"
+            title: "Все записи",
+            authorize: [role.author]
         },
         path: "",
         subLinks: [
@@ -31,15 +34,6 @@ export const sidebarRoutes = [
                     title: "Цитаты"
                 },
                 component: QuotesPage
-            },
-            {
-                meta: {
-                    icon: "mdi-person",
-                    title: "Авторы"
-                },
-                path: "/dashboard/authors",
-                name: "/dashboard/authors",
-                component: AuthorsPage
             },
             {
                 meta: {
@@ -70,12 +64,12 @@ export const sidebarRoutes = [
             }
         ]
     },
-
     /* CategoriesPage Section */
     {
         meta: {
             icon: "mdi-format-list-bulleted",
-            title: "Категории"
+            title: "Категории",
+            authorize: [role.author]
         },
         path: "",
         subLinks: [
@@ -116,8 +110,19 @@ export const sidebarRoutes = [
     },
     {
         meta: {
+            icon: "mdi-account",
+            title: "Авторы",
+            authorize: [role.author]
+        },
+        path: "/dashboard/authors",
+        name: "/dashboard/authors",
+        component: AuthorsPage
+    },
+    {
+        meta: {
             icon: "mdi-account-group",
-            title: "Все пользователи"
+            title: "Все пользователи",
+            authorize: [role.admin]
         },
         path: "/dashboard/users",
         name: "/dashboard/users",
@@ -126,7 +131,8 @@ export const sidebarRoutes = [
     {
         meta: {
             icon: "mdi-account",
-            title: "Профиль"
+            title: "Профиль",
+            authorize: [role.author, role.member]
         },
         path: "/dashboard/profile",
         name: "/dashboard/profile",
@@ -135,7 +141,8 @@ export const sidebarRoutes = [
     {
         meta: {
             icon: "mdi-star",
-            title: "Избранный"
+            title: "Избранный",
+            authorize: [role.author, role.member]
         },
         path: "/dashboard/favorite",
         name: "/dashboard/favorite",
@@ -160,7 +167,24 @@ export const sidebarRoutes = [
     }*/
 ];
 
-function flatSideBarRoutes() {
+function getAuthorizedRoutes(routes) {
+    if (!Laravel.auth) {
+        return [];
+    }
+
+    let currentRole = Laravel.auth.role_id;
+
+    //Admin has access to all routes
+    if (currentRole === role.admin) {
+        return routes;
+    }
+
+    return routes.filter(r => r.meta.authorize.includes(currentRole));
+}
+
+export const sidebarRoutes = getAuthorizedRoutes(allSidebarRoutes);
+
+function getAppRoutes() {
     let appRoutes = [];
 
     for (const route of sidebarRoutes) {
@@ -177,4 +201,4 @@ function flatSideBarRoutes() {
     return appRoutes;
 }
 
-export default flatSideBarRoutes();
+export default getAppRoutes();

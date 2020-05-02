@@ -23,10 +23,6 @@ class QuotesController extends Controller
         $countOfFavoritesTerms = Favorite::where('favoriteable_type', 'App\Term')->count();
         $countOfFavoritesVideos = Favorite::where('favoriteable_type', 'App\Video')->count();
 
-
-        return User::with('roles')->first();
-//        return view('/home', compact('user'));
-
         $quotes = Quote::with('author', 'categories')->paginate(10);
         $categories = Category::where('type', Quote::class)->get()->toTree()->unique('name');
         return view('/quotes', compact([

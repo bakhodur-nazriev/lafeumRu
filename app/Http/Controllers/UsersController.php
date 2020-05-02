@@ -7,7 +7,6 @@ use App\User;
 use Gate;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
@@ -18,51 +17,41 @@ class UsersController extends Controller
     public function __construct()
     {
         $this->middleware("auth");
+        $this->authorizeResource(User::class);
     }
 
     public function index()
     {
-        $users = User::with("roles")->first();
-        return view("auth.dashboard", compact("users"), ["user" => Auth::user()]);
+        return User::with("role")->get();
     }
 
-    public function edit(User $user)
+    public function show(User $user)
     {
-        if (Gate::denies("edit-users")) {
-            return redirect(route("auth.dashboard"));
-        }
-        $roles = Role::all();
-        return view("admin.users.edit")->with([
-            "user" => $user,
-            "roles" => $roles
-        ]);
-    }
-
-    public function update(Request $request, $id)
-    {
-        if (Gate::denies("delete-users")) {
-            return redirect(route("admin.users.index"));
-        }
-
-        $user = User::find($id);
-        $newUserData = $request->only(["name", "email", "password"]);
-
-        $user->name = $request->name;
-        $user->email = $request->email;
-
-        if ($request->hasFile("avatar")) {
-            $newUserData['avatar'] = $this->saveImage(time(), $request->avatar, self::USERS_AVATARS_PATH);
-        }
-        $user->update($newUserData);
-
-        $user->roles()->sync($request->roles);
         return $user;
     }
 
-    public function delete(User $user)
+    public function update(User $user, Request $request)
     {
-        $user->roles()->detach();
+        $updatedUserData = $request->only(["name", "email", "password"]);
+
+        if ($request->hasFile("avatar")) {
+            $updatedUserData['avatar'] = $this->saveImage(time(), $request->avatar, self::USERS_AVATARS_PATH);
+        }
+
+        $user->update($updatedUserData);
+
+        $authIsAdmin = auth()->user()->hasRole(Role::ADMIN_ROLE_NAME);
+
+        if($authIsAdmin && $request->role_id){
+            $user->role_id = $request->role_id;
+            $user->save();
+        }
+
+        return $user;
+    }
+
+    public function destroy(User $user)
+    {
         $user->delete();
-        return redirect()->route("admin.users.index");
     }
 }

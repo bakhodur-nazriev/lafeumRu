@@ -11,6 +11,10 @@ class AuthorsController extends Controller
 {
     const AUTHORS_PHOTOS_PATH = "/authors/";
 
+    public function __construct() {
+        $this->authorizeResource(Author::class);
+    }
+
     public function index()
     {
         $authors = Author::all();
@@ -63,9 +67,8 @@ class AuthorsController extends Controller
         return Author::create($newPhotoData);
     }
 
-    public function update($id, Request $request)
+    public function update(Author $author, Request $request)
     {
-        $author = Author::find($id);
         $newPhotoData = $request->only(["name", "biography"]);
         if ($request->hasFile("photo")) {
             $newPhotoData["photo"] = $this->saveImage(time(), $request->photo, self::AUTHORS_PHOTOS_PATH);
@@ -74,9 +77,8 @@ class AuthorsController extends Controller
         return $author;
     }
 
-    public function delete($id)
+    public function destroy(Author $author)
     {
-        Author::destroy($id);
-        return response()->json("ok");
+        $author->delete();
     }
 }

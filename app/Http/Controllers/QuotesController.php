@@ -13,15 +13,15 @@ use Illuminate\Support\Facades\Auth;
 
 class QuotesController extends Controller
 {
+    public function __construct() {
+        $this->authorizeResource(Quote::class);
+    }
+
     public function index()
     {
         $countOfFavoritesQuotes = Favorite::where('favoriteable_type', 'App\Quote')->count();
         $countOfFavoritesTerms = Favorite::where('favoriteable_type', 'App\Term')->count();
         $countOfFavoritesVideos = Favorite::where('favoriteable_type', 'App\Video')->count();
-
-
-        return User::with('roles')->first();
-//        return view('/home', compact('user'));
 
         $quotes = Quote::with('author', 'categories')->paginate(10);
         $categories = Category::where('type', Quote::class)->get()->toTree()->unique('name');
@@ -56,17 +56,15 @@ class QuotesController extends Controller
         return $newQuote->load('author', 'categories');
     }
 
-    public function update(Request $request, $id)
+    public function update(Quote $quote, Request $request)
     {
-        $quote = Quote::find($id);
         $quote->update($request->all());
-        $quote->save();
-        return response()->json($quote);
+
+        return $quote;
     }
 
-    public function delete($id)
+    public function destroy(Quote $quote)
     {
-        Quote::destroy($id);
-        return response()->json("ok");
+        $quote->delete();
     }
 }

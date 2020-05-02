@@ -4,8 +4,8 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get("/dashboard{any}", "UsersController@index")->where("any", ".*");
-Route::get("/dashboard", "UsersController@index")->name("dashboard");
+Route::get("/dashboard{any}", "AppController@dashboard")->where("any", ".*")->middleware("auth")->name("dashboard");
+Route::get("/dashboard", "AppController@dashboard")->middleware("auth")->name("dashboard");
 
 Route::get("/", "AppController@index")->name("home");
 

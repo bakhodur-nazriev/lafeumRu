@@ -9,6 +9,10 @@ use App\Video;
 
 class VideosController extends Controller
 {
+    public function __construct() {
+        $this->authorizeResource(Video::class);
+    }
+
     public function index()
     {
         $countOfFavoritesQuotes = Favorite::where('favoriteable_type', 'App\Quote')->count();
@@ -47,17 +51,15 @@ class VideosController extends Controller
         return $newVideo->load(['channel', 'categories']);
     }
 
-    public function update(Request $request, $id)
+    public function update(Video $video, Request $request)
     {
-        $video = Video::find($id);
         $video->update($request->all());
-        $video->save();
-        return response()->json("success");
+
+        return $video;
     }
 
-    public function delete($id)
+    public function destroy(Video $video)
     {
-        Video::destroy($id);
-        return response()->json("ok");
+        $video->delete();
     }
 }

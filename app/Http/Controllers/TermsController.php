@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Auth;
 
 class TermsController extends Controller
 {
+    public function __construct() {
+        $this->authorizeResource(Term::class);
+    }
+
     public function index()
     {
         $countOfFavoritesQuotes = Favorite::where('favoriteable_type', 'App\Quote')->count();
@@ -69,17 +73,15 @@ class TermsController extends Controller
         return $newTerm->load(['categories', 'knowledge']);
     }
 
-    public function update(Request $request, $id)
+    public function update(Term $term, Request $request)
     {
-        $term = Term::find($id);
         $term->update($request->all());
-        $term->save();
-        return response()->json($term);
+
+        return $term;
     }
 
-    public function delete($id)
+    public function destroy(Term $term)
     {
-        Term::destroy($id);
-        return response()->json("ok");
+        $term->delete();
     }
 }

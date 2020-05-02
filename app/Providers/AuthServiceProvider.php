@@ -9,8 +9,10 @@ use App\Knowledge;
 use App\Photo;
 use App\Policies\CategoriesPolicy;
 use App\Policies\PostsPolicy;
+use App\Policies\UsersPolicy;
 use App\Quote;
 use App\Term;
+use App\User;
 use App\Video;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
@@ -25,7 +27,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         'App\Model' => 'App\Policies\ModelPolicy',
-        
+        User::class => UsersPolicy::class,
+
         Quote::class => PostsPolicy::class,
         Term::class => PostsPolicy::class,
         Video::class => PostsPolicy::class,
@@ -46,17 +49,5 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
         Passport::routes();
-
-        Gate::define("manage-users", function ($user) {
-            return $user->hasAnyRoles(["admin"]);
-        });
-
-        Gate::define("edit-users", function ($user) {
-            return $user->hasAnyRoles(["admin"]);
-        });
-
-        Gate::define("delete-users", function ($user) {
-            return $user->hasRole(["admin"]);
-        });
     }
 }

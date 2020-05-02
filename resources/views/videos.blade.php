@@ -3,11 +3,11 @@
 @section('content')
     <div class="row card-main-block">
         @include('layouts.categories', ['type' => 'App\Video'])
-        <div class="col-md-6 col-xl-6">
-            <h3 class="secondary ml-3">Видео</h3>
-            <div class="row">
+        <div class="col-xl-9 d-flex">
+            <div class="col-md-8 p-0">
+                <h3 class="secondary ml-3">Видео</h3>
                 @foreach($videos as $video)
-                    <div class="col-md-6">
+                    <div class="col-md-5 px-2 d-inline-block">
                         <div class="card h-100">
                             <div class="col video-link-block">
                                 <p class="video-channel-link">
@@ -49,8 +49,6 @@
                         </div>
                     </div>
                 @endforeach
-            </div>
-            <div class="row">
                 <div class="col-12">
                     <nav aria-label="Page navigation example">
                         <div class="row d-flex justify-content-center mt-3">
@@ -59,8 +57,8 @@
                     </nav>
                 </div>
             </div>
+            @include('layouts.rightSidebar')
         </div>
-        @include('layouts.rightSidebar')
     </div>
 
     <script>

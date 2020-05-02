@@ -21,20 +21,9 @@ class ChannelsController extends Controller
 
     public function show($slug)
     {
-        $countOfFavoritesQuotes = Favorite::where('favoriteable_type', 'App\Quote')->count();
-        $countOfFavoritesTerms = Favorite::where('favoriteable_type', 'App\Term')->count();
-        $countOfFavoritesVideos = Favorite::where('favoriteable_type', 'App\Video')->count();
-
         $channel = Channel::with(['videos'])->where('slug', $slug)->first();
         $channels = Channel::all();
-        return view('shows.showChannel', compact([
-                'channel',
-                'channels',
-                'countOfFavoritesQuotes',
-                'countOfFavoritesVideos',
-                'countOfFavoritesTerms'
-            ])
-        );
+        return view('shows.showChannel', compact(['channel', 'channels',]));
     }
 
     public function get()

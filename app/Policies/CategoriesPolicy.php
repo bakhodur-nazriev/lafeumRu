@@ -51,7 +51,7 @@ class CategoriesPolicy extends GlobalPolicy
      */
     public function update(User $user)
     {
-        return $user->hasRole(Role::ADMIN_ROLE_NAME);
+        return $user->hasRole(Role::AUTHOR_ROLE_NAME);
     }
 
     /**

@@ -6,11 +6,7 @@ use App\Author;
 use App\Category;
 use App\Quote;
 use App\Term;
-use App\User;
-use App\Channel;
 use App\Photo;
-use ChristianKuri\LaravelFavorite\Models\Favorite;
-use Illuminate\Http\Request;
 
 class AppController extends Controller
 {
@@ -36,5 +32,10 @@ class AppController extends Controller
                 'countOfFavoritesTerms'
             ])
         );
+    }
+
+    public function dashboard()
+    {
+        return view('dashboard');
     }
 }

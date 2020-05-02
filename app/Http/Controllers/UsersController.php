@@ -7,7 +7,6 @@ use App\User;
 use Gate;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
@@ -18,14 +17,13 @@ class UsersController extends Controller
     public function __construct()
     {
         $this->middleware("auth");
+        $this->authorizeResource(User::class);
     }
 
     public function index()
     {
-        $users = User::with("role")->first();
-        return view("auth.dashboard", compact("users"), ["user" => Auth::user()]);
+        return User::with("role")->get();
     }
-
     public function edit(User $user)
     {
         if (Gate::denies("edit-users")) {
@@ -37,7 +35,7 @@ class UsersController extends Controller
             "roles" => $roles
         ]);
     }
-
+    
     public function update(User $user, Request $request)
     {
         if (Gate::denies("delete-users")) {

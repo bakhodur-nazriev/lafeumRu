@@ -1,4 +1,4 @@
-<div class="col-md-3 col-xl-3  d-flex justify-content-end">
+<div class="col-md-4 d-flex justify-content-center">
     <div class="right-block-sidebar">
         @guest
             <form style="width: 100%;" method="POST" action="{{ route('login') }}">
@@ -60,7 +60,7 @@
                 <div class="p-0 mb-3">
                     <span>Имя: {{ Auth::user()->name }}</span><br>
                     <span>Email: {{ Auth::user()->email }}</span><br>
-                    <span>Вы вошли как: {{ Auth::user()->roles[0]->role }}</span><br>
+                    <span>Вы вошли как: {{ Auth::user()->role->name }}</span><br>
                 </div>
 
                 <li class="list-group-item d-flex justify-content-between align-items-center">

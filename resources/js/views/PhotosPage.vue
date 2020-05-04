@@ -36,7 +36,10 @@
                             </div>
                         </template>
                         <template v-slot:item.description="{ item }">
-                            <div v-html="item.description" class="short-paragraph my-3 three-line-truncate"/>
+                            <div
+                                v-html="item.description"
+                                class="short-paragraph my-3 three-line-truncate"
+                            />
                         </template>
                         <template v-slot:item.action="{ item }">
                             <v-btn
@@ -46,7 +49,7 @@
                                 color="primary"
                                 elevation="2"
                                 outlined
-                                @click="photoToUpdate = {...item}"
+                                @click="photoToUpdate = { ...item }"
                             >
                                 <v-icon dark>mdi-pen</v-icon>
                             </v-btn>
@@ -59,7 +62,6 @@
                                 outlined
                                 @click="photoToDelete = item"
                             >
-
                                 <v-icon dark>
                                     mdi-delete
                                 </v-icon>
@@ -68,7 +70,11 @@
                     </v-data-table>
                 </v-col>
                 <v-col class="text-center pt-2">
-                    <v-pagination :total-visible="7" v-model="page" :length="pageCount"></v-pagination>
+                    <v-pagination
+                        :total-visible="7"
+                        v-model="page"
+                        :length="pageCount"
+                    ></v-pagination>
                 </v-col>
             </v-row>
         </v-container>
@@ -108,21 +114,22 @@
                             ></v-file-input>
                         </v-col>
                         <v-col cols="12">
-                            <tiptap-vuetify
+                            <v-textarea
                                 outlined
-                                required
                                 v-model="photoDescription"
-                                :extensions="extensions"
-                                placeholder="Добаить описания здесь"
-                            >
-                            </tiptap-vuetify>
+                                label="Добавить описание здесь"
+                            />
                         </v-col>
                     </v-row>
                 </v-container>
                 <v-card-actions>
-                    <v-spacer/>
-                    <v-btn dark color="green" @click="addPhoto()">Сохранить</v-btn>
-                    <v-btn dark color="error" @click="() => (dialogAdd = false)">Отмена</v-btn>
+                    <v-spacer />
+                    <v-btn dark color="green" @click="addPhoto()"
+                        >Сохранить</v-btn
+                    >
+                    <v-btn dark color="error" @click="() => (dialogAdd = false)"
+                        >Отмена</v-btn
+                    >
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -130,11 +137,18 @@
         <v-dialog v-if="photoToDelete" v-model="photoToDelete" width="500">
             <v-card class="pa-2">
                 <v-card-title class="pt-1 regular headline text-center"
-                >Вы действительно хотите удалить это термин ?
+                    >Вы действительно хотите удалить это термин ?
                 </v-card-title>
                 <v-card-actions class="justify-center">
-                    <v-btn color="green darken-1" dark @click="termToDelete = false">Нет</v-btn>
-                    <v-btn color="red darken-1" dark @click="deletePhoto()">Да</v-btn>
+                    <v-btn
+                        color="green darken-1"
+                        dark
+                        @click="termToDelete = false"
+                        >Нет</v-btn
+                    >
+                    <v-btn color="red darken-1" dark @click="deletePhoto()"
+                        >Да</v-btn
+                    >
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -142,185 +156,142 @@
         <v-dialog v-if="photoToUpdate" v-model="photoToUpdate" width="700px">
             <v-card>
                 <v-card-title class="primary white--text">
-                    Изменить описания фото
+                    Изменить описание фото
                 </v-card-title>
                 <v-container>
                     <v-row justify="center">
                         <v-col cols="12">
-                            <tiptap-vuetify
-                                name="photoDescription"
+                            <v-textarea
                                 outlined
-                                :extensions="extensions"
                                 v-model="photoToUpdate.description"
-                                placeholder="Изменить описания фото здесь"
-                            >
-                            </tiptap-vuetify>
+                                label="Изменить описание фото здесь"
+                            />
                         </v-col>
                     </v-row>
                 </v-container>
                 <v-card-actions>
-                    <v-spacer/>
-                    <v-btn dark color="green" @click="updatePhoto()">Сохранить</v-btn>
-                    <v-btn dark color="error" @click="photoToUpdate = false">Отмена</v-btn>
+                    <v-spacer />
+                    <v-btn dark color="green" @click="updatePhoto()"
+                        >Сохранить</v-btn
+                    >
+                    <v-btn dark color="error" @click="photoToUpdate = false"
+                        >Отмена</v-btn
+                    >
                 </v-card-actions>
             </v-card>
         </v-dialog>
     </v-content>
 </template>
 <script>
-    import {
-        TiptapVuetify,
-        Heading,
-        Bold,
-        Italic,
-        Strike,
-        Underline,
-        Paragraph,
-        BulletList,
-        OrderedList,
-        ListItem,
-        Link,
-        Blockquote,
-        HardBreak,
-        HorizontalRule,
-        History,
-        Image
-    } from 'tiptap-vuetify';
-
-    export default {
-        components: {TiptapVuetify},
-        data() {
-            return {
-                extensions: [
-                    History,
-                    Blockquote,
-                    Link,
-                    Underline,
-                    Strike,
-                    Italic,
-                    ListItem,
-                    BulletList,
-                    OrderedList,
-                    Image,
-                    [
-                        Heading,
-                        {
-                            options: {
-                                levels: [1, 2, 3]
-                            }
-                        }
-                    ],
-                    Bold,
-                    HorizontalRule,
-                    Paragraph,
-                    HardBreak
-                ],
-                dialogAdd: false,
-                dialogDelete: false,
-                dialogUpdate: false,
-                photoImage: [],
-                photoDescription: "",
-                bodyRules: [
-                    v => !!v || 'Заполните пустое поле',
-                ],
-                photos: [],
-                loadingPhotos: false,
-                search: "",
-                page: 1,
-                pageCount: 2,
-                itemsPerPage: 12,
-                photoToDelete: null,
-                photoToUpdate: null,
-                headers: [
-                    {
-                        text: "Фото",
-                        value: "image",
-                        sortable: false,
-                        class: "mine-table-headers",
-                        width: "150px",
-                        align: "center"
-                    },
-                    {
-                        text: "Описания",
-                        value: "description",
-                        sortable: false,
-                    },
-                    {
-                        text: "Действия",
-                        value: "action",
-                        align: "center",
-                        sortable: false,
-                        width: "160px"
-                    }
-                ]
-            };
-        },
-        mounted() {
-            this.loadPhotos();
-        },
-        methods: {
-            loadPhotos() {
-                this.loadingPhotos = true;
-                axios
-                    .get("/api/photos/")
-                    .then(res => {
-                        this.loadingPhotos = false;
-                        this.photos = res.data;
-                    })
-                    .catch(err => {
-                        this.loadingPhotos = false;
-                        console.log(err);
-                    });
-            },
-            addPhoto() {
-                const formData = new FormData();
-                formData.append("image", this.photoImage);
-                formData.append("description", this.photoDescription);
-                axios
-                    .post("/api/photos/", formData, {
-                        headers: {
-                            'Content-Type': 'multipart/form-data'
-                        }
-                    })
-                    .then(res => {
-                        this.dialogAdd = false;
-                        this.loadPhotos();
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    });
-            },
-            updatePhoto() {
-                axios
-                    .put("/api/photos/" + this.photoToUpdate.id, {
-                        description: this.photoToUpdate.description
-                    })
-                    .then(res => {
-                        this.photoToUpdate = false;
-                        this.loadPhotos();
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    })
-            },
-            deletePhoto() {
-                axios
-                    .delete("/api/photos/" + this.photoToDelete.id)
-                    .then(res => {
-                        this.loadPhotos();
-                        this.photoToDelete = false;
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    });
-            },
-        },
-        computed: {
-            filteredPhotos() {
-                return this.photos.filter(photo => {
-                    return photo.description.toLowerCase().includes(this.search.toLowerCase());
+export default {
+    data() {
+        return {
+            dialogAdd: false,
+            dialogDelete: false,
+            dialogUpdate: false,
+            photoImage: [],
+            photoDescription: "",
+            bodyRules: [v => !!v || "Заполните пустое поле"],
+            photos: [],
+            loadingPhotos: false,
+            search: "",
+            page: 1,
+            pageCount: 2,
+            itemsPerPage: 12,
+            photoToDelete: null,
+            photoToUpdate: null,
+            headers: [
+                {
+                    text: "Фото",
+                    value: "image",
+                    sortable: false,
+                    class: "mine-table-headers",
+                    width: "150px",
+                    align: "center"
+                },
+                {
+                    text: "Описание",
+                    value: "description",
+                    sortable: false
+                },
+                {
+                    text: "Действия",
+                    value: "action",
+                    align: "center",
+                    sortable: false,
+                    width: "160px"
+                }
+            ]
+        };
+    },
+    mounted() {
+        this.loadPhotos();
+    },
+    methods: {
+        loadPhotos() {
+            this.loadingPhotos = true;
+            axios
+                .get("/api/photos/")
+                .then(res => {
+                    this.loadingPhotos = false;
+                    this.photos = res.data;
                 })
-            }
+                .catch(err => {
+                    this.loadingPhotos = false;
+                    console.log(err);
+                });
+        },
+        addPhoto() {
+            const formData = new FormData();
+            formData.append("image", this.photoImage);
+            formData.append("description", this.photoDescription);
+            axios
+                .post("/api/photos/", formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data"
+                    }
+                })
+                .then(res => {
+                    this.dialogAdd = false;
+                    this.loadPhotos();
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        },
+        updatePhoto() {
+            axios
+                .put("/api/photos/" + this.photoToUpdate.id, {
+                    description: this.photoToUpdate.description
+                })
+                .then(res => {
+                    this.photoToUpdate = false;
+                    this.loadPhotos();
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        },
+        deletePhoto() {
+            axios
+                .delete("/api/photos/" + this.photoToDelete.id)
+                .then(res => {
+                    this.loadPhotos();
+                    this.photoToDelete = false;
+                })
+                .catch(err => {
+                    console.log(err);
+                });
         }
-    };
+    },
+    computed: {
+        filteredPhotos() {
+            return this.photos.filter(photo => {
+                return photo.description
+                    .toLowerCase()
+                    .includes(this.search.toLowerCase());
+            });
+        }
+    }
+};
 </script>

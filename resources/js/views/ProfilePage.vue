@@ -189,7 +189,6 @@
                         :label="this.user.email"
                         :rules="[rules.required, rules.email]"
                         outlined
-                        name="name"
                         v-model="profileToUpdate.email"
                     />
                 </v-container>
@@ -211,32 +210,44 @@
         <!--Update Profile Password-->
         <v-dialog v-model="dialogChangePassword" width="600">
             <v-card>
-                <v-card-title class="primary white--text">
-                    Изменить Пароль
-                </v-card-title>
-                <v-container>
-                    <v-text-field
-                        v-model="profileToUpdate.password"
-                        :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
-                        :rules="[rules.required, rules.min]"
-                        :type="showPass ? 'text' : 'password'"
-                        label="Новый пароль"
-                        @click:append="showPass = !showPass"
-                        outlined
-                    />
-                </v-container>
-                <v-card-actions>
-                    <v-spacer />
-                    <v-btn dark color="primary" @click="updateProfilePassword()"
-                        >Сохранить</v-btn
-                    >
-                    <v-btn
-                        dark
-                        color="error"
-                        @click="() => (dialogChangePassword = false)"
-                        >Закрыть</v-btn
-                    >
-                </v-card-actions>
+                <v-form ref="passwordForm" @submit="updateProfilePassword">
+                    <v-card-title class="primary white--text">
+                        Изменить Пароль
+                    </v-card-title>
+                    <v-container>
+                        <v-text-field
+                            v-model="profileToUpdate.password"
+                            :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
+                            :rules="[rules.required, rules.min]"
+                            :type="showPass ? 'text' : 'password'"
+                            label="Новый пароль"
+                            @click:append="showPass = !showPass"
+                            outlined
+                        />
+                        <v-text-field
+                            v-model="profileToUpdate.passwordConfirmation"
+                            :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
+                            :rules="[rules.confirmed]"
+                            :type="showPass ? 'text' : 'password'"
+                            label="Подтверждение пароля"
+                            @click:append="showPass = !showPass"
+                            outlined
+                        />
+                    </v-container>
+                    <v-card-actions>
+                        <v-spacer />
+                        <v-btn dark color="primary" type="submit"
+                            >Сохранить</v-btn
+                        >
+                        <v-btn
+                            dark
+                            color="error"
+                            type="button"
+                            @click="dialogChangePassword = false"
+                            >Закрыть</v-btn
+                        >
+                    </v-card-actions>
+                </v-form>
             </v-card>
         </v-dialog>
     </v-content>
@@ -259,12 +270,15 @@ export default {
             dialogChangeEmail: false,
             dialogChangePassword: false,
             rules: {
-                required: value => !!value || "Required.",
-                min: v => v.length >= 3 || "Минимум 3 символов",
+                required: value => !!value || "Обязательное поле",
+                min: value => value.length >= 3 || "Минимум 3 символов",
                 email: value => {
                     const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
                     return pattern.test(value) || "Invalid e-mail.";
-                }
+                },
+                confirmed: value =>
+                    value === this.profileToUpdate.password ||
+                    "Пароли не совпадают"
             }
         };
     },
@@ -273,35 +287,47 @@ export default {
         updateAvatar() {
             const { avatar } = this.profileToUpdate;
             if (!avatar) return;
-            
+
             const formData = new FormData();
             formData.append("avatar", avatar);
-            formData.append("_method", "put");
-                        
+
             this.updateProfile(formData);
         },
         updateProfileName() {
             const { name } = this.profileToUpdate;
             if (!name) return;
-            
+
             const formData = new FormData();
             formData.append("name", name);
-            formData.append("_method", "put");
-                        
+
             this.updateProfile(formData);
         },
         updateProfileEmail() {
             const { email } = this.profileToUpdate;
             if (!email) return;
-            
+
             const formData = new FormData();
             formData.append("email", email);
-            formData.append("_method", "put");
-            
+
             this.updateProfile(formData);
         },
-        updateProfilePassword() {},
-        updateProfile(formData){
+        updateProfilePassword(e) {
+            e.preventDefault();
+
+            const validForm = this.$refs.passwordForm.validate();
+
+            if (!validForm) return;
+
+            const { password } = this.profileToUpdate;
+            if (!password) return;
+
+            const formData = new FormData();
+            formData.append("password", password);
+
+            this.updateProfile(formData);
+        },
+        updateProfile(formData) {
+            formData.append("_method", "put");
             axios
                 .post("/api/users/" + this.user.id, formData, {
                     headers: {
@@ -315,10 +341,11 @@ export default {
                 })
                 .catch(err => console.log(err));
         },
-        resetDialogs(){
+        resetDialogs() {
             this.dialogChangeEmail = false;
             this.dialogChangeName = false;
             this.dialogChangeAvatar = false;
+            this.dialogChangePassword = false
         }
     }
 };

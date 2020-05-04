@@ -7,6 +7,7 @@ use App\User;
 use Gate;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
@@ -32,10 +33,14 @@ class UsersController extends Controller
 
     public function update(User $user, Request $request)
     {
-        $updatedUserData = $request->only(["name", "email", "password"]);
+        $updatedUserData = $request->only(["name", "email"]);
 
         if ($request->hasFile("avatar")) {
             $updatedUserData['avatar'] = $this->saveImage(time(), $request->avatar, self::USERS_AVATARS_PATH);
+        }
+
+        if($request->has('password')){
+            $updatedUserData['password'] = Hash::make($request->password);
         }
 
         $user->update($updatedUserData);

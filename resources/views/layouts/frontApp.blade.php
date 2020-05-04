@@ -12,7 +12,6 @@
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
             integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
@@ -42,6 +41,7 @@
           href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials-theme-minima.css"/>
     <link type="text/css" rel="stylesheet"
           href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials-theme-plain.css"/>
+    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
@@ -67,7 +67,7 @@
         showLabel: false,
         showCount: false,
         flat: true,
-        shares: ["vkontakte" ,"facebook", "twitter", "viber", "whatsapp", "telegram"]
+        shares: ["vkontakte", "facebook", "twitter", "viber", "whatsapp", "telegram"]
     });
 </script>
 </body>

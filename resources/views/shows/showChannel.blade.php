@@ -2,7 +2,7 @@
 
 @section("content")
     <div class="row card-main-block">
-        <div class="col-md-3 col-sm-12">
+        <div class="col-md-3 col-sm-12 p-0">
             <div class="left-sidebar-block">
                 <h3 class="secondary">Каналы YouTube</h3>
                 <div class="mb-3">

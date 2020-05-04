@@ -5,11 +5,10 @@
 }
 
 body {
+    display: flex;
+    flex-direction: column;
     background-color: #e7ebf2;
     min-height: 100vh;
-    position: relative;
-    padding-bottom: 222px;
-    width: 100%;
 }
 
 /* ------------ COLORS  ---------- */
@@ -54,8 +53,7 @@ body {
 }
 
 .footer {
-    position: absolute;
-    bottom: 0;
+    /*position: absolute;*/
     width: 100%;
     line-height: 40px;
     background-color: #04718c;
@@ -432,6 +430,10 @@ body {
     border-radius: 50%;
 }
 
+@media (min-width: 576px) {
+
+}
+
 @media (min-width: 768px) {
     .main-navbar {
         flex-direction: row-reverse;
@@ -454,8 +456,5 @@ body {
     }
 }
 
-@media (min-width: 1200px) {
-}
-
-@media (min-width: 1392px) {
+@media (min-width: 992px) {
 }

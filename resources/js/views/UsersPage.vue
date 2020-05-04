@@ -21,6 +21,11 @@
                 class="elevation-1"
                 :loading="usersLoading"
             >
+                <template v-slot:item.avatar="{ item }">
+                    <v-avatar class="my-1">
+                        <img :src="item.avatar" />
+                    </v-avatar>
+                </template>
                 <template v-slot:item.action="{ item }">
                     <v-btn
                         fab
@@ -113,6 +118,7 @@ export default {
             users: [],
             usersLoading: false,
             headers: [
+                { text: "Аватар", value: "avatar" },
                 { text: "Имя", value: "name" },
                 { text: "Email", value: "email" },
                 { text: "Роль", value: "role.name" },

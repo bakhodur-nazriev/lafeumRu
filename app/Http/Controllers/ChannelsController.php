@@ -19,11 +19,11 @@ class ChannelsController extends Controller
         return view('/channels', compact('channels'));
     }
 
-    public function show($slug)
+    public function show(Channel $channel)
     {
-        $channel = Channel::with(['videos'])->where('slug', $slug)->first();
         $channels = Channel::all();
-        return view('shows.showChannel', compact(['channel', 'channels',]));
+        $channel->load('videos');
+        return view('shows.showChannel', compact(['channel', 'channels']));
     }
 
     public function get()

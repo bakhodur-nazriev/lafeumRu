@@ -12,6 +12,11 @@ class Category extends Model
     public $timestamps = false;
 
     protected $fillable = ['name', 'description', 'type'];
+    
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 
     public function quotes()
     {

@@ -31,7 +31,7 @@
                             ></i>
                         </div>
                     </div>
-                    <div>{{ $quote->body }}</div>
+                    <div class="mb-1">{{ $quote->body }}</div>
                     <div class="tags-block">
                         @foreach($quote->categories as $cat)
                             <a href="#">

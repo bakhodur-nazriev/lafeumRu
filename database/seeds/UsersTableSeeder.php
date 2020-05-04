@@ -41,6 +41,6 @@ class UsersTableSeeder extends Seeder
             "password" => Hash::make("pass"),
             "role_id" => $memberRoleId
         ]);
-        
+
     }
 }

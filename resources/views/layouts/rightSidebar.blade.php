@@ -1,4 +1,4 @@
-<div class="col-md-3 col-xl-3 d-flex justify-content-center">
+<div class="col-md-4 d-flex justify-content-center">
     <div class="right-block-sidebar">
         @guest
             <form style="width: 100%;" method="POST" action="{{ route('login') }}">
@@ -54,24 +54,26 @@
         @endguest
         @auth
             <ul class="list-group" style="width: 300px;">
-                <div class="mb-0 form-group row">
-                    <div class="p-0 col-md-12">
-                        <h3 class="text-center"></h3>
-                        <img src="" class="rounded float-left" alt="...">
-                    </div>
+                <div class="right-sidebar-image-block">
+                    <img src="{{ Auth::user()->avatar }}" class="float-left right-sidebar-image" alt="">
+                </div>
+                <div class="p-0 mb-3">
+                    <span>Имя: {{ Auth::user()->name }}</span><br>
+                    <span>Email: {{ Auth::user()->email }}</span><br>
+                    <span>Вы вошли как: {{ Auth::user()->role->name }}</span><br>
                 </div>
 
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <a href="#" class="text-decoration-none">Цитаты</a>
-                    <span class="badge background-primary badge-pill">{{ $countOfFavoritesQuotes }}</span>
+                    <span class="badge background-primary badge-pill">{{ $favouriteCount['quote'] }}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <a href="#" class="text-decoration-none">Термины</a>
-                    <span class="badge background-primary badge-pill">{{ $countOfFavoritesTerms }}</span>
+                    <span class="badge background-primary badge-pill">{{ $favouriteCount['term'] }}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <a href="#" class="text-decoration-none">Видео</a>
-                    <span class="badge background-primary badge-pill">{{ $countOfFavoritesVideos }}</span>
+                    <span class="badge background-primary badge-pill">{{ $favouriteCount['video'] }}</span>
                 </li>
             </ul>
         @endauth

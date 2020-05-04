@@ -66,5 +66,4 @@
         </div>
         @include('layouts.rightSidebar')
     </div>
-
 @endsection

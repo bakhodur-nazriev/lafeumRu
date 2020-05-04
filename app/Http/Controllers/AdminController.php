@@ -16,10 +16,4 @@ class AdminController extends Controller
     {
         $this->middleware("auth");
     }
-
-    /*public function index()
-    {
-        $users = User::all();
-        return view("auth.dashboard", compact("users"), ["user" => Auth::user()]);
-    }*/
 }

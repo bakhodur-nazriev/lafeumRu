@@ -110,11 +110,8 @@
                             :rules="requiredField"
                             v-model="newQuote.categories"
                         />
-                        <tiptap-vuetify
-                            outlined
-                            :extensions="extensions"
+                        <wysiwyg-editor
                             v-model="newQuote.body"
-                            required
                             label="Введите цитату здесь"
                         />
                     </v-card-text>
@@ -188,13 +185,10 @@
                             </v-select>
                         </v-col>
                         <v-col cols="12">
-                            <tiptap-vuetify
-                                label="Изменить цитату здесь"
-                                outlined
-                                :extensions="extensions"
+                            <wysiwyg-editor
+                                label="Изменить цитату"
                                 v-model="quoteToUpdate.body"
-                            >
-                            </tiptap-vuetify>
+                            />
                         </v-col>
                     </v-row>
                 </v-container>
@@ -213,55 +207,14 @@
 </template>
 
 <script>
-import {
-    // component
-    TiptapVuetify,
-    // extensions
-    Heading,
-    Bold,
-    Italic,
-    Strike,
-    Underline,
-    Paragraph,
-    BulletList,
-    OrderedList,
-    ListItem,
-    Link,
-    Blockquote,
-    HardBreak,
-    HorizontalRule,
-    History,
-    Image
-} from "tiptap-vuetify";
+import WysiwygEditor from "../components/WysiwygEditor";
 
 export default {
-    components: { TiptapVuetify },
+    components: { 
+        'wysiwyg-editor': WysiwygEditor
+    },
     data() {
         return {
-            extensions: [
-                History,
-                Blockquote,
-                Link,
-                Underline,
-                Strike,
-                Italic,
-                ListItem,
-                BulletList,
-                OrderedList,
-                Image,
-                [
-                    Heading,
-                    {
-                        options: {
-                            levels: [1, 2, 3]
-                        }
-                    }
-                ],
-                Bold,
-                HorizontalRule,
-                Paragraph,
-                HardBreak
-            ],
             authors: [],
             categories: [],
             newQuote: null,

@@ -122,12 +122,9 @@
                             label="Категории"
                             :rules="requiredField"
                         />
-                        <tiptap-vuetify
-                            outlined
+                        <wysiwyg-editor
                             v-model="newTerm.body"
-                            :extensions="extensions"
-                            placeholder="Введите описание"
-                            :card-props="{ flat: true, color: '#21252921' }"
+                            label="Введите описание"
                         />
                     </v-card-text>
                     <v-card-actions>
@@ -183,14 +180,10 @@
                             </v-text-field>
                         </v-col>
                         <v-col cols="12">
-                            <tiptap-vuetify
-                                outlined
-                                name="body"
-                                :extensions="extensions"
+                            <wysiwyg-editor
                                 v-model="termToUpdate.body"
-                                placeholder="Изменить термин здесь"
-                            >
-                            </tiptap-vuetify>
+                                label="Изменить термин здесь"
+                            />
                         </v-col>
                     </v-row>
                 </v-container>
@@ -208,55 +201,12 @@
     </v-content>
 </template>
 <script>
-import {
-    // component
-    TiptapVuetify,
-    // extensions
-    Heading,
-    Bold,
-    Italic,
-    Strike,
-    Underline,
-    Paragraph,
-    BulletList,
-    OrderedList,
-    ListItem,
-    Link,
-    Blockquote,
-    HardBreak,
-    HorizontalRule,
-    History,
-    Code
-} from "tiptap-vuetify";
+import WysiwygEditor from "../components/WysiwygEditor";
 
 export default {
-    components: { TiptapVuetify },
+    components: { "wysiwyg-editor": WysiwygEditor },
     data() {
         return {
-            extensions: [
-                History,
-                Blockquote,
-                Link,
-                Underline,
-                Strike,
-                Italic,
-                ListItem,
-                BulletList,
-                OrderedList,
-                [
-                    Heading,
-                    {
-                        options: {
-                            levels: [1, 2, 3]
-                        }
-                    }
-                ],
-                Code,
-                Bold,
-                HorizontalRule,
-                Paragraph,
-                HardBreak
-            ],
             valid: false,
             dialogAdd: false,
             categories: [],
@@ -381,7 +331,7 @@ export default {
                 .catch(err => {
                     console.log(err);
                 });
-        },
+        }
     },
     computed: {
         filteredTerms() {

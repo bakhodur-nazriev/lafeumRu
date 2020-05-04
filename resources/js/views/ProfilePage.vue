@@ -18,7 +18,7 @@
                             >
                                 <div
                                     class="change-avatar"
-                                    @click="dialogChangeAvatar = true"
+                                    @click="updatingAvatar = true"
                                 >
                                     <p class="text-center mb-0">
                                         <v-icon dark>mdi-camera</v-icon>
@@ -46,7 +46,7 @@
                                             icon
                                             color="primary"
                                             text
-                                            @click="dialogChangeName = true"
+                                            @click="updatingName = true"
                                         >
                                             <v-icon>mdi-pencil</v-icon>
                                         </v-btn>
@@ -74,7 +74,7 @@
                                             icon
                                             color="primary"
                                             text
-                                            @click="dialogChangeEmail = true"
+                                            @click="updatingEmail = true"
                                         >
                                             <v-icon>mdi-pencil</v-icon>
                                         </v-btn>
@@ -102,7 +102,7 @@
                                             icon
                                             color="primary"
                                             text
-                                            @click="dialogChangePassword = true"
+                                            @click="updatingPassword = true"
                                         >
                                             <v-icon>mdi-pencil</v-icon>
                                         </v-btn>
@@ -115,106 +115,43 @@
                 </v-card>
             </v-row>
         </v-container>
-        <!-- Update Avatar -->
-        <v-dialog v-model="dialogChangeAvatar" width="600">
-            <v-card>
-                <v-card-title class="primary white--text">
-                    Изменить Аватар
-                </v-card-title>
-                <v-container>
-                    <v-file-input
-                        prepend-icon=""
-                        prepend-inner-icon="mdi-camera"
-                        outlined
-                        label="Загрузить фото"
-                        hide-details
-                        :rules="rules"
-                        name="updatedProfileAvatar"
-                        v-model="profileToUpdate.avatar"
-                    />
-                </v-container>
-                <v-card-actions>
-                    <v-spacer />
-                    <v-btn dark color="primary" @click="updateAvatar()"
-                        >Сохранить</v-btn
-                    >
-                    <v-btn
-                        dark
-                        color="error"
-                        @click="() => (dialogChangeAvatar = false)"
-                        >Закрыть</v-btn
-                    >
-                </v-card-actions>
-            </v-card>
-        </v-dialog>
-
-        <!--Update Profile Name-->
-        <v-dialog v-model="dialogChangeName" width="600">
-            <v-card>
-                <v-card-title class="primary white--text">
-                    Изменить Имя
-                </v-card-title>
-                <v-container>
-                    <v-text-field
-                        :label="this.user.name"
-                        hide-details
-                        outlined
-                        name="name"
-                        v-model="profileToUpdate.name"
-                    />
-                </v-container>
-                <v-card-actions>
-                    <v-spacer />
-                    <v-btn dark color="primary" @click="updateProfileName()"
-                        >Сохранить</v-btn
-                    >
-                    <v-btn
-                        dark
-                        color="error"
-                        @click="() => (dialogChangeName = false)"
-                        >Закрыть</v-btn
-                    >
-                </v-card-actions>
-            </v-card>
-        </v-dialog>
-
-        <!--Update Profile Email-->
-        <v-dialog v-model="dialogChangeEmail" width="600">
-            <v-card>
-                <v-card-title class="primary white--text">
-                    Изменить Email
-                </v-card-title>
-                <v-container class="pb-0">
-                    <v-text-field
-                        :label="this.user.email"
-                        :rules="[rules.required, rules.email]"
-                        outlined
-                        v-model="profileToUpdate.email"
-                    />
-                </v-container>
-                <v-card-actions>
-                    <v-spacer />
-                    <v-btn dark color="primary" @click="updateProfileEmail()"
-                        >Сохранить</v-btn
-                    >
-                    <v-btn
-                        dark
-                        color="error"
-                        @click="() => (dialogChangeEmail = false)"
-                        >Закрыть</v-btn
-                    >
-                </v-card-actions>
-            </v-card>
-        </v-dialog>
 
         <!--Update Profile Password-->
-        <v-dialog v-model="dialogChangePassword" width="600">
+        <v-dialog v-model="showDialog" width="600">
             <v-card>
-                <v-form ref="passwordForm" @submit="updateProfilePassword">
+                <v-form ref="form" @submit="updateProfile">
                     <v-card-title class="primary white--text">
-                        Изменить Пароль
+                        {{formTitle}}
                     </v-card-title>
-                    <v-container>
+                    
+                    <v-container class="pb-0" v-if="updatingAvatar">
+                        <v-file-input
+                            prepend-icon=""
+                            prepend-inner-icon="mdi-camera"
+                            outlined
+                            label="Загрузить фото"
+                            v-model="profileToUpdate.avatar"
+                        />
+                    </v-container>
+
+                    <v-container class="pb-0"  v-if="updatingName">
+                        <v-text-field
+                            :label="this.user.name"
+                            outlined
+                            v-model="profileToUpdate.name"
+                        />
+                    </v-container>
+
+                    <v-container class="pb-0" v-if="updatingEmail">
+                        <v-text-field
+                            :label="this.user.email"
+                            :rules="[rules.required, rules.email]"
+                            outlined
+                            v-model="profileToUpdate.email"
+                        />
+                    </v-container>
+
+                    <v-container v-if="updatingPassword">
                         <v-text-field
                             v-model="profileToUpdate.password"
                             :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
@@ -229,7 +166,7 @@
                             :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
                             :rules="[rules.confirmed]"
                             :type="showPass ? 'text' : 'password'"
-                            label="Подтверждение пароля"
+                            label="Подтверждение нового пароля"
                             @click:append="showPass = !showPass"
                             outlined
                         />
@@ -243,7 +180,7 @@
                             dark
                             color="error"
                             type="button"
-                            @click="dialogChangePassword = false"
+                            @click="showDialog = false"
                             >Закрыть</v-btn
                         >
                     </v-card-actions>
@@ -265,10 +202,10 @@ export default {
             },
             showPass: false,
             user: window.Laravel.auth,
-            dialogChangeAvatar: false,
-            dialogChangeName: false,
-            dialogChangeEmail: false,
-            dialogChangePassword: false,
+            updatingAvatar: false,
+            updatingName: false,
+            updatingEmail: false,
+            updatingPassword: false,
             rules: {
                 required: value => !!value || "Обязательное поле",
                 min: value => value.length >= 3 || "Минимум 3 символов",
@@ -282,52 +219,36 @@ export default {
             }
         };
     },
-    mounted() {},
     methods: {
-        updateAvatar() {
-            const { avatar } = this.profileToUpdate;
-            if (!avatar) return;
-
-            const formData = new FormData();
-            formData.append("avatar", avatar);
-
-            this.updateProfile(formData);
-        },
-        updateProfileName() {
-            const { name } = this.profileToUpdate;
-            if (!name) return;
-
-            const formData = new FormData();
-            formData.append("name", name);
-
-            this.updateProfile(formData);
-        },
-        updateProfileEmail() {
-            const { email } = this.profileToUpdate;
-            if (!email) return;
-
-            const formData = new FormData();
-            formData.append("email", email);
-
-            this.updateProfile(formData);
-        },
-        updateProfilePassword(e) {
+        updateProfile(e) {
             e.preventDefault();
 
-            const validForm = this.$refs.passwordForm.validate();
+            const validForm = this.$refs.form.validate();
 
             if (!validForm) return;
 
-            const { password } = this.profileToUpdate;
-            if (!password) return;
-
             const formData = new FormData();
-            formData.append("password", password);
 
-            this.updateProfile(formData);
-        },
-        updateProfile(formData) {
+            const { avatar, name, email, password } = this.profileToUpdate;
+
+            if (this.updatingAvatar && avatar instanceof File) {
+                formData.append("avatar", avatar);
+            }
+
+            if (this.updatingName) {
+                formData.append("name", name);
+            }
+
+            if (this.updatingEmail) {
+                formData.append("email", email);
+            }
+
+            if (this.updatingPassword) {
+                formData.append("password", password);
+            }
+
             formData.append("_method", "put");
+
             axios
                 .post("/api/users/" + this.user.id, formData, {
                     headers: {
@@ -335,17 +256,52 @@ export default {
                     }
                 })
                 .then(({ data }) => {
-                    this.resetDialogs();
+                    this.showDialog = false;
                     this.user = data;
                     Event.fire("profileUpdated", data);
                 })
                 .catch(err => console.log(err));
+        }
+    },
+    computed: {
+        showDialog: {
+            get() {
+                return (
+                    this.updatingAvatar ||
+                    this.updatingName ||
+                    this.updatingEmail ||
+                    this.updatingPassword
+                );
+            },
+            set(v) {
+                if (!v) {
+                    this.updatingAvatar = false;
+                    this.updatingName = false;
+                    this.updatingEmail = false;
+                    this.updatingPassword = false;
+                }
+            }
         },
-        resetDialogs() {
-            this.dialogChangeEmail = false;
-            this.dialogChangeName = false;
-            this.dialogChangeAvatar = false;
-            this.dialogChangePassword = false
+        formTitle(){
+            let baseTitle = "Изменение";
+
+            if (this.updatingAvatar) {
+                baseTitle += " аватара ";
+            }
+
+            if (this.updatingName) {
+                baseTitle += " имени ";
+            }
+
+            if (this.updatingEmail) {
+                baseTitle += " email-а ";
+            }
+
+            if (this.updatingPassword) {
+                baseTitle += " пароля ";
+            }            
+
+            return baseTitle;
         }
     }
 };

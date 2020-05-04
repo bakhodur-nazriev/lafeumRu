@@ -10,6 +10,9 @@ Route::group(['middleware' => 'auth:api'], function (){
     Route::put("/users/{user}", "UsersController@update");
     Route::delete("/users/{user}", "UsersController@destroy");
     
+    /* Roles */
+    Route::get("/roles", "RolesController@index");
+
     /* Categories */
     Route::get("/categories", "CategoriesController@get");
     Route::put("/categories", "CategoriesController@updateTree");

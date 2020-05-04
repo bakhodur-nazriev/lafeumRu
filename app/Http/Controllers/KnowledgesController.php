@@ -20,10 +20,10 @@ class KnowledgesController extends Controller
         return view('knowledgeArea', compact('knowledgeAreas'));
     }
 
-    public function show($slug)
+    public function show(Knowledge $knowledge)
     {
         $knowledgeAreas = Knowledge::all();
-        $currentKnowledgeArea = Knowledge::with('terms')->where('slug', $slug)->first();
+        $currentKnowledgeArea = $knowledge->load('terms');
         return view('shows.showKnowledge', compact(['currentKnowledgeArea', 'knowledgeAreas',]));
     }
 

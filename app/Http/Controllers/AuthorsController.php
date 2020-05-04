@@ -21,10 +21,10 @@ class AuthorsController extends Controller
         return view("/authors", compact("authors"));
     }
 
-    public function show($slug)
+    public function show(Author $author)
     {
         $authors = Author::all();
-        $currentAuthor = Author::with('quotes.categories')->where('slug', $slug)->first();
+        $currentAuthor = $author->load('quotes.categories');
         return view('shows.showAuthor', compact(['authors', 'currentAuthor']));
     }
 

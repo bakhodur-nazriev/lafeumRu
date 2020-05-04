@@ -12,6 +12,11 @@ class Knowledge extends Model
     protected $table = "knowledge";
     protected $fillable = ["name", "description", "slug"];
 
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
     public function terms()
     {
         return $this->belongsToMany(Term::class, 'knowledge_terms');

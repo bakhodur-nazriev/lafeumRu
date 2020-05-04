@@ -9,6 +9,11 @@ class Author extends Model
 
     protected $fillable = ["name", "biography", "photo", "author_group_id"];
 
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
     public function quotes()
     {
         return $this->hasMany(Quote::class);

@@ -7,11 +7,12 @@ import UsersPage from "./views/UsersPage";
 import ProfilePage from "./views/ProfilePage";
 import FavouritesPage from "./views/FavouritesPage";
 import CategoriesPage from "./views/CategoriesPage";
-/*import Channels from "./views/Channels";
-import KnowledgeAreas from "./views/KnowledgeAreas";
-import Vocabulary from "./components/admin/Vocabulary";
-import Settings from "./components/admin/Settings";
-import Chat from "./components/admin/Chat";*/
+import ChannelsPage from "./views/ChannelsPage";
+import KnowledgeAreasPage from "./views/KnowledgeAreasPage";
+
+// import Vocabulary from "./components/admin/Vocabulary";
+// import Settings from "./components/admin/Settings";
+// import Chat from "./components/admin/Chat";
 
 import role from "./role";
 require("../js/constants");
@@ -110,13 +111,33 @@ let allSidebarRoutes = [
     },
     {
         meta: {
-            icon: "mdi-account",
+            icon: "mdi-account-tie",
             title: "Авторы",
             authorize: [role.author]
         },
         path: "/dashboard/authors",
         name: "/dashboard/authors",
         component: AuthorsPage
+    },
+    {
+        meta: {
+            icon: "mdi-youtube-subscription",
+            title: "Каналы",
+            authorize: [role.author]
+        },
+        path: "/dashboard/сhannels",
+        name: "/dashboard/сhannels",
+        component: ChannelsPage
+    },
+    {
+        meta: {
+            icon: "mdi-bookshelf",
+            title: "Области знаний",
+            authorize: [role.author]
+        },
+        path: "/dashboard/knowledge",
+        name: "/dashboard/knowledge",
+        component: KnowledgeAreasPage
     },
     {
         meta: {
@@ -130,7 +151,7 @@ let allSidebarRoutes = [
     },
     {
         meta: {
-            icon: "mdi-account",
+            icon: "mdi-account-cog",
             title: "Профиль",
             authorize: [role.author, role.member]
         },

@@ -155,7 +155,7 @@
                         <v-text-field
                             v-model="profileToUpdate.password"
                             :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
-                            :rules="[rules.required, rules.min]"
+                            :rules="[rules.required, rules.getMin(3)]"
                             :type="showPass ? 'text' : 'password'"
                             label="Новый пароль"
                             @click:append="showPass = !showPass"
@@ -164,7 +164,7 @@
                         <v-text-field
                             v-model="profileToUpdate.passwordConfirmation"
                             :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
-                            :rules="[rules.confirmed]"
+                            :rules="[rules.getPasswordConfirm(profileToUpdate.password)]"
                             :type="showPass ? 'text' : 'password'"
                             label="Подтверждение нового пароля"
                             @click:append="showPass = !showPass"
@@ -191,6 +191,8 @@
 </template>
 
 <script>
+import rules from "../validation-rules";
+
 export default {
     data() {
         return {
@@ -206,17 +208,7 @@ export default {
             updatingName: false,
             updatingEmail: false,
             updatingPassword: false,
-            rules: {
-                required: value => !!value || "Обязательное поле",
-                min: value => value.length >= 3 || "Минимум 3 символов",
-                email: value => {
-                    const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                    return pattern.test(value) || "Invalid e-mail.";
-                },
-                confirmed: value =>
-                    value === this.profileToUpdate.password ||
-                    "Пароли не совпадают"
-            }
+            rules
         };
     },
     methods: {

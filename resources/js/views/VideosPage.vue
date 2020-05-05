@@ -100,7 +100,7 @@
                             label="Введите название"
                             v-model="newVideo.title"
                             outlined
-                            :rules="requiredField"
+                            :rules="[rules.required]"
                         />
                         <v-select
                             label="Выберите канал"
@@ -109,7 +109,7 @@
                             item-value="id"
                             outlined
                             :items="channels"
-                            :rules="requiredField"
+                            :rules="[rules.required]"
                         />
                         <v-select
                             v-model="newVideo.categories"
@@ -119,20 +119,20 @@
                             item-value="id"
                             item-text="name"
                             label="Выберите категории"
-                            :rules="requiredField"
+                            :rules="[rules.required]"
                         />
                         <v-text-field
                             label="Добавьте ссылку"
                             v-model="newVideo.link"
                             outlined
-                            :rules="requiredField"
+                            :rules="[rules.required]"
                         />
                         <v-text-field
                             label="Добавьте продолжительность (в мин.)"
                             type="number"
                             v-model="newVideo.duration"
                             outlined
-                            :rules="requiredField"
+                            :rules="[rules.required]"
                         />
                     </v-card-text>
                     <v-card-actions>
@@ -235,9 +235,12 @@
 </template>
 
 <script>
+import rules from "../validation-rules";
+
 export default {
     data() {
         return {
+            rules,
             dialogAdd: false,
             dialogDelete: false,
             dialogUpdate: false,
@@ -387,21 +390,6 @@ export default {
                     .toLowerCase()
                     .includes(this.search.toLowerCase());
             });
-        },
-        requiredField() {
-            return [
-                v => {
-                    if (Array.isArray(v) && v.length == 0) {
-                        return "Обязательное поле";
-                    }
-
-                    if (!v) {
-                        return "Обязательное поле";
-                    }
-
-                    return true;
-                }
-            ];
         }
     }
 };

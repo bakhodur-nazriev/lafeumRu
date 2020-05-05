@@ -12,7 +12,7 @@
                         item-value="id"
                         item-text="name"
                         label="Автор"
-                        :rules="requiredField"
+                        :rules="[rules.required]"
                         v-model="newQuote.author_id"
                     />
                     <v-select
@@ -22,7 +22,7 @@
                         item-value="id"
                         item-text="name"
                         label="Категории"
-                        :rules="requiredField"
+                        :rules="[rules.required]"
                         v-model="newQuote.categories"
                     />
                     <wysiwyg-editor
@@ -51,6 +51,7 @@
 
 <script>
 import WysiwygEditor from "../components/WysiwygEditor";
+import rules from "../validation-rules";
 
 export default {
     props: {
@@ -63,6 +64,7 @@ export default {
     },
     data(){
         return {
+            rules,
             newQuote: null
         }
     },
@@ -100,22 +102,5 @@ export default {
                 });
         }
     },
-    computed: {
-        requiredField() {
-            return [
-                v => {
-                    if (Array.isArray(v) && v.length == 0) {
-                        return "Обязательное поле";
-                    }
-
-                    if (!v) {
-                        return "Обязательное поле";
-                    }
-
-                    return true;
-                }
-            ];
-        },
-    }
 };
 </script>

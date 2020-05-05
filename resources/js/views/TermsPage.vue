@@ -95,7 +95,7 @@
                             outlined
                             v-model="newTerm.name"
                             label="Введите название"
-                            :rules="requiredField"
+                            :rules="[rules.required]"
                         />
                         <v-text-field
                             outlined
@@ -110,7 +110,7 @@
                             item-value="id"
                             item-text="name"
                             label="Область знаний"
-                            :rules="requiredField"
+                            :rules="[rules.required]"
                         />
                         <v-select
                             v-model="newTerm.categories"
@@ -120,7 +120,7 @@
                             item-value="id"
                             item-text="name"
                             label="Категории"
-                            :rules="requiredField"
+                            :rules="[rules.required]"
                         />
                         <wysiwyg-editor
                             v-model="newTerm.body"
@@ -169,23 +169,40 @@
                     Изменить Термин
                 </v-card-title>
                 <v-container>
-                    <v-row justify="center">
-                        <v-col cols="12">
-                            <v-text-field
-                                hide-details
-                                outlined
-                                label="Изменить названия термина"
-                                v-model="termToUpdate.name"
-                            >
-                            </v-text-field>
-                        </v-col>
-                        <v-col cols="12">
-                            <wysiwyg-editor
-                                v-model="termToUpdate.body"
-                                label="Изменить термин здесь"
-                            />
-                        </v-col>
-                    </v-row>
+                    <v-text-field
+                        outlined
+                        label="Изменить название термина"
+                        v-model="termToUpdate.name"
+                    />
+                    <v-text-field
+                        outlined
+                        v-model="termToUpdate.link"
+                        label="Ссылка"
+                    />
+                    <v-select
+                        v-model="termToUpdate.knowledge"
+                        :items="knowledgeAreas"
+                        outlined
+                        multiple
+                        item-value="id"
+                        item-text="name"
+                        label="Область знаний"
+                        :rules="[rules.required]"
+                    />
+                    <v-select
+                        v-model="termToUpdate.categories"
+                        :items="categories"
+                        outlined
+                        multiple
+                        item-value="id"
+                        item-text="name"
+                        label="Категории"
+                        :rules="[rules.required]"
+                    />
+                    <wysiwyg-editor
+                        v-model="termToUpdate.body"
+                        label="Изменить термин здесь"
+                    />
                 </v-container>
                 <v-card-actions>
                     <v-spacer />
@@ -202,11 +219,13 @@
 </template>
 <script>
 import WysiwygEditor from "../components/WysiwygEditor";
+import rules from "../validation-rules";
 
 export default {
     components: { "wysiwyg-editor": WysiwygEditor },
     data() {
         return {
+            rules,
             valid: false,
             dialogAdd: false,
             categories: [],
@@ -340,21 +359,6 @@ export default {
                     .toLowerCase()
                     .includes(this.search.toLowerCase());
             });
-        },
-        requiredField() {
-            return [
-                v => {
-                    if (Array.isArray(v) && v.length == 0) {
-                        return "Обязательное поле";
-                    }
-
-                    if (!v) {
-                        return "Обязательное поле";
-                    }
-
-                    return true;
-                }
-            ];
         }
     }
 };

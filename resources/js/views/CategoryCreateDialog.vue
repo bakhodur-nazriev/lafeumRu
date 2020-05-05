@@ -18,7 +18,7 @@
                         label="Название"
                         v-model="newCategory.name"
                         outlined
-                        :rules="requiredField"
+                        :rules="[rules.required]"
                     />
                     <v-textarea
                         label="Описание"
@@ -42,6 +42,8 @@
 </template>
 
 <script>
+import rules from "../validation-rules";
+
 export default {
     props: {
         show: Boolean,
@@ -52,6 +54,7 @@ export default {
     },
     data() {
         return {
+            rules,
             categories: [],
             newCategory: {
                 name: "",
@@ -112,9 +115,6 @@ export default {
                     this.closeDialog();
                 }
             }
-        },
-        requiredField() {
-            return [v => !!v || "Обязательное поле"];
         }
     },
     watch: {

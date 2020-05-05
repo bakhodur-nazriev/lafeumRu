@@ -9,6 +9,7 @@
                 <v-text-field
                     label="Название"
                     outlined
+                    :rules="[rules.required]"
                     v-model="category.name"
                 />
                 <v-textarea
@@ -40,9 +41,14 @@
 </template>
 
 <script>
+import rules from "../validation-rules";
+
 export default {
     props: {
         category: Object
+    },
+    data(){
+        return {rules}
     },
     methods: {
         closeDialog() {

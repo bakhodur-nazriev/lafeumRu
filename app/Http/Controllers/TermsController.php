@@ -41,7 +41,7 @@ class TermsController extends Controller
 
     public function get(Request $request)
     {
-        $termsQuery = Term::with('categories');
+        $termsQuery = Term::with('categories', 'knowledge');
         return $termsQuery->latest()->get();
     }
 

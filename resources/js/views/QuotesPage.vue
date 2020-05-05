@@ -107,17 +107,15 @@
 </template>
 
 <script>
-import WysiwygEditor from "../components/WysiwygEditor";
 import QuotesCreateDialog from "../views/QuotesCreateDialog";
 import QuotesEditDialog from "../views/QuotesEditDialog";
 import QuotesDeleteDialog from "../views/QuotesDeleteDialog";
 
 export default {
     components: {
-        "wysiwyg-editor": WysiwygEditor,
-        "quotes-create-dialog": QuotesCreateDialog,
-        "quotes-edit-dialog": QuotesEditDialog,
-        "quotes-delete-dialog": QuotesDeleteDialog
+        QuotesCreateDialog,
+        QuotesEditDialog,
+        QuotesDeleteDialog
     },
     data() {
         return {
@@ -144,12 +142,6 @@ export default {
                 {
                     text: "Автор",
                     value: "author.name",
-                    align: "center",
-                    sortable: false
-                },
-                {
-                    text: "Категория",
-                    value: "",
                     align: "center",
                     sortable: false
                 },

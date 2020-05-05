@@ -83,146 +83,43 @@
             </template>
             <span>Добавить термин</span>
         </v-tooltip>
-        <!-- Add Item Dialog -->
-        <v-dialog v-model="dialogAdd" width="700px">
-            <v-card>
-                <v-form ref="createForm" @submit="addTerm">
-                    <v-card-title class="primary white--text mb-5">
-                        Создать Термин
-                    </v-card-title>
-                    <v-card-text>
-                        <v-text-field
-                            outlined
-                            v-model="newTerm.name"
-                            label="Введите название"
-                            :rules="[rules.required]"
-                        />
-                        <v-text-field
-                            outlined
-                            v-model="newTerm.link"
-                            label="Ссылка"
-                        />
-                        <v-select
-                            v-model="newTerm.knowledgeAreas"
-                            :items="knowledgeAreas"
-                            outlined
-                            multiple
-                            item-value="id"
-                            item-text="name"
-                            label="Область знаний"
-                            :rules="[rules.required]"
-                        />
-                        <v-select
-                            v-model="newTerm.categories"
-                            :items="categories"
-                            outlined
-                            multiple
-                            item-value="id"
-                            item-text="name"
-                            label="Категории"
-                            :rules="[rules.required]"
-                        />
-                        <wysiwyg-editor
-                            v-model="newTerm.body"
-                            label="Введите описание"
-                        />
-                    </v-card-text>
-                    <v-card-actions>
-                        <v-spacer />
-                        <v-btn dark color="green" type="submit"
-                            >Сохранить
-                        </v-btn>
-                        <v-btn
-                            dark
-                            color="error"
-                            type="button"
-                            @click="() => (dialogAdd = false)"
-                            >Отмена
-                        </v-btn>
-                    </v-card-actions>
-                </v-form>
-            </v-card>
-        </v-dialog>
-        <!-- Delete Item Dialog -->
-        <v-dialog v-if="termToDelete" v-model="termToDelete" width="500">
-            <v-card class="pa-2">
-                <v-card-title class="pt-1 regular headline text-center"
-                    >Вы действительно хотите удалить это термин ?
-                </v-card-title>
-                <v-card-actions class="justify-center">
-                    <v-btn
-                        color="green darken-1"
-                        dark
-                        @click="termToDelete = false"
-                        >Нет
-                    </v-btn>
-                    <v-btn color="red darken-1" dark @click="deleteTerm()"
-                        >Да
-                    </v-btn>
-                </v-card-actions>
-            </v-card>
-        </v-dialog>
-        <!-- Update Item Dialog -->
-        <v-dialog v-if="termToUpdate" v-model="termToUpdate" width="700px">
-            <v-card>
-                <v-card-title class="primary white--text">
-                    Изменить Термин
-                </v-card-title>
-                <v-container>
-                    <v-text-field
-                        outlined
-                        label="Изменить название термина"
-                        v-model="termToUpdate.name"
-                    />
-                    <v-text-field
-                        outlined
-                        v-model="termToUpdate.link"
-                        label="Ссылка"
-                    />
-                    <v-select
-                        v-model="termToUpdate.knowledge"
-                        :items="knowledgeAreas"
-                        outlined
-                        multiple
-                        item-value="id"
-                        item-text="name"
-                        label="Область знаний"
-                        :rules="[rules.required]"
-                    />
-                    <v-select
-                        v-model="termToUpdate.categories"
-                        :items="categories"
-                        outlined
-                        multiple
-                        item-value="id"
-                        item-text="name"
-                        label="Категории"
-                        :rules="[rules.required]"
-                    />
-                    <wysiwyg-editor
-                        v-model="termToUpdate.body"
-                        label="Изменить термин здесь"
-                    />
-                </v-container>
-                <v-card-actions>
-                    <v-spacer />
-                    <v-btn dark color="green" @click="updateTerm()"
-                        >Сохранить
-                    </v-btn>
-                    <v-btn dark color="error" @click="termToUpdate = false"
-                        >Отмена
-                    </v-btn>
-                </v-card-actions>
-            </v-card>
-        </v-dialog>
+
+        <terms-create-dialog
+            v-model="dialogAdd"
+            :knowledge-areas="knowledgeAreas"
+            :categories="categories"
+            @created="termCreated"
+        />
+
+        <terms-edit-dialog
+            v-model="termToUpdate"
+            :knowledge-areas="knowledgeAreas"
+            :categories="categories"
+            @updated="termUpdated"
+        />
+
+        <terms-delete-dialog
+            v-model="termToDelete"
+            @deleted="termDeleted"
+        />
+        
     </v-content>
 </template>
 <script>
 import WysiwygEditor from "../components/WysiwygEditor";
 import rules from "../validation-rules";
 
+import TermsCreateDialog from "./TermsCreateDialog";
+import TermsEditDialog from "./TermsEditDialog";
+import TermsDeleteDialog from "./TermsDeleteDialog";
+
 export default {
-    components: { "wysiwyg-editor": WysiwygEditor },
+    components: {
+        "wysiwyg-editor": WysiwygEditor,
+        "terms-create-dialog": TermsCreateDialog,
+        "terms-edit-dialog": TermsEditDialog,
+        "terms-delete-dialog": TermsDeleteDialog
+    },
     data() {
         return {
             rules,
@@ -230,9 +127,6 @@ export default {
             dialogAdd: false,
             categories: [],
             knowledgeAreas: [],
-            newTerm: null,
-            dialogDelete: false,
-            dialogUpdate: false,
             terms: [],
             search: "",
             page: 1,
@@ -262,9 +156,6 @@ export default {
                 }
             ]
         };
-    },
-    beforeMount() {
-        this.newTerm = this.getDefaultTerm();
     },
     mounted() {
         this.loadKnowledgeAreas();
@@ -297,59 +188,17 @@ export default {
                 .then(res => (this.categories = res.data))
                 .catch(e => console.log(e));
         },
-        getDefaultTerm() {
-            return {
-                name: "",
-                body: "",
-                link: "",
-                knowledgeAreas: [],
-                categories: []
-            };
+        termCreated(newTerm) {
+            this.dialogAdd = false;
+            this.loadTerms();
         },
-        resetNewTerm() {
-            this.newTerm = this.getDefaultTerm();
-            this.$refs.createForm.reset();
+        termUpdated(newTerm) {
+            this.termToUpdate = null;
+            this.loadTerms();
         },
-        addTerm(e) {
-            e.preventDefault();
-
-            this.$refs.createForm.validate();
-
-            axios
-                .post("/api/terms", this.newTerm)
-                .then(res => {
-                    this.resetNewTerm();
-                    this.dialogAdd = false;
-                    this.loadTerms();
-                })
-                .catch(err => {
-                    console.log(err);
-                });
-        },
-        updateTerm() {
-            axios
-                .put("/api/terms/" + this.termToUpdate.id, {
-                    name: this.termToUpdate.name,
-                    body: this.termToUpdate.body
-                })
-                .then(res => {
-                    this.loadTerms();
-                    this.termToUpdate = false;
-                })
-                .catch(err => {
-                    console.log(err);
-                });
-        },
-        deleteTerm() {
-            axios
-                .delete("/api/terms/" + this.termToDelete.id)
-                .then(res => {
-                    this.loadTerms();
-                    this.termToDelete = false;
-                })
-                .catch(err => {
-                    console.log(err);
-                });
+        termDeleted(newTerm) {
+            this.termToDelete = null;
+            this.loadTerms();
         }
     },
     computed: {

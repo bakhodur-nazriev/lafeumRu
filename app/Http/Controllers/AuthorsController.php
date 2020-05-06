@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Author;
 use App\Category;
-use ChristianKuri\LaravelFavorite\Models\Favorite;
 use Illuminate\Http\Request;
 
 class AuthorsController extends Controller
@@ -35,25 +34,18 @@ class AuthorsController extends Controller
 
     public function store(Request $request)
     {
-        /*$author = author::create($request->all());
-        if ($request->hasfile("photo")) {
-            $file = $request->file("photo");
-            $extension = $file->getClientOriginalExtension(); //getting image extension
-            $filename = time() . "." . $extension;
-            $file->move("/home/bakhodur/Desktop/MyProjects/lafeum/public/img/authors", $filename);
-            $author->photo = $filename;
-        } else {
-            return $request;
-            $author->photo = "";
-        }
-        $author->save();
-        return "success";*/
+        $request->validate([
+            'name' => 'required',
+            'author_group_id' => 'required'
+        ]);
 
-        $newPhotoData = $request->only(["name", "biography"]);
+        $newAuthorData = $request->only(["name", "biography"]);
+
         if ($request->hasFile("photo")) {
-            $newPhotoData["photo"] = $this->saveImage(time(), $request->photo, self::AUTHORS_PHOTOS_PATH);
+            $newAuthorData["photo"] = $this->saveImage(time(), $request->photo, self::AUTHORS_PHOTOS_PATH);
         }
-        return Author::create($newPhotoData);
+
+        return Author::create($newAuthorData);
     }
 
     public function update(Author $author, Request $request)

@@ -63,7 +63,6 @@ body {
     width: 100%;
     cursor: pointer;
     border-radius: 2px;
-    margin: 5px;
 }
 
 .main-page-carousel-inner {
@@ -75,6 +74,10 @@ body {
     background-color: white;
     border-radius: 5px;
     margin-bottom: 25px;
+}
+
+.video-card-block {
+    min-height: 460px;
 }
 
 .share-links {
@@ -292,6 +295,7 @@ body {
 
 .navbar-light .navbar-nav .nav-link {
     color: white;
+    text-align: end;
 }
 
 .navbar-light .navbar-nav .nav-link:hover,
@@ -404,7 +408,7 @@ body {
     padding: 20px;
     border-radius: 5px;
     height: min-content;
-    max-width: 320px;
+    max-width: 90%;
 }
 
 .badge {
@@ -457,4 +461,11 @@ body {
 }
 
 @media (min-width: 992px) {
+    .shows-left-block {
+        min-width: 280px;
+    }
+
+    .shows-content-and-right-block {
+        margin-left: 30px;
+    }
 }

@@ -21,7 +21,7 @@
                     «соц», «пси», «лич», «упр», «жи» , «кул», «эво» и т.п.<br>
                     <h5 class="mt-2 mb-0"><b>Введите термин</b></h5>
                 </div>
-                <div class="col-md-5 input-group mb-3">
+                <div class="col-md-5 col-xl-4 input-group mb-3">
                     <input
                         type="text"
                         id="vocabulary-search"

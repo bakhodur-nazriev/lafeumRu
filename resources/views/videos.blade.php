@@ -7,8 +7,8 @@
             <div class="col-md-8 p-0">
                 <h3 class="secondary ml-3">Видео</h3>
                 @foreach($videos as $video)
-                    <div class="col-md-5 px-2 d-inline-block">
-                        <div class="card h-100">
+                    <div class="col-md-5 col-lg-5 px-2 d-inline-block">
+                        <div class="card video-card-block">
                             <div class="col video-link-block">
                                 <p class="video-channel-link">
                                     <a href="/channels/{{ $video->channel->slug }}" class="secondary">

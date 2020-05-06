@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Knowledge;
-use App\Term;
-use ChristianKuri\LaravelFavorite\Models\Favorite;
 use Illuminate\Http\Request;
 
 class KnowledgesController extends Controller
@@ -34,6 +32,10 @@ class KnowledgesController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required'
+        ]);
+
         return Knowledge::create($request->all());
     }
 

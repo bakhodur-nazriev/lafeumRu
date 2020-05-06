@@ -2,12 +2,13 @@
 
 namespace App;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 
 class Author extends Model
 {
 
-    protected $fillable = ["name", "biography", "photo", "author_group_id"];
+    protected $fillable = ["name", "biography", "photo", "author_group_id", "slug"];
 
     public function getRouteKeyName()
     {
@@ -27,5 +28,11 @@ class Author extends Model
     public function categories()
     {
         return $this->morphMany(Category::class, 'categoriable');
+    }
+
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = $value;
+        $this->attributes['slug'] = Str::slug($value);
     }
 }

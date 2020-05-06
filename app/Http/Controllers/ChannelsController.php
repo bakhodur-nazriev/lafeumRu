@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Channel;
-use ChristianKuri\LaravelFavorite\Models\Favorite;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class ChannelsController extends Controller
@@ -33,6 +33,10 @@ class ChannelsController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+        ]);
+
         return Channel::create($request->all());
     }
 

@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row d-flex justify-content-center">
-            <div class="col-md-5 col-xl-4">
+            <div class="col-sm-8 col-md-5 col-xl-4">
                 <span class="authors-main-title">
                     <h3 class="secondary">YouTube Каналы</h3>
                 </span>
@@ -19,7 +19,7 @@
         </div>
         <div class="row">
             @foreach ($channels as $channel)
-                <div class="col-md-3 channel authors-links">
+                <div class="col-sm-5 offset-sm-1 col-md-2 offset-md-1 channel authors-links">
                     <li class="list-group">
                         <a href="/channels/{{$channel->slug}}">{{ $channel->name }}</a>
                     </li>

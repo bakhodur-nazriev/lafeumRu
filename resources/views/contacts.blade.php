@@ -2,18 +2,17 @@
 
 @section('content')
     <div class="container">
-        <div class="row mb-5">
-            <div class="col-sm-12 col-md-8 col-lg-8">
+        <div class="row">
+            <div class="col-sm-12 col-lg-8">
                 <h3 class="secondary">Контакты</h3>
                 <p>Мы рады, что Вы посетили наш сайт и ознакомились с находящейся на нем информацией.
                     Вся информация находится в свободном доступе и предназначена только для частного пользования.
-                    Если Вы считаете, что Ваша работа была размещена на нашем сайте в нарушение Вашего авторского права, сообщите нам об этом, используя обратную связь.
+                    Если Вы считаете, что Ваша работа была размещена на нашем сайте в нарушение Вашего авторского права,
+                    сообщите нам об этом, используя обратную связь.
                     Будем рады рассмотреть Ваши рекомендации по усовершенствованию сайта.</p>
-                <p>
-                    <a href="mailto:info@lafeum.org">info@lafeum.org</a>
-                </p>
+                <p><a href="mailto:info@lafeum.org">info@lafeum.org</a></p>
             </div>
-            <div class="col-sm-8 offet-sm-2 col-md-4 offset-md-0 col-lg-4">
+            <div class="col-sm-12 col-lg-4">
                 <h3 class="mb-4 secondary">Свяжитесь с нами</h3>
                 <div class="contact-form-block">
                     <form action="/contacts" method="POST">

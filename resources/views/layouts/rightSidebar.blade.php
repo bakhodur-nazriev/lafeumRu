@@ -1,4 +1,4 @@
-<div class="col-md-4 d-flex justify-content-center">
+<div class="col-md-12 col-lg-4 d-flex justify-content-center">
     <div class="right-block-sidebar">
         @guest
             <form style="width: 100%;" method="POST" action="{{ route('login') }}">

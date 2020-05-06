@@ -12,8 +12,8 @@
         </div>
         <div class="row justify-content-center">
             @foreach($photos as $photo)
-                <div class="col-md-4">
-                    <a href="{{ $photo->image }}" data-fancybox="gallery" class="pa-2">
+                <div class="col-md-6 col-lg-4">
+                    <a href="{{ $photo->path }}" data-fancybox="gallery" class="pa-2">
                         <img src="{{ $photo->path }}" class="card-img-top single-image" alt="">
                     </a>
                 </div>

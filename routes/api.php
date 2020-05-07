@@ -32,6 +32,9 @@ Route::group(['middleware' => 'auth:api'], function (){
     Route::put("/authors/{author}", "AuthorsController@update");
     Route::delete("/authors/{author}", "AuthorsController@destroy");
     
+    /* Author Groups */
+    Route::get("/author-groups", "AuthorGroupController@index");
+
     /* Photos */
     Route::get("/photos", "PhotosController@get");
     Route::post("/photos", "PhotosController@store");

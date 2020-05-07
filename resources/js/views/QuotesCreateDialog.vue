@@ -1,0 +1,106 @@
+<template>
+    <v-dialog v-model="value" width="700">
+        <v-card>
+            <v-form @submit="addQuote" ref="createForm">
+                <v-card-title class="primary white--text mb-5">
+                    Создать Цитату
+                </v-card-title>
+                <v-card-text>
+                    <v-select
+                        outlined
+                        :items="authors"
+                        item-value="id"
+                        item-text="name"
+                        label="Автор"
+                        :rules="[rules.required]"
+                        v-model="newQuote.author_id"
+                    />
+                    <v-select
+                        outlined
+                        :items="categories"
+                        multiple
+                        item-value="id"
+                        item-text="name"
+                        label="Категории"
+                        :rules="[rules.required]"
+                        v-model="newQuote.categories"
+                    />
+                    <wysiwyg-editor
+                        v-model="newQuote.body"
+                        label="Введите цитату здесь"
+                    />
+                </v-card-text>
+                <v-card-actions>
+                    <v-spacer />
+                    <v-btn dark color="green" type="submit">
+                        Сохранить
+                    </v-btn>
+                    <v-btn
+                        dark
+                        color="error"
+                        type="button"
+                        @click="$emit('input', false)"
+                    >
+                        Отмена
+                    </v-btn>
+                </v-card-actions>
+            </v-form>
+        </v-card>
+    </v-dialog>
+</template>
+
+<script>
+import WysiwygEditor from "../components/WysiwygEditor";
+import rules from "../validation-rules";
+
+export default {
+    props: {
+        value: Boolean,
+        authors: Array,
+        categories: Array
+    },
+    components: {
+        "wysiwyg-editor": WysiwygEditor
+    },
+    data(){
+        return {
+            rules,
+            newQuote: null
+        }
+    },
+    beforeMount() {
+        this.newQuote = this.getDefaultQuote();
+    },
+    methods: {
+        getDefaultQuote() {
+            return {
+                body: "",
+                author_id: null,
+                categories: null
+            };
+        },
+        resetNewQuoteForm() {
+            this.newQuote = this.getDefaultQuote();
+            this.$refs.createForm.reset();
+            this.showDialog = false;
+        },
+        addQuote(e) {
+            e.preventDefault();
+
+            const validForm = this.$refs.createForm.validate();
+
+            if (!validForm) return;
+
+            axios
+                .post("/api/quotes/", this.newQuote)
+                .then(res => {
+                    this.resetNewQuoteForm();
+                    this.$emit('created', res.data);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        }
+    },
+};
+</script>

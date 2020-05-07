@@ -39,7 +39,7 @@ class AuthorsController extends Controller
             'author_group_id' => 'required'
         ]);
 
-        $newAuthorData = $request->only(["name", "biography"]);
+        $newAuthorData = $request->all();
 
         if ($request->hasFile("photo")) {
             $newAuthorData["photo"] = $this->saveImage(time(), $request->photo, self::AUTHORS_PHOTOS_PATH);

@@ -1,100 +1,27 @@
 <template>
     <v-content class="pa-0">
-        <v-container fluid>
-            <v-row justify="center">
-                <v-col cols="6">
-                    <v-text-field
-                        class="mb-1"
-                        hide-details
-                        solo
-                        label="Поиск"
-                        append-icon="mdi-magnify"
-                        v-model="search"
+        <index-page-layout
+            index-url="/api/photos"
+            :table-headers="this.headers"
+            add-label="Добавить фото"
+            searchField="description"
+            ref="indexPage"
+            @add-item="dialogAdd = true"
+            @update-item="photoToUpdate = $event"
+            @delete-item="photoToDelete = $event"
+        >
+            <template v-slot:item.image="{ item }">
+                <div class="text-center pa-2">
+                    <v-img
+                        :src="item.path"
+                        :alt="item.description"
+                        max-width="6rem"
                     >
-                    </v-text-field>
-                </v-col>
-                <v-col cols="12">
-                    <v-data-table
-                        :headers="headers"
-                        :items="filteredPhotos"
-                        :items-per-page="itemsPerPage"
-                        :page.sync="page"
-                        @page-count="pageCount = $event"
-                        hide-default-footer
-                        class="elevation-1"
-                        :loading="loadingPhotos"
-                        loading-text="Загрузка..."
-                    >
-                        <template v-slot:item.image="{ item }">
-                            <div class="text-center pa-2">
-                                <v-img
-                                    :src="item.path"
-                                    :alt="item.description"
-                                    max-width="6rem"
-                                >
-                                </v-img>
-                            </div>
-                        </template>
-                        <template v-slot:item.description="{ item }">
-                            <div
-                                v-html="item.description"
-                                class="short-paragraph my-3 three-line-truncate"
-                            />
-                        </template>
-                        <template v-slot:item.action="{ item }">
-                            <v-btn
-                                fab
-                                dark
-                                small
-                                color="primary"
-                                elevation="2"
-                                outlined
-                                @click="photoToUpdate = { ...item }"
-                            >
-                                <v-icon dark>mdi-pen</v-icon>
-                            </v-btn>
-                            <v-btn
-                                fab
-                                dark
-                                small
-                                color="error"
-                                elevation="2"
-                                outlined
-                                @click="photoToDelete = item"
-                            >
-                                <v-icon dark>
-                                    mdi-delete
-                                </v-icon>
-                            </v-btn>
-                        </template>
-                    </v-data-table>
-                </v-col>
-                <v-col class="text-center pt-2">
-                    <v-pagination
-                        :total-visible="7"
-                        v-model="page"
-                        :length="pageCount"
-                    ></v-pagination>
-                </v-col>
-            </v-row>
-        </v-container>
-        <v-tooltip top>
-            <template v-slot:activator="{ on }">
-                <v-btn
-                    bottom
-                    color="primary"
-                    v-on="on"
-                    dark
-                    fab
-                    fixed
-                    right
-                    @click="dialogAdd = !dialogAdd"
-                >
-                    <v-icon>mdi-plus</v-icon>
-                </v-btn>
+                    </v-img>
+                </div>
             </template>
-            <span>Добавить фото</span>
-        </v-tooltip>
+        </index-page-layout>
+
         <!-- Add Item Dialog -->
         <v-dialog v-model="dialogAdd" width="700px">
             <v-card>
@@ -183,21 +110,17 @@
     </v-content>
 </template>
 <script>
+import IndexPageLayout from "../components/IndexPageLayout";
+
 export default {
+    components: {
+        IndexPageLayout
+    },
     data() {
         return {
             dialogAdd: false,
-            dialogDelete: false,
-            dialogUpdate: false,
             photoImage: [],
             photoDescription: "",
-            bodyRules: [v => !!v || "Заполните пустое поле"],
-            photos: [],
-            loadingPhotos: false,
-            search: "",
-            page: 1,
-            pageCount: 2,
-            itemsPerPage: 12,
             photoToDelete: null,
             photoToUpdate: null,
             headers: [
@@ -213,34 +136,11 @@ export default {
                     text: "Описание",
                     value: "description",
                     sortable: false
-                },
-                {
-                    text: "Действия",
-                    value: "action",
-                    align: "center",
-                    sortable: false,
-                    width: "160px"
                 }
             ]
         };
     },
-    mounted() {
-        this.loadPhotos();
-    },
     methods: {
-        loadPhotos() {
-            this.loadingPhotos = true;
-            axios
-                .get("/api/photos/")
-                .then(res => {
-                    this.loadingPhotos = false;
-                    this.photos = res.data;
-                })
-                .catch(err => {
-                    this.loadingPhotos = false;
-                    console.log(err);
-                });
-        },
         addPhoto() {
             const formData = new FormData();
             formData.append("image", this.photoImage);
@@ -253,7 +153,7 @@ export default {
                 })
                 .then(res => {
                     this.dialogAdd = false;
-                    this.loadPhotos();
+                    this.$refs.indexPage.loadItems();
                 })
                 .catch(err => {
                     console.log(err);
@@ -266,7 +166,7 @@ export default {
                 })
                 .then(res => {
                     this.photoToUpdate = false;
-                    this.loadPhotos();
+                    this.$refs.indexPage.loadItems();
                 })
                 .catch(err => {
                     console.log(err);
@@ -276,21 +176,12 @@ export default {
             axios
                 .delete("/api/photos/" + this.photoToDelete.id)
                 .then(res => {
-                    this.loadPhotos();
+                    this.$refs.indexPage.loadItems();
                     this.photoToDelete = false;
                 })
                 .catch(err => {
                     console.log(err);
                 });
-        }
-    },
-    computed: {
-        filteredPhotos() {
-            return this.photos.filter(photo => {
-                return photo.description
-                    .toLowerCase()
-                    .includes(this.search.toLowerCase());
-            });
         }
     }
 };

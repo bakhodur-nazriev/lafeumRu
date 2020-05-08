@@ -20,8 +20,13 @@ class QuotesController extends Controller
     public function index()
     {
         $quotes = Quote::with('author', 'categories')->paginate(10);
-        $categories = Category::where('type', Quote::class)->get()->toTree()->unique('name');
+        $categories = Category::quote()->get()->toTree()->unique('name');
         return view('/quotes', compact(['quotes', 'categories',]));
+    }
+
+    public function indexByCategory(Request $request)
+    {
+        // Category::
     }
 
     public function get(Request $request)

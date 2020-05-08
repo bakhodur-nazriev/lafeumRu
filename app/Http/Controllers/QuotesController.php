@@ -27,7 +27,8 @@ class QuotesController extends Controller
     public function get(Request $request)
     {
         $quotesQuery = Quote::with('author', 'categories');
-        return $quotesQuery->latest()->get();
+        
+        return $quotesQuery->latest()->paginate($request->perPage ?: 15);
     }
 
     public function store(Request $request)

@@ -27,18 +27,37 @@
                         loading-text="Загрузка..."
                     >
                         <template v-slot:item.action="{ item }">
-                            <v-btn fab dark small color="primary" elevation="2" outlined @click="authorToUpdate = item">
+                            <v-btn
+                                fab
+                                dark
+                                small
+                                color="primary"
+                                elevation="2"
+                                outlined
+                                @click="authorToUpdate = {...item}"
+                            >
                                 <v-icon dark>mdi-pen</v-icon>
                             </v-btn>
-                            <v-btn fab dark small color="error" elevation="2" outlined @click="authorToDelete = item">
+                            <v-btn
+                                fab
+                                dark
+                                small
+                                color="error"
+                                elevation="2"
+                                outlined
+                                @click="authorToDelete = item"
+                            >
                                 <v-icon dark>mdi-delete</v-icon>
                             </v-btn>
                         </template>
                         <template v-slot:item.biography="{ item }">
-                            <div v-html="item.biography" class="my-3 three-line-truncate"/>
+                            <div
+                                v-html="item.biography"
+                                class="my-3 three-line-truncate"
+                            />
                         </template>
                         <template v-slot:item.photo="{ item }">
-                            <v-avatar size="78" class="ma-1">
+                            <v-avatar size="78" class="ma-1" v-if="item.photo">
                                 <v-img
                                     :src="item.photo"
                                     :alt="item.name"
@@ -76,284 +95,121 @@
             </template>
             <span>Добавить цитату</span>
         </v-tooltip>
-        <!-- Add Item Dialog -->
-        <v-dialog v-model="dialogAdd" width="700px">
-            <v-card>
-                <v-card-title class="primary white--text">
-                    Создать Автора
-                </v-card-title>
-                <v-container>
-                    <v-row justify="center">
-                        <v-col cols="12">
-                            <v-text-field
-                                hide-details
-                                outlined
-                                label="Имя автора"
-                                v-model="authorName"
-                            >
-                            </v-text-field>
-                        </v-col>
-                        <v-col cols="12">
-                            <v-file-input
-                                hide-details
-                                outlined
-                                label="Выберите фото"
-                                v-model="authorPhoto"
-                                prepend-icon=""
-                                prepend-inner-icon="mdi-camera"
-                            >
-                            </v-file-input>
-                        </v-col>
-                        <v-col cols="12">
-                            <tiptap-vuetify
-                                :extensions="extensions"
-                                elevation="0"
-                                outlined
-                                label="Биография автора"
-                                v-model="authorBiography"
-                            >
-                            </tiptap-vuetify>
-                        </v-col>
-                    </v-row>
-                </v-container>
-                <v-card-actions>
-                    <v-spacer/>
-                    <v-btn dark color="green" @click="addAuthor()">Сохранить</v-btn>
-                    <v-btn dark color="error" @click="() => (dialogAdd = false)">Отмена</v-btn>
-                </v-card-actions>
-            </v-card>
-        </v-dialog>
-        <!-- Delete Item Dialog -->
-        <v-dialog v-if="authorToDelete" v-model="authorToDelete" width="500">
-            <v-card class="pa-2">
-                <p class="pt-1 regular headline text-center"
-                >Вы действительно хотите удалить <br>автора ?
-                </p>
-                <v-card-actions class="justify-center">
-                    <v-btn color="green darken-1" dark @click="authorToDelete = false">
-                        Нет
-                    </v-btn>
-                    <v-btn color="red darken-1" dark @click="deleteAuthor()">
-                        Да
-                    </v-btn>
-                </v-card-actions>
-            </v-card>
-        </v-dialog>
-        <!-- Update Item Dialog -->
-        <v-dialog v-if="authorToUpdate" v-model="authorToUpdate" width="700px">
-            <v-card>
-                <v-card-title class="primary white--text">
-                    Изменить Автора
-                </v-card-title>
-                <v-container>
-                    <v-row justify="center">
-                        <v-col cols="12">
-                            <v-text-field
-                                hide-details
-                                outlined
-                                label="Изменить имя автора"
-                                v-model="authorToUpdate.name"
-                            >
-                            </v-text-field>
-                        </v-col>
-                        <v-col cols="12">
-                            <v-file-input
-                                hide-details
-                                outlined
-                                name="photo"
-                                label="Изменить фото"
-                                prepend-icon=""
-                                prepend-inner-icon="mdi-camera"
-                                v-model="authorToUpdate.photo"
-                            >
-                            </v-file-input>
-                        </v-col>
-                        <v-col cols="12">
-                            <tiptap-vuetify
-                                outlined
-                                v-model="authorToUpdate.biography"
-                                :extensions="extensions"
-                                placeholder="Добаить биографию здесь"
-                            >
-                            </tiptap-vuetify>
-                        </v-col>
-                    </v-row>
-                </v-container>
-                <v-card-actions>
-                    <v-spacer/>
-                    <v-btn dark color="green" @click="updateAuthor()">Сохранить</v-btn>
-                    <v-btn dark color="error" @click="authorToUpdate = false">Отмена</v-btn>
-                </v-card-actions>
-            </v-card>
-        </v-dialog>
+
+        <authors-create-dialog
+            v-model="dialogAdd"
+            :groups="authorGroups"
+            @created="authorCreated"
+        />
+
+        <authors-edit-dialog
+            v-model="authorToUpdate"
+            :groups="authorGroups"
+            @updated="authorUpdated"
+        />
+
+        <authors-delete-dialog
+            v-model="authorToDelete"
+            @deleted="authorDeleted"
+        />
     </v-content>
 </template>
-<script>
-    import {
-        // component
-        TiptapVuetify,
-        // extensions
-        Heading,
-        Bold,
-        Italic,
-        Strike,
-        Underline,
-        Code,
-        Paragraph,
-        BulletList,
-        OrderedList,
-        ListItem,
-        Link,
-        Blockquote,
-        HardBreak,
-        HorizontalRule,
-        History,
-        Image
-    } from 'tiptap-vuetify';
 
-    export default {
-        components: {TiptapVuetify},
-        data() {
-            return {
-                extensions: [
-                    History,
-                    Blockquote,
-                    Link,
-                    Underline,
-                    Strike,
-                    Italic,
-                    ListItem,
-                    BulletList,
-                    OrderedList,
-                    Image,
-                    [
-                        Heading,
-                        {
-                            options: {
-                                levels: [1, 2, 3]
-                            }
-                        }
-                    ],
-                    Bold,
-                    HorizontalRule,
-                    Paragraph,
-                    HardBreak
-                ],
-                authorName: "",
-                authorBiography: "",
-                search: "",
-                authorPhoto: [],
-                authors: [],
-                loadingAuthors: false,
-                page: 1,
-                pageCount: 2,
-                authorToDelete: null,
-                authorToUpdate: null,
-                dialogAdd: false,
-                dialogDelete: false,
-                itemsPerPage: 12,
-                headers: [
-                    {
-                        text: "Имя",
-                        value: "name",
-                        sortable: false
-                    },
-                    {
-                        text: "Биография",
-                        value: "biography",
-                        sortable: false
-                    },
-                    {
-                        text: "Фото",
-                        value: "photo",
-                        align: "center",
-                        sortable: false
-                    },
-                    {
-                        text: "Дейсвтия",
-                        value: "action",
-                        align: "center",
-                        width: "160px",
-                        sortable: false
-                    }
-                ]
-            };
+<script>
+import AuthorsCreateDialog from "./AuthorsCreateDialog";
+import AuthorsEditDialog from "./AuthorsEditDialog";
+import AuthorsDeleteDialog from "./AuthorsDeleteDialog";
+
+export default {
+    components: {
+        AuthorsCreateDialog,
+        AuthorsEditDialog,
+        AuthorsDeleteDialog
+    },
+    data() {
+        return {
+            search: "",
+            authors: [],
+            authorGroups: [],
+            loadingAuthors: false,
+            page: 1,
+            pageCount: 2,
+            authorToDelete: null,
+            authorToUpdate: null,
+            dialogAdd: false,
+            itemsPerPage: 12,
+            headers: [
+                {
+                    text: "Имя",
+                    value: "name",
+                    sortable: false
+                },
+                {
+                    text: "Биография",
+                    value: "biography",
+                    sortable: false
+                },
+                {
+                    text: "Фото",
+                    value: "photo",
+                    align: "center",
+                    sortable: false
+                },
+                {
+                    text: "Дейсвтия",
+                    value: "action",
+                    align: "center",
+                    width: "160px",
+                    sortable: false
+                }
+            ]
+        };
+    },
+    mounted() {
+        this.loadAuthors();
+        this.loadAuthorGroups();
+    },
+    methods: {
+        loadAuthors() {
+            this.loadingAuthors = true;
+            axios
+                .get("/api/authors")
+                .then(res => {
+                    this.loadingAuthors = false;
+                    this.authors = res.data;
+                })
+                .catch(err => {
+                    this.loadingPhotos = false;
+                    console.log(err);
+                });
         },
-        mounted() {
+        loadAuthorGroups() {
+            axios
+                .get("/api/author-groups")
+                .then(res => (this.authorGroups = res.data))
+                .catch(err => console.log(err));
+        },
+        authorCreated(newAuthor) {
+            this.dialogAdd = false;
             this.loadAuthors();
         },
-        methods: {
-            loadAuthors() {
-                this.loadingAuthors = true;
-                axios
-                    .get("/api/authors")
-                    .then(res => {
-                        this.loadingAuthors = false;
-                        this.authors = res.data;
-                    })
-                    .catch(err => {
-                        this.loadingPhotos = false;
-                        console.log(err);
-                    });
-            },
-            addAuthor() {
-                const formData = new FormData();
-                formData.append("name", this.authorName);
-                formData.append("biography", this.authorBiography);
-                formData.append("photo", this.authorPhoto);
-                formData.append("_method", "post");
-                axios
-                    .post("/api/authors", formData, {
-                        headers: {
-                            "Content-Type": "multipart/form-data",
-                        }
-                    })
-                    .then(res => {
-                        this.dialogAdd = false;
-                        this.loadAuthors();
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    });
-            },
-            updateAuthor() {
-                const formData = new FormData();
-                formData.append("name", this.authorToUpdate.name);
-                formData.append("biography", this.authorToUpdate.biography);
-                formData.append("photo", this.authorToUpdate.photo);
-                formData.append("_method", "put");
-                axios
-                    .post("/api/authors/" + this.authorToUpdate.id, formData, {
-                        headers: {
-                            "Content-Type": "multipart/form-data",
-                        }
-                    })
-                    .then(res => {
-                        this.authorToUpdate = false;
-                        this.loadAuthors();
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    });
-            },
-            deleteAuthor() {
-                axios
-                    .delete("/api/authors/" + this.authorToDelete.id)
-                    .then(res => {
-                        this.authorToDelete = false;
-                        this.loadAuthors();
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    });
-            }
+        authorUpdated(updated) {
+            this.authorToUpdate = null;
+            this.loadAuthors();
         },
-        computed: {
-            filteredAuthors() {
-                return this.authors.filter(author => {
-                    return author.name.toLowerCase().includes(this.search.toLowerCase());
-                });
-            }
+        authorDeleted() {
+            this.authorToDelete = null;
+            this.loadAuthors();
         }
-    };
+    },
+    computed: {
+        filteredAuthors() {
+            return this.authors.filter(author => {
+                return author.name
+                    .toLowerCase()
+                    .includes(this.search.toLowerCase());
+            });
+        }
+    }
+};
 </script>

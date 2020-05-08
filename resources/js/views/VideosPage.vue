@@ -88,156 +88,44 @@
             <span>Добавить видео</span>
         </v-tooltip>
 
-        <!-- Add Item Dialog -->
-        <v-dialog v-model="dialogAdd" width="700px">
-            <v-card>
-                <v-form ref="createForm" @submit="addVideo">
-                    <v-card-title class="primary white--text mb-5">
-                        Создать Видео
-                    </v-card-title>
-                    <v-card-text>
-                        <v-text-field
-                            label="Введите название"
-                            v-model="newVideo.title"
-                            outlined
-                            :rules="requiredField"
-                        />
-                        <v-select
-                            label="Выберите канал"
-                            v-model="newVideo.channel_id"
-                            item-text="name"
-                            item-value="id"
-                            outlined
-                            :items="channels"
-                            :rules="requiredField"
-                        />
-                        <v-select
-                            v-model="newVideo.categories"
-                            :items="categories"
-                            outlined
-                            multiple
-                            item-value="id"
-                            item-text="name"
-                            label="Выберите категории"
-                            :rules="requiredField"
-                        />
-                        <v-text-field
-                            label="Добавьте ссылку"
-                            v-model="newVideo.link"
-                            outlined
-                            :rules="requiredField"
-                        />
-                        <v-text-field
-                            label="Добавьте продолжительность (в мин.)"
-                            type="number"
-                            v-model="newVideo.duration"
-                            outlined
-                            :rules="requiredField"
-                        />
-                    </v-card-text>
-                    <v-card-actions>
-                        <v-spacer />
-                        <v-btn dark color="green" type="submit"
-                            >Сохранить</v-btn
-                        >
-                        <v-btn
-                            dark
-                            color="error"
-                            type="button"
-                            @click="() => (dialogAdd = false)"
-                            >Отмена</v-btn
-                        >
-                    </v-card-actions>
-                </v-form>
-            </v-card>
-        </v-dialog>
-        <!-- Delete Item Dialog -->
-        <v-dialog v-if="videoToDelete" v-model="videoToDelete" width="500">
-            <v-card class="pa-2">
-                <v-card-title class="pt-1 regular headline text-center">
-                    Вы действительно хотите удалить это видео ?
-                </v-card-title>
-                <v-card-actions class="justify-center">
-                    <v-btn
-                        color="green darken-1"
-                        dark
-                        @click="videoToDelete = null"
-                    >
-                        Нет
-                    </v-btn>
-                    <v-btn color="red darken-1" dark @click="deleteVideo()"
-                        >Да</v-btn
-                    >
-                </v-card-actions>
-            </v-card>
-        </v-dialog>
-        <!-- Update Item Dialog -->
-        <v-dialog v-if="videoToUpdate" v-model="videoToUpdate" width="700px">
-            <v-card>
-                <v-card-title class="primary white--text">
-                    Изменить Видео
-                </v-card-title>
-                <v-container>
-                    <v-row justify="center">
-                        <v-col cols="12">
-                            <v-text-field
-                                hide-details
-                                outlined
-                                v-model="videoToUpdate.title"
-                                label="Изменить названия видео здесь"
-                            >
-                            </v-text-field>
-                        </v-col>
-                        <v-col cols="12">
-                            <v-select
-                                hide-details
-                                outlined
-                                :items="channels"
-                                item-value="id"
-                                item-text="name"
-                                v-model="videoToUpdate.channel_id"
-                                label="Изменить канал видео здесь"
-                            >
-                            </v-select>
-                        </v-col>
-                        <v-col cols="12">
-                            <v-text-field
-                                hide-details
-                                outlined
-                                v-model="videoToUpdate.link"
-                                label="Изменить ссылку видео здесь"
-                            >
-                            </v-text-field>
-                        </v-col>
-                        <v-col cols="12">
-                            <v-text-field
-                                hide-details
-                                outlined
-                                v-model="videoToUpdate.duration"
-                                label="Изменить продолжителность видео в минутах здесь"
-                            >
-                            </v-text-field>
-                        </v-col>
-                    </v-row>
-                </v-container>
-                <v-card-actions>
-                    <v-spacer />
-                    <v-btn dark color="green" @click="updateVideo()"
-                        >Сохранить</v-btn
-                    >
-                    <v-btn dark color="error" @click="videoToUpdate = false"
-                        >Отмена</v-btn
-                    >
-                </v-card-actions>
-            </v-card>
-        </v-dialog>
+        <videos-create-dialog
+            v-model="dialogAdd"
+            :channels="channels"
+            :categories="categories"
+            @created="videoCreated"
+        />
+
+        <videos-edit-dialog
+            v-model="videoToUpdate"
+            :channels="channels"
+            :categories="categories"
+            @updated="videoUpdated"
+        />
+
+        <videos-delete-dialog
+            v-model="videoToDelete"
+            @deleted="videoDeleted"
+        />
+
     </v-content>
 </template>
 
 <script>
+import rules from "../validation-rules";
+
+import VideosCreateDialog from "./VideosCreateDialog";
+import VideosEditDialog from "./VideosEditDialog";
+import VideosDeleteDialog from "./VideosDeleteDialog";
+
 export default {
+    components: {
+        VideosCreateDialog,
+        VideosEditDialog,
+        VideosDeleteDialog
+    },
     data() {
         return {
+            rules,
             dialogAdd: false,
             dialogDelete: false,
             dialogUpdate: false,
@@ -284,9 +172,6 @@ export default {
             ]
         };
     },
-    beforeMount() {
-        this.newVideo = this.getDefaultVideo();
-    },
     mounted() {
         this.loadVideos();
         this.loadChannels();
@@ -322,62 +207,17 @@ export default {
                 .then(res => (this.categories = res.data))
                 .catch(e => console.log(e));
         },
-        getDefaultVideo() {
-            return {
-                title: "",
-                link: "",
-                duration: "",
-                channel_id: null,
-                categories: []
-            };
-        },
-        resetNewVideoForm() {
+        videoCreated(newVideo) {
             this.dialogAdd = false;
-            this.newVideo = this.getDefaultVideo();
+            this.loadVideos();
         },
-        addVideo(e) {
-            e.preventDefault();
-
-            const validForm = this.$refs.createForm.validate();
-
-            if(!validForm) return;
-
-            axios
-                .post("/api/videos", this.newVideo)
-                .then(res => {
-                    this.resetNewVideoForm();
-                    this.loadVideos();
-                })
-                .catch(err => {
-                    console.log(err);
-                });
+        videoUpdated(updated) {
+            this.videoToUpdate = null;
+            this.loadVideos();
         },
-        updateVideo() {
-            axios
-                .put("/api/videos/" + this.videoToUpdate.id, {
-                    title: this.videoToUpdate.title,
-                    channel_id: this.videoToUpdate.channel_id,
-                    link: this.videoToUpdate.link,
-                    duration: this.videoToUpdate.duration
-                })
-                .then(res => {
-                    this.videoToUpdate = false;
-                    this.loadVideos();
-                })
-                .catch(err => {
-                    console.log(err);
-                });
-        },
-        deleteVideo() {
-            axios
-                .delete("/api/videos/" + this.videoToDelete.id)
-                .then(res => {
-                    this.videoToDelete = false;
-                    this.loadVideos();
-                })
-                .catch(err => {
-                    console.log(err);
-                });
+        videoDeleted() {
+            this.videoToDelete = null;
+            this.loadVideos();
         }
     },
     computed: {
@@ -387,21 +227,6 @@ export default {
                     .toLowerCase()
                     .includes(this.search.toLowerCase());
             });
-        },
-        requiredField() {
-            return [
-                v => {
-                    if (Array.isArray(v) && v.length == 0) {
-                        return "Обязательное поле";
-                    }
-
-                    if (!v) {
-                        return "Обязательное поле";
-                    }
-
-                    return true;
-                }
-            ];
         }
     }
 };

@@ -19,9 +19,9 @@ class VideosController extends Controller
         return view('/videos', compact(['videos',]));
     }
 
-    public function get()
+    public function get(Request $request)
     {
-        return Video::with("channel")->get();
+        return Video::with("channel")->paginate($request->perPage ?: 15);
     }
 
     public function store(Request $request)

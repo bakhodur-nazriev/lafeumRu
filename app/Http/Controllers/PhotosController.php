@@ -19,9 +19,9 @@ class PhotosController extends Controller
         return view("/photos", compact("photos"));
     }
 
-    public function get()
+    public function get(Request $request)
     {
-        return $photos = Photo::latest()->get();
+        return Photo::latest()->paginate($request->perPage ?: 15);
     }
 
     public function store(Request $request)

@@ -46,9 +46,9 @@ import TermsDeleteDialog from "./TermsDeleteDialog";
 export default {
     components: {
         IndexPageLayout,
-        "terms-create-dialog": TermsCreateDialog,
-        "terms-edit-dialog": TermsEditDialog,
-        "terms-delete-dialog": TermsDeleteDialog
+        TermsCreateDialog,
+        TermsEditDialog,
+        TermsDeleteDialog
     },
     data() {
         return {

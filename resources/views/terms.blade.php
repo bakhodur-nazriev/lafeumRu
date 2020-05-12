@@ -22,29 +22,4 @@
             @include('layouts.rightSidebar')
         </div>
     </div>
-    <script>
-        function termToggleFavourite(termId, onSuccess = null, onFailure = null) {
-            const termModel = "App\\Term";
-            $.ajax({
-                url: '/toggle-favourite',
-                method: 'PUT',
-                data: {
-                    "_token": window.Laravel.csrf_token,
-                    favouritable: termModel,
-                    id: termId
-                }
-            }).then(onSuccess).catch(onFailure);
-        }
-
-        $(document).ready(() => {
-            $('.favourite-term-btn').click(e => {
-                let button = e.target;
-                let id = button.dataset.id;
-
-                termToggleFavourite(id, (isFavourite) => {
-                    button.classList.toggle('fa-star-active', isFavourite);
-                });
-            });
-        });
-    </script>
 @endsection

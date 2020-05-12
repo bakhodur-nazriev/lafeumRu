@@ -25,30 +25,4 @@
             @include('layouts.rightSidebar')
         </div>
     </div>
-
-    <script>
-        function quoteToggleFavourite(quoteId, onSuccess = null, onFailure = null) {
-            const quoteModel = "App\\Quote";
-            $.ajax({
-                url: '/toggle-favourite',
-                method: 'PUT',
-                data: {
-                    "_token": window.Laravel.csrf_token,
-                    favouritable: quoteModel,
-                    id: quoteId
-                }
-            }).then(onSuccess).catch(onFailure);
-        }
-
-        $(document).ready(() => {
-            $('.favourite-quote-btn').click(e => {
-                let button = e.target;
-                let id = button.dataset.id;
-
-                quoteToggleFavourite(id, (isFavourite) => {
-                    button.classList.toggle('fa-star-active', isFavourite);
-                });
-            });
-        });
-    </script>
 @endsection

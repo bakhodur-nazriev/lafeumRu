@@ -20,31 +20,5 @@
             @include('layouts.rightSidebar')
         </div>
     </div>
-
-    <script>
-        function videoToggleFavourite(videoId, onSuccess = null, onFailure = null) {
-            const videoModel = "App\\Video";
-            $.ajax({
-                url: '/toggle-favourite',
-                method: 'PUT',
-                data: {
-                    "_token": window.Laravel.csrf_token,
-                    favouritable: videoModel,
-                    id: videoId
-                }
-            }).then(onSuccess).catch(onFailure);
-        }
-
-        $(document).ready(() => {
-            $('.favourite-video-btn').click(e => {
-                let button = e.target;
-                let id = button.dataset.id;
-
-                videoToggleFavourite(id, (isFavourite) => {
-                    button.classList.toggle('fa-star-active', isFavourite);
-                });
-            });
-        });
-    </script>
 @endsection
 

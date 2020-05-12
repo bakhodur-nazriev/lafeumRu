@@ -34,4 +34,19 @@ class Category extends Model
         $this->attributes['name'] = $value;
         $this->attributes['slug'] = Str::slug($value);
     }
+
+    public function scopeQuote($query)
+    {
+        return $query->where('type', Quote::class);
+    }
+
+    public function scopeTerm($query)
+    {
+        return $query->where('type', Term::class);
+    }
+
+    public function scopeVideo($query)
+    {
+        return $query->where('type', Video::class);
+    }
 }

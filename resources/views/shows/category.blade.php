@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="row card-main-block">
-    @include('layouts.categories', ['type' => $category->type])
+    @include('layouts.categories', ['type' => $category->type, 'active' => $category->id])
     <div class="col-md-9 col-xl-9 col-sm-12 d-flex justify-content-around flex-wrap">
         <div class="col-md-8 col-lg-8">
             <h3 class="secondary">{{$category->name}}</h3>

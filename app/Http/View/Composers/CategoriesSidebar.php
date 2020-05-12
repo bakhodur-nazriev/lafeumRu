@@ -30,7 +30,7 @@ class CategoriesSidebar
         $categories = Category::where('type', $data['type'])
             ->get();
 
-        $this->addLinkToCategories($categories, $data['type']);
+        $this->processCategories($categories, $data);
 
         $view->with('categories', $categories->toTree());
     }
@@ -39,20 +39,43 @@ class CategoriesSidebar
      * Helpers
      */
 
-    private function addLinkToCategories($categories, $type)
+    private function processCategories($categories, $composerData)
     {
-        $categories->each(function($cat) use($type){
-            switch ($type) {
-                case Quote::class:
-                    $cat->link = "/quotes/{$cat->slug}";
-                    break;
-                case Term::class:
-                    $cat->link = "/terms/{$cat->slug}";
-                    break;
-                case Video::class:
-                    $cat->link = "/videos/{$cat->slug}";
-                    break;
-            }
-        });        
+        $categories->each(function ($cat) use ($composerData) {
+
+            $this->addActive($cat, $composerData);
+
+            $this->addLinkToCategory($cat, $composerData['type']);
+        });
+    }
+
+    private function addLinkToCategory($category, $type)
+    {
+        switch ($type) {
+            case Quote::class:
+                $category->link = "/quotes/{$category->slug}";
+                break;
+            case Term::class:
+                $category->link = "/terms/{$category->slug}";
+                break;
+            case Video::class:
+                $category->link = "/videos/{$category->slug}";
+                break;
+        }
+    }
+
+    private function addActive($category, $data)
+    {
+        $category->active = false;
+
+        $activeId = null;
+
+        if (isset($data['active'])) {
+            $activeId = $data['active'];
+        }
+
+        if ($category->id == $activeId) {
+            $category->active = true;
+        }
     }
 }

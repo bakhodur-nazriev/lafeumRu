@@ -21,7 +21,7 @@
             <h5 class="card-title">{{$video->title}}</h5>
             <div class="inner-categories mb-0">
                 @foreach($video->categories as $category)
-                    <a href="#" class="mr-1">
+                    <a href="/videos/{{ $category->slug }}" class="mr-1">
                         <i class="fa fa-tags mr-1"></i>{{$category->name}},
                     </a>
                 @endforeach

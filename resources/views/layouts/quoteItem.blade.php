@@ -17,7 +17,7 @@
     <div class="mb-1">{{ $quote->body }}</div>
     <div class="tags-block">
         @foreach($quote->categories as $category)
-            <a href="#">
+            <a href="/quotes/{{ $category->slug }}">
                 <i class="fa fa-tags"></i>
                 {{ $category->name }}
             </a>

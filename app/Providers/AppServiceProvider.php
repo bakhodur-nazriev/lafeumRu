@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 use App\Category;
+use App\Http\View\Composers\CategoriesSidebar;
+use App\Quote;
+use App\Term;
 use App\Video;
 use ChristianKuri\LaravelFavorite\Models\Favorite;
 use Illuminate\Support\Facades\View;
@@ -29,20 +32,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         /* View Categories */
-        View::composer('layouts.categories', function ($view) {
-            $categoryType = $view->getData();
-
-            $categories = [];
-
-            if ($categoryType['type']) {
-                $categories = Category::where('type', $categoryType['type'])
-                    ->get()
-                    ->toTree()
-                    ->unique("name");
-            }
-
-            $view->with('categories', $categories);
-        });
+        View::composer('layouts.categories', CategoriesSidebar::class);
 
         /* Right Sidebar View */
         View::composer('layouts.rightSidebar', function ($view) {

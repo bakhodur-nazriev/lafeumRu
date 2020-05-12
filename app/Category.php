@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Support\Str;
 use Kalnoy\Nestedset\NodeTrait;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,11 +14,6 @@ class Category extends Model
 
     protected $fillable = ['name', 'description', 'type'];
     
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
-
     public function quotes()
     {
         return $this->morphedByMany(Quote::class, 'categoriable');
@@ -31,5 +27,26 @@ class Category extends Model
     public function video()
     {
         return $this->morphedByMany(Video::class, 'categoriable');
+    }
+
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = $value;
+        $this->attributes['slug'] = Str::slug($value);
+    }
+
+    public function scopeQuote($query)
+    {
+        return $query->where('type', Quote::class);
+    }
+
+    public function scopeTerm($query)
+    {
+        return $query->where('type', Term::class);
+    }
+
+    public function scopeVideo($query)
+    {
+        return $query->where('type', Video::class);
     }
 }

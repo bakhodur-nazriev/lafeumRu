@@ -363,6 +363,9 @@ body {
     background-color: #04718c;
 }
 
+a.active {
+    font-weight: bold;
+}
 
 /* --------- SHARE BUTTON STYLES --------- */
 .jssocials-share-link, .jssocials-share-link:hover {

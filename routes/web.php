@@ -25,6 +25,10 @@ Route::get("/photo", "PhotosController@index")->name("photo");
 
 Route::get("/quotes", "QuotesController@index")->name("quotes");
 
+Route::get("/quotes/{categorySlug}", "CategoriesController@showQuotes")->name("category.quotes");
+Route::get("/terms/{categorySlug}", "CategoriesController@showTerms")->name("category.terms");
+Route::get("/videos/{categorySlug}", "CategoriesController@showVideos")->name("category.videos");
+
 Route::get("/terms", "TermsController@index")->name("terms");
 
 Route::get("/vocabulary", "TermsController@indexVocabulary")->name("vocabulary");

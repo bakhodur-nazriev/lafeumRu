@@ -4,7 +4,7 @@
     <div class="row card-main-block">
         @include('layouts.categories', ['type' => 'App\Quote'])
         <div class="col-md-9 col-xl-9 col-sm-12 d-flex justify-content-around flex-wrap">
-            <div class="col-md-7 col-lg-7">
+            <div class="col-md-8 col-lg-8">
                 <h3 class="secondary">Цитаты и Афоризмы</h3>
                 <p>Красивые цитаты и афоризмы великих людей, жизненные со смыслом высказывания известнейших поэтов,
                     писателей и философов. Понятия и суждения компетентных ученых и специалистов.

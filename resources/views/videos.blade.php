@@ -17,7 +17,10 @@
                     </nav>
                 </div>
             </div>
-            @include('layouts.rightSidebar')
+            <div class="col-md-12 col-lg-4 d-flex flex-column">
+                @include('layouts.rightSidebarUserBlock')
+                @include('layouts.postsSidebarPostsBlock')
+            </div>
         </div>
     </div>
 @endsection

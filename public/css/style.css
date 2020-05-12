@@ -411,7 +411,7 @@ a.active {
     padding: 20px;
     border-radius: 5px;
     height: min-content;
-    max-width: 90%;
+    max-width: 350px;
 }
 
 .badge {
@@ -435,6 +435,17 @@ a.active {
     padding: 2px;
     background-color: #b9bbbe;
     border-radius: 50%;
+}
+
+.title-of-right-sidebar-posts {
+    background-color: #04718c;
+    color: white;
+    max-width: 350px;
+    border-radius: 5px 5px 0 0
+}
+
+.content-right-sidebar-posts{
+    border-radius: 0 0 5px 5px;
 }
 
 @media (min-width: 576px) {

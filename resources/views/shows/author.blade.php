@@ -10,7 +10,7 @@
                 @endforeach
             </div>
         </div>
-        <div class="col-md-9 d-flex justify-content-around">
+        <div class="col-md-9 col-xl-9 col-sm-12 d-flex justify-content-between flex-wrap">
             <div class="col-md-7 col-lg-7">
                 <h3 class="secondary mb-2">{{$currentAuthor->name}}</h3>
                 <p>{{$currentAuthor->biography}}</p>
@@ -18,7 +18,10 @@
                     @include('layouts.quoteItem')
                 @endforeach
             </div>
-            @include('layouts.rightSidebar')
+            <div class="col-md-12 col-lg-4 d-flex flex-column">
+                @include('layouts.rightSidebarUserBlock')
+                @include('layouts.postsSidebarPostsBlock')
+            </div>
         </div>
     </div>
 @endsection

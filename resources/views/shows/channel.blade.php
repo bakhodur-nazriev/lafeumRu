@@ -18,7 +18,7 @@
             </div>
         </div>
         <div class="col-md-12 col-lg-9 d-flex shows-content-and-right-block">
-            <div class="col-md-12 col-lg-8">
+            <div class="col-md-12 col-lg-7">
                 <h3 class="secondary">{{ $channel->name }}</h3>
                 <p>{{ $channel->description }}</p>
                 <div class="row">
@@ -27,7 +27,10 @@
                     @endforeach
                 </div>
             </div>
-            @include('layouts.rightSidebar')
+            <div class="col-md-12 col-lg-4 offset-lg-1 d-flex flex-column">
+                @include('layouts.rightSidebarUserBlock')
+                @include('layouts.postsSidebarPostsBlock')
+            </div>
         </div>
     </div>
 @endsection

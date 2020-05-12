@@ -19,7 +19,7 @@
     <div class="mb-1">{!! $term->body !!}</div>
     <div class="tags-block">
         @foreach($term->categories as $category)
-            <a href="#">
+            <a href="/terms/{{ $category->slug }}">
                 <i class="fa fa-tags"></i>
                 {{ $category->name }}
             </a>

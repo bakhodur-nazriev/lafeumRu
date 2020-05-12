@@ -22,7 +22,7 @@ class KnowledgesController extends Controller
     {
         $knowledgeAreas = Knowledge::all();
         $currentKnowledgeArea = $knowledge->load('terms');
-        return view('shows.showKnowledge', compact(['currentKnowledgeArea', 'knowledgeAreas',]));
+        return view('shows.knowledge', compact(['currentKnowledgeArea', 'knowledgeAreas',]));
     }
 
     public function get()

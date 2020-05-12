@@ -24,7 +24,7 @@ class AuthorsController extends Controller
     {
         $authors = Author::all();
         $currentAuthor = $author->load('quotes.categories');
-        return view('shows.showAuthor', compact(['authors', 'currentAuthor']));
+        return view('shows.author', compact(['authors', 'currentAuthor']));
     }
 
     public function get()

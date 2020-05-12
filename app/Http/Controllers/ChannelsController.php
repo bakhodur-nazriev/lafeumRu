@@ -23,7 +23,7 @@ class ChannelsController extends Controller
     {
         $channels = Channel::all();
         $channel->load('videos');
-        return view('shows.showChannel', compact(['channel', 'channels']));
+        return view('shows.channel', compact(['channel', 'channels']));
     }
 
     public function get()

@@ -116,6 +116,8 @@ class CategoriesController extends Controller
 
     private function getCategoriables($model, $category)
     {
+        $firstPart = microtime(true);
+
         $categoryDescendantIds = $category->descendants()->pluck('id');
 
         $categoryIds = $categoryDescendantIds;
@@ -126,9 +128,21 @@ class CategoriesController extends Controller
             $query->whereIn('id', $categoryIds);
         });
 
+        $firstTotalMs = (microtime(true) - $firstPart) * 1000;
+
+        Log::debug("Category first part of preparation took: $firstTotalMs ms.");
+
+        $secondPart = microtime(true);
+        
         $this->addCategoriableRelations($categoriableQuery, $model);
 
-        return $categoriableQuery->paginate(10);
+        $categoriables = $categoriableQuery->paginate(10);
+
+        $secondTotalMs = (microtime(true) - $secondPart) * 1000;
+
+        Log::debug("Category second part of preparation took: $secondTotalMs ms.");
+
+        return $categoriables;
     }
 
     private function addCategoriableRelations($categoriableQuery, $model)

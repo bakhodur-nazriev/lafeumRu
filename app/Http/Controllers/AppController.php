@@ -7,6 +7,7 @@ use App\Category;
 use App\Quote;
 use App\Term;
 use App\Photo;
+use App\Video;
 
 class AppController extends Controller
 {
@@ -21,6 +22,7 @@ class AppController extends Controller
         $countOfFavoritesQuotes = Quote::get()->count();
         $countOfFavoritesTerms = Term::get()->count();
         $countOfAuthors = Author::get()->count();
+        $countOfMediaContent = Photo::count() + Video::count();
 
         $photos = Photo::take(3)->get();
         $categories = Category::get()->toTree()->unique('name');
@@ -29,7 +31,8 @@ class AppController extends Controller
                 'categories',
                 'countOfFavoritesQuotes',
                 'countOfAuthors',
-                'countOfFavoritesTerms'
+                'countOfFavoritesTerms',
+                'countOfMediaContent'
             ])
         );
     }

@@ -7,6 +7,7 @@ use App\Quote;
 use App\Term;
 use App\Video;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class CategoriesController extends Controller
 {
@@ -100,9 +101,15 @@ class CategoriesController extends Controller
 
     private function getCategory($categoriable, $slug)
     {
+        $startTime = microtime(true);
+
         $category = Category::where('type', $categoriable)->where('slug', $slug)->first();
 
         $category->categoriables = $this->getCategoriables($categoriable, $category);
+
+        $totalMs = (microtime(true) - $startTime) * 1000;
+
+        Log::debug("Category preparation took: $totalMs ms.");
         
         return $category;
     }
@@ -113,7 +120,7 @@ class CategoriesController extends Controller
 
         $categoryIds = $categoryDescendantIds;
 
-        $categoryIds[] = $category;
+        $categoryIds[] = $category->id;
 
         $categoriableQuery = $model::whereHas('categories', function ($query) use ($categoryIds) {
             $query->whereIn('id', $categoryIds);

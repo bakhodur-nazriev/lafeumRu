@@ -136,8 +136,8 @@ class CategoriesController extends Controller
         $this->addCategoriableRelations($categoriableQuery, $model);
         
         $secondPart = microtime(true);
-        
-        $categoriables = $categoriableQuery->paginate(10);
+
+        $categoriables = $categoriableQuery->get();
 
         $secondTotalMs = (microtime(true) - $secondPart) * 1000;
 

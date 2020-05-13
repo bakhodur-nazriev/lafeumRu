@@ -10,6 +10,7 @@ use ChristianKuri\LaravelFavorite\Models\Favorite;
 use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class QuotesController extends Controller
 {
@@ -20,8 +21,15 @@ class QuotesController extends Controller
 
     public function index()
     {
+        $startTime = microtime(true);
+
         $quotes = Quote::with('author:id,name,slug', 'categories:id,name,slug')->paginate(10);
         $categories = Category::quote()->get()->toTree()->unique('name');
+
+        $totalMs = (microtime(true) - $startTime) * 1000;
+
+        Log::debug("Categories preparation took: $totalMs ms.");
+
         return view('/quotes', compact(['quotes', 'categories',]));
     }
 

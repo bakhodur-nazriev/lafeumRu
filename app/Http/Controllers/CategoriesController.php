@@ -132,10 +132,11 @@ class CategoriesController extends Controller
 
         Log::debug("Category first part of preparation took: $firstTotalMs ms.");
 
-        $secondPart = microtime(true);
         
         $this->addCategoriableRelations($categoriableQuery, $model);
-
+        
+        $secondPart = microtime(true);
+        
         $categoriables = $categoriableQuery->paginate(10);
 
         $secondTotalMs = (microtime(true) - $secondPart) * 1000;

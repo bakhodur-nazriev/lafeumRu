@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\Auth;
 
 class QuotesController extends Controller
 {
-    public function __construct() {
+    public function __construct()
+    {
         $this->authorizeResource(Quote::class);
     }
 
@@ -27,7 +28,7 @@ class QuotesController extends Controller
     public function get(Request $request)
     {
         $quotesQuery = Quote::with('author', 'categories');
-        
+
         return $quotesQuery->latest()->paginate($request->perPage ?: 15);
     }
 

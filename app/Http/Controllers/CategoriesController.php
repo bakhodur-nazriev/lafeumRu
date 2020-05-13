@@ -113,8 +113,8 @@ class CategoriesController extends Controller
 
         $categoryIds = $categoryDescendantIds;
 
-        $categoryIds[] = $category;
-
+        $categoryIds[] = $category->id;
+        
         $categoriableQuery = $model::whereHas('categories', function ($query) use ($categoryIds) {
             $query->whereIn('id', $categoryIds);
         });

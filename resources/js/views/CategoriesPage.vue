@@ -6,12 +6,16 @@
                     class="col-lg-12 col-xl-8 pa-4"
                     v-if="!categoriesLoading"
                 >
-                    <Tree v-model="categories">
+                    <Tree
+                        v-model="categories"
+                        :ondragstart="dragStart"
+                        :ondragend="dragEnd"
+                    >
                         <div
                             class="category-tree-node"
                             :style="{ cursor: 'pointer' }"
                             slot-scope="{ node, tree, path }"
-                            @click="categoryToShow = node"
+                            @click="if (!dragging) categoryToShow = node;"
                         >
                             <v-btn
                                 v-if="node.children.length"
@@ -117,7 +121,8 @@ export default {
             categoryType: this.$route.meta.type,
             categoryToShow: null,
             categoryToEdit: null,
-            categoryToDelete: null
+            categoryToDelete: null,
+            dragging: false
         };
     },
     mounted() {
@@ -130,11 +135,11 @@ export default {
                 .get("/api/categories?tree&type=" + this.categoryType)
                 .then(({ data }) => {
                     this.categoriesLoading = false;
-                    this.setCategories(data)
+                    this.setCategories(data);
                 })
                 .catch(e => {
                     this.categoriesLoading = false;
-                    console.log(e)
+                    console.log(e);
                 });
         },
         saveCategoryTree() {
@@ -148,6 +153,14 @@ export default {
 
             this.setCategories([]);
         },
+        dragStart(tree, e) {
+            this.dragging = true;
+        },
+        dragEnd(tree, e) {
+            setTimeout(() => {
+                this.dragging = false;
+            }, 100);
+        },
         setCategories(categories) {
             this.categories = categories;
             foldAll(this.categories);
@@ -160,7 +173,7 @@ export default {
             this.categoryToDelete = { ...category };
             this.categoryToShow = null;
         },
-        categoryCreated(newCategory){
+        categoryCreated(newCategory) {
             this.showCreateDialog = false;
             this.loadCategoriesTree();
         },

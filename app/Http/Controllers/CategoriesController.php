@@ -46,6 +46,9 @@ class CategoriesController extends Controller
     public function showQuotes($categorySlug)
     {
         $category = $this->getCategory(Quote::class, $categorySlug);
+
+        return $category;
+
         return view('shows.category', compact('category'));
     }
 
@@ -110,7 +113,7 @@ class CategoriesController extends Controller
         $totalMs = (microtime(true) - $startTime) * 1000;
 
         Log::debug("Category preparation took: $totalMs ms.");
-        
+
         return $category;
     }
 
@@ -124,20 +127,23 @@ class CategoriesController extends Controller
 
         $categoryIds[] = $category->id;
 
-        $categoriableQuery = $model::whereHas('categories', function ($query) use ($categoryIds) {
-            $query->whereIn('id', $categoryIds);
-        });
+        if (count($categoryIds) > 1) {
+            $categoriableQuery = $model::whereHas('categories', function ($query) use ($categoryIds) {
+                $query->whereIn('id', $categoryIds);
+            });
+        } else {
+            $categoriableQuery = $category->quotes();
+        }
 
         $firstTotalMs = (microtime(true) - $firstPart) * 1000;
 
         Log::debug("Category first part of preparation took: $firstTotalMs ms.");
 
-        
         $this->addCategoriableRelations($categoriableQuery, $model);
-        
+
         $secondPart = microtime(true);
 
-        $categoriables = $categoriableQuery->get();
+        $categoriables = $categoriableQuery->paginate(10);
 
         $secondTotalMs = (microtime(true) - $secondPart) * 1000;
 

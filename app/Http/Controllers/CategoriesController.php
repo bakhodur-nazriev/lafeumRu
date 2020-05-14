@@ -47,8 +47,6 @@ class CategoriesController extends Controller
     {
         $category = $this->getCategory(Quote::class, $categorySlug);
 
-        return $category;
-
         return view('shows.category', compact('category'));
     }
 

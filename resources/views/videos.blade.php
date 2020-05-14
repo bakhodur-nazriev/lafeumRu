@@ -3,8 +3,8 @@
 @section('content')
 <div class="row card-main-block">
     @include('layouts.categories', ['type' => 'App\Video'])
-    <div class="col-xl-9 d-flex">
-        <div class="col-md-8">
+    <div class="col-xl-9 d-flex justify-content-between">
+        <div class="col-md-7">
             <h3 class="secondary">Видео</h3>
             <div class="row">
                 @foreach($videos as $video)

@@ -6,6 +6,7 @@ use App\Category;
 use App\Quote;
 use App\Term;
 use App\Video;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -119,19 +120,13 @@ class CategoriesController extends Controller
     {
         $firstPart = microtime(true);
 
-        $categoryDescendantIds = $category->descendants()->pluck('id');
-
-        $categoryIds = $categoryDescendantIds;
+        $categoryIds = $category->descendants()->pluck('id');
 
         $categoryIds[] = $category->id;
 
-        if (count($categoryIds) > 1) {
-            $categoriableQuery = $model::whereHas('categories', function ($query) use ($categoryIds) {
-                $query->whereIn('id', $categoryIds);
-            });
-        } else {
-            $categoriableQuery = $category->quotes();
-        }
+        $categoriableQuery = $model::whereHas('categories', function (Builder $query) use ($categoryIds) {
+            $query->whereIn('id', $categoryIds);
+        });
 
         $firstTotalMs = (microtime(true) - $firstPart) * 1000;
 

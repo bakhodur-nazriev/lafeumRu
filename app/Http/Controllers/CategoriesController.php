@@ -47,7 +47,7 @@ class CategoriesController extends Controller
     public function showQuotes($categorySlug)
     {
         $category = $this->getCategory(Quote::class, $categorySlug);
-
+        
         return view('shows.category', compact('category'));
     }
 
@@ -132,8 +132,6 @@ class CategoriesController extends Controller
 
         Log::debug("Category first part of preparation took: $firstTotalMs ms.");
 
-        $this->addCategoriableRelations($categoriableQuery, $model);
-
         $secondPart = microtime(true);
 
         $categoriables = $categoriableQuery->paginate(10);
@@ -143,20 +141,5 @@ class CategoriesController extends Controller
         Log::debug("Category second part of preparation took: $secondTotalMs ms.");
 
         return $categoriables;
-    }
-
-    private function addCategoriableRelations($categoriableQuery, $model)
-    {
-        switch ($model) {
-            case Quote::class:
-                $categoriableQuery->with('author:id,name,slug', 'categories:id,name,slug');
-                break;
-            case Term::class:
-                $categoriableQuery->with('knowledge:id,name,slug', 'categories:id,name,slug');
-                break;
-            case Video::class:
-                $categoriableQuery->with('channel:id,name,slug', 'categories:id,name,slug');
-                break;
-        }
     }
 }

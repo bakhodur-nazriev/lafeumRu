@@ -421,8 +421,9 @@ a.active {
 
 .left-sidebar-block {
     background-color: white;
-    max-width: 280px;
-    padding: 15px;
+    /*min-width: 280px;*/
+    height: 100%;
+    padding: 20px;
 }
 
 .right-sidebar-image-block {
@@ -444,12 +445,8 @@ a.active {
     border-radius: 5px 5px 0 0
 }
 
-.content-right-sidebar-posts{
+.content-right-sidebar-posts {
     border-radius: 0 0 5px 5px;
-}
-
-@media (min-width: 576px) {
-
 }
 
 @media (min-width: 768px) {
@@ -475,10 +472,6 @@ a.active {
 }
 
 @media (min-width: 992px) {
-    .shows-left-block {
-        min-width: 280px;
-    }
-
     .shows-content-and-right-block {
         margin-left: 30px;
     }

@@ -1,4 +1,4 @@
-<div class="col-md-5 col-lg-6 px-2 d-inline-block">
+<div class="col-md-5 col-lg-5">
     <div class="card video-card-block">
         <div class="col video-link-block">
             <p class="video-channel-link">
@@ -33,9 +33,9 @@
                 <div class="share"></div>
             </a>
             <span>
-                    <i class="fa fa-clock-o mr-1"></i>{{$video->duration}}
-                    <span> мин.</span>
-                </span>
+                <i class="fa fa-clock-o mr-1"></i>{{$video->duration}}
+                <span> мин.</span>
+            </span>
         </div>
     </div>
 </div>

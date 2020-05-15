@@ -3,7 +3,7 @@
 @section("content")
     <div class="row">
         @include('layouts.categories', ['type' => 'App\Term'])
-        <div class="col-md-9">
+        <div class="col-md-9 col-lg-8 offset-lg-1">
             <h3 class="secondary">Словарь «Лафеюм»</h3>
             <p>Словарь «ЛАФЕЮМ» на сегодня содержит более одной тысячи основных терминов, соответствующих тематики
                 сайта.

@@ -1,25 +1,23 @@
-<div class="col-md-3 col-xl-3 col-sm-12 p-0">
-    <div class="left-sidebar-block">
-        <h3 class="secondary">Темы</h3>
-        @foreach($categories as $category)
-            <div class="categories-main-name">
-                <a 
-                    class="{{$category->active ? 'active': ''}}" 
-                    href="{{ $category->link }}"
+<div class="col-md-3 col-lg-2 col-sm-12 left-sidebar-block">
+    <h3 class="secondary">Темы</h3>
+    @foreach($categories as $category)
+        <div class="categories-main-name">
+            <a
+                class="{{$category->active ? 'active': ''}}"
+                href="{{ $category->link }}"
+            >
+                <b>{{ $category->name }}</b>
+            </a>
+        </div>
+        @foreach($category->children as $subCategory)
+            <div>
+                <a
+                    class="{{$subCategory->active ? 'active': ''}}"
+                    href="{{ $subCategory->link }}"
                 >
-                    <b>{{ $category->name }}</b>
+                    {{$subCategory->name}}
                 </a>
             </div>
-            @foreach($category->children as $subCategory)
-                <div>
-                    <a 
-                        class="{{$subCategory->active ? 'active': ''}}" 
-                        href="{{ $subCategory->link }}"
-                    >
-                        {{$subCategory->name}}
-                    </a>
-                </div>
-            @endforeach
         @endforeach
-    </div>
+    @endforeach
 </div>

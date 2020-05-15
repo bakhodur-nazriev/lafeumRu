@@ -1,8 +1,8 @@
 @extends('layouts.default')
 
 @section('content')
-    <div class="row mx-4 mt-4 d-flex justify-content-center">
-        <div class="col-md-8 col-lg-6 card-block" style="height: 100%;">
+    <div class="row d-flex justify-content-around mt-5">
+        <div class="col-md-8 col-lg-7 offset-lg-1 card-block" style="height: 100%;">
             <div class="col-md-12 d-flex justify-content-between py-0 pr-0 pl-0">
                 <div>
                     <span class="mb-1">
@@ -35,7 +35,7 @@
                 <div class="share"></div>
             </a>
         </div>
-        <div class="col-md-4 col-lg-3 offset-lg-1 d-flex flex-column">
+        <div class="col-lg-3 d-flex flex-column pt-0">
             @include('layouts.rightSidebarUserBlock')
             @include('layouts.postsSidebarPostsBlock')
         </div>

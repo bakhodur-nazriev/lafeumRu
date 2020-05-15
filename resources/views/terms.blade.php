@@ -3,8 +3,8 @@
 @section('content')
     <div class="row card-main-block">
         @include('layouts.categories', ['type' => 'App\Term'])
-        <div class="col-md-9 col-xl-9 col-sm-12 d-flex justify-content-between flex-wrap">
-            <div class="col-md-7 col-lg-7 col-sm-12">
+        <div class="col-md-9 col-xl-10 col-sm-12 d-flex justify-content-around">
+            <div class="col-md-7 col-lg-7 ml-5">
                 <h3 class="secondary mb-4">Термины</h3>
                 @foreach($terms as $term)
                     @include('layouts.termItem')
@@ -19,7 +19,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-12 col-lg-4 d-flex flex-column">
+            <div class="col-md-12 col-lg-3 d-flex flex-column">
                 @include('layouts.rightSidebarUserBlock')
                 @include('layouts.postsSidebarPostsBlock')
             </div>

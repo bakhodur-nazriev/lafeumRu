@@ -33,7 +33,7 @@
             let button = e.target;
             let id = button.dataset.id;
 
-            toggleFavourite(id, "App\\Quote", (isFavourite) => {
+            toggleFavourite(id, "App\\Term", (isFavourite) => {
                 button.classList.toggle('fa-star-active', isFavourite);
             });
         });

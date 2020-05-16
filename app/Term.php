@@ -20,4 +20,9 @@ class Term extends Model
     {
         return $this->belongsToMany(Knowledge::class, 'knowledge_terms');
     }
+
+    public function post()
+    {
+        return $this->morphOne(Post::class, 'postable');
+    }
 }

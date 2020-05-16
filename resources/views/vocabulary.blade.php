@@ -32,9 +32,9 @@
             </div>
             <div class="row">
                 <ul class="list-inline py-1 list-of-knowledge">
-                    @foreach($vocabularies as $vocabulary)
+                    @foreach($terms as $term)
                         <li class="vocabulary">
-                            <a href="/vocabulary/{{$vocabulary->id}}">{{$vocabulary->name}}</a>
+                            <a href="/{{$term->post->id}}">{{$term->name}}</a>
                         </li>
                     @endforeach
                 </ul>

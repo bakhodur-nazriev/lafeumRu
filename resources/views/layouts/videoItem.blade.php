@@ -1,4 +1,4 @@
-<div class="col-md-5 col-lg-6 px-2 d-inline-block">
+<div class="col-md-5 col-lg-6">
     <div class="card video-card-block">
         <div class="col video-link-block">
             <p class="video-channel-link">

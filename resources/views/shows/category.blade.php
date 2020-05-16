@@ -4,10 +4,10 @@
     <div class="row card-main-block">
         @include('layouts.categories', ['type' => $category->type, 'active' => $category->id])
         <div class="col-md-9 col-xl-9 col-sm-12 d-flex justify-content-between flex-wrap">
-            <div class="col-md-7 col-lg-7">
+            <div class="col-md-7">
                 <h3 class="secondary">{{$category->name}}</h3>
                 <p>{{$category->description}}</p>
-
+                
                 @switch($category->type)
                     @case('App\\Quote')
 
@@ -25,13 +25,14 @@
                     @break
                     @case('App\\Video')
 
-                    @foreach ($category->categoriables as $video)
-                        @include('layouts.videoItem')
-                    @endforeach
+                    <div class="row">
+                        @foreach ($category->categoriables as $video)
+                            @include('layouts.videoItem')
+                        @endforeach
+                    </div> 
 
                     @break
                 @endswitch
-
                 <div class="row">
                     <div class="col-12">
                         <nav aria-label="Page navigation example">

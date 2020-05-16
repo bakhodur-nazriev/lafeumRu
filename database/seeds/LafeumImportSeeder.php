@@ -24,6 +24,7 @@ class LafeumImportSeeder extends Seeder
     public function run()
     {
         $this->call(CategoryTableSeeder::class);
+        $this->syncCategorySlugs();
 
         $this->importAuthors();
         $this->importChannels();
@@ -35,6 +36,15 @@ class LafeumImportSeeder extends Seeder
         $this->importVideos();
         $this->importQuotes();
         $this->importTerms();
+    }
+
+    public function syncCategorySlugs()
+    {
+        $categories = require(app_path("/LafeumData/lafeumCategorySlugs.php"));
+
+        foreach ($categories as $category) {
+            Category::where('name', $category['name'])->update(['slug' => $category['slug']]);
+        }   
     }
 
     public function importAuthors()

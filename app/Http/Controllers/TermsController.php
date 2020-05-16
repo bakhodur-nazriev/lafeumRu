@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Post;
 use App\Term;
 use ChristianKuri\LaravelFavorite\Models\Favorite;
 use Illuminate\Http\Request;
@@ -10,7 +11,8 @@ use Illuminate\Support\Facades\Auth;
 
 class TermsController extends Controller
 {
-    public function __construct() {
+    public function __construct()
+    {
         $this->authorizeResource(Term::class);
     }
 
@@ -59,6 +61,8 @@ class TermsController extends Controller
         $newTerm->knowledge()->attach($request->knowledgeAreas);
         $newTerm->categories()->attach($request->categories);
 
+        $newTerm->post()->create();
+
         return $newTerm->load(['categories', 'knowledge']);
     }
 
@@ -66,11 +70,17 @@ class TermsController extends Controller
     {
         $term->update($request->all());
 
+        if($request->has('categories')){
+            $term->categories()->sync($request->categories);
+        }
+
         return $term;
     }
 
     public function destroy(Term $term)
     {
+        $term->post()->delete();
+        $term->categories()->detach();
         $term->delete();
     }
 }

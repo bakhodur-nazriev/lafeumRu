@@ -26,18 +26,38 @@ class VideosController extends Controller
 
     public function store(Request $request)
     {
-        return Video::create($request->all());
+        $request->validate([
+            'title' => 'required',
+            'channel_id' => 'required',
+            'link' => 'required',
+            'duration' => 'required',
+            'categories' => 'required|array',
+        ]);
+
+        $newVideo = Video::create($request->all());
+
+        $newVideo->categories()->attach($request->categories);
+
+        $newVideo->post()->create();
+
+        return $newVideo;
     }
 
     public function update(Video $video, Request $request)
     {
         $video->update($request->all());
 
+        if($request->has('categories')){
+            $video->categories()->sync($request->categories);
+        }
+
         return $video;
     }
 
     public function destroy(Video $video)
     {
+        $video->post()->delete();
+        $video->categories()->detach();
         $video->delete();
     }
 }

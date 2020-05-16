@@ -52,6 +52,8 @@ class QuotesController extends Controller
 
         $newQuote->categories()->attach($request->categories);
 
+        $newQuote->post()->create();
+
         return $newQuote->load('author', 'categories');
     }
 
@@ -59,11 +61,17 @@ class QuotesController extends Controller
     {
         $quote->update($request->all());
 
+        if($request->has('categories')){
+            $quote->categories()->sync($request->categories);
+        }
+
         return $quote;
     }
 
     public function destroy(Quote $quote)
     {
+        $quote->post()->delete();
+        $quote->categories()->detach();
         $quote->delete();
     }
 }

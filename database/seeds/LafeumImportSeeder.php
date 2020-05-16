@@ -9,6 +9,7 @@ use App\AuthorGroup;
 use App\Quote;
 use App\Category;
 use App\Photo;
+use App\Post;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -101,7 +102,12 @@ class LafeumImportSeeder extends Seeder
         Video::truncate();
 
         foreach ($videos as $video) {
-            $newVideoData['id'] = $video['id'];
+            $postExists = Post::where('id', $video['id'])->exists();
+
+            if($postExists){
+                continue;
+            }
+
             $newVideoData['title'] = $video['title'];
             $newVideoData['duration'] = $video['duration'];
             $newVideoData['link'] = "https://www.youtube.com/embed/" . $video['video_id'];
@@ -111,6 +117,8 @@ class LafeumImportSeeder extends Seeder
             $newVideoData['channel_id'] = Channel::where('slug', $video['channel']['slug'])->first()->id;
 
             $newVideo = Video::create($newVideoData);
+            
+            $newVideo->post()->create(['id' => $video['id']]);
 
             $categoryNames = collect($video['categories'])->pluck('name');
 
@@ -130,7 +138,12 @@ class LafeumImportSeeder extends Seeder
         DB::table('knowledge_terms')->truncate();
 
         foreach ($terms as $term) {
-            $newTermData['id'] = $term['id'];
+            $postExists = Post::where('id', $term['id'])->exists();
+
+            if($postExists){
+                continue;
+            }
+
             $newTermData['name'] = $term['name'];
             $newTermData['link'] = $term['link'];
             $newTermData['body'] = $term['body'];
@@ -144,7 +157,9 @@ class LafeumImportSeeder extends Seeder
             }
 
             $newTerm = Term::create($newTermData);
-
+            
+            $newTerm->post()->create(['id' => $term['id']]);
+            
             $newTerm->knowledge()->attach($termKnowledge);
 
             $categoryNames = collect($term['categories'])->pluck('name');
@@ -164,12 +179,19 @@ class LafeumImportSeeder extends Seeder
         Quote::truncate();
 
         foreach ($quotes as $quote) {
-            $newQuoteData['id'] = $quote['id'];
+            $postExists = Post::where('id', $quote['id'])->exists();
+
+            if($postExists){
+                continue;
+            }
+
             $newQuoteData['body'] = $quote['body'];
             echo $quote['body'] . PHP_EOL;
             $newQuoteData['author_id'] = Author::where('slug', $quote['author']['slug'])->first()->id;
 
             $newQuote = Quote::create($newQuoteData);
+            
+            $newQuote->post()->create(['id' => $quote['id']]);
 
             $categoryNames = collect($quote['categories'])->pluck('name');
 

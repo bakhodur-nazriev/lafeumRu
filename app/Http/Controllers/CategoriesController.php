@@ -8,6 +8,7 @@ use App\Term;
 use App\Video;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class CategoriesController extends Controller
@@ -123,10 +124,8 @@ class CategoriesController extends Controller
         $categoryIds = $category->descendants()->pluck('id');
 
         $categoryIds[] = $category->id;
-
-        $categoriableQuery = $model::whereHas('categories', function (Builder $query) use ($categoryIds) {
-            $query->whereIn('id', $categoryIds);
-        });
+        
+        $categoriableIds = $this->getCategoriableIds($categoryIds, $model);
 
         $firstTotalMs = (microtime(true) - $firstPart) * 1000;
 
@@ -134,12 +133,22 @@ class CategoriesController extends Controller
 
         $secondPart = microtime(true);
 
-        $categoriables = $categoriableQuery->paginate(10);
+        $categoriables = $model::whereIn('id', $categoriableIds)->paginate(10);
 
         $secondTotalMs = (microtime(true) - $secondPart) * 1000;
 
         Log::debug("Category second part of preparation took: $secondTotalMs ms.");
 
         return $categoriables;
+    }
+
+    private function getCategoriableIds($categoryIds, $categoriable)
+    {
+        return DB::table('categoriables')
+            ->where('categoriable_type', $categoriable)
+            ->whereIn('category_id', $categoryIds)
+            ->select('categoriable_id')
+            ->get()
+            ->pluck('categoriable_id');
     }
 }

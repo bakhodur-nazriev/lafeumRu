@@ -104,40 +104,22 @@ class CategoriesController extends Controller
 
     private function getCategory($categoriable, $slug)
     {
-        $startTime = microtime(true);
-
         $category = Category::where('type', $categoriable)->where('slug', $slug)->first();
 
         $category->categoriables = $this->getCategoriables($categoriable, $category);
-
-        $totalMs = (microtime(true) - $startTime) * 1000;
-
-        Log::debug("Category preparation took: $totalMs ms.");
 
         return $category;
     }
 
     private function getCategoriables($model, $category)
     {
-        $firstPart = microtime(true);
-
         $categoryIds = $category->descendants()->pluck('id');
 
         $categoryIds[] = $category->id;
         
         $categoriableIds = $this->getCategoriableIds($categoryIds, $model);
 
-        $firstTotalMs = (microtime(true) - $firstPart) * 1000;
-
-        Log::debug("Category first part of preparation took: $firstTotalMs ms.");
-
-        $secondPart = microtime(true);
-
         $categoriables = $model::whereIn('id', $categoriableIds)->paginate(10);
-
-        $secondTotalMs = (microtime(true) - $secondPart) * 1000;
-
-        Log::debug("Category second part of preparation took: $secondTotalMs ms.");
 
         return $categoriables;
     }

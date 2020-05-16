@@ -1,3 +1,9 @@
+@php
+    if(isset($item) && !isset($video)){
+        $video = $item;
+    }
+@endphp
+
 <div class="col-md-5 col-lg-6">
     <div class="card video-card-block">
         <div class="col video-link-block">

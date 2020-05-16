@@ -30,7 +30,7 @@ class TermsController extends Controller
 
     public function indexVocabulary()
     {
-        $terms = Term::all();
+        $terms = Term::with('post')->where('name','<>', '')->get();
         return view("/vocabulary", compact(["terms"]));
     }
 

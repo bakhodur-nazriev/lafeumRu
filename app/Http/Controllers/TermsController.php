@@ -30,9 +30,8 @@ class TermsController extends Controller
 
     public function indexVocabulary()
     {
-        $vocabularies = Term::all();
-        $categories = Category::where('type', Term::class)->get()->toTree()->unique("name");
-        return view("/vocabulary", compact(["vocabularies", "categories"]));
+        $terms = Term::all();
+        return view("/vocabulary", compact(["terms"]));
     }
 
     public function showVocabulary($id)

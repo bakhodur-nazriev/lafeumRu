@@ -20,4 +20,9 @@ class Video extends Model
     {
         return $this->morphToMany(Category::class, 'categoriable');
     }
+
+    public function post()
+    {
+        return $this->morphOne(Post::class, 'postable');
+    }
 }

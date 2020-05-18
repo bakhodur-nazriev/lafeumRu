@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class DelayPost extends Model
+class DailyPost extends Model
 {
     //
 }

@@ -18,7 +18,7 @@ class TermsController extends Controller
 
     public function index()
     {
-        $terms = Term::with('categories')->latest()->paginate(15);
+        $terms = Term::with('categories')->latest()->paginate(30);
         $categories = Category::where('type', Term::class)->get()->toTree()->unique('name');
         return view('/terms', compact(['terms', 'categories',]));
     }

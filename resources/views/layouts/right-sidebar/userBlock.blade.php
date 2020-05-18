@@ -1,4 +1,4 @@
-<div class="right-block-sidebar mb-5">
+<div class="right-sidebar-block p-4">
     @guest
         <form style="width: 100%;" method="POST" action="{{ route('login') }}">
             @csrf
@@ -52,7 +52,7 @@
         </form>
     @endguest
     @auth
-        <ul class="list-group" style="width: 300px;">
+        <ul class="list-group">
             <div class="right-sidebar-image-block">
                 <img src="{{ Auth::user()->avatar }}" class="float-left right-sidebar-image" alt="">
             </div>

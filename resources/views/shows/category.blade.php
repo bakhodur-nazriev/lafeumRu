@@ -1,10 +1,10 @@
 @extends('layouts.default')
 
 @section('content')
-    <div class="row card-main-block">
-        @include('layouts.left-sidebar.categories', ['type' => $category->type, 'active' => $category->id])
-        <div class="col-md-9 col-xl-9 col-sm-12 d-flex justify-content-between flex-wrap">
-            <div class="col-md-7 col-lg-7">
+    @include('layouts.left-sidebar.categories', ['type' => $category->type, 'active' => $category->id])
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
                 <h3 class="secondary">{{$category->name}}</h3>
                 <p>{{$category->description}}</p>
 
@@ -31,7 +31,6 @@
 
                     @break
                 @endswitch
-
                 <div class="row">
                     <div class="col-12">
                         <nav aria-label="Page navigation example">
@@ -41,11 +40,11 @@
                         </nav>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-12 col-lg-4 d-flex flex-column">
-                @include('layouts.right-sidebar.userBlock')
-                @include('layouts.right-sidebar.rightSidebar')
+                <button class="btn btn-primary btnScrollToTop">
+                    <i class="fa fa-arrow-up"></i>
+                </button>
             </div>
         </div>
     </div>
+    @include('layouts.right-sidebar.rightSidebar')
 @endsection

@@ -26,9 +26,11 @@
                     <h3 class="secondary">{{ $channel->name }}</h3>
                     <span>{{ $channel->description }}</span>
                 </div>
-                @foreach($channel->videos as $video)
-                    @include('layouts.videoItem')
-                @endforeach
+                <div class="row">
+                    @foreach($channel->videos as $video)
+                        @include('layouts.videoItem')
+                    @endforeach
+                </div>
             </div>
         </div>
     </div>

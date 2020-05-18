@@ -1,3 +1,9 @@
+@php
+    if(isset($item) && !isset($qoute)){
+        $quote = $item;
+    }
+@endphp
+
 <div class="card-block">
     <div class="row px-3 mb-2">
         <div class="py-0">

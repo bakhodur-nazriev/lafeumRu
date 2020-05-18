@@ -32,6 +32,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        /*View random delay posts*/
+        View::composer('layouts.right-sidebar.rightSidebar', DelayPosts::class);
+
         /* View Categories */
         View::composer('layouts.left-sidebar.categories', CategoriesSidebar::class);
 

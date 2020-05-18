@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-center">
-            <div class="col-lg-9">
+            <div class="col-lg-12">
                 <div class="col text-center about-us-section">
                     <h3 class="secondary">О Сайте</h3>
                     <img src="/img/lafeum-main-logo.png" alt="Logo lafeum">
@@ -27,18 +27,20 @@
                 <div class="col-md-12 col-xl-12">
                     <h3 class="secondary text-center">Темы</h3>
                 </div>
-                @foreach($categories as $category)
-                    <div class="col-md-4 offset-1 d-inline-block align-top mb-3">
-                        <div class="categories-main-name">
-                            <a href="#"><b>{{ $category->name }}</b></a>
-                        </div>
-                        @foreach($category->children as $subCategory)
-                            <div class="subcategories-block">
-                                <a href="#">{{$subCategory->name}}</a><br>
+                <div class="row">
+                    @foreach($categories as $category)
+                        <div class="col-lg-3 align-top mb-3">
+                            <div class="categories-main-name">
+                                <a href="#"><b>{{ $category->name }}</b></a>
                             </div>
-                        @endforeach
-                    </div>
-                @endforeach
+                            @foreach($category->children as $subCategory)
+                                <div class="subcategories-block">
+                                    <a href="#">{{$subCategory->name}}</a><br>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endforeach
+                </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
@@ -91,8 +93,5 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-3 d-flex flex-column">
-        @include('layouts.rightSidebarUserBlock')
-        @include('layouts.postsSidebarPostsBlock')
-    </div>
+    @include('layouts.right-sidebar.rightSidebar')
 @endsection

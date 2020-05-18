@@ -9,12 +9,12 @@ function search(parentSelector, filter) {
     for (let i = 0; i < elements.length; i++) {
         let elementContent = elements[i].innerText || elements[i].textContent;
 
-        let elementConatainsFilter =
+        let elementContainsFilter =
             elementContent
                 .toLowerCase()
                 .indexOf(upperFilter) > -1;
 
-        if (elementConatainsFilter) {
+        if (elementContainsFilter) {
             elements[i].style.display = "";
         } else {
             elements[i].style.display = "none";
@@ -23,3 +23,19 @@ function search(parentSelector, filter) {
 
     wrapper.append(...elements);
 }
+
+jQuery(document).ready(function() {
+    let btn = $('.btnScrollToTop');
+    $(window).scroll(function() {
+        if ($(window).scrollTop() > 800) {
+            btn.addClass('show');
+        } else {
+            btn.removeClass('show');
+        }
+    });
+
+    btn.on('click', function(e) {
+        e.preventDefault();
+        $('html, body').animate({scrollTop:0}, '300');
+    });
+});

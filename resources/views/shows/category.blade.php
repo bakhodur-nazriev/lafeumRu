@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="row card-main-block">
-        @include('layouts.categories', ['type' => $category->type, 'active' => $category->id])
+        @include('layouts.left-sidebar.categories', ['type' => $category->type, 'active' => $category->id])
         <div class="col-md-9 col-xl-9 col-sm-12 d-flex justify-content-between flex-wrap">
             <div class="col-md-7 col-lg-7">
                 <h3 class="secondary">{{$category->name}}</h3>
@@ -43,8 +43,8 @@
                 </div>
             </div>
             <div class="col-md-12 col-lg-4 d-flex flex-column">
-                @include('layouts.rightSidebarUserBlock')
-                @include('layouts.postsSidebarPostsBlock')
+                @include('layouts.right-sidebar.userBlock')
+                @include('layouts.right-sidebar.rightSidebar')
             </div>
         </div>
     </div>

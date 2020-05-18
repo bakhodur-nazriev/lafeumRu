@@ -1,11 +1,9 @@
 <div class="card-block">
     <div class="row px-3 mb-2 d-flex">
-        <div class="col-6 p-0">
-            <p class="mb-1">
-                <i class="fa fa-diamond secondary"></i>
-                <i class="fa fa-diamond secondary"></i>
-                <i class="fa fa-diamond secondary"></i>
-            </p>
+        <div class="col-6 p-0 atom-icon-block">
+            <img src="img/icons/atom.png"/>
+            <img src="img/icons/atom.png"/>
+            <img src="img/icons/atom.png"/>
         </div>
         <div class="col-6 p-0 text-right">
             <i data-id="{{$term->id}}"

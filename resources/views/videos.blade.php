@@ -1,14 +1,11 @@
 @extends('layouts.default')
 
 @section('content')
-    <div class="row card-main-block">
-        @include('layouts.categories', ['type' => 'App\Video'])
-
-        <div class="col-sm-12 col-md-10 col-lg-10 d-flex justify-content-around">
-            <div class="col-md-7 col-lg-9 d-flex flex-wrap justify-content-center">
-                <div class="col-lg-10">
-                    <h3 class="secondary">Видео</h3>
-                </div>
+    @include('layouts.left-sidebar.categories', ['type' => 'App\Video'])
+    <div class="container">
+        <div class="row">
+            <h3 class="secondary ml-3">Видео</h3>
+            <div class="col-lg-12 text-center">
                 @foreach($videos as $video)
                     @include('layouts.videoItem')
                 @endforeach
@@ -20,11 +17,11 @@
                     </nav>
                 </div>
             </div>
-            <div class="col-md-12 col-lg-3 d-flex flex-column">
-                @include('layouts.rightSidebarUserBlock')
-                @include('layouts.postsSidebarPostsBlock')
-            </div>
+            <button class="btn btn-primary btnScrollToTop">
+                <i class="fa fa-arrow-up"></i>
+            </button>
         </div>
     </div>
+    @include('layouts.right-sidebar.rightSidebar')
 @endsection
 

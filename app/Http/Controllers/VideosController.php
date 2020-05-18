@@ -15,7 +15,7 @@ class VideosController extends Controller
 
     public function index()
     {
-        $videos = Video::with(['channel', 'favorites', 'categories'])->paginate(10);
+        $videos = Video::with(['channel', 'favorites', 'categories'])->paginate(30);
         return view('/videos', compact(['videos',]));
     }
 

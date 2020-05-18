@@ -33,10 +33,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         /* View Categories */
-        View::composer('layouts.categories', CategoriesSidebar::class);
+        View::composer('layouts.left-sidebar.categories', CategoriesSidebar::class);
 
         /* Right Sidebar User Block View */
-        View::composer('layouts.rightSidebarUserBlock', function ($view) {
+        View::composer('layouts.right-sidebar.userBlock', function ($view) {
             $quoteCount = Favorite::where('favoriteable_type', 'App\Quote')->count();
             $termCount = Favorite::where('favoriteable_type', 'App\Term')->count();
             $videoCount = Favorite::where('favoriteable_type', 'App\Video')->count();
@@ -51,7 +51,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         /* Right Sidebar User Block View */
-        View::composer('layouts.postsSidebarPostsBlock', function ($view) {
+        View::composer('layouts.right-sidebar.rightSidebar', function ($view) {
             $todayQuote = Quote::latest()->first();
             $todayTerm = Term::latest()->first();
             $todayVideo = Video::latest()->first();

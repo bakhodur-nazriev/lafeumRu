@@ -19,7 +19,7 @@
         </div>
         <div class="row">
             @foreach ($channels as $channel)
-                <div class="col-sm-5 offset-sm-1 col-md-2 offset-md-1 channel authors-links">
+                <div class="col-lg-3 offset-lg-1 authors-links">
                     <li class="list-group">
                         <a href="/channels/{{$channel->slug}}">{{ $channel->name }}</a>
                     </li>

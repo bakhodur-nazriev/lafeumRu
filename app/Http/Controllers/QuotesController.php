@@ -23,7 +23,7 @@ class QuotesController extends Controller
     {
         $startTime = microtime(true);
 
-        $quotes = Quote::with('author:id,name,slug', 'categories:id,name,slug')->paginate(10);
+        $quotes = Quote::with('author:id,name,slug', 'categories:id,name,slug')->paginate(30);
         $categories = Category::quote()->get()->toTree()->unique('name');
 
         $totalMs = (microtime(true) - $startTime) * 1000;

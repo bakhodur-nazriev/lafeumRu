@@ -9,19 +9,8 @@
                 @foreach($videos as $video)
                     @include('layouts.videoItem')
                 @endforeach
-                <div class="col-12">
-                    <nav aria-label="Page navigation example">
-                        <div class="row d-flex justify-content-center mt-3">
-                            {{ $videos->links() }}
-                        </div>
-                    </nav>
-                </div>
             </div>
-            <button class="btn btn-primary btnScrollToTop">
-                <i class="fa fa-arrow-up"></i>
-            </button>
         </div>
     </div>
     @include('layouts.right-sidebar.rightSidebar')
 @endsection
-

@@ -6,7 +6,9 @@ use App\Category;
 use App\Quote;
 use App\Term;
 use App\Video;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class CategoriesController extends Controller
@@ -46,6 +48,7 @@ class CategoriesController extends Controller
     public function showQuotes($categorySlug)
     {
         $category = $this->getCategory(Quote::class, $categorySlug);
+        
         return view('shows.category', compact('category'));
     }
 
@@ -101,48 +104,33 @@ class CategoriesController extends Controller
 
     private function getCategory($categoriable, $slug)
     {
-        $startTime = microtime(true);
-
         $category = Category::where('type', $categoriable)->where('slug', $slug)->first();
 
         $category->categoriables = $this->getCategoriables($categoriable, $category);
 
-        $totalMs = (microtime(true) - $startTime) * 1000;
-
-        Log::debug("Category preparation took: $totalMs ms.");
-        
         return $category;
     }
 
     private function getCategoriables($model, $category)
     {
-        $categoryDescendantIds = $category->descendants()->pluck('id');
-
-        $categoryIds = $categoryDescendantIds;
+        $categoryIds = $category->descendants()->pluck('id');
 
         $categoryIds[] = $category->id;
+        
+        $categoriableIds = $this->getCategoriableIds($categoryIds, $model);
 
-        $categoriableQuery = $model::whereHas('categories', function ($query) use ($categoryIds) {
-            $query->whereIn('id', $categoryIds);
-        });
+        $categoriables = $model::whereIn('id', $categoriableIds)->paginate(10);
 
-        $this->addCategoriableRelations($categoriableQuery, $model);
-
-        return $categoriableQuery->paginate(10);
+        return $categoriables;
     }
 
-    private function addCategoriableRelations($categoriableQuery, $model)
+    private function getCategoriableIds($categoryIds, $categoriable)
     {
-        switch ($model) {
-            case Quote::class:
-                $categoriableQuery->with('author:id,name,slug', 'categories:id,name,slug');
-                break;
-            case Term::class:
-                $categoriableQuery->with('knowledge:id,name,slug', 'categories:id,name,slug');
-                break;
-            case Video::class:
-                $categoriableQuery->with('channel:id,name,slug', 'categories:id,name,slug');
-                break;
-        }
+        return DB::table('categoriables')
+            ->where('categoriable_type', $categoriable)
+            ->whereIn('category_id', $categoryIds)
+            ->select('categoriable_id')
+            ->get()
+            ->pluck('categoriable_id');
     }
 }

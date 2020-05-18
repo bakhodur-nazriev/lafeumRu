@@ -38,3 +38,5 @@ Route::get("/videos", "VideosController@index")->name("videos");
 
 //Favorite
 Route::put("/toggle-favourite", "FavoriteController@toggle")->middleware("auth");
+
+Route::get("/{post}", "PostsController@show")->name('post');

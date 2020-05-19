@@ -1,25 +1,25 @@
 @extends('layouts.default')
 
 @section('content')
-    <div class="row card-main-block">
-        @include('layouts.categories', ['type' => $category->type, 'active' => $category->id])
-        <div class="col-md-9 col-xl-9 col-sm-12 d-flex justify-content-between flex-wrap">
-            <div class="col-md-7">
+    @include('layouts.left-sidebar.categories', ['type' => $category->type, 'active' => $category->id])
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
                 <h3 class="secondary">{{$category->name}}</h3>
                 <p>{{$category->description}}</p>
-                
+
                 @foreach ($category->categoriables as $item)
                     @switch($category->type)
                         @case('App\\Quote')
-                            @include('layouts.quoteItem')
+                        @include('layouts.quoteItem')
                         @break
                         @case('App\\Term')
-                            @include('layouts.termItem')
+                        @include('layouts.termItem')
                         @break
                         @case('App\\Video')
-                            <div class="row">
-                                @include('layouts.videoItem')
-                            </div> 
+                        <div class="row">
+                            @include('layouts.videoItem')
+                        </div>
                         @break
                     @endswitch
                 @endforeach
@@ -33,9 +33,6 @@
                         </nav>
                     </div>
                 </div>
-                <button class="btn btn-primary btnScrollToTop">
-                    <i class="fa fa-arrow-up"></i>
-                </button>
             </div>
         </div>
     </div>

@@ -61,6 +61,7 @@ body {
 
 .main-navbar {
     background-color: #04718c;
+    z-index: 99;
 }
 
 .navbar-links {

@@ -100,7 +100,15 @@ class WPURLRedirect
      */
     private function isWpRoute($route)
     {
-        return Str::startsWith($route, array_keys($this->prefixes));
+        $exploded = explode('/', $route);
+
+        foreach ($this->prefixes as $prefix => $current) {
+            if($exploded[0] === $prefix){
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

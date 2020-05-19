@@ -6,7 +6,7 @@
             <div class="left-sidebar-block">
                 <h3 class="secondary">Авторы</h3>
                 @foreach($authors as $author)
-                    <div><a href="/author/{{$author->slug}}">{{ $author->name }}</a></div>
+                    <div><a href="/authors/{{$author->slug}}">{{ $author->name }}</a></div>
                 @endforeach
             </div>
         </div>

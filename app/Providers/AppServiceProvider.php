@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Category;
 use App\Http\View\Composers\CategoriesSidebar;
+use App\Http\View\Composers\CountItemsComposer;
 use App\Http\View\Composers\DailyPostsComposer;
 use ChristianKuri\LaravelFavorite\Models\Favorite;
 use Illuminate\Support\Facades\View;
@@ -29,6 +30,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        /* Counter Posts Block View */
+        View::composer('layouts.countItems.', CountItemsComposer::class);
+
+        /* Right Sidebar Daily Posts Block View */
+        View::composer('layouts.right-sidebar.rightSidebar', DailyPostsComposer::class);
+
         /* View Categories */
         View::composer('layouts.left-sidebar.categories', CategoriesSidebar::class);
 
@@ -46,8 +53,5 @@ class AppServiceProvider extends ServiceProvider
 
             $view->with('favouriteCount', $favouriteCount);
         });
-
-        /* Right Sidebar Daily Posts Block View */
-        View::composer('layouts.right-sidebar.rightSidebar', DailyPostsComposer::class);
     }
 }

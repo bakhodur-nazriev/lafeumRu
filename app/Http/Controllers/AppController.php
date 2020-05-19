@@ -19,22 +19,9 @@ class AppController extends Controller
 
     public function index()
     {
-        $countOfFavoritesQuotes = Quote::get()->count();
-        $countOfFavoritesTerms = Term::get()->count();
-        $countOfAuthors = Author::get()->count();
-        $countOfMediaContent = Photo::count() + Video::count();
-
         $photos = Photo::take(3)->get();
         $categories = Category::get()->toTree()->unique('name');
-        return view('/home', compact([
-                'photos',
-                'categories',
-                'countOfFavoritesQuotes',
-                'countOfAuthors',
-                'countOfFavoritesTerms',
-                'countOfMediaContent'
-            ])
-        );
+        return view('/home', compact(['photos', 'categories',]));
     }
 
     public function dashboard()

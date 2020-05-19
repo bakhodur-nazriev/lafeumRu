@@ -9,8 +9,8 @@ Route::get("/dashboard", "AppController@dashboard")->middleware("auth")->name("d
 
 Route::get("/", "AppController@index")->name("home");
 
-Route::get("/author", "AuthorsController@index")->name("author");
-Route::get("/author/{author}", "AuthorsController@show")->name("author");
+Route::get("/authors", "AuthorsController@index")->name("author");
+Route::get("/authors/{author}", "AuthorsController@show")->name("author");
 
 Route::get("/channels", "ChannelsController@index")->name("channels");
 Route::get("/channels/{channel}", "ChannelsController@show")->name("channels");;

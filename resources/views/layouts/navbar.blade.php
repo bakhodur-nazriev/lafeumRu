@@ -50,7 +50,7 @@
                 <a class="nav-link text-light" href="{{ url('/quotes') }}">Цитаты</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-light" href="{{ url('/author') }}">Авторы</a>
+                <a class="nav-link text-light" href="{{ url('/authors') }}">Авторы</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-light" href="{{ url('/terms') }}">Термины</a>

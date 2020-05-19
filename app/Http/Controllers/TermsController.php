@@ -23,11 +23,6 @@ class TermsController extends Controller
         return view('/terms', compact(['terms', 'categories',]));
     }
 
-    public function show(Term $term)
-    {
-        return view('shows.showTerm', compact('term'));
-    }
-
     public function indexVocabulary()
     {
         $terms = Term::with('post')->where('name','<>', '')->get();

@@ -17,9 +17,6 @@
                     </nav>
                 </div>
             </div>
-            <button class="btn btn-primary btnScrollToTop">
-                <i class="fa fa-arrow-up"></i>
-            </button>
         </div>
     </div>
     @include('layouts.right-sidebar.rightSidebar')

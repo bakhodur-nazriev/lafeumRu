@@ -43,7 +43,7 @@ class ChannelsController extends Controller
     public function update(Channel $channel,  Request $request)
     {
         $channel->update($request->all());
-        
+
         return $channel;
     }
 

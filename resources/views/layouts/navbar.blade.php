@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light shadow-sm main-navbar py-4">
+<nav class="navbar navbar-expand-md navbar-light shadow-sm main-navbar sticky-top py-4">
     <div class="menu-toggle-btn navbar-dark">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">

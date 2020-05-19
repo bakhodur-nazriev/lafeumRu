@@ -61,6 +61,7 @@ body {
 
 .main-navbar {
     background-color: #04718c;
+    z-index: 99;
 }
 
 .navbar-links {
@@ -262,7 +263,7 @@ body {
 .video-link-block {
     display: flex;
     justify-content: space-between;
-    padding: 10px 10px 0 10px;
+    padding: 10px 15px 0 15px;
 }
 
 .video-share a img {

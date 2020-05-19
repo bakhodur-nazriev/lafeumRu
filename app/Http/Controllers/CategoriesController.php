@@ -48,7 +48,7 @@ class CategoriesController extends Controller
     public function showQuotes($categorySlug)
     {
         $category = $this->getCategory(Quote::class, $categorySlug);
-        
+
         return view('shows.category', compact('category'));
     }
 
@@ -116,10 +116,10 @@ class CategoriesController extends Controller
         $categoryIds = $category->descendants()->pluck('id');
 
         $categoryIds[] = $category->id;
-        
+
         $categoriableIds = $this->getCategoriableIds($categoryIds, $model);
 
-        $categoriables = $model::whereIn('id', $categoriableIds)->paginate(10);
+        $categoriables = $model::whereIn('id', $categoriableIds)->paginate(30);
 
         return $categoriables;
     }

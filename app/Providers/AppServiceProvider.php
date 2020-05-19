@@ -4,10 +4,7 @@ namespace App\Providers;
 
 use App\Category;
 use App\Http\View\Composers\CategoriesSidebar;
-use App\Quote;
-use App\Term;
-use App\Video;
-use App\Photo;
+use App\Http\View\Composers\DailyPostsComposer;
 use ChristianKuri\LaravelFavorite\Models\Favorite;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -50,21 +47,7 @@ class AppServiceProvider extends ServiceProvider
             $view->with('favouriteCount', $favouriteCount);
         });
 
-        /* Right Sidebar User Block View */
-        View::composer('layouts.right-sidebar.rightSidebar', function ($view) {
-            $todayQuote = Quote::latest()->first();
-            $todayTerm = Term::latest()->first();
-            $todayVideo = Video::latest()->first();
-            $todayPhoto = Photo::latest()->first();
-
-            $postsData = [
-                'quote' => $todayQuote,
-                'term' => $todayTerm,
-                'video' => $todayVideo,
-                'photo' => $todayPhoto
-            ];
-
-            $view->with('postsData', $postsData);
-        });
+        /* Right Sidebar Daily Posts Block View */
+        View::composer('layouts.right-sidebar.rightSidebar', DailyPostsComposer::class);
     }
 }

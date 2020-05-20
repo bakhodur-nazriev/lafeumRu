@@ -21,7 +21,7 @@
         <ul class="list-inline py-1 list-of-authors">
             @foreach ($authors as $author)
                 <li class="author">
-                    <a href="/author/{{$author->slug}}">{{ $author->name }}</a>
+                    <a href="/authors/{{$author->slug}}">{{ $author->name }}</a>
                 </li>
             @endforeach
         </ul>

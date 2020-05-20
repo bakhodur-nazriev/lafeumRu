@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\Term;
 use Illuminate\Http\Request;
 
 class PostsController extends Controller
@@ -12,5 +13,13 @@ class PostsController extends Controller
         $item = $post->postable;
 
         return view('shows.post', compact('post', 'item'));
+    }
+
+    public function termSummary($id)
+    {
+        return Post::where('postable_type', Term::class)
+            ->where('id', $id)
+            ->first()
+            ->postable;
     }
 }

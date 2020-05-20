@@ -16,19 +16,11 @@
 @endsection
 
 @section("content")
-<div class="container">
+    <h3 class="secondary">{{ $channel->name }}</h3>
+    <p>{{ $channel->description }}</p>
     <div class="row">
-        <div class="col-lg-12">
-            <div>
-                <h3 class="secondary">{{ $channel->name }}</h3>
-                <span>{{ $channel->description }}</span>
-            </div>
-            <div class="row">
-                @foreach($channel->videos as $video)
-                    @include('layouts.videoItem')
-                @endforeach
-            </div>
-        </div>
+        @foreach($channel->videos as $video)
+            @include('layouts.videoItem')
+        @endforeach
     </div>
-</div>
 @endsection

@@ -12,15 +12,9 @@
 @endsection
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <h3 class="secondary mb-2">{{$currentAuthor->name}}</h3>
-                <p>{{$currentAuthor->biography}}</p>
-                @foreach($currentAuthor->quotes as $quote)
-                    @include('layouts.quoteItem')
-                @endforeach
-            </div>
-        </div>
-    </div>
+    <h3 class="secondary mb-2">{{$currentAuthor->name}}</h3>
+    <p>{{$currentAuthor->biography}}</p>
+    @foreach($currentAuthor->quotes as $quote)
+        @include('layouts.quoteItem')
+    @endforeach
 @endsection

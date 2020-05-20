@@ -43,24 +43,24 @@
                             @endforeach
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h3 class="secondary text-center">Фото</h3>
-                        </div>
-                        @foreach ($photos as $photo)
-                        <div id="carouselExampleControls" class="carousel slide my-2 d-inline-block col-md-4">
-                            <div class="carousel-inner main-page-carousel-inner">
-                                <div class="carousel-item active">
-                                    <img src="{{ $photo->path }}" class="d-inline-block" alt="{{ $photo->description }}">
-                                </div>
-                            </div>
-                        </div>
-                        @endforeach
-                    </div>
                 </div>
                 <div class="col-lg-4">
                     @include('layouts.right-sidebar.rightSidebar')
                 </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="secondary text-center">Фото</h3>
+                </div>
+                @foreach ($photos as $photo)
+                <div id="carouselExampleControls" class="carousel slide my-2 d-inline-block col-md-4">
+                    <div class="carousel-inner main-page-carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="{{ $photo->path }}" class="d-inline-block" alt="{{ $photo->description }}">
+                        </div>
+                    </div>
+                </div>
+                @endforeach
             </div>
             @include('layouts.countItems')
         </div>

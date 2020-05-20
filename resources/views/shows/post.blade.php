@@ -6,17 +6,16 @@
             <div class="col-lg-12" style="height: 100%;">
                 @switch($post->postable_type)
                     @case('App\\Quote')
-                    @include('layouts.quoteItem')
+                        @include('layouts.quoteItem')
                     @break
                     @case('App\\Term')
-                    @include('layouts.termItem')
+                        @include('layouts.termItem')
                     @break
                     @case('App\\Video')
-                    @include('layouts.videoItem')
+                        @include('layouts.videoItem')
                     @break
                 @endswitch
             </div>
         </div>
     </div>
-    @include('layouts.right-sidebar.rightSidebar')
 @endsection

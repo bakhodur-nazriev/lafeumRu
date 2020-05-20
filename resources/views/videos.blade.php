@@ -1,7 +1,10 @@
 @extends('layouts.default')
 
-@section('content')
+@section('left-side-bar')
     @include('layouts.left-sidebar.categories', ['type' => 'App\Video'])
+@endsection
+
+@section('content')
     <div class="container">
         <div class="row">
             <h3 class="secondary ml-3">Видео</h3>
@@ -19,5 +22,4 @@
             </div>
         </div>
     </div>
-    @include('layouts.right-sidebar.rightSidebar')
 @endsection

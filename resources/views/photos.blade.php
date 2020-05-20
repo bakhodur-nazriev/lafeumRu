@@ -26,3 +26,5 @@
         </div>
     </div>
 @endsection
+
+@section('right-side-bar')@endsection

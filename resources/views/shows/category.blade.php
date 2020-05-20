@@ -1,7 +1,10 @@
 @extends('layouts.default')
 
-@section('content')
+@section('left-side-bar')
     @include('layouts.left-sidebar.categories', ['type' => $category->type, 'active' => $category->id])
+@endsection
+
+@section('content')
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -11,15 +14,15 @@
                 @foreach ($category->categoriables as $item)
                     @switch($category->type)
                         @case('App\\Quote')
-                        @include('layouts.quoteItem')
+                            @include('layouts.quoteItem')
                         @break
                         @case('App\\Term')
-                        @include('layouts.termItem')
+                            @include('layouts.termItem')
                         @break
                         @case('App\\Video')
-                        <div class="row">
-                            @include('layouts.videoItem')
-                        </div>
+                            <div class="row">
+                                @include('layouts.videoItem')
+                            </div>
                         @break
                     @endswitch
                 @endforeach
@@ -36,5 +39,4 @@
             </div>
         </div>
     </div>
-    @include('layouts.right-sidebar.rightSidebar')
 @endsection

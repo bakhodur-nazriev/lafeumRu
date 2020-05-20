@@ -21,9 +21,6 @@
                     @include('layouts.quoteItem')
                 @endforeach
             </div>
-            <button class="btn btn-primary btnScrollToTop">
-                <i class="fa fa-arrow-up"></i>
-            </button>
         </div>
     </div>
 @endsection

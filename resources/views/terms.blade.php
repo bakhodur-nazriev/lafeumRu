@@ -5,24 +5,15 @@
 @endsection
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <h3 class="secondary mb-4">Термины</h3>
-                @foreach($terms as $term)
-                    @include('layouts.termItem')
-                @endforeach
-                <div class="col-12">
-                    <nav aria-label="Page navigation example">
-                        <div class="row d-flex justify-content-center mt-3">
-                            {!! $terms->links(); !!}
-                        </div>
-                    </nav>
-                </div>
+    <h3 class="secondary mb-4">Термины</h3>
+    @foreach($terms as $term)
+        @include('layouts.termItem')
+    @endforeach
+    <div class="col-12">
+        <nav aria-label="Page navigation example">
+            <div class="row d-flex justify-content-center mt-3">
+                {!! $terms->links(); !!}
             </div>
-            <button class="btn btn-primary btnScrollToTop">
-                <i class="fa fa-arrow-up"></i>
-            </button>
-        </div>
+        </nav>
     </div>
 @endsection

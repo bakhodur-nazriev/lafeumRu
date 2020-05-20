@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('content')
-    <div class="row mx-4 mt-4 d-flex justify-content-center">
+    <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6" style="height: 100%;">
             @switch($post->postable_type)
                 @case('App\\Quote')

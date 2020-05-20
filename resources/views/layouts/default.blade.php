@@ -2,15 +2,29 @@
 
 @section('layout')
     @include('layouts.navbar')
-    <div class="d-flex justify-content-around" style="flex: 1">
-        @yield('content')
-        <button class="btn btn-primary btnScrollToTop">
-            <i class="fa fa-arrow-up"></i>
-        </button>
+    
+    <div class="container-fluid">
+        <div class="row">
+            <div class="left-sidebar-col">@yield('left-side-bar')</div>
+
+            <div class="col">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            @yield('content')
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="right-sidebar-col">@yield('right-side-bar', View::make('layouts.right-sidebar.rightSidebar'))</div>
+
+            <button class="btn btn-primary btnScrollToTop">
+                <i class="fa fa-arrow-up"></i>
+            </button>
+        </div>
     </div>
-    <div class="p-4">
-        @include('layouts.countItems')
-    </div>
+
     @include('layouts.footer')
     <script>
         function toggleFavourite(id, model, onSuccess = null, onFailure = null) {

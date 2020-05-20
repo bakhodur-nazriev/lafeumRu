@@ -446,21 +446,24 @@ a.active {
 .right-sidebar-block {
     background-color: white;
     border-radius: 5px;
-    width: 300px;
 }
 
-.right-sidebar-main-block {
-    display: flex;
-    flex-direction: column;
+.right-sidebar-col {
+    flex: 0 0 22%;
+    max-width: 22%;
+    padding: 15px 15px 0 0;
 }
 
-.left-sidebar-block {
-    display: inline-block;
+.left-sidebar-col {
     background-color: white;
-    min-width: 300px;
-    max-width: 300px;
     height: 100%;
     padding: 20px;
+    flex: 0 0 18%;
+    max-width: 18%;
+}
+
+.left-sidebar-col:empty, .right-sidebar-col:empty {
+    display: none;
 }
 
 .badge {
@@ -483,8 +486,31 @@ a.active {
 .title-of-right-sidebar-posts {
     background-color: #04718c;
     color: white;
-    max-width: 300px;
     border-radius: 5px 5px 0 0
+}
+
+@media (min-width: 1367px) {
+    .right-sidebar-col {
+        flex: 0 0 17%;
+        max-width: 17%;
+    }
+    
+    .left-sidebar-col {
+        flex: 0 0 14%;
+        max-width: 14%;
+    }
+}
+
+@media (max-width: 1025px) {
+    .right-sidebar-col {
+        flex: 0 0 25%;
+        max-width: 25%;
+    }
+    
+    .left-sidebar-col {
+        flex: 0 0 20%;
+        max-width: 20%;
+    }
 }
 
 @media (min-width: 768px) {
@@ -501,6 +527,14 @@ a.active {
     .navbar-links > li > a {
         text-align: center;
         line-height: 1em;
+    }
+
+    .right-sidebar-col {
+        display: none;
+    }
+    
+    .left-sidebar-col {
+        display: none;
     }
 }
 

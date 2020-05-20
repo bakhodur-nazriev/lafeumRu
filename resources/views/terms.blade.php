@@ -1,7 +1,10 @@
 @extends('layouts.default')
 
-@section('content')
+@section('left-side-bar')
     @include('layouts.left-sidebar.categories', ['type' => 'App\Term'])
+@endsection
+
+@section('content')
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -22,5 +25,4 @@
             </button>
         </div>
     </div>
-    @include('layouts.right-sidebar.rightSidebar')
 @endsection

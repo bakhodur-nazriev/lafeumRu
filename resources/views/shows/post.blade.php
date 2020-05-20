@@ -15,9 +15,5 @@
                 @break
             @endswitch
         </div>
-        <div class="col-md-4 col-lg-3 offset-lg-1 d-flex flex-column">
-            @include('layouts.rightSidebarUserBlock')
-            @include('layouts.postsSidebarPostsBlock')
-        </div>
     </div>
 @endsection

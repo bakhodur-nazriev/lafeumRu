@@ -1,4 +1,4 @@
-<div class="left-sidebar-block">
+<div>
     <h3 class="secondary">Темы</h3>
     @foreach($categories as $category)
         <div class="categories-main-name">

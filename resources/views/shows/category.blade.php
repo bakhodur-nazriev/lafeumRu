@@ -1,10 +1,13 @@
 @extends('layouts.default')
 
+@section('left-side-bar')
+    @include('layouts.left-sidebar.categories', ['type' => $category->type, 'active' => $category->id])
+@endsection
+
 @section('content')
-    <div class="row card-main-block">
-        @include('layouts.categories', ['type' => $category->type, 'active' => $category->id])
-        <div class="col-md-9 col-xl-9 col-sm-12 d-flex justify-content-between flex-wrap">
-            <div class="col-md-7">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
                 <h3 class="secondary">{{$category->name}}</h3>
                 <p>{{$category->description}}</p>
                 

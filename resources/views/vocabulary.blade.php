@@ -1,7 +1,10 @@
 @extends("layouts.default")
 
-@section("content")
+@section('left-side-bar')
     @include('layouts.left-sidebar.categories', ['type' => 'App\Term'])
+@endsection
+
+@section("content")
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -28,7 +31,7 @@
                             id="vocabulary-search"
                             class="form-control"
                             placeholder="Поиск"
-                        >
+                        />
                     </div>
                 </div>
                 <div class="row">
@@ -45,8 +48,11 @@
                 $(document).ready(() => {
                     $("#vocabulary-search").keyup((e) => {
                         search(".list-of-knowledge", e.target.value);
-                    })
+                    });
+                });
             </script>
         </div>
     </div>
 @endsection
+
+@section('right-side-bar')@endsection

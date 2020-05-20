@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class AuthorsController extends Controller
 {
-    const AUTHORS_PHOTOS_PATH = "/authors/";
+    const AUTHORS_PHOTOS_PATH = "/img/authors/";
 
     public function __construct() {
         $this->authorizeResource(Author::class);

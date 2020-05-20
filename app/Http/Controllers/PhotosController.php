@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class PhotosController extends Controller
 {
-    const PHOTOS_PATH = "/photos/";
+    const PHOTOS_PATH = "/img/photos/";
 
     public function __construct() {
         $this->authorizeResource(Photo::class);

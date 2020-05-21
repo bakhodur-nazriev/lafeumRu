@@ -1,4 +1,4 @@
-<div class="right-sidebar-block p-4">
+<div class="right-sidebar-block p-3">
     @guest
         <form style="width: 100%;" method="POST" action="{{ route('login') }}">
             @csrf

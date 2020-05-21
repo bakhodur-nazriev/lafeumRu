@@ -29,12 +29,6 @@ class TermsController extends Controller
         return view("/vocabulary", compact(["terms"]));
     }
 
-    public function showVocabulary($id)
-    {
-        $vocabulary = Term::with('categories')->where('id', $id)->first();
-        return view("shows.vocabulary", compact(['vocabulary']));
-    }
-
     public function get(Request $request)
     {
         $termsQuery = Term::with('categories', 'knowledge');

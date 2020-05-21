@@ -29,10 +29,14 @@
                     @endforeach
                 </div>
                 <div class="my-main-divider"></div>
-                <a class="share-button">
-                    <div class="share-text">Поделиться</div>
-                    <div class="share"></div>
-                </a>
+                <div class="dropdown">
+                    <button class="share-button">Поделиться</button>
+                    <div class="dropdown-content">
+                        <a href="/{{ $vocabulary->id }}">
+                            <div class="addthis_inline_share_toolbox"></div>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

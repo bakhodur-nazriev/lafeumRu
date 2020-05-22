@@ -12,6 +12,7 @@
             </a>
         </div>
         <div class="col p-0 text-right">
+            <a class="secondary mr-2" href="/{{ $quote->post->id }}">{{ $quote->post->id }}</a>
             <i data-id="{{$quote->id}}"
                class="fa fa-star favourite-quote-btn {{$quote->isFavorited() ? " fa-star-active": ""}}"
                data-toggle="tooltip"
@@ -30,8 +31,16 @@
         @endforeach
     </div>
     <div class="my-main-divider"></div>
-    <a class="share-button">
-        <div class="share-text">Поделиться</div>
-        <div class="share"></div>
-    </a>
+
+    <div class="dropdown">
+        <button class="share-button">Поделиться</button>
+        <div class="dropdown-content">
+            <a
+                data-url="http://new.lafeum.org/{{ $quote->post->id }}"
+                class="addthis_inline_share_toolbox"
+                href="/{{ $quote->post->id }}"
+            >
+            </a>
+        </div>
+    </div>
 </div>

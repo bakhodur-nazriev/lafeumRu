@@ -9,6 +9,7 @@
             <a href="/channels/{{ $video->channel->slug }}" class="secondary">
                 <i class="fa fa-youtube-play mr-2"></i>{{$video->channel->name}}
             </a>
+            <a class="secondary mr-2" href="/{{ $video->post->id }}">{{ $video->post->id }}</a>
             <i data-id="{{$video->id}}"
                 class="ml-3 fa fa-star favourite-video-btn {{$video->isFavorited() ? " fa-star-active": ""}}"
                 data-toggle="tooltip" data-placement="top" title="Избранный"></i>
@@ -31,10 +32,16 @@
             </div>
         </div>
         <div class="card-footer">
-            <a class="share-button video-share-button">
-                <div class="share-text">Поделиться</div>
-                <div class="share"></div>
-            </a>
+            <div class="dropdown">
+                <button class="share-button">Поделиться</button>
+                <div class="dropdown-content">
+                    <a
+                        data-url="http://new.lafeum.org/{{ $video->post->id }}"
+                        class="addthis_inline_share_toolbox"
+                        href="/{{ $video->post->id }}">
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </div>

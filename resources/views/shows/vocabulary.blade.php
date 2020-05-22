@@ -29,10 +29,16 @@
                     @endforeach
                 </div>
                 <div class="my-main-divider"></div>
-                <a class="share-button">
-                    <div class="share-text">Поделиться</div>
-                    <div class="share"></div>
-                </a>
+                <div class="dropdown">
+                    <button class="share-button">Поделиться</button>
+                    <div class="dropdown-content">
+                        <a
+                            data-url="http://new.lafeum.org/{{ $vocabulary->post->id }}"
+                            class="addthis_inline_share_toolbox"
+                            href="/{{ $vocabulary->id }}">
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

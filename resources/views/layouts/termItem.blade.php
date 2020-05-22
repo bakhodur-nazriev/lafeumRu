@@ -12,6 +12,7 @@
             <img src="/img/icons/atom.png"/>
         </div>
         <div class="col-6 p-0 text-right">
+            <a class="secondary mr-2" href="/{{ $term->post->id }}">{{$term->post->id}}</a>
             <i data-id="{{$term->id}}"
                class="fa fa-star favourite-term-btn {{$term->isFavorited() ? " fa-star-active": ""}}"
                data-toggle="tooltip"
@@ -30,8 +31,16 @@
         @endforeach
     </div>
     <div class="my-main-divider"></div>
-    <a class="share-button">
-        <div class="share-text">Поделиться</div>
-        <div class="share"></div>
-    </a>
+
+    <div class="dropdown">
+        <button class="share-button">Поделиться</button>
+        <div class="dropdown-content">
+            <a
+                data-utl="http://new.lafeum.org/{{$term->post->id}}"
+                class="addthis_inline_share_toolbox"
+                href="/{{ $term->post->id }}">
+            </a>
+        </div>
+    </div>
+
 </div>

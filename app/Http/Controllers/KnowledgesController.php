@@ -21,7 +21,10 @@ class KnowledgesController extends Controller
     public function show(Knowledge $knowledge)
     {
         $knowledgeAreas = Knowledge::all();
-        $currentKnowledgeArea = $knowledge->load('terms');
+        
+        $currentKnowledgeArea = $knowledge;
+        $currentKnowledgeArea->terms = $knowledge->terms()->latest()->paginate(30);
+        
         return view('shows.knowledge', compact(['currentKnowledgeArea', 'knowledgeAreas',]));
     }
 

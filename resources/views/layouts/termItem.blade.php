@@ -35,8 +35,10 @@
     <div class="dropdown">
         <button class="share-button">Поделиться</button>
         <div class="dropdown-content">
-            <a href="/{{ $term->post->id }}">
-                <div class="addthis_inline_share_toolbox"></div>
+            <a
+                data-utl="http://new.lafeum.org/{{$term->post->id}}"
+                class="addthis_inline_share_toolbox"
+                href="/{{ $term->post->id }}">
             </a>
         </div>
     </div>

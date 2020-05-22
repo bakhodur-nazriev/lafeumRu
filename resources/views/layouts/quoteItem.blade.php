@@ -36,12 +36,11 @@
         <button class="share-button">Поделиться</button>
         <div class="dropdown-content">
             <a
-                data-url="http://127.0.0.1:8000/{{ $quote->post->id }}"
+                data-url="http://new.lafeum.org/{{ $quote->post->id }}"
                 class="addthis_inline_share_toolbox"
                 href="/{{ $quote->post->id }}"
             >
             </a>
         </div>
     </div>
-
 </div>

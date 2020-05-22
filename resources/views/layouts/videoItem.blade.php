@@ -35,8 +35,10 @@
             <div class="dropdown">
                 <button class="share-button">Поделиться</button>
                 <div class="dropdown-content">
-                    <a href="/{{ $video->post->id }}">
-                        <div class="addthis_inline_share_toolbox"></div>
+                    <a
+                        data-url="http://new.lafeum.org/{{ $video->post->id }}"
+                        class="addthis_inline_share_toolbox"
+                        href="/{{ $video->post->id }}">
                     </a>
                 </div>
             </div>

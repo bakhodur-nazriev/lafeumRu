@@ -23,6 +23,11 @@
                 <i class="fa fa-arrow-up"></i>
             </button>
         </div>
+        <div class="row justify-content-center">
+            <div class="col-9">
+                @yield('bottom-content')
+            </div>
+        </div>
     </div>
 
     @include('layouts.footer')

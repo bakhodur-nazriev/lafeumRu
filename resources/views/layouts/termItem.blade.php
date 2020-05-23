@@ -12,7 +12,7 @@
             <img src="/img/icons/atom.png"/>
         </div>
         <div class="col-6 p-0 text-right">
-            <a class="secondary mr-2" href="/{{ $term->post->id }}">{{$term->post->id}}</a>
+            <a class="secondary mr-2" href="/{{ $term->post->id }}">#{{$term->post->id}}</a>
             <i data-id="{{$term->id}}"
                class="fa fa-star favourite-term-btn {{$term->isFavorited() ? " fa-star-active": ""}}"
                data-toggle="tooltip"

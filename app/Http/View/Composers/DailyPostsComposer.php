@@ -3,6 +3,7 @@
 
 namespace App\Http\View\Composers;
 
+use App\DailyPost;
 use App\Quote;
 use App\Term;
 use App\Video;

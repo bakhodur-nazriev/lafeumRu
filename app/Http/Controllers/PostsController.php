@@ -17,9 +17,17 @@ class PostsController extends Controller
 
     public function termSummary($id)
     {
-        return Post::where('postable_type', Term::class)
+        $term = Post::where('postable_type', Term::class)
             ->where('id', $id)
             ->first()
             ->postable;
+        
+        $wikipediaSummaryStyle = ['extract_html' => ''];
+
+        if($term){
+            $wikipediaSummaryStyle['extract_html'] = $term->body;
+        }
+
+        return $wikipediaSummaryStyle;
     }
 }

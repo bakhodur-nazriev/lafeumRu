@@ -75,10 +75,19 @@ function showTermSummary(link, anchor) {
         .then(r => renderSummary(r.body, anchor));
 }
 
-function onMouseOverAnchor(e) {
-    let termsPostId = parseInt(e.target.pathname.replace('/', ''));
+function getSummaryLink(anchor) {
 
-    let currentSummaryLink = '/api/summary/' + termsPostId;
+    let termsPostId = parseInt(anchor.pathname.replace('/', ''));
+
+    return '/api/summary/' + termsPostId;
+}
+
+function onMouseOverAnchor(e) {
+    const anchor = e.path.find((el) => el.tagName === "A");
+
+    if(!anchor) return;
+
+    let currentSummaryLink = getSummaryLink(anchor); 
     
     summaryLink = currentSummaryLink;
 
@@ -86,7 +95,7 @@ function onMouseOverAnchor(e) {
     setTimeout(() => {
 
         if(summaryLink === currentSummaryLink){
-            showTermSummary(currentSummaryLink, this);
+            showTermSummary(currentSummaryLink, anchor);
         }
 
     }, 200);

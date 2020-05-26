@@ -4,7 +4,7 @@
     }
 @endphp
 
-<div class="card-block">
+<div class="card-block summary-links-wrapper">
     <div class="row px-3 mb-2 d-flex">
         <div class="col-6 p-0 atom-icon-block">
             <img src="/img/icons/atom.png"/>
@@ -12,7 +12,7 @@
             <img src="/img/icons/atom.png"/>
         </div>
         <div class="col-6 p-0 text-right">
-            <a class="secondary mr-2" href="/{{ $term->post->id }}">{{$term->post->id}}</a>
+            <a class="secondary mr-2 ignore-summary" href="/{{ $term->post->id }}">{{$term->post->id}}</a>
             <i data-id="{{$term->id}}"
                class="fa fa-star favourite-term-btn {{$term->isFavorited() ? " fa-star-active": ""}}"
                data-toggle="tooltip"

@@ -478,6 +478,10 @@ a.active {
     border-radius: 5px 5px 0 0;
 }
 
+.summary-links-wrapper > a {
+    cursor: pointer;
+}
+
 #summaryModal {
     display: none;
     z-index: 50;

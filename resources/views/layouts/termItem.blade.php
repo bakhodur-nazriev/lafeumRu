@@ -4,7 +4,7 @@
     }
 @endphp
 
-<div class="card-block">
+<div class="card-block summary-links-wrapper">
     <div class="row px-3 mb-2 d-flex">
         <div class="col-6 p-0 atom-icon-block">
             <img src="/img/icons/atom.png"/>

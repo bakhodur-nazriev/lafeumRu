@@ -22,7 +22,7 @@ body {
     bottom: 20px;
     right: 20px;
     visibility: hidden;
-    transition: background-color .3s;
+    transition: background-color 0.3s;
     z-index: 1000;
 }
 
@@ -155,7 +155,7 @@ body {
 .share-button {
     display: flex;
     align-items: center;
-    background-color: hsla(0, 0%, 100%, .12);
+    background-color: hsla(0, 0%, 100%, 0.12);
     border-radius: 5px;
     padding: 0 12px 0 0;
     width: fit-content;
@@ -195,11 +195,13 @@ body {
     column-count: 4;
 }
 
-.list-of-knowledge, .list-of-knowledge {
+.list-of-knowledge,
+.list-of-knowledge {
     column-count: 4;
 }
 
-.list-of-authors > .author, .knowledge {
+.list-of-authors > .author,
+.knowledge {
     margin-bottom: 5px;
 }
 
@@ -274,7 +276,6 @@ body {
 .video-channel-link {
     margin-bottom: 0;
 }
-
 
 #ShowHide1 {
     cursor: pointer;
@@ -407,7 +408,8 @@ a.active {
 }
 
 /* --------- SHARE BUTTON STYLES --------- */
-.jssocials-share-link, .jssocials-share-link:hover {
+.jssocials-share-link,
+.jssocials-share-link:hover {
     border-radius: 50%;
     border: none !important;
     padding: 5px;
@@ -462,7 +464,8 @@ a.active {
     max-width: 18%;
 }
 
-.left-sidebar-col:empty, .right-sidebar-col:empty {
+.left-sidebar-col:empty,
+.right-sidebar-col:empty {
     display: none;
 }
 
@@ -486,7 +489,30 @@ a.active {
 .title-of-right-sidebar-posts {
     background-color: #04718c;
     color: white;
-    border-radius: 5px 5px 0 0
+    border-radius: 5px 5px 0 0;
+}
+
+#summaryModal {
+    display: none;
+    z-index: 50;
+    position: absolute;
+    width: 350px;
+    padding: 0.6rem 1rem;
+    -webkit-box-shadow: 0 30px 90px -20px rgba(0, 0, 0, 0.3),
+        0 0 1px 1px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 30px 90px -20px rgba(0, 0, 0, 0.3),
+        0 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+#summaryModal .content {
+    max-height: 200px;
+    overflow-y: hidden;
+    line-height: 20px;
+    font-size: 14px;
+}
+
+#summaryModal[data-show] {
+    display: block;
 }
 
 @media (min-width: 1367px) {
@@ -494,7 +520,7 @@ a.active {
         flex: 0 0 17%;
         max-width: 17%;
     }
-    
+
     .left-sidebar-col {
         flex: 0 0 14%;
         max-width: 14%;
@@ -506,7 +532,7 @@ a.active {
         flex: 0 0 25%;
         max-width: 25%;
     }
-    
+
     .left-sidebar-col {
         flex: 0 0 20%;
         max-width: 20%;
@@ -532,7 +558,7 @@ a.active {
     .right-sidebar-col {
         display: none;
     }
-    
+
     .left-sidebar-col {
         display: none;
     }

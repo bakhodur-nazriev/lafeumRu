@@ -151,17 +151,6 @@ body {
 }
 
 .share-button {
-    display: flex;
-    align-items: center;
-    background-color: hsla(0, 0%, 100%, 0.12);
-    border-radius: 5px;
-    padding: 0 12px 0 0;
-    width: fit-content;
-}
-
-.share-button > .share-text {
-    cursor: pointer;
-    display: inline;
     color: #fff;
     margin-right: 5px;
     border-radius: 5px;

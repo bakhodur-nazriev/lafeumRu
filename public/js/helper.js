@@ -6,6 +6,8 @@ function search(parentSelector, filter) {
 
     wrapper.textContent = "";
 
+    let foundCount = 0;
+
     for (let i = 0; i < elements.length; i++) {
         let elementContent = elements[i].innerText || elements[i].textContent;
 
@@ -16,12 +18,19 @@ function search(parentSelector, filter) {
 
         if (elementContainsFilter) {
             elements[i].style.display = "";
+            foundCount++;
         } else {
             elements[i].style.display = "none";
         }
     }
 
+    if(foundCount === elements.length){
+        foundCount = null;
+    }
+
     wrapper.append(...elements);
+
+    return foundCount;
 }
 
 jQuery(document).ready(function() {

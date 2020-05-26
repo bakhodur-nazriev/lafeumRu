@@ -28,5 +28,9 @@
     @include('layouts.footer')
     <script src="/js/favourite.js"></script>
 
+    <div id="summaryModal" class="card">
+        <div class="content"></div>
+    </div>
+    <script src="/js/summary.js"></script>
     
 @endsection

@@ -35,7 +35,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <ul class="list-inline py-1 list-of-knowledge">
+                    <ul class="list-inline py-1 list-of-knowledge summary-links-wrapper">
                         @foreach($terms as $term)
                             <li class="vocabulary">
                                 <a href="/{{$term->post->id}}">{{$term->name}}</a>
@@ -48,6 +48,7 @@
                 $(document).ready(() => {
                     $("#vocabulary-search").keyup((e) => {
                         search(".list-of-knowledge", e.target.value);
+                        attachSummaryModals();
                     });
                 });
             </script>

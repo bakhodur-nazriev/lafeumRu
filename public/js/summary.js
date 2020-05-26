@@ -6,7 +6,7 @@ let summaryLink = null;
 
 let summaryCache = null;
 
-const summaryLinks = [
+const supportedLinks = [
     {
         name: 'terms',
         regex: new RegExp(`${window.location.origin}/[0-9]\\w+`, 'g'),
@@ -18,8 +18,18 @@ const summaryLinks = [
 ];
 
 function initSummaryCache() {
-    resetSummaryCache();
 
+    const CACHE_MAX_LIFE = 10;
+
+    let cacheResetedAt = localStorage.getItem('s_cache_reseted_at');
+
+    let cacheResetedMsAgo = Date.now() - parseInt(cacheResetedAt);
+    let cacheResetedMinutesAgo = new Date(cacheResetedMsAgo).getMinutes();
+
+    if(!cacheResetedAt || cacheResetedMinutesAgo > CACHE_MAX_LIFE){
+        resetSummaryCache();
+    }
+    
     caches.open('summaries').then((cache) => {
         summaryCache = cache;
     });
@@ -27,6 +37,7 @@ function initSummaryCache() {
 
 function resetSummaryCache() {
     caches.delete('summaries');
+    localStorage.setItem('s_cache_reseted_at', Date.now());
 }
 
 function setSummaryContent(content) {
@@ -105,7 +116,7 @@ function getWikipediaSummaryLink(anchor) {
 }
 
 function getSummaryLink(anchor) {
-    let summaryLinkType = summaryLinks.find(h => anchor.href.match(h.regex));
+    let summaryLinkType = supportedLinks.find(h => anchor.href.match(h.regex));
 
     switch(summaryLinkType.name){
         case 'terms':
@@ -143,7 +154,7 @@ function attachSummaryModals() {
 
         if(ignoreAnchor) return;
 
-        for (const supportedLink of summaryLinks) {
+        for (const supportedLink of supportedLinks) {
             if(a.href.match(supportedLink.regex)){
                 a.addEventListener('mouseover', onMouseOverAnchor);
                 a.addEventListener('mouseout', hideSummary);

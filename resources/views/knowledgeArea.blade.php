@@ -9,13 +9,14 @@
             </div>
             <div class="d-flex justify-content-center mt-0 mb-4">
                 <div class="col-md-4">
-                    <div class="input-group">
+                    <div class="form-group">
                         <input
                             type="text"
                             id="knowledge-area-search"
                             class="form-control"
                             placeholder="Поиск по области знаний"
                         >
+                        <small id="knowledge-search-result" class="form-text text-muted ml-1"></small>
                     </div>
                 </div>
             </div>
@@ -28,9 +29,11 @@
             </ul>
             <script>
                 $(document).ready(() => {
-                    $("#knowledge-area-search").keyup((e) => {
-                        search(".list-of-knowledge", e.target.value);
-                    })
+                    attachSearch(
+                        "#knowledge-area-search", 
+                        ".list-of-knowledge", 
+                        '#knowledge-search-result'
+                    );
                 })
             </script>
         </div>

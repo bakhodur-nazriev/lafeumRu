@@ -3,16 +3,36 @@
 @section('left-side-bar')
 <div>
     <h3 class="secondary">Каналы YouTube</h3>
-    <div class="mb-3">
-        <p class="p-1 mb-0">Введите название канала</p>
-        <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="button-addon1">
+    <div class="mb-3 form-group">
+        <label for="channels-search">Введите название канала</label>
+        <input
+            type="string" 
+            id="channels-search"
+            class="form-control"
+        >
+        <small id="channels-search-result" class="form-text text-muted ml-1"></small>
     </div>
-    @foreach($channels as $channelItem)
-        <a href="/channels/{{$channelItem->slug}}">
-            {{ $channelItem->name }}
-        </a><br>
-    @endforeach
+    <div class="channels">
+        @foreach($channels as $channelItem)
+            <div>
+                <a href="/channels/{{$channelItem->slug}}">
+                    {{ $channelItem->name }}
+                </a>
+            </div>
+        @endforeach
+    </div>
 </div>
+
+<script>
+    $(document).ready(() => {
+        attachSearch(
+            "#channels-search", 
+            ".channels", 
+            '#channels-search-result'
+        );
+    })
+</script>
+
 @endsection
 
 @section("content")

@@ -36,7 +36,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <ul class="list-inline py-1 list-of-terms summary-links-wrapper">
+                    <ul class="list-inline py-1 list-of-knowledge summary-links-wrapper">
                         @foreach($terms as $term)
                             <li class="vocabulary">
                                 <a href="/{{$term->post->id}}">{{$term->name}}</a>
@@ -49,7 +49,7 @@
                 $(document).ready(() => {
                     attachSearch(
                         "#vocabulary-search", 
-                        ".list-of-terms", 
+                        ".list-of-knowledge", 
                         '#vocabulary-search-result'
                     );
                 });

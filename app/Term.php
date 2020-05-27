@@ -9,7 +9,7 @@ class Term extends Model
 {
     use Favoriteable;
 
-    protected $fillable = ['name','body', 'link'];
+    protected $fillable = ['name', 'body', 'link'];
 
     public function categories()
     {
@@ -24,5 +24,10 @@ class Term extends Model
     public function post()
     {
         return $this->morphOne(Post::class, 'postable');
+    }
+
+    public function dailyPost()
+    {
+        return $this->belongsTo(DailyPost::class);
     }
 }

@@ -34,4 +34,9 @@ class Quote extends Model
     {
         return $this->morphOne(Post::class, 'postable');
     }
+
+    public function dailyPost()
+    {
+        return $this->morphOne(DailyPost::class, 'dailyPostable');
+    }
 }

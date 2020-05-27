@@ -25,4 +25,9 @@ class Video extends Model
     {
         return $this->morphOne(Post::class, 'postable');
     }
+
+    public function dailyPost()
+    {
+        return $this->belongsTo(DailyPost::class);
+    }
 }

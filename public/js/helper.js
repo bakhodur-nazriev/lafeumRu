@@ -33,6 +33,29 @@ function search(parentSelector, filter) {
     return foundCount;
 }
 
+function attachSearch(inputSelector, elementsWrapperSelector, searchResultSelector) {
+
+    $(inputSelector).keyup((e) => {
+        let foundCount = search(elementsWrapperSelector, e.target.value);
+
+        attachSummaryModals();
+
+        let elementToShowResult = document.querySelector(searchResultSelector);
+
+        if(!elementToShowResult) return;
+        
+        if(foundCount === null){
+            elementToShowResult.textContent = '';
+        
+        } else if(foundCount > 0) {
+            elementToShowResult.textContent = `Обнаружено ${foundCount} совпадений`;
+
+        } else {
+            elementToShowResult.textContent = `По вашему запросу ничего не обнаружено`;
+        }
+    });
+}
+
 jQuery(document).ready(function() {
     let btn = $('.btnScrollToTop');
     $(window).scroll(function() {

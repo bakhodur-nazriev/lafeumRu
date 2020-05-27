@@ -7,13 +7,14 @@
                 <h3 class="secondary">Авторы</h3>
                 <p class="ma-3">Авторы. Полный список всех авторов по алфавиту, а также есть возможность поиска.</p>
             </span>
-            <div class="input-group mb-3">
+            <div class="form-group mb-3">
                 <input
                     type="search"
                     id="author-search"
                     class="form-control"
                     placeholder="Поиск по авторам"
                 >
+                <small id="authors-search-result" class="form-text text-muted ml-1"></small>
             </div>
         </div>
     </div>
@@ -28,9 +29,11 @@
     </div>
     <script>
         $(document).ready(() => {
-            $("#author-search").keyup((e) => {
-                search(".list-of-authors", e.target.value);
-            });
+            attachSearch(
+                "#author-search", 
+                ".list-of-authors", 
+                '#authors-search-result'
+            );
         })
     </script>
 @endsection

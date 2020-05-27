@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Post;
 use App\Term;
-use ChristianKuri\LaravelFavorite\Models\Favorite;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class TermsController extends Controller
 {

@@ -25,17 +25,18 @@
                         «соц», «пси», «лич», «упр», «жи» , «кул», «эво» и т.п.<br>
                         <h5 class="mt-2 mb-0"><b>Введите термин</b></h5>
                     </div>
-                    <div class="col-md-5 col-xl-4 input-group mb-3">
+                    <div class="col-md-5 col-xl-4 form-group mb-3">
                         <input
                             type="text"
                             id="vocabulary-search"
                             class="form-control"
                             placeholder="Поиск"
                         />
+                        <small id="vocabulary-search-result" class="form-text text-muted ml-1"></small>
                     </div>
                 </div>
                 <div class="row">
-                    <ul class="list-inline py-1 list-of-knowledge">
+                    <ul class="list-inline py-1 list-of-terms summary-links-wrapper">
                         @foreach($terms as $term)
                             <li class="vocabulary">
                                 <a href="/{{$term->post->id}}">{{$term->name}}</a>
@@ -46,9 +47,11 @@
             </div>
             <script>
                 $(document).ready(() => {
-                    $("#vocabulary-search").keyup((e) => {
-                        search(".list-of-knowledge", e.target.value);
-                    });
+                    attachSearch(
+                        "#vocabulary-search", 
+                        ".list-of-terms", 
+                        '#vocabulary-search-result'
+                    );
                 });
             </script>
         </div>

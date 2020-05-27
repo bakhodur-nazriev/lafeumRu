@@ -69,3 +69,5 @@ Route::group(['middleware' => 'auth:api'], function (){
     Route::get("/favourites", "FavoriteController@index");
 
 });
+
+Route::get("/summary/{id}", "PostsController@termSummary");

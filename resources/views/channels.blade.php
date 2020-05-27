@@ -6,17 +6,18 @@
             <span class="authors-main-title">
                 <h3 class="secondary">YouTube Каналы</h3>
             </span>
-            <div class="input-group my-4">
+            <div class="form-group my-4">
                 <input
                     type="text"
                     id="channels-search"
                     class="form-control"
                     placeholder="Введите название канала"
                 >
+                <small id="channels-search-result" class="form-text text-muted ml-1"></small>
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row channels">
         @foreach ($channels as $channel)
             <div class="col-lg-3 offset-lg-1 authors-links">
                 <li class="list-group">
@@ -27,9 +28,11 @@
     </div>
     <script>
         $(document).ready(() => {
-            $("#channels-search").keyup((e) => {
-                search(".channel", e.target.value);
-            })
+            attachSearch(
+                "#channels-search", 
+                ".channels", 
+                '#channels-search-result'
+            );
         })
     </script>
 @endsection

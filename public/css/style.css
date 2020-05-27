@@ -11,6 +11,14 @@ body {
     min-height: 100vh;
 }
 
+.modal-open {
+    padding-right: 0 !important;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link{
+    background-color: #04718c;
+}
+
 .container {
     padding-left: 40px;
     padding-right: 40px;
@@ -489,9 +497,9 @@ a.active {
     width: 350px;
     padding: 0.6rem 1rem;
     -webkit-box-shadow: 0 30px 90px -20px rgba(0, 0, 0, 0.3),
-        0 0 1px 1px rgba(0, 0, 0, 0.05);
+    0 0 1px 1px rgba(0, 0, 0, 0.05);
     box-shadow: 0 30px 90px -20px rgba(0, 0, 0, 0.3),
-        0 0 1px 1px rgba(0, 0, 0, 0.05);
+    0 0 1px 1px rgba(0, 0, 0, 0.05);
 }
 
 #summaryModal .content {

@@ -15,11 +15,7 @@ class DailyPostsComposer
 {
     public function compose(View $view)
     {
-        $dailyPost = DailyPost::find(1);
-        /*$dailyPostable = $dailyPost->dailyPostable;*/
-
-        /*$post = DailyPost::find(1);
-        $dailyPost = $post->dailyPost;*/
+        $dailyPost = DailyPost::all();
 
         $view->with('dailyPost', $dailyPost);
 

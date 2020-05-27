@@ -4,6 +4,8 @@
     </div>
     {{--<div class="p-3">{!! $postsData['quote']->body !!}</div>--}}
     {{--@foreach($dailyQuote->quote_id as $dailyQ)--}}
-    <div>{{ $dailyPost }}</div>
+    @foreach($dailyPost as $dailyP)
+        <div>{{ $dailyP->quote_id }}</div>
+    @endforeach
     {{--@endforeach--}}
 </div>

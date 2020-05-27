@@ -28,6 +28,6 @@ class Video extends Model
 
     public function dailyPost()
     {
-        return $this->belongsTo(DailyPost::class);
+        return $this->hasMany(DailyPost::class);
     }
 }

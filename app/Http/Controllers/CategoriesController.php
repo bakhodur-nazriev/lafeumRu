@@ -72,6 +72,7 @@ class CategoriesController extends Controller
         
         $terms = $this->getCategoriablesQuery(Term::class, $category)
             ->where('name', '<>', '')
+            ->orderBy('name')
             ->get();
         
         return view('vocabulary', compact(['category', 'terms']));

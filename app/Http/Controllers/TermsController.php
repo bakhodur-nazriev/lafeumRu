@@ -17,13 +17,16 @@ class TermsController extends Controller
     public function index()
     {
         $terms = Term::with('categories')->latest()->paginate(30);
-        $categories = Category::where('type', Term::class)->get()->toTree()->unique('name');
-        return view('/terms', compact(['terms', 'categories',]));
+        return view('/terms', compact(['terms']));
     }
 
     public function indexVocabulary()
     {
-        $terms = Term::with('post')->where('name','<>', '')->get();
+        $terms = Term::with('post')
+            ->where('name','<>', '')
+            ->orderBy('name')
+            ->get();
+
         return view("/vocabulary", compact(["terms"]));
     }
 

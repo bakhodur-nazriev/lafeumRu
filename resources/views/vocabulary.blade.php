@@ -45,7 +45,7 @@
         <ul class="list-inline py-1 list-of-knowledge summary-links-wrapper">
             @foreach($terms as $term)
                 <li class="vocabulary">
-                    <a href="/{{$term->post->id}}">{{$term->name}}</a>
+                    <a href="/{{$term->post->id}}" target="_blank">{{$term->name}}</a>
                 </li>
             @endforeach
         </ul>

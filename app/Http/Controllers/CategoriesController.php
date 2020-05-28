@@ -71,9 +71,9 @@ class CategoriesController extends Controller
             ->first();
         
         $terms = $this->getCategoriablesQuery(Term::class, $category)
-            ->where('name','<>', '')
+            ->where('name', '<>', '')
             ->get();
-
+        
         return view('vocabulary', compact(['category', 'terms']));
     }
 
@@ -143,6 +143,7 @@ class CategoriesController extends Controller
         return DB::table('categoriables')
             ->where('categoriable_type', $categoriable)
             ->whereIn('category_id', $categoryIds)
+            ->distinct('categoriable_id')
             ->select('categoriable_id')
             ->get()
             ->pluck('categoriable_id');

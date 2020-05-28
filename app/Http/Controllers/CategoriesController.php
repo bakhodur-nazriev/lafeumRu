@@ -64,6 +64,19 @@ class CategoriesController extends Controller
         return view('shows.category', compact('category'));
     }
 
+    public function showVocabulary($categorySlug)
+    {
+        $category = Category::where('type', Term::class)
+            ->where('slug', $categorySlug)
+            ->first();
+        
+        $terms = $this->getCategoriablesQuery(Term::class, $category)
+            ->where('name', '<>', '')
+            ->get();
+        
+        return view('vocabulary', compact(['category', 'terms']));
+    }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -106,12 +119,13 @@ class CategoriesController extends Controller
     {
         $category = Category::where('type', $categoriable)->where('slug', $slug)->first();
 
-        $category->categoriables = $this->getCategoriables($categoriable, $category);
+        $category->categoriables = $this->getCategoriablesQuery($categoriable, $category)
+            ->paginate(30);
 
         return $category;
     }
 
-    private function getCategoriables($model, $category)
+    private function getCategoriablesQuery($model, $category)
     {
         $categoryIds = $category->descendants()->pluck('id');
 
@@ -119,9 +133,9 @@ class CategoriesController extends Controller
 
         $categoriableIds = $this->getCategoriableIds($categoryIds, $model);
 
-        $categoriables = $model::whereIn('id', $categoriableIds)->paginate(30);
+        $categoriablesQuery = $model::whereIn('id', $categoriableIds);
 
-        return $categoriables;
+        return $categoriablesQuery;
     }
 
     private function getCategoriableIds($categoryIds, $categoriable)
@@ -129,6 +143,7 @@ class CategoriesController extends Controller
         return DB::table('categoriables')
             ->where('categoriable_type', $categoriable)
             ->whereIn('category_id', $categoryIds)
+            ->distinct('categoriable_id')
             ->select('categoriable_id')
             ->get()
             ->pluck('categoriable_id');

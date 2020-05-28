@@ -15,8 +15,12 @@ body {
     padding-right: 0 !important;
 }
 
-.nav-pills .nav-link.active, .nav-pills .show>.nav-link{
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
     background-color: #04718c;
+}
+
+button:focus {
+    outline: none;
 }
 
 .container {

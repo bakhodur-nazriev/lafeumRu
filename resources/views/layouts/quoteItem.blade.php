@@ -14,7 +14,6 @@
         <div class="col p-0 text-right">
             <a class="secondary mr-2" href="/{{ $quote->post->id }}">{{ $quote->post->id }}</a>
             @guest
-                @include('layouts.unauthorizeModal')
                 <i data-id="{{$quote->id}}"
                    class="fa fa-star favourite-quote-btn {{$quote->isFavorited() ? " fa-star-active": ""}}"
                    data-toggle="modal"

@@ -14,14 +14,14 @@
             
             $quoteBody = substr(strip_tags($item->body), 0, 60);
 
-            $postMetatags['title'] = "{$item->author->name}: $quoteBody - ЛАФЕЮМ";
+            $postMetatags['title'] = "{$item->author->name}: $quoteBody... - ЛАФЕЮМ";
 
             break;
         case 'App\\Term':
 
             $termBody = substr(strip_tags($item->body), 0, 60);
 
-            $postMetatags['title'] = "$termBody - ЛАФЕЮМ";
+            $postMetatags['title'] = "$termBody... - ЛАФЕЮМ";
             $postMetatags['description'] = substr(
                 strip_tags($item->body), 0, 150
             ) . " ...";

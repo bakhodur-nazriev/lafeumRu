@@ -1,5 +1,12 @@
 @extends("layouts.default")
 
+@section('meta-tags')
+    @include('layouts.meta-tags', [
+        'title' => $channel->name . ". Цитаты, афоризмы и высказывания. ЛАФЕЮМ",
+        'description' => $channel->description
+    ])
+@endsection
+
 @section('left-side-bar')
 <div>
     <h3 class="secondary">Каналы YouTube</h3>

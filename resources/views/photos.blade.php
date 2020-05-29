@@ -1,5 +1,12 @@
 @extends('layouts.default')
 
+@section('meta-tags')
+    @include('layouts.meta-tags', [
+        'title' => 'Фотографии – ЛАФЕЮМ',
+        'description' => 'В данном разделе подборка фотографий на тему жизни и ее красоты.'
+    ])
+@endsection
+
 @section('content')
     <div class="row">
         <div class="col-md-12">

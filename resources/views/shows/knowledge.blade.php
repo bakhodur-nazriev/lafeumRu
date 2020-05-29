@@ -1,5 +1,12 @@
 @extends('layouts.default')
 
+@section('meta-tags')
+    @include('layouts.meta-tags', [
+        'title' => $currentKnowledgeArea->name . ' – ЛАФЕЮМ',
+        'description' => $currentKnowledgeArea->description
+    ])
+@endsection
+
 @section('left-side-bar')
     <div class="left-sidebar-block">
         <h3 class="secondary">Области знаний</h3>

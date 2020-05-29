@@ -1,5 +1,12 @@
 @extends("layouts.default")
 
+@section('meta-tags')
+    @include('layouts.meta-tags', [
+        'title' => 'Области знаний – ЛАФЕЮМ',
+        'description' => 'В этой рубрике термины и комментарии специалистов классифицированы более развернуто по группам и направлениям.'
+    ])
+@endsection
+
 @section("content")
     <div class="row">
         <div class="col-lg-12">

@@ -1,5 +1,12 @@
 @extends('layouts.default')
 
+@section('meta-tags')
+    @include('layouts.meta-tags', [
+        'title' => 'Видео – ЛАФЕЮМ',
+        'description' => ''
+    ])
+@endsection
+
 @section('left-side-bar')
     @include('layouts.left-sidebar.categories', ['type' => 'App\Video'])
 @endsection

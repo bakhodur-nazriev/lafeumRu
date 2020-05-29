@@ -38,7 +38,6 @@ class PostsController extends Controller
                 break;
 
             case Video::class:
-
                 $postMetatags['title'] = $item->title;
                 break;
         }

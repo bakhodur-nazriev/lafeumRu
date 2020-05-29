@@ -1,69 +1,77 @@
 @extends('layouts.empty')
 
 @section('content')
-    <v-container fill-height fluid>
-        <v-layout class="justify-center align-center">
-            <v-flex xs12 sm8 md4 class="align-center">
-                <v-card>
-                    <v-form method="POST" action="{{ route('register') }}">
-                        @csrf
-                        <v-toolbar dark flat color="primary">
-                            <v-toolbar-title>Регистрация</v-toolbar-title>
-                        </v-toolbar>
-                        <v-card-text>
-                            <input
-                                type="hidden"
-                                name="remember"
-                                value="1"
-                            />
-                            <v-text-field
-                                name="name"
-                                label="Полное имя"
-                                required
-                                value="{{ old('name') }}"
-                                class="@error('name') is-invalid @enderror"
-                                prepend-icon="mdi-account"
-                                :error-messages="{{ json_encode($errors->get('name')) }}"
-                            ></v-text-field>
-                            <v-text-field
-                                name="email"
-                                label="Email"
-                                required
-                                value="{{ old('email') }}"
-                                class="@error('email') is-invalid @enderror"
-                                autocomplete="email"
-                                prepend-icon="mdi-email"
-                                :error-messages="{{ json_encode($errors->get('email')) }}"
-                            ></v-text-field>
-                            <v-text-field
-                                id="password"
-                                name="password"
-                                type="password"
-                                label="Пароль"
-                                required
-                                prepend-icon="mdi-lock"
-                                :error-messages="{{ json_encode($errors->get('password')) }}"
-                            ></v-text-field>
-                            <v-text-field
-                                id="password-confirm"
-                                name="password_confirmation"
-                                required
-                                type="password"
-                                label="Подтвердите пароль"
-                                prepend-icon="mdi-lock"
-                                :error-messages="{{ json_encode($errors->get('confirm_password')) }}"
-                            ></v-text-field>
-                        </v-card-text>
-                        <v-card-actions>
-                            <v-spacer></v-spacer>
-                            <v-btn type="submit" color="primary">Сохранить</v-btn>
-                            <v-btn href="{{route('home')}}" color="primary">
-                                <span class="white--text">Отмена</span>
-                            </v-btn>
-                        </v-card-actions>
-                    </v-form>
-                </v-card>
-            </v-flex>
-        </v-layout>
-    </v-container>
+    <div class="container d-flex align-items-center flex-grow-1">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">{{ __('Регистрация') }}</div>
+                    <div class="card-body">
+                        <form method="POST" action="{{ route('register') }}">
+                            @csrf
+                            <div class="form-group row align-items-center flex-column mb-0">
+                                <label for="name"
+                                       class="col-md-8 col-form-label text-md-left pb-0">{{ __('Имя') }}</label>
+                                <div class="col-md-8">
+                                    <input id="name" type="text"
+                                           class="form-control @error('name') is-invalid @enderror" name="name"
+                                           value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                    @error('name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group align-items-center row flex-column mb-0">
+                                <label for="email"
+                                       class="col-md-8 col-form-label text-md-left pb-0">{{ __('E-Mail Адрес') }}</label>
+                                <div class="col-md-8">
+                                    <input id="email" type="email"
+                                           class="form-control @error('email') is-invalid @enderror" name="email"
+                                           value="{{ old('email') }}" required autocomplete="email">
+                                    @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group align-items-center row flex-column mb-0">
+                                <label for="password"
+                                       class="col-md-8 col-form-label text-md-left pb-0">{{ __('Пароль') }}</label>
+                                <div class="col-md-8">
+                                    <input id="password" type="password"
+                                           class="form-control @error('password') is-invalid @enderror" name="password"
+                                           required autocomplete="new-password">
+                                    @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row align-items-center flex-column mb-0">
+                                <label for="password-confirm"
+                                       class="col-md-8 col-form-label text-md-left pb-0">{{ __('Подтвердите Пароль') }}</label>
+                                <div class="col-md-8">
+                                    <input id="password-confirm" type="password" class="form-control"
+                                           name="password_confirmation" required autocomplete="new-password">
+                                </div>
+                            </div>
+
+                            <div class="form-group row align-items-center mb-0">
+                                <div class="col-md-12 text-center">
+                                    <button type="submit" class="btn btn-primary">{{ __('Регистрация') }}</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

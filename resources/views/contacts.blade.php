@@ -1,5 +1,11 @@
 @extends('layouts.default')
 
+@section('meta-tags')
+    @include('layouts.meta-tags', [
+        'title' => "Контакты. ЛАФЕЮМ",
+    ])
+@endsection
+
 @section('content')
     <div class="row">
         <div class="col-sm-12 col-lg-8">

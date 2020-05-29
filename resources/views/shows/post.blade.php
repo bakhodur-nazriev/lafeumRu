@@ -11,13 +11,21 @@
 
     switch ($post->postable_type) {
         case 'App\\Quote':
-            $postMetatags['title'] = strip_tags($item->body);
+            
+            $quoteBody = substr(strip_tags($item->body), 0, 60);
+
+            $postMetatags['title'] = "{$item->author->name}: $quoteBody - ЛАФЕЮМ";
+
             break;
         case 'App\\Term':
-            $postMetatags['title'] = strip_tags($item->body);
+
+            $termBody = substr(strip_tags($item->body), 0, 60);
+
+            $postMetatags['title'] = "$termBody - ЛАФЕЮМ";
             $postMetatags['description'] = substr(
                 strip_tags($item->body), 0, 150
-            );
+            ) . " ...";
+
             break;
         case 'App\\Video':
             $postMetatags['title'] = $item->title;

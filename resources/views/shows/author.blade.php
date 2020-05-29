@@ -2,8 +2,8 @@
 
 @section('meta-tags')
     @include('layouts.meta-tags', [
-        'title' => $author->name . ". Цитаты, афоризмы и высказывания. ЛАФЕЮМ",
-        'description' => $author->biography
+        'title' => $currentAuthor->name . ". Цитаты, афоризмы и высказывания. ЛАФЕЮМ",
+        'description' => $currentAuthor->biography
     ])
 @endsection
 

@@ -21,6 +21,8 @@ class MetatagsComposer
         $this->setDefault($data, 'url', url()->current());
         $this->setDefault($data, 'imageUrl', "https://ru.lafeum.org/wp-content/uploads/2020/02/cropped-favi.png");
 
+        $this->setDefault($data, 'article', null);
+
         $view->with('data', $data);
     }
 

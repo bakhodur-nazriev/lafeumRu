@@ -28,6 +28,7 @@ Route::get("/quotes", "QuotesController@index")->name("quotes");
 Route::get("/quotes/{categorySlug}", "CategoriesController@showQuotes")->name("category.quotes");
 Route::get("/terms/{categorySlug}", "CategoriesController@showTerms")->name("category.terms");
 Route::get("/videos/{categorySlug}", "CategoriesController@showVideos")->name("category.videos");
+Route::get("/vocabulary/{categorySlug}", "CategoriesController@showVocabulary")->name("category.vocabulary");
 
 Route::get("/terms", "TermsController@index")->name("terms");
 

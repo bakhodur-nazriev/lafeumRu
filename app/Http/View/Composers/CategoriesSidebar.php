@@ -45,13 +45,18 @@ class CategoriesSidebar
 
             $this->addActive($cat, $composerData);
 
-            $this->addLinkToCategory($cat, $composerData['type']);
+            $this->addLinkToCategory($cat, $composerData);
         });
     }
 
-    private function addLinkToCategory($category, $type)
+    private function addLinkToCategory($category, $composerData)
     {
-        switch ($type) {
+        if(array_key_exists('linkPrefix', $composerData)){
+            $category->link = "/{$composerData['linkPrefix']}/{$category->slug}";
+            return;
+        }
+
+        switch ($composerData['type']) {
             case Quote::class:
                 $category->link = "/quotes/{$category->slug}";
                 break;

@@ -11,6 +11,22 @@ body {
     min-height: 100vh;
 }
 
+.modal-open {
+    padding-right: 0 !important;
+}
+
+.modal-footer {
+    justify-content: center;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    background-color: #04718c;
+}
+
+button:focus {
+    outline: none;
+}
+
 .container {
     padding-left: 40px;
     padding-right: 40px;
@@ -35,6 +51,11 @@ body {
 
 .btn-primary {
     background-color: #04718c;
+}
+
+
+.btn-primary:hover {
+    background-color: #236eab;
 }
 
 .secondary {
@@ -108,15 +129,6 @@ body {
     height: 460px;
     max-width: 300px;
     margin: 10px;
-}
-
-.card-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: start;
-    text-align: start;
-    padding-top: 0;
 }
 
 .card-block > a {

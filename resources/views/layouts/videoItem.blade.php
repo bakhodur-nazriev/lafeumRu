@@ -10,20 +10,34 @@
                 <i class="fa fa-youtube-play mr-2"></i>{{$video->channel->name}}
             </a>
             <a class="secondary mr-2" href="/{{ $video->post->id }}">{{ $video->post->id }}</a>
-            <i data-id="{{$video->id}}"
-                class="ml-3 fa fa-star favourite-video-btn {{$video->isFavorited() ? " fa-star-active": ""}}"
-                data-toggle="tooltip" data-placement="top" title="Избранный"></i>
+            @guest
+                <i data-id="{{$video->id}}"
+                   class="fa fa-star favourite-quote-btn {{$video->isFavorited() ? " fa-star-active": ""}}"
+                   data-toggle="modal"
+                   data-target=".modal"
+                   data-placement="top"
+                   title="Избранный"
+                ></i>
+            @endguest
+            @auth
+                <i data-id="{{$video->id}}"
+                   class="fa fa-star favourite-quote-btn {{$video->isFavorited() ? " fa-star-active": ""}}"
+                   data-toggle="tooltip"
+                   data-placement="top"
+                   title="Избранный"
+                ></i>
+            @endauth
         </div>
         <iframe class="youtube-videos" src="{{$video->link}}" frameborder="0"
-            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="">
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="">
         </iframe>
         <div class="card-body d-flex flex-column justify-content-between pt-0">
             <h5 class="card-title">{{$video->title}}</h5>
             <div class="inner-categories mb-0">
                 @foreach($video->categories as $category)
-                <a href="/videos/{{ $category->slug }}" class="mr-1">
-                    <i class="fa fa-tags mr-1"></i>{{$category->name}},
-                </a>
+                    <a href="/videos/{{ $category->slug }}" class="mr-1">
+                        <i class="fa fa-tags mr-1"></i>{{$category->name}},
+                    </a>
                 @endforeach
             </div>
             <div>

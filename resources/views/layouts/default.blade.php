@@ -2,8 +2,8 @@
 
 @section('layout')
     @include('layouts.navbar')
-    
-    <div class="container-fluid">
+
+    <div class="container-fluid flex-grow-1">
         <div class="row">
             <div class="left-sidebar-col">@yield('left-side-bar')</div>
 
@@ -16,7 +16,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="right-sidebar-col">@yield('right-side-bar', View::make('layouts.right-sidebar.rightSidebar'))</div>
 
             <button class="btn btn-primary btnScrollToTop">
@@ -37,5 +37,5 @@
         <div class="content"></div>
     </div>
     <script src="/js/summary.js"></script>
-    
+
 @endsection

@@ -5,7 +5,7 @@
         <div class="col-md-8 col-lg-6" style="height: 100%;">
             @switch($post->postable_type)
                 @case('App\\Quote')
-                    @include('layouts.quoteItem')    
+                    @include('layouts.quoteItem')
                 @break
                 @case('App\\Term')
                     @include('layouts.termItem')

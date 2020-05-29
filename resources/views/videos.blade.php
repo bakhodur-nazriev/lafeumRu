@@ -10,6 +10,7 @@
         @foreach($videos as $video)
             @include('layouts.videoItem')
         @endforeach
+        @include('layouts.unauthorizeModal')
     </div>
     <nav aria-label="Page navigation example">
         <div class="row d-flex justify-content-center mt-3">

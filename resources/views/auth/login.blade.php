@@ -1,53 +1,56 @@
 @extends('layouts.empty')
 
 @section('content')
-    <v-container fluid fill-height>
-        <v-layout align-center justify-center>
-            <v-flex xs12 sm8 md4>
-                <v-layout justify-center class="mb-5">
-                    <v-flex xs8>
-                        {{-- < :rules="nameRules" v-img :src="" /> --}}
-                    </v-flex>
-                </v-layout>
-                <v-card height="100%">
-                    <v-form
-                        action="{{ route('login') }}"
-                        method="POST"
-                    >
-                        @csrf
-                        <v-toolbar dark flat color="primary">
-                            <v-toolbar-title>Авторизация</v-toolbar-title>
-                            <v-spacer></v-spacer>
-                        </v-toolbar>
-                        <v-card-text>
-                            <input
-                                type="hidden"
-                                name="remember"
-                                value="1"
-                            />
-                            <v-text-field
-                                name="email"
-                                label="Email"
-                                prepend-icon="mdi-account"
-                                :error-messages="{{ json_encode($errors->get('email')) }}"
-                            ></v-text-field>
-                            <v-text-field
-                                name="password"
-                                type="password"
-                                label="Пароль"
-                                prepend-icon="mdi-lock"
-                                :error-messages="{{ json_encode($errors->get('password')) }}"
-                            ></v-text-field>
-                        </v-card-text>
-                        <v-card-actions>
-                            {{--<v-btn text color="primary">Забыл пароль</v-btn>--}}
-                            <v-btn text color="primary"><a href="{{ route('register') }}">Регистрация</a></v-btn>
-                            <v-spacer></v-spacer>
-                            <v-btn type="submit" color="primary">Вход</v-btn>
-                        </v-card-actions>
-                    </v-form>
-                </v-card>
-            </v-flex>
-        </v-layout>
-    </v-container>
+    <div class="container d-flex align-items-center flex-grow-1">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">{{ __('Вход') }}</div>
+
+                    <div class="card-body">
+                        <form method="POST" action="{{ route('login') }}">
+                            @csrf
+                            <div class="form-group row align-items-center flex-column mb-0">
+                                <label for="email"
+                                       class="col-md-8 col-form-label text-md-left pb-0">{{ __('E-Mail Адрес') }}</label>
+                                <div class="col-md-8">
+                                    <input id="email" type="email"
+                                           class="form-control @error('email') is-invalid @enderror" name="email"
+                                           value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                    @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row align-items-center flex-column mb-0">
+                                <label for="password"
+                                       class="col-md-8 col-form-label text-md-left pb-0">{{ __('Пароль') }}</label>
+                                <div class="col-md-8">
+                                    <input id="password" type="password"
+                                           class="form-control @error('password') is-invalid @enderror" name="password"
+                                           required autocomplete="current-password">
+                                    @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row mb-0">
+                                <div class="col-md-12 text-center">
+                                    <button type="submit" class="btn btn-primary">{{ __('Вход') }}</button>
+                                    <a class="btn btn-primary ml-2"
+                                       href="{{ route('register') }}">{{ __('Регистрация') }}</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

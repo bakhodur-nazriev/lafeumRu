@@ -31,10 +31,15 @@ class PostsController extends Controller
                 break;
 
             case Term::class:
-                $termBody = mb_substr(strip_tags($item->body), 0, 60);
-    
-                $postMetatags['title'] = "$termBody... - ЛАФЕЮМ";
-                $postMetatags['description'] = mb_substr(strip_tags($item->body), 0, 150) .  '...';
+                $termName = $item->name;
+                $termBody = mb_substr(strip_tags($item->body), 0, 150);
+                
+                if(!$termName){
+                    $termName = 'Термин';
+                }
+
+                $postMetatags['title'] = "$termName ЛАФЕЮМ";
+                $postMetatags['description'] = "$termBody ...";
                 break;
 
             case Video::class:

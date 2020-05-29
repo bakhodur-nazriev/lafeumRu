@@ -2,7 +2,7 @@
 
 @section('meta-tags')
     @include('layouts.meta-tags', [
-        'title' => 'Словарь',
+        'title' => isset($category) ? $category->name . ' - словарь': 'Словарь',
         'description' => isset($category) ? $category->description: ''
     ])
 @endsection

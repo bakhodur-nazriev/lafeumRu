@@ -2,7 +2,7 @@
 
 @section('meta-tags')
     @include('layouts.meta-tags', [
-        'title' => 'Каналы YouTube – ЛАФЕЮМ',
+        'title' => 'Каналы YouTube',
         'description' => ''
     ])
 @endsection

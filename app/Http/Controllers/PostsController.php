@@ -27,7 +27,7 @@ class PostsController extends Controller
                 $quoteBody = mb_substr(strip_tags($item->body), 0, 60);
                 $quoteAuthor = $item->author->name;
     
-                $postMetatags['title'] = "$quoteAuthor: $quoteBody...  ЛАФЕЮМ";
+                $postMetatags['title'] = "$quoteAuthor: $quoteBody...";
                 break;
 
             case Term::class:
@@ -38,7 +38,7 @@ class PostsController extends Controller
                     $termName = 'Термин';
                 }
 
-                $postMetatags['title'] = "$termName ЛАФЕЮМ";
+                $postMetatags['title'] = "$termName";
                 $postMetatags['description'] = "$termBody ...";
                 break;
 

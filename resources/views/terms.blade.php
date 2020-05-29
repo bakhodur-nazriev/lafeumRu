@@ -2,7 +2,7 @@
 
 @section('meta-tags')
     @include('layouts.meta-tags', [
-        'title' => 'Термины – ЛАФЕЮМ',
+        'title' => 'Термины',
         'description' => ''
     ])
 @endsection

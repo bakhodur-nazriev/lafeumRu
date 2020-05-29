@@ -2,7 +2,7 @@
 
 @section('meta-tags')
     @include('layouts.meta-tags', [
-        'title' => $currentKnowledgeArea->name . ' – ЛАФЕЮМ',
+        'title' => $currentKnowledgeArea->name,
         'description' => $currentKnowledgeArea->description
     ])
 @endsection

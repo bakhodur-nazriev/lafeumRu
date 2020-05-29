@@ -13,7 +13,6 @@
             $title .= "видео";
             break;
     }
-    $title .= " ЛАФЕЮМ";
 @endphp
 
 @section('meta-tags')

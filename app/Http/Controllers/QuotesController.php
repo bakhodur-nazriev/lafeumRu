@@ -36,20 +36,6 @@ class QuotesController extends Controller
         return $quotesQuery->latest()->paginate($request->perPage ?: 15);
     }
 
-    public function quoteImage($id)
-    {
-        $quote = Quote::find($id);
-        
-        $html = view('layouts.quoteImage', compact('quote'))->render();
-
-        Browsershot::html($html)
-            ->setNodeModulePath(env('NODE_MODULES_PATH'))
-            ->setChromePath(env('CHROME_PATH'))
-            ->waitUntilNetworkIdle()
-            ->windowSize(1200, 628)
-            ->save(public_path('/img/image.png'));
-    }
-
     public function store(Request $request)
     {
         $request->validate([
@@ -64,6 +50,9 @@ class QuotesController extends Controller
 
         $newQuote->post()->create();
 
+        $newQuote->meta_image = $this->getMetaImage($newQuote);
+        $newQuote->save();
+
         return $newQuote->load('author', 'categories');
     }
 
@@ -75,6 +64,9 @@ class QuotesController extends Controller
             $quote->categories()->sync($request->categories);
         }
 
+        $quote->meta_image = $this->getMetaImage($quote);
+        $quote->save();
+
         return $quote;
     }
 
@@ -82,6 +74,33 @@ class QuotesController extends Controller
     {
         $quote->post()->delete();
         $quote->categories()->detach();
+
+        $metaImage = $quote->meta_image;
+        
         $quote->delete();
+
+        if($metaImage){
+            unlink(public_path($metaImage));
+        }
+    }
+
+    /**
+     * Helpers
+     * 
+     */
+
+    private function getMetaImage(Quote $quote)
+    {
+        $publicPath = static::META_IMAGES_PATH;
+        
+        $publicPath .= $quote->post->id . '.png';
+        
+        $path = public_path($publicPath);
+        
+        $html = view('layouts.quoteImage', compact('quote'))->render();
+
+        $this->generateMetaImage($html, $path);
+
+        return $publicPath;
     }
 }

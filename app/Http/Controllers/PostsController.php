@@ -27,6 +27,10 @@ class PostsController extends Controller
                 $quoteBody = mb_substr(strip_tags($item->body), 0, 60);
                 $quoteAuthor = $item->author->name;
     
+                if($item->meta_image){
+                    $postMetatags['imageUrl'] = url($item->meta_image);
+                }
+
                 $postMetatags['title'] = "$quoteAuthor: $quoteBody...";
                 break;
 

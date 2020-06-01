@@ -4,12 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Quote;
-use App\Author;
-use App\User;
-use ChristianKuri\LaravelFavorite\Models\Favorite;
-use http\Env\Response;
+use Spatie\Browsershot\Browsershot;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class QuotesController extends Controller
@@ -38,6 +34,20 @@ class QuotesController extends Controller
         $quotesQuery = Quote::with('author', 'categories');
 
         return $quotesQuery->latest()->paginate($request->perPage ?: 15);
+    }
+
+    public function quoteImage($id)
+    {
+        $quote = Quote::find($id);
+        
+        $html = view('layouts.quoteImage', compact('quote'))->render();
+
+        Browsershot::html($html)
+            ->setNodeModulePath(env('NODE_MODULES_PATH'))
+            ->setChromePath(env('CHROME_PATH'))
+            ->waitUntilNetworkIdle()
+            ->windowSize(1200, 628)
+            ->save(public_path('/img/image.png'));
     }
 
     public function store(Request $request)

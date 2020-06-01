@@ -40,3 +40,5 @@ Route::get("/videos", "VideosController@index")->name("videos");
 Route::put("/toggle-favourite", "FavoriteController@toggle")->middleware("auth");
 
 Route::get("/{post}", "PostsController@show")->name('post');
+
+Route::get("/quote-image/{id}", "QuotesController@quoteImage")->name('quoteImage');

@@ -96,6 +96,7 @@ categories-main-subname {
 
 .dd-main-page .show {
     position: absolute;
+    top: 100% !important;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -109,7 +110,6 @@ categories-main-subname {
 
 .dropdown-menu {
     border: none;
-    position: relative !important;
     display: none;
     top: 0;
     float: none;

@@ -3,7 +3,9 @@
 @section('meta-tags')
     @include('layouts.meta-tags', [
         'title' => 'Термины',
-        'description' => ''
+        'description' => '',
+        'next' => $terms->nextPageUrl(),
+        'prev' => $terms->previousPageUrl()
     ])
 @endsection
 

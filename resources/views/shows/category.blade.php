@@ -18,7 +18,9 @@
 @section('meta-tags')
     @include('layouts.meta-tags', [
         'title' => $title,
-        'description' => $category->description
+        'description' => $category->description,
+        'next' => $category->categoriables->nextPageUrl(),
+        'prev' => $category->categoriables->previousPageUrl()
     ])
 @endsection
 

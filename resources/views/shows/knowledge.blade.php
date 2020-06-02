@@ -3,7 +3,9 @@
 @section('meta-tags')
     @include('layouts.meta-tags', [
         'title' => $currentKnowledgeArea->name,
-        'description' => $currentKnowledgeArea->description
+        'description' => $currentKnowledgeArea->description,
+        'next' => $currentKnowledgeArea->terms->nextPageUrl(),
+        'prev' => $currentKnowledgeArea->terms->previousPageUrl()
     ])
 @endsection
 

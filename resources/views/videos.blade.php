@@ -3,7 +3,9 @@
 @section('meta-tags')
     @include('layouts.meta-tags', [
         'title' => 'Видео',
-        'description' => ''
+        'description' => '',
+        'next' => $videos->nextPageUrl(),
+        'prev' => $videos->previousPageUrl()
     ])
 @endsection
 

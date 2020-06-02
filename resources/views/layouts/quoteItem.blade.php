@@ -43,7 +43,7 @@
     </div>
     <div class="my-main-divider"></div>
 
-    <div class="dropdown">
+    <div class="dropdown share-button-dropdown-block">
         <button class="share-button">Поделиться</button>
         <div class="dropdown-content">
             <a

@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="row justify-content-center">
-        <div class="col-md-8 col-lg-6" style="height: 100%;">
+        <div class="col-lg-12" style="height: 100%;">
             @switch($post->postable_type)
                 @case('App\\Quote')
                     @include('layouts.quoteItem')

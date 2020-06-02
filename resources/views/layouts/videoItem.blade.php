@@ -9,7 +9,7 @@
             <a href="/channels/{{ $video->channel->slug }}" class="secondary">
                 <i class="fa fa-youtube-play mr-2"></i>{{$video->channel->name}}
             </a>
-            <a class="secondary mr-2" href="/{{ $video->post->id }}">{{ $video->post->id }}</a>
+            <a class="secondary mr-2" href="/{{ $video->post->id }}">#{{ $video->post->id }}</a>
             @guest
                 <i data-id="{{$video->id}}"
                    class="fa fa-star favourite-quote-btn {{$video->isFavorited() ? " fa-star-active": ""}}"

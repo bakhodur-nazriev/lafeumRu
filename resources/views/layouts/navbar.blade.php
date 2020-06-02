@@ -26,7 +26,7 @@
                        aria-haspopup="true" aria-expanded="false" v-pre>
                         {{ Auth::user()->name }}<span class="caret"></span>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-right p-0 rounded-0" aria-labelledby="navbarDropdown">
+                    <div class="dropdown-menu nav-menu-dropdown-right p-0 rounded-0" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item py-2" href="{{route('dashboard')}}">{{ __('Личный Кабинет') }}</a>
                         <a class="dropdown-item py-2" href="{{ route('logout') }}" onclick="event.preventDefault();
                                      document.getElementById('logout-form').submit();">

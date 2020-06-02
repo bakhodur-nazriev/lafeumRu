@@ -28,16 +28,77 @@
                     <h3 class="secondary text-center">Темы</h3>
                     <div class="row">
                         @foreach($categories as $category)
-                        <div class="col-lg-3 align-top mb-3">
-                            <div class="categories-main-name">
-                                <a href="#"><b>{{ $category->name }}</b></a>
+                            <div class="col-lg-3 align-top mb-3">
+                                <div class="dropdown dd-main-page">
+                                    <button class="btn btn-default dropdown-toggle dd-themes-main-page-name"
+                                            type="button"
+                                            id="menu1"
+                                            data-toggle="dropdown">
+                                        <div class="categories-main-name">
+                                            <a href="#"><b>{{ $category->name }}</b></a>
+                                        </div>
+                                        <span class="caret"></span></button>
+                                    <ul
+                                        class="dropdown-menu dd-menu-main-page"
+                                        role="menu" aria-labelledby="menu1">
+                                        <li role="presentation">
+                                            <a role="menuitem" tabindex="-1"
+                                               href="/quotes/{{ $category->slug }}">Цитаты</a>
+                                        </li>
+                                        <li role="presentation" class="divider"></li>
+                                        <li role="presentation">
+                                            <a role="menuitem" tabindex="-1"
+                                               href="/videos/{{ $category->slug }}">Видео</a>
+                                        </li>
+                                        <li role="presentation" class="divider"></li>
+                                        <li role="presentation">
+                                            <a role="menuitem" tabindex="-1"
+                                               href="/terms/{{ $category->slug }}">Термин</a>
+                                        </li>
+                                        <li role="presentation" class="divider"></li>
+                                        <li role="presentation">
+                                            <a role="menuitem" tabindex="-1"
+                                               href="/vocabulary/{{ $category->slug }}">Словарь</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                @foreach($category->children as $subCategory)
+                                    <div class="dropdown dd-main-page">
+                                        <button class="btn btn-default dropdown-toggle dd-themes-main-page-subname"
+                                                type="button"
+                                                id="menu1"
+                                                data-toggle="dropdown">
+                                            <div class="categories-main-subname">
+                                                <a href="#">{{ $subCategory->name }}</a>
+                                            </div>
+                                            <span class="caret"></span></button>
+                                        <ul
+                                            class="dropdown-menu dd-submenu-main-page"
+                                            role="menu"
+                                            aria-labelledby="menu1"
+                                        >
+                                            <li role="presentation">
+                                                <a role="menuitem" tabindex="-1"
+                                                   href="/quotes/{{ $subCategory->slug }}">Цитаты</a>
+                                            </li>
+                                            <li role="presentation" class="divider"></li>
+                                            <li role="presentation">
+                                                <a role="menuitem" tabindex="-1"
+                                                   href="/videos/{{ $subCategory->slug }}">Видео</a>
+                                            </li>
+                                            <li role="presentation" class="divider"></li>
+                                            <li role="presentation">
+                                                <a role="menuitem" tabindex="-1"
+                                                   href="/terms/{{ $subCategory->slug }}">Термин</a>
+                                            </li>
+                                            <li role="presentation" class="divider text-center"></li>
+                                            <li role="presentation">
+                                                <a role="menuitem" tabindex="-1"
+                                                   href="/vocabulary/{{ $subCategory->slug }}">Словарь</a></li>
+                                        </ul>
+                                    </div>
+                                @endforeach
                             </div>
-                            @foreach($category->children as $subCategory)
-                            <div class="subcategories-block">
-                                <a href="#">{{$subCategory->name}}</a><br>
-                            </div>
-                            @endforeach
-                        </div>
                         @endforeach
                     </div>
                 </div>

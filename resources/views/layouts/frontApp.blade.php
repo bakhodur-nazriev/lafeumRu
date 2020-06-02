@@ -4,11 +4,20 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#04718c">
+    
+    <link rel="alternate" hreflang="ru" href="{{url('/')}}">
+    <link rel="alternate" hreflang="x-default" href="{{url('/')}}">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     @yield('meta-tags', View::make('layouts.meta-tags'))
+
+    <link rel="icon" href="{{url("/img/cropped-favi-32x32.png")}}" sizes="32x32">
+    <link rel="icon" href="{{url("/img/cropped-favi-192x192.png")}}" sizes="192x192">
+    <link rel="apple-touch-icon-precomposed" href="{{url("/img/cropped-favi-180x180.png")}}">
+    <meta name="msapplication-TileImage" content="{{url("/img/cropped-favi-270x270.png")}}">
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>

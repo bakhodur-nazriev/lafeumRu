@@ -21,8 +21,9 @@ class MetatagsComposer
 
         $this->setDefault($data, 'title', self::DEFAULT_TITLE);
         $this->setDefault($data, 'description', "");
-        $this->setDefault($data, 'url', url()->current());
-        $this->setDefault($data, 'imageUrl', "https://ru.lafeum.org/wp-content/uploads/2020/02/cropped-favi.png");
+        $this->setDefault($data, 'url', url()->full());
+        $this->setDefault($data, 'imageUrl', url("/img/cropped-favi.png"));
+        $this->setDefault($data, 'canonical', url()->current());
 
         $this->setDefault($data, 'article', null);
 
@@ -34,6 +35,7 @@ class MetatagsComposer
             $data['title'] .= self::TITLE_POSTFIX;
         }
         
+        $data['schema'] = $this->getSchema($data);
 
         $view->with('data', $data);
     }
@@ -48,5 +50,60 @@ class MetatagsComposer
         if(!array_key_exists($key, $array)){
             $array[$key] = $value;
         }
+    }
+
+    private function getSchema($data)
+    {
+        return [
+            "@context" => 'https://schema.org',
+            "@graph" => [
+                [
+                    "@type" => "Organization",
+                    "@id" => url('/#organization'),
+                    "name" => "ЛАФЕЮМ",
+                    "url" => url('/'),
+                    "sameAs" => [],
+                    "logo" => [
+                        "@type" => "ImageObject",
+                        "@id" => url('/#logo'),
+                        "url" =>  url("/img/lafeum-ru-about-1.png"),
+                        "width" => 600,
+                        "height" => 382,
+                        "caption" => "ЛАФЕЮМ"
+                    ],
+                    "image" => [
+                        "@id" => url('/#logo')
+                    ]
+                ],
+                [
+                    "@type" => "WebSite",
+                    "@id" => url('/#website'),
+                    "url" => url('/'),
+                    "name" => "ЛАФЕЮМ",
+                    "publisher" => [
+                        "@id" => url('/#organization')
+                    ],
+                    "potentialAction" => [
+                        "@type" => "SearchAction",
+                        "target" => url('/?s={search_term_string}'),
+                        "query-input" => "required name=search_term_string"
+                    ]
+                ],
+                [
+                    "@type" => "CollectionPage",
+                    "@id" => url('/#website'),
+                    "url" => url()->current(),
+                    "inLanguage" => "ru-RU",
+                    "name" => $data['title'],
+                    "isPartOf" => [
+                        "@id" => url('/#website')
+                    ],
+                    "about" => [
+                        "@id" => url('/#organization')
+                    ],
+                    "description" => isset($data['description']) ? $data['description']: "",
+                ]
+            ]
+        ];
     }
 }

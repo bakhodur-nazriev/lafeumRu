@@ -27,14 +27,13 @@ class MetatagsComposer
 
         $this->setDefault($data, 'article', null);
 
-        if(array_key_exists('fullTitle', $data)){
+        if (array_key_exists('fullTitle', $data)) {
             $data['title'] = $data['fullTitle'];
-        
-        } else if($data['title'] !== self::DEFAULT_TITLE) {
-            
+        } else if ($data['title'] !== self::DEFAULT_TITLE) {
+
             $data['title'] .= self::TITLE_POSTFIX;
         }
-        
+
         $data['schema'] = $this->getSchema($data);
 
         $view->with('data', $data);
@@ -47,14 +46,14 @@ class MetatagsComposer
 
     private function setDefault(&$array, $key, $value)
     {
-        if(!array_key_exists($key, $array)){
+        if (!array_key_exists($key, $array)) {
             $array[$key] = $value;
         }
     }
 
     private function getSchema($data)
     {
-        return [
+        $baseSchema = [
             "@context" => 'https://schema.org',
             "@graph" => [
                 [
@@ -88,22 +87,76 @@ class MetatagsComposer
                         "target" => url('/?s={search_term_string}'),
                         "query-input" => "required name=search_term_string"
                     ]
-                ],
-                [
-                    "@type" => "CollectionPage",
-                    "@id" => url('/#website'),
-                    "url" => url()->current(),
-                    "inLanguage" => "ru-RU",
-                    "name" => $data['title'],
-                    "isPartOf" => [
-                        "@id" => url('/#website')
-                    ],
-                    "about" => [
-                        "@id" => url('/#organization')
-                    ],
-                    "description" => isset($data['description']) ? $data['description']: "",
                 ]
             ]
         ];
+
+        if(isset($data['article'])){
+            
+            $baseSchema['@graph'][] = [
+                "@type" => "WebPage",
+                "@id" => url()->current() . '/#webpage',
+                "url" => url()->current(),
+                "inLanguage" => "ru-RU",
+                "name" => $data['title'],
+                "isPartOf" => [
+                    "@id" => url("#website")
+                ],
+                "datePublished" => $data['article']['published'],
+                "dateModified" => $data['article']['updated']
+            ];
+
+            $baseSchema['@graph'][] = [
+                "@type" => "Article",
+                "@id" => url()->current() . "/#article",
+                "isPartOf" => [
+                    "@id" => url()->current() . "/#webpage"
+                ],
+                "author" => [
+                    "@id" => url('/#/schema/person/048ecae4bbe6ff03402b186a8399fc8c')
+                ],
+                "headline" => $data['title'],
+                "datePublished" => $data['article']['published'],
+                "dateModified" => $data['article']['updated'],
+                "commentCount" => 0,
+                "mainEntityOfPage" => [
+                    "@id" => url()->current() . '/#webpage'
+                ],
+                "publisher" => [
+                    "@id" => url('/#organization')
+                ],
+                "articleSection" => $data['article']['section']
+            ];
+
+            $baseSchema['@graph'][] = [
+                "@type" => [
+                    "Person"
+                ],
+                "@id" => url('/#/schema/person/048ecae4bbe6ff03402b186a8399fc8c'),
+                "name" => "lafeum-admin",
+                "image" => [
+                    "@type" => "ImageObject",
+                    "@id" => url('/#authorlogo'),
+                    "url" => "https://secure.gravatar.com/avatar/32645a3a04ba3e86f68ed0b861aa025c?s=96&d=mm&r=g",
+                    "caption" => "lafeum-admin"
+                ],
+                "sameAs" => []
+            ];
+
+        } else {
+            $baseSchema['@graph'][] = [
+                "@type" => "CollectionPage",
+                "@id" => url('/#webpage'),
+                "url" => url()->current(),
+                "inLanguage" => "ru-RU",
+                "name" => $data['title'],
+                "isPartOf" => [
+                    "@id" => url('/#website')
+                ],
+                "description" => isset($data['description']) ? $data['description'] : "",
+            ];
+        }
+
+        return $baseSchema;
     }
 }

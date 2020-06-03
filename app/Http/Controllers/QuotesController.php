@@ -4,12 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Quote;
-use App\Author;
-use App\User;
-use ChristianKuri\LaravelFavorite\Models\Favorite;
-use http\Env\Response;
+use Spatie\Browsershot\Browsershot;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class QuotesController extends Controller
@@ -54,6 +50,9 @@ class QuotesController extends Controller
 
         $newQuote->post()->create();
 
+        $newQuote->meta_image = $this->getMetaImage($newQuote);
+        $newQuote->save();
+
         return $newQuote->load('author', 'categories');
     }
 
@@ -65,6 +64,9 @@ class QuotesController extends Controller
             $quote->categories()->sync($request->categories);
         }
 
+        $quote->meta_image = $this->getMetaImage($quote);
+        $quote->save();
+
         return $quote;
     }
 
@@ -72,6 +74,33 @@ class QuotesController extends Controller
     {
         $quote->post()->delete();
         $quote->categories()->detach();
+
+        $metaImage = $quote->meta_image;
+        
         $quote->delete();
+
+        if($metaImage){
+            unlink(public_path($metaImage));
+        }
+    }
+
+    /**
+     * Helpers
+     * 
+     */
+
+    private function getMetaImage(Quote $quote)
+    {
+        $publicPath = static::META_IMAGES_PATH;
+        
+        $publicPath .= $quote->post->id . '.png';
+        
+        $path = public_path($publicPath);
+        
+        $html = view('layouts.quoteImage', compact('quote'))->render();
+
+        $this->generateMetaImage($html, $path);
+
+        return $publicPath;
     }
 }

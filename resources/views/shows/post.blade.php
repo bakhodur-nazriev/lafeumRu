@@ -1,5 +1,9 @@
 @extends('layouts.default')
 
+@section('meta-tags')
+    @include('layouts.meta-tags', $postMetatags)
+@endsection
+
 @section('content')
     <div class="row justify-content-center">
         <div class="col-lg-12" style="height: 100%;">

@@ -32,7 +32,7 @@
             @endauth
         </div>
     </div>
-    <div class="mb-1">{{ $quote->body }}</div>
+    <div class="mb-1">{!! $quote->body !!}</div>
     <div class="tags-block">
         @foreach($quote->categories as $category)
             <a href="/quotes/{{ $category->slug }}">

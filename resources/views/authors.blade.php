@@ -1,5 +1,12 @@
 @extends("layouts.default")
 
+@section('meta-tags')
+    @include('layouts.meta-tags', [
+        'title' => 'Авторы всех цитат и высказывания представленых на сайте.',
+        'description' => 'Авторы. Полный список всех авторов по алфавиту, а также есть возможность поиска.'
+    ])
+@endsection
+
 @section("content")
     <div class="row d-flex justify-content-center">
         <div class="col-md-4 col-xl-4">

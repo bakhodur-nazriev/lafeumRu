@@ -6,6 +6,7 @@ use App\Category;
 use App\Http\View\Composers\CategoriesSidebar;
 use App\Http\View\Composers\CountItemsComposer;
 use App\Http\View\Composers\DailyPostsComposer;
+use App\Http\View\Composers\MetatagsComposer;
 use ChristianKuri\LaravelFavorite\Models\Favorite;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -38,6 +39,9 @@ class AppServiceProvider extends ServiceProvider
 
         /* View Categories */
         View::composer('layouts.left-sidebar.categories', CategoriesSidebar::class);
+
+        /* Meta tags */
+        View::composer('layouts.meta-tags', MetatagsComposer::class);
 
         /* Right Sidebar User Block View */
         View::composer('layouts.right-sidebar.userBlock', function ($view) {

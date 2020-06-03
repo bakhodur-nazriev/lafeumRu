@@ -1,6 +1,6 @@
 <template>
     <v-dialog v-if="quoteToUpdate" v-model="quoteToUpdate" width="700">
-        <v-card>
+        <v-card v-if="!isSendingData">
             <v-card-title class="primary white--text">
                 Изменить Цитату
             </v-card-title>
@@ -49,6 +49,11 @@
                 >
             </v-card-actions>
         </v-card>
+        <v-card v-else>
+            <div class="py-5 text-center">
+                <v-progress-circular indeterminate color="primary"/>
+            </div>
+        </v-card>
     </v-dialog>
 </template>
 
@@ -64,18 +69,26 @@ export default {
     components: {
         "wysiwyg-editor": WysiwygEditor
     },
+    data(){
+        return {
+            isSendingData: false
+        }
+    },
     methods: {
         updateQuote() {
+            this.isSendingData = true;
             axios
                 .put("/api/quotes/" + this.quoteToUpdate.id, {
                     body: this.quoteToUpdate.body,
                     author_id: this.quoteToUpdate.author_id
                 })
                 .then(res => {
+                    this.isSendingData = false;
                     this.quoteToUpdate = res.data;
                     this.$emit('updated', res.data);
                 })
                 .catch(err => {
+                    this.isSendingData = false;
                     console.log(err);
                 });
         }

@@ -1,5 +1,14 @@
 @extends('layouts.default')
 
+@section('meta-tags')
+    @include('layouts.meta-tags', [
+        'title' => 'Видео',
+        'description' => '',
+        'next' => $videos->nextPageUrl(),
+        'prev' => $videos->previousPageUrl()
+    ])
+@endsection
+
 @section('left-side-bar')
     @include('layouts.left-sidebar.categories', ['type' => 'App\Video'])
 @endsection

@@ -1,5 +1,14 @@
 @extends('layouts.default')
 
+@section('meta-tags')
+    @include('layouts.meta-tags', [
+        'title' => $currentKnowledgeArea->name,
+        'description' => $currentKnowledgeArea->description,
+        'next' => $currentKnowledgeArea->terms->nextPageUrl(),
+        'prev' => $currentKnowledgeArea->terms->previousPageUrl()
+    ])
+@endsection
+
 @section('left-side-bar')
     <div class="left-sidebar-block">
         <h3 class="secondary">Области знаний</h3>

@@ -16,7 +16,8 @@
         "laravel/passport": "^8.4",
         "laravel/tinker": "^1.0",
         "laravel/ui": "^1.1",
-        "doctrine/dbal": "^2.10"
+        "doctrine/dbal": "^2.10",
+        "spatie/browsershot": "^3.36"
     },
     "require-dev": {
         "facade/ignition": "^1.4",

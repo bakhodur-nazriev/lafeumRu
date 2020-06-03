@@ -1,5 +1,12 @@
 @extends('layouts.default')
 
+@section('meta-tags')
+    @include('layouts.meta-tags', [
+        'title' => 'Каналы YouTube',
+        'description' => ''
+    ])
+@endsection
+
 @section('content')
     <div class="row d-flex justify-content-center">
         <div class="col-sm-8 col-md-5 col-xl-4">

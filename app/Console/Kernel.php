@@ -14,7 +14,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        DailyPosts::class
+        DailyPosts::class,
+        \App\Console\Commands\QuotesMetaImageSync::class
     ];
 
     /**

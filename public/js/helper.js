@@ -1,7 +1,14 @@
-function search(parentSelector, filter) {
+function search(parentSelector, filter, ignoreSelector = '') {
     let upperFilter = filter.toLowerCase();
 
     let wrapper = document.querySelector(parentSelector);
+    
+    let ignoredCount = 0;
+    
+    if(ignoreSelector){
+        ignoredCount = wrapper.querySelectorAll(ignoreSelector).length;
+    }
+
     let elements = wrapper.cloneNode(true).children;
 
     wrapper.textContent = "";
@@ -9,6 +16,10 @@ function search(parentSelector, filter) {
     let foundCount = 0;
 
     for (let i = 0; i < elements.length; i++) {
+        if(ignoreSelector && elements[i].matches(ignoreSelector)){
+            continue;
+        }
+
         let elementContent = elements[i].innerText || elements[i].textContent;
 
         let elementContainsFilter =
@@ -24,7 +35,9 @@ function search(parentSelector, filter) {
         }
     }
 
-    if(foundCount === elements.length){
+    let ignoreExcludedLength = elements.length - ignoredCount;
+
+    if(foundCount === ignoreExcludedLength){
         foundCount = null;
     }
 
@@ -33,10 +46,10 @@ function search(parentSelector, filter) {
     return foundCount;
 }
 
-function attachSearch(inputSelector, elementsWrapperSelector, searchResultSelector) {
+function attachSearch(inputSelector, elementsWrapperSelector, searchResultSelector, ignoreSelector = '') {
 
     $(inputSelector).keyup((e) => {
-        let foundCount = search(elementsWrapperSelector, e.target.value);
+        let foundCount = search(elementsWrapperSelector, e.target.value, ignoreSelector);
 
         attachSummaryModals();
 

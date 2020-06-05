@@ -6,22 +6,23 @@
                     class="col-lg-12 col-xl-8 pa-4"
                     v-if="!categoriesLoading"
                 >
+                    <div class="d-flex mb-3">
+                        <v-spacer />
+                        <v-btn
+                            color="green accent-4 white--text"
+                            outlined
+                            small
+                            @click="saveCategoryTree"
+                        >
+                            Сохранить структуру
+                        </v-btn>
+                    </div>
                     <tree-view 
                         :tree-data="categories"
                         item-text="name"
                         ref="treeView"
                         @node-click="onCategoryClick"
                     />
-                    <div class="mt-3 d-flex">
-                        <v-spacer />
-                        <v-btn
-                            color="green accent-4 white--text"
-                            outlined
-                            @click="saveCategoryTree"
-                        >
-                            Сохранить структуру
-                        </v-btn>
-                    </div>
                 </v-card>
                 <v-progress-circular indeterminate color="primary" v-else />
             </v-row>

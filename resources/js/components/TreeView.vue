@@ -1,5 +1,5 @@
 <template>
-    <Tree v-model="localTreeData" :ondragstart="dragStart" :ondragend="dragEnd">
+    <Tree v-model="treeData" :ondragstart="dragStart" :ondragend="dragEnd">
         <div
             class="category-tree-node"
             :style="{ cursor: 'pointer' }"
@@ -43,15 +43,11 @@ export default {
         };
     },
     mounted(){
-        this.setTreeData([...this.treeData]);
+        foldAll(this.treeData);
     },
     methods: {
         getTree() {
-            return getPureTreeData(this.localTreeData);
-        },
-        setTreeData(data){
-            this.localTreeData = data;
-            foldAll(this.localTreeData);
+            return getPureTreeData(this.treeData);
         },
         dragStart(tree, e) {
             this.dragging = true;
@@ -60,11 +56,6 @@ export default {
             setTimeout(() => {
                 this.dragging = false;
             }, 100);
-        }
-    },
-    watch: {
-        treeData(value){
-            this.setTreeData(value);
         }
     }
 };

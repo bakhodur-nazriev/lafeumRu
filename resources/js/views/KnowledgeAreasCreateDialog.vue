@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="value" width="700px">
+    <v-dialog :value="value" width="700px" @input="$emit('input', false)">
         <v-card>
             <v-card-title class="primary white--text">
                 Создать области знаний

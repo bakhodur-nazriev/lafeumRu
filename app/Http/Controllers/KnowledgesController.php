@@ -14,7 +14,7 @@ class KnowledgesController extends Controller
 
     public function index()
     {
-        $knowledgeAreas = Knowledge::latest()->get();
+        $knowledgeAreas = Knowledge::latest()->get()->toTree();
         return view('knowledgeArea', compact('knowledgeAreas'));
     }
 

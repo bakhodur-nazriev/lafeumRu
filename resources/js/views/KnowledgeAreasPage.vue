@@ -119,7 +119,7 @@ export default {
             this.knowledgeAreasLoading = true;
 
             axios
-                .get("/api/knowledge-areas")
+                .get("/api/knowledge-areas?tree")
                 .then(res => {
                     this.knowledgeAreasLoading = false;
                     this.knowledgeAreas = res.data;

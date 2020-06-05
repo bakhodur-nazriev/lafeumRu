@@ -28,9 +28,13 @@ class KnowledgesController extends Controller
         return view('shows.knowledge', compact(['currentKnowledgeArea', 'knowledgeAreas',]));
     }
 
-    public function get()
+    public function get(Request $request)
     {
-        return Knowledge::latest()->get()->toTree();
+        if($request->has('tree')){
+            return Knowledge::latest()->get()->toTree();
+        }
+
+        return Knowledge::where('parent_id', '<>', null)->latest()->get();
     }
 
     public function store(Request $request)

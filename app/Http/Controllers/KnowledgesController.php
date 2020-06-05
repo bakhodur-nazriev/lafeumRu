@@ -30,7 +30,7 @@ class KnowledgesController extends Controller
 
     public function get()
     {
-        return Knowledge::latest()->get();
+        return Knowledge::latest()->get()->toTree();
     }
 
     public function store(Request $request)
@@ -40,6 +40,17 @@ class KnowledgesController extends Controller
         ]);
 
         return Knowledge::create($request->all());
+    }
+
+    public function updateTree(Request $request)
+    {
+        $request->validate([
+            'knowledgeAreas' => 'required'
+        ]);
+
+        Knowledge::rebuildTree($request->knowledgeAreas);
+
+        return Knowledge::latest()->get()->toTree();
     }
 
     public function update(Knowledge $knowledge, Request $request)

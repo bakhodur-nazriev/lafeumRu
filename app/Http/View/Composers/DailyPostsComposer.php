@@ -8,29 +8,30 @@ use App\Quote;
 use App\Term;
 use App\Video;
 use App\Photo;
-use App\Post;
+use Carbon\Carbon;
 use Illuminate\View\View;
 
 class DailyPostsComposer
 {
     public function compose(View $view)
     {
-        $dailyPost = DailyPost::all();
+        $quotes = Quote::all()->random();
+        $terms = Term::all()->random();
+        $videos = Video::all()->random();
+        $photos = Photo::all()->random();
+        $dailyPosts = DailyPost::where('date', Carbon::parse()->format('Y-m-d'))->first();
+        $newDailyPost = new DailyPost();
 
-        $view->with('dailyPost', $dailyPost);
+        if (is_null($dailyPosts)) {
+            $newDailyPost::create([
+                'date' => Carbon::today()->format('Y-m-d'),
+                'quote_id' => $quotes->id,
+                'term_id' => $terms->id,
+                'video_id' => $videos->id,
+                'photo_id' => $photos->id
+            ]);
+        }
 
-        /*$todayQuote = Quote::all()->random();
-        $todayTerm = Term::all()->random();
-        $todayVideo = Video::all()->random();
-        $todayPhoto = Photo::all()->random();
-
-        $postsData = [
-            'quote' => $todayQuote,
-            'term' => $todayTerm,
-            'video' => $todayVideo,
-            'photo' => $todayPhoto
-        ];
-
-        $view->with('postsData', $postsData);*/
+        $view->with('dailyPosts', $dailyPosts);
     }
 }

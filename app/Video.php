@@ -26,7 +26,7 @@ class Video extends Model
         return $this->morphOne(Post::class, 'postable');
     }
 
-    public function dailyPost()
+    public function dailyPosts()
     {
         return $this->hasMany(DailyPost::class);
     }

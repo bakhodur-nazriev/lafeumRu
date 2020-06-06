@@ -16,7 +16,7 @@ class CreateDailyPostsTable extends Migration
     {
         Schema::create('daily_posts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->date('daily_date')->default(Carbon::now());
+            $table->date('date');
             $table->integer('quote_id');
             $table->integer('term_id');
             $table->integer('video_id');

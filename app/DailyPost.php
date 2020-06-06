@@ -10,24 +10,24 @@ class DailyPost extends Model
 
     public $timestamps = false;
 
-    public function quotes()
+    public function quote()
     {
-        return $this->hasMany(Quote::class);
+        return $this->belongsTo(Quote::class);
     }
 
-    public function terms()
+    public function term()
     {
-        return $this->hasMany(Term::class);
+        return $this->belongsTo(Term::class);
     }
 
-    public function videos()
+    public function video()
     {
-        return $this->hasMany(Video::class);
+        return $this->belongsTo(Video::class);
     }
 
-    public function photos()
+    public function photo()
     {
-        return $this->hasMany(Photo::class);
+        return $this->belongsTo(Photo::class);
     }
 
 }

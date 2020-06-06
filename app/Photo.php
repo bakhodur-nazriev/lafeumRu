@@ -11,7 +11,7 @@ class Photo extends Model
 
     protected $fillable = ["image", "description"];
 
-    public function dailyPost()
+    public function dailyPosts()
     {
         return $this->hasMany(DailyPost::class);
     }

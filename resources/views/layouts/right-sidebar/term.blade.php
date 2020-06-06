@@ -2,5 +2,7 @@
     <div class="title-of-right-sidebar-posts">
         <h5 class="pl-3 py-2 mb-0">Термин дня</h5>
     </div>
-    <div class="p-3">{{ $postsData['term']->name }}</div>
+    <div class="p-3">
+        {{ $dailyPosts['term']->name }}
+    </div>
 </div>

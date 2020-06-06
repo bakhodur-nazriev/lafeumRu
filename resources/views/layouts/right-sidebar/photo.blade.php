@@ -3,6 +3,6 @@
         <h5 class="pl-3 py-2 mb-0">Фото дня</h5>
     </div>
     <div class="p-3">
-        <img src="{{ $postsData['photo']->path }}" alt="" style="width: 100%;">
+        <img src="{{ $dailyPosts['photo']->path }}" alt="" style="width: 100%;">
     </div>
 </div>

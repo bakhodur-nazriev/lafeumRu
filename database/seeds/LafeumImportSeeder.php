@@ -84,7 +84,9 @@ class LafeumImportSeeder extends Seeder
 
         Knowledge::truncate();
 
-        $this->insertChunked(Knowledge::class, $knowledgeAreas, true);
+        foreach ($knowledgeAreas as $knowledgeArea) {
+            Knowledge::create($knowledgeArea);
+        }
     }
 
     public function importPhotos()

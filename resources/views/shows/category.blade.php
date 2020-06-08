@@ -1,5 +1,30 @@
 @extends('layouts.default')
 
+@php
+    $title = $category->name . " - ";
+    switch ($category->type) {
+        case 'App\\Quote':
+            $title .= "высказывания и цитаты известных людей";
+            break;
+        case 'App\\Term':
+            $title .= "термины и комментарии специалистов";
+            break;
+        case 'App\\Video':
+            $title .= "видео";
+            break;
+    }
+@endphp
+
+@section('meta-tags')
+    @include('layouts.meta-tags', [
+        'title' => $title,
+        'description' => $category->description,
+        'next' => $category->categoriables->nextPageUrl(),
+        'prev' => $category->categoriables->previousPageUrl()
+    ])
+@endsection
+
+
 @section('left-side-bar')
     @include('layouts.left-sidebar.categories', ['type' => $category->type, 'active' => $category->id])
 @endsection
@@ -8,21 +33,25 @@
     <h3 class="secondary">{{$category->name}}</h3>
     <p>{{$category->description}}</p>
     
-    @foreach ($category->categoriables as $item)
-        @switch($category->type)
-            @case('App\\Quote')
-                @include('layouts.quoteItem')
-            @break
-            @case('App\\Term')
-                @include('layouts.termItem')
-            @break
-            @case('App\\Video')
-                <div class="row">
+    <div class="row">
+        @foreach ($category->categoriables as $item)
+            @switch($category->type)
+                @case('App\\Quote')
+                    <div class="col-12 py-0">
+                        @include('layouts.quoteItem')
+                    </div>
+                @break
+                @case('App\\Term')
+                    <div class="col-12 py-0">
+                        @include('layouts.termItem')
+                    </div>
+                @break
+                @case('App\\Video')
                     @include('layouts.videoItem')
-                </div> 
-            @break
-        @endswitch
-    @endforeach
+                @break
+            @endswitch
+        @endforeach
+    </div>
 
     <div class="row">
         <div class="col-12">

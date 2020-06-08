@@ -49,6 +49,7 @@ Route::group(['middleware' => 'auth:api'], function (){
     
     /* Knowledge Areas */
     Route::get("/knowledge-areas", "KnowledgesController@get");
+    Route::put("/knowledge-areas", "KnowledgesController@updateTree");
     Route::post("/knowledge-areas", "KnowledgesController@store");
     Route::put("/knowledge-areas/{knowledge}", "KnowledgesController@update");
     Route::delete("/knowledge-areas/{knowledge}", "KnowledgesController@destroy");

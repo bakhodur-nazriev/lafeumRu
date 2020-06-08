@@ -1,7 +1,7 @@
 <template>
-    <v-dialog v-model="value" width="700">
+    <v-dialog :value="value" width="700" @input="$emit('input', false)">
         <v-card>
-            <v-form @submit="addQuote" ref="createForm">
+            <v-form @submit="addQuote" ref="createForm" v-if="!isSendingData">
                 <v-card-title class="primary white--text mb-5">
                     Создать Цитату
                 </v-card-title>
@@ -45,6 +45,9 @@
                     </v-btn>
                 </v-card-actions>
             </v-form>
+            <div class="py-5 text-center" v-else >
+                <v-progress-circular indeterminate color="primary"/>
+            </div>
         </v-card>
     </v-dialog>
 </template>
@@ -65,7 +68,8 @@ export default {
     data(){
         return {
             rules,
-            newQuote: null
+            newQuote: null,
+            isSendingData: false
         }
     },
     beforeMount() {
@@ -81,11 +85,12 @@ export default {
         },
         resetNewQuoteForm() {
             this.newQuote = this.getDefaultQuote();
-            this.$refs.createForm.reset();
             this.showDialog = false;
         },
         addQuote(e) {
             e.preventDefault();
+
+            this.isSendingData = true;
 
             const validForm = this.$refs.createForm.validate();
 
@@ -94,10 +99,12 @@ export default {
             axios
                 .post("/api/quotes/", this.newQuote)
                 .then(res => {
+                    this.isSendingData = false;
                     this.resetNewQuoteForm();
                     this.$emit('created', res.data);
                 })
                 .catch(err => {
+                    this.isSendingData = false;
                     console.log(err);
                 });
         }

@@ -1,5 +1,12 @@
 @extends('layouts.default')
 
+@section('meta-tags')
+    @include('layouts.meta-tags', [
+        'title' => $currentAuthor->name . ". Цитаты, афоризмы и высказывания.",
+        'description' => $currentAuthor->biography
+    ])
+@endsection
+
 @section('left-side-bar')
 <div>
     <h3 class="secondary">Авторы</h3>

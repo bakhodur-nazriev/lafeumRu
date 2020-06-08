@@ -3,6 +3,6 @@
         <h5 class="pl-3 py-2 mb-0">Термин дня</h5>
     </div>
     <div class="p-3">
-        {{ $dailyPosts['term']->name }}
+        {!! $dailyPosts['term']->body !!}
     </div>
 </div>

@@ -2,5 +2,7 @@
     <div class="title-of-right-sidebar-posts">
         <h5 class="pl-3 py-2 mb-0">Цитата дня</h5>
     </div>
-    <div class="p-3">{!! $postsData['quote']->body !!}</div>
+    <div class="p-3">
+        {!! $dailyPosts['quote']->body !!}
+    </div>
 </div>

@@ -13,5 +13,10 @@ class Post extends Model
     public function postable()
     {
         return $this->morphTo();
-    }    
+    }
+
+    public function dailyPostable()
+    {
+        return $this->morphTo();
+    }
 }

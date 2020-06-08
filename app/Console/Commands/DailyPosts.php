@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use App\Quote;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
 
 class DailyPosts extends Command
 {
@@ -39,7 +38,6 @@ class DailyPosts extends Command
      */
     public function handle()
     {
-        DB::table('tags')->delete();
-        echo "It's done!";
+        //
     }
 }

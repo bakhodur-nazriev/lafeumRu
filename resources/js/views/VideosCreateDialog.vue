@@ -37,6 +37,29 @@
                         outlined
                         :rules="[rules.required]"
                     />
+                    <v-dialog
+                        ref="dialog"
+                        v-model="modalDate"
+                        :return-value.sync="date"
+                        persistent
+                        width="290px"
+                    >
+                        <template v-slot:activator="{ on }">
+                            <v-text-field
+                                v-model="date"
+                                label="Выберите дату"
+                                prepend-inner-icon="mdi-calendar"
+                                readonly
+                                outlined
+                                v-on="on"
+                            ></v-text-field>
+                        </template>
+                        <v-date-picker v-model="date" scrollable>
+                            <v-spacer></v-spacer>
+                            <v-btn text color="primary" @click="modalDate= false">Отмена</v-btn>
+                            <v-btn text color="primary" @click="$refs.dialog.save(date)">OK</v-btn>
+                        </v-date-picker>
+                    </v-dialog>
                     <v-text-field
                         label="Добавьте продолжительность (в мин.)"
                         type="number"
@@ -46,14 +69,15 @@
                     />
                 </v-card-text>
                 <v-card-actions>
-                    <v-spacer />
+                    <v-spacer/>
                     <v-btn dark color="green" type="submit">Сохранить</v-btn>
                     <v-btn
                         dark
                         color="error"
                         type="button"
                         @click="$emit('input', false)"
-                        >Отмена</v-btn
+                    >Отмена
+                    </v-btn
                     >
                 </v-card-actions>
             </v-form>
@@ -62,54 +86,56 @@
 </template>
 
 <script>
-import rules from "../validation-rules";
+    import rules from "../validation-rules";
 
-export default {
-    props: {
-        value: Boolean,
-        channels: Array,
-        categories: Array
-    },
-    data() {
-        return {
-            rules,
-            newVideo: null
-        };
-    },
-    beforeMount() {
-        this.newVideo = this.getDefaultVideo();
-    },
-    methods: {
-        getDefaultVideo() {
+    export default {
+        props: {
+            value: Boolean,
+            channels: Array,
+            categories: Array
+        },
+        data() {
             return {
-                title: "",
-                link: "",
-                duration: "",
-                channel_id: null,
-                categories: []
+                rules,
+                newVideo: null,
+                modalDate: false,
+                date: new Date().toISOString().substr(0, 10)
             };
         },
-        resetNewVideoForm() {
+        beforeMount() {
             this.newVideo = this.getDefaultVideo();
-            this.$refs.createForm.reset();
         },
-        addVideo(e) {
-            e.preventDefault();
+        methods: {
+            getDefaultVideo() {
+                return {
+                    title: "",
+                    link: "",
+                    duration: "",
+                    channel_id: null,
+                    categories: []
+                };
+            },
+            resetNewVideoForm() {
+                this.newVideo = this.getDefaultVideo();
+                this.$refs.createForm.reset();
+            },
+            addVideo(e) {
+                e.preventDefault();
 
-            const validForm = this.$refs.createForm.validate();
+                const validForm = this.$refs.createForm.validate();
 
-            if (!validForm) return;
+                if (!validForm) return;
 
-            axios
-                .post("/api/videos", this.newVideo)
-                .then(res => {
-                    this.resetNewVideoForm();
-                    this.$emit("created", res.data);
-                })
-                .catch(err => {
-                    console.log(err);
-                });
+                axios
+                    .post("/api/videos", this.newVideo)
+                    .then(res => {
+                        this.resetNewVideoForm();
+                        this.$emit("created", res.data);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+            }
         }
-    }
-};
+    };
 </script>

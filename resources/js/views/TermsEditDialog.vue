@@ -5,48 +5,90 @@
                 Изменить Термин
             </v-card-title>
             <v-container>
-                <v-text-field
-                    outlined
-                    label="Изменить название термина"
-                    v-model="termToUpdate.name"
-                />
-                <v-text-field
-                    outlined
-                    v-model="termToUpdate.link"
-                    label="Ссылка"
-                />
-                <v-select
-                    v-model="termToUpdate.knowledge"
-                    :items="knowledgeAreas"
-                    outlined
-                    multiple
-                    item-value="id"
-                    item-text="name"
-                    label="Область знаний"
-                    :rules="[rules.required]"
-                />
-                <v-select
-                    v-model="termToUpdate.categories"
-                    :items="categories"
-                    outlined
-                    multiple
-                    item-value="id"
-                    item-text="name"
-                    label="Категории"
-                    :rules="[rules.required]"
-                />
-                <wysiwyg-editor
-                    v-model="termToUpdate.body"
-                    label="Изменить термин здесь"
-                />
+                <v-row justify="center">
+                    <v-col cols="12">
+                        <v-text-field
+                            hide-details
+                            outlined
+                            label="Изменить название термина"
+                            v-model="termToUpdate.name"
+                        />
+                    </v-col>
+                    <v-col cols="12">
+                        <v-text-field
+                            hide-details
+                            outlined
+                            v-model="termToUpdate.link"
+                            label="Ссылка"
+                        />
+                    </v-col>
+                    <v-col cols="12">
+                        <v-select
+                            v-model="termToUpdate.knowledge"
+                            :items="knowledgeAreas"
+                            outlined
+                            multiple
+                            item-value="id"
+                            item-text="name"
+                            label="Область знаний"
+                            :rules="[rules.required]"
+                            hide-details
+                        />
+                    </v-col>
+                    <v-col cols="12">
+                        <v-select
+                            v-model="termToUpdate.categories"
+                            :items="categories"
+                            outlined
+                            multiple
+                            item-value="id"
+                            item-text="name"
+                            label="Категории"
+                            :rules="[rules.required]"
+                            hide-details
+                        />
+                    </v-col>
+                    <v-col cols="12">
+                        <v-dialog
+                            ref="dialog"
+                            v-model="modalDate"
+                            :return-value.sync="date"
+                            persistent
+                            width="290px"
+                        >
+                            <template v-slot:activator="{ on }">
+                                <v-text-field
+                                    v-model="date"
+                                    label="Выберите дату"
+                                    prepend-inner-icon="mdi-calendar"
+                                    readonly
+                                    outlined
+                                    v-on="on"
+                                    hide-details
+                                ></v-text-field>
+                            </template>
+                            <v-date-picker v-model="date" scrollable>
+                                <v-spacer></v-spacer>
+                                <v-btn text color="primary" @click="modalDate= false">Отмена</v-btn>
+                                <v-btn text color="primary" @click="$refs.dialog.save(date)">OK</v-btn>
+                            </v-date-picker>
+                        </v-dialog>
+                    </v-col>
+                    <v-col cols="12">
+                        <wysiwyg-editor
+                            v-model="termToUpdate.body"
+                            label="Изменить термин здесь"
+                        />
+                    </v-col>
+                </v-row>
             </v-container>
             <v-card-actions>
-                <v-spacer />
+                <v-spacer/>
                 <v-btn dark color="green" @click="updateTerm()"
-                    >Сохранить
+                >Сохранить
                 </v-btn>
                 <v-btn dark color="error" @click="termToUpdate = false"
-                    >Отмена
+                >Отмена
                 </v-btn>
             </v-card-actions>
         </v-card>
@@ -54,47 +96,51 @@
 </template>
 
 <script>
-import WysiwygEditor from "../components/WysiwygEditor";
-import rules from "../validation-rules";
+    import WysiwygEditor from "../components/WysiwygEditor";
+    import rules from "../validation-rules";
 
-export default {
-    props: {
-        value: Object,
-        knowledgeAreas: Array,
-        categories: Array
-    },
-    components: {
-        "wysiwyg-editor": WysiwygEditor
-    },
-    data() {
-        return { rules };
-    },
-    methods: {
-        updateTerm() {
-            axios
-                .put("/api/terms/" + this.termToUpdate.id, {
-                    name: this.termToUpdate.name,
-                    body: this.termToUpdate.body
-                })
-                .then(res => {
-                    this.$emit('updated', res.data);
-                })
-                .catch(err => {
-                    console.log(err);
-                });
-        }
-    },
-    computed: {
-        termToUpdate: {
-            get(){
-                return this.value;
-            },
-            set(v){
-                if(!v){
-                    this.$emit('input', null);
+    export default {
+        props: {
+            value: Object,
+            knowledgeAreas: Array,
+            categories: Array
+        },
+        components: {
+            "wysiwyg-editor": WysiwygEditor
+        },
+        data() {
+            return {
+                rules,
+                date: new Date().toISOString().substr(0, 10),
+                modalDate: false
+            };
+        },
+        methods: {
+            updateTerm() {
+                axios
+                    .put("/api/terms/" + this.termToUpdate.id, {
+                        name: this.termToUpdate.name,
+                        body: this.termToUpdate.body
+                    })
+                    .then(res => {
+                        this.$emit('updated', res.data);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+            }
+        },
+        computed: {
+            termToUpdate: {
+                get() {
+                    return this.value;
+                },
+                set(v) {
+                    if (!v) {
+                        this.$emit('input', null);
+                    }
                 }
             }
         }
-    }
-};
+    };
 </script>

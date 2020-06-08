@@ -25,13 +25,36 @@
                         :rules="[rules.required]"
                         v-model="newQuote.categories"
                     />
+                    <v-dialog
+                        ref="dialog"
+                        v-model="modalDate"
+                        :return-value.sync="date"
+                        persistent
+                        width="290px"
+                    >
+                        <template v-slot:activator="{ on }">
+                            <v-text-field
+                                v-model="date"
+                                label="Выберите дату"
+                                prepend-inner-icon="mdi-calendar"
+                                readonly
+                                outlined
+                                v-on="on"
+                            ></v-text-field>
+                        </template>
+                        <v-date-picker v-model="date" scrollable>
+                            <v-spacer></v-spacer>
+                            <v-btn text color="primary" @click="modalDate= false">Отмена</v-btn>
+                            <v-btn text color="primary" @click="$refs.dialog.save(date)">OK</v-btn>
+                        </v-date-picker>
+                    </v-dialog>
                     <wysiwyg-editor
                         v-model="newQuote.body"
                         label="Введите цитату здесь"
                     />
                 </v-card-text>
                 <v-card-actions>
-                    <v-spacer />
+                    <v-spacer/>
                     <v-btn dark color="green" type="submit">
                         Сохранить
                     </v-btn>
@@ -45,7 +68,7 @@
                     </v-btn>
                 </v-card-actions>
             </v-form>
-            <div class="py-5 text-center" v-else >
+            <div class="py-5 text-center" v-else>
                 <v-progress-circular indeterminate color="primary"/>
             </div>
         </v-card>
@@ -53,61 +76,63 @@
 </template>
 
 <script>
-import WysiwygEditor from "../components/WysiwygEditor";
-import rules from "../validation-rules";
+    import WysiwygEditor from "../components/WysiwygEditor";
+    import rules from "../validation-rules";
 
-export default {
-    props: {
-        value: Boolean,
-        authors: Array,
-        categories: Array
-    },
-    components: {
-        "wysiwyg-editor": WysiwygEditor
-    },
-    data(){
-        return {
-            rules,
-            newQuote: null,
-            isSendingData: false
-        }
-    },
-    beforeMount() {
-        this.newQuote = this.getDefaultQuote();
-    },
-    methods: {
-        getDefaultQuote() {
+    export default {
+        props: {
+            value: Boolean,
+            authors: Array,
+            categories: Array
+        },
+        components: {
+            "wysiwyg-editor": WysiwygEditor
+        },
+        data() {
             return {
-                body: "",
-                author_id: null,
-                categories: null
-            };
+                rules,
+                newQuote: null,
+                isSendingData: false,
+                date: new Date().toISOString().substr(0, 10),
+                modalDate: false
+            }
         },
-        resetNewQuoteForm() {
+        beforeMount() {
             this.newQuote = this.getDefaultQuote();
-            this.showDialog = false;
         },
-        addQuote(e) {
-            e.preventDefault();
+        methods: {
+            getDefaultQuote() {
+                return {
+                    body: "",
+                    author_id: null,
+                    categories: null
+                };
+            },
+            resetNewQuoteForm() {
+                this.newQuote = this.getDefaultQuote();
+                this.showDialog = false;
+            },
+            addQuote(e) {
+                e.preventDefault();
 
-            this.isSendingData = true;
+                this.isSendingData = true;
 
-            const validForm = this.$refs.createForm.validate();
+                const validForm = this.$refs.createForm.validate();
 
-            if (!validForm) return;
+                if (!validForm) return;
 
-            axios
-                .post("/api/quotes/", this.newQuote)
-                .then(res => {
-                    this.isSendingData = false;
-                    this.resetNewQuoteForm();
-                    this.$emit('created', res.data);
-                })
-                .catch(err => {
-                    this.isSendingData = false;
-                    console.log(err);
-                });
-        }
-    },
-};
+                axios
+                    .post("/api/quotes/", this.newQuote)
+                    .then(res => {
+                        this.isSendingData = false;
+                        this.resetNewQuoteForm();
+                        this.$emit('created', res.data);
+                    })
+                    .catch(err => {
+                        this.isSendingData = false;
+                        console.log(err);
+                    });
+            }
+        },
+    };
 </script>

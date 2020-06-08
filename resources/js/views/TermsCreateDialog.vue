@@ -37,20 +37,43 @@
                         label="Категории"
                         :rules="[rules.required]"
                     />
+                    <v-dialog
+                        ref="dialog"
+                        v-model="modalDate"
+                        :return-value.sync="date"
+                        persistent
+                        width="290px"
+                    >
+                        <template v-slot:activator="{ on }">
+                            <v-text-field
+                                v-model="date"
+                                label="Выберите дату"
+                                prepend-inner-icon="mdi-calendar"
+                                readonly
+                                outlined
+                                v-on="on"
+                            ></v-text-field>
+                        </template>
+                        <v-date-picker v-model="date" scrollable>
+                            <v-spacer></v-spacer>
+                            <v-btn text color="primary" @click="modalDate= false">Отмена</v-btn>
+                            <v-btn text color="primary" @click="$refs.dialog.save(date)">OK</v-btn>
+                        </v-date-picker>
+                    </v-dialog>
                     <wysiwyg-editor
                         v-model="newTerm.body"
                         label="Введите описание"
                     />
                 </v-card-text>
                 <v-card-actions>
-                    <v-spacer />
-                    <v-btn dark color="green" type="submit">Сохранить </v-btn>
+                    <v-spacer/>
+                    <v-btn dark color="green" type="submit">Сохранить</v-btn>
                     <v-btn
                         dark
                         color="error"
                         type="button"
                         @click="$emit('input', false)"
-                        >Отмена
+                    >Отмена
                     </v-btn>
                 </v-card-actions>
             </v-form>
@@ -59,56 +82,58 @@
 </template>
 
 <script>
-import WysiwygEditor from "../components/WysiwygEditor";
-import rules from "../validation-rules";
+    import WysiwygEditor from "../components/WysiwygEditor";
+    import rules from "../validation-rules";
 
-export default {
-    props: {
-        value: Boolean,
-        knowledgeAreas: Array,
-        categories: Array
-    },
-    components: {
-        "wysiwyg-editor": WysiwygEditor
-    },
-    data() {
-        return {
-            rules,
-            newTerm: null
-        };
-    },
-    beforeMount() {
-        this.newTerm = this.getDefaultTerm();
-    },
-    methods: {
-        getDefaultTerm() {
+    export default {
+        props: {
+            value: Boolean,
+            knowledgeAreas: Array,
+            categories: Array
+        },
+        components: {
+            "wysiwyg-editor": WysiwygEditor
+        },
+        data() {
             return {
-                name: "",
-                body: "",
-                link: "",
-                knowledgeAreas: [],
-                categories: []
+                rules,
+                newTerm: null,
+                date: new Date().toISOString().substr(0, 10),
+                modalDate: false
             };
         },
-        resetNewTerm() {
+        beforeMount() {
             this.newTerm = this.getDefaultTerm();
-            this.$refs.createForm.reset();
         },
-        addTerm(e) {
-            e.preventDefault();
+        methods: {
+            getDefaultTerm() {
+                return {
+                    name: "",
+                    body: "",
+                    link: "",
+                    knowledgeAreas: [],
+                    categories: []
+                };
+            },
+            resetNewTerm() {
+                this.newTerm = this.getDefaultTerm();
+                this.$refs.createForm.reset();
+            },
+            addTerm(e) {
+                e.preventDefault();
 
-            this.$refs.createForm.validate();
+                this.$refs.createForm.validate();
 
-            axios
-                .post("/api/terms", this.newTerm)
-                .then(res => {
-                    this.resetNewTerm();
-                    this.$emit("created", res.data);
-                })
-                .catch(err => {
-                    console.log(err);
-                });
+                axios
+                    .post("/api/terms", this.newTerm)
+                    .then(res => {
+                        this.resetNewTerm();
+                        this.$emit("created", res.data);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+            }
         }
-    }
-};
+    };
 </script>

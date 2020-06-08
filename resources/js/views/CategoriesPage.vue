@@ -6,45 +6,23 @@
                     class="col-lg-12 col-xl-8 pa-4"
                     v-if="!categoriesLoading"
                 >
-                    <Tree
-                        v-model="categories"
-                        :ondragstart="dragStart"
-                        :ondragend="dragEnd"
-                    >
-                        <div
-                            class="category-tree-node"
-                            :style="{ cursor: 'pointer' }"
-                            slot-scope="{ node, tree, path }"
-                            @click="if (!dragging) categoryToShow = node;"
-                        >
-                            <v-btn
-                                v-if="node.children.length"
-                                icon
-                                x-small
-                                color="black"
-                                @click.stop="tree.toggleFold(node, path)"
-                            >
-                                <v-icon small>{{
-                                    node.$folded
-                                        ? "mdi-chevron-down"
-                                        : "mdi-chevron-up"
-                                }}</v-icon>
-                            </v-btn>
-                            <span>
-                                {{ node.name }}
-                            </span>
-                        </div>
-                    </Tree>
-                    <div class="mt-3 d-flex">
+                    <div class="d-flex mb-3">
                         <v-spacer />
                         <v-btn
                             color="green accent-4 white--text"
                             outlined
+                            small
                             @click="saveCategoryTree"
                         >
                             Сохранить структуру
                         </v-btn>
                     </div>
+                    <tree-view 
+                        :tree-data="categories"
+                        item-text="name"
+                        ref="treeView"
+                        @node-click="onCategoryClick"
+                    />
                 </v-card>
                 <v-progress-circular indeterminate color="primary" v-else />
             </v-row>
@@ -97,9 +75,7 @@
 </template>
 
 <script>
-import "he-tree-vue/dist/he-tree-vue.css";
-import { Tree, Draggable, Fold, foldAll, getPureTreeData } from "he-tree-vue";
-
+import TreeView from "../components/TreeView";
 import CategoryCreateDialog from "./CategoryCreateDialog";
 import CategoryShowDialog from "./CategoryShowDialog";
 import CategoryEditDialog from "./CategoryEditDialog";
@@ -107,11 +83,11 @@ import CategoryDeleteDialog from "./CategoryDeleteDialog";
 
 export default {
     components: {
-        Tree: Tree.mixPlugins([Draggable, Fold]),
-        "category-create-dialog": CategoryCreateDialog,
-        "category-show-dialog": CategoryShowDialog,
-        "category-edit-dialog": CategoryEditDialog,
-        "category-delete-dialog": CategoryDeleteDialog
+        TreeView,
+        CategoryCreateDialog,
+        CategoryShowDialog,
+        CategoryEditDialog,
+        CategoryDeleteDialog
     },
     data() {
         return {
@@ -122,13 +98,15 @@ export default {
             categoryToShow: null,
             categoryToEdit: null,
             categoryToDelete: null,
-            dragging: false
         };
     },
     mounted() {
         this.loadCategoriesTree();
     },
     methods: {
+        onCategoryClick(category){
+            this.categoryToShow = category;
+        },
         loadCategoriesTree() {
             this.categoriesLoading = true;
             axios
@@ -143,27 +121,26 @@ export default {
                 });
         },
         saveCategoryTree() {
-            let categoryType = this.$route.meta.type;
+            this.categoriesLoading = true;
+            let categoryTree = this.$refs.treeView.getTree();
+
             axios
-                .put("/api/categories?type=" + categoryType, {
-                    categories: getPureTreeData(this.categories)
+                .put("/api/categories?type=" + this.categoryType, {
+                    categories: categoryTree
                 })
-                .then(({ data }) => this.setCategories(data))
-                .catch(e => console.log(e));
+                .then(({ data }) => {
+                    this.categoriesLoading = false;
+                    this.setCategories(data);
+                })
+                .catch(e => {
+                    this.categoriesLoading = false;
+                    console.log(e);
+                });
 
             this.setCategories([]);
         },
-        dragStart(tree, e) {
-            this.dragging = true;
-        },
-        dragEnd(tree, e) {
-            setTimeout(() => {
-                this.dragging = false;
-            }, 100);
-        },
         setCategories(categories) {
             this.categories = categories;
-            foldAll(this.categories);
         },
         editCategory(category) {
             this.categoryToEdit = { ...category };

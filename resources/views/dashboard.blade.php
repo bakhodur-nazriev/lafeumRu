@@ -1,6 +1,5 @@
-@extends('layouts.empty')
+@extends('layouts.adminApp')
 
 @section('layout')
     <app></app>
 @endsection
-

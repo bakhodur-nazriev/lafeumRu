@@ -28,10 +28,17 @@
                 </div>
             </div>
             <ul class="list-inline py-1 list-of-knowledge">
-                @foreach ($knowledgeAreas as $knowledgeArea)
-                    <li class="knowledge">
-                        <a href="/knowledge/{{$knowledgeArea->slug}}">{{$knowledgeArea->name}}</a>
-                    </li>
+                @foreach ($knowledgeAreas as $knowledgeAreaParent)
+                    <h5 class="knowledge-parent secondary">
+                        {{$knowledgeAreaParent->name}}
+                    </h5>
+                    
+                    @foreach ($knowledgeAreaParent->children as $knowledgeArea)
+                        <li class="knowledge">
+                            <a href="/knowledge/{{$knowledgeArea->slug}}">{{$knowledgeArea->name}}</a>
+                        </li>
+                    @endforeach
+
                 @endforeach
             </ul>
             <script>
@@ -39,7 +46,8 @@
                     attachSearch(
                         "#knowledge-area-search", 
                         ".list-of-knowledge", 
-                        '#knowledge-search-result'
+                        "#knowledge-search-result",
+                        ".knowledge-parent"
                     );
                 })
             </script>

@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="value" width="700">
+    <v-dialog :value="value" width="700" @input="$emit('input', false)">
         <v-card>
             <v-form @submit="addQuote" ref="createForm" v-if="!isSendingData">
                 <v-card-title class="primary white--text mb-5">

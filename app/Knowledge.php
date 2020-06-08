@@ -4,11 +4,11 @@ namespace App;
 
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
-use ChristianKuri\LaravelFavorite\Traits\Favoriteable;
+use Kalnoy\Nestedset\NodeTrait;
 
 class Knowledge extends Model
 {
-    use Favoriteable;
+    use NodeTrait;
 
     protected $table = "knowledge";
     protected $fillable = ["name", "description", "slug"];

@@ -10,7 +10,7 @@ class Video extends Model
     use Favoriteable;
 
     protected $fillable = ["title", "channel_id", "link", "duration"];
-    protected $appends = ["link", "thumbnail"];
+    protected $appends = ["link", "embeded_link", "thumbnail"];
 
     public function channel()
     {
@@ -45,6 +45,17 @@ class Video extends Model
         switch ($this->host_type_id) {
             case VideoHost::YOUTUBE_HOST_TYPE_ID:
                 return "https://youtu.be/" . $this->host_id;
+
+            default:
+                return $this->host_id;
+        }
+    }
+
+    public function getEmbededLinkAttribute()
+    {
+        switch ($this->host_type_id) {
+            case VideoHost::YOUTUBE_HOST_TYPE_ID:
+                return "https://www.youtube.com/embed/" . $this->host_id;
 
             default:
                 return $this->host_id;

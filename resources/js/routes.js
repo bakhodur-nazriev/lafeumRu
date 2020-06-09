@@ -9,9 +9,9 @@ import FavouritesPage from "./views/FavouritesPage";
 import CategoriesPage from "./views/CategoriesPage";
 import ChannelsPage from "./views/ChannelsPage";
 import KnowledgeAreasPage from "./views/KnowledgeAreasPage";
+import SettingsPage from "./views/SettingsPage";
 
 // import Vocabulary from "./components/admin/Vocabulary";
-// import Settings from "./components/admin/Settings";
 // import Chat from "./components/admin/Chat";
 
 import role from "./role";
@@ -168,16 +168,17 @@ let allSidebarRoutes = [
         path: "/dashboard/favorite",
         name: "/dashboard/favorite",
         component: FavouritesPage
-    }
-    /*{
+    },
+    {
         meta: {
             icon: "mdi-settings",
-            title: "Настройки",
+            title: "Настройки сайта",
+            authorize: [role.admin]
         },
         name: "/dashboard/setting",
         path: "/dashboard/setting",
-        component: Settings
-    },*/
+        component: SettingsPage
+    }
     /*{
         meta: {
             icon: "mdi-chat",

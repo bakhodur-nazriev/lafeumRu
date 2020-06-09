@@ -122,7 +122,7 @@ class LafeumImportSeeder extends Seeder
 
             $newVideoData['title'] = $video['title'];
             $newVideoData['duration'] = $video['duration'];
-            $newVideoData['link'] = "https://www.youtube.com/embed/" . $video['video_id'];
+            $newVideoData['link'] = "https://youtu.be/" . $video['video_id'];
 
             echo $video['title'] . PHP_EOL;
 

@@ -26,7 +26,9 @@ class ContactsController extends Controller
             'theme' => 'required',
             'message' => 'required'
         ]);
-        Mail::to('test@test.com')->send(new ContactMail($data));
+
+        Mail::to(env('CONTACT_EMAIL', 'test@test.com'))
+            ->send(new ContactMail($data));
 
         return redirect('/contacts');
     }

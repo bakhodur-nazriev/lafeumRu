@@ -21,9 +21,9 @@ class ContactsController extends Controller
     public function store()
     {
         $data = request()->validate([
-            'name' => 'required',
-            'email' => 'required|email',
-            'theme' => 'required',
+            'user_name' => 'required',
+            'user_email' => 'required|email',
+            'topic' => 'required',
             'message' => 'required'
         ]);
 

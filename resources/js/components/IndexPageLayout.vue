@@ -67,7 +67,7 @@
                     </v-col>
                 </v-col>
             </v-row>
-            <v-tooltip top>
+            <v-tooltip top v-if="!noActions">
                 <template v-slot:activator="{ on }">
                     <v-btn
                         bottom
@@ -159,7 +159,7 @@ export default {
     computed: {
         processedHeaders() {
             if (this.noActions) {
-                this.tableHeaders;
+                return this.tableHeaders;
             }
 
             return [

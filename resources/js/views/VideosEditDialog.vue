@@ -11,7 +11,7 @@
                             hide-details
                             outlined
                             v-model="videoToUpdate.title"
-                            label="Изменить названия видео здесь"
+                            label="Изменить названия видео"
                         >
                         </v-text-field>
                     </v-col>
@@ -23,7 +23,7 @@
                             item-value="id"
                             item-text="name"
                             v-model="videoToUpdate.channel_id"
-                            label="Изменить канал видео здесь"
+                            label="Изменить канал видео"
                         >
                         </v-select>
                     </v-col>
@@ -32,7 +32,7 @@
                             hide-details
                             outlined
                             v-model="videoToUpdate.link"
-                            label="Изменить ссылку видео здесь"
+                            label="Изменить ссылку видео"
                         >
                         </v-text-field>
                     </v-col>
@@ -40,13 +40,13 @@
                         <v-dialog
                             ref="dialog"
                             v-model="modalDate"
-                            :return-value.sync="date"
+                            :return-value.sync="videoToUpdate.updated_at"
                             persistent
                             width="290px"
                         >
                             <template v-slot:activator="{ on }">
                                 <v-text-field
-                                    v-model="date"
+                                    v-model="videoToUpdate.updated_at"
                                     label="Выберите дату"
                                     prepend-inner-icon="mdi-calendar"
                                     readonly
@@ -55,10 +55,11 @@
                                     hide-details
                                 ></v-text-field>
                             </template>
-                            <v-date-picker v-model="date" scrollable>
+                            <v-date-picker v-model="videoToUpdate.updated_at" scrollable>
                                 <v-spacer></v-spacer>
                                 <v-btn text color="primary" @click="modalDate= false">Отмена</v-btn>
-                                <v-btn text color="primary" @click="$refs.dialog.save(date)">OK</v-btn>
+                                <v-btn text color="primary" @click="$refs.dialog.save(videoToUpdate.updated_at)">OK
+                                </v-btn>
                             </v-date-picker>
                         </v-dialog>
                     </v-col>
@@ -67,7 +68,7 @@
                             hide-details
                             outlined
                             v-model="videoToUpdate.duration"
-                            label="Изменить продолжителность видео в минутах здесь"
+                            label="Изменить продолжителность видео в минутах"
                         >
                         </v-text-field>
                     </v-col>
@@ -87,18 +88,18 @@
         props: {
             value: Object,
             channels: Array,
-            categories: Array
+            categories: Array,
+            updated_at: String
         },
         data() {
-            return {
-                date: new Date().toISOString().substr(0, 10),
-                modalDate: false
-            }
+            return {modalDate: false}
         },
         methods: {
             updateVideo() {
                 axios
-                    .put("/api/videos/" + this.videoToUpdate.id, this.videoToUpdate)
+                    .put("/api/videos/" + this.videoToUpdate.id, this.videoToUpdate, {
+                        updated_at: this.videoToUpdate.updated_at
+                    })
                     .then(res => {
                         this.$emit('updated', res.data);
                     })

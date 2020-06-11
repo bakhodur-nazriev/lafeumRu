@@ -52,13 +52,13 @@
                         <v-dialog
                             ref="dialog"
                             v-model="modalDate"
-                            :return-value.sync="date"
+                            :return-value.sync="termToUpdate.updated_at"
                             persistent
                             width="290px"
                         >
                             <template v-slot:activator="{ on }">
                                 <v-text-field
-                                    v-model="date"
+                                    v-model="termToUpdate.updated_at"
                                     label="Выберите дату"
                                     prepend-inner-icon="mdi-calendar"
                                     readonly
@@ -67,29 +67,26 @@
                                     hide-details
                                 ></v-text-field>
                             </template>
-                            <v-date-picker v-model="date" scrollable>
+                            <v-date-picker v-model="termToUpdate.updated_at" scrollable>
                                 <v-spacer></v-spacer>
                                 <v-btn text color="primary" @click="modalDate= false">Отмена</v-btn>
-                                <v-btn text color="primary" @click="$refs.dialog.save(date)">OK</v-btn>
+                                <v-btn text color="primary" @click="$refs.dialog.save(termToUpdate.updated_at)">OK
+                                </v-btn>
                             </v-date-picker>
                         </v-dialog>
                     </v-col>
                     <v-col cols="12">
                         <wysiwyg-editor
                             v-model="termToUpdate.body"
-                            label="Изменить термин здесь"
+                            label="Изменить термин"
                         />
                     </v-col>
                 </v-row>
             </v-container>
             <v-card-actions>
                 <v-spacer/>
-                <v-btn dark color="green" @click="updateTerm()"
-                >Сохранить
-                </v-btn>
-                <v-btn dark color="error" @click="termToUpdate = false"
-                >Отмена
-                </v-btn>
+                <v-btn dark color="green" @click="updateTerm()">Сохранить</v-btn>
+                <v-btn dark color="error" @click="termToUpdate = false">Отмена</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
@@ -103,7 +100,8 @@
         props: {
             value: Object,
             knowledgeAreas: Array,
-            categories: Array
+            categories: Array,
+            updated_at: String
         },
         components: {
             "wysiwyg-editor": WysiwygEditor
@@ -111,7 +109,6 @@
         data() {
             return {
                 rules,
-                date: new Date().toISOString().substr(0, 10),
                 modalDate: false
             };
         },
@@ -120,7 +117,8 @@
                 axios
                     .put("/api/terms/" + this.termToUpdate.id, {
                         name: this.termToUpdate.name,
-                        body: this.termToUpdate.body
+                        body: this.termToUpdate.body,
+                        updated_at: this.termToUpdate.updated_at
                     })
                     .then(res => {
                         this.$emit('updated', res.data);

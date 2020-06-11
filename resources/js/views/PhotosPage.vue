@@ -44,13 +44,12 @@
                             <v-dialog
                                 ref="dialog"
                                 v-model="modalDate"
-                                :return-value.sync="date"
                                 persistent
                                 width="290px"
                             >
                                 <template v-slot:activator="{ on }">
                                     <v-text-field
-                                        v-model="date"
+                                        v-model=""
                                         label="Выберите дату"
                                         prepend-inner-icon="mdi-calendar"
                                         readonly
@@ -59,10 +58,11 @@
                                         hide-details
                                     ></v-text-field>
                                 </template>
-                                <v-date-picker v-model="date" scrollable>
+                                <v-date-picker v-model="" scrollable>
                                     <v-spacer></v-spacer>
                                     <v-btn text color="primary" @click="modalDate= false">Отмена</v-btn>
-                                    <v-btn text color="primary" @click="$refs.dialog.save(date)">OK</v-btn>
+                                    <v-btn text color="primary" @click="$refs.dialog.save()">OK
+                                    </v-btn>
                                 </v-date-picker>
                             </v-dialog>
                         </v-col>
@@ -70,7 +70,7 @@
                             <v-textarea
                                 outlined
                                 v-model="photoDescription"
-                                label="Добавить описание здесь"
+                                label="Добавить описание"
                             />
                         </v-col>
                     </v-row>
@@ -115,13 +115,13 @@
                             <v-dialog
                                 ref="dialog"
                                 v-model="modalDate"
-                                :return-value.sync="date"
+                                :return-value.sync="photoToUpdate.updated_at"
                                 persistent
                                 width="290px"
                             >
                                 <template v-slot:activator="{ on }">
                                     <v-text-field
-                                        v-model="date"
+                                        v-model="photoToUpdate.updated_at"
                                         label="Выберите дату"
                                         prepend-inner-icon="mdi-calendar"
                                         readonly
@@ -130,10 +130,12 @@
                                         hide-details
                                     ></v-text-field>
                                 </template>
-                                <v-date-picker v-model="date" scrollable>
+                                <v-date-picker v-model="photoToUpdate.updated_at" scrollable>
                                     <v-spacer></v-spacer>
                                     <v-btn text color="primary" @click="modalDate= false">Отмена</v-btn>
-                                    <v-btn text color="primary" @click="$refs.dialog.save(date)">OK</v-btn>
+                                    <v-btn text color="primary" @click="$refs.dialog.save(photoToUpdate.updated_at)">
+                                        OK
+                                    </v-btn>
                                 </v-date-picker>
                             </v-dialog>
                         </v-col>
@@ -141,102 +143,110 @@
                             <v-textarea
                                 outlined
                                 v-model="photoToUpdate.description"
-                                label="Изменить описание фото здесь"
+                                label="Изменить описание фото"
                             />
                         </v-col>
                     </v-row>
                 </v-container>
                 <v-card-actions>
                     <v-spacer/>
-                    <v-btn dark color="green" @click="updatePhoto()"
-                    >Сохранить
-                    </v-btn
-                    >
-                    <v-btn dark color="error" @click="photoToUpdate = false"
-                    >Отмена
-                    </v-btn
-                    >
+                    <v-btn dark color="green" @click="updatePhoto()">Сохранить</v-btn>
+                    <v-btn dark color="error" @click="photoToUpdate = false">Отмена</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
     </v-content>
-</template>
-<script>
-    import IndexPageLayout from "../components/IndexPageLayout";
+    <script>
+        import IndexPageLayout from "../components/IndexPageLayout";
 
-    export default {
-        components: {
-            IndexPageLayout
-        },
-        data() {
-            return {
-                date: new Date().toISOString().substr(0, 10),
-                modalDate: false,
-                dialogAdd: false,
-                photoImage: [],
-                photoDescription: "",
-                photoToDelete: null,
-                photoToUpdate: null,
-                headers: [
-                    {
-                        text: "Фото",
-                        value: "image",
-                        sortable: false,
-                        class: "mine-table-headers",
-                        width: "150px",
-                        align: "center"
-                    },
-                    {
-                        text: "Описание",
-                        value: "description",
-                        sortable: false
-                    }
-                ]
-            };
-        },
-        methods: {
-            addPhoto() {
-                const formData = new FormData();
-                formData.append("image", this.photoImage);
-                formData.append("description", this.photoDescription);
-                axios
-                    .post("/api/photos/", formData, {
-                        headers: {
-                            "Content-Type": "multipart/form-data"
+        export default {
+            components: {IndexPageLayout},
+            data() {
+                return {
+                    modalDate: false,
+                    dialogAdd: false,
+                    created_at: null,
+                    updated_at: null,
+                    photoImage: [],
+                    photoDescription: "",
+                    photoCreatedDate: null,
+                    photoToDelete: null,
+                    photoToUpdate: null,
+                    headers: [
+                        {
+                            text: "Фото",
+                            value: "image",
+                            sortable: false,
+                            class: "mine-table-headers",
+                            width: "150px",
+                            align: "center"
+                        },
+                        {
+                            text: "Описание",
+                            value: "description",
+                            sortable: false
+                        },
+                        {
+                            text: "Дата добавления",
+                            value: "created_at",
+                            align: "center",
+                            sortable: false
+                        },
+                        {
+                            text: "Дата изменения",
+                            value: "updated_at",
+                            align: "center",
+                            sortable: false
                         }
-                    })
-                    .then(res => {
-                        this.dialogAdd = false;
-                        this.$refs.indexPage.loadItems();
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    });
+                    ]
+                };
             },
-            updatePhoto() {
-                axios
-                    .put("/api/photos/" + this.photoToUpdate.id, {
-                        description: this.photoToUpdate.description
-                    })
-                    .then(res => {
-                        this.photoToUpdate = false;
-                        this.$refs.indexPage.loadItems();
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    });
-            },
-            deletePhoto() {
-                axios
-                    .delete("/api/photos/" + this.photoToDelete.id)
-                    .then(res => {
-                        this.$refs.indexPage.loadItems();
-                        this.photoToDelete = false;
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    });
+            methods: {
+                addPhoto() {
+                    const formData = new FormData();
+                    formData.append("image", this.photoImage);
+                    formData.append("description", this.photoDescription);
+                    formData.append("created_at", this.photoCreatedDate);
+                    axios
+                        .post("/api/photos/", formData, {
+                            headers: {
+                                "Content-Type": "multipart/form-data"
+                            }
+                        })
+                        .then(res => {
+                            this.dialogAdd = false;
+                            this.$refs.indexPage.loadItems();
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        });
+                },
+                updatePhoto() {
+                    axios
+                        .put("/api/photos/" + this.photoToUpdate.id, {
+                            description: this.photoToUpdate.description,
+                            updated_at: this.photoToUpdate.updated_at
+                        })
+                        .then(res => {
+                            this.photoToUpdate = false;
+                            this.$refs.indexPage.loadItems();
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        });
+                },
+                deletePhoto() {
+                    axios
+                        .delete("/api/photos/" + this.photoToDelete.id)
+                        .then(res => {
+                            this.$refs.indexPage.loadItems();
+                            this.photoToDelete = false;
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        });
+                }
             }
-        }
-    };
-</script>
+        };
+    </script>
+</template>

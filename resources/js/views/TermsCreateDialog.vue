@@ -40,13 +40,13 @@
                     <v-dialog
                         ref="dialog"
                         v-model="modalDate"
-                        :return-value.sync="date"
+                        :return-value.sync="newTerm.created_at"
                         persistent
                         width="290px"
                     >
                         <template v-slot:activator="{ on }">
                             <v-text-field
-                                v-model="date"
+                                v-model="newTerm.created_at"
                                 label="Выберите дату"
                                 prepend-inner-icon="mdi-calendar"
                                 readonly
@@ -54,10 +54,10 @@
                                 v-on="on"
                             ></v-text-field>
                         </template>
-                        <v-date-picker v-model="date" scrollable>
+                        <v-date-picker v-model="newTerm.created_at" scrollable>
                             <v-spacer></v-spacer>
                             <v-btn text color="primary" @click="modalDate= false">Отмена</v-btn>
-                            <v-btn text color="primary" @click="$refs.dialog.save(date)">OK</v-btn>
+                            <v-btn text color="primary" @click="$refs.dialog.save(newTerm.created_at)">OK</v-btn>
                         </v-date-picker>
                     </v-dialog>
                     <wysiwyg-editor
@@ -89,7 +89,8 @@
         props: {
             value: Boolean,
             knowledgeAreas: Array,
-            categories: Array
+            categories: Array,
+            created_at: String
         },
         components: {
             "wysiwyg-editor": WysiwygEditor
@@ -98,7 +99,6 @@
             return {
                 rules,
                 newTerm: null,
-                date: new Date().toISOString().substr(0, 10),
                 modalDate: false
             };
         },
@@ -112,7 +112,8 @@
                     body: "",
                     link: "",
                     knowledgeAreas: [],
-                    categories: []
+                    categories: [],
+                    created_at: null,
                 };
             },
             resetNewTerm() {

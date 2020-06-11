@@ -33,25 +33,26 @@
                         <v-dialog
                             ref="dialog"
                             v-model="modalDate"
-                            :return-value.sync="date"
-                            persistent
+                            :return-value.sync="quoteToUpdate.updated_at"
                             width="290px"
+                            persistent
                         >
                             <template v-slot:activator="{ on }">
                                 <v-text-field
-                                    v-model="date"
+                                    v-model="quoteToUpdate.updated_at"
                                     label="Выберите дату"
                                     prepend-inner-icon="mdi-calendar"
+                                    hide-details
                                     readonly
                                     outlined
                                     v-on="on"
-                                    hide-details
                                 ></v-text-field>
                             </template>
-                            <v-date-picker v-model="date" scrollable>
+                            <v-date-picker v-model="quoteToUpdate.updated_at" scrollable>
                                 <v-spacer></v-spacer>
                                 <v-btn text color="primary" @click="modalDate= false">Отмена</v-btn>
-                                <v-btn text color="primary" @click="$refs.dialog.save(date)">OK</v-btn>
+                                <v-btn text color="primary" @click="$refs.dialog.save(quoteToUpdate.updated_at)">OK
+                                </v-btn>
                             </v-date-picker>
                         </v-dialog>
                     </v-col>
@@ -84,7 +85,8 @@
         props: {
             value: Object, //quote
             authors: Array,
-            categories: Array
+            categories: Array,
+            updated_at: String
         },
         components: {
             "wysiwyg-editor": WysiwygEditor
@@ -93,7 +95,6 @@
             return {
                 isSendingData: false,
                 modalDate: false,
-                date: new Date().toISOString().substr(0, 10),
             }
         },
         methods: {
@@ -102,7 +103,8 @@
                 axios
                     .put("/api/quotes/" + this.quoteToUpdate.id, {
                         body: this.quoteToUpdate.body,
-                        author_id: this.quoteToUpdate.author_id
+                        author_id: this.quoteToUpdate.author_id,
+                        updated_at: this.quoteToUpdate.updated_at
                     })
                     .then(res => {
                         this.isSendingData = false;

@@ -69,6 +69,12 @@ function attachSearch(inputSelector, elementsWrapperSelector, searchResultSelect
     });
 }
 
+function onCloseVideoModal() {
+    $('.video-iframe').each((i, e) => {
+        e.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+    })
+}
+
 jQuery(document).ready(function() {
     let btn = $('.btnScrollToTop');
     $(window).scroll(function() {

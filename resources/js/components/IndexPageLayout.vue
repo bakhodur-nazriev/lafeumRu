@@ -21,6 +21,7 @@
                         class="elevation-2"
                         :loading="loadingItems"
                         loading-text="Загрузка..."
+                        @click:row="$emit('click:item', $event)"
                     >
                         <template
                             v-for="(_, name) in $scopedSlots"
@@ -67,7 +68,7 @@
                     </v-col>
                 </v-col>
             </v-row>
-            <v-tooltip top>
+            <v-tooltip top v-if="!noActions">
                 <template v-slot:activator="{ on }">
                     <v-btn
                         bottom
@@ -159,7 +160,7 @@ export default {
     computed: {
         processedHeaders() {
             if (this.noActions) {
-                this.tableHeaders;
+                return this.tableHeaders;
             }
 
             return [

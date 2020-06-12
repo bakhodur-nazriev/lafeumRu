@@ -69,6 +69,9 @@ Route::group(['middleware' => 'auth:api'], function (){
     /* Favourites */
     Route::get("/favourites", "FavoriteController@index");
 
+    /* User-Feedbacks */
+    Route::get("/feedbacks", "FeedbacksController@get");
+
 });
 
 Route::get("/summary/{id}", "PostsController@termSummary");

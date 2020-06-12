@@ -10,6 +10,7 @@ import CategoriesPage from "./views/CategoriesPage";
 import ChannelsPage from "./views/ChannelsPage";
 import KnowledgeAreasPage from "./views/KnowledgeAreasPage";
 import SettingsPage from "./views/SettingsPage";
+import FeedbacksPage from "./views/FeedbacksPage";
 
 // import Vocabulary from "./components/admin/Vocabulary";
 // import Chat from "./components/admin/Chat";
@@ -178,6 +179,16 @@ let allSidebarRoutes = [
         name: "/dashboard/setting",
         path: "/dashboard/setting",
         component: SettingsPage
+    },
+    {
+        meta: {
+            icon: "mdi-comment-quote",
+            title: "Обратная связь",
+            authorize: [role.admin, role.author]
+        },
+        name: "/dashboard/feedbacks",
+        path: "/dashboard/feedbacks",
+        component: FeedbacksPage
     }
     /*{
         meta: {

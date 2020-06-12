@@ -182,7 +182,7 @@ let allSidebarRoutes = [
     },
     {
         meta: {
-            icon: "mdi-settings",
+            icon: "mdi-comment-quote",
             title: "Обратная связь",
             authorize: [role.admin, role.author]
         },

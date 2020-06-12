@@ -21,6 +21,7 @@
                         class="elevation-2"
                         :loading="loadingItems"
                         loading-text="Загрузка..."
+                        @click:row="$emit('click:item', $event)"
                     >
                         <template
                             v-for="(_, name) in $scopedSlots"

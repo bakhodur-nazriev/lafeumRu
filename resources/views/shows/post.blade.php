@@ -15,7 +15,7 @@
                     @include('layouts.termItem')
                 @break
                 @case('App\\Video')
-                    @include('layouts.videoItem')
+                    @include('layouts.videoItem', ['fullVariant' => true])
                 @break
             @endswitch
         </div>

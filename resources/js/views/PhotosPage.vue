@@ -49,7 +49,7 @@
                             >
                                 <template v-slot:activator="{ on }">
                                     <v-text-field
-                                        v-model=""
+                                        v-model="photoCreatedAtDate"
                                         label="Выберите дату"
                                         prepend-inner-icon="mdi-calendar"
                                         readonly
@@ -58,10 +58,11 @@
                                         hide-details
                                     ></v-text-field>
                                 </template>
-                                <v-date-picker v-model="" scrollable>
+                                <v-date-picker v-model="photoCreatedAtDate" scrollable>
                                     <v-spacer></v-spacer>
                                     <v-btn text color="primary" @click="modalDate= false">Отмена</v-btn>
-                                    <v-btn text color="primary" @click="$refs.dialog.save()">OK
+                                    <v-btn text color="primary"
+                                           @click="$refs.dialog.save(photoCreatedAtDate.created_at)">OK
                                     </v-btn>
                                 </v-date-picker>
                             </v-dialog>
@@ -71,6 +72,7 @@
                                 outlined
                                 v-model="photoDescription"
                                 label="Добавить описание"
+                                hide-details
                             />
                         </v-col>
                     </v-row>
@@ -89,17 +91,9 @@
                 >Вы действительно хотите удалить это термин ?
                 </v-card-title>
                 <v-card-actions class="justify-center">
-                    <v-btn
-                        color="green darken-1"
-                        dark
-                        @click="termToDelete = false"
-                    >Нет
-                    </v-btn
-                    >
-                    <v-btn color="red darken-1" dark @click="deletePhoto()"
-                    >Да
-                    </v-btn
-                    >
+                    <v-btn color="green darken-1" dark @click="termToDelete = false">Нет</v-btn>
+                    <v-btn color="red darken-1" dark @click="deletePhoto()">Да
+                    </v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -128,6 +122,7 @@
                                         outlined
                                         v-on="on"
                                         hide-details
+                                        :rules="[rules.required]"
                                     ></v-text-field>
                                 </template>
                                 <v-date-picker v-model="photoToUpdate.updated_at" scrollable>
@@ -144,6 +139,7 @@
                                 outlined
                                 v-model="photoToUpdate.description"
                                 label="Изменить описание фото"
+                                hide-details
                             />
                         </v-col>
                     </v-row>
@@ -156,97 +152,95 @@
             </v-card>
         </v-dialog>
     </v-content>
-    <script>
-        import IndexPageLayout from "../components/IndexPageLayout";
-
-        export default {
-            components: {IndexPageLayout},
-            data() {
-                return {
-                    modalDate: false,
-                    dialogAdd: false,
-                    created_at: null,
-                    updated_at: null,
-                    photoImage: [],
-                    photoDescription: "",
-                    photoCreatedDate: null,
-                    photoToDelete: null,
-                    photoToUpdate: null,
-                    headers: [
-                        {
-                            text: "Фото",
-                            value: "image",
-                            sortable: false,
-                            class: "mine-table-headers",
-                            width: "150px",
-                            align: "center"
-                        },
-                        {
-                            text: "Описание",
-                            value: "description",
-                            sortable: false
-                        },
-                        {
-                            text: "Дата добавления",
-                            value: "created_at",
-                            align: "center",
-                            sortable: false
-                        },
-                        {
-                            text: "Дата изменения",
-                            value: "updated_at",
-                            align: "center",
-                            sortable: false
-                        }
-                    ]
-                };
-            },
-            methods: {
-                addPhoto() {
-                    const formData = new FormData();
-                    formData.append("image", this.photoImage);
-                    formData.append("description", this.photoDescription);
-                    formData.append("created_at", this.photoCreatedDate);
-                    axios
-                        .post("/api/photos/", formData, {
-                            headers: {
-                                "Content-Type": "multipart/form-data"
-                            }
-                        })
-                        .then(res => {
-                            this.dialogAdd = false;
-                            this.$refs.indexPage.loadItems();
-                        })
-                        .catch(err => {
-                            console.log(err);
-                        });
-                },
-                updatePhoto() {
-                    axios
-                        .put("/api/photos/" + this.photoToUpdate.id, {
-                            description: this.photoToUpdate.description,
-                            updated_at: this.photoToUpdate.updated_at
-                        })
-                        .then(res => {
-                            this.photoToUpdate = false;
-                            this.$refs.indexPage.loadItems();
-                        })
-                        .catch(err => {
-                            console.log(err);
-                        });
-                },
-                deletePhoto() {
-                    axios
-                        .delete("/api/photos/" + this.photoToDelete.id)
-                        .then(res => {
-                            this.$refs.indexPage.loadItems();
-                            this.photoToDelete = false;
-                        })
-                        .catch(err => {
-                            console.log(err);
-                        });
-                }
-            }
-        };
-    </script>
 </template>
+<script>
+    import IndexPageLayout from "../components/IndexPageLayout";
+
+    export default {
+        components: {IndexPageLayout},
+        data() {
+            return {
+                modalDate: false,
+                dialogAdd: false,
+                photoImage: [],
+                photoDescription: "",
+                photoCreatedAtDate: null,
+                photoToDelete: null,
+                photoToUpdate: null,
+                headers: [
+                    {
+                        text: "Фото",
+                        value: "image",
+                        sortable: false,
+                        class: "mine-table-headers",
+                        width: "150px",
+                        align: "center"
+                    },
+                    {
+                        text: "Описание",
+                        value: "description",
+                        sortable: false
+                    },
+                    {
+                        text: "Дата добавления",
+                        value: "created_at",
+                        align: "center",
+                        sortable: false
+                    },
+                    {
+                        text: "Дата изменения",
+                        value: "updated_at",
+                        align: "center",
+                        sortable: false
+                    }
+                ]
+            };
+        },
+        methods: {
+            addPhoto() {
+                const formData = new FormData();
+                formData.append("path", this.photoImage);
+                formData.append("description", this.photoDescription);
+                formData.append("created_at", this.photoCreatedAtDate);
+                axios
+                    .post("/api/photos/", formData, {
+                        headers: {
+                            "Content-Type": "multipart/form-data"
+                        }
+                    })
+                    .then(res => {
+                        this.dialogAdd = false;
+                        this.$refs.indexPage.loadItems();
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+            },
+            updatePhoto() {
+                axios
+                    .put("/api/photos/" + this.photoToUpdate.id, {
+                        description: this.photoToUpdate.description,
+                        updated_at: this.photoToUpdate.updated_at
+                    })
+                    .then(res => {
+                        this.photoToUpdate = false;
+                        this.$refs.indexPage.loadItems();
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+            },
+            deletePhoto() {
+                axios
+                    .delete("/api/photos/" + this.photoToDelete.id)
+                    .then(res => {
+                        this.$refs.indexPage.loadItems();
+                        this.photoToDelete = false;
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+            }
+        }
+    };
+</script>

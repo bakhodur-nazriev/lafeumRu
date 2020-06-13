@@ -5,6 +5,7 @@
 /public/img/authors
 /public/img/avatars
 /public/img/photos
+/public/img
 /public/img/meta*
 /storage/*.key
 /vendor

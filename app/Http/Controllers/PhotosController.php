@@ -27,18 +27,21 @@ class PhotosController extends Controller
 
     public function store(Request $request)
     {
-        $newPhotoData = $request->only(["description"]);
-        if ($request->hasFile("image")) {
-            $newPhotoData["image"] = $this->saveImage(time(), $request->image);
+        $request->validate([
+            'path' => 'required',
+            'description' => 'required'
+        ]);
+        $newPhotoData = $request->all();
+        if ($request->hasFile("path")) {
+            $newPhotoData["path"] = $this->saveImage(time(), $request->path, self::PHOTOS_PATH);
         }
-        $newPhoto = Photo::create($newPhotoData);
 
-        return $newPhoto;
+        return Photo::create($newPhotoData);
     }
 
     public function update(Photo $photo, Request $request)
     {
-        $newPhotoData = $request->only(["description"]);
+        $newPhotoData = $request->only(["description", "updated_at"]);
         if ($request->hasFile("image")) {
             $newPhotoData["image"] = $this->saveImage(time(), $request->image, self::PHOTOS_PATH);
         }

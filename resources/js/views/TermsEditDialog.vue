@@ -101,7 +101,6 @@
             value: Object,
             knowledgeAreas: Array,
             categories: Array,
-            updated_at: String
         },
         components: {
             "wysiwyg-editor": WysiwygEditor

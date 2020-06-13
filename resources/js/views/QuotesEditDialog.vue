@@ -86,7 +86,6 @@
             value: Object, //quote
             authors: Array,
             categories: Array,
-            updated_at: String
         },
         components: {
             "wysiwyg-editor": WysiwygEditor

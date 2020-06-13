@@ -52,6 +52,7 @@
                                 readonly
                                 outlined
                                 v-on="on"
+                                :rules="[rules.required]"
                             ></v-text-field>
                         </template>
                         <v-date-picker v-model="newTerm.created_at" scrollable>
@@ -73,7 +74,8 @@
                         color="error"
                         type="button"
                         @click="$emit('input', false)"
-                    >Отмена
+                    >
+                        Отмена
                     </v-btn>
                 </v-card-actions>
             </v-form>
@@ -90,7 +92,6 @@
             value: Boolean,
             knowledgeAreas: Array,
             categories: Array,
-            created_at: String
         },
         components: {
             "wysiwyg-editor": WysiwygEditor
@@ -113,7 +114,6 @@
                     link: "",
                     knowledgeAreas: [],
                     categories: [],
-                    created_at: null,
                 };
             },
             resetNewTerm() {

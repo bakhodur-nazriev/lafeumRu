@@ -6,7 +6,7 @@
             add-label="Добавить термин"
             searchField="name"
             ref="indexPage"
-            @add-item="dialogAdd = true"
+            @add-item="addTerm = true"
             @update-item="termToUpdate = $event"
             @delete-item="termToDelete = $event"
         >
@@ -19,7 +19,7 @@
         </index-page-layout>
 
         <terms-create-dialog
-            v-model="dialogAdd"
+            v-model="addTerm"
             :knowledge-areas="knowledgeAreas"
             :categories="categories"
             @created="termCreated"
@@ -53,7 +53,7 @@
         data() {
             return {
                 rules,
-                dialogAdd: false,
+                addTerm: false,
                 categories: [],
                 knowledgeAreas: [],
                 termToDelete: null,
@@ -103,7 +103,7 @@
                     .catch(e => console.log(e));
             },
             termCreated(newTerm) {
-                this.dialogAdd = false;
+                this.addTerm = false;
                 this.$refs.indexPage.loadItems();
             },
             termUpdated(newTerm) {

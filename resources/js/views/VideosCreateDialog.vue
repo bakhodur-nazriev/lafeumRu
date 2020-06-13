@@ -52,6 +52,7 @@
                                 readonly
                                 outlined
                                 v-on="on"
+                                :rules="[rules.required]"
                             ></v-text-field>
                         </template>
                         <v-date-picker v-model="newVideo.created_at" scrollable>
@@ -76,9 +77,9 @@
                         color="error"
                         type="button"
                         @click="$emit('input', false)"
-                    >Отмена
-                    </v-btn
                     >
+                        Отмена
+                    </v-btn>
                 </v-card-actions>
             </v-form>
         </v-card>
@@ -93,7 +94,6 @@
             value: Boolean,
             channels: Array,
             categories: Array,
-            created_at: String
         },
         data() {
             return {
@@ -112,7 +112,6 @@
                     link: "",
                     duration: "",
                     channel_id: null,
-                    created_at: null,
                     categories: []
                 };
             },

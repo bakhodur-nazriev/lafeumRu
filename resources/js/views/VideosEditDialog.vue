@@ -89,7 +89,6 @@
             value: Object,
             channels: Array,
             categories: Array,
-            updated_at: String
         },
         data() {
             return {modalDate: false}

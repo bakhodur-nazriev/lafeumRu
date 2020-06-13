@@ -27,7 +27,7 @@
                             :slot="name"
                             slot-scope="slotData"
                         >
-                            <slot :name="name" v-bind="slotData" />
+                            <slot :name="name" v-bind="slotData"/>
                         </template>
 
                         <template
@@ -89,124 +89,126 @@
 </template>
 
 <script>
-export default {
-    props: {
-        indexUrl: String,
-        tableHeaders: Array,
-        addLabel: String,
-        noActions: Boolean,
-        searchField: String
-    },
-    data() {
-        return {
-            items: [],
-            search: "",
-            pagination: null,
-            loadingItems: false
-        };
-    },
-    mounted() {
-        this.loadItems();
-    },
-    methods: {
-        getSlotName(fieldName) {
-            return "item." + fieldName;
+    export default {
+        props: {
+            indexUrl: String,
+            tableHeaders: Array,
+            addLabel: String,
+            noActions: Boolean,
+            searchField: String
         },
-        getIndexUrl(page) {
-            let url = this.indexUrl;
-
-            if (!url.includes("?")) {
-                url += "?";
-            }
-            url += "&page=";
-
-            if (page) {
-                url += page;
-            } else {
-                url += this.currentPage;
-            }
-
-            return url;
+        data() {
+            return {
+                items: [],
+                search: "",
+                pagination: null,
+                loadingItems: false
+            };
         },
-        processResponse({ data }) {
-            this.loadingItems = false;
+        mounted() {
+            this.loadItems();
+        },
+        methods: {
+            getSlotName(fieldName) {
+                return "item." + fieldName;
+            },
+            getIndexUrl(page) {
+                let url = this.indexUrl;
 
-            const hasPagination = data.hasOwnProperty("data");
+                if (!url.includes("?")) {
+                    url += "?";
+                }
+                url += "&page=";
 
-            if (hasPagination) {
-                this.items = data.data;
-                this.pagination = data;
-            } else {
-                this.items = data;
+                if (page) {
+                    url += page;
+                } else {
+                    url += this.currentPage;
+                }
+
+                return url;
+            },
+            processResponse({data}) {
+                this.loadingItems = false;
+
+                const hasPagination = data.hasOwnProperty("data");
+
+                if (hasPagination) {
+                    this.items = data.data;
+                    this.pagination = data;
+                } else {
+                    this.items = data;
+                    this.pagination = null;
+                }
+            },
+            loadItems(page = null) {
+                this.loadingItems = true;
+                this.items = [];
+
+                axios
+                    .get(this.getIndexUrl(page))
+                    .then(this.processResponse)
+                    .catch(err => {
+                        this.loadingItems = false;
+                        console.log(err);
+                    });
+
                 this.pagination = null;
             }
         },
-        loadItems(page = null) {
-            this.loadingItems = true;
-            this.items = [];
-
-            axios
-                .get(this.getIndexUrl(page))
-                .then(this.processResponse)
-                .catch(err => {
-                    this.loadingItems = false;
-                    console.log(err);
-                });
-                
-            this.pagination = null;
-        }
-    },
-    computed: {
-        processedHeaders() {
-            if (this.noActions) {
-                this.tableHeaders;
-            }
-
-            return [
-                ...this.tableHeaders,
-                {
-                    text: "Действия",
-                    value: "action",
-                    align: "center",
-                    sortable: false,
-                    width: "160px"
+        computed: {
+            processedHeaders() {
+                if (this.noActions) {
+                    this.tableHeaders;
                 }
-            ];
-        },
-        filteredItems() {
-            if (!Array.isArray(this.items)) return [];
 
-            if (!this.searchField) return this.items;
-
-            return this.items.filter(item => {
-                return item[this.searchField]
-                    .toLowerCase()
-                    .includes(this.search.toLowerCase());
-            });
-        },
-        currentPage: {
-            get() {
-                if (this.pagination) {
-                    return this.pagination.current_page;
-                }
-                return 1;
+                return [
+                    ...this.tableHeaders,
+                    {
+                        text: "Действия",
+                        value: "action",
+                        align: "center",
+                        sortable: false,
+                        width: "160px"
+                    }
+                ];
             },
-            set(v) {
-                this.loadItems(v);
+            filteredItems() {
+                if (!Array.isArray(this.items)) return [];
+
+                if (!this.searchField) return this.items;
+
+                return this.items.filter(item => {
+                    if (item[this.searchField.toLowerCase()] !== null) {
+                        return item[this.searchField]
+                            .toLowerCase()
+                            .includes(this.search.toLowerCase());
+                    }
+                });
+            },
+            currentPage: {
+                get() {
+                    if (this.pagination) {
+                        return this.pagination.current_page;
+                    }
+                    return 1;
+                },
+                set(v) {
+                    this.loadItems(v);
+                }
+            },
+            totalPages() {
+                if (this.pagination) {
+                    return this.pagination.last_page;
+                }
+                return null;
+            },
+            perPage() {
+                if (this.pagination) {
+                    return this.pagination.per_page;
+                }
+                return this.items.length;
             }
-        },
-        totalPages() {
-            if (this.pagination) {
-                return this.pagination.last_page;
-            }
-            return null;
-        },
-        perPage() {
-            if (this.pagination) {
-                return this.pagination.per_page;
-            }
-            return this.items.length;
         }
-    }
-};
+    };
 </script>

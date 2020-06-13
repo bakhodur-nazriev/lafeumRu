@@ -1,7 +1,7 @@
 <template>
     <v-dialog :value="value" width="700" @input="$emit('input', false)">
         <v-card>
-            <v-form @submit="addQuote" ref="createForm" v-if="!isSendingData">
+            <v-form @submit="addQuote" ref="createForm">
                 <v-card-title class="primary white--text mb-5">
                     Создать Цитату
                 </v-card-title>
@@ -40,6 +40,7 @@
                                 readonly
                                 outlined
                                 v-on="on"
+                                :rules="[rules.required]"
                             ></v-text-field>
                         </template>
                         <v-date-picker v-model="newQuote.created_at" scrollable>
@@ -55,9 +56,7 @@
                 </v-card-text>
                 <v-card-actions>
                     <v-spacer/>
-                    <v-btn dark color="green" type="submit">
-                        Сохранить
-                    </v-btn>
+                    <v-btn dark color="green" type="submit">Сохранить</v-btn>
                     <v-btn
                         dark
                         color="error"
@@ -68,9 +67,6 @@
                     </v-btn>
                 </v-card-actions>
             </v-form>
-            <div class="py-5 text-center" v-else>
-                <v-progress-circular indeterminate color="primary"/>
-            </div>
         </v-card>
     </v-dialog>
 </template>
@@ -84,7 +80,6 @@
             value: Boolean,
             authors: Array,
             categories: Array,
-            created_at: String
         },
         components: {
             "wysiwyg-editor": WysiwygEditor
@@ -106,7 +101,6 @@
                     body: "",
                     author_id: null,
                     categories: null,
-                    created_at: null,
                 };
             },
             resetNewQuoteForm() {

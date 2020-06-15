@@ -9,7 +9,8 @@ class PhotosController extends Controller
 {
     const PHOTOS_PATH = "/img/photos/";
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->authorizeResource(Photo::class);
     }
 
@@ -21,7 +22,7 @@ class PhotosController extends Controller
 
     public function get(Request $request)
     {
-        return Photo::latest()->paginate($request->perPage ?: 15);
+        return Photo::latest()->paginate($request->perPage ?: 30);
     }
 
     public function store(Request $request)

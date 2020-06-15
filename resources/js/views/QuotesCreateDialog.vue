@@ -55,10 +55,8 @@
                     />
                 </v-card-text>
                 <v-card-actions>
-                    <v-spacer />
-                    <v-btn dark color="green" type="submit">
-                        Сохранить
-                    </v-btn>
+                    <v-spacer/>
+                    <v-btn dark color="green" type="submit">Сохранить</v-btn>
                     <v-btn
                         dark
                         color="error"

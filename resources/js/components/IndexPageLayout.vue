@@ -28,7 +28,7 @@
                             :slot="name"
                             slot-scope="slotData"
                         >
-                            <slot :name="name" v-bind="slotData" />
+                            <slot :name="name" v-bind="slotData"/>
                         </template>
 
                         <template

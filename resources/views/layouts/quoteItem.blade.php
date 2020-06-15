@@ -45,10 +45,11 @@
 
     <div class="dropdown share-button-dropdown-block">
         <button class="share-button">Поделиться</button>
-        <div class="dropdown-content">
+        <div class="dropdown-content-share-button">
             <a
                 data-url="http://new.lafeum.org/{{ $quote->post->id }}"
-                class="addthis_inline_share_toolbox"
+                class="ya-share2"
+                data-services="vkontakte,facebook,odnoklassniki,twitter,viber,whatsapp,telegram"
                 href="/{{ $quote->post->id }}"
             >
             </a>

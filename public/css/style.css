@@ -86,7 +86,7 @@ categories-main-subname {
 }
 
 .dd-menu-main-page .divider,
-.dd-submenu-main-page .divider{
+.dd-submenu-main-page .divider {
     background-color: #b9bbbe;
     padding: 0;
     height: 1px;
@@ -116,16 +116,17 @@ categories-main-subname {
     transform: none !important;
 }
 
-.dropdown-content {
+.dropdown-content-share-button {
     display: none;
     position: absolute;
     top: 0;
     left: 100%;
     width: 250px;
+    height: 100%;
     z-index: 1;
 }
 
-.dropdown-content a {
+.dropdown-content-share-button a {
     color: black;
     text-decoration: none;
     display: inline-block;
@@ -216,14 +217,16 @@ categories-main-subname {
     color: #a6192e;
 }
 
-/* --------- SHARE BUTTON STYLES --------- */
+/* --------- START SHARE BUTTON STYLES --------- */
 .share-button-dropdown-block {
     position: relative;
     display: inline-block;
 }
 
-.share-button-dropdown-block:hover .dropdown-content {
-    display: block;
+.share-button-dropdown-block:hover .dropdown-content-share-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
 }
 
@@ -235,21 +238,12 @@ categories-main-subname {
     background-color: #04718c;
 }
 
-.at-icon-wrapper {
-    text-align: center;
-    width: 30px !important;
-    height: 30px !important;
-    line-height: 30px !important;
+.ya-share2__badge {
+    border-radius: 50% !important;
+    padding: 3px;
 }
 
-.at-icon {
-    width: 23px !important;
-    height: 23px !important;
-}
-
-.at-share-tbx-element .at-share-btn {
-    margin: 0 2px !important;
-}
+/* --------- END SHARE BUTTON STYLES --------- */
 
 .qouter-authors-image {
     width: 21px;
@@ -345,7 +339,7 @@ categories-main-subname {
     height: 50vh;
 }
 
-[data-toggle]{
+[data-toggle] {
     cursor: pointer;
 }
 

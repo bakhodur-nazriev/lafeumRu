@@ -41,9 +41,9 @@
     <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 
     <script src="https://apps.elfsight.com/p/platform.js" defer></script>
-    <!-- Go to www.addthis.com/dashboard to customize your tools -->
-    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5ec4ffd8962041fe"></script>
-
+    {{-- Share script --}}
+    <script src="https://yastatic.net/es5-shims/0.0.2/es5-shims.min.js"></script>
+    <script src="https://yastatic.net/share2/share.js"></script>
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">

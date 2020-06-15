@@ -7,6 +7,7 @@
 /public/img/photos
 /public/img
 /public/img/meta*
+composer.json
 /storage/*.key
 /vendor
 .env

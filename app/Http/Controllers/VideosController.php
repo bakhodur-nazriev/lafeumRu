@@ -32,6 +32,7 @@ class VideosController extends Controller
             'link' => 'required',
             'duration' => 'required',
             'categories' => 'required|array',
+            'created_at' => 'required'
         ]);
 
         $newVideo = Video::create($request->all());

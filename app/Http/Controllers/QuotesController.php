@@ -41,7 +41,8 @@ class QuotesController extends Controller
         $request->validate([
             'author_id' => 'required',
             'body' => 'required',
-            'categories' => 'required|array'
+            'categories' => 'required|array',
+            'created_at' => 'required'
         ]);
 
         $newQuote = Quote::create($request->all());
@@ -64,8 +65,8 @@ class QuotesController extends Controller
             $quote->categories()->sync($request->categories);
         }
 
-        $quote->meta_image = $this->getMetaImage($quote);
-        $quote->save();
+        /*$quote->meta_image = $this->getMetaImage($quote);
+        $quote->save();*/
 
         return $quote;
     }

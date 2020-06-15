@@ -43,6 +43,7 @@ class TermsController extends Controller
             'body' => 'required',
             'knowledgeAreas' => 'required|array',
             'categories' => 'required|array',
+            'created_at' => 'required'
         ]);
 
         $newTerm = Term::create($request->all());

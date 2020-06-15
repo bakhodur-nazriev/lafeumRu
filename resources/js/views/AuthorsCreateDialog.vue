@@ -40,6 +40,7 @@
                             outlined
                             label="Биография автора"
                             v-model="newAuthor.biography"
+                            hide-details
                         />
                     </v-col>
                 </v-row>

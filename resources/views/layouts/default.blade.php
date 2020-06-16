@@ -17,7 +17,8 @@
                 </div>
             </div>
 
-            <div class="right-sidebar-col">@yield('right-side-bar', View::make('layouts.right-sidebar.rightSidebar'))</div>
+            <div
+                class="right-sidebar-col">@yield('right-side-bar', View::make('layouts.right-sidebar.rightSidebar'))</div>
 
             <button class="btn btn-primary btnScrollToTop">
                 <i class="fa fa-arrow-up"></i>
@@ -28,6 +29,7 @@
                 @yield('bottom-content')
             </div>
         </div>
+        @include('layouts.unauthorizeModal')
     </div>
 
     @include('layouts.footer')

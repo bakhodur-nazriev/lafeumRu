@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#04718c">
-    
+
     <link rel="alternate" hreflang="ru" href="{{url('/')}}">
     <link rel="alternate" hreflang="x-default" href="{{url('/')}}">
 

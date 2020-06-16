@@ -104,7 +104,7 @@
                 <div class="inner-categories mb-0">
                     @foreach($video->categories as $category)
                         <a href="/videos/{{ $category->slug }}" class="mr-1">
-                            <i class="fa fa-tags mr-1"></i>{{$category->name}},
+                            <i class="fa fa-tags mr-1"></i>{{$category->name}}
                         </a>
                     @endforeach
                 </div>

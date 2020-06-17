@@ -32,8 +32,7 @@ class QuotesController extends Controller
     public function get(Request $request)
     {
         $quotesQuery = Quote::with('author', 'categories');
-
-        return $quotesQuery->latest()->paginate($request->perPage ?: 15);
+        return $quotesQuery->latest()->paginate($request->perPage ?: 30);
     }
 
     public function store(Request $request)
@@ -41,7 +40,8 @@ class QuotesController extends Controller
         $request->validate([
             'author_id' => 'required',
             'body' => 'required',
-            'categories' => 'required|array'
+            'categories' => 'required|array',
+            'created_at' => 'required'
         ]);
 
         $newQuote = Quote::create($request->all());
@@ -60,7 +60,7 @@ class QuotesController extends Controller
     {
         $quote->update($request->all());
 
-        if($request->has('categories')){
+        if ($request->has('categories')) {
             $quote->categories()->sync($request->categories);
         }
 
@@ -76,27 +76,27 @@ class QuotesController extends Controller
         $quote->categories()->detach();
 
         $metaImage = $quote->meta_image;
-        
+
         $quote->delete();
 
-        if($metaImage){
+        if ($metaImage) {
             unlink(public_path($metaImage));
         }
     }
 
     /**
      * Helpers
-     * 
+     *
      */
 
     private function getMetaImage(Quote $quote)
     {
         $publicPath = static::META_IMAGES_PATH;
-        
+
         $publicPath .= $quote->post->id . '.png';
-        
+
         $path = public_path($publicPath);
-        
+
         $html = view('layouts.quoteImage', compact('quote'))->render();
 
         $this->generateMetaImage($html, $path);

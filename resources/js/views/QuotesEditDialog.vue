@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-if="quoteToUpdate" v-model="quoteToUpdate" width="700">
+    <v-dialog v-if="quoteToUpdate" v-model="quoteToUpdate" width="700px">
         <v-card v-if="!isSendingData">
             <v-card-title class="primary white--text">
                 Изменить Цитату
@@ -15,8 +15,7 @@
                             label="Авторы"
                             :items="authors"
                             v-model="quoteToUpdate.author_id"
-                        >
-                        </v-select>
+                        />
                     </v-col>
                     <v-col cols="12">
                         <v-select
@@ -28,8 +27,34 @@
                             label="Категории"
                             :items="categories"
                             v-model="quoteToUpdate.categories"
+                        />
+                    </v-col>
+                    <v-col cols="12">
+                        <v-dialog
+                            ref="dialog"
+                            v-model="modalDate"
+                            :return-value.sync="quoteToUpdate.updated_at"
+                            width="290px"
+                            persistent
                         >
-                        </v-select>
+                            <template v-slot:activator="{ on }">
+                                <v-text-field
+                                    v-model="quoteToUpdate.updated_at"
+                                    label="Выберите дату"
+                                    prepend-inner-icon="mdi-calendar"
+                                    hide-details
+                                    readonly
+                                    outlined
+                                    v-on="on"
+                                ></v-text-field>
+                            </template>
+                            <v-date-picker v-model="quoteToUpdate.updated_at" scrollable>
+                                <v-spacer></v-spacer>
+                                <v-btn text color="primary" @click="modalDate= false">Отмена</v-btn>
+                                <v-btn text color="primary" @click="$refs.dialog.save(quoteToUpdate.updated_at)">OK
+                                </v-btn>
+                            </v-date-picker>
+                        </v-dialog>
                     </v-col>
                     <v-col cols="12">
                         <wysiwyg-editor
@@ -40,13 +65,9 @@
                 </v-row>
             </v-container>
             <v-card-actions>
-                <v-spacer />
-                <v-btn dark color="green" @click="updateQuote()"
-                    >Сохранить</v-btn
-                >
-                <v-btn dark color="error" @click="quoteToUpdate = false"
-                    >Отмена</v-btn
-                >
+                <v-spacer/>
+                <v-btn dark color="green" @click="updateQuote()">Сохранить</v-btn>
+                <v-btn dark color="error" @click="quoteToUpdate = false">Отмена</v-btn>
             </v-card-actions>
         </v-card>
         <v-card v-else>
@@ -58,52 +79,54 @@
 </template>
 
 <script>
-import WysiwygEditor from "../components/WysiwygEditor";
+    import WysiwygEditor from "../components/WysiwygEditor";
 
-export default {
-    props: {
-        value: Object, //quote
-        authors: Array,
-        categories: Array
-    },
-    components: {
-        "wysiwyg-editor": WysiwygEditor
-    },
-    data(){
-        return {
-            isSendingData: false
-        }
-    },
-    methods: {
-        updateQuote() {
-            this.isSendingData = true;
-            axios
-                .put("/api/quotes/" + this.quoteToUpdate.id, {
-                    body: this.quoteToUpdate.body,
-                    author_id: this.quoteToUpdate.author_id
-                })
-                .then(res => {
-                    this.isSendingData = false;
-                    this.quoteToUpdate = res.data;
-                    this.$emit('updated', res.data);
-                })
-                .catch(err => {
-                    this.isSendingData = false;
-                    console.log(err);
-                });
-        }
-    },
-    computed: {
-        quoteToUpdate: {
-            get(){
-                return this.value;
-            },
-            set(v){
-                if(!v){
-                    this.$emit('input', null);
+    export default {
+        props: {
+            value: Object, //quote
+            authors: Array,
+            categories: Array,
+        },
+        components: {
+            "wysiwyg-editor": WysiwygEditor
+        },
+        data() {
+            return {
+                isSendingData: false,
+                modalDate: false,
+            }
+        },
+        methods: {
+            updateQuote() {
+                this.isSendingData = true;
+                axios
+                    .put("/api/quotes/" + this.quoteToUpdate.id, {
+                        body: this.quoteToUpdate.body,
+                        author_id: this.quoteToUpdate.author_id,
+                        updated_at: this.quoteToUpdate.updated_at
+                    })
+                    .then(res => {
+                        this.isSendingData = false;
+                        this.quoteToUpdate = res.data;
+                        this.$emit('updated', res.data);
+                    })
+                    .catch(err => {
+                        this.isSendingData = false;
+                        console.log(err);
+                    });
+            }
+        },
+        computed: {
+            quoteToUpdate: {
+                get() {
+                    return this.value;
+                },
+                set(v) {
+                    if (!v) {
+                        this.$emit('input', null);
+                    }
                 }
             }
         }
-    }
-};
+    };
 </script>

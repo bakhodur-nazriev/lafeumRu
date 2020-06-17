@@ -9,7 +9,8 @@ class PhotosController extends Controller
 {
     const PHOTOS_PATH = "/img/photos/";
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->authorizeResource(Photo::class);
     }
 
@@ -21,23 +22,26 @@ class PhotosController extends Controller
 
     public function get(Request $request)
     {
-        return Photo::latest()->paginate($request->perPage ?: 15);
+        return Photo::latest()->paginate($request->perPage ?: 30);
     }
 
     public function store(Request $request)
     {
-        $newPhotoData = $request->only(["description"]);
-        if ($request->hasFile("image")) {
-            $newPhotoData["image"] = $this->saveImage(time(), $request->image);
+        $request->validate([
+            'path' => 'required',
+            'description' => 'required'
+        ]);
+        $newPhotoData = $request->all();
+        if ($request->hasFile("path")) {
+            $newPhotoData["path"] = $this->saveImage(time(), $request->path, self::PHOTOS_PATH);
         }
-        $newPhoto = Photo::create($newPhotoData);
 
-        return $newPhoto;
+        return Photo::create($newPhotoData);
     }
 
     public function update(Photo $photo, Request $request)
     {
-        $newPhotoData = $request->only(["description"]);
+        $newPhotoData = $request->only(["description", "updated_at"]);
         if ($request->hasFile("image")) {
             $newPhotoData["image"] = $this->saveImage(time(), $request->image, self::PHOTOS_PATH);
         }

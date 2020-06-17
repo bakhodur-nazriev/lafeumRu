@@ -33,7 +33,7 @@ class TermsController extends Controller
     public function get(Request $request)
     {
         $termsQuery = Term::with('categories', 'knowledge');
-        return $termsQuery->latest()->paginate($request->perPage ?: 15);
+        return $termsQuery->latest()->paginate($request->perPage ?: 30);
     }
 
     public function store(Request $request)
@@ -43,6 +43,7 @@ class TermsController extends Controller
             'body' => 'required',
             'knowledgeAreas' => 'required|array',
             'categories' => 'required|array',
+            'created_at' => 'required'
         ]);
 
         $newTerm = Term::create($request->all());

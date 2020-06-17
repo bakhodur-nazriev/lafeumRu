@@ -32,91 +32,103 @@
             @updated="videoUpdated"
         />
 
-        <videos-delete-dialog v-model="videoToDelete" @deleted="videoDeleted" />
+        <videos-delete-dialog v-model="videoToDelete" @deleted="videoDeleted"/>
     </v-content>
 </template>
 
 <script>
-import rules from "../validation-rules";
+    import rules from "../validation-rules";
 
-import IndexPageLayout from "../components/IndexPageLayout";
-import VideosCreateDialog from "./VideosCreateDialog";
-import VideosEditDialog from "./VideosEditDialog";
-import VideosDeleteDialog from "./VideosDeleteDialog";
+    import IndexPageLayout from "../components/IndexPageLayout";
+    import VideosCreateDialog from "./VideosCreateDialog";
+    import VideosEditDialog from "./VideosEditDialog";
+    import VideosDeleteDialog from "./VideosDeleteDialog";
 
-export default {
-    components: {
-        IndexPageLayout,
-        VideosCreateDialog,
-        VideosEditDialog,
-        VideosDeleteDialog
-    },
-    data() {
-        return {
-            rules,
-            dialogAdd: false,
-            videoToDelete: null,
-            videoToUpdate: null,
-            channels: [],
-            categories: [],
-            headers: [
-                {
-                    text: "Названия",
-                    value: "title",
-                    sortable: false
-                },
-                {
-                    text: "Каналы",
-                    value: "channel.name",
-                    sortable: false
-                },
-                {
-                    text: "Ссылки",
-                    value: "link",
-                    sortable: false
-                },
-                {
-                    text: "Время",
-                    value: "duration",
-                    align: "center",
-                    sortable: false
-                }
-            ]
-        };
-    },
-    mounted() {
-        this.loadChannels();
-        this.loadVideoCategories();
-    },
-    methods: {
-        loadChannels() {
-            axios
-                .get("/api/channels")
-                .then(res => {
-                    this.channels = res.data;
-                })
-                .catch(err => {
-                    console.log(err);
-                });
+    export default {
+        components: {
+            IndexPageLayout,
+            VideosCreateDialog,
+            VideosEditDialog,
+            VideosDeleteDialog
         },
-        loadVideoCategories() {
-            axios
-                .get("/api/categories?type=" + VIDEO_TYPE)
-                .then(res => (this.categories = res.data))
-                .catch(e => console.log(e));
+        data() {
+            return {
+                rules,
+                dialogAdd: false,
+                videoToDelete: null,
+                videoToUpdate: null,
+                channels: [],
+                categories: [],
+                headers: [
+                    {
+                        text: "Названия",
+                        value: "title",
+                        sortable: false
+                    },
+                    {
+                        text: "Каналы",
+                        value: "channel.name",
+                        sortable: false
+                    },
+                    {
+                        text: "Ссылки",
+                        value: "link",
+                        sortable: false
+                    },
+                    {
+                        text: "Дата добавления",
+                        value: "created_at",
+                        align: "center",
+                        sortable: false
+                    },
+                    {
+                        text: "Дата изменения",
+                        value: "updated_at",
+                        align: "center",
+                        sortable: false
+                    },
+                    {
+                        text: "Время",
+                        value: "duration",
+                        align: "center",
+                        sortable: false
+                    }
+                ]
+            };
         },
-        videoCreated(newVideo) {
-            this.dialogAdd = false;
-            this.$refs.indexPage.loadItems();
+        mounted() {
+            this.loadChannels();
+            this.loadVideoCategories();
         },
-        videoUpdated(updated) {
-            this.videoToUpdate = null;
-            this.$refs.indexPage.loadItems();
-        },
-        videoDeleted() {
-            this.videoToDelete = null;
-            this.$refs.indexPage.loadItems();
+        methods: {
+            loadChannels() {
+                axios
+                    .get("/api/channels")
+                    .then(res => {
+                        this.channels = res.data;
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+            },
+            loadVideoCategories() {
+                axios
+                    .get("/api/categories?type=" + VIDEO_TYPE)
+                    .then(res => (this.categories = res.data))
+                    .catch(e => console.log(e));
+            },
+            videoCreated(newVideo) {
+                this.dialogAdd = false;
+                this.$refs.indexPage.loadItems();
+            },
+            videoUpdated(updated) {
+                this.videoToUpdate = null;
+                this.$refs.indexPage.loadItems();
+            },
+            videoDeleted() {
+                this.videoToDelete = null;
+                this.$refs.indexPage.loadItems();
+            }
         }
-    }
-};
+    };
 </script>

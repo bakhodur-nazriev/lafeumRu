@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Quote;
-use Spatie\Browsershot\Browsershot;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class QuotesController extends Controller
 {

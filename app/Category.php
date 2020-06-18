@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Illuminate\Support\Str;
 use Kalnoy\Nestedset\NodeTrait;
 use Illuminate\Database\Eloquent\Model;
 
@@ -32,7 +31,7 @@ class Category extends Model
     public function setNameAttribute($value)
     {
         $this->attributes['name'] = $value;
-        $this->attributes['slug'] = Str::slug($value);
+        $this->attributes['slug'] = generateSlug($value);
     }
 
     public function scopeQuote($query)

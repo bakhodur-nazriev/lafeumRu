@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use ChristianKuri\LaravelFavorite\Traits\Favoriteable;
 
@@ -24,6 +23,6 @@ class Channel extends Model
     public function setNameAttribute($value)
     {
         $this->attributes['name'] = $value;
-        $this->attributes['slug'] = Str::slug($value);
+        $this->attributes['slug'] = generateSlug($value);
     }
 }

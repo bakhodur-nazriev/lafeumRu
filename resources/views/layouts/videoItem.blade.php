@@ -22,10 +22,10 @@
                 </div>
             @else
                 <div class="col-md-4 col-12 py-0">
-                    <div 
-                        class="modal fade" 
-                        id="video-{{$video->post->id}}-modal" 
-                        tabindex="-1" 
+                    <div
+                        class="modal fade"
+                        id="video-{{$video->post->id}}-modal"
+                        tabindex="-1"
                         role="dialog"
                         aria-labelledby="video-{{$video->post->id}}-modal-title"
                         style="display: none;"
@@ -34,8 +34,8 @@
                         <div class="modal-dialog modal-dialog-centered modal-lg">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 
-                                        class="modal-title" 
+                                    <h5
+                                        class="modal-title"
                                         id="video-{{$video->post->id}}-modal-title"
                                     >
                                         {{$video->title}}
@@ -62,8 +62,9 @@
                             </div>
                         </div>
                     </div>
-                    <div 
-                        class="text-right position-relative cursor-pointer mb-2"
+                    <div
+                        style="cursor: pointer"
+                        class="text-right position-relative mb-2"
                         onclick="showVideoModal('#video-{{$video->post->id}}-modal', {{$video->post->id}})"
                     >
                         <img class="img-thumbnail w-100" src="{{$video->thumbnail}}"/>
@@ -73,7 +74,10 @@
             @endif
             <div class="{{$fullVariant ? 'col-12': 'col-md-8 col-12 pl-md-0 py-0'}}">
                 <div class="d-flex flex-row justify-content-between">
-                    <h5 class="card-title d-inline-block cursor-pointer" onclick="showVideoModal('#video-{{$video->post->id}}-modal', {{$video->post->id}})">{{$video->title}}</h5>
+                    <h5
+                        style="cursor: pointer"
+                        class="card-title d-inline-block"
+                        onclick="showVideoModal('#video-{{$video->post->id}}-modal', {{$video->post->id}})">{{$video->title}}</h5>
                     <div class="ml-4 d-flex flex-row" style="height: fit-content">
                         <a class="secondary" href="/{{$video->post->id}}">
                             #{{$video->post->id}}
@@ -81,16 +85,22 @@
                         @guest
                             <i data-id="{{$video->id}}"
                                class="ml-2 fa fa-star favourite-quote-btn {{$video->isFavorited() ? " fa-star-active": ""}}"
-                               data-toggle="modal" data-target=".modal" data-placement="top" title="Избранный"></i>
+                               data-toggle="modal"
+                               data-target="#unauthorizedModal"
+                               data-placement="top"
+                               title="Избранный"
+                            ></i>
                         @endguest
                         @auth
                             <i data-id="{{$video->id}}"
                                class="ml-2 fa fa-star favourite-quote-btn {{$video->isFavorited() ? " fa-star-active": ""}}"
-                               data-toggle="tooltip" data-placement="top" title="Избранный"></i>
+                               data-toggle="tooltip"
+                               data-placement="top"
+                               title="Избранный"
+                            ></i>
                         @endauth
                     </div>
                 </div>
-
                 <a
                     href="/channels/{{ $video->channel->slug }}"
                     class="secondary d-inline-block mb-2"

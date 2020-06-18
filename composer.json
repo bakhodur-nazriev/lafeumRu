@@ -9,14 +9,15 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
+        "barryvdh/laravel-debugbar": "^3.3",
         "christiankuri/laravel-favorite": "^1.4",
+        "doctrine/dbal": "^2.10",
         "fideloper/proxy": "^4.0",
         "kalnoy/nestedset": "^5.0",
         "laravel/framework": "^6.2",
         "laravel/passport": "^8.4",
         "laravel/tinker": "^1.0",
         "laravel/ui": "^1.1",
-        "doctrine/dbal": "^2.10",
         "spatie/browsershot": "^3.36"
     },
     "require-dev": {

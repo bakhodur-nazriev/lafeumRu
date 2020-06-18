@@ -17,14 +17,8 @@ class QuotesController extends Controller
 
     public function index()
     {
-        $startTime = microtime(true);
-
-        $quotes = Quote::with('author:id,name,slug', 'categories:id,name,slug')->paginate(30);
+        $quotes = Quote::with('author:id,name,slug', 'categories:id,name,slug', 'post')->paginate(30);
         $categories = Category::quote()->get()->toTree()->unique('name');
-
-        $totalMs = (microtime(true) - $startTime) * 1000;
-
-        Log::debug("Categories preparation took: $totalMs ms.");
 
         return view('/quotes', compact(['quotes', 'categories',]));
     }

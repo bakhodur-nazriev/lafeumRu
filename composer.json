@@ -45,7 +45,7 @@
             "database/seeds"
         ],
         "files": [
-            "app/helpers.php"
+            "app/Helper/helpers.php"
         ]
     },
     "autoload-dev": {

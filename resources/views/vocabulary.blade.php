@@ -38,13 +38,20 @@
             «соц», «пси», «лич», «упр», «жи» , «кул», «эво» и т.п.<br>
             <h5 class="mt-2 mb-0"><b>Введите термин</b></h5>
         </div>
-        <div class="col-md-5 col-xl-4 form-group mb-3">
-            <input
-                type="text"
-                id="vocabulary-search"
-                class="form-control"
-                placeholder="Поиск"
-            />
+        <div class="col-md-5 col-xl-4 mb-3">
+            <div class="input-group">
+                <input
+                    type="string"
+                    id="vocabulary-search"
+                    class="form-control"
+                    placeholder="Поиск"
+                />
+                <div class="input-group-append">
+                    <div class="input-group-text cursor-pointer" id="vocabulary-search-button">
+                        <i class="fa fa-search"></i>
+                    </div>
+                </div>
+            </div>
             <small id="vocabulary-search-result" class="form-text text-muted ml-1"></small>
         </div>
     </div>
@@ -59,11 +66,27 @@
     </div>
     <script>
         $(document).ready(() => {
-            attachSearch(
-                "#vocabulary-search", 
-                ".list-of-knowledge", 
-                '#vocabulary-search-result'
-            );
+            $("#vocabulary-search-button").click((e) => {
+                let filter = document.getElementById("vocabulary-search").value;
+                
+                let foundCount = search(".list-of-knowledge", filter);
+
+                attachSummaryModals();
+
+                let elementToShowResult = document.querySelector('#vocabulary-search-result');
+
+                if(!elementToShowResult) return;
+                
+                if(foundCount === null){
+                    elementToShowResult.textContent = '';
+                
+                } else if(foundCount > 0) {
+                    elementToShowResult.textContent = `Обнаружено ${foundCount} совпадений`;
+
+                } else {
+                    elementToShowResult.textContent = `По вашему запросу ничего не обнаружено`;
+                }
+            });
         });
     </script>
 @endsection

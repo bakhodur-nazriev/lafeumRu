@@ -573,6 +573,10 @@ a.active {
     cursor: pointer;
 }
 
+.cursor-pointer {
+    cursor: pointer !important;
+}
+
 #summaryModal {
     display: none;
     z-index: 50;

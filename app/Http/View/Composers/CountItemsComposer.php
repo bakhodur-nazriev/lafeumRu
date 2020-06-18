@@ -15,9 +15,9 @@ class CountItemsComposer
 {
     public function compose(View $view)
     {
-        $countOfFavoritesQuotes = Quote::get()->count();
-        $countOfFavoritesTerms = Term::get()->count();
-        $countOfAuthors = Author::get()->count();
+        $countOfFavoritesQuotes = Quote::count();
+        $countOfFavoritesTerms = Term::count();
+        $countOfAuthors = Author::count();
         $countOfMediaContent = Photo::count() + Video::count();
 
         $countItems = [

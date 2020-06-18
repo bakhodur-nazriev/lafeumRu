@@ -8,6 +8,7 @@
 /public/img/photos
 /public/img/meta*
 /storage/*.key
+/storage/debugbar/
 /vendor
 .env
 .env.backup

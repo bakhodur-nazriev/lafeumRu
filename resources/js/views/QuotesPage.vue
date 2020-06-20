@@ -6,6 +6,7 @@
             add-label="Добавить цитату"
             search-field="body"
             ref="indexPage"
+            @click:item="quoteClick"
             @add-item="addQuote = true"
             @update-item="quoteToUpdate = $event"
             @delete-item="quoteToDelete = $event"
@@ -32,7 +33,17 @@
             @updated="quoteUpdated"
         />
 
-        <quotes-delete-dialog v-model="quoteToDelete" @deleted="quoteDeleted"/>
+        <quotes-show-dialog
+            :quote="quoteToShow"
+            :categories="categories"
+            @close="quoteToShow = null"
+            @updated="quoteUpdated = null"
+        />
+
+        <quotes-delete-dialog
+            v-model="quoteToDelete"
+            @deleted="quoteDeleted"
+        />
     </v-content>
 </template>
 
@@ -41,19 +52,22 @@
     import QuotesCreateDialog from "../views/QuotesCreateDialog";
     import QuotesEditDialog from "../views/QuotesEditDialog";
     import QuotesDeleteDialog from "../views/QuotesDeleteDialog";
+    import QuotesShowDialog from "../views/QuotesShowDialog";
 
     export default {
         components: {
             IndexPageLayout,
             QuotesCreateDialog,
             QuotesEditDialog,
-            QuotesDeleteDialog
+            QuotesDeleteDialog,
+            QuotesShowDialog
         },
         data() {
             return {
                 authors: [],
                 categories: [],
                 addQuote: false,
+                quoteToShow: null,
                 quoteToDelete: null,
                 quoteToUpdate: null,
                 headers: [
@@ -103,15 +117,22 @@
             },
             quoteCreated(newQuote) {
                 this.addQuote = false;
+                this.quoteToShow = null;
                 this.$refs.indexPage.loadItems();
             },
             quoteUpdated(updated) {
                 this.quoteToUpdate = null;
+                this.quoteToShow = null;
                 this.$refs.indexPage.loadItems();
             },
             quoteDeleted() {
                 this.quoteToDelete = null;
+                this.quoteToShow = null;
                 this.$refs.indexPage.loadItems();
+            },
+            quoteClick(quote) {
+                // console.log(quote);
+                this.quoteToShow = quote;
             }
         }
     };

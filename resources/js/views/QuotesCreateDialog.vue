@@ -17,8 +17,8 @@
                     />
                     <v-select
                         outlined
-                        :items="categories"
                         multiple
+                        :items="categories"
                         item-value="id"
                         item-text="name"
                         label="Категории"

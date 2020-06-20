@@ -50,14 +50,8 @@
             </v-container>
             <v-card-actions>
                 <v-spacer/>
-                <v-btn dark color="green" @click="updateAuthor()"
-                >Сохранить
-                </v-btn
-                >
-                <v-btn dark color="error" @click="$emit('input', null)"
-                >Отмена
-                </v-btn
-                >
+                <v-btn dark color="green" @click="updateAuthor()">Сохранить</v-btn>
+                <v-btn dark color="error" @click="$emit('input', null)">Отмена</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>

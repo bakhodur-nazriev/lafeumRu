@@ -59,16 +59,16 @@ class MetatagsComposer
                 [
                     "@type" => "Organization",
                     "@id" => url('/#organization'),
-                    "name" => "ЛАФЕЮМ",
+                    "name" => env("ORGANIZATION_NAME"),
                     "url" => url('/'),
                     "sameAs" => [],
                     "logo" => [
                         "@type" => "ImageObject",
                         "@id" => url('/#logo'),
-                        "url" =>  url("/img/lafeum-ru-about-1.png"),
+                        "url" =>  url(env("ORGANIZATION_LOGO_PATH")),
                         "width" => 600,
                         "height" => 382,
-                        "caption" => "ЛАФЕЮМ"
+                        "caption" => env("ORGANIZATION_NAME")
                     ],
                     "image" => [
                         "@id" => url('/#logo')
@@ -78,7 +78,7 @@ class MetatagsComposer
                     "@type" => "WebSite",
                     "@id" => url('/#website'),
                     "url" => url('/'),
-                    "name" => "ЛАФЕЮМ",
+                    "name" => env("ORGANIZATION_NAME"),
                     "publisher" => [
                         "@id" => url('/#organization')
                     ],

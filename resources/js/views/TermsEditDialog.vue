@@ -1,7 +1,7 @@
 <template>
     <v-dialog v-if="termToUpdate" v-model="termToUpdate" width="700px">
         <v-card>
-            <v-card-title class="primary white--text">
+            <v-card-title class="primary white--text pa-4">
                 Изменить Термин
             </v-card-title>
             <v-container>

@@ -1,9 +1,9 @@
 <template>
     <v-dialog v-model="showDialog" max-width="600">
-        <v-card-title class="primary white--text">
-            Цитата
-        </v-card-title>
         <v-card v-if="showDialog">
+            <v-card-title class="primary white--text pa-4">
+                Цитата
+            </v-card-title>
             <v-container>
                 <v-row justify="center">
                     <v-col col="12">
@@ -25,16 +25,20 @@
                         />
                     </v-col>
                     <v-col cols="12">
-                        <p>Категория</p>
-                        <v-chip
-                            v-for="(category, i) in quote.categories"
-                            :key="i"
-                            class="ma-2"
-                            color="primary"
-                        >
-                            <v-icon class="mr-2" small>mdi-tag</v-icon>
-                            {{ category.name }}
-                        </v-chip>
+                        <fieldset class="category-fieldset">
+                            <legend class="category-fieldset-legend mb-0">Категории</legend>
+                            <div class="pb-2">
+                                <v-chip
+                                    v-for="(category, i) in quote.categories"
+                                    :key="i"
+                                    class="ma-2"
+                                    color="primary"
+                                >
+                                    <v-icon class="mr-2" small>mdi-tag</v-icon>
+                                    {{ category.name }}
+                                </v-chip>
+                            </div>
+                        </fieldset>
                     </v-col>
                     <v-col cols="12">
                         <v-text-field
@@ -79,13 +83,6 @@
         methods: {
             closeDialog() {
                 this.$emit('close');
-            }
-            ,
-            editCategory() {
-                this.$emit('edit', this.quote);
-            },
-            deleteCategory() {
-                this.$emit('delete', this.quote);
             }
         },
         computed: {

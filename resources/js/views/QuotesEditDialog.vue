@@ -1,7 +1,7 @@
 <template>
     <v-dialog v-if="quoteToUpdate" v-model="quoteToUpdate" width="700">
         <v-card v-if="!isSendingData">
-            <v-card-title class="primary white--text">
+            <v-card-title class="primary white--text pa-4">
                 Изменить Цитату
             </v-card-title>
             <v-container>

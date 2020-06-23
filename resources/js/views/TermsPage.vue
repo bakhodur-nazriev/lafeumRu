@@ -6,6 +6,7 @@
             add-label="Добавить термин"
             searchField="name"
             ref="indexPage"
+            @click:item="termClick"
             @add-item="addTerm = true"
             @update-item="termToUpdate = $event"
             @delete-item="termToDelete = $event"
@@ -32,6 +33,12 @@
             @updated="termUpdated"
         />
 
+        <terms-show-dialog
+            :term="termToShow"
+            :categories="categories"
+            @close="termToShow = null"
+        />
+
         <terms-delete-dialog v-model="termToDelete" @deleted="termDeleted"/>
     </v-content>
 </template>
@@ -42,13 +49,15 @@
     import TermsCreateDialog from "./TermsCreateDialog";
     import TermsEditDialog from "./TermsEditDialog";
     import TermsDeleteDialog from "./TermsDeleteDialog";
+    import TermsShowDialog from "./TermsShowDialog";
 
     export default {
         components: {
             IndexPageLayout,
             TermsCreateDialog,
             TermsEditDialog,
-            TermsDeleteDialog
+            TermsDeleteDialog,
+            TermsShowDialog
         },
         data() {
             return {
@@ -56,11 +65,12 @@
                 addTerm: false,
                 categories: [],
                 knowledgeAreas: [],
+                termToShow: null,
                 termToDelete: null,
                 termToUpdate: null,
                 headers: [
                     {
-                        text: "Название",
+                        text: "Названия",
                         value: "name",
                         sortable: false
                     },
@@ -113,6 +123,10 @@
             termDeleted(newTerm) {
                 this.termToDelete = null;
                 this.$refs.indexPage.loadItems();
+            },
+            termClick(term) {
+                console.log(term);
+                this.termToShow = term;
             }
         }
     };

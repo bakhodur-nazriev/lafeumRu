@@ -1,7 +1,7 @@
 <template>
     <v-dialog v-if="videoToUpdate" v-model="videoToUpdate" width="700px">
         <v-card>
-            <v-card-title class="primary white--text">
+            <v-card-title class="primary white--text pa-4">
                 Изменить Видео
             </v-card-title>
             <v-container>
@@ -67,7 +67,7 @@
                         <v-text-field
                             hide-details
                             outlined
-                            v-model="videoToUpdate.duration"
+                            v-model="videoToUpdate.duration + ' мин'"
                             label="Изменить продолжителность видео в минутах"
                         >
                         </v-text-field>

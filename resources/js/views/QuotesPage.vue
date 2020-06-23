@@ -37,7 +37,6 @@
             :quote="quoteToShow"
             :categories="categories"
             @close="quoteToShow = null"
-            @updated="quoteUpdated = null"
         />
 
         <quotes-delete-dialog
@@ -117,21 +116,17 @@
             },
             quoteCreated(newQuote) {
                 this.addQuote = false;
-                this.quoteToShow = null;
                 this.$refs.indexPage.loadItems();
             },
             quoteUpdated(updated) {
                 this.quoteToUpdate = null;
-                this.quoteToShow = null;
                 this.$refs.indexPage.loadItems();
             },
             quoteDeleted() {
                 this.quoteToDelete = null;
-                this.quoteToShow = null;
                 this.$refs.indexPage.loadItems();
             },
             quoteClick(quote) {
-                // console.log(quote);
                 this.quoteToShow = quote;
             }
         }

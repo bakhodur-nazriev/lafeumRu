@@ -30,4 +30,10 @@ class Term extends Model
     {
         return $this->hasMany(DailyPost::class);
     }
+
+    public function scopeVocabulary($query)
+    {
+        return $query->where('name','<>', '')
+                ->orderBy('name');
+    }
 }

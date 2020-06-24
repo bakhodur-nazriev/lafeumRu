@@ -9,7 +9,7 @@ class Term extends Model
 {
     use Favoriteable;
 
-    protected $fillable = ['name', 'body', 'link'];
+    protected $fillable = ['name', 'body', 'link', 'show_in_vocabulary'];
 
     public function categories()
     {
@@ -29,5 +29,12 @@ class Term extends Model
     public function dailyPosts()
     {
         return $this->hasMany(DailyPost::class);
+    }
+
+    public function scopeVocabulary($query)
+    {
+        return $query->where('name','<>', '')
+                ->where('show_in_vocabulary', true)
+                ->orderBy('name');
     }
 }

@@ -159,6 +159,7 @@ class LafeumImportSeeder extends Seeder
             $newTermData['name'] = $term['name'];
             $newTermData['link'] = $term['link'];
             $newTermData['body'] = $term['body'];
+            $newTermData['show_in_vocabulary'] = $term['name'] ? true: false;
 
             echo $term['body'] . PHP_EOL;
 

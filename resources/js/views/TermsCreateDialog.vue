@@ -37,6 +37,11 @@
                         label="Категории"
                         :rules="[rules.required]"
                     />
+                    <v-checkbox
+                        class="mt-0"
+                        v-model="newTerm.show_in_vocabulary"
+                        label="Показать в словаре"
+                    />
                     <wysiwyg-editor
                         v-model="newTerm.body"
                         label="Введите описание"
@@ -87,7 +92,8 @@ export default {
                 body: "",
                 link: "",
                 knowledgeAreas: [],
-                categories: []
+                categories: [],
+                show_in_vocabulary: false
             };
         },
         resetNewTerm() {

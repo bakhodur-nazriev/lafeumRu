@@ -35,6 +35,11 @@
                     label="Категории"
                     :rules="[rules.required]"
                 />
+                <v-checkbox
+                    class="mt-0"
+                    v-model="termToUpdate.show_in_vocabulary"
+                    label="Показать в словаре"
+                />
                 <wysiwyg-editor
                     v-model="termToUpdate.body"
                     label="Изменить термин здесь"
@@ -71,17 +76,24 @@ export default {
     },
     methods: {
         updateTerm() {
+            let updatedTerm = this.termToUpdate;
+
+            updatedTerm.categories = this.extractIds(updatedTerm.categories);
+            updatedTerm.knowledge = this.extractIds(updatedTerm.knowledge);
+
             axios
-                .put("/api/terms/" + this.termToUpdate.id, {
-                    name: this.termToUpdate.name,
-                    body: this.termToUpdate.body
-                })
+                .put("/api/terms/" + updatedTerm.id, updatedTerm)
                 .then(res => {
                     this.$emit('updated', res.data);
                 })
                 .catch(err => {
                     console.log(err);
                 });
+        },
+        extractIds(array){
+            return array.map(a => {
+                return typeof a === 'number' ? a: (a.hasOwnProperty('id') ? a.id: null);
+            });
         }
     },
     computed: {

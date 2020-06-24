@@ -62,6 +62,10 @@ class TermsController extends Controller
             $term->categories()->sync($request->categories);
         }
 
+        if($request->has('knowledge')){
+            $term->knowledge()->sync($request->knowledge);
+        }
+
         return $term;
     }
 

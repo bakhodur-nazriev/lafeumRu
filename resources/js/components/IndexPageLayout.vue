@@ -180,6 +180,10 @@ export default {
             if (!this.searchField) return this.items;
 
             return this.items.filter(item => {
+                if(!item[this.searchField]) {
+                    item[this.searchField] = "";
+                }
+
                 return item[this.searchField]
                     .toLowerCase()
                     .includes(this.search.toLowerCase());

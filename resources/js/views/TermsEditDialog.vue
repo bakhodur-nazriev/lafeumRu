@@ -18,8 +18,8 @@
                         <v-text-field
                             hide-details
                             outlined
-                            v-model="termToUpdate.link"
                             label="Ссылка"
+                            v-model="termToUpdate.link"
                         />
                     </v-col>
                     <v-col cols="12">
@@ -117,6 +117,8 @@
                     .put("/api/terms/" + this.termToUpdate.id, {
                         name: this.termToUpdate.name,
                         body: this.termToUpdate.body,
+                        link: this.termToUpdate.link,
+                        categories: this.termToUpdate.categories,
                         updated_at: this.termToUpdate.updated_at
                     })
                     .then(res => {

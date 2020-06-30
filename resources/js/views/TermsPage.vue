@@ -39,7 +39,10 @@
             @close="termToShow = null"
         />
 
-        <terms-delete-dialog v-model="termToDelete" @deleted="termDeleted"/>
+        <terms-delete-dialog
+            v-model="termToDelete"
+            @deleted="termDeleted"
+        />
     </v-content>
 </template>
 <script>
@@ -125,7 +128,6 @@
                 this.$refs.indexPage.loadItems();
             },
             termClick(term) {
-                console.log(term);
                 this.termToShow = term;
             }
         }

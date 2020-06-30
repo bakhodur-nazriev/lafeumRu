@@ -1,8 +1,8 @@
 <template>
-    <v-dialog v-model="showDialog" max-width="600">
+    <v-dialog v-model="showDialog" max-width="700">
         <v-card v-if="showDialog">
             <v-card-title class="primary white--text pa-4">
-                Цитата
+                Термин
             </v-card-title>
             <v-container>
                 <v-row justify="center">
@@ -16,12 +16,9 @@
                         />
                     </v-col>
                     <v-col cols="12">
-                        <v-textarea
+                        <wysiwyg-editor
                             v-model="term.body"
-                            outlined
-                            readonly
-                            label="Темин"
-                            hide-details
+                            label="Описания"
                         />
                     </v-col>
                     <v-col cols="12">
@@ -100,11 +97,14 @@
 </template>
 
 <script>
+    import WysiwygEditor from "../components/WysiwygEditor";
+
     export default {
         props: {
             term: Object,
             categories: Array
         },
+        components: {"wysiwyg-editor": WysiwygEditor},
         methods: {
             closeDialog() {
                 this.$emit('close');
@@ -124,4 +124,3 @@
         }
     }
 </script>
-

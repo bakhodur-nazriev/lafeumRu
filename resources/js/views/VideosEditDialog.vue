@@ -7,13 +7,13 @@
             <v-container>
                 <v-row justify="center">
                     <v-col cols="12">
-                        <v-text-field
+                        <v-textarea
                             hide-details
                             outlined
                             v-model="videoToUpdate.title"
                             label="Изменить названия видео"
                         >
-                        </v-text-field>
+                        </v-textarea>
                     </v-col>
                     <v-col cols="12">
                         <v-select
@@ -37,6 +37,27 @@
                         </v-text-field>
                     </v-col>
                     <v-col cols="12">
+                        <v-text-field
+                            hide-details
+                            outlined
+                            v-model="videoToUpdate.duration + ' мин'"
+                            label="Изменить продолжителность видео в минутах"
+                        >
+                        </v-text-field>
+                    </v-col>
+                    <v-col cols="12">
+                        <v-select
+                            hide-details
+                            outlined
+                            multiple
+                            item-value="id"
+                            item-text="name"
+                            label="Категории"
+                            :items="categories"
+                            v-model="videoToUpdate.categories"
+                        />
+                    </v-col>
+                    <v-col cols="12">
                         <v-dialog
                             ref="dialog"
                             v-model="modalDate"
@@ -47,7 +68,7 @@
                             <template v-slot:activator="{ on }">
                                 <v-text-field
                                     v-model="videoToUpdate.updated_at"
-                                    label="Выберите дату"
+                                    label="Изменить дату"
                                     prepend-inner-icon="mdi-calendar"
                                     readonly
                                     outlined
@@ -62,15 +83,6 @@
                                 </v-btn>
                             </v-date-picker>
                         </v-dialog>
-                    </v-col>
-                    <v-col cols="12">
-                        <v-text-field
-                            hide-details
-                            outlined
-                            v-model="videoToUpdate.duration + ' мин'"
-                            label="Изменить продолжителность видео в минутах"
-                        >
-                        </v-text-field>
                     </v-col>
                 </v-row>
             </v-container>
@@ -96,7 +108,9 @@
         methods: {
             updateVideo() {
                 axios
-                    .put("/api/videos/" + this.videoToUpdate.id, this.videoToUpdate, {
+                    .put("/api/videos/" + this.videoToUpdate.id, {
+                        link: this.videoToUpdate.link,
+                        categories: this.videoToUpdate.categories,
                         updated_at: this.videoToUpdate.updated_at
                     })
                     .then(res => {

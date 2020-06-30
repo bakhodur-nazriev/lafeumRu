@@ -1,13 +1,23 @@
 <template>
-    <v-dialog v-model="showDialog" max-width="600">
+    <v-dialog v-model="showDialog" max-width="700">
         <v-card v-if="showDialog">
             <v-card-title class="primary white--text pa-4">
-                Цитата
+                Видео
             </v-card-title>
             <v-container>
                 <v-row justify="center">
-                    <v-col col="12">
-                        <v-text-field
+                    <v-col cols="12">
+                        <iframe
+                            style="width: 100%; height: 50vh"
+                            :src="video.embeded_link"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen=""
+                        >
+                        </iframe>
+                    </v-col>
+                    <v-col cols="12">
+                        <v-textarea
                             v-model="video.title"
                             outlined
                             readonly
@@ -26,19 +36,19 @@
                     </v-col>
                     <v-col cols="12">
                         <v-text-field
-                            v-model="video.duration + ' мин'"
+                            v-model="video.link"
                             outlined
                             readonly
-                            label="Продолжительность"
+                            label="Ссылки"
                             hide-details
                         />
                     </v-col>
                     <v-col cols="12">
                         <v-text-field
-                            v-model="video.link"
+                            v-model="video.duration + ' мин'"
                             outlined
                             readonly
-                            label="Ссылки"
+                            label="Продолжительность"
                             hide-details
                         />
                     </v-col>

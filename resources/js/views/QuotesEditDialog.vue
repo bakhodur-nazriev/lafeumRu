@@ -57,9 +57,11 @@
                         </v-dialog>
                     </v-col>
                     <v-col cols="12">
-                        <wysiwyg-editor
+                        <v-textarea
                             label="Изменить цитату"
                             v-model="quoteToUpdate.body"
+                            outlined
+                            hide-details
                         />
                     </v-col>
                 </v-row>
@@ -79,16 +81,12 @@
 </template>
 
 <script>
-    import WysiwygEditor from "../components/WysiwygEditor";
 
     export default {
         props: {
             value: Object, //quote
             authors: Array,
             categories: Array,
-        },
-        components: {
-            "wysiwyg-editor": WysiwygEditor
         },
         data() {
             return {
@@ -103,6 +101,7 @@
                     .put("/api/quotes/" + this.quoteToUpdate.id, {
                         body: this.quoteToUpdate.body,
                         author_id: this.quoteToUpdate.author_id,
+                        categories: this.quoteToUpdate.categories,
                         updated_at: this.quoteToUpdate.updated_at
                     })
                     .then(res => {

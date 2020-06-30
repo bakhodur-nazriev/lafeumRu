@@ -140,6 +140,7 @@
                 this.$refs.indexPage.loadItems();
             },
             videoClick(video) {
+                console.log(video.link);
                 this.videoToShow = video;
             },
         }

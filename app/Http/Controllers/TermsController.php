@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
 use App\Post;
 use App\Term;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TermsController extends Controller
 {
@@ -27,6 +27,41 @@ class TermsController extends Controller
             ->get();
 
         return view("/vocabulary", compact(["terms"]));
+    }
+
+    public function linksSearch(Request $request)
+    {
+        $keyword = $request->key;
+
+        if(!$keyword) return [];
+
+        $terms = Term::with('post')
+            ->whereRaw("body like '%>%$keyword%<%'")
+            ->get();
+
+        $links = [];
+
+        foreach ($terms as $term) {
+            $termLinks = [];
+            preg_match_all("/<a[^>]*>(.*?)<\/a>/", $term->body, $termLinks);
+
+            foreach ($termLinks[1] as $termLink) {
+                
+                $termLink = strip_tags($termLink);
+
+                $hasKeyword = strpos($termLink, $keyword) !== false;
+                $hasSpecialChars = preg_match('/[.]/', $termLink) === 1;
+
+                if($hasKeyword && !$hasSpecialChars) {
+                    $links[] = [
+                        "link" => "/{$term->post->id}",
+                        "text" => $termLink
+                    ];
+                }
+            }
+        }
+
+        return $links;
     }
 
     public function get(Request $request)
@@ -58,11 +93,11 @@ class TermsController extends Controller
     {
         $term->update($request->all());
 
-        if($request->has('categories')){
+        if ($request->has('categories')) {
             $term->categories()->sync($request->categories);
         }
 
-        if($request->has('knowledge')){
+        if ($request->has('knowledge')) {
             $term->knowledge()->sync($request->knowledge);
         }
 

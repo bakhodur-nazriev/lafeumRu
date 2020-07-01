@@ -55,8 +55,6 @@
 </template>
 
 <script>
-    import rules from "../validation-rules";
-
     export default {
         props: {
             value: Object

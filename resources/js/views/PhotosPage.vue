@@ -7,7 +7,7 @@
             searchField="description"
             ref="indexPage"
             @click:item="photoClick"
-            @add-item="dialogAdd = true"
+            @add-item="addPhoto = true"
             @update-item="photoToUpdate = $event"
             @delete-item="photoToDelete = $event"
         >
@@ -28,9 +28,15 @@
             @created="photoCreated"
         />
 
-        <photo-edit-dialog
+        <!--<photo-edit-dialog
             v-model="photoToUpdate"
             @updated="photoUpdated"
+        />-->
+
+
+        <photo-show-dialog
+            :photo="photoToShow"
+            @close="photoToShow = null"
         />
 
         <photo-delete-dialog
@@ -38,34 +44,30 @@
             @deleted="photoDeleted"
         />
 
-        <photo-show-dialog
-            :photo="photoToShow"
-            @close="photoToShow = null"
-        />
-
     </v-content>
 </template>
 <script>
+    import rules from "../validation-rules";
     import IndexPageLayout from "../components/IndexPageLayout";
-    import PhotoShowDialog from "./PhotoShowDialog";
-    import PhotoEditDialog from "./PhotoEditDialog";
-    import PhotoDeleteDialog from "./PhotoDeleteDialog";
     import PhotoCreateDialog from "./PhotoCreateDialog";
+    import PhotoEditDialog from "./PhotoEditDialog";
+    import PhotoShowDialog from "./PhotoShowDialog";
+    import PhotoDeleteDialog from "./PhotoDeleteDialog";
 
     export default {
         components: {
+            IndexPageLayout,
             PhotoCreateDialog,
-            PhotoShowDialog,
             PhotoEditDialog,
-            PhotoDeleteDialog,
-            IndexPageLayout
+            PhotoShowDialog,
+            PhotoDeleteDialog
         },
         data() {
             return {
-                dialogAdd: false,
-                photoImage: [],
-                photoDescription: "",
-                photoCreatedAtDate: null,
+                rules,
+                addPhoto: false,
+                /*photoImage: [],
+                photoDescription: "",*/
                 photoToShow: null,
                 photoToDelete: null,
                 photoToUpdate: null,

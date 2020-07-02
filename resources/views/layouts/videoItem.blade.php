@@ -82,7 +82,7 @@
                         </a>
                         @guest
                             <i data-id="{{$video->id}}"
-                               class="ml-2 fa fa-star favourite-quote-btn {{$video->isFavorited() ? " fa-star-active": ""}}"
+                               class="ml-2 fa fa-star favourite-video-btn {{$video->isFavorited() ? " fa-star-active": ""}}"
                                data-toggle="modal"
                                data-target="#unauthorizedModal"
                                data-placement="top"
@@ -91,7 +91,7 @@
                         @endguest
                         @auth
                             <i data-id="{{$video->id}}"
-                               class="ml-2 fa fa-star favourite-quote-btn {{$video->isFavorited() ? " fa-star-active": ""}}"
+                               class="ml-2 fa fa-star favourite-video-btn {{$video->isFavorited() ? " fa-star-active": ""}}"
                                data-toggle="tooltip"
                                data-placement="top"
                                title="Избранный"

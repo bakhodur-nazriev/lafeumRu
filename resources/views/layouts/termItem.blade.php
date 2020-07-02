@@ -15,7 +15,7 @@
             <a class="secondary mr-2 ignore-summary" href="/{{ $term->post->id }}">#{{$term->post->id}}</a>
             @guest
                 <i data-id="{{$term->id}}"
-                   class="fa fa-star favourite-quote-btn {{$term->isFavorited() ? " fa-star-active": ""}}"
+                   class="fa fa-star favourite-term-btn {{$term->isFavorited() ? " fa-star-active": ""}}"
                    data-toggle="modal"
                    data-target=".modal"
                    data-placement="top"
@@ -24,7 +24,7 @@
             @endguest
             @auth
                 <i data-id="{{$term->id}}"
-                   class="fa fa-star favourite-quote-btn {{$term->isFavorited() ? " fa-star-active": ""}}"
+                   class="fa fa-star favourite-term-btn {{$term->isFavorited() ? " fa-star-active": ""}}"
                    data-toggle="tooltip"
                    data-placement="top"
                    title="Избранный"

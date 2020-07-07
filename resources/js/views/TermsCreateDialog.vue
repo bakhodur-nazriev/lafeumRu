@@ -37,30 +37,11 @@
                         label="Категории"
                         :rules="[rules.required]"
                     />
-                    <v-dialog
-                        ref="dialog"
-                        v-model="modalDate"
-                        :return-value.sync="newTerm.created_at"
-                        persistent
-                        width="290px"
-                    >
-                        <template v-slot:activator="{ on }">
-                            <v-text-field
-                                v-model="newTerm.created_at"
-                                label="Выберите дату"
-                                prepend-inner-icon="mdi-calendar"
-                                readonly
-                                outlined
-                                v-on="on"
-                                :rules="[rules.required]"
-                            ></v-text-field>
-                        </template>
-                        <v-date-picker v-model="newTerm.created_at" scrollable>
-                            <v-spacer></v-spacer>
-                            <v-btn text color="primary" @click="modalDate= false">Отмена</v-btn>
-                            <v-btn text color="primary" @click="$refs.dialog.save(newTerm.created_at)">OK</v-btn>
-                        </v-date-picker>
-                    </v-dialog>
+                    <v-checkbox
+                        class="mt-0"
+                        v-model="newTerm.show_in_vocabulary"
+                        label="Показать в словаре"
+                    />
                     <wysiwyg-editor
                         v-model="newTerm.body"
                         label="Введите описание"
@@ -87,41 +68,41 @@
     import WysiwygEditor from "../components/WysiwygEditor";
     import rules from "../validation-rules";
 
-    export default {
-        props: {
-            value: Boolean,
-            knowledgeAreas: Array,
-            categories: Array,
-        },
-        components: {
-            "wysiwyg-editor": WysiwygEditor
-        },
-        data() {
+export default {
+    props: {
+        value: Boolean,
+        knowledgeAreas: Array,
+        categories: Array
+    },
+    components: {
+        "wysiwyg-editor": WysiwygEditor
+    },
+    data() {
+        return {
+            rules,
+            newTerm: null
+        };
+    },
+    beforeMount() {
+        this.newTerm = this.getDefaultTerm();
+    },
+    methods: {
+        getDefaultTerm() {
             return {
-                rules,
-                newTerm: null,
-                modalDate: false
+                name: "",
+                body: "",
+                link: "",
+                knowledgeAreas: [],
+                categories: [],
+                show_in_vocabulary: false
             };
         },
-        beforeMount() {
+        resetNewTerm() {
             this.newTerm = this.getDefaultTerm();
+            this.$refs.createForm.reset();
         },
-        methods: {
-            getDefaultTerm() {
-                return {
-                    name: "",
-                    body: "",
-                    link: "",
-                    knowledgeAreas: [],
-                    categories: [],
-                };
-            },
-            resetNewTerm() {
-                this.newTerm = this.getDefaultTerm();
-                this.$refs.createForm.reset();
-            },
-            addTerm(e) {
-                e.preventDefault();
+        addTerm(e) {
+            e.preventDefault();
 
                 this.$refs.createForm.validate();
 

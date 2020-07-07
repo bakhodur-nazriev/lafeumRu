@@ -54,7 +54,7 @@
                                             depressed
                                             color="red"
                                             v-on="on"
-                                            @click="unFavourite(quote.favoriteable.id, QUOTE_TYPE)"
+                                            @click="unFavouriteQuote(quote.favoriteable.id)"
                                         >
                                             <v-icon dark>mdi-delete-empty</v-icon>
                                         </v-btn>
@@ -105,7 +105,7 @@
                                             depressed
                                             color="red"
                                             v-on="on"
-                                            @click="unFavourite(term.favoriteable.id, TERM_TYPE)"
+                                            @click="unFavouriteTerm(term.favoriteable.id)"
                                         >
                                             <v-icon dark>mdi-delete-empty</v-icon>
                                         </v-btn>
@@ -155,7 +155,7 @@
                                                             color="red"
                                                             depressed
                                                             v-on="on"
-                                                            @click="unFavourite(video.favoriteable.id, VIDEO_TYPE)"
+                                                            @click="unFavouriteVideo(video.favoriteable.id)"
                                                         >
                                                             <v-icon dark>mdi-delete-empty</v-icon>
                                                         </v-btn>
@@ -225,6 +225,15 @@
                     .catch(err => {
                         console.log(err);
                     });
+            },
+            unFavouriteQuote(id){
+                this.unFavourite(id, QUOTE_TYPE);
+            },
+            unFavouriteTerm(id){
+                this.unFavourite(id, TERM_TYPE);
+            },
+            unFavouriteVideo(id){
+                this.unFavourite(id, VIDEO_TYPE);
             },
             unFavourite(id, favouritable) {
                 axios

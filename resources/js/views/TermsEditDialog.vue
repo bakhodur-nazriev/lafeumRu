@@ -49,31 +49,11 @@
                         />
                     </v-col>
                     <v-col cols="12">
-                        <v-dialog
-                            ref="dialog"
-                            v-model="modalDate"
-                            :return-value.sync="termToUpdate.updated_at"
-                            persistent
-                            width="290px"
-                        >
-                            <template v-slot:activator="{ on }">
-                                <v-text-field
-                                    v-model="termToUpdate.updated_at"
-                                    label="Выберите дату"
-                                    prepend-inner-icon="mdi-calendar"
-                                    readonly
-                                    outlined
-                                    v-on="on"
-                                    hide-details
-                                ></v-text-field>
-                            </template>
-                            <v-date-picker v-model="termToUpdate.updated_at" scrollable>
-                                <v-spacer></v-spacer>
-                                <v-btn text color="primary" @click="modalDate= false">Отмена</v-btn>
-                                <v-btn text color="primary" @click="$refs.dialog.save(termToUpdate.updated_at)">OK
-                                </v-btn>
-                            </v-date-picker>
-                        </v-dialog>
+                        <v-checkbox
+                            class="mt-0"
+                            v-model="termToUpdate.show_in_vocabulary"
+                            label="Показать в словаре"
+                        />
                     </v-col>
                     <v-col cols="12">
                         <wysiwyg-editor
@@ -96,48 +76,51 @@
     import WysiwygEditor from "../components/WysiwygEditor";
     import rules from "../validation-rules";
 
-    export default {
-        props: {
-            value: Object,
-            knowledgeAreas: Array,
-            categories: Array,
+export default {
+    props: {
+        value: Object,
+        knowledgeAreas: Array,
+        categories: Array
+    },
+    components: {
+        "wysiwyg-editor": WysiwygEditor
+    },
+    data() {
+        return { rules };
+    },
+    methods: {
+        updateTerm() {
+            let updatedTerm = this.termToUpdate;
+
+            updatedTerm.categories = this.extractIds(updatedTerm.categories);
+            updatedTerm.knowledge = this.extractIds(updatedTerm.knowledge);
+
+            axios
+                .put("/api/terms/" + updatedTerm.id, updatedTerm)
+                .then(res => {
+                    this.$emit('updated', res.data);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
         },
-        components: {
-            "wysiwyg-editor": WysiwygEditor
-        },
-        data() {
-            return {
-                rules,
-                modalDate: false
-            };
-        },
-        methods: {
-            updateTerm() {
-                axios
-                    .put("/api/terms/" + this.termToUpdate.id, {
-                        name: this.termToUpdate.name,
-                        body: this.termToUpdate.body,
-                        updated_at: this.termToUpdate.updated_at
-                    })
-                    .then(res => {
-                        this.$emit('updated', res.data);
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    });
-            }
-        },
-        computed: {
-            termToUpdate: {
-                get() {
-                    return this.value;
-                },
-                set(v) {
-                    if (!v) {
-                        this.$emit('input', null);
-                    }
+        extractIds(array){
+            return array.map(a => {
+                return typeof a === 'number' ? a: (a.hasOwnProperty('id') ? a.id: null);
+            });
+        }
+    },
+    computed: {
+        termToUpdate: {
+            get(){
+                return this.value;
+            },
+            set(v){
+                if(!v){
+                    this.$emit('input', null);
                 }
             }
         }
-    };
+    }
+};
 </script>

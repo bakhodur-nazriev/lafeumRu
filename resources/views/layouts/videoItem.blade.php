@@ -63,8 +63,7 @@
                         </div>
                     </div>
                     <div
-                        style="cursor: pointer"
-                        class="text-right position-relative mb-2"
+                        class="text-right position-relative mb-2 cursor-pointer"
                         onclick="showVideoModal('#video-{{$video->post->id}}-modal', {{$video->post->id}})"
                     >
                         <img class="img-thumbnail w-100" src="{{$video->thumbnail}}"/>
@@ -75,8 +74,7 @@
             <div class="{{$fullVariant ? 'col-12': 'col-md-8 col-12 pl-md-0 py-0'}}">
                 <div class="d-flex flex-row justify-content-between">
                     <h5
-                        style="cursor: pointer"
-                        class="card-title d-inline-block"
+                        class="card-title d-inline-block cursor-pointer"
                         onclick="showVideoModal('#video-{{$video->post->id}}-modal', {{$video->post->id}})">{{$video->title}}</h5>
                     <div class="ml-4 d-flex flex-row" style="height: fit-content">
                         <a class="secondary" href="/{{$video->post->id}}">
@@ -84,7 +82,7 @@
                         </a>
                         @guest
                             <i data-id="{{$video->id}}"
-                               class="ml-2 fa fa-star favourite-quote-btn {{$video->isFavorited() ? " fa-star-active": ""}}"
+                               class="ml-2 fa fa-star favourite-video-btn {{$video->isFavorited() ? " fa-star-active": ""}}"
                                data-toggle="modal"
                                data-target="#unauthorizedModal"
                                data-placement="top"
@@ -93,7 +91,7 @@
                         @endguest
                         @auth
                             <i data-id="{{$video->id}}"
-                               class="ml-2 fa fa-star favourite-quote-btn {{$video->isFavorited() ? " fa-star-active": ""}}"
+                               class="ml-2 fa fa-star favourite-video-btn {{$video->isFavorited() ? " fa-star-active": ""}}"
                                data-toggle="tooltip"
                                data-placement="top"
                                title="Избранный"

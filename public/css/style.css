@@ -261,10 +261,6 @@ categories-main-subname {
     column-count: 4;
 }
 
-.list-of-knowledge,
-.list-of-knowledge {
-    column-count: 4;
-}
 
 .list-of-authors > .author,
 .knowledge {
@@ -571,6 +567,10 @@ a.active {
 
 .summary-links-wrapper > a {
     cursor: pointer;
+}
+
+.cursor-pointer {
+    cursor: pointer !important;
 }
 
 #summaryModal {

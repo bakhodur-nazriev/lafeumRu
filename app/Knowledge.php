@@ -26,6 +26,6 @@ class Knowledge extends Model
     public function setNameAttribute($value)
     {
         $this->attributes['name'] = $value;
-        $this->attributes['slug'] = Str::slug($value);
+        $this->attributes['slug'] = generateSlug($value);
     }
 }

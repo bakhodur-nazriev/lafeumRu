@@ -90,61 +90,61 @@
 </template>
 
 <script>
-    export default {
-        props: {
-            indexUrl: String,
-            tableHeaders: Array,
-            addLabel: String,
-            noActions: Boolean,
-            searchField: String
+export default {
+    props: {
+        indexUrl: String,
+        tableHeaders: Array,
+        addLabel: String,
+        noActions: Boolean,
+        searchField: String
+    },
+    data() {
+        return {
+            items: [],
+            search: "",
+            pagination: null,
+            loadingItems: false
+        };
+    },
+    mounted() {
+        this.loadItems();
+    },
+    methods: {
+        getSlotName(fieldName) {
+            return "item." + fieldName;
         },
-        data() {
-            return {
-                items: [],
-                search: "",
-                pagination: null,
-                loadingItems: false
-            };
+        getIndexUrl(page) {
+            let url = this.indexUrl;
+
+            if (!url.includes("?")) {
+                url += "?";
+            }
+            url += "&page=";
+
+            if (page) {
+                url += page;
+            } else {
+                url += this.currentPage;
+            }
+
+            return url;
         },
-        mounted() {
-            this.loadItems();
+        processResponse({ data }) {
+            this.loadingItems = false;
+
+            const hasPagination = data.hasOwnProperty("data");
+
+            if (hasPagination) {
+                this.items = data.data;
+                this.pagination = data;
+            } else {
+                this.items = data;
+                this.pagination = null;
+            }
         },
-        methods: {
-            getSlotName(fieldName) {
-                return "item." + fieldName;
-            },
-            getIndexUrl(page) {
-                let url = this.indexUrl;
-
-                if (!url.includes("?")) {
-                    url += "?";
-                }
-                url += "&page=";
-
-                if (page) {
-                    url += page;
-                } else {
-                    url += this.currentPage;
-                }
-
-                return url;
-            },
-            processResponse({data}) {
-                this.loadingItems = false;
-
-                const hasPagination = data.hasOwnProperty("data");
-
-                if (hasPagination) {
-                    this.items = data.data;
-                    this.pagination = data;
-                } else {
-                    this.items = data;
-                    this.pagination = null;
-                }
-            },
-            loadItems(page = null) {
-                this.loadingItems = true;
-                this.items = [];
+        loadItems(page = null) {
+            this.loadingItems = true;
+            this.items = [];
 
             axios
                 .get(this.getIndexUrl(page))
@@ -163,53 +163,51 @@
                 return this.tableHeaders;
             }
 
-                return [
-                    ...this.tableHeaders,
-                    {
-                        text: "Действия",
-                        value: "action",
-                        align: "center",
-                        sortable: false,
-                        width: "160px"
-                    }
-                ];
-            },
-            filteredItems() {
-                if (!Array.isArray(this.items)) return [];
+            return [
+                ...this.tableHeaders,
+                {
+                    text: "Действия",
+                    value: "action",
+                    align: "center",
+                    sortable: false,
+                    width: "160px"
+                }
+            ];
+        },
+        filteredItems() {
+            if (!Array.isArray(this.items)) return [];
 
-                if (!this.searchField) return this.items;
+            if (!this.searchField) return this.items;
 
-                return this.items.filter(item => {
-                    if (item[this.searchField.toLowerCase()] !== null) {
-                        return item[this.searchField]
-                            .toLowerCase()
-                            .includes(this.search.toLowerCase());
-                    }
-                });
-            },
-            currentPage: {
-                get() {
-                    if (this.pagination) {
-                        return this.pagination.current_page;
-                    }
-                    return 1;
-                },
-                set(v) {
-                    this.loadItems(v);
-                }
-            },
-            totalPages() {
+            return this.items.filter(item => {
+                return item[this.searchField]
+                    .toLowerCase()
+                    .includes(this.search.toLowerCase());
+            });
+        },
+        currentPage: {
+            get() {
                 if (this.pagination) {
-                    return this.pagination.last_page;
+                    return this.pagination.current_page;
                 }
-                return null;
+                return 1;
             },
-            perPage() {
-                if (this.pagination) {
-                    return this.pagination.per_page;
-                }
-                return this.items.length;
+            set(v) {
+                this.loadItems(v);
             }
+        },
+        totalPages() {
+            if (this.pagination) {
+                return this.pagination.last_page;
+            }
+            return null;
+        },
+        perPage() {
+            if (this.pagination) {
+                return this.pagination.per_page;
+            }
+            return this.items.length;
         }
-    };
+    }
+};
 </script>

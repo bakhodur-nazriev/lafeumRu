@@ -16,31 +16,37 @@
             </div>
             <div class="d-flex justify-content-center mt-0 mb-4">
                 <div class="col-md-4">
-                    <div class="form-group">
+                    <div class="input-group">
                         <input
-                            type="text"
+                            type="string"
                             id="knowledge-area-search"
                             class="form-control"
-                            placeholder="Поиск по области знаний"
+                            placeholder="Поиск"
                         >
-                        <small id="knowledge-search-result" class="form-text text-muted ml-1"></small>
+                        <div class="input-group-append">
+                            <div class="input-group-text cursor-pointer" id="vocabulary-search-button">
+                                <i class="fa fa-search"></i>
+                            </div>
+                        </div>
                     </div>
+                    <small id="knowledge-search-result" class="form-text text-muted ml-1"></small>
                 </div>
             </div>
-            <ul class="list-inline py-1 list-of-knowledge">
-                @foreach ($knowledgeAreas as $knowledgeAreaParent)
-                    <h5 class="knowledge-parent secondary">
+            @foreach ($knowledgeAreas as $knowledgeAreaParent)
+                <div class="mb-4">
+                    <h4 class="knowledge-parent secondary mb-0">
                         {{$knowledgeAreaParent->name}}
-                    </h5>
-                    
-                    @foreach ($knowledgeAreaParent->children as $knowledgeArea)
-                        <li class="knowledge">
-                            <a href="/knowledge/{{$knowledgeArea->slug}}">{{$knowledgeArea->name}}</a>
-                        </li>
-                    @endforeach
-
-                @endforeach
-            </ul>
+                    </h4>
+                    <hr class="mt-2">
+                    <ul class="list-inline py-1 list-of-knowledge" style="column-count: 3;">
+                        @foreach ($knowledgeAreaParent->children as $knowledgeArea)
+                            <li class="knowledge">
+                                <a href="/knowledge/{{$knowledgeArea->slug}}">{{$knowledgeArea->name}}</a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endforeach
             <script>
                 $(document).ready(() => {
                     attachSearch(

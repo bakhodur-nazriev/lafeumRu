@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Carbon\Carbon;
 use ChristianKuri\LaravelFavorite\Traits\Favoriteable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,7 +9,7 @@ class Term extends Model
 {
     use Favoriteable;
 
-    protected $fillable = ['name', 'body', 'link', 'created_at', 'updated_at'];
+    protected $fillable = ['name', 'body', 'link', 'show_in_vocabulary'];
 
     public function categories()
     {
@@ -40,5 +39,12 @@ class Term extends Model
     public function getUpdatedAtAttribute($date)
     {
         return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('Y-m-d');
+    }
+
+    public function scopeVocabulary($query)
+    {
+        return $query->where('name','<>', '')
+                ->where('show_in_vocabulary', true)
+                ->orderBy('name');
     }
 }

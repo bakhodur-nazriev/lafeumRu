@@ -10,6 +10,7 @@
 /public/img/meta*
 composer.json
 /storage/*.key
+/storage/debugbar/
 /vendor
 .env
 .env.backup

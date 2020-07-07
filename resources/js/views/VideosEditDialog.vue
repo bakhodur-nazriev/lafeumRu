@@ -1,76 +1,73 @@
 <template>
     <v-dialog v-if="videoToUpdate" v-model="videoToUpdate" width="700px">
         <v-card>
-            <v-card-title class="primary white--text">
+            <v-card-title class="primary white--text pa-4">
                 Изменить Видео
             </v-card-title>
             <v-container>
                 <v-row justify="center">
                     <v-col cols="12">
-                        <v-text-field
-                            hide-details
+                        <v-textarea
                             outlined
+                            hide-details
+                            :rules="[rules.required]"
                             v-model="videoToUpdate.title"
                             label="Изменить названия видео"
                         >
-                        </v-text-field>
+                        </v-textarea>
                     </v-col>
                     <v-col cols="12">
                         <v-select
-                            hide-details
                             outlined
-                            :items="channels"
+                            hide-details
                             item-value="id"
                             item-text="name"
-                            v-model="videoToUpdate.channel_id"
+                            :items="channels"
+                            :rules="[rules.required]"
                             label="Изменить канал видео"
+                            v-model="videoToUpdate.channel_id"
                         >
                         </v-select>
                     </v-col>
                     <v-col cols="12">
                         <v-text-field
-                            hide-details
                             outlined
+                            hide-details
+                            :rules="[rules.required]"
                             v-model="videoToUpdate.link"
                             label="Изменить ссылку видео"
                         >
                         </v-text-field>
                     </v-col>
                     <v-col cols="12">
-                        <v-dialog
-                            ref="dialog"
-                            v-model="modalDate"
-                            :return-value.sync="videoToUpdate.updated_at"
-                            persistent
-                            width="290px"
-                        >
-                            <template v-slot:activator="{ on }">
-                                <v-text-field
-                                    v-model="videoToUpdate.updated_at"
-                                    label="Выберите дату"
-                                    prepend-inner-icon="mdi-calendar"
-                                    readonly
-                                    outlined
-                                    v-on="on"
-                                    hide-details
-                                ></v-text-field>
-                            </template>
-                            <v-date-picker v-model="videoToUpdate.updated_at" scrollable>
-                                <v-spacer></v-spacer>
-                                <v-btn text color="primary" @click="modalDate= false">Отмена</v-btn>
-                                <v-btn text color="primary" @click="$refs.dialog.save(videoToUpdate.updated_at)">OK
-                                </v-btn>
-                            </v-date-picker>
-                        </v-dialog>
-                    </v-col>
-                    <v-col cols="12">
                         <v-text-field
-                            hide-details
                             outlined
-                            v-model="videoToUpdate.duration"
+                            hide-details
+                            :rules="[rules.required]"
+                            v-model="videoToUpdate.duration + ' мин'"
                             label="Изменить продолжителность видео в минутах"
                         >
                         </v-text-field>
+                    </v-col>
+                    <v-col cols="12">
+                        <v-select
+                            outlined
+                            multiple
+                            hide-details
+                            item-value="id"
+                            item-text="name"
+                            label="Категории"
+                            :items="categories"
+                            :rules="[rules.required]"
+                            v-model="videoToUpdate.categories"
+                        />
+                    </v-col>
+                    <v-col cols="12">
+                        <date-picker
+                            label="Изменить дату"
+                            :rules="[rules.required]"
+                            v-model="videoToUpdate.updated_at"
+                        />
                     </v-col>
                 </v-row>
             </v-container>
@@ -84,19 +81,30 @@
 </template>
 
 <script>
+    import DatePicker from "../components/DatePicker";
+    import rules from "../validation-rules";
+
     export default {
+        components: {DatePicker},
         props: {
             value: Object,
             channels: Array,
             categories: Array,
         },
         data() {
-            return {modalDate: false}
+            return {
+                rules
+            }
         },
         methods: {
             updateVideo() {
+                let updatedVideo = this.videoToUpdate;
+
+                updatedVideo.categories = this.extractIds(updatedVideo.categories);
                 axios
-                    .put("/api/videos/" + this.videoToUpdate.id, this.videoToUpdate, {
+                    .put("/api/videos/" + this.videoToUpdate.id, updatedVideo, {
+                        link: this.videoToUpdate.link,
+                        categories: this.videoToUpdate.categories,
                         updated_at: this.videoToUpdate.updated_at
                     })
                     .then(res => {
@@ -105,6 +113,11 @@
                     .catch(err => {
                         console.log(err);
                     });
+            },
+            extractIds(array) {
+                return array.map(a => {
+                    return typeof a === 'number' ? a : (a.hasOwnProperty('id') ? a.id : null);
+                });
             }
         },
         computed: {

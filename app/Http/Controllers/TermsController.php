@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Post;
 use App\Term;
 use Illuminate\Http\Request;
@@ -23,7 +24,8 @@ class TermsController extends Controller
     public function indexVocabulary()
     {
         $terms = Term::with('post')
-            ->vocabulary()
+            ->where('name', '<>', '')
+            ->orderBy('name')
             ->get();
 
         return view("/vocabulary", compact(["terms"]));
@@ -46,7 +48,7 @@ class TermsController extends Controller
             preg_match_all("/<a[^>]*>(.*?)<\/a>/", $term->body, $termLinks);
 
             foreach ($termLinks[1] as $termLink) {
-                
+
                 $termLink = strip_tags($termLink);
 
                 $hasKeyword = strpos($termLink, $keyword) !== false;
@@ -75,8 +77,8 @@ class TermsController extends Controller
         $request->validate([
             'name' => 'required',
             'body' => 'required',
-            'knowledgeAreas' => 'required|array',
             'categories' => 'required|array',
+            'knowledgeAreas' => 'required|array',
             'created_at' => 'required'
         ]);
 
@@ -87,7 +89,7 @@ class TermsController extends Controller
 
         $newTerm->post()->create();
 
-        return $newTerm->load(['categories', 'knowledge']);
+        return $newTerm->load('categories', 'knowledge');
     }
 
     public function update(Term $term, Request $request)
@@ -102,6 +104,7 @@ class TermsController extends Controller
             $term->knowledge()->sync($request->knowledge);
         }
 
+        $term->save();
         return $term;
     }
 

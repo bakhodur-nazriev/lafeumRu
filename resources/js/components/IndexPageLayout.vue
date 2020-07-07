@@ -8,8 +8,8 @@
                         hide-details
                         class="mb-1"
                         label="Поиск"
-                        append-icon="mdi-magnify"
                         v-model="search"
+                        append-icon="mdi-magnify"
                     />
                 </v-col>
                 <v-col cols="12">
@@ -42,7 +42,7 @@
                                 color="primary"
                                 elevation="2"
                                 outlined
-                                @click="$emit('update-item', { ...item })"
+                                @click.stop="$emit('update-item', { ...item })"
                             >
                                 <v-icon dark>mdi-pen</v-icon>
                             </v-btn>
@@ -53,7 +53,7 @@
                                 color="error"
                                 elevation="2"
                                 outlined
-                                @click="$emit('delete-item', { ...item })"
+                                @click.stop="$emit('delete-item', { ...item })"
                             >
                                 <v-icon dark>mdi-delete</v-icon>
                             </v-btn>
@@ -146,22 +146,22 @@ export default {
             this.loadingItems = true;
             this.items = [];
 
-            axios
-                .get(this.getIndexUrl(page))
-                .then(this.processResponse)
-                .catch(err => {
-                    this.loadingItems = false;
-                    console.log(err);
-                });
+                axios
+                    .get(this.getIndexUrl(page))
+                    .then(this.processResponse)
+                    .catch(err => {
+                        this.loadingItems = false;
+                        console.log(err);
+                    });
 
-            this.pagination = null;
-        }
-    },
-    computed: {
-        processedHeaders() {
-            if (this.noActions) {
-                return this.tableHeaders;
+                this.pagination = null;
             }
+        },
+        computed: {
+            processedHeaders() {
+                if (this.noActions) {
+                    return this.tableHeaders;
+                }
 
             return [
                 ...this.tableHeaders,
@@ -211,3 +211,26 @@ export default {
     }
 };
 </script>
+
+<style>
+    .category-fieldset,
+    .knowledge-fieldset {
+        border: 1px solid #9e9e9e;
+        border-radius: 5px;
+        padding-left: 8px;
+    }
+
+    .category-fieldset-legend {
+        color: #9e9e9e;
+        font-size: 14px;
+        max-width: 12%;
+        padding: 0 3px 0 5px;
+    }
+
+    .knowledge-fieldset-legend {
+        color: #9e9e9e;
+        font-size: 14px;
+        max-width: 17%;
+        padding: 0 2px 0 4px;
+    }
+</style>

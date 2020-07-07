@@ -2,51 +2,78 @@
     <v-dialog :value="value" width="700px" @input="$emit('input', false)">
         <v-card>
             <v-form ref="createForm" @submit="addTerm">
-                <v-card-title class="primary white--text mb-5">
+                <v-card-title class="primary white--text">
                     Создать Термин
                 </v-card-title>
-                <v-card-text>
-                    <v-text-field
-                        outlined
-                        v-model="newTerm.name"
-                        label="Введите название"
-                        :rules="[rules.required]"
-                    />
-                    <v-text-field
-                        outlined
-                        v-model="newTerm.link"
-                        label="Ссылка"
-                    />
-                    <v-select
-                        v-model="newTerm.knowledgeAreas"
-                        :items="knowledgeAreas"
-                        outlined
-                        multiple
-                        item-value="id"
-                        item-text="name"
-                        label="Область знаний"
-                        :rules="[rules.required]"
-                    />
-                    <v-select
-                        v-model="newTerm.categories"
-                        :items="categories"
-                        outlined
-                        multiple
-                        item-value="id"
-                        item-text="name"
-                        label="Категории"
-                        :rules="[rules.required]"
-                    />
-                    <v-checkbox
-                        class="mt-0"
-                        v-model="newTerm.show_in_vocabulary"
-                        label="Показать в словаре"
-                    />
-                    <wysiwyg-editor
-                        v-model="newTerm.body"
-                        label="Введите описание"
-                    />
-                </v-card-text>
+                <v-container>
+                    <v-row justify="center">
+                        <v-col cols="12">
+                            <v-text-field
+                                outlined
+                                hide-details
+                                v-model="newTerm.name"
+                                label="Введите название"
+                                :rules="[rules.required]"
+                            />
+                        </v-col>
+                        <v-col cols="12">
+                            <v-text-field
+                                outlined
+                                hide-details
+                                label="Ссылка"
+                                v-model="newTerm.link"
+                                :rules="[rules.required]"
+                            />
+                        </v-col>
+                        <v-col cols="12">
+                            <v-select
+                                outlined
+                                multiple
+                                hide-details
+                                item-value="id"
+                                item-text="name"
+                                label="Область знаний"
+                                :items="knowledgeAreas"
+                                :rules="[rules.required]"
+                                v-model="newTerm.knowledgeAreas"
+                            />
+                        </v-col>
+                        <v-col cols="12">
+                            <v-select
+                                outlined
+                                multiple
+                                hide-details
+                                item-value="id"
+                                item-text="name"
+                                label="Категории"
+                                :items="categories"
+                                :rules="[rules.required]"
+                                v-model="newTerm.categories"
+                            />
+                        </v-col>
+                        <v-col cols="12">
+                            <date-picker
+                                label="Выберите дату"
+                                :rules="[rules.required]"
+                                v-model="newTerm.created_at"
+                            />
+                        </v-col>
+                        <v-col cols="12">
+                            <v-checkbox
+                                class="mt-0"
+                                v-model="newTerm.show_in_vocabulary"
+                                label="Показать в словаре"
+                            />
+                        </v-col>
+                        <v-col cols="12">
+                            <wysiwyg-editor
+                                v-model="newTerm.body"
+                                label="Введите описание"
+                                :rules="[rules.required]"
+                            />
+                        </v-col>
+                    </v-row>
+                </v-container>
                 <v-card-actions>
                     <v-spacer/>
                     <v-btn dark color="green" type="submit">Сохранить</v-btn>
@@ -65,44 +92,45 @@
 </template>
 
 <script>
-    import WysiwygEditor from "../components/WysiwygEditor";
     import rules from "../validation-rules";
+    import DatePicker from "../components/DatePicker";
+    import WysiwygEditor from "../components/WysiwygEditor";
 
-export default {
-    props: {
-        value: Boolean,
-        knowledgeAreas: Array,
-        categories: Array
-    },
-    components: {
-        "wysiwyg-editor": WysiwygEditor
-    },
-    data() {
-        return {
-            rules,
-            newTerm: null
-        };
-    },
-    beforeMount() {
-        this.newTerm = this.getDefaultTerm();
-    },
-    methods: {
-        getDefaultTerm() {
+    export default {
+        props: {
+            value: Boolean,
+            categories: Array,
+            knowledgeAreas: Array,
+        },
+        components: {
+            "date-picker": DatePicker,
+            "wysiwyg-editor": WysiwygEditor
+        },
+        data() {
             return {
-                name: "",
-                body: "",
-                link: "",
-                knowledgeAreas: [],
-                categories: [],
-                show_in_vocabulary: false
+                rules,
+                newTerm: null,
             };
         },
-        resetNewTerm() {
+        beforeMount() {
             this.newTerm = this.getDefaultTerm();
-            this.$refs.createForm.reset();
         },
-        addTerm(e) {
-            e.preventDefault();
+        methods: {
+            getDefaultTerm() {
+                return {
+                    name: "",
+                    body: "",
+                    link: "",
+                    knowledgeAreas: [],
+                    categories: [],
+                };
+            },
+            resetNewTerm() {
+                this.newTerm = this.getDefaultTerm();
+                this.$refs.createForm.reset();
+            },
+            addTerm(e) {
+                e.preventDefault();
 
                 this.$refs.createForm.validate();
 

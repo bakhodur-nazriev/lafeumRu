@@ -63,9 +63,7 @@
                                 </v-tooltip>
                             </v-col>
                             <v-col class="pa-2">
-                                <p class="mb-2">
-                                    {{ quote.favoriteable.body }}
-                                </p>
+                                <p class="mb-2">{{ quote.favoriteable.body }}</p>
                                 <span
                                     v-for="(category, i) in quote.favoriteable.categories"
                                     :key="i"

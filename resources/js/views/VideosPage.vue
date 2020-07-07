@@ -6,6 +6,7 @@
             add-label="Добавить видео"
             searchField="title"
             ref="indexPage"
+            @click:item="videoClick"
             @add-item="dialogAdd = true"
             @update-item="videoToUpdate = $event"
             @delete-item="videoToDelete = $event"
@@ -32,6 +33,12 @@
             @updated="videoUpdated"
         />
 
+        <videos-show-dialog
+            :video="videoToShow"
+            :categories="categories"
+            @close="videoToShow = null"
+        />
+
         <videos-delete-dialog v-model="videoToDelete" @deleted="videoDeleted"/>
     </v-content>
 </template>
@@ -43,18 +50,21 @@
     import VideosCreateDialog from "./VideosCreateDialog";
     import VideosEditDialog from "./VideosEditDialog";
     import VideosDeleteDialog from "./VideosDeleteDialog";
+    import VideosShowDialog from "./VideosShowDialog";
 
     export default {
         components: {
             IndexPageLayout,
             VideosCreateDialog,
             VideosEditDialog,
-            VideosDeleteDialog
+            VideosDeleteDialog,
+            VideosShowDialog
         },
         data() {
             return {
                 rules,
                 dialogAdd: false,
+                videoToShow: null,
                 videoToDelete: null,
                 videoToUpdate: null,
                 channels: [],
@@ -128,7 +138,10 @@
             videoDeleted() {
                 this.videoToDelete = null;
                 this.$refs.indexPage.loadItems();
-            }
+            },
+            videoClick(video) {
+                this.videoToShow = video;
+            },
         }
     };
 </script>

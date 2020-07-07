@@ -6,6 +6,7 @@
             add-label="Добавить термин"
             searchField="name"
             ref="indexPage"
+            @click:item="termClick"
             @add-item="addTerm = true"
             @update-item="termToUpdate = $event"
             @delete-item="termToDelete = $event"
@@ -32,35 +33,44 @@
             @updated="termUpdated"
         />
 
-        <terms-delete-dialog v-model="termToDelete" @deleted="termDeleted"/>
+        <terms-show-dialog
+            :term="termToShow"
+            :categories="categories"
+            @close="termToShow = null"
+        />
+
+        <terms-delete-dialog
+            v-model="termToDelete"
+            @deleted="termDeleted"
+        />
     </v-content>
 </template>
 <script>
-    import rules from "../validation-rules";
-
     import IndexPageLayout from "../components/IndexPageLayout";
     import TermsCreateDialog from "./TermsCreateDialog";
     import TermsEditDialog from "./TermsEditDialog";
     import TermsDeleteDialog from "./TermsDeleteDialog";
+    import TermsShowDialog from "./TermsShowDialog";
 
     export default {
         components: {
             IndexPageLayout,
             TermsCreateDialog,
             TermsEditDialog,
-            TermsDeleteDialog
+            TermsDeleteDialog,
+            TermsShowDialog
         },
         data() {
             return {
-                rules,
                 addTerm: false,
                 categories: [],
                 knowledgeAreas: [],
-                termToDelete: null,
+                termToShow: null,
                 termToUpdate: null,
+                termToDelete: null,
                 headers: [
                     {
-                        text: "Название",
+                        text: "Названия",
                         value: "name",
                         sortable: false
                     },
@@ -113,6 +123,9 @@
             termDeleted(newTerm) {
                 this.termToDelete = null;
                 this.$refs.indexPage.loadItems();
+            },
+            termClick(term) {
+                this.termToShow = term;
             }
         }
     };

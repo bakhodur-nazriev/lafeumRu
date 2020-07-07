@@ -1,64 +1,49 @@
 <template>
-    <v-dialog v-if="quoteToUpdate" v-model="quoteToUpdate" width="700px">
+    <v-dialog v-if="quoteToUpdate" v-model="quoteToUpdate" width="700">
         <v-card v-if="!isSendingData">
-            <v-card-title class="primary white--text">
+            <v-card-title class="primary white--text pa-4">
                 Изменить Цитату
             </v-card-title>
             <v-container>
                 <v-row justify="center">
                     <v-col cols="12">
                         <v-select
-                            hide-details
                             outlined
+                            hide-details
+                            label="Авторы"
                             item-value="id"
                             item-text="name"
-                            label="Авторы"
                             :items="authors"
+                            :rules="[rules.required]"
                             v-model="quoteToUpdate.author_id"
                         />
                     </v-col>
                     <v-col cols="12">
                         <v-select
-                            hide-details
                             outlined
                             multiple
+                            hide-details
                             item-value="id"
                             item-text="name"
                             label="Категории"
                             :items="categories"
+                            :rules="[rules.required]"
                             v-model="quoteToUpdate.categories"
                         />
                     </v-col>
                     <v-col cols="12">
-                        <v-dialog
-                            ref="dialog"
-                            v-model="modalDate"
-                            :return-value.sync="quoteToUpdate.updated_at"
-                            width="290px"
-                            persistent
-                        >
-                            <template v-slot:activator="{ on }">
-                                <v-text-field
-                                    v-model="quoteToUpdate.updated_at"
-                                    label="Выберите дату"
-                                    prepend-inner-icon="mdi-calendar"
-                                    hide-details
-                                    readonly
-                                    outlined
-                                    v-on="on"
-                                ></v-text-field>
-                            </template>
-                            <v-date-picker v-model="quoteToUpdate.updated_at" scrollable>
-                                <v-spacer></v-spacer>
-                                <v-btn text color="primary" @click="modalDate= false">Отмена</v-btn>
-                                <v-btn text color="primary" @click="$refs.dialog.save(quoteToUpdate.updated_at)">OK
-                                </v-btn>
-                            </v-date-picker>
-                        </v-dialog>
+                        <date-picker
+                            label="Изменить дату"
+                            :rules="[rules.required]"
+                            v-model="quoteToUpdate.updated_at"
+                        />
                     </v-col>
                     <v-col cols="12">
                         <wysiwyg-editor
+                            outlined
+                            hide-details
                             label="Изменить цитату"
+                            :rules="[rules.required]"
                             v-model="quoteToUpdate.body"
                         />
                     </v-col>
@@ -79,19 +64,24 @@
 </template>
 
 <script>
+    import rules from "../validation-rules"
+    import DatePicker from "../components/DatePicker";
     import WysiwygEditor from "../components/WysiwygEditor";
 
+
     export default {
+        components: {
+            "date-picker": DatePicker,
+            "wysiwyg-editor": WysiwygEditor
+        },
         props: {
             value: Object, //quote
             authors: Array,
             categories: Array,
         },
-        components: {
-            "wysiwyg-editor": WysiwygEditor
-        },
         data() {
             return {
+                rules,
                 isSendingData: false,
                 modalDate: false,
             }
@@ -99,21 +89,30 @@
         methods: {
             updateQuote() {
                 this.isSendingData = true;
+
+                let updatedQuote = this.quoteToUpdate;
+                updatedQuote.categories = this.extractIds(updatedQuote.categories);
                 axios
-                    .put("/api/quotes/" + this.quoteToUpdate.id, {
+                    .put("/api/quotes/" + this.quoteToUpdate.id, updatedQuote, {
                         body: this.quoteToUpdate.body,
                         author_id: this.quoteToUpdate.author_id,
+                        categories: this.quoteToUpdate.categories,
                         updated_at: this.quoteToUpdate.updated_at
                     })
                     .then(res => {
                         this.isSendingData = false;
-                        this.quoteToUpdate = res.data;
+                        /*this.quoteToUpdate = res.data;*/
                         this.$emit('updated', res.data);
                     })
                     .catch(err => {
                         this.isSendingData = false;
                         console.log(err);
                     });
+            },
+            extractIds(array) {
+                return array.map(a => {
+                    return typeof a === 'number' ? a : (a.hasOwnProperty('id') ? a.id : null);
+                });
             }
         },
         computed: {

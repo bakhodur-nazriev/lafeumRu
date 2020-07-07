@@ -5,21 +5,15 @@
                 <v-card class="pa-2" align="center" max-width="550">
                     <v-card-title class="align-items-start justify-center">
                         <v-col md="12" sm="12" align="center">
-                            <span class="headline font-weight-bold"
-                                >Мой профиль</span
-                            >
+                            <span class="headline font-weight-bold">Мой профиль</span>
                         </v-col>
-
                         <v-col md="4" sm="4">
                             <v-img
                                 :src="user.avatar"
                                 alt="avatar"
                                 style="border-radius: 50%; border: solid 4px #04718c;"
                             >
-                                <div
-                                    class="change-avatar"
-                                    @click="updatingAvatar = true"
-                                >
+                                <div class="change-avatar" @click="updatingAvatar = true">
                                     <p class="text-center mb-0">
                                         <v-icon dark>mdi-camera</v-icon>
                                     </p>
@@ -28,9 +22,7 @@
                         </v-col>
                     </v-card-title>
                     <v-card-text class="py-0">
-                        <label class="mb-0 d-flex subtitle-1 font-weight-bold"
-                            >Имя профиля</label
-                        >
+                        <label class="mb-0 d-flex subtitle-1 font-weight-bold">Имя профиля</label>
                         <v-row align="center">
                             <v-col class="pt-0 d-flex" md="12">
                                 <v-text-field
@@ -56,9 +48,7 @@
                             </v-col>
                         </v-row>
 
-                        <label class="mb-0 d-flex subtitle-1 font-weight-bold"
-                            >Email профиля</label
-                        >
+                        <label class="mb-0 d-flex subtitle-1 font-weight-bold">Email профиля</label>
                         <v-row align="center">
                             <v-col class="pt-0 d-flex" md="12">
                                 <v-text-field
@@ -84,9 +74,7 @@
                             </v-col>
                         </v-row>
 
-                        <label class="mb-0 d-flex subtitle-1 font-weight-bold"
-                            >Пароль профиля</label
-                        >
+                        <label class="mb-0 d-flex subtitle-1 font-weight-bold">Пароль профиля</label>
                         <v-row align="center">
                             <v-col class="pt-0 d-flex" md="12">
                                 <v-text-field
@@ -123,7 +111,7 @@
                     <v-card-title class="primary white--text">
                         {{formTitle}}
                     </v-card-title>
-                    
+
                     <v-container class="pb-0" v-if="updatingAvatar">
                         <v-file-input
                             prepend-icon=""
@@ -134,7 +122,7 @@
                         />
                     </v-container>
 
-                    <v-container class="pb-0"  v-if="updatingName">
+                    <v-container class="pb-0" v-if="updatingName">
                         <v-text-field
                             :label="this.user.name"
                             outlined
@@ -169,20 +157,20 @@
                             label="Подтверждение нового пароля"
                             @click:append="showPass = !showPass"
                             outlined
+                            hide-details
                         />
                     </v-container>
                     <v-card-actions>
-                        <v-spacer />
-                        <v-btn dark color="primary" type="submit"
-                            >Сохранить</v-btn
-                        >
+                        <v-spacer/>
+                        <v-btn dark color="primary" type="submit">Сохранить</v-btn>
                         <v-btn
                             dark
                             color="error"
                             type="button"
                             @click="showDialog = false"
-                            >Закрыть</v-btn
                         >
+                            Закрыть
+                        </v-btn>
                     </v-card-actions>
                 </v-form>
             </v-card>
@@ -191,128 +179,128 @@
 </template>
 
 <script>
-import rules from "../validation-rules";
+    import rules from "../validation-rules";
 
-export default {
-    data() {
-        return {
-            profileToUpdate: {
-                email: null,
-                name: null,
-                password: null,
-                avatar: null
-            },
-            showPass: false,
-            user: window.Laravel.auth,
-            updatingAvatar: false,
-            updatingName: false,
-            updatingEmail: false,
-            updatingPassword: false,
-            rules
-        };
-    },
-    methods: {
-        updateProfile(e) {
-            e.preventDefault();
+    export default {
+        data() {
+            return {
+                profileToUpdate: {
+                    email: null,
+                    name: null,
+                    password: null,
+                    avatar: null
+                },
+                showPass: false,
+                user: window.Laravel.auth,
+                updatingAvatar: false,
+                updatingName: false,
+                updatingEmail: false,
+                updatingPassword: false,
+                rules
+            };
+        },
+        methods: {
+            updateProfile(e) {
+                e.preventDefault();
 
-            const validForm = this.$refs.form.validate();
+                const validForm = this.$refs.form.validate();
 
-            if (!validForm) return;
+                if (!validForm) return;
 
-            const formData = new FormData();
+                const formData = new FormData();
 
-            const { avatar, name, email, password } = this.profileToUpdate;
+                const {avatar, name, email, password} = this.profileToUpdate;
 
-            if (this.updatingAvatar && avatar instanceof File) {
-                formData.append("avatar", avatar);
-            }
-
-            if (this.updatingName) {
-                formData.append("name", name);
-            }
-
-            if (this.updatingEmail) {
-                formData.append("email", email);
-            }
-
-            if (this.updatingPassword) {
-                formData.append("password", password);
-            }
-
-            formData.append("_method", "put");
-
-            axios
-                .post("/api/users/" + this.user.id, formData, {
-                    headers: {
-                        "Content-Type": "multipart/form-data"
-                    }
-                })
-                .then(({ data }) => {
-                    this.showDialog = false;
-                    this.user = data;
-                    Event.fire("profileUpdated", data);
-                })
-                .catch(err => console.log(err));
-        }
-    },
-    computed: {
-        showDialog: {
-            get() {
-                return (
-                    this.updatingAvatar ||
-                    this.updatingName ||
-                    this.updatingEmail ||
-                    this.updatingPassword
-                );
-            },
-            set(v) {
-                if (!v) {
-                    this.updatingAvatar = false;
-                    this.updatingName = false;
-                    this.updatingEmail = false;
-                    this.updatingPassword = false;
+                if (this.updatingAvatar && avatar instanceof File) {
+                    formData.append("avatar", avatar);
                 }
+
+                if (this.updatingName) {
+                    formData.append("name", name);
+                }
+
+                if (this.updatingEmail) {
+                    formData.append("email", email);
+                }
+
+                if (this.updatingPassword) {
+                    formData.append("password", password);
+                }
+
+                formData.append("_method", "put");
+
+                axios
+                    .post("/api/users/" + this.user.id, formData, {
+                        headers: {
+                            "Content-Type": "multipart/form-data"
+                        }
+                    })
+                    .then(({data}) => {
+                        this.showDialog = false;
+                        this.user = data;
+                        Event.fire("profileUpdated", data);
+                    })
+                    .catch(err => console.log(err));
             }
         },
-        formTitle(){
-            let baseTitle = "Изменение";
+        computed: {
+            showDialog: {
+                get() {
+                    return (
+                        this.updatingAvatar ||
+                        this.updatingName ||
+                        this.updatingEmail ||
+                        this.updatingPassword
+                    );
+                },
+                set(v) {
+                    if (!v) {
+                        this.updatingAvatar = false;
+                        this.updatingName = false;
+                        this.updatingEmail = false;
+                        this.updatingPassword = false;
+                    }
+                }
+            },
+            formTitle() {
+                let baseTitle = "Изменение";
 
-            if (this.updatingAvatar) {
-                baseTitle += " аватара ";
+                if (this.updatingAvatar) {
+                    baseTitle += " аватара ";
+                }
+
+                if (this.updatingName) {
+                    baseTitle += " имени ";
+                }
+
+                if (this.updatingEmail) {
+                    baseTitle += " email-а ";
+                }
+
+                if (this.updatingPassword) {
+                    baseTitle += " пароля ";
+                }
+
+                return baseTitle;
             }
-
-            if (this.updatingName) {
-                baseTitle += " имени ";
-            }
-
-            if (this.updatingEmail) {
-                baseTitle += " email-а ";
-            }
-
-            if (this.updatingPassword) {
-                baseTitle += " пароля ";
-            }            
-
-            return baseTitle;
         }
-    }
-};
+    };
 </script>
 <style>
-.change-avatar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    position: relative;
-    opacity: 0;
-    height: 100%;
-    cursor: pointer;
-    background-color: rgba(32, 33, 36, 0.6);
-}
+    .change-avatar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        position: relative;
+        opacity: 0;
+        height: 100%;
+        cursor: pointer;
+        background-color: rgba(32, 33, 36, 0.6);
+    }
 
-.change-avatar:hover {
-    opacity: 0.8;
-    transition: 0.2s ease-in;
-}
+    .change-avatar:hover {
+        opacity: 0.8;
+        transition: 0.2s ease-in;
+    }
 </style>

@@ -1,11 +1,12 @@
 <template>
     <v-content class="pa-0">
         <index-page-layout
+            ref="indexPage"
+            search-field="body"
             index-url="/api/quotes"
             :table-headers="this.headers"
             add-label="Добавить цитату"
-            search-field="body"
-            ref="indexPage"
+            @click:item="quoteClick"
             @add-item="addQuote = true"
             @update-item="quoteToUpdate = $event"
             @delete-item="quoteToDelete = $event"
@@ -32,7 +33,16 @@
             @updated="quoteUpdated"
         />
 
-        <quotes-delete-dialog v-model="quoteToDelete" @deleted="quoteDeleted"/>
+        <quotes-show-dialog
+            :quote="quoteToShow"
+            :categories="categories"
+            @close="quoteToShow = null"
+        />
+
+        <quotes-delete-dialog
+            v-model="quoteToDelete"
+            @deleted="quoteDeleted"
+        />
     </v-content>
 </template>
 
@@ -41,19 +51,22 @@
     import QuotesCreateDialog from "../views/QuotesCreateDialog";
     import QuotesEditDialog from "../views/QuotesEditDialog";
     import QuotesDeleteDialog from "../views/QuotesDeleteDialog";
+    import QuotesShowDialog from "../views/QuotesShowDialog";
 
     export default {
         components: {
             IndexPageLayout,
             QuotesCreateDialog,
             QuotesEditDialog,
-            QuotesDeleteDialog
+            QuotesDeleteDialog,
+            QuotesShowDialog
         },
         data() {
             return {
                 authors: [],
                 categories: [],
                 addQuote: false,
+                quoteToShow: null,
                 quoteToDelete: null,
                 quoteToUpdate: null,
                 headers: [
@@ -112,6 +125,9 @@
             quoteDeleted() {
                 this.quoteToDelete = null;
                 this.$refs.indexPage.loadItems();
+            },
+            quoteClick(quote) {
+                this.quoteToShow = quote;
             }
         }
     };

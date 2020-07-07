@@ -1,5 +1,4 @@
 <template>
-    <!-- Update Item Dialog -->
     <v-dialog v-if="photoToUpdate" v-model="photoToUpdate" width="700">
         <v-card>
             <v-card-title class="primary white--text pa-4">
@@ -8,39 +7,19 @@
             <v-container>
                 <v-row justify="center">
                     <v-col cols="12">
-                        <v-dialog
-                            ref="dialog"
-                            v-model="modalDate"
-                            :return-value.sync="photoToUpdate.updated_at"
-                            persistent
-                            width="290px"
-                        >
-                            <template v-slot:activator="{ on }">
-                                <v-text-field
-                                    v-model="photoToUpdate.updated_at"
-                                    label="Выберите дату"
-                                    prepend-inner-icon="mdi-calendar"
-                                    readonly
-                                    outlined
-                                    v-on="on"
-                                    hide-details
-                                ></v-text-field>
-                            </template>
-                            <v-date-picker v-model="photoToUpdate.updated_at" scrollable>
-                                <v-spacer></v-spacer>
-                                <v-btn text color="primary" @click="modalDate= false">Отмена</v-btn>
-                                <v-btn text color="primary" @click="$refs.dialog.save(photoToUpdate.updated_at)">
-                                    OK
-                                </v-btn>
-                            </v-date-picker>
-                        </v-dialog>
+                        <date-picker
+                            label="Изменить дату"
+                            :rules="[rules.required]"
+                            v-model="photoToUpdate.updated_at"
+                        />
                     </v-col>
                     <v-col cols="12">
                         <v-textarea
-                            v-model="photoToUpdate.description"
-                            label="Описание"
                             outlined
                             hide-details
+                            label="Описание"
+                            :rules="[rules.required]"
+                            v-model="photoToUpdate.description"
                         />
                     </v-col>
                 </v-row>
@@ -55,23 +34,35 @@
 </template>
 
 <script>
+    import DatePicker from "../components/DatePicker";
+    import rules from "../validation-rules";
+
     export default {
+        components: {
+            "date-picker": DatePicker
+        },
         props: {
             value: Object
         },
         data() {
-            return {modalDate: false}
+            return {
+                rules,
+                modalDate: ""
+            }
         },
         methods: {
+            updateDate() {
+                this.photoToUpdate = null;
+                this.$refs.indexPage.loadItems();
+            },
             updatePhoto() {
                 axios
                     .put("/api/photos/" + this.photoToUpdate.id, {
-                        description: this.photoToUpdate.description,
-                        updated_at: this.photoToUpdate.updated_at
+                        updated_at: this.photoToUpdate.updated_at,
+                        description: this.photoToUpdate.description
                     })
                     .then(res => {
-                        this.photoToUpdate = false;
-                        this.$refs.indexPage.loadItems();
+                        this.$emit('updated', res.data);
                     })
                     .catch(err => {
                         console.log(err);
@@ -85,7 +76,7 @@
                 },
                 set(v) {
                     if (!v) {
-                        this.$emit('input', null)
+                        this.$emit('input', null);
                     }
                 }
             }

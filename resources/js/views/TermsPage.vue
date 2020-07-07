@@ -46,8 +46,6 @@
     </v-content>
 </template>
 <script>
-    import rules from "../validation-rules";
-
     import IndexPageLayout from "../components/IndexPageLayout";
     import TermsCreateDialog from "./TermsCreateDialog";
     import TermsEditDialog from "./TermsEditDialog";
@@ -64,13 +62,12 @@
         },
         data() {
             return {
-                rules,
                 addTerm: false,
                 categories: [],
                 knowledgeAreas: [],
                 termToShow: null,
-                termToDelete: null,
                 termToUpdate: null,
+                termToDelete: null,
                 headers: [
                     {
                         text: "Названия",

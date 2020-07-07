@@ -20,7 +20,6 @@
                     />
                 </div>
             </template>
-
         </index-page-layout>
 
         <photo-create-dialog
@@ -28,11 +27,10 @@
             @created="photoCreated"
         />
 
-        <!--<photo-edit-dialog
+        <photo-edit-dialog
             v-model="photoToUpdate"
             @updated="photoUpdated"
-        />-->
-
+        />
 
         <photo-show-dialog
             :photo="photoToShow"
@@ -47,7 +45,6 @@
     </v-content>
 </template>
 <script>
-    import rules from "../validation-rules";
     import IndexPageLayout from "../components/IndexPageLayout";
     import PhotoCreateDialog from "./PhotoCreateDialog";
     import PhotoEditDialog from "./PhotoEditDialog";
@@ -64,38 +61,35 @@
         },
         data() {
             return {
-                rules,
                 addPhoto: false,
-                /*photoImage: [],
-                photoDescription: "",*/
                 photoToShow: null,
                 photoToDelete: null,
                 photoToUpdate: null,
                 headers: [
                     {
                         text: "Фото",
-                        value: "image",
-                        sortable: false,
-                        class: "mine-table-headers",
                         width: "150px",
-                        align: "center"
+                        value: "image",
+                        align: "center",
+                        sortable: false,
+                        class: "mine-table-headers"
                     },
                     {
+                        sortable: false,
                         text: "Описание",
-                        value: "description",
-                        sortable: false
+                        value: "description"
                     },
                     {
-                        text: "Дата добавления",
+                        align: "center",
+                        sortable: false,
                         value: "created_at",
-                        align: "center",
-                        sortable: false
+                        text: "Дата добавления"
                     },
                     {
-                        text: "Дата изменения",
-                        value: "updated_at",
                         align: "center",
-                        sortable: false
+                        sortable: false,
+                        value: "updated_at",
+                        text: "Дата изменения"
                     }
                 ]
             };
@@ -105,11 +99,11 @@
                 this.addPhoto = false;
                 this.$refs.indexPage.loadItems();
             },
-            photoUpdated(newPhoto) {
+            photoUpdated(updated) {
                 this.photoToUpdate = null;
                 this.$refs.indexPage.loadItems();
             },
-            photoDeleted(newPhoto) {
+            photoDeleted() {
                 this.photoToDelete = null;
                 this.$refs.indexPage.loadItems();
             },

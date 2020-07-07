@@ -1,11 +1,11 @@
 <template>
     <v-content class="pa-0">
         <index-page-layout
+            ref="indexPage"
+            search-field="body"
             index-url="/api/quotes"
             :table-headers="this.headers"
             add-label="Добавить цитату"
-            search-field="body"
-            ref="indexPage"
             @click:item="quoteClick"
             @add-item="addQuote = true"
             @update-item="quoteToUpdate = $event"

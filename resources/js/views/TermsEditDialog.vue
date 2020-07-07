@@ -1,6 +1,6 @@
 <template>
-    <v-dialog v-if="termToUpdate" v-model="termToUpdate" width="700px">
-        <v-card>
+    <v-dialog v-if="termToUpdate" v-model="termToUpdate" width="700">
+        <v-card v-if="!isSendingData">
             <v-card-title class="primary white--text pa-4">
                 Изменить Термин
             </v-card-title>
@@ -8,75 +8,58 @@
                 <v-row justify="center">
                     <v-col cols="12">
                         <v-text-field
-                            hide-details
                             outlined
-                            label="Изменить название термина"
+                            hide-details
+                            :rules="[rules.required]"
                             v-model="termToUpdate.name"
+                            label="Изменить название термина"
                         />
                     </v-col>
                     <v-col cols="12">
                         <v-text-field
-                            hide-details
                             outlined
+                            hide-details
                             label="Ссылка"
+                            :rules="[rules.required]"
                             v-model="termToUpdate.link"
                         />
                     </v-col>
                     <v-col cols="12">
                         <v-select
-                            v-model="termToUpdate.knowledge"
-                            :items="knowledgeAreas"
                             outlined
                             multiple
+                            hide-details
                             item-value="id"
                             item-text="name"
                             label="Область знаний"
+                            :items="knowledgeAreas"
                             :rules="[rules.required]"
-                            hide-details
+                            v-model="termToUpdate.knowledge"
                         />
                     </v-col>
                     <v-col cols="12">
                         <v-select
-                            v-model="termToUpdate.categories"
-                            :items="categories"
                             outlined
                             multiple
+                            hide-details
                             item-value="id"
                             item-text="name"
                             label="Категории"
+                            :items="categories"
                             :rules="[rules.required]"
-                            hide-details
+                            v-model="termToUpdate.categories"
                         />
                     </v-col>
                     <v-col cols="12">
-                        <v-dialog
-                            ref="dialog"
-                            v-model="modalDate"
-                            :return-value.sync="termToUpdate.updated_at"
-                            persistent
-                            width="290px"
-                        >
-                            <template v-slot:activator="{ on }">
-                                <v-text-field
-                                    v-model="termToUpdate.updated_at"
-                                    label="Выберите дату"
-                                    prepend-inner-icon="mdi-calendar"
-                                    readonly
-                                    outlined
-                                    v-on="on"
-                                    hide-details
-                                ></v-text-field>
-                            </template>
-                            <v-date-picker v-model="termToUpdate.updated_at" scrollable>
-                                <v-spacer></v-spacer>
-                                <v-btn text color="primary" @click="modalDate= false">Отмена</v-btn>
-                                <v-btn text color="primary" @click="$refs.dialog.save(termToUpdate.updated_at)">OK
-                                </v-btn>
-                            </v-date-picker>
-                        </v-dialog>
+                        <date-picker
+                            label="Изменить дату"
+                            :rules="[rules.required]"
+                            v-model="termToUpdate.updated_at"
+                        />
                     </v-col>
                     <v-col cols="12">
                         <wysiwyg-editor
+                            :rules="[rules.required]"
                             v-model="termToUpdate.body"
                             label="Изменить термин"
                         />
@@ -89,32 +72,45 @@
                 <v-btn dark color="error" @click="termToUpdate = false">Отмена</v-btn>
             </v-card-actions>
         </v-card>
+        <v-card v-else>
+            <div class="py-5 text-center">
+                <v-progress-circular indeterminate color="primary"/>
+            </div>
+        </v-card>
     </v-dialog>
 </template>
 
 <script>
     import WysiwygEditor from "../components/WysiwygEditor";
+    import DatePicker from "../components/DatePicker";
     import rules from "../validation-rules";
 
     export default {
         props: {
-            value: Object,
             knowledgeAreas: Array,
             categories: Array,
+            value: Object,
         },
         components: {
+            "date-picker": DatePicker,
             "wysiwyg-editor": WysiwygEditor
         },
         data() {
             return {
-                rules,
-                modalDate: false
+                isSendingData: false,
+                modalDate: false,
+                rules
             };
         },
         methods: {
             updateTerm() {
+               let updatedTerm = this.termToUpdate;
+
+                updatedTerm.categories = this.extractIds(updatedTerm.categories);
+                updatedTerm.knowledge = this.extractIds(updatedTerm.knowledge);
+
                 axios
-                    .put("/api/terms/" + this.termToUpdate.id, {
+                    .put("/api/terms/" + this.termToUpdate.id, updatedTerm,{
                         name: this.termToUpdate.name,
                         body: this.termToUpdate.body,
                         link: this.termToUpdate.link,
@@ -127,6 +123,11 @@
                     .catch(err => {
                         console.log(err);
                     });
+            },
+            extractIds(array) {
+                return array.map(a => {
+                    return typeof a === 'number' ? a : (a.hasOwnProperty('id') ? a.id : null);
+                });
             }
         },
         computed: {

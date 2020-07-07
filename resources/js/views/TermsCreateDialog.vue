@@ -2,70 +2,71 @@
     <v-dialog :value="value" @input="$emit('input', false)" width="700">
         <v-card>
             <v-form ref="createForm" @submit="addTerm">
-                <v-card-title class="primary white--text mb-4">
+                <v-card-title class="primary white--text">
                     Создать Термин
                 </v-card-title>
-                <v-card-text>
-                    <v-text-field
-                        outlined
-                        v-model="newTerm.name"
-                        label="Введите название"
-                        :rules="[rules.required]"
-                    />
-                    <v-text-field
-                        outlined
-                        v-model="newTerm.link"
-                        label="Ссылка"
-                    />
-                    <v-select
-                        v-model="newTerm.knowledgeAreas"
-                        :items="knowledgeAreas"
-                        outlined
-                        multiple
-                        item-value="id"
-                        item-text="name"
-                        label="Область знаний"
-                        :rules="[rules.required]"
-                    />
-                    <v-select
-                        v-model="newTerm.categories"
-                        :items="categories"
-                        outlined
-                        multiple
-                        item-value="id"
-                        item-text="name"
-                        label="Категории"
-                        :rules="[rules.required]"
-                    />
-                    <v-dialog
-                        ref="dialog"
-                        v-model="modalDate"
-                        :return-value.sync="newTerm.created_at"
-                        persistent
-                        width="290px"
-                    >
-                        <template v-slot:activator="{ on }">
+                <v-container>
+                    <v-row justify="center">
+                        <v-col cols="12">
                             <v-text-field
-                                v-model="newTerm.created_at"
-                                label="Выберите дату"
-                                prepend-inner-icon="mdi-calendar"
-                                readonly
                                 outlined
-                                v-on="on"
+                                hide-details
+                                v-model="newTerm.name"
+                                label="Введите название"
                                 :rules="[rules.required]"
-                            ></v-text-field>
-                        </template>
-                        <v-date-picker v-model="newTerm.created_at" scrollable>
-                            <v-spacer></v-spacer>
-                            <v-btn text color="primary" @click="modalDate= false">Отмена</v-btn>
-                            <v-btn text color="primary" @click="$refs.dialog.save(newTerm.created_at)">OK</v-btn>
-                        </v-date-picker>
-                    </v-dialog>
-                    <wysiwyg-editor
-                        v-model="newTerm.body"
-                        label="Введите описание"
-                    />
-                </v-card-text>
+                            />
+                        </v-col>
+                        <v-col cols="12">
+                            <v-text-field
+                                outlined
+                                hide-details
+                                label="Ссылка"
+                                v-model="newTerm.link"
+                                :rules="[rules.required]"
+                            />
+                        </v-col>
+                        <v-col cols="12">
+                            <v-select
+                                outlined
+                                multiple
+                                hide-details
+                                item-value="id"
+                                item-text="name"
+                                label="Область знаний"
+                                :items="knowledgeAreas"
+                                :rules="[rules.required]"
+                                v-model="newTerm.knowledgeAreas"
+                            />
+                        </v-col>
+                        <v-col cols="12">
+                            <v-select
+                                outlined
+                                multiple
+                                hide-details
+                                item-value="id"
+                                item-text="name"
+                                label="Категории"
+                                :items="categories"
+                                :rules="[rules.required]"
+                                v-model="newTerm.categories"
+                            />
+                        </v-col>
+                        <v-col cols="12">
+                            <date-picker
+                                label="Выберите дату"
+                                :rules="[rules.required]"
+                                v-model="newTerm.created_at"
+                            />
+                        </v-col>
+                        <v-col cols="12">
+                            <wysiwyg-editor
+                                v-model="newTerm.body"
+                                label="Введите описание"
+                                :rules="[rules.required]"
+                            />
+                        </v-col>
+                    </v-row>
+                </v-container>
                 <v-card-actions>
                     <v-spacer/>
                     <v-btn dark color="green" type="submit">Сохранить</v-btn>
@@ -84,23 +85,24 @@
 </template>
 
 <script>
-    import WysiwygEditor from "../components/WysiwygEditor";
     import rules from "../validation-rules";
+    import DatePicker from "../components/DatePicker";
+    import WysiwygEditor from "../components/WysiwygEditor";
 
     export default {
         props: {
             value: Boolean,
-            knowledgeAreas: Array,
             categories: Array,
+            knowledgeAreas: Array,
         },
         components: {
+            "date-picker": DatePicker,
             "wysiwyg-editor": WysiwygEditor
         },
         data() {
             return {
                 rules,
                 newTerm: null,
-                modalDate: false
             };
         },
         beforeMount() {

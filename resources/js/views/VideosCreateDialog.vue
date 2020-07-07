@@ -2,73 +2,72 @@
     <v-dialog :value="value" width="700px" @input="$emit('input', false)">
         <v-card>
             <v-form ref="createForm" @submit="addVideo">
-                <v-card-title class="primary white--text mb-4">
+                <v-card-title class="primary white--text">
                     Создать Видео
                 </v-card-title>
-                <v-card-text>
-                    <v-text-field
-                        label="Введите название"
-                        v-model="newVideo.title"
-                        outlined
-                        :rules="[rules.required]"
-                    />
-                    <v-select
-                        label="Выберите канал"
-                        v-model="newVideo.channel_id"
-                        item-text="name"
-                        item-value="id"
-                        outlined
-                        :items="channels"
-                        :rules="[rules.required]"
-                    />
-                    <v-select
-                        v-model="newVideo.categories"
-                        :items="categories"
-                        outlined
-                        multiple
-                        item-value="id"
-                        item-text="name"
-                        label="Выберите категории"
-                        :rules="[rules.required]"
-                    />
-                    <v-text-field
-                        label="Добавьте ссылку"
-                        v-model="newVideo.link"
-                        outlined
-                        :rules="[rules.required]"
-                    />
-                    <v-dialog
-                        ref="dialog"
-                        v-model="modalDate"
-                        :return-value.sync="newVideo.created_at"
-                        persistent
-                        width="290px"
-                    >
-                        <template v-slot:activator="{ on }">
+                <v-container>
+                    <v-row justify="center">
+                        <v-col cols="12">
                             <v-text-field
-                                v-model="newVideo.created_at"
-                                label="Выберите дату"
-                                prepend-inner-icon="mdi-calendar"
-                                readonly
                                 outlined
-                                v-on="on"
+                                hide-details
+                                label="Введите название"
+                                v-model="newVideo.title"
                                 :rules="[rules.required]"
-                            ></v-text-field>
-                        </template>
-                        <v-date-picker v-model="newVideo.created_at" scrollable>
-                            <v-spacer></v-spacer>
-                            <v-btn text color="primary" @click="modalDate= false">Отмена</v-btn>
-                            <v-btn text color="primary" @click="$refs.dialog.save(newVideo.created_at)">OK</v-btn>
-                        </v-date-picker>
-                    </v-dialog>
-                    <v-text-field
-                        label="Добавьте продолжительность (в мин.)"
-                        type="number"
-                        v-model="newVideo.duration"
-                        outlined
-                        :rules="[rules.required]"
-                    />
-                </v-card-text>
+                            />
+                        </v-col>
+                        <v-col cols="12">
+                            <v-select
+                                outlined
+                                hide-details
+                                item-value="id"
+                                item-text="name"
+                                :items="channels"
+                                label="Выберите канал"
+                                :rules="[rules.required]"
+                                v-model="newVideo.channel_id"
+                            />
+                        </v-col>
+                        <v-col cols="12">
+                            <v-select
+                                outlined
+                                multiple
+                                hide-details
+                                item-value="id"
+                                item-text="name"
+                                :items="categories"
+                                :rules="[rules.required]"
+                                label="Выберите категории"
+                                v-model="newVideo.categories"
+                            />
+                        </v-col>
+                        <v-col cols="12">
+                            <v-text-field
+                                outlined
+                                hide-details
+                                label="Добавьте ссылку"
+                                v-model="newVideo.link"
+                                :rules="[rules.required]"
+                            />
+                        </v-col>
+                        <v-col cols="12">
+                            <v-text-field
+                                outlined
+                                hide-details
+                                type="number"
+                                :rules="[rules.required]"
+                                v-model="newVideo.duration"
+                                label="Добавьте продолжительность (в мин.)"
+                            />
+                        </v-col>
+                        <v-col cols="12">
+                            <date-picker
+                                v-model="newVideo.created_at"
+                                label="Добавить дату"
+                            />
+                        </v-col>
+                    </v-row>
+                </v-container>
                 <v-card-actions>
                     <v-spacer/>
                     <v-btn dark color="green" type="submit">Сохранить</v-btn>
@@ -88,8 +87,10 @@
 
 <script>
     import rules from "../validation-rules";
+    import DatePicker from "../components/DatePicker";
 
     export default {
+        components: {DatePicker},
         props: {
             value: Boolean,
             channels: Array,
@@ -111,8 +112,8 @@
                     title: "",
                     link: "",
                     duration: "",
-                    channel_id: null,
-                    categories: []
+                    categories: [],
+                    channel_id: null
                 };
             },
             resetNewVideoForm() {

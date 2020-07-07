@@ -8,8 +8,8 @@
                         hide-details
                         class="mb-1"
                         label="Поиск"
-                        append-icon="mdi-magnify"
                         v-model="search"
+                        append-icon="mdi-magnify"
                     />
                 </v-col>
                 <v-col cols="12">
@@ -226,13 +226,13 @@
         color: #9e9e9e;
         font-size: 14px;
         max-width: 12%;
-        padding: 0 2px;
+        padding: 0 3px 0 5px;
     }
 
     .knowledge-fieldset-legend {
         color: #9e9e9e;
         font-size: 14px;
-        max-width: 20%;
-        padding: 0 2px;
+        max-width: 17%;
+        padding: 0 2px 0 4px;
     }
 </style>

@@ -1,14 +1,12 @@
 <template>
-    <!-- Delete Item Dialog -->
-    <v-dialog v-if="photoToDelete" v-model="photoToDelete" width="500">
+    <v-dialog v-if="photoToDelete" v-model="photoToDelete" width="420">
         <v-card class="pa-2">
-            <v-card-title class="pt-1 regular headline text-center pa-4">
+            <v-card-title class="regular headline text-center pa-2">
                 Вы действительно хотите удалить это фото ?
             </v-card-title>
             <v-card-actions class="justify-center">
-                <v-btn color="green darken-1" dark @click="termToDelete = false">Нет</v-btn>
-                <v-btn color="red darken-1" dark @click="deletePhoto()">Да
-                </v-btn>
+                <v-btn color="green darken-1" dark @click="photoToDelete = false">Нет</v-btn>
+                <v-btn color="red darken-1" dark @click="deletePhoto()">Да</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
@@ -24,8 +22,7 @@
                 axios
                     .delete("/api/photos/" + this.photoToDelete.id)
                     .then(res => {
-                        this.$refs.indexPage.loadItems();
-                        this.photoToDelete = false;
+                        this.$emit('deleted');
                     })
                     .catch(err => {
                         console.log(err);

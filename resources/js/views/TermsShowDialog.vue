@@ -6,19 +6,13 @@
             </v-card-title>
             <v-container>
                 <v-row justify="center">
-                    <v-col col="12">
+                    <v-col cols="12">
                         <v-text-field
                             v-model="term.name"
                             outlined
                             readonly
                             label="Названия"
                             hide-details
-                        />
-                    </v-col>
-                    <v-col cols="12">
-                        <wysiwyg-editor
-                            v-model="term.body"
-                            label="Описания"
                         />
                     </v-col>
                     <v-col cols="12">
@@ -61,6 +55,13 @@
                                 </v-chip>
                             </div>
                         </fieldset>
+                    </v-col>
+                    <v-col cols="12">
+                        <wysiwyg-editor
+                            v-model="term.body"
+                            label="Описания"
+                            disabled
+                        />
                     </v-col>
                     <v-col cols="12">
                         <v-text-field

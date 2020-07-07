@@ -1,27 +1,18 @@
 <template>
-    <v-dialog v-model="showDialog" max-width="600">
+    <v-dialog v-model="showDialog" max-width="700">
         <v-card v-if="showDialog">
             <v-card-title class="primary white--text pa-4">
                 Цитата
             </v-card-title>
             <v-container>
                 <v-row justify="center">
-                    <v-col col="12">
-                        <v-textarea
-                            v-model="quote.body"
-                            outlined
-                            readonly
-                            label="Описания"
-                            hide-details
-                        />
-                    </v-col>
                     <v-col cols="12">
                         <v-text-field
-                            v-model="quote.author.name"
                             outlined
                             readonly
-                            label="Автор"
                             hide-details
+                            label="Автор"
+                            v-model="quote.author.name"
                         />
                     </v-col>
                     <v-col cols="12">
@@ -39,6 +30,16 @@
                                 </v-chip>
                             </div>
                         </fieldset>
+                    </v-col>
+                    <v-col cols="12">
+                        <wysiwyg-editor
+                            outlined
+                            readonly
+                            disabled
+                            hide-details
+                            label="Описания"
+                            v-model="quote.body"
+                        />
                     </v-col>
                     <v-col cols="12">
                         <v-text-field
@@ -75,7 +76,10 @@
 </template>
 
 <script>
+    import WysiwygEditor from "../components/WysiwygEditor";
+
     export default {
+        components: {"wysiwyg-editor": WysiwygEditor},
         props: {
             quote: Object,
             categories: Array

@@ -23,7 +23,7 @@ class TermsController extends Controller
     public function indexVocabulary()
     {
         $terms = Term::with('post')
-            ->where('name','<>', '')
+            ->where('name', '<>', '')
             ->orderBy('name')
             ->get();
 
@@ -41,8 +41,8 @@ class TermsController extends Controller
         $request->validate([
             'name' => 'required',
             'body' => 'required',
-            'knowledgeAreas' => 'required|array',
             'categories' => 'required|array',
+            'knowledgeAreas' => 'required|array',
             'created_at' => 'required'
         ]);
 
@@ -53,17 +53,17 @@ class TermsController extends Controller
 
         $newTerm->post()->create();
 
-        return $newTerm->load(['categories', 'knowledge']);
+        return $newTerm->load('categories', 'knowledge');
     }
 
     public function update(Term $term, Request $request)
     {
         $term->update($request->all());
 
-        if($request->has('categories')){
+        if ($request->has('categories')) {
             $term->categories()->sync($request->categories);
         }
-
+        $term->save();
         return $term;
     }
 

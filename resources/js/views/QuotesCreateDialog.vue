@@ -2,58 +2,52 @@
     <v-dialog :value="value" width="700" @input="$emit('input', false)">
         <v-card>
             <v-form @submit="addQuote" ref="createForm" v-if="!isSendingData">
-                <v-card-title class="primary white--text mb-5">
+                <v-card-title class="primary white--text">
                     Создать Цитату
                 </v-card-title>
-                <v-card-text>
-                    <v-select
-                        outlined
-                        :items="authors"
-                        item-value="id"
-                        item-text="name"
-                        label="Автор"
-                        :rules="[rules.required]"
-                        v-model="newQuote.author_id"
-                    />
-                    <v-select
-                        outlined
-                        multiple
-                        :items="categories"
-                        item-value="id"
-                        item-text="name"
-                        label="Категории"
-                        :rules="[rules.required]"
-                        v-model="newQuote.categories"
-                    />
-                    <v-dialog
-                        ref="dialog"
-                        v-model="modalDate"
-                        :return-value.sync="newQuote.created_at"
-                        persistent
-                        width="290px"
-                    >
-                        <template v-slot:activator="{ on }">
-                            <v-text-field
-                                v-model="newQuote.created_at"
-                                label="Выберите дату"
-                                prepend-inner-icon="mdi-calendar"
-                                readonly
+                <v-container>
+                    <v-row justify="center">
+                        <v-col cols="12">
+                            <v-select
                                 outlined
-                                v-on="on"
+                                hide-details
+                                label="Автор"
+                                item-value="id"
+                                item-text="name"
+                                :items="authors"
                                 :rules="[rules.required]"
-                            ></v-text-field>
-                        </template>
-                        <v-date-picker v-model="newQuote.created_at" scrollable>
-                            <v-spacer></v-spacer>
-                            <v-btn text color="primary" @click="modalDate= false">Отмена</v-btn>
-                            <v-btn text color="primary" @click="$refs.dialog.save(newQuote.created_at)">OK</v-btn>
-                        </v-date-picker>
-                    </v-dialog>
-                    <wysiwyg-editor
-                        v-model="newQuote.body"
-                        label="Введите цитату здесь"
-                    />
-                </v-card-text>
+                                v-model="newQuote.author_id"
+                            />
+                        </v-col>
+                        <v-col cols="12">
+                            <v-select
+                                outlined
+                                multiple
+                                hide-details
+                                :items="categories"
+                                item-value="id"
+                                item-text="name"
+                                label="Категории"
+                                :rules="[rules.required]"
+                                v-model="newQuote.categories"
+                            />
+                        </v-col>
+                        <v-col cols="12">
+                            <date-picker
+                                label="Добавить дату"
+                                :rules="[rules.required]"
+                                v-model="newQuote.created_at"
+                            />
+                        </v-col>
+                        <v-col cols="12">
+                            <wysiwyg-editor
+                                v-model="newQuote.body"
+                                :rules="[rules.required]"
+                                label="Введите цитату здесь"
+                            />
+                        </v-col>
+                    </v-row>
+                </v-container>
                 <v-card-actions>
                     <v-spacer/>
                     <v-btn dark color="green" type="submit">Сохранить</v-btn>
@@ -75,8 +69,9 @@
 </template>
 
 <script>
-    import WysiwygEditor from "../components/WysiwygEditor";
     import rules from "../validation-rules";
+    import DatePicker from "../components/DatePicker";
+    import WysiwygEditor from "../components/WysiwygEditor";
 
     export default {
         props: {
@@ -85,14 +80,14 @@
             categories: Array,
         },
         components: {
+            "date-picker": DatePicker,
             "wysiwyg-editor": WysiwygEditor
         },
         data() {
             return {
                 rules,
                 newQuote: null,
-                isSendingData: false,
-                modalDate: false
+                isSendingData: false
             }
         },
         beforeMount() {
@@ -108,7 +103,6 @@
             },
             resetNewQuoteForm() {
                 this.newQuote = this.getDefaultQuote();
-                this.showDialog = false;
             },
             addQuote(e) {
                 e.preventDefault();

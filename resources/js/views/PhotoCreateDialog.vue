@@ -1,7 +1,7 @@
 <template>
-    <v-dialog :value="value" @input="$emit('input', false)" width="700">
+    <v-dialog :value="value" width="700" @input="$emit('input', false)">
         <v-card>
-            <v-form ref="createForm" @submit="addPhoto">
+            <v-form @submit="addPhoto" ref="createForm" v-if="!isSendingData">
                 <v-card-title class="primary white--text pa-4">
                     Добавить фото
                 </v-card-title>
@@ -9,26 +9,29 @@
                     <v-row justify="center">
                         <v-col cols="12">
                             <v-file-input
-                                prepend-inner-icon="mdi-camera"
-                                label="Выберите фото"
-                                prepend-icon=""
-                                hide-details
                                 outlined
-                                v-model="newPhoto.photoImage"
-                            ></v-file-input>
+                                hide-details
+                                prepend-icon=""
+                                label="Выберите фото"
+                                v-model="newPhoto.image"
+                                :rules="[rules.required]"
+                                prepend-inner-icon="mdi-camera"
+                            />
                         </v-col>
                         <v-col cols="12">
                             <date-picker
+                                label="Добавить дату"
+                                :rules="[rules.required]"
                                 v-model="newPhoto.created_at"
-                                @created=""
                             />
                         </v-col>
                         <v-col cols="12">
                             <v-textarea
                                 outlined
-                                v-model="newPhoto.description"
-                                label="Добавить описание"
                                 hide-details
+                                :rules="[rules.required]"
+                                label="Добавить описание"
+                                v-model="newPhoto.description"
                             />
                         </v-col>
                     </v-row>
@@ -46,64 +49,70 @@
                     </v-btn>
                 </v-card-actions>
             </v-form>
+            <div class="py-5 text-center" v-else>
+                <v-progress-circular indeterminate color="primary"/>
+            </div>
         </v-card>
     </v-dialog>
 </template>
 
 <script>
+    import rules from "../validation-rules";
     import DatePicker from "../components/DatePicker";
 
     export default {
-        props: {
-            modalDate: String,
-            value: Boolean
-        },
-        components: {
-            "date-picker": DatePicker
-        },
-        date() {
+        props: {value: Boolean},
+        components: {"date-picker": DatePicker},
+        data() {
             return {
+                rules,
                 newPhoto: null,
-                modalDate: false
+                isSendingData: false
             }
         },
         beforeMount() {
             this.newPhoto = this.getDefaultPhoto();
         },
-
         methods: {
             getDefaultPhoto() {
                 return {
+                    image: null,
                     description: "",
                     created_at: ""
                 };
             },
-
             resetNewPhoto() {
                 this.newPhoto = this.getDefaultPhoto();
-                this.$refs.createForm.reset();
+                // this.$refs.createForm.reset();
             },
-
             addPhoto(e) {
                 e.preventDefault();
 
                 this.$refs.createForm.validate();
 
-                /*const validForm = this.$refs.createForm.validate();
+                this.isSendingData = true;
 
-                if (!validForm) return;*/
+                const validForm = this.$refs.createForm.validate();
+
+                if (!validForm) return;
+                const formData = new FormData();
+                formData.append("image", this.newPhoto.image);
+                formData.append("description", this.newPhoto.description);
+                formData.append("created_at", this.newPhoto.created_at);
 
                 axios
-                    .post("/api/photos/", this.newPhoto, formData, {
+                    .post("/api/photos/", formData, {
                         headers: {
                             "Content-Type": "multipart/form-data"
                         }
                     })
                     .then(res => {
+                        this.isSendingData = false;
                         this.resetNewPhoto();
-                        this.$emit('creaeted', res.data);
+                        this.$emit('created', res.data);
                     })
                     .catch(err => {
+                        this.isSendingData = false;
                         console.log(err);
                     });
             },

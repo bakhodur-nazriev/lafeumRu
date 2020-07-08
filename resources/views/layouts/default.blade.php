@@ -6,17 +6,13 @@
     <div class="container-fluid flex-grow-1">
         <div class="row">
             <div class="left-sidebar-col">@yield('left-side-bar')</div>
-
-            <div class="col">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            @yield('content')
-                        </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @yield('content')
                     </div>
                 </div>
             </div>
-
             <div
                 class="right-sidebar-col">@yield('right-side-bar', View::make('layouts.right-sidebar.rightSidebar'))</div>
 

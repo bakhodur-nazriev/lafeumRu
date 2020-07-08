@@ -33,12 +33,12 @@
                 </div>
             </div>
             @foreach ($knowledgeAreas as $knowledgeAreaParent)
-                <div class="mb-4">
+                <div class="mb-4 px-3">
                     <h4 class="knowledge-parent secondary mb-0">
                         {{$knowledgeAreaParent->name}}
                     </h4>
                     <hr class="mt-2">
-                    <ul class="list-inline py-1 list-of-knowledge" style="column-count: 3;">
+                    <ul class="list-inline py-1 list-of-knowledge">
                         @foreach ($knowledgeAreaParent->children as $knowledgeArea)
                             <li class="knowledge">
                                 <a href="/knowledge/{{$knowledgeArea->slug}}">{{$knowledgeArea->name}}</a>
@@ -50,8 +50,8 @@
             <script>
                 $(document).ready(() => {
                     attachSearch(
-                        "#knowledge-area-search", 
-                        ".list-of-knowledge", 
+                        "#knowledge-area-search",
+                        ".list-of-knowledge",
                         "#knowledge-search-result",
                         ".knowledge-parent"
                     );

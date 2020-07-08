@@ -27,11 +27,6 @@ button:focus {
     outline: none;
 }
 
-.container {
-    padding-left: 40px;
-    padding-right: 40px;
-}
-
 .btnScrollToTop {
     display: inline-block;
     position: fixed;
@@ -121,7 +116,7 @@ categories-main-subname {
     position: absolute;
     top: 0;
     left: 100%;
-    width: 250px;
+    width: 210px;
     height: 100%;
     z-index: 1;
 }
@@ -151,7 +146,7 @@ categories-main-subname {
 }
 
 .vocabulary {
-    padding: 0 15px;
+    padding: 0 10px;
 }
 
 .themes-block {
@@ -170,17 +165,12 @@ categories-main-subname {
     font-size: 16px;
 }
 
-.about-us-section img {
-    width: 250px;
-}
-
 .about-us-section > p {
     font-size: 15px;
     margin-top: 15px;
 }
 
 .footer {
-    /*position: absolute;*/
     width: 100%;
     line-height: 40px;
     background-color: #04718c;
@@ -206,7 +196,6 @@ categories-main-subname {
 
 .video-card-block {
     display: inline-block;
-    /*min-height: 460px;*/
     height: 460px;
     max-width: 300px;
     margin: 10px;
@@ -223,7 +212,8 @@ categories-main-subname {
     display: inline-block;
 }
 
-.share-button-dropdown-block:hover .dropdown-content-share-button {
+.share-button-dropdown-block:hover
+.dropdown-content-share-button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -234,7 +224,7 @@ categories-main-subname {
     color: #fff;
     margin-right: 5px;
     border-radius: 5px;
-    padding: 5px 15px;
+    padding: 4px 10px;
     background-color: #04718c;
 }
 
@@ -256,11 +246,6 @@ categories-main-subname {
     margin-bottom: 0;
     margin-top: 10px;
 }
-
-.list-of-authors {
-    column-count: 4;
-}
-
 
 .list-of-authors > .author,
 .knowledge {
@@ -455,7 +440,9 @@ categories-main-subname {
     position: absolute;
 }
 
-.navbar-nav > .nav-item > .dropdown-menu {
+.navbar-nav >
+.nav-item >
+.dropdown-menu {
     position: absolute !important;
     right: 0;
     left: auto;
@@ -514,7 +501,10 @@ a.active {
     display: inline-block !important;
 }
 
-.video-share-button > .share .jssocials-shares .jssocials-share {
+.video-share-button >
+.share
+.jssocials-shares
+.jssocials-share {
     margin: 0 2px 0 0;
 }
 
@@ -596,33 +586,51 @@ a.active {
     display: block;
 }
 
-@media (min-width: 1367px) {
-    .right-sidebar-col {
-        flex: 0 0 17%;
-        max-width: 17%;
-    }
-
-    .left-sidebar-col {
-        flex: 0 0 14%;
-        max-width: 14%;
-    }
+.ya-share2__container_size_m .ya-share2__icon {
+    width: 20px !important;
+    height: 20px !important;
+    background-size: 20px !important;
 }
 
-@media (max-width: 1025px) {
-    .right-sidebar-col {
-        flex: 0 0 25%;
-        max-width: 25%;
+@media (max-width: 576px) {
+    .about-us-section img {
+        width: 80%;
     }
 
-    .left-sidebar-col {
-        flex: 0 0 20%;
-        max-width: 20%;
+    .list-of-authors {
+        column-count: 1;
+        padding: 15px;
+    }
+
+    .nav-item > .navbar-login-button,
+    .nav-item > .navbar-register-button {
+        padding: 2px 0;
+    }
+
+    .main-navbar {
+        padding: 1.2rem;
+    }
+
+    .list-of-knowledge {
+        column-count: 1;
     }
 }
 
 @media (min-width: 768px) {
     .main-navbar {
         flex-direction: row-reverse;
+    }
+
+    .about-us-section img {
+        width: 250px;
+    }
+
+    .list-of-authors {
+        column-count: 2;
+    }
+
+    .list-of-knowledge {
+        column-count: 2;
     }
 }
 
@@ -648,5 +656,47 @@ a.active {
 @media (min-width: 992px) {
     .shows-content-and-right-block {
         margin-left: 30px;
+    }
+
+    .list-of-authors {
+        column-count: 4;
+    }
+
+    .nav-item > .navbar-login-button,
+    .nav-item > .navbar-register-button {
+        padding: 0.5rem 1rem;
+    }
+
+    .main-navbar {
+        flex-direction: row-reverse;
+        padding: 1.5rem;
+    }
+
+    .list-of-knowledge {
+        column-count: 3;
+    }
+}
+
+@media (max-width: 1025px) {
+    .right-sidebar-col {
+        flex: 0 0 25%;
+        max-width: 25%;
+    }
+
+    .left-sidebar-col {
+        flex: 0 0 20%;
+        max-width: 20%;
+    }
+}
+
+@media (min-width: 1367px) {
+    .right-sidebar-col {
+        flex: 0 0 17%;
+        max-width: 17%;
+    }
+
+    .left-sidebar-col {
+        flex: 0 0 14%;
+        max-width: 14%;
     }
 }

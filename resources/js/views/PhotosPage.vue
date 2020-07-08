@@ -146,7 +146,7 @@ export default {
             formData.append("image", this.photoImage);
             formData.append("description", this.photoDescription);
             axios
-                .post("/api/photos/", formData, {
+                .post("/api/photos", formData, {
                     headers: {
                         "Content-Type": "multipart/form-data"
                     }

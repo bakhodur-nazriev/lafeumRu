@@ -97,7 +97,7 @@ export default {
             if (!validForm) return;
 
             axios
-                .post("/api/quotes/", this.newQuote)
+                .post("/api/quotes", this.newQuote)
                 .then(res => {
                     this.isSendingData = false;
                     this.resetNewQuoteForm();

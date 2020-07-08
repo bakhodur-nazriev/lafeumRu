@@ -242,7 +242,7 @@ export default {
             formData.append("_method", "put");
 
             axios
-                .post("/api/users/" + this.user.id, formData, {
+                .post("/api/users" + this.user.id, formData, {
                     headers: {
                         "Content-Type": "multipart/form-data"
                     }

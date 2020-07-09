@@ -14,16 +14,18 @@
             <p class="mb-0">В данном разделе подборка фотографий на тему жизни и ее красоты.</p>
         </span>
     </div>
-    @foreach($photos as $photo)
-        <div class="d-flex">
+    <div class="row">
+        @foreach($photos as $photo)
             <div class="col-md-6 col-lg-4">
                 <a href="{{ $photo->path }}" data-fancybox="gallery" class="pa-2">
-                    <img src="{{ $photo->path }}" class="card-img-top single-image" alt="">
+                    <img src="{{ $photo->path }}" class="card-img-top h-100 rounded" alt="">
                 </a>
             </div>
-        </div>
-    @endforeach
-    <div class="mb-4 mt-5 d-flex">
+        @endforeach
+    </div>
+
+
+    <div class="mt-5 d-flex justify-content-center">
         {!! $photos->onEachSide(1)->links(); !!}
     </div>
 @endsection

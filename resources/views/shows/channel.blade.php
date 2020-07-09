@@ -13,7 +13,7 @@
     <div class="mb-3 form-group">
         <label for="channels-search">Введите название канала</label>
         <input
-            type="string" 
+            type="string"
             id="channels-search"
             class="form-control"
         >
@@ -33,8 +33,8 @@
 <script>
     $(document).ready(() => {
         attachSearch(
-            "#channels-search", 
-            ".channels", 
+            "#channels-search",
+            ".channels",
             '#channels-search-result'
         );
     })

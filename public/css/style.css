@@ -27,7 +27,7 @@ button:focus {
     outline: none;
 }
 
-.btnScrollToTop {
+#scrollToTopBtn {
     display: inline-block;
     position: fixed;
     bottom: 20px;
@@ -37,7 +37,7 @@ button:focus {
     z-index: 1000;
 }
 
-.btnScrollToTop.show {
+#scrollToTopBtn.show {
     opacity: 1;
     visibility: visible;
 }
@@ -116,7 +116,6 @@ categories-main-subname {
     position: absolute;
     top: 0;
     left: 100%;
-    width: 210px;
     height: 100%;
     z-index: 1;
 }
@@ -146,7 +145,7 @@ categories-main-subname {
 }
 
 .vocabulary {
-    padding: 0 10px;
+    padding: 0 3px;
 }
 
 .themes-block {
@@ -222,9 +221,7 @@ categories-main-subname {
 
 .share-button {
     color: #fff;
-    margin-right: 5px;
     border-radius: 5px;
-    padding: 4px 10px;
     background-color: #04718c;
 }
 
@@ -247,7 +244,8 @@ categories-main-subname {
     margin-top: 10px;
 }
 
-.list-of-authors > .author,
+.list-of-authors >
+.author,
 .knowledge {
     margin-bottom: 5px;
 }
@@ -258,7 +256,7 @@ categories-main-subname {
 
 .authors-links,
 .home-tems-links {
-    padding: 2px !important;
+    padding: 0 16px !important;
 }
 
 .tags {
@@ -455,10 +453,6 @@ categories-main-subname {
     padding: 15px;
 }
 
-.single-image {
-    height: 100%;
-}
-
 .dropdown-item:active {
     background-color: #04718c;
 }
@@ -586,12 +580,6 @@ a.active {
     display: block;
 }
 
-.ya-share2__container_size_m .ya-share2__icon {
-    width: 20px !important;
-    height: 20px !important;
-    background-size: 20px !important;
-}
-
 @media (max-width: 576px) {
     .about-us-section img {
         width: 80%;
@@ -599,7 +587,7 @@ a.active {
 
     .list-of-authors {
         column-count: 1;
-        padding: 15px;
+        padding: 18px;
     }
 
     .nav-item > .navbar-login-button,
@@ -613,6 +601,31 @@ a.active {
 
     .list-of-knowledge {
         column-count: 1;
+    }
+
+    .ya-share2__list_direction_horizontal >
+    .ya-share2__item {
+        margin-right: 2px !important;
+    }
+
+    .share-button {
+        margin-right: 3px;
+        padding: 3px 8px;
+    }
+
+    .ya-share2__container_size_m .ya-share2__icon {
+        width: 18px !important;
+        height: 18px !important;
+        background-size: 18px !important;
+    }
+
+    .ya-share2__list_direction_horizontal >
+    .ya-share2__item {
+        margin-right: 2px;
+    }
+
+    .dropdown-content-share-button {
+        width: 190px;
     }
 }
 
@@ -674,6 +687,27 @@ a.active {
 
     .list-of-knowledge {
         column-count: 3;
+    }
+
+    .share-button {
+        margin-right: 5px;
+        padding: 5px 10px;
+    }
+
+    .ya-share2__container_size_m
+    .ya-share2__icon {
+        width: 20px !important;
+        height: 20px !important;
+        background-size: 20px !important;
+    }
+
+    .ya-share2__list_direction_horizontal >
+    .ya-share2__item {
+        margin-right: 5px;
+    }
+
+    .dropdown-content-share-button {
+        width: 210px;
     }
 }
 

@@ -6,17 +6,19 @@
     <div class="container-fluid flex-grow-1">
         <div class="row">
             <div class="left-sidebar-col">@yield('left-side-bar')</div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        @yield('content')
+            <div class="col">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            @yield('content')
+                        </div>
                     </div>
                 </div>
             </div>
             <div
                 class="right-sidebar-col">@yield('right-side-bar', View::make('layouts.right-sidebar.rightSidebar'))</div>
 
-            <button class="btn btn-primary btnScrollToTop">
+            <button id="scrollToTopBtn" class="btn btn-primary">
                 <i class="fa fa-arrow-up"></i>
             </button>
         </div>

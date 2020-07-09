@@ -13,7 +13,7 @@
             <span class="authors-main-title">
                 <h3 class="secondary">YouTube Каналы</h3>
             </span>
-            <div class="form-group my-4">
+            <div class="form-group my-2">
                 <input
                     type="text"
                     id="channels-search"
@@ -36,8 +36,8 @@
     <script>
         $(document).ready(() => {
             attachSearch(
-                "#channels-search", 
-                ".channels", 
+                "#channels-search",
+                ".channels",
                 '#channels-search-result'
             );
         })

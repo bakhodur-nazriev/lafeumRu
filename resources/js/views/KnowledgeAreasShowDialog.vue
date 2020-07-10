@@ -18,11 +18,7 @@
 
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn
-                    color="primary darken-1"
-                    text
-                    @click="closeDialog"
-                >
+                <v-btn color="primary darken-1" text @click="closeDialog">
                     Закрыть
                 </v-btn>
             </v-card-actions>

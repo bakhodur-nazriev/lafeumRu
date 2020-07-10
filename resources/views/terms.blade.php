@@ -21,7 +21,7 @@
     <div class="col-12">
         <nav aria-label="Page navigation example">
             <div class="row d-flex justify-content-center mt-3">
-                {!! $terms->links(); !!}
+                {!! $terms->onEachSide(1)->links() !!}
             </div>
         </nav>
     </div>

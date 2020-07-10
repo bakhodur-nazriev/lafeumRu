@@ -2,7 +2,7 @@
     <v-dialog
         v-if="knowledgeAreaToUpdate"
         v-model="knowledgeAreaToUpdate"
-        width="700px"
+        width="700"
     >
         <v-card>
             <v-card-title class="primary white--text">

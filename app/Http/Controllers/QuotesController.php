@@ -56,8 +56,8 @@ class QuotesController extends Controller
             $quote->categories()->sync($request->categories);
         }
 
-        $quote->meta_image = $this->getMetaImage($quote);
-        $quote->save();
+        /*$quote->meta_image = $this->getMetaImage($quote);
+        $quote->save();*/
 
         return $quote;
     }

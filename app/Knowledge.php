@@ -30,10 +30,10 @@ class Knowledge extends Model
         $this->attributes['slug'] = generateSlug($value);
     }
 
-    public function getRelatedKnowledgeAttribute()
+    public function getLinkedKnowledgeAttribute()
     {
         $relatedEntities = $this->relatedEntities(Knowledge::class);
 
-        return Knowledge::whereIn('id', $relatedEntities->pluck('related_id'))->get();
+        return Knowledge::whereIn('id', $relatedEntities->pluck('related_id'))->get(['id', 'name']);
     }
 }

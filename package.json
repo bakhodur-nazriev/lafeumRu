@@ -34,6 +34,7 @@
         "he-tree-vue": "^1.2.1",
         "laravel-vue-pagination": "^2.3.1",
         "lightbox2": "^2.11.1",
+        "puppeteer": "^3.3.0",
         "tiptap-extensions": "^1.29.0",
         "tiptap-vuetify": "^2.13.2",
         "vue-router": "^3.1.6",

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use ChristianKuri\LaravelFavorite\Traits\Favoriteable;
 
@@ -9,7 +10,7 @@ class Video extends Model
 {
     use Favoriteable;
 
-    protected $fillable = ["title", "channel_id", "link", "duration"];
+    protected $fillable = ["title", "channel_id", "link", "duration", "created_at", "updated_at"];
     protected $appends = ["link", "embeded_link", "thumbnail"];
 
     public function channel()
@@ -31,6 +32,7 @@ class Video extends Model
     {
         return $this->hasMany(DailyPost::class);
     }
+
     public function host()
     {
         return $this->belongsTo(VideoHost::class, 'host_type_id');
@@ -79,7 +81,7 @@ class Video extends Model
 
     /**
      * Helpers
-     * 
+     *
      */
 
     public function getHostData($link)
@@ -91,7 +93,7 @@ class Video extends Model
 
         $youtubeId = $this->getYoutubeId($link);
 
-        if($youtubeId){
+        if ($youtubeId) {
             $hostData['host_type_id'] = VideoHost::YOUTUBE_HOST_TYPE_ID;
             $hostData['host_id'] = $youtubeId;
         }
@@ -107,12 +109,10 @@ class Video extends Model
 
         $matched = preg_match($youtubeIdRegEx, $link, $pregMatchOutput);
 
-        if($matched && count($pregMatchOutput) === 2){
+        if ($matched && count($pregMatchOutput) === 2) {
             return $pregMatchOutput[1];
         }
 
         return null;
     }
-
-
 }

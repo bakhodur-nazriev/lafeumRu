@@ -43,74 +43,71 @@
                             outlined
                             v-model="authorToUpdate.biography"
                             label="Добаить биографию здесь"
+                            hide-details
                         />
                     </v-col>
                 </v-row>
             </v-container>
             <v-card-actions>
-                <v-spacer />
-                <v-btn dark color="green" @click="updateAuthor()"
-                    >Сохранить</v-btn
-                >
-                <v-btn dark color="error" @click="$emit('input', null)"
-                    >Отмена</v-btn
-                >
+                <v-spacer/>
+                <v-btn dark color="green" @click="updateAuthor()">Сохранить</v-btn>
+                <v-btn dark color="error" @click="$emit('input', null)">Отмена</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
 </template>
 
 <script>
-export default {
-    props: {
-        value: Object,
-        groups: Array
-    },
-    methods: {
-        updateAuthor() {
-            const formData = new FormData();
+    export default {
+        props: {
+            value: Object,
+            groups: Array
+        },
+        methods: {
+            updateAuthor() {
+                const formData = new FormData();
 
-            const {
-                name,
-                biography,
-                photo,
-                author_group_id,
-                slug
-            } = this.authorToUpdate;
+                const {
+                    name,
+                    biography,
+                    photo,
+                    author_group_id,
+                    slug
+                } = this.authorToUpdate;
 
-            formData.append("name", name);
-            formData.append("biography", biography);
-            formData.append("photo", photo);
-            formData.append("author_group_id", author_group_id);
-            formData.append("_method", "put");
+                formData.append("name", name);
+                formData.append("biography", biography);
+                formData.append("photo", photo);
+                formData.append("author_group_id", author_group_id);
+                formData.append("_method", "put");
 
-            const url = "/api/authors/" + slug;
+                const url = "/api/authors/" + slug;
 
-            axios
-                .post(url, formData, {
-                    headers: {
-                        "Content-Type": "multipart/form-data"
+                axios
+                    .post(url, formData, {
+                        headers: {
+                            "Content-Type": "multipart/form-data"
+                        }
+                    })
+                    .then(res => {
+                        this.$emit("updated", res.data);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+            }
+        },
+        computed: {
+            authorToUpdate: {
+                get() {
+                    return this.value;
+                },
+                set(v) {
+                    if (!v) {
+                        this.$emit("input", null);
                     }
-                })
-                .then(res => {
-                    this.$emit("updated", res.data);
-                })
-                .catch(err => {
-                    console.log(err);
-                });
-        }
-    },
-    computed: {
-        authorToUpdate: {
-            get() {
-                return this.value;
-            },
-            set(v) {
-                if (!v) {
-                    this.$emit("input", null);
                 }
             }
         }
-    }
-};
+    };
 </script>

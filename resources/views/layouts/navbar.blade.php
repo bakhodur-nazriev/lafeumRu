@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light shadow-sm main-navbar sticky-top py-4">
+<nav class="navbar navbar-expand-md navbar-light shadow-sm main-navbar sticky-top">
     <div class="menu-toggle-btn navbar-dark">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -12,11 +12,11 @@
             <!-- Authentication Links -->
             @guest
                 <li class="nav-item">
-                    <a class="nav-link text-light" href="{{ route('login') }}">{{ __('Вход') }}</a>
+                    <a class="nav-link text-light navbar-login-button" href="{{ route('login') }}">{{ __('Вход') }}</a>
                 </li>
                 @if (Route::has('register'))
                     <li class="nav-item">
-                        <a class="nav-link text-light" href="{{ route('register') }}">{{ __('Регистарция') }}</a>
+                        <a class="nav-link text-light navbar-register-button" href="{{ route('register') }}">{{ __('Регистарция') }}</a>
                     </li>
                 @endif
             @else

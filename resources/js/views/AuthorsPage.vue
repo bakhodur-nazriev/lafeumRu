@@ -116,100 +116,100 @@
 </template>
 
 <script>
-import AuthorsCreateDialog from "./AuthorsCreateDialog";
-import AuthorsEditDialog from "./AuthorsEditDialog";
-import AuthorsDeleteDialog from "./AuthorsDeleteDialog";
+    import AuthorsCreateDialog from "./AuthorsCreateDialog";
+    import AuthorsEditDialog from "./AuthorsEditDialog";
+    import AuthorsDeleteDialog from "./AuthorsDeleteDialog";
 
-export default {
-    components: {
-        AuthorsCreateDialog,
-        AuthorsEditDialog,
-        AuthorsDeleteDialog
-    },
-    data() {
-        return {
-            search: "",
-            authors: [],
-            authorGroups: [],
-            loadingAuthors: false,
-            page: 1,
-            pageCount: 2,
-            authorToDelete: null,
-            authorToUpdate: null,
-            dialogAdd: false,
-            itemsPerPage: 12,
-            headers: [
-                {
-                    text: "Имя",
-                    value: "name",
-                    sortable: false
-                },
-                {
-                    text: "Биография",
-                    value: "biography",
-                    sortable: false
-                },
-                {
-                    text: "Фото",
-                    value: "photo",
-                    align: "center",
-                    sortable: false
-                },
-                {
-                    text: "Дейсвтия",
-                    value: "action",
-                    align: "center",
-                    width: "160px",
-                    sortable: false
-                }
-            ]
-        };
-    },
-    mounted() {
-        this.loadAuthors();
-        this.loadAuthorGroups();
-    },
-    methods: {
-        loadAuthors() {
-            this.loadingAuthors = true;
-            axios
-                .get("/api/authors")
-                .then(res => {
-                    this.loadingAuthors = false;
-                    this.authors = res.data;
-                })
-                .catch(err => {
-                    this.loadingPhotos = false;
-                    console.log(err);
+    export default {
+        components: {
+            AuthorsCreateDialog,
+            AuthorsEditDialog,
+            AuthorsDeleteDialog
+        },
+        data() {
+            return {
+                search: "",
+                authors: [],
+                authorGroups: [],
+                loadingAuthors: false,
+                page: 1,
+                pageCount: 2,
+                authorToDelete: null,
+                authorToUpdate: null,
+                dialogAdd: false,
+                itemsPerPage: 12,
+                headers: [
+                    {
+                        text: "Имя",
+                        value: "name",
+                        sortable: false
+                    },
+                    {
+                        text: "Биография",
+                        value: "biography",
+                        sortable: false
+                    },
+                    {
+                        text: "Фото",
+                        value: "photo",
+                        align: "center",
+                        sortable: false
+                    },
+                    {
+                        text: "Дейсвтия",
+                        value: "action",
+                        align: "center",
+                        width: "160px",
+                        sortable: false
+                    }
+                ]
+            };
+        },
+        mounted() {
+            this.loadAuthors();
+            this.loadAuthorGroups();
+        },
+        methods: {
+            loadAuthors() {
+                this.loadingAuthors = true;
+                axios
+                    .get("/api/authors")
+                    .then(res => {
+                        this.loadingAuthors = false;
+                        this.authors = res.data;
+                    })
+                    .catch(err => {
+                        this.loadingPhotos = false;
+                        console.log(err);
+                    });
+            },
+            loadAuthorGroups() {
+                axios
+                    .get("/api/author-groups")
+                    .then(res => (this.authorGroups = res.data))
+                    .catch(err => console.log(err));
+            },
+            authorCreated(newAuthor) {
+                this.dialogAdd = false;
+                this.loadAuthors();
+            },
+            authorUpdated(updated) {
+                this.authorToUpdate = null;
+                this.loadAuthors();
+            },
+            authorDeleted() {
+                this.authorToDelete = null;
+                this.loadAuthors();
+            }
+        },
+        computed: {
+            filteredAuthors() {
+                return this.authors.filter(author => {
+                    return author.name
+                        .toLowerCase()
+                        .includes(this.search.toLowerCase());
                 });
-        },
-        loadAuthorGroups() {
-            axios
-                .get("/api/author-groups")
-                .then(res => (this.authorGroups = res.data))
-                .catch(err => console.log(err));
-        },
-        authorCreated(newAuthor) {
-            this.dialogAdd = false;
-            this.loadAuthors();
-        },
-        authorUpdated(updated) {
-            this.authorToUpdate = null;
-            this.loadAuthors();
-        },
-        authorDeleted() {
-            this.authorToDelete = null;
-            this.loadAuthors();
+            }
         }
-    },
-    computed: {
-        filteredAuthors() {
-            return this.authors.filter(author => {
-                return author.name
-                    .toLowerCase()
-                    .includes(this.search.toLowerCase());
-            });
-        }
-    }
-};
+    };
 </script>

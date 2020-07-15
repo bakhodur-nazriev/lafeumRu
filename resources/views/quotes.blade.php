@@ -24,7 +24,7 @@
     <div class="col-12">
         <nav aria-label="Page navigation example">
             <div class="row d-flex justify-content-center mt-3">
-                {{ $quotes->links() }}
+                {!! $quotes->onEachSide(1)->links() !!}
             </div>
         </nav>
     </div>

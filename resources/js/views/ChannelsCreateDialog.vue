@@ -59,7 +59,7 @@ export default {
         },
         addChannel() {
             axios
-                .post("/api/channels/", this.newChannel)
+                .post("/api/channels", this.newChannel)
                 .then(res => {
                     this.newChannel = this.getDefaultChannel();
                     this.$emit("created", res.data);

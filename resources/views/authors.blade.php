@@ -9,12 +9,12 @@
 
 @section("content")
     <div class="row d-flex justify-content-center">
-        <div class="col-md-4 col-xl-4">
+        <div class="col-lg-4 col-md-6 pa-0">
             <span class="authors-main-title">
                 <h3 class="secondary">Авторы</h3>
                 <p class="ma-3">Авторы. Полный список всех авторов по алфавиту, а также есть возможность поиска.</p>
             </span>
-            <div class="form-group mb-3">
+            <div class="form-group">
                 <input
                     type="search"
                     id="author-search"
@@ -37,8 +37,8 @@
     <script>
         $(document).ready(() => {
             attachSearch(
-                "#author-search", 
-                ".list-of-authors", 
+                "#author-search",
+                ".list-of-authors",
                 '#authors-search-result'
             );
         })

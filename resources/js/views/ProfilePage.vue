@@ -9,7 +9,6 @@
                                 >Мой профиль</span
                             >
                         </v-col>
-
                         <v-col md="4" sm="4">
                             <v-img
                                 :src="user.avatar"
@@ -121,9 +120,9 @@
             <v-card>
                 <v-form ref="form" @submit="updateProfile">
                     <v-card-title class="primary white--text">
-                        {{formTitle}}
+                        {{ formTitle }}
                     </v-card-title>
-                    
+
                     <v-container class="pb-0" v-if="updatingAvatar">
                         <v-file-input
                             prepend-icon=""
@@ -134,7 +133,7 @@
                         />
                     </v-container>
 
-                    <v-container class="pb-0"  v-if="updatingName">
+                    <v-container class="pb-0" v-if="updatingName">
                         <v-text-field
                             :label="this.user.name"
                             outlined
@@ -164,11 +163,16 @@
                         <v-text-field
                             v-model="profileToUpdate.passwordConfirmation"
                             :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
-                            :rules="[rules.getPasswordConfirm(profileToUpdate.password)]"
+                            :rules="[
+                                rules.getPasswordConfirm(
+                                    profileToUpdate.password
+                                )
+                            ]"
                             :type="showPass ? 'text' : 'password'"
                             label="Подтверждение нового пароля"
                             @click:append="showPass = !showPass"
                             outlined
+                            hide-details
                         />
                     </v-container>
                     <v-card-actions>
@@ -181,8 +185,9 @@
                             color="error"
                             type="button"
                             @click="showDialog = false"
-                            >Закрыть</v-btn
                         >
+                            Закрыть
+                        </v-btn>
                     </v-card-actions>
                 </v-form>
             </v-card>
@@ -242,7 +247,7 @@ export default {
             formData.append("_method", "put");
 
             axios
-                .post("/api/users/" + this.user.id, formData, {
+                .post("/api/users" + this.user.id, formData, {
                     headers: {
                         "Content-Type": "multipart/form-data"
                     }
@@ -253,47 +258,47 @@ export default {
                     Event.fire("profileUpdated", data);
                 })
                 .catch(err => console.log(err));
-        }
-    },
-    computed: {
-        showDialog: {
-            get() {
-                return (
-                    this.updatingAvatar ||
-                    this.updatingName ||
-                    this.updatingEmail ||
-                    this.updatingPassword
-                );
-            },
-            set(v) {
-                if (!v) {
-                    this.updatingAvatar = false;
-                    this.updatingName = false;
-                    this.updatingEmail = false;
-                    this.updatingPassword = false;
-                }
-            }
         },
-        formTitle(){
-            let baseTitle = "Изменение";
+        computed: {
+            showDialog: {
+                get() {
+                    return (
+                        this.updatingAvatar ||
+                        this.updatingName ||
+                        this.updatingEmail ||
+                        this.updatingPassword
+                    );
+                },
+                set(v) {
+                    if (!v) {
+                        this.updatingAvatar = false;
+                        this.updatingName = false;
+                        this.updatingEmail = false;
+                        this.updatingPassword = false;
+                    }
+                }
+            },
+            formTitle() {
+                let baseTitle = "Изменение";
 
-            if (this.updatingAvatar) {
-                baseTitle += " аватара ";
+                if (this.updatingAvatar) {
+                    baseTitle += " аватара ";
+                }
+
+                if (this.updatingName) {
+                    baseTitle += " имени ";
+                }
+
+                if (this.updatingEmail) {
+                    baseTitle += " email-а ";
+                }
+
+                if (this.updatingPassword) {
+                    baseTitle += " пароля ";
+                }
+
+                return baseTitle;
             }
-
-            if (this.updatingName) {
-                baseTitle += " имени ";
-            }
-
-            if (this.updatingEmail) {
-                baseTitle += " email-а ";
-            }
-
-            if (this.updatingPassword) {
-                baseTitle += " пароля ";
-            }            
-
-            return baseTitle;
         }
     }
 };

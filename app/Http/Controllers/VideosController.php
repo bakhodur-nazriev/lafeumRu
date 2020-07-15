@@ -9,7 +9,8 @@ use App\Video;
 
 class VideosController extends Controller
 {
-    public function __construct() {
+    public function __construct()
+    {
         $this->authorizeResource(Video::class);
     }
 
@@ -21,7 +22,8 @@ class VideosController extends Controller
 
     public function get(Request $request)
     {
-        return Video::with("channel")->latest()->paginate($request->perPage ?: 15);
+        $videosQuery = Video::with("channel", "categories");
+        return $videosQuery->latest()->paginate($request->perPage ?: 30);
     }
 
     public function store(Request $request)
@@ -32,6 +34,7 @@ class VideosController extends Controller
             'link' => 'required',
             'duration' => 'required',
             'categories' => 'required|array',
+            'created_at' => 'required'
         ]);
 
         $newVideo = Video::create($request->all());
@@ -47,7 +50,7 @@ class VideosController extends Controller
     {
         $video->update($request->all());
 
-        if($request->has('categories')){
+        if ($request->has('categories')) {
             $video->categories()->sync($request->categories);
         }
 

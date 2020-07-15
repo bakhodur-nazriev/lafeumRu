@@ -40,6 +40,7 @@
                             outlined
                             label="Биография автора"
                             v-model="newAuthor.biography"
+                            hide-details
                         />
                     </v-col>
                 </v-row>
@@ -47,9 +48,7 @@
             <v-card-actions>
                 <v-spacer />
                 <v-btn dark color="green" @click="addAuthor()">Сохранить</v-btn>
-                <v-btn dark color="error" @click="$emit('input', null)"
-                    >Отмена</v-btn
-                >
+                <v-btn dark color="error" @click="$emit('input', null)">Отмена</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>

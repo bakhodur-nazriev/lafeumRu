@@ -23,7 +23,7 @@
             </button>
         </div>
         <div class="row justify-content-center">
-            <div class="col-9">
+            <div class="col-6">
                 @yield('bottom-content')
             </div>
         </div>

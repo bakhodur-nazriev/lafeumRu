@@ -580,6 +580,26 @@ a.active {
     display: block;
 }
 
+.count-block {
+    text-align: center;
+}
+
+.count-block-title {
+    margin-bottom: 0;
+    background-color: #04718c;
+    color: white;
+    padding: 10px 0;
+    font-size: 10px;
+    text-transform: uppercase;
+}
+
+.count-block-body {
+    background-color: #e0e0e0;
+    padding: 10px 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+
 @media (max-width: 576px) {
     .about-us-section img {
         width: 80%;

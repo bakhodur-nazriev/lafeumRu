@@ -1,6 +1,7 @@
 /.vscode
 /node_modules
 /public/js/app.js
+/public/css/app.css
 /public/hot
 /public/storage
 /public/img/authors

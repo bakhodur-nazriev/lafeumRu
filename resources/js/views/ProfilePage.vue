@@ -247,7 +247,7 @@ export default {
             formData.append("_method", "put");
 
             axios
-                .post("/api/users" + this.user.id, formData, {
+                .post("/api/users/" + this.user.id, formData, {
                     headers: {
                         "Content-Type": "multipart/form-data"
                     }
@@ -259,46 +259,46 @@ export default {
                 })
                 .catch(err => console.log(err));
         },
-        computed: {
-            showDialog: {
-                get() {
-                    return (
-                        this.updatingAvatar ||
-                        this.updatingName ||
-                        this.updatingEmail ||
-                        this.updatingPassword
-                    );
-                },
-                set(v) {
-                    if (!v) {
-                        this.updatingAvatar = false;
-                        this.updatingName = false;
-                        this.updatingEmail = false;
-                        this.updatingPassword = false;
-                    }
-                }
+    },
+    computed: {
+        showDialog: {
+            get() {
+                return (
+                    this.updatingAvatar ||
+                    this.updatingName ||
+                    this.updatingEmail ||
+                    this.updatingPassword
+                );
             },
-            formTitle() {
-                let baseTitle = "Изменение";
-
-                if (this.updatingAvatar) {
-                    baseTitle += " аватара ";
+            set(v) {
+                if (!v) {
+                    this.updatingAvatar = false;
+                    this.updatingName = false;
+                    this.updatingEmail = false;
+                    this.updatingPassword = false;
                 }
-
-                if (this.updatingName) {
-                    baseTitle += " имени ";
-                }
-
-                if (this.updatingEmail) {
-                    baseTitle += " email-а ";
-                }
-
-                if (this.updatingPassword) {
-                    baseTitle += " пароля ";
-                }
-
-                return baseTitle;
             }
+        },
+        formTitle() {
+            let baseTitle = "Изменение";
+
+            if (this.updatingAvatar) {
+                baseTitle += " аватара ";
+            }
+
+            if (this.updatingName) {
+                baseTitle += " имени ";
+            }
+
+            if (this.updatingEmail) {
+                baseTitle += " email-а ";
+            }
+
+            if (this.updatingPassword) {
+                baseTitle += " пароля ";
+            }
+
+            return baseTitle;
         }
     }
 };

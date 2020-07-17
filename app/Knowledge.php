@@ -34,6 +34,6 @@ class Knowledge extends Model
     {
         $relatedEntities = $this->relatedEntities(Knowledge::class);
 
-        return Knowledge::whereIn('id', $relatedEntities->pluck('related_id'))->get(['id', 'name']);
+        return Knowledge::whereIn('id', $relatedEntities->pluck('related_id'))->get(['id', 'name', 'slug']);
     }
 }

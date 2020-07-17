@@ -11,10 +11,10 @@ const supportedLinks = [
         name: 'terms',
         regex: new RegExp(`${window.location.origin}/[0-9]\\w+`, 'g'),
     },
-    {
-        name: 'wikipedia',
-        regex: new RegExp('wikipedia.org/wiki/', 'g')
-    }
+    // {
+    //     name: 'wikipedia',
+    //     regex: new RegExp('wikipedia.org/wiki/', 'g')
+    // }
 ];
 
 function initSummaryCache() {

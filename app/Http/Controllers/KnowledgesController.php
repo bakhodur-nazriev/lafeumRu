@@ -31,10 +31,22 @@ class KnowledgesController extends Controller
     public function get(Request $request)
     {
         if($request->has('tree')){
-            return Knowledge::latest()->get()->toTree();
-        }
-
-        return Knowledge::where('parent_id', '<>', null)->latest()->get();
+            return Knowledge::latest()
+                ->get()
+                ->each(function ($item) {
+                    $item->append('linked_knowledge');
+                })
+                ->toTree();
+        } 
+        
+        $knowledgeAreas = Knowledge::where('parent_id', '<>', null)
+            ->latest()
+            ->get()
+            ->each(function ($item) {
+                $item->append('linked_knowledge');
+            });
+        
+        return $knowledgeAreas;
     }
 
     public function store(Request $request)
@@ -43,7 +55,18 @@ class KnowledgesController extends Controller
             'name' => 'required'
         ]);
 
-        return Knowledge::create($request->all());
+        $newKnowledgeArea = Knowledge::create($request->all());
+
+        if(
+            $request->has('linked_knowledge') && 
+            gettype($request->linked_knowledge) === "array"
+        ){
+            $relatedKnowledge = Knowledge::whereIn('id', $request->linked_knowledge)->get();
+
+            $newKnowledgeArea->linkEntities($relatedKnowledge);
+        }
+
+        return $newKnowledgeArea;
     }
 
     public function updateTree(Request $request)
@@ -61,11 +84,21 @@ class KnowledgesController extends Controller
     {
         $knowledge->update($request->all());
         
+        if(
+            $request->has('linked_knowledge') && 
+            gettype($request->linked_knowledge) === "array"
+        ){
+            $relatedKnowledge = Knowledge::whereIn('id', $request->linked_knowledge)->get();
+
+            $knowledge->syncRelatedEntities($relatedKnowledge);
+        }
+
         return $knowledge;
     }
 
     public function destroy(Knowledge $knowledge)
     {
+        $knowledge->unlinkAllEntities();
         $knowledge->delete();
     }
 }

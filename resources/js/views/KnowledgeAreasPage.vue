@@ -15,7 +15,7 @@
                         </v-btn>
                     </div>
                     <tree-view
-                        :treeData="knowledgeAreas"
+                        :treeData="knowledgeAreasTree"
                         item-text="name"
                         ref="treeView"
                         @node-click="knowledgeAreaToShow = $event"
@@ -51,11 +51,13 @@
 
         <knowledge-areas-create-dialog
             v-model="dialogAdd"
+            :knowledge-areas="knowledgeAreasList"
             @created="knowledgeCreated"
         />
 
         <knowledge-areas-edit-dialog
             v-model="knowledgeAreaToUpdate"
+            :knowledge-areas="knowledgeAreasList"
             @updated="knowledgeUpdated"
         />
 
@@ -87,12 +89,14 @@ export default {
             knowledgeAreaToUpdate: null,
             search: "",
             dialogAdd: false,
-            knowledgeAreas: [],
+            knowledgeAreasTree: [],
+            knowledgeAreasList: [],
             knowledgeAreasLoading: false
         };
     },
     mounted() {
-        this.loadKnowledgeAreas();
+        this.loadKnowledgeAreasTree();
+        this.loadKnowledgeAreasList();
     },
     methods: {
         saveKnowledgeTree() {
@@ -105,7 +109,7 @@ export default {
                 })
                 .then(r => {
                     this.knowledgeAreasLoading = false;
-                    this.knowledgeAreas = r.data;
+                    this.knowledgeAreasTree = r.data;
                 })
                 .catch(e => {
                     this.knowledgeAreasLoading = false;
@@ -115,14 +119,22 @@ export default {
         onKnowledgeClick(knowledge) {
             this.knowledgeAreaToUpdate = knowledge;
         },
-        loadKnowledgeAreas() {
+        loadKnowledgeAreasList(){
+            axios
+                .get("/api/knowledge-areas")
+                .then(res => {
+                    this.knowledgeAreasList = res.data;
+                })
+                .catch(err => console.log(err));
+        },
+        loadKnowledgeAreasTree() {
             this.knowledgeAreasLoading = true;
 
             axios
                 .get("/api/knowledge-areas?tree")
                 .then(res => {
                     this.knowledgeAreasLoading = false;
-                    this.knowledgeAreas = res.data;
+                    this.knowledgeAreasTree = res.data;
                 })
                 .catch(err => {
                     this.knowledgeAreasLoading = false;
@@ -139,24 +151,15 @@ export default {
         },
         knowledgeCreated() {
             this.dialogAdd = false;
-            this.loadKnowledgeAreas();
+            this.loadKnowledgeAreasTree();
         },
         knowledgeUpdated() {
             this.knowledgeAreaToUpdate = null;
-            this.loadKnowledgeAreas();
+            this.loadKnowledgeAreasTree();
         },
         knowledgeDeleted() {
             this.knowledgeAreaToDelete = null;
-            this.loadKnowledgeAreas();
-        }
-    },
-    computed: {
-        filteredKnowledgeAreas() {
-            return this.knowledgeAreas.filter(knowledgeArea => {
-                return knowledgeArea.name
-                    .toLowerCase()
-                    .includes(this.search.toLowerCase());
-            });
+            this.loadKnowledgeAreasTree();
         }
     }
 };

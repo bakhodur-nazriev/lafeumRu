@@ -8,19 +8,31 @@
                 <v-row justify="center">
                     <v-col cols="12">
                         <v-text-field
+                            label="Добавить имя области знаний"
+                            v-model="newKnowledge.name"
                             hide-details
                             outlined
                             name="name"
-                            v-model="newKnowledge.name"
-                            label="Добаить имя области знаний"
                         >
                         </v-text-field>
                     </v-col>
                     <v-col cols="12">
                         <v-textarea
-                            outlined
+                            label="Добавить описание области знания"
                             v-model="newKnowledge.description"
-                            label="Добавить описания области знаний"
+                            outlined
+                            hide-details
+                        />
+                    </v-col>
+                    <v-col cols="12">
+                        <v-autocomplete
+                            label="Связанные области знаний"
+                            v-model="newKnowledge.linked_knowledge"
+                            :items="knowledgeAreas"
+                            item-text="name"
+                            item-value="id"
+                            multiple
+                            outlined
                         />
                     </v-col>
                 </v-row>
@@ -41,7 +53,8 @@
 <script>
 export default {
     props: {
-        value: Boolean
+        value: Boolean,
+        knowledgeAreas: Array
     },
     data(){
         return {
@@ -55,18 +68,17 @@ export default {
         getDefaultKnowledge() {
             return {
                 name: '',
-                description: ''
+                description: '',
+                linked_knowledge: []
             }
         },
         addKnowledgeArea() {
             axios
-                .post("/api/knowledge-areas/", this.newKnowledge)
+                .post("/api/knowledge-areas", this.newKnowledge)
                 .then(res => {
                     this.$emit('created', res.data);
                 })
-                .catch(err => {
-                    console.log(err);
-                });
+                .catch(err => console.log(err));
         }
     }
 };

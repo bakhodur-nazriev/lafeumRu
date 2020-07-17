@@ -33,4 +33,18 @@
             </div>
         </nav>
     </div>
+
+    @if (count($currentKnowledgeArea->linked_knowledge))
+        <div>
+            <h4 class="secondary mb-0">Смотрите также:</h4>
+            <hr class="mt-1">
+            <ul class="ml-3">
+                @foreach ($currentKnowledgeArea->linked_knowledge as $linkedKnowledge)
+                    <li>
+                        <a href="/knowledge/{{$linkedKnowledge->slug}}">{{$linkedKnowledge->name}}</a>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 @endsection

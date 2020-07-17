@@ -27,7 +27,7 @@
     @endforeach
 
     <div class="col-12">
-        <nav aria-label="Page navigation example">
+        <nav>
             <div class="row d-flex justify-content-center mt-3">
                 {{ $currentKnowledgeArea->terms->links() }}
             </div>

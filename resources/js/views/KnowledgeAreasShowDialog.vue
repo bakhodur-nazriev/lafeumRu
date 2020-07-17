@@ -12,8 +12,20 @@
                 </v-btn>
             </v-card-title>
 
-            <v-card-text class="subtitle-1 pb-0">
-                {{ knowledgeArea.description || "Нет описания" }}
+            <v-card-text class="pb-0">
+                <div class="subtitle-1">
+                    {{ knowledgeArea.description || "Нет описания" }}
+                </div>
+                <div class="pb-2">
+                    <v-chip
+                        v-for="(knowledge, i) in knowledgeArea.linked_knowledge"
+                        :key="i"
+                        class="ma-2"
+                        color="primary"
+                    >
+                        {{ knowledge.name }}
+                    </v-chip>
+                </div>
             </v-card-text>
 
             <v-card-actions>

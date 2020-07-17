@@ -322,6 +322,10 @@ categories-main-subname {
     cursor: pointer;
 }
 
+.cursor-pointer {
+    cursor: pointer !important;
+}
+
 .video-duration-block {
     font-size: 12px;
     background-color: black;

@@ -26,6 +26,17 @@
                             label="Изменить области знаний здесь"
                         />
                     </v-col>
+                    <v-col cols="12">
+                        <v-autocomplete
+                            label="Связанные области знаний"
+                            v-model="knowledgeAreaToUpdate.linked_knowledge"
+                            :items="knowledgeAreas"
+                            item-text="name"
+                            item-value="id"
+                            multiple
+                            outlined
+                        />
+                    </v-col>
                 </v-row>
             </v-container>
             <v-card-actions>
@@ -45,7 +56,8 @@
 <script>
 export default {
     props: {
-        value: Object
+        value: Object,
+        knowledgeAreas: Array
     },
     methods: {
         updateKnowledgeArea() {

@@ -9,6 +9,7 @@ use Kalnoy\Nestedset\NodeTrait;
 class Knowledge extends Model
 {
     use NodeTrait;
+    use RelatedEntitiesTrait;
 
     protected $table = "knowledge";
     protected $fillable = ["name", "description", "slug"];
@@ -27,5 +28,12 @@ class Knowledge extends Model
     {
         $this->attributes['name'] = $value;
         $this->attributes['slug'] = generateSlug($value);
+    }
+
+    public function getLinkedKnowledgeAttribute()
+    {
+        $relatedEntities = $this->relatedEntities(Knowledge::class);
+
+        return Knowledge::whereIn('id', $relatedEntities->pluck('related_id'))->get(['id', 'name', 'slug']);
     }
 }

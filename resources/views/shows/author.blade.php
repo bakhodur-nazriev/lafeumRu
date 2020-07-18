@@ -11,7 +11,7 @@
 <div>
     <h3 class="secondary">Авторы</h3>
     @foreach($authors as $author)
-        <a class="d-block" href="/authors/{{$author->slug}}">
+        <a class="categories-color d-block" href="/authors/{{$author->slug}}">
             {{ $author->name }}
         </a>
     @endforeach

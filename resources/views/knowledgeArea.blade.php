@@ -41,7 +41,7 @@
                     <ul class="list-inline py-1 list-of-knowledge">
                         @foreach ($knowledgeAreaParent->children as $knowledgeArea)
                             <li class="knowledge">
-                                <a href="/knowledge/{{$knowledgeArea->slug}}">{{$knowledgeArea->name}}</a>
+                                <a class="knowledge-area-color" href="/knowledge/{{$knowledgeArea->slug}}">{{$knowledgeArea->name}}</a>
                             </li>
                         @endforeach
                     </ul>

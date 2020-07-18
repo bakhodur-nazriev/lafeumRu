@@ -75,7 +75,8 @@
                 <div class="d-flex flex-row justify-content-between">
                     <h5
                         class="card-title d-inline-block cursor-pointer"
-                        onclick="showVideoModal('#video-{{$video->post->id}}-modal', {{$video->post->id}})">{{$video->title}}</h5>
+                        onclick="showVideoModal('#video-{{$video->post->id}}-modal', {{$video->post->id}})"
+                    >{{$video->title}}</h5>
                     <div class="ml-4 d-flex flex-row" style="height: fit-content">
                         <a class="secondary" href="/{{$video->post->id}}">
                             #{{$video->post->id}}
@@ -107,7 +108,7 @@
                 </a>
                 <div class="inner-categories mb-0">
                     @foreach($video->categories as $category)
-                        <a href="/videos/{{ $category->slug }}" class="mr-1">
+                        <a href="/videos/{{ $category->slug }}" class="tags-color mr-1">
                             <i class="fa fa-tags mr-1"></i>{{$category->name}}
                         </a>
                     @endforeach

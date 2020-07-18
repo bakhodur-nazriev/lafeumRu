@@ -1,38 +1,55 @@
-<nav class="navbar navbar-expand-md navbar-light shadow-sm main-navbar sticky-top">
-    <div class="menu-toggle-btn navbar-dark">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </div>
-
+<nav class="navbar navbar-expand-lg navbar-light shadow-sm main-navbar sticky-top">
     <!-- Right Side Of Navbar -->
-    <div>
+    @include('layouts.smallNavBar')
+    <div class="navbar-login-block">
         <ul class="navbar-nav ml-auto">
-            <!-- Authentication Links -->
             @guest
-                <li class="nav-item">
-                    <a class="nav-link text-light navbar-login-button" href="{{ route('login') }}">{{ __('Вход') }}</a>
-                </li>
+                <button
+                    data-toggle="modal"
+                    data-target="#loginModal"
+                    class="btn btn-primary border-0 navbar-login-button"
+                >
+                    Вход
+                </button>
                 @if (Route::has('register'))
-                    <li class="nav-item">
-                        <a class="nav-link text-light navbar-register-button" href="{{ route('register') }}">{{ __('Регистарция') }}</a>
-                    </li>
+                    <button
+                        data-toggle="modal"
+                        data-target="#registerModal"
+                        class="btn btn-primary border-0 navbar-register-button"
+                    >
+                        Регистрация
+                    </button>
                 @endif
             @else
                 <li class="nav-item dropdown">
-                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                       data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false" v-pre>
+                    <a
+                        v-pre
+                        href="#"
+                        role="button"
+                        id="navbarDropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        data-toggle="dropdown"
+                        class="nav-link dropdown-toggle"
+                    >
                         {{ Auth::user()->name }}<span class="caret"></span>
                     </a>
                     <div class="dropdown-menu nav-menu-dropdown-right p-0 rounded-0" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item py-2" href="{{route('dashboard')}}">{{ __('Личный Кабинет') }}</a>
-                        <a class="dropdown-item py-2" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                     document.getElementById('logout-form').submit();">
+                        <a
+                            class="dropdown-item py-2"
+                            href="{{ route('logout') }}"
+                            onclick="event.preventDefault();
+                                     document.getElementById('logout-form').submit();"
+                        >
                             {{ __('Выход') }}
                         </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        <form
+                            method="POST"
+                            id="logout-form"
+                            style="display: none;"
+                            action="{{ route('logout') }}"
+                        >
                             @csrf
                         </form>
                     </div>
@@ -40,39 +57,29 @@
             @endguest
         </ul>
     </div>
-    <!-- Left of Navbar -->
+
+    <!-- Left side of navbar -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="nav navbar-links small-nav-display">
-            <li class="nav-item">
-                <a class="nav-link text-light" href="{{ url('/') }}">Главная</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-light" href="{{ url('/quotes') }}">Цитаты</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-light" href="{{ url('/authors') }}">Авторы</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-light" href="{{ url('/terms') }}">Термины</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-light" href="{{ url('/vocabulary') }}">Словарь</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-light" href="{{ url('/knowledge') }}">Области Знаний</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-light" href="{{ url('/videos') }}">Видео</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-light" href="{{ url('/channels') }}">Каналы</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-light" href="{{ url('/photo') }}">Фотографии</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-light" href="{{ url('/contacts') }}">Контакты</a>
-            </li>
+            @php
+                $links = [
+                    ['href' => '/', 'name' => 'Главная'],
+                    ['href' => '/videos', 'name' => 'Области Знаний'],
+                    ['href' => '/vocabulary', 'name' => 'Словарь'],
+                    ['href' => '/quotes', 'name' => 'Цитаты'],
+                    ['href' => '/authors', 'name' => 'Авторы'],
+                    ['href' => '/videos', 'name' => 'Видео'],
+                    ['href' => '/knowledge', 'name' => 'Каналы'],
+                    ['href' => '/terms', 'name' => 'Термины'],
+                    ['href' => '/photo', 'name' => 'Фотографии'],
+                    ['href' => '/contacts', 'name' => 'Контакты'],
+                ];
+            @endphp
+            @foreach($links as $link)
+                <li class="nav-item active">
+                    <a class="nav-link text-light" href="{{ $link['href'] }}">{{ $link['name'] }}</a>
+                </li>
+            @endforeach
         </ul>
     </div>
 </nav>

@@ -28,41 +28,42 @@
             на которые также указаны источники для подробного чтения.<br>
             Приятного и полезного чтения!</p>
     </div>
+
     <div>
         <h3 class="secondary text-center">Темы</h3>
         <div class="row">
             @foreach($categories as $category)
-                <div class="col-lg-3 align-top mb-3">
+                <div class="col-lg-3 offset-lg-0 col-md-5 offset-md-1 align-top">
                     <div class="dropdown dd-main-page">
                         <button class="btn btn-default dropdown-toggle dd-themes-main-page-name"
                                 type="button"
                                 id="menu1"
-                                data-toggle="dropdown">
+                                data-toggle="dropdown"
+                        >
                             <div class="categories-main-name">
                                 <a href="#"><b>{{ $category->name }}</b></a>
                             </div>
-                            <span class="caret"></span></button>
+                            <span class="caret"></span>
+                        </button>
                         <ul
                             class="dropdown-menu dd-menu-main-page"
-                            role="menu" aria-labelledby="menu1">
+                            role="menu"
+                            aria-labelledby="menu1"
+                        >
                             <li role="presentation">
-                                <a role="menuitem" tabindex="-1"
-                                   href="/quotes/{{ $category->slug }}">Цитаты</a>
+                                <a role="menuitem" tabindex="-1" href="/quotes/{{ $category->slug }}">Цитаты</a>
                             </li>
                             <li role="presentation" class="divider"></li>
                             <li role="presentation">
-                                <a role="menuitem" tabindex="-1"
-                                   href="/videos/{{ $category->slug }}">Видео</a>
+                                <a role="menuitem" tabindex="-1" href="/videos/{{ $category->slug }}">Видео</a>
                             </li>
                             <li role="presentation" class="divider"></li>
                             <li role="presentation">
-                                <a role="menuitem" tabindex="-1"
-                                   href="/terms/{{ $category->slug }}">Термин</a>
+                                <a role="menuitem" tabindex="-1" href="/terms/{{ $category->slug }}">Термин</a>
                             </li>
                             <li role="presentation" class="divider"></li>
                             <li role="presentation">
-                                <a role="menuitem" tabindex="-1"
-                                   href="/vocabulary/{{ $category->slug }}">Словарь</a>
+                                <a role="menuitem" tabindex="-1" href="/vocabulary/{{ $category->slug }}">Словарь</a>
                             </li>
                         </ul>
                     </div>

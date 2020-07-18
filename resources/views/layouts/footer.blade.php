@@ -1,40 +1,6 @@
 <footer class="text-white-50 footer">
-  <div class="container text-center">
-      <div>
-          <img src="/img/white-footer-logo.png" alt="white logo lafuem">
-      </div>
-      <ul class="nav justify-content-center navbar-links">
-          <li class="nav-item">
-              <a class="nav-link text-light" href="{{ url('/') }}">Главная</a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link text-light" href="{{ url('/quotes') }}">Цитаты</a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link text-light" href="{{ url('/authors') }}">Авторы</a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link text-light" href="{{ url('/terms') }}">Термины</a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link text-light" href="{{ url('/vocabulary') }}">Словарь</a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link text-light" href="{{ url('/knowledge') }}">Области Знаний</a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link text-light" href="{{ url('/videos') }}">Видео</a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link text-light" href="{{ url('/channels') }}">Каналы</a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link text-light" href="{{ url('/photo') }}">Фотографии</a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link text-light" href="{{ url('/contacts') }}">Контакты</a>
-          </li>
-      </ul>
-      <small style="color: white">&copy; 2017-2020 LAFEUM. ВСЕ ПРАВА ЗАЩИЩЕНЫ.</small>
-  </div>
+    <div class="container text-center">
+        <div class="mb-2"><img src="/img/white-footer-logo.png" alt="white logo lafuem"></div>
+        <small style="color: white">&copy; 2017-2020 LAFEUM. ВСЕ ПРАВА ЗАЩИЩЕНЫ.</small>
+    </div>
 </footer>

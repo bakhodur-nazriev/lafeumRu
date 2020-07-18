@@ -23,11 +23,12 @@
             </button>
         </div>
         <div class="row justify-content-center">
-            <div class="col-9">
+            <div class="col-lg-6 col-sm-10">
                 @yield('bottom-content')
             </div>
         </div>
-        @include('layouts.unauthorizeModal')
+        @include('layouts.loginModal')
+        @include('layouts.registerModal')
     </div>
 
     @include('layouts.footer')

@@ -11,6 +11,21 @@ body {
     min-height: 100vh;
 }
 
+/* ------------- COLORS -------------- */
+.knowledge-area-color {
+    color: #1c7094;
+}
+
+.term-color,
+.home-color,
+.channels-color,
+.authors-color,
+.vocabulary-color,
+.tags-color,
+.categories-color {
+    color: #0645ad;
+}
+
 .modal-open {
     padding-right: 0 !important;
 }
@@ -390,7 +405,6 @@ categories-main-subname {
 
 .tags-block a {
     margin-right: 10px;
-    color: #04718c;
 }
 
 .navbar-light .navbar-nav .nav-link {

@@ -17,7 +17,6 @@
             </div>
             <div
                 class="right-sidebar-col">@yield('right-side-bar', View::make('layouts.right-sidebar.rightSidebar'))</div>
-
             <button id="scrollToTopBtn" class="btn btn-primary">
                 <i class="fa fa-arrow-up"></i>
             </button>

@@ -3,16 +3,16 @@
     @foreach($categories as $category)
         <div class="categories-main-name">
             <a
-                class="{{$category->active ? 'active': ''}}"
+                class="categories-color font-weight-bold {{$category->active ? 'active': ''}}"
                 href="{{ $category->link }}"
             >
-                <b>{{ $category->name }}</b>
+                {{ $category->name }}
             </a>
         </div>
         @foreach($category->children as $subCategory)
             <div>
                 <a
-                    class="{{$subCategory->active ? 'active': ''}}"
+                    class="categories-color {{$subCategory->active ? 'active': ''}}"
                     href="{{ $subCategory->link }}"
                 >
                     {{$subCategory->name}}

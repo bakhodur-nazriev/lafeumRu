@@ -5,7 +5,7 @@
 @endphp
 
 <div class="card-block">
-    <div class="row px-3 mb-2">
+    <div class="row mb-2">
         <div class="col-6 py-0">
             <a href="/authors/{{$quote->author->slug}}" class="secondary">
                 <i class="fa fa-user" style="margin-right: 5px;"></i>{{$quote->author->name}}

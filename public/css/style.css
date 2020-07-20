@@ -20,7 +20,10 @@ body {
     color: #1c7094;
 }
 
-.term-color,
+a {
+    color: #0645ad;
+}
+
 .home-color,
 .channels-color,
 .authors-color,

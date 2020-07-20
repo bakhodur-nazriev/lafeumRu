@@ -64,12 +64,12 @@
             @php
                 $links = [
                     ['href' => '/', 'name' => 'Главная'],
-                    ['href' => '/videos', 'name' => 'Области Знаний'],
+                    ['href' => '/knowledge', 'name' => 'Области Знаний'],
                     ['href' => '/vocabulary', 'name' => 'Словарь'],
                     ['href' => '/quotes', 'name' => 'Цитаты'],
                     ['href' => '/authors', 'name' => 'Авторы'],
                     ['href' => '/videos', 'name' => 'Видео'],
-                    ['href' => '/knowledge', 'name' => 'Каналы'],
+                    ['href' => '/channels', 'name' => 'Каналы'],
                     ['href' => '/terms', 'name' => 'Термины'],
                     ['href' => '/photo', 'name' => 'Фотографии'],
                     ['href' => '/contacts', 'name' => 'Контакты'],

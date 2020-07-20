@@ -8,41 +8,50 @@
 @endsection
 
 @section("content")
-    <div class="row d-flex justify-content-center">
-        <div class="col-lg-4 col-md-6 pa-0">
-            <span class="authors-main-title">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="authors-main-title">
                 <h3 class="secondary">Авторы</h3>
                 <p class="ma-3">Авторы. Полный список всех авторов по алфавиту, а также есть возможность поиска.</p>
-            </span>
-            <div class="form-group">
-                <input
-                    type="search"
-                    id="author-search"
-                    class="form-control"
-                    placeholder="Поиск по авторам"
-                >
-                <small id="authors-search-result" class="form-text text-muted ml-1"></small>
             </div>
+            <div class="d-flex justify-content-center mt-0">
+                <div class="col-md-4 px-0">
+                    <div class="input-group">
+                        <input
+                            type="search"
+                            id="author-search"
+                            class="form-control"
+                            placeholder="Поиск"
+                        >
+                        <div class="input-group-append">
+                            <div class="input-group-text cursor-pointer" id="vocabulary-search-button">
+                                <i class="fa fa-search"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <small id="authors-search-result" class="form-text text-muted ml-1"></small>
+                </div>
+            </div>
+            <div class="row">
+                <ul class="list-inline py-1 list-of-authors">
+                    @foreach ($authors as $author)
+                        <li class="author">
+                            <a href="/authors/{{$author->slug}}">{{ $author->name }}</a>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+            <script>
+                $(document).ready(() => {
+                    attachSearch(
+                        "#author-search",
+                        ".list-of-authors",
+                        '#authors-search-result'
+                    );
+                })
+            </script>
         </div>
     </div>
-    <div class="row">
-        <ul class="list-inline py-1 list-of-authors">
-            @foreach ($authors as $author)
-                <li class="author">
-                    <a class="authors-color" href="/authors/{{$author->slug}}">{{ $author->name }}</a>
-                </li>
-            @endforeach
-        </ul>
-    </div>
-    <script>
-        $(document).ready(() => {
-            attachSearch(
-                "#author-search",
-                ".list-of-authors",
-                '#authors-search-result'
-            );
-        })
-    </script>
 @endsection
 
 @section('right-side-bar')@endsection

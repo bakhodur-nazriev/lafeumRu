@@ -11,6 +11,10 @@ body {
     min-height: 100vh;
 }
 
+.modal-backdrop {
+    z-index: 0 !important;
+}
+
 /* ------------- COLORS -------------- */
 .knowledge-area-color {
     color: #1c7094;
@@ -84,7 +88,8 @@ categories-main-subname {
     padding: .075rem .75rem;
 }
 
-.dd-menu-main-page, .dd-submenu-main-page {
+.dd-menu-main-page,
+.dd-submenu-main-page {
     display: flex;
     background-color: #e7ebf2;
 }
@@ -95,8 +100,10 @@ categories-main-subname {
     width: 100%;
 }
 
-.dd-menu-main-page .divider,
-.dd-submenu-main-page .divider {
+.dd-menu-main-page
+.divider,
+.dd-submenu-main-page
+.divider {
     background-color: #b9bbbe;
     padding: 0;
     height: 1px;
@@ -105,15 +112,12 @@ categories-main-subname {
 }
 
 .dd-main-page .show {
-    position: absolute;
     top: 100% !important;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     background-color: white;
     border-radius: 5px;
-    transition: all .3s ease-out;
-    -webkit-box-shadow: 0px 0px 10px 0.5px rgba(94, 105, 102, 0.8);
     -moz-box-shadow: 0px 0px 10px 0.5px rgba(94, 105, 102, 0.8);
     box-shadow: 0px 0px 10px 0.5px rgba(94, 105, 102, 0.8);
 }
@@ -121,7 +125,6 @@ categories-main-subname {
 .dropdown-menu {
     border: none;
     display: none;
-    top: 0;
     float: none;
     transform: none !important;
 }
@@ -405,6 +408,7 @@ categories-main-subname {
 
 .tags-block a {
     margin-right: 10px;
+    color: #04718c;
 }
 
 .navbar-light .navbar-nav .nav-link {
@@ -449,7 +453,7 @@ categories-main-subname {
 }
 
 .navbar-light .navbar-toggler {
-    border-color: white;
+    border: none;
 }
 
 .navbar-nav > .nav-menu-dropdown-right {
@@ -607,7 +611,6 @@ a.active {
     background-color: #04718c;
     color: white;
     padding: 10px 0;
-    font-size: 10px;
     text-transform: uppercase;
 }
 
@@ -618,7 +621,105 @@ a.active {
     font-weight: bold;
 }
 
+
+/*******************************
+* MODAL AS LEFT SIDEBAR
+*******************************/
+.modal.left .modal-dialog {
+    position: fixed;
+    margin: auto;
+    width: 320px;
+    height: 100%;
+    -webkit-transform: translate3d(0%, 0, 0);
+    -ms-transform: translate3d(0%, 0, 0);
+    -o-transform: translate3d(0%, 0, 0);
+    transform: translate3d(0%, 0, 0);
+}
+
+.modal.left .modal-content {
+    height: 100%;
+    overflow-y: auto;
+}
+
+.modal.left .modal-body {
+    padding: 15px 15px 80px;
+    background-color: #04718c;
+}
+
+.modal.left.fade .modal-dialog {
+    left: 0px;
+    -webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
+    -moz-transition: opacity 0.3s linear, left 0.3s ease-out;
+    -o-transition: opacity 0.3s linear, left 0.3s ease-out;
+    transition: opacity 0.3s linear, left 0.3s ease-out;
+}
+
+.modal.left.fade.in .modal-dialog {
+    left: 0;
+}
+
+/* ----- MODAL STYLE ----- */
+.modal-content {
+    border: none;
+}
+
+.modal-header {
+    border-bottom-color: #EEEEEE;
+    background-color: #FAFAFA;
+    align-items: center;
+}
+
+.small-modal-header-navbar {
+    display: flex;
+    align-items: center;
+}
+
+.small-nav-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+}
+
+.small-nav-item:hover {
+    color: #b9bbbe;
+}
+
+.menu-toggle-btn {
+    color: white;
+    display: flex;
+    justify-content: center !important;
+    position: relative;
+}
+
+.menu-toggle-btn button {
+    position: absolute;
+    left: 0;
+}
+
+
 @media (max-width: 576px) {
+    .menu-toggle-btn {
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .small-modal-header-navbar {
+        padding: 0.7rem 1rem;
+    }
+
+    .menu-toggle-btn > button > span {
+        font-size: 24px;
+    }
+
+    .count-block {
+        padding: 0.5rem 2.2rem;
+    }
+
+    .count-block-title {
+        font-size: 12px;
+    }
+
     .about-us-section img {
         width: 80%;
     }
@@ -634,7 +735,7 @@ a.active {
     }
 
     .main-navbar {
-        padding: 1.2rem;
+        padding: 1.1rem;
     }
 
     .list-of-knowledge {
@@ -647,6 +748,7 @@ a.active {
     }
 
     .share-button {
+        font-size: 12px;
         margin-right: 3px;
         padding: 3px 8px;
     }
@@ -663,13 +765,28 @@ a.active {
     }
 
     .dropdown-content-share-button {
-        width: 190px;
+        width: 185px;
     }
+
+    .navbar-left-block {
+        display: none;
+    }
+
+    .navbar-links > li > a {
+        padding: 0.5rem 0;
+    }
+
+    .navbar-login-block {
+        display: none;
+    }
+}
+
+@media (min-width: 576px) {
 }
 
 @media (min-width: 768px) {
     .main-navbar {
-        flex-direction: row-reverse;
+        padding: 1.5rem;
     }
 
     .about-us-section img {
@@ -683,15 +800,31 @@ a.active {
     .list-of-knowledge {
         column-count: 2;
     }
+
+    .small-modal-header-navbar {
+        padding: 1rem 1rem;
+    }
 }
 
 @media (max-width: 768px) {
+    .menu-toggle-btn {
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .navbar-login-block {
+        display: none;
+    }
+
+    .menu-toggle-btn > button > span {
+        font-size: 24px;
+    }
+
     .small-nav-display {
         flex-direction: column;
     }
 
     .navbar-links > li > a {
-        text-align: center;
         line-height: 1em;
     }
 
@@ -705,6 +838,18 @@ a.active {
 }
 
 @media (min-width: 992px) {
+    .menu-toggle-btn {
+        display: none;
+    }
+
+    .count-block {
+        padding: 0.8rem;
+    }
+
+    .count-block-title {
+        font-size: 10px;
+    }
+
     .shows-content-and-right-block {
         margin-left: 30px;
     }
@@ -728,6 +873,7 @@ a.active {
     }
 
     .share-button {
+        font-size: 14px;
         margin-right: 5px;
         padding: 5px 10px;
     }
@@ -746,6 +892,20 @@ a.active {
 
     .dropdown-content-share-button {
         width: 210px;
+    }
+
+    .navbar-left-block {
+        display: block;
+    }
+
+    .navbar-login-block {
+        display: block;
+    }
+}
+
+@media (min-width: 1140px) {
+    .count-block {
+        padding: 1.5rem;
     }
 }
 

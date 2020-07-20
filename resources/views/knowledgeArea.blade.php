@@ -12,7 +12,7 @@
         <div class="col-lg-12">
             <div class="authors-main-title">
                 <h3 class="secondary">Области знаний</h3>
-                <p>В этой рубрике представлены научные дисциплины, направления мысли и теоретические концепции.</p>
+                <p>В этой рубрике термины и комментарии специалистов классифицированы более развернуто по группам и направлениям.</p>
             </div>
             <div class="d-flex justify-content-center mt-0 mb-4">
                 <div class="col-md-4">
@@ -38,10 +38,10 @@
                         {{$knowledgeAreaParent->name}}
                     </h4>
                     <hr class="mt-2">
-                    <ul class="list-inline py-1 list-of-knowledge">
+                    <ul class="list-inline py-1 list-col-3">
                         @foreach ($knowledgeAreaParent->children as $knowledgeArea)
-                            <li class="knowledge">
-                                <a href="/knowledge/{{$knowledgeArea->slug}}">{{$knowledgeArea->name}}</a>
+                            <li>
+                                <a class="knowledge-area-color" href="/knowledge/{{$knowledgeArea->slug}}">{{$knowledgeArea->name}}</a>
                             </li>
                         @endforeach
                     </ul>
@@ -51,7 +51,7 @@
                 $(document).ready(() => {
                     attachSearch(
                         "#knowledge-area-search",
-                        ".list-of-knowledge",
+                        ".list-col-3",
                         "#knowledge-search-result",
                         ".knowledge-parent"
                     );

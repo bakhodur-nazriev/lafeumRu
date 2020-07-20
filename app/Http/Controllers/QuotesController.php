@@ -75,7 +75,6 @@ class QuotesController extends Controller
             unlink(public_path($metaImage));
         }
     }
-
     /**
      * Helpers
      *

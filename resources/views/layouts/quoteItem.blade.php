@@ -5,13 +5,13 @@
 @endphp
 
 <div class="card-block">
-    <div class="row px-3 mb-2">
-        <div class="py-0">
+    <div class="row mb-2">
+        <div class="col-6 py-0">
             <a href="/authors/{{$quote->author->slug}}" class="secondary">
                 <i class="fa fa-user" style="margin-right: 5px;"></i>{{$quote->author->name}}
             </a>
         </div>
-        <div class="col p-0 text-right">
+        <div class="col-6 py-0 text-right">
             <a class="secondary mr-2" href="/{{ $quote->post->id }}">#{{ $quote->post->id }}</a>
             @guest
                 <i data-id="{{$quote->id}}"
@@ -35,7 +35,7 @@
     <div class="mb-1">{!! $quote->body !!}</div>
     <div class="tags-block">
         @foreach($quote->categories as $category)
-            <a href="/quotes/{{ $category->slug }}">
+            <a class="tags-color" href="/quotes/{{ $category->slug }}">
                 <i class="fa fa-tags"></i>
                 {{ $category->name }}
             </a>

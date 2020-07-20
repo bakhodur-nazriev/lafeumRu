@@ -15,7 +15,7 @@ class AppController extends Controller
     public function index()
     {
         $categories = Category::get()->toTree()->unique('name');
-        return view('/home', compact(['categories']));
+        return view('/home', compact('categories'));
     }
 
     public function dashboard()

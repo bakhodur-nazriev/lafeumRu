@@ -17,17 +17,17 @@
             </div>
             <div
                 class="right-sidebar-col">@yield('right-side-bar', View::make('layouts.right-sidebar.rightSidebar'))</div>
-
             <button id="scrollToTopBtn" class="btn btn-primary">
                 <i class="fa fa-arrow-up"></i>
             </button>
         </div>
         <div class="row justify-content-center">
-            <div class="col-6">
+            <div class="col-lg-6 col-sm-10">
                 @yield('bottom-content')
             </div>
         </div>
-        @include('layouts.unauthorizeModal')
+        @include('layouts.loginModal')
+        @include('layouts.registerModal')
     </div>
 
     @include('layouts.footer')

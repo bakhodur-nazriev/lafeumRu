@@ -88,7 +88,7 @@
     </div>
     <div class="row">
         <div class="col">
-            <ul class="list-inline py-1 list-of-knowledge summary-links-wrapper">
+            <ul class="list-inline py-1 list-col-3 summary-links-wrapper">
                 @foreach($terms as $term)
                     <li class="vocabulary">
                         <a class="vocabulary-color" href="/{{$term->post->id}}" target="_blank">{{$term->name}}</a>
@@ -111,7 +111,7 @@
         function runVocabularySearch(keyword) {
             searchInTerms(keyword);
 
-            let foundCount = search(".list-of-knowledge", keyword);
+            let foundCount = search(".list-col-3", keyword);
 
             attachSummaryModals();
 

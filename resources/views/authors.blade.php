@@ -33,9 +33,9 @@
                 </div>
             </div>
             <div class="row">
-                <ul class="list-inline py-1 list-of-authors">
+                <ul class="list-inline py-1 list-col-4">
                     @foreach ($authors as $author)
-                        <li class="author">
+                        <li>
                             <a href="/authors/{{$author->slug}}">{{ $author->name }}</a>
                         </li>
                     @endforeach
@@ -45,7 +45,7 @@
                 $(document).ready(() => {
                     attachSearch(
                         "#author-search",
-                        ".list-of-authors",
+                        ".list-col-4",
                         '#authors-search-result'
                     );
                 })

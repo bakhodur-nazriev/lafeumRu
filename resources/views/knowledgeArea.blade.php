@@ -38,9 +38,9 @@
                         {{$knowledgeAreaParent->name}}
                     </h4>
                     <hr class="mt-2">
-                    <ul class="list-inline py-1 list-of-knowledge">
+                    <ul class="list-inline py-1 list-col-3">
                         @foreach ($knowledgeAreaParent->children as $knowledgeArea)
-                            <li class="knowledge">
+                            <li>
                                 <a class="knowledge-area-color" href="/knowledge/{{$knowledgeArea->slug}}">{{$knowledgeArea->name}}</a>
                             </li>
                         @endforeach
@@ -51,7 +51,7 @@
                 $(document).ready(() => {
                     attachSearch(
                         "#knowledge-area-search",
-                        ".list-of-knowledge",
+                        ".list-col-3",
                         "#knowledge-search-result",
                         ".knowledge-parent"
                     );

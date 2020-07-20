@@ -33,6 +33,10 @@ a {
     color: #0645ad;
 }
 
+.list-col-3 > li, .list-col-4 > li {
+    margin-bottom: 5px;
+}
+
 .modal-open {
     padding-right: 0 !important;
 }
@@ -263,12 +267,6 @@ categories-main-subname {
     justify-content: center;
     margin-bottom: 0;
     margin-top: 10px;
-}
-
-.list-of-authors >
-.author,
-.knowledge {
-    margin-bottom: 5px;
 }
 
 .authors-main-title {
@@ -727,7 +725,7 @@ a.active {
         width: 80%;
     }
 
-    .list-of-authors {
+    .list-col-4 {
         column-count: 1;
         padding: 18px;
     }
@@ -741,7 +739,7 @@ a.active {
         padding: 1.1rem;
     }
 
-    .list-of-knowledge {
+    .list-col-3 {
         column-count: 1;
     }
 
@@ -796,11 +794,11 @@ a.active {
         width: 250px;
     }
 
-    .list-of-authors {
+    .list-col-4 {
         column-count: 2;
     }
 
-    .list-of-knowledge {
+    .list-col-3 {
         column-count: 2;
     }
 
@@ -857,7 +855,7 @@ a.active {
         margin-left: 30px;
     }
 
-    .list-of-authors {
+    .list-col-4 {
         column-count: 4;
     }
 
@@ -871,7 +869,7 @@ a.active {
         padding: 1.5rem;
     }
 
-    .list-of-knowledge {
+    .list-col-3 {
         column-count: 3;
     }
 

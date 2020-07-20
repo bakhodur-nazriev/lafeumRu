@@ -35,7 +35,7 @@
     <div class="mb-1">{!! $term->body !!}</div>
     <div class="tags-block">
         @foreach($term->categories as $category)
-            <a class="term-color" href="/terms/{{ $category->slug }}">
+            <a class="tags-color" href="/terms/{{ $category->slug }}">
                 <i class="fa fa-tags"></i>
                 {{ $category->name }}
             </a>

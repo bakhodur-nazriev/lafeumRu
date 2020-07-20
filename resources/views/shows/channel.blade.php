@@ -8,37 +8,37 @@
 @endsection
 
 @section('left-side-bar')
-<div>
-    <h3 class="secondary">Каналы YouTube</h3>
-    <div class="mb-3 form-group">
-        <label for="channels-search">Введите название канала</label>
-        <input
-            type="string"
-            id="channels-search"
-            class="form-control"
-        >
-        <small id="channels-search-result" class="form-text text-muted ml-1"></small>
+    <div>
+        <h3 class="secondary">Каналы YouTube</h3>
+        <div class="mb-3 form-group">
+            <input
+                type="string"
+                id="channels-search"
+                class="form-control"
+                placeholder="Введите названия канала"
+            >
+            <small id="channels-search-result" class="form-text text-muted ml-1"></small>
+        </div>
+        <div class="channels">
+            @foreach($channels as $channelItem)
+                <div>
+                    <a href="/channels/{{$channelItem->slug}}">
+                        {{ $channelItem->name }}
+                    </a>
+                </div>
+            @endforeach
+        </div>
     </div>
-    <div class="channels">
-        @foreach($channels as $channelItem)
-            <div>
-                <a href="/channels/{{$channelItem->slug}}">
-                    {{ $channelItem->name }}
-                </a>
-            </div>
-        @endforeach
-    </div>
-</div>
 
-<script>
-    $(document).ready(() => {
-        attachSearch(
-            "#channels-search",
-            ".channels",
-            '#channels-search-result'
-        );
-    })
-</script>
+    <script>
+        $(document).ready(() => {
+            attachSearch(
+                "#channels-search",
+                ".channels",
+                '#channels-search-result'
+            );
+        })
+    </script>
 
 @endsection
 

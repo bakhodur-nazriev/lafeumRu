@@ -33,7 +33,7 @@
             Примеры информативных поисковых запросов: «нау», «логия», «ика», «изм», «фило», «само», «чело», «соц», «пси», «эво» и т.п.<br>
             <h5 class="mt-2 mb-0"><b>Введите термин</b></h5>
         </div>
-        <div class="col-md-5 col-xl-4">
+        <div class="col-md-4">
             <form id="vocabulary-search-form">
                 <div class="input-group">
                     <input

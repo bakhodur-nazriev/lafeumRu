@@ -384,11 +384,6 @@ class CategoryTableSeeder extends Seeder
                     ],
                 ],
             ],
-            [
-                'name' => 'Юмор тематический',
-                'type' => 'App\Term',
-                'description' => 'Юмор тематический – здесь собраны термины, определения и комментарии специалистов к ним на данную тему.'
-            ],
 
             /* Category Videos */
             [
@@ -571,12 +566,7 @@ class CategoryTableSeeder extends Seeder
                         'description' => 'Футурология – видео файлы раскрывающие данную тему.'
                     ],
                 ],
-            ],
-            /*[
-                'name' => 'Юмор тематический',
-                'type' => 'App\Video',
-                'description' => 'Юмор тематический – здесь собраны термины, определения и комментарии специалистов к ним на данную тему.'
-            ],*/
+            ]
         ];
 
         foreach ($categories as $category) {

@@ -51,6 +51,9 @@ class WPURLRedirect
         44 => "nauka-i-filosofiya",
 
         15 => "yumor-tematicheskiy",
+
+        "filmy-i-serialy" => "",
+        "poslovicy-i-pogovorki" => ""
     ];
 
     /**
@@ -165,9 +168,11 @@ class WPURLRedirect
 
         $thirdPart = count($exploded) >= 3 ? $exploded[2] : null;
 
-        if (intval($secondPart) && !$thirdPart) {
+        $shoudConvertSecondPart = array_key_exists($secondPart, $this->parentCategorySlugs);
+
+        if ($shoudConvertSecondPart  && !$thirdPart) {
             $secondPart = $this->parentCategorySlugs[$secondPart];
-        } else if (intval($secondPart) && $thirdPart) {
+        } else if ($shoudConvertSecondPart && $thirdPart) {
 
             $secondPart = $this->removeWpCategoryPostfix($thirdPart);
             $thirdPart = "";

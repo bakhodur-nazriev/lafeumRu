@@ -19,7 +19,7 @@ class DailyPostsComposer
         $term = Term::inRandomOrder()->first();
         $video = Video::inRandomOrder()->first();
         $photo = Photo::inRandomOrder()->first();
-        
+
         $dailyPosts = DailyPost::where('date', Carbon::parse()->format('Y-m-d'))->first();
         $newDailyPost = new DailyPost();
 

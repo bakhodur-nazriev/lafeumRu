@@ -3,8 +3,8 @@
     role="dialog"
     id="loginModal"
     aria-hidden="true"
-    class="modal fade px-3 rounded"
     aria-labelledby="loginModalLabel"
+    class="modal fade px-3 rounded overflow-hidden"
 >
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -72,7 +72,7 @@
                                 type="button"
                                 class="btn btn-primary"
                                 data-toggle="modal"
-                                data-target="#staticBackdrop"
+                                data-target="#registerModal"
                             >
                                 Регистрация
                             </button>
@@ -83,3 +83,5 @@
         </div>
     </div>
 </div>
+
+

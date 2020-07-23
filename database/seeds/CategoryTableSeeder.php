@@ -384,12 +384,6 @@ class CategoryTableSeeder extends Seeder
                     ],
                 ],
             ],
-            [
-                'name' => 'Юмор тематический',
-                'type' => 'App\Term',
-                'description' => 'Юмор тематический – здесь собраны термины, определения и комментарии специалистов к ним на данную тему.'
-            ],
-
             /* Category Videos */
             [
                 'name' => 'Ценности и Цели',
@@ -572,11 +566,6 @@ class CategoryTableSeeder extends Seeder
                     ],
                 ],
             ],
-            /*[
-                'name' => 'Юмор тематический',
-                'type' => 'App\Video',
-                'description' => 'Юмор тематический – здесь собраны термины, определения и комментарии специалистов к ним на данную тему.'
-            ],*/
         ];
 
         foreach ($categories as $category) {

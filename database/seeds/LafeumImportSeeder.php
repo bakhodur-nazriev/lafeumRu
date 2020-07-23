@@ -24,6 +24,8 @@ class LafeumImportSeeder extends Seeder
     public function run()
     {
         $this->call(CategoryTableSeeder::class);
+        $this->call(AuthorsGroupSeeder::class);
+
         $this->syncCategorySlugs();
 
         $this->importAuthors();
@@ -58,7 +60,7 @@ class LafeumImportSeeder extends Seeder
 
         foreach ($authorGroups as $groupName => $authors) {
 
-            $authorGroup = AuthorGroup::create(["name" => $groupName]);
+            $authorGroup = AuthorGroup::firstOrCreate(["name" => $groupName]);
 
             foreach ($authors as $author) {
                 $author["author_group_id"] = $authorGroup->id;

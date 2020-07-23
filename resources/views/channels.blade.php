@@ -29,15 +29,13 @@
             <small id="channels-search-result" class="form-text text-muted ml-1"></small>
         </div>
     </div>
-    <div class="row channels">
+    <ul class="channels list-inline py-1 list-col-3">
         @foreach ($channels as $channel)
-            <div class="col-lg-3 offset-lg-1 authors-links">
-                <li class="list-group">
-                    <a class="channels-color" href="/channels/{{$channel->slug}}">{{ $channel->name }}</a>
-                </li>
-            </div>
+            <li>
+                <a class="channels-color" href="/channels/{{$channel->slug}}">{{ $channel->name }}</a>
+            </li>
         @endforeach
-    </div>
+    </ul>
     <script>
         $(document).ready(() => {
             attachSearch(

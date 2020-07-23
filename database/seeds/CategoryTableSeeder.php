@@ -565,7 +565,7 @@ class CategoryTableSeeder extends Seeder
                         'description' => 'Футурология – видео файлы раскрывающие данную тему.'
                     ],
                 ],
-            ],
+            ]
         ];
 
         foreach ($categories as $category) {

@@ -29,6 +29,21 @@ class Author extends Model
         return $this->morphMany(Category::class, 'categoriable');
     }
 
+    public function scopePersons($query)
+    {
+        return $query->where('author_group_id', AuthorGroup::where('name', AuthorGroup::PERSONS_GROUP_NAME)->first()->id);
+    }
+
+    public function scopeMovies($query)
+    {
+        return $query->where('author_group_id', AuthorGroup::where('name', AuthorGroup::MOVIES_GROUP_NAME)->first()->id);
+    }
+
+    public function scopeProverbs($query)
+    {
+        return $query->where('author_group_id', AuthorGroup::where('name', AuthorGroup::PROVERBS_GROUP_NAME)->first()->id);
+    }
+
     public function setNameAttribute($value)
     {
         $this->attributes['name'] = $value;

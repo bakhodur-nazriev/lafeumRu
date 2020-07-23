@@ -3,6 +3,7 @@
         <h5 class="pl-3 py-2 mb-0">Цитата дня</h5>
     </div>
     <div class="p-3">
-        {!! $dailyPosts['quote']->body !!}
+        <p class="mb-1 five-line-truncate">{!! $dailyPosts['quote']->body !!}</p>
+        <p class="text-right font-italic m-0">{{ $dailyPosts['quote']['author']->name }}</p>
     </div>
 </div>

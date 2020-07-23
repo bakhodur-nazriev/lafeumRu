@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light shadow-sm main-navbar sticky-top">
+<nav class="navbar navbar-expand-lg navbar-light main-navbar">
     <!-- Right Side Of Navbar -->
     @include('layouts.smallNavBar')
     <div class="navbar-login-block">
@@ -7,7 +7,7 @@
                 <button
                     data-toggle="modal"
                     data-target="#loginModal"
-                    class="btn btn-primary border-0 navbar-login-button"
+                    class="text-light navbar-login-button py-1 px-3"
                 >
                     Вход
                 </button>
@@ -15,7 +15,7 @@
                     <button
                         data-toggle="modal"
                         data-target="#registerModal"
-                        class="btn btn-primary border-0 navbar-register-button"
+                        class="text-light navbar-register-button"
                     >
                         Регистрация
                     </button>
@@ -83,3 +83,10 @@
         </ul>
     </div>
 </nav>
+<script>
+    $(document).ready(function(){
+        $("#loginBtn").click(function(){
+            $("#loginModal").modal();
+        });
+    });
+</script>

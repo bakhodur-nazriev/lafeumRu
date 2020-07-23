@@ -3,8 +3,8 @@
     role="dialog"
     aria-hidden="true"
     id="registerModal"
-    class="modal fade pr-0"
     aria-labelledby="staticBackdropLabel"
+    class="modal fade pr-0 overflow-hidden"
 >
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">

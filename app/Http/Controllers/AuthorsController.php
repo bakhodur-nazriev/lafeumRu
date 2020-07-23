@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Author;
+use App\AuthorGroup;
 use App\Category;
+use App\Quote;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthorsController extends Controller
 {
@@ -16,15 +19,67 @@ class AuthorsController extends Controller
 
     public function index()
     {
-        $authors = Author::all();
+        $authors = $this->getPersonsList();
+
         return view("/authors", compact("authors"));
     }
 
     public function show(Author $author)
     {
-        $authors = Author::all();
+        switch ($author->authorGroup->name) {
+            
+            case AuthorGroup::MOVIES_GROUP_NAME:
+                $authorListTitle = AuthorGroup::MOVIES_GROUP_NAME;
+                $authors = Author::movies()->get();
+                break;
+            
+            case AuthorGroup::PROVERBS_GROUP_NAME:
+                $authorListTitle = AuthorGroup::PROVERBS_GROUP_NAME;
+                $authors = Author::proverbs()->get();
+                break;
+
+            default:
+                $authorListTitle = 'Авторы';
+                $authors = $this->getPersonsList();
+                break;
+        }
+
         $currentAuthor = $author->load('quotes.categories');
-        return view('shows.author', compact(['authors', 'currentAuthor']));
+        return view('shows.author', compact(['authors', 'authorListTitle', 'currentAuthor']));
+    }
+
+    public function showMovies()
+    {
+        $authors = Author::movies()->get();
+        $authorListTitle = AuthorGroup::MOVIES_GROUP_NAME;
+
+        $currentAuthor = new Author([
+            "name" => AuthorGroup::MOVIES_GROUP_NAME,
+            "biography" => "Фильмы и Сериалы. Здесь собраны лучшие высказывания и цитаты из фильмов и сериалов всех времен."
+        ]);
+        
+        $movieIds = $authors->pluck('id');
+
+        $currentAuthor->quotes = Quote::with('categories')->whereIn('author_id', $movieIds)->get();
+
+        return view('shows.author', compact(['authors', 'authorListTitle', 'currentAuthor']));
+    }
+
+    public function showProverbs()
+    {
+        $authors = Author::proverbs()->get();
+        $authorListTitle = AuthorGroup::PROVERBS_GROUP_NAME;
+
+        $currentAuthor = new Author([
+            "name" => AuthorGroup::PROVERBS_GROUP_NAME,
+            "biography" => "Пословицы и поговорки. Коллекция пословиц и поговорок народов мира. В них собраны плоды опытности народов и здравый смысл."
+        ]);
+        
+        $proverbIds = $authors->pluck('id');
+
+        $currentAuthor->quotes = Quote::with('categories')->whereIn('author_id', $proverbIds)->get();
+
+        return view('shows.author', compact(['authors', 'authorListTitle', 'currentAuthor']));
     }
 
     public function get()
@@ -61,5 +116,26 @@ class AuthorsController extends Controller
     public function destroy(Author $author)
     {
         $author->delete();
+    }
+
+    /**
+     * Helpers
+     * 
+     */
+    private function getPersonsList()
+    {
+        $authors = Author::persons()->get();
+        
+        $authors->prepend(new Author([
+            "name" => AuthorGroup::PROVERBS_GROUP_NAME, 
+            "slug" => "poslovicy-i-pogovorki"
+        ]));
+
+        $authors->prepend(new Author([
+            "name" => AuthorGroup::MOVIES_GROUP_NAME, 
+            "slug" => "filmy-i-serialy"
+        ]));
+        
+        return $authors;
     }
 }

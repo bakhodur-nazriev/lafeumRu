@@ -9,7 +9,7 @@
 
 @section('left-side-bar')
 <div>
-    <h3 class="secondary">Авторы</h3>
+    <h3 class="secondary">{{isset($authorListTitle) ? $authorListTitle: 'Авторы'}}</h3>
     @foreach($authors as $author)
         <a class="categories-color d-block" href="/authors/{{$author->slug}}">
             {{ $author->name }}

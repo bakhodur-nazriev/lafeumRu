@@ -10,6 +10,8 @@ Route::get("/dashboard", "AppController@dashboard")->middleware("auth")->name("d
 Route::get("/", "AppController@index")->name("home");
 
 Route::get("/authors", "AuthorsController@index")->name("author");
+Route::get("/authors/filmy-i-serialy", "AuthorsController@showMovies")->name("author.showMovies");
+Route::get("/authors/poslovicy-i-pogovorki", "AuthorsController@showProverbs")->name("author.showProverbs");
 Route::get("/authors/{author}", "AuthorsController@show")->name("author");
 
 Route::get("/channels", "ChannelsController@index")->name("channels");

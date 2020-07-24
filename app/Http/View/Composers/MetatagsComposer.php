@@ -22,7 +22,7 @@ class MetatagsComposer
         $this->setDefault($data, 'title', self::DEFAULT_TITLE);
         $this->setDefault($data, 'description', "");
         $this->setDefault($data, 'url', url()->full());
-        $this->setDefault($data, 'imageUrl', url("/img/cropped-favi.png"));
+        $this->setDefault($data, 'imageUrl', url("/img/cropped-favi-270x270.png"));
         $this->setDefault($data, 'canonical', url()->current());
 
         $this->setDefault($data, 'article', null);

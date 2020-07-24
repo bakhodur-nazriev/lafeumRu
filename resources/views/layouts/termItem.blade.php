@@ -47,10 +47,15 @@
         <button class="share-button">Поделиться</button>
         <div class="dropdown-content-share-button">
             <a
-                data-utl="http://new.lafeum.org/{{$term->post->id}}"
+                data-url="{{env('APP_URL')}}/{{ $term->post->id }}"
                 class="ya-share2"
+                href="/{{ $term->post->id }}"
+                data-copy="hidden"
+                data-description=""
+                data-direction="horizontal" 
                 data-services="vkontakte,facebook,odnoklassniki,twitter,viber,whatsapp,telegram"
-                href="/{{ $term->post->id }}">
+                data-title="" 
+            >
             </a>
         </div>
     </div>

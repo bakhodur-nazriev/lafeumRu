@@ -120,10 +120,14 @@
                 <button class="share-button">Поделиться</button>
                 <div class="dropdown-content-share-button">
                     <a
-                        data-url="http://new.lafeum.org/{{ $video->post->id }}"
+                        data-url="{{env('APP_URL')}}/{{ $quote->post->id }}"
                         class="ya-share2"
+                        href="/{{ $quote->post->id }}"
+                        data-copy="hidden"
+                        data-description=""
+                        data-direction="horizontal" 
                         data-services="vkontakte,facebook,odnoklassniki,twitter,viber,whatsapp,telegram"
-                        href="/{{ $video->post->id }}"
+                        data-title="" 
                     >
                     </a>
                 </div>

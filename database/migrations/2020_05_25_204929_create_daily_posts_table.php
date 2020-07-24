@@ -21,7 +21,6 @@ class CreateDailyPostsTable extends Migration
             $table->integer('term_id');
             $table->integer('video_id');
             $table->integer('photo_id');
-            $table->timestamps();
         });
     }
 

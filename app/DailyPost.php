@@ -10,6 +10,8 @@ class DailyPost extends Model
 
     public $timestamps = false;
 
+    protected $with = ['quote', 'term', 'video', 'photo'];
+
     public function quote()
     {
         return $this->belongsTo(Quote::class);

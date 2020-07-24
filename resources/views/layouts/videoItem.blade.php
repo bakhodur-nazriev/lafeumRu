@@ -120,9 +120,9 @@
                 <button class="share-button">Поделиться</button>
                 <div class="dropdown-content-share-button">
                     <a
-                        data-url="{{env('APP_URL')}}/{{ $quote->post->id }}"
+                        data-url="{{env('APP_URL')}}/{{ $video->post->id }}"
                         class="ya-share2"
-                        href="/{{ $quote->post->id }}"
+                        href="/{{ $video->post->id }}"
                         data-copy="hidden"
                         data-description=""
                         data-direction="horizontal" 

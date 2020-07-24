@@ -613,7 +613,7 @@ a.active {
 }
 
 .modal.left.fade .modal-dialog {
-    left: 0px;
+    left: 0;
     -webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
     -moz-transition: opacity 0.3s linear, left 0.3s ease-out;
     -o-transition: opacity 0.3s linear, left 0.3s ease-out;

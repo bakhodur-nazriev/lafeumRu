@@ -30,10 +30,19 @@ class AppController extends Controller
         return view('dashboard');
     }
 
+    public function privacy()
+    {
+        return view('policyPrivacy');
+    }
+
+    public function termsOfUse()
+    {
+        return view('termsOfUse');
+    }
+
     /**
      * Helpers
      */
-
     private function getCategoryPostLinks(Category $category, Collection $supported_types)
     {
         $links = [];

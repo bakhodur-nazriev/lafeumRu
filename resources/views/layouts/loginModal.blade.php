@@ -17,47 +17,39 @@
             <form method="POST" action="{{ route('login') }}">
                 <div class="modal-body">
                     @csrf
-                    <div class="form-group row align-items-center flex-column mb-0">
-                        <label for="email"
-                               class="col-md-8 col-form-label text-md-left pb-0">{{ __('E-Mail Адрес') }}</label>
-                        <div class="col-md-8">
-                            <input
-                                id="email"
-                                type="email"
-                                class="form-control @error('email') is-invalid @enderror"
-                                name="email"
-                                value="{{ old('email') }}"
-                                required
-                                autocomplete="email"
-                                autofocus
-                            >
-                            @error('email')
-                            <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
+                    <label for="email"
+                           class="col-form-label text-md-left pb-1">{{ __('E-Mail Адрес') }}</label>
+                    <input
+                        id="email"
+                        type="email"
+                        class="form-control @error('email') is-invalid @enderror mb-2"
+                        name="email"
+                        value="{{ old('email') }}"
+                        required
+                        autocomplete="email"
+                        autofocus
+                    >
+                    @error('email')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
 
-                    <div class="form-group row align-items-center flex-column mb-0">
-                        <label for="password"
-                               class="col-md-8 col-form-label text-md-left pb-0">{{ __('Пароль') }}</label>
-                        <div class="col-md-8">
-                            <input
-                                required
-                                id="password"
-                                type="password"
-                                name="password"
-                                autocomplete="current-password"
-                                class="form-control @error('password') is-invalid @enderror"
-                            >
-                            @error('password')
-                            <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
+                    <label for="password"
+                           class="col-form-label text-md-left pb-1">{{ __('Пароль') }}</label>
+                    <input
+                        required
+                        id="password"
+                        type="password"
+                        name="password"
+                        autocomplete="current-password"
+                        class="form-control @error('password') is-invalid @enderror mb-2"
+                    >
+                    @error('password')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
                 </div>
                 <div class="modal-footer">
                     <div class="form-group row mb-0">

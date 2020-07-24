@@ -34,13 +34,14 @@ Route::get("/quotes/{categorySlug}", "CategoriesController@showQuotes")->name("c
 Route::get("/terms/{categorySlug}", "CategoriesController@showTerms")->name("category.terms");
 Route::get("/videos/{categorySlug}", "CategoriesController@showVideos")->name("category.videos");
 Route::get("/vocabulary/{categorySlug}", "CategoriesController@showVocabulary")->name("category.vocabulary");
-
-
 Route::get("/vocabulary", "TermsController@indexVocabulary")->name("vocabulary");
-
 Route::get("/videos", "VideosController@index")->name("videos");
 
-//Favorite
+/* Favorite */
 Route::put("/toggle-favourite", "FavoriteController@toggle")->middleware("auth");
 
+Route::get("/policy-privacy", "AppController@privacy")->name('privacy');
+Route::get("/terms-of-use", "AppController@termsOfUse")->name('terms-of-use');
+
+/* Should be on bottom */
 Route::get("/{post}", "PostsController@show")->name('post');

@@ -7,7 +7,7 @@
                 <button
                     data-toggle="modal"
                     data-target="#loginModal"
-                    class="text-light navbar-login-button py-1 px-3"
+                    class="text-light navbar-login-button px-2"
                 >
                     Вход
                 </button>
@@ -15,7 +15,7 @@
                     <button
                         data-toggle="modal"
                         data-target="#registerModal"
-                        class="text-light navbar-register-button"
+                        class="text-light navbar-register-button px-2"
                     >
                         Регистрация
                     </button>

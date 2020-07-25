@@ -387,7 +387,7 @@ button:focus {
 .navbar-light .navbar-nav .active > .nav-link,
 .navbar-light .navbar-nav .nav-link.show,
 .navbar-light .navbar-nav .nav-link.active {
-    color: #49b108;
+    color: #cbd3da;
     outline: none;
     text-align: end;
 }
@@ -663,6 +663,9 @@ a.active {
     left: 0;
 }
 
+.navbar-login-button:hover {
+    color: #cbd3da;
+}
 
 @media (max-width: 576px) {
     .menu-toggle-btn {

@@ -33,8 +33,17 @@
 </div>
 
 <!-- Modal -->
-<div class="modal left fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
+<div
+    class="modal left fade"
+    id="myModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="myModalLabel"
+>
+    <div
+        class="modal-dialog"
+        role="document"
+    >
         <div class="modal-content">
             <div class="modal-header small-modal-header-navbar">
                 <button

@@ -15,7 +15,6 @@
                 </button>
             </div>
             <form method="POST" action="{{ route('register') }}">
-
                 <div class="modal-body">
                     @csrf
                     <label for="user-name" class="col-form-label text-md-left py-1">{{ __('Имя') }}</label>
@@ -82,17 +81,21 @@
                         name="password_confirmation"
                     >
 
-                    <div class="py-2 custom-control custom-checkbox mr-sm-2">
+                    <div class="custom-control custom-checkbox mr-sm-2">
                         <input
                             required
                             type="checkbox"
-                            id="user-agreement"
-                            class="form-control custom-control-input"
+                            name="privacy_policy"
+                            id="privacy_policy"
+                            value="{{old('option')}}"
+                            class="form-check-input custom-control-input m-0"
+                            @if(old('privacy_policy')) checked @endif value="1"
                         >
-                        <label for="user-agreement"
-                               class="custom-control-label col-form-label text-md-left py-0">
-
-                            Создавая аккаунт, я принимаю условия, изложенные в
+                        <label
+                            for="privacy_policy"
+                            class="custom-control-label col-form-label text-md-left py-0"
+                        >
+                            {{ __('Создавая аккаунт, я принимаю условия, изложенные в') }}
                             <a href="/terms-of-use">полльзовательском соглашении</a> и даю согласие на
                             <a href="/policy-privacy">обработку персональных данных.</a>
                         </label>
@@ -103,6 +106,7 @@
                     <button type="submit" class="btn btn-primary">{{ __('Регистрация') }}</button>
                 </div>
             </form>
+
         </div>
     </div>
 </div>

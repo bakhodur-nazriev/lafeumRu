@@ -17,7 +17,7 @@
                         </v-textarea>
                     </v-col>
                     <v-col cols="12">
-                        <v-select
+                        <v-autocomplete
                             outlined
                             hide-details
                             item-value="id"
@@ -26,8 +26,7 @@
                             :rules="[rules.required]"
                             label="Изменить канал видео"
                             v-model="videoToUpdate.channel_id"
-                        >
-                        </v-select>
+                        />
                     </v-col>
                     <v-col cols="12">
                         <v-text-field
@@ -44,13 +43,13 @@
                             outlined
                             hide-details
                             :rules="[rules.required]"
-                            v-model="videoToUpdate.duration + ' мин'"
+                            v-model="videoToUpdate.duration"
                             label="Изменить продолжителность видео в минутах"
                         >
                         </v-text-field>
                     </v-col>
                     <v-col cols="12">
-                        <v-select
+                        <v-autocomplete
                             outlined
                             multiple
                             hide-details

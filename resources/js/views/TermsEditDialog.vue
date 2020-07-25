@@ -25,7 +25,7 @@
                         />
                     </v-col>
                     <v-col cols="12">
-                        <v-select
+                        <v-autocomplete
                             outlined
                             multiple
                             hide-details
@@ -38,7 +38,7 @@
                         />
                     </v-col>
                     <v-col cols="12">
-                        <v-select
+                        <v-autocomplete
                             outlined
                             multiple
                             hide-details

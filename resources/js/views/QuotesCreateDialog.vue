@@ -8,7 +8,7 @@
                 <v-container>
                     <v-row justify="center">
                         <v-col cols="12">
-                            <v-select
+                            <v-autocomplete
                                 outlined
                                 hide-details
                                 label="Автор"
@@ -20,7 +20,7 @@
                             />
                         </v-col>
                         <v-col cols="12">
-                            <v-select
+                            <v-autocomplete
                                 outlined
                                 multiple
                                 hide-details

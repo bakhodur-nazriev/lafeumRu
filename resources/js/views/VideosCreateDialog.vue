@@ -17,7 +17,7 @@
                             />
                         </v-col>
                         <v-col cols="12">
-                            <v-select
+                            <v-autocomplete
                                 outlined
                                 hide-details
                                 item-value="id"
@@ -29,7 +29,7 @@
                             />
                         </v-col>
                         <v-col cols="12">
-                            <v-select
+                            <v-autocomplete
                                 outlined
                                 multiple
                                 hide-details

@@ -6,7 +6,7 @@
             </v-card-title>
             <v-form ref="form" @submit="addCategory">
                 <v-card-text>
-                    <v-select
+                    <v-autocomplete
                         label="Родительская категория"
                         v-model="newCategory.parentId"
                         :items="categories"

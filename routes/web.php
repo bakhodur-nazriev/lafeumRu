@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Auth::routes();
+Auth::routes(/*['verify' => true]*/);
 
 Route::get("/dashboard{any}", "AppController@dashboard")->where("any", ".*")->middleware("auth")->name("dashboard");
 Route::get("/dashboard", "AppController@dashboard")->middleware("auth")->name("dashboard");
@@ -40,7 +40,7 @@ Route::get("/videos", "VideosController@index")->name("videos");
 /* Favorite */
 Route::put("/toggle-favourite", "FavoriteController@toggle")->middleware("auth");
 
-Route::get("/policy-privacy", "AppController@privacy")->name('privacy');
+Route::get("/privacy-policy", "AppController@privacy")->name('privacy');
 Route::get("/terms-of-use", "AppController@termsOfUse")->name('terms-of-use');
 
 /* Should be on bottom */

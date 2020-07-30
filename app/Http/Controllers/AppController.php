@@ -13,6 +13,11 @@ class AppController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
 
+    /*public function __construct()
+    {
+        $this->middleware(['auth', 'verified']);
+    }*/
+
     public function index()
     {
         $categories = Category::get()->each(function ($item) {
@@ -32,7 +37,7 @@ class AppController extends Controller
 
     public function privacy()
     {
-        return view('policyPrivacy');
+        return view('privacyPolicy');
     }
 
     public function termsOfUse()

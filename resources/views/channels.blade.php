@@ -8,12 +8,12 @@
 @endsection
 
 @section('content')
-    <div class="row d-flex justify-content-center">
+    <div class="row d-flex justify-content-center my-2">
         <div class="col-sm-8 col-md-4">
             <span class="authors-main-title">
-                <h3 class="secondary">YouTube Каналы</h3>
+                <h3 class="secondary mb-4">YouTube Каналы</h3>
             </span>
-            <div class="input-group">
+            <div class="input-group mt-2">
                 <input
                     type="text"
                     id="channels-search"
@@ -29,7 +29,7 @@
             <small id="channels-search-result" class="form-text text-muted ml-1"></small>
         </div>
     </div>
-    <ul class="channels list-inline py-1 list-col-3">
+    <ul class="channels list-inline py-1 list-col-4">
         @foreach ($channels as $channel)
             <li>
                 <a class="channels-color" href="/channels/{{$channel->slug}}">{{ $channel->name }}</a>

@@ -21,10 +21,10 @@ class KnowledgesController extends Controller
     public function show(Knowledge $knowledge)
     {
         $knowledgeAreas = Knowledge::all();
-        
+
         $currentKnowledgeArea = $knowledge;
-        $currentKnowledgeArea->terms = $knowledge->terms()->latest()->paginate(30);
-        
+        $currentKnowledgeArea->terms = $knowledge->terms()->latest()->paginate(10);
+
         return view('shows.knowledge', compact(['currentKnowledgeArea', 'knowledgeAreas',]));
     }
 
@@ -37,15 +37,15 @@ class KnowledgesController extends Controller
                     $item->append('linked_knowledge');
                 })
                 ->toTree();
-        } 
-        
+        }
+
         $knowledgeAreas = Knowledge::where('parent_id', '<>', null)
             ->latest()
             ->get()
             ->each(function ($item) {
                 $item->append('linked_knowledge');
             });
-        
+
         return $knowledgeAreas;
     }
 
@@ -58,7 +58,7 @@ class KnowledgesController extends Controller
         $newKnowledgeArea = Knowledge::create($request->all());
 
         if(
-            $request->has('linked_knowledge') && 
+            $request->has('linked_knowledge') &&
             gettype($request->linked_knowledge) === "array"
         ){
             $relatedKnowledge = Knowledge::whereIn('id', $request->linked_knowledge)->get();
@@ -83,9 +83,9 @@ class KnowledgesController extends Controller
     public function update(Knowledge $knowledge, Request $request)
     {
         $knowledge->update($request->all());
-        
+
         if(
-            $request->has('linked_knowledge') && 
+            $request->has('linked_knowledge') &&
             gettype($request->linked_knowledge) === "array"
         ){
             $relatedKnowledge = Knowledge::whereIn('id', $request->linked_knowledge)->get();

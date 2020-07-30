@@ -42,11 +42,13 @@ class Controller extends BaseController
      * - Sorting: ?sortBy=[field] and ?sortByDesc=[field],
      * - Pagination: ?page=[number] and ?perPage=[number] and ?no_pagination
      */
-    protected function processIndexRequestItems(Request $request, $query, bool $withPagination = true)
+    protected function processIndexRequestItems(Request $request, $query, string $searchFieldName = null, bool $withPagination = true)
     {
         $filteredQuery = $this->filterByRequest($request, $query);
 
-        $sortedResultCollection = $this->sortByRequest($request, $filteredQuery->get());
+        $searchedQuery = $this->searchByRequest($request, $searchFieldName, $filteredQuery);
+
+        $sortedResultCollection = $this->sortByRequest($request, $searchedQuery->get());
 
         if(!$withPagination || $request->has('no_pagination')) return $sortedResultCollection;
 
@@ -79,15 +81,28 @@ class Controller extends BaseController
 
         foreach ($requests as $key => $value) {
             
-            if ($value && in_array($key, $modelAttributes) && is_string($value)) {
-                $query = $query->where($key, 'LIKE', "%$value%");
-            
-            } else if($value && in_array($key, $modelAttributes)){
+            if ($value && in_array($key, $modelAttributes)) {
                 $query = $query->where($key, $value);
-            }
+            } 
         }
 
         return $query;
+    }
+
+    /**
+     * Applies search to query, for example:
+     * - URL: ?search=some -> Query: $query->where($searchFieldName, 'LIKE', "%some%")
+     * 
+     */
+    protected function searchByRequest(Request $request, $searchFieldName, $query)
+    {
+        if(!$searchFieldName || !$request->has('search')){
+            return $query;
+        }
+        
+        $key = $request->search;
+
+        return $query->where($searchFieldName, 'LIKE', "%$key%");
     }
 
     /**

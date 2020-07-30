@@ -197,10 +197,7 @@ export default {
             }
         },
         totalPages() {
-            if (this.pagination) {
-                return this.pagination.last_page;
-            }
-            return null;
+            return this.pagination ? this.pagination.last_page: null;
         },
         perPage() {
             if (this.pagination) {

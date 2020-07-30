@@ -17,11 +17,13 @@
                         :headers="processedHeaders"
                         :items="filteredItems"
                         :items-per-page="perPage"
+                        :server-items-length="totalCount"
                         hide-default-footer
                         class="elevation-2"
                         :loading="loadingItems"
                         loading-text="Загрузка..."
                         @click:row="$emit('click:item', $event)"
+                        @update:options="onUpdateOptions"
                     >
                         <template
                             v-for="(_, name) in $scopedSlots"
@@ -103,22 +105,28 @@ export default {
             items: [],
             search: "",
             pagination: null,
-            loadingItems: false
+            loadingItems: false,
+            pageData: null
         };
     },
     mounted() {
-        this.loadItems();
+        this.pageData = {
+            number: 1,
+            sortBy: null,
+            sortByDesc: false
+        };
     },
     methods: {
         getSlotName(fieldName) {
             return "item." + fieldName;
         },
-        getIndexUrl(page) {
+        getIndexUrl() {
             let url = this.indexUrl;
 
             if (!url.includes("?")) {
                 url += "?";
             }
+            
             url += "&page=";
 
             if (page) {
@@ -137,31 +145,37 @@ export default {
             if (hasPagination) {
                 this.items = data.data;
                 this.pagination = data;
+                this.pageData = {...this.pageData, number: this.pagination.current_page};
             } else {
                 this.items = data;
                 this.pagination = null;
             }
         },
-        loadItems(page = null) {
+        loadItems() {
             this.loadingItems = true;
             this.items = [];
 
-                axios
-                    .get(this.getIndexUrl(page))
-                    .then(this.processResponse)
-                    .catch(err => {
-                        this.loadingItems = false;
-                        console.log(err);
-                    });
+            axios
+                .get(this.getIndexUrl())
+                .then(this.processResponse)
+                .catch(err => {
+                    this.loadingItems = false;
+                    console.log(err);
+                });
 
-                this.pagination = null;
-            }
+            this.pagination = null;
         },
-        computed: {
-            processedHeaders() {
-                if (this.noActions) {
-                    return this.tableHeaders;
-                }
+    },
+    watch: {
+        pageData(){
+            this.loadItems();
+        }
+    },
+    computed: {
+        processedHeaders() {
+            if (this.noActions) {
+                return this.tableHeaders;
+            }
 
             return [
                 ...this.tableHeaders,
@@ -187,17 +201,17 @@ export default {
         },
         currentPage: {
             get() {
-                if (this.pagination) {
-                    return this.pagination.current_page;
-                }
-                return 1;
+                return this.pageData.number;
             },
             set(v) {
-                this.loadItems(v);
+                this.pageData = {...this.pageData, number: v};
             }
         },
         totalPages() {
             return this.pagination ? this.pagination.last_page: null;
+        },
+        totalCount() {
+            return this.pagination ? this.pagination.total: null;
         },
         perPage() {
             if (this.pagination) {

@@ -29,7 +29,7 @@ class Paginator implements Arrayable {
     public function toArray()
     {
         return [
-            "current_page" => $this->currentPage,
+            "current_page" => intval($this->currentPage),
             "last_page" => $this->getTotalPages(),
             "per_page" => $this->perPage,
             "total" => $this->items->count(),

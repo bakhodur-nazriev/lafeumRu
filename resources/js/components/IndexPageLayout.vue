@@ -109,11 +109,11 @@ export default {
             pageData: null
         };
     },
-    mounted() {
+    created(){
         this.pageData = {
             number: 1,
             sortBy: null,
-            sortByDesc: false
+            sortDesc: false
         };
     },
     methods: {
@@ -127,12 +127,16 @@ export default {
                 url += "?";
             }
             
-            url += "&page=";
+            url += ("&page=" + this.currentPage);
 
-            if (page) {
-                url += page;
-            } else {
-                url += this.currentPage;
+            if(this.pageData.sortBy){
+
+                if(this.pageData.sortDesc){
+                   url += "&sortByDesc=" + this.pageData.sortBy; 
+                } else {
+                    url += "&sortBy=" + this.pageData.sortBy;
+                }
+                
             }
 
             return url;
@@ -145,7 +149,6 @@ export default {
             if (hasPagination) {
                 this.items = data.data;
                 this.pagination = data;
-                this.pageData = {...this.pageData, number: this.pagination.current_page};
             } else {
                 this.items = data;
                 this.pagination = null;
@@ -165,9 +168,31 @@ export default {
 
             this.pagination = null;
         },
+        onUpdateOptions(options){
+            let sortApplied = 
+                this.pageData.sortBy &&
+                options.sortBy[0] === this.pageData.sortBy &&
+                options.sortDesc[0] === this.pageData.sortDesc;
+            
+            if(sortApplied) return;
+
+            if(options.sortBy.length) {
+                this.pageData = {
+                    ...this.pageData, 
+                    sortBy: options.sortBy[0], 
+                    sortDesc: options.sortDesc[0]
+                };
+            } else if(!options.sortBy.length && this.pageData.sortBy) {
+                this.pageData = {
+                    ...this.pageData, 
+                    sortBy: null, 
+                    sortDesc: false
+                };
+            }
+        }
     },
     watch: {
-        pageData(){
+        pageData(v){
             this.loadItems();
         }
     },

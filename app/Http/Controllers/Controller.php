@@ -41,6 +41,7 @@ class Controller extends BaseController
      * - Filtering: ?[field]=[value],
      * - Sorting: ?sortBy=[field] and ?sortByDesc=[field],
      * - Pagination: ?page=[number] and ?perPage=[number] and ?no_pagination
+     * - Searching: ?search=some -> Query: $query->where($searchFieldName, 'LIKE', "%some%")
      */
     protected function processIndexRequestItems(Request $request, $query, string $searchFieldName = null, bool $withPagination = true)
     {

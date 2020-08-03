@@ -9,7 +9,7 @@
 @endphp
 <div class="col-12">
     <div class="card h-100 p-3">
-        <div class="row mb-3">
+        <div class="row mb-2">
             @if ($fullVariant)
                 <div class="col-12 pt-0">
                     <iframe
@@ -125,9 +125,9 @@
                         href="/{{ $video->post->id }}"
                         data-copy="hidden"
                         data-description=""
-                        data-direction="horizontal" 
+                        data-direction="horizontal"
                         data-services="vkontakte,facebook,odnoklassniki,twitter,viber,whatsapp,telegram"
-                        data-title="" 
+                        data-title=""
                     >
                     </a>
                 </div>

@@ -347,10 +347,10 @@ button:focus {
 }
 
 .my-main-divider {
-    height: 2px;
+    height: 1px;
     width: 100%;
     margin: 10px 0;
-    background-color: #d0d3d9;
+    background-color: rgba(0, 0, 0, .1);
 }
 
 .page-item.active .page-link {

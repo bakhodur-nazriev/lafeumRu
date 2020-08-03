@@ -54,7 +54,7 @@
                 data-description=""
                 data-direction="horizontal"
                 data-services="vkontakte,facebook,odnoklassniki,twitter,viber,whatsapp,telegram"
-                data-title="" 
+                data-title=""
             >
             </a>
         </div>

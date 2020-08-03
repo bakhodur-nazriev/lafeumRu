@@ -9,7 +9,7 @@
 
 @section('left-side-bar')
     <h3 class="secondary">{{isset($authorListTitle) ? $authorListTitle: 'Авторы'}}</h3>
-    <div class="input-group mb-3 mt-2">
+    <div class="input-group my-2">
         <input
             type="text"
             id="authors-search"

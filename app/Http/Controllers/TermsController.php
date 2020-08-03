@@ -17,7 +17,7 @@ class TermsController extends Controller
 
     public function index()
     {
-        $terms = Term::with('categories')->latest()->paginate(10);
+        $terms = Term::with('categories')->latest()->paginate(30);
         return view('/terms', compact(['terms']));
     }
 
@@ -69,7 +69,8 @@ class TermsController extends Controller
     public function get(Request $request)
     {
         $termsQuery = Term::with('categories', 'knowledge');
-        return $termsQuery->latest()->paginate($request->perPage ?: 10);
+
+        return $this->processIndexRequestItems($request, $termsQuery, 'body');
     }
 
     public function store(Request $request)

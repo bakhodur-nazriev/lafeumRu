@@ -75,19 +75,16 @@
                         class: "mine-table-headers"
                     },
                     {
-                        sortable: false,
                         text: "Описание",
                         value: "description"
                     },
                     {
                         align: "center",
-                        sortable: false,
                         value: "created_at",
                         text: "Дата добавления"
                     },
                     {
                         align: "center",
-                        sortable: false,
                         value: "updated_at",
                         text: "Дата изменения"
                     }

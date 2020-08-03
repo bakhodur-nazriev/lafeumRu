@@ -72,36 +72,30 @@
                 headers: [
                     {
                         text: "Названия",
-                        value: "title",
-                        sortable: false
+                        value: "title"
                     },
                     {
                         text: "Каналы",
-                        value: "channel.name",
-                        sortable: false
+                        value: "channel.name"
                     },
                     {
                         text: "Ссылки",
-                        value: "link",
-                        sortable: false
+                        value: "link"
                     },
                     {
                         text: "Дата добавления",
                         value: "created_at",
-                        align: "center",
-                        sortable: false
+                        align: "center"
                     },
                     {
                         text: "Дата изменения",
                         value: "updated_at",
-                        align: "center",
-                        sortable: false
+                        align: "center"
                     },
                     {
                         text: "Время",
                         value: "duration",
-                        align: "center",
-                        sortable: false
+                        align: "center"
                     }
                 ]
             };

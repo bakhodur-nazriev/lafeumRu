@@ -22,7 +22,9 @@ class PhotosController extends Controller
 
     public function get(Request $request)
     {
-        return Photo::latest()->paginate($request->perPage ?: 30);
+        $photosQuery = Photo::latest();
+
+        return $this->processIndexRequestItems($request, $photosQuery, 'description');
     }
 
     public function store(Request $request)

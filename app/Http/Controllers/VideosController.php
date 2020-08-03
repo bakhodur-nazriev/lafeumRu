@@ -16,14 +16,15 @@ class VideosController extends Controller
 
     public function index()
     {
-        $videos = Video::with(['channel', 'favorites', 'categories'])->paginate(10);
+        $videos = Video::with(['channel', 'favorites', 'categories'])->paginate(30);
         return view('/videos', compact(['videos',]));
     }
 
     public function get(Request $request)
     {
         $videosQuery = Video::with("channel", "categories");
-        return $videosQuery->latest()->paginate($request->perPage ?: 10);
+
+        return $this->processIndexRequestItems($request, $videosQuery, 'title');
     }
 
     public function store(Request $request)

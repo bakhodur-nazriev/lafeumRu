@@ -74,25 +74,21 @@
                         text: "Цитаты",
                         value: "body",
                         align: "left",
-                        sortable: false
                     },
                     {
                         text: "Автор",
                         value: "author.name",
                         align: "center",
-                        sortable: false
                     },
                     {
                         text: "Дата добавления",
                         value: "created_at",
                         align: "center",
-                        sortable: false
                     },
                     {
                         text: "Дата изменения",
                         value: "updated_at",
                         align: "center",
-                        sortable: false
                     }
                 ]
             };

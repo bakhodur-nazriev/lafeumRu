@@ -26,8 +26,6 @@
                 @yield('bottom-content')
             </div>
         </div>
-        @include('layouts.loginModal')
-        @include('layouts.registerModal')
     </div>
 
     @include('layouts.footer')

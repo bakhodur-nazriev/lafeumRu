@@ -1,52 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light main-navbar fixed-top">
     <!-- Right Side Of Navbar -->
     @include('layouts.smallNavBar')
-    <div class="navbar-login-block">
-        <ul class="navbar-nav ml-auto">
-            @guest
-                <button
-                    data-toggle="modal"
-                    data-target="#loginModal"
-                    class="text-light navbar-login-button px-2"
-                >
-                    Вход
-                </button>
-            @else
-                <li class="nav-item dropdown">
-                    <a
-                        href="#"
-                        role="button"
-                        id="navbarDropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                        data-toggle="dropdown"
-                        class="nav-link dropdown-toggle"
-                    >
-                        {{ Auth::user()->name }}<span class="caret"></span>
-                    </a>
-                    <div class="dropdown-menu nav-menu-dropdown-right p-0 rounded-0" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item py-2" href="{{route('dashboard')}}">{{ __('Личный Кабинет') }}</a>
-                        <a
-                            class="dropdown-item py-2"
-                            href="{{ route('logout') }}"
-                            onclick="event.preventDefault();
-                                     document.getElementById('logout-form').submit();"
-                        >
-                            {{ __('Выход') }}
-                        </a>
-                        <form
-                            method="POST"
-                            id="logout-form"
-                            style="display: none;"
-                            action="{{ route('logout') }}"
-                        >
-                            @csrf
-                        </form>
-                    </div>
-                </li>
-            @endguest
-        </ul>
-    </div>
 
     <!-- Left side of navbar -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">

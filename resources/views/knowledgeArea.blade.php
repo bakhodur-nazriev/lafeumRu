@@ -12,7 +12,8 @@
         <div class="col-lg-12">
             <div class="authors-main-title">
                 <h3 class="secondary">Области знаний</h3>
-                <p>В этой рубрике термины и комментарии специалистов классифицированы более развернуто по группам и направлениям.</p>
+                <p>В этой рубрике термины и комментарии специалистов классифицированы более развернуто по группам и
+                    направлениям.</p>
             </div>
             <div class="d-flex justify-content-center mt-0 mb-4">
                 <div class="col-md-4">
@@ -41,7 +42,8 @@
                     <ul class="list-inline py-1 list-col-3">
                         @foreach ($knowledgeAreaParent->children as $knowledgeArea)
                             <li>
-                                <a class="knowledge-area-color" href="/knowledge/{{$knowledgeArea->slug}}">{{$knowledgeArea->name}}</a>
+                                <a class="knowledge-area-color"
+                                   href="/knowledge/{{$knowledgeArea->slug}}">{{$knowledgeArea->name}}</a>
                             </li>
                         @endforeach
                     </ul>

@@ -13,23 +13,6 @@
         </div>
         <div class="col-6 p-0 text-right">
             <a class="secondary mr-2 ignore-summary" href="/{{ $term->post->id }}">#{{$term->post->id}}</a>
-            @guest
-                <i data-id="{{$term->id}}"
-                   class="fa fa-star favourite-term-btn {{$term->isFavorited() ? " fa-star-active": ""}}"
-                   data-toggle="modal"
-                   data-target=".modal"
-                   data-placement="top"
-                   title="Избранный"
-                ></i>
-            @endguest
-            @auth
-                <i data-id="{{$term->id}}"
-                   class="fa fa-star favourite-term-btn {{$term->isFavorited() ? " fa-star-active": ""}}"
-                   data-toggle="tooltip"
-                   data-placement="top"
-                   title="Избранный"
-                ></i>
-            @endauth
         </div>
     </div>
     <div class="mb-1">{!! $term->body !!}</div>
@@ -52,9 +35,9 @@
                 href="/{{ $term->post->id }}"
                 data-copy="hidden"
                 data-description=""
-                data-direction="horizontal" 
+                data-direction="horizontal"
                 data-services="vkontakte,facebook,odnoklassniki,twitter,viber,whatsapp,telegram"
-                data-title="" 
+                data-title=""
             >
             </a>
         </div>

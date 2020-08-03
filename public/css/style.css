@@ -685,6 +685,10 @@ a.active {
 }
 
 @media (max-width: 576px) {
+    .default-container {
+        margin-top: 58px;
+    }
+
     .menu-toggle-btn {
         justify-content: space-between;
         width: 100%;
@@ -824,6 +828,10 @@ a.active {
 }
 
 @media (min-width: 992px) {
+    .default-container {
+        margin-top: 90px;
+    }
+
     .menu-toggle-btn {
         display: none;
     }

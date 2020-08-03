@@ -13,23 +13,6 @@
         </div>
         <div class="col-6 py-0 text-right">
             <a class="secondary mr-2" href="/{{ $quote->post->id }}">#{{ $quote->post->id }}</a>
-            @guest
-                <i data-id="{{$quote->id}}"
-                   class="fa fa-star favourite-quote-btn {{$quote->isFavorited() ? " fa-star-active": ""}}"
-                   data-toggle="modal"
-                   data-target=".modal"
-                   data-placement="top"
-                   title="Избранный"
-                ></i>
-            @endguest
-            @auth
-                <i data-id="{{$quote->id}}"
-                   class="fa fa-star favourite-quote-btn {{$quote->isFavorited() ? " fa-star-active": ""}}"
-                   data-toggle="tooltip"
-                   data-placement="top"
-                   title="Избранный"
-                ></i>
-            @endauth
         </div>
     </div>
     <div class="mb-1">{!! $quote->body !!}</div>

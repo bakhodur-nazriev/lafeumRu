@@ -34,12 +34,8 @@
                         <div class="modal-dialog modal-dialog-centered modal-lg">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5
-                                        class="modal-title"
-                                        id="video-{{$video->post->id}}-modal-title"
-                                    >
-                                        {{$video->title}}
-                                    </h5>
+                                    <h5 class="modal-title"
+                                        id="video-{{$video->post->id}}-modal-title">{{$video->title}}</h5>
                                     <button
                                         type="button"
                                         class="close"
@@ -78,26 +74,7 @@
                         onclick="showVideoModal('#video-{{$video->post->id}}-modal', {{$video->post->id}})"
                     >{{$video->title}}</h5>
                     <div class="ml-4 d-flex flex-row" style="height: fit-content">
-                        <a class="secondary" href="/{{$video->post->id}}">
-                            #{{$video->post->id}}
-                        </a>
-                        @guest
-                            <i data-id="{{$video->id}}"
-                               class="ml-2 fa fa-star favourite-video-btn {{$video->isFavorited() ? " fa-star-active": ""}}"
-                               data-toggle="modal"
-                               data-target="#unauthorizedModal"
-                               data-placement="top"
-                               title="Избранный"
-                            ></i>
-                        @endguest
-                        @auth
-                            <i data-id="{{$video->id}}"
-                               class="ml-2 fa fa-star favourite-video-btn {{$video->isFavorited() ? " fa-star-active": ""}}"
-                               data-toggle="tooltip"
-                               data-placement="top"
-                               title="Избранный"
-                            ></i>
-                        @endauth
+                        <a class="secondary" href="/{{$video->post->id}}">#{{$video->post->id}}</a>
                     </div>
                 </div>
                 <a

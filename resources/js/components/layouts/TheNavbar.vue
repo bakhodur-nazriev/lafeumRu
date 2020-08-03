@@ -8,7 +8,7 @@
             <v-spacer></v-spacer>
 
             <v-btn class="text-decoration-none" text dark color="grey" href="/">
-                <span>Домой</span>
+                <span>На сайт</span>
                 <v-icon right>mdi-home-export-outline</v-icon>
             </v-btn>
             <v-btn text dark color="grey" @click="$refs.logoutform.submit()">

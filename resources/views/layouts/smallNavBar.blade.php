@@ -54,56 +54,6 @@
                 >
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <div>
-                    <ul class="navbar-nav ml-auto">
-                        @guest
-                            <button
-                                data-toggle="modal"
-                                data-target="#loginModal"
-                                class="btn btn-primary border-0"
-                            >
-                                Вход
-                            </button>
-                        @else
-                            <li class="nav-item dropdown">
-                                <a
-                                    v-pre
-                                    href="#"
-                                    role="button"
-                                    id="navbarDropdown"
-                                    aria-haspopup="true"
-                                    aria-expanded="false"
-                                    data-toggle="dropdown"
-                                    class="nav-link dropdown-toggle"
-                                    style="color: #04718c;"
-                                >
-                                    {{ Auth::user()->name }}<span class="caret"></span>
-                                </a>
-                                <div class="dropdown-menu nav-menu-dropdown-right p-0 rounded-0"
-                                     aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item py-2"
-                                       href="{{route('dashboard')}}">{{ __('Личный Кабинет') }}</a>
-                                    <a
-                                        class="dropdown-item py-2"
-                                        href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                     document.getElementById('logout-form').submit();"
-                                    >
-                                        {{ __('Выход') }}
-                                    </a>
-                                    <form
-                                        method="POST"
-                                        id="logout-form"
-                                        style="display: none;"
-                                        action="{{ route('logout') }}"
-                                    >
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
             </div>
 
             <div class="modal-body">

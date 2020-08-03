@@ -15,7 +15,7 @@ class QuotesController extends Controller
 
     public function index()
     {
-        $quotes = Quote::with('author:id,name,slug', 'categories:id,name,slug', 'post')->paginate(30);
+        $quotes = Quote::with('author:id,name,slug', 'categories:id,name,slug', 'post')->paginate(10);
         $categories = Category::quote()->get()->toTree()->unique('name');
 
         return view('/quotes', compact(['quotes', 'categories',]));
@@ -24,7 +24,7 @@ class QuotesController extends Controller
     public function get(Request $request)
     {
         $quotesQuery = Quote::with('author', 'categories');
-        return $quotesQuery->latest()->paginate($request->perPage ?: 30);
+        return $quotesQuery->latest()->paginate($request->perPage ?: 10);
     }
 
     public function store(Request $request)

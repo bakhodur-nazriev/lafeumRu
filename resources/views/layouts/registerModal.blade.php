@@ -97,7 +97,7 @@
                         >
                             {{ __('Создавая аккаунт, я принимаю условия, изложенные в') }}
                             <a href="/terms-of-use">полльзовательском соглашении</a> и даю согласие на
-                            <a href="/policy-privacy">обработку персональных данных.</a>
+                            <a href="/privacy-policy">обработку персональных данных.</a>
                         </label>
                     </div>
                 </div>
@@ -106,7 +106,6 @@
                     <button type="submit" class="btn btn-primary">{{ __('Регистрация') }}</button>
                 </div>
             </form>
-
         </div>
     </div>
 </div>

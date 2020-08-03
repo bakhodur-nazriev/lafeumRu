@@ -21,7 +21,7 @@
                             type="search"
                             id="author-search"
                             class="form-control"
-                            placeholder="Поиск"
+                            placeholder="Введите имя автора"
                         >
                         <div class="input-group-append">
                             <div class="input-group-text cursor-pointer" id="vocabulary-search-button">

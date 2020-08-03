@@ -10,7 +10,7 @@
 @section('left-side-bar')
     <div>
         <h3 class="secondary">Каналы YouTube</h3>
-        <div class="mb-3 form-group">
+        <div class="my-2 form-group">
             <input
                 type="string"
                 id="channels-search"

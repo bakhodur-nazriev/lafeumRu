@@ -8,14 +8,32 @@
 @endsection
 
 @section('left-side-bar')
-<div>
     <h3 class="secondary">{{isset($authorListTitle) ? $authorListTitle: 'Авторы'}}</h3>
-    @foreach($authors as $author)
-        <a class="categories-color d-block" href="/authors/{{$author->slug}}">
-            {{ $author->name }}
-        </a>
-    @endforeach
-</div>
+    <div class="input-group my-2">
+        <input
+            type="text"
+            id="authors-search"
+            class="form-control"
+            placeholder="Введите имя автора"
+        >
+    </div>
+    <small id="authors-search-result" class="form-text text-muted ml-1"></small>
+    <ul class="authors list-inline py-1">
+        @foreach($authors as $author)
+            <li>
+                <a class="categories-color d-block" href="/authors/{{$author->slug}}">{{ $author->name }}</a>
+            </li>
+        @endforeach
+    </ul>
+    <script>
+        $(document).ready(() => {
+            attachSearch(
+                "#authors-search",
+                ".authors",
+                "#authors-search-result"
+            )
+        })
+    </script>
 @endsection
 
 @section('content')

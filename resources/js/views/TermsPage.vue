@@ -71,26 +71,22 @@
                 headers: [
                     {
                         text: "Названия",
-                        value: "name",
-                        sortable: false
+                        value: "name"
                     },
                     {
                         text: "Термины",
                         value: "body",
-                        class: "ma-3",
-                        sortable: false
+                        class: "ma-3"
                     },
                     {
                         text: "Дата добавления",
                         value: "created_at",
-                        align: "center",
-                        sortable: false
+                        align: "center"
                     },
                     {
                         text: "Дата изменения",
                         value: "updated_at",
-                        align: "center",
-                        sortable: false
+                        align: "center"
                     }
                 ]
             };

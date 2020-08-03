@@ -23,7 +23,8 @@ class VideosController extends Controller
     public function get(Request $request)
     {
         $videosQuery = Video::with("channel", "categories");
-        return $videosQuery->latest()->paginate($request->perPage ?: 30);
+
+        return $this->processIndexRequestItems($request, $videosQuery, 'title');
     }
 
     public function store(Request $request)

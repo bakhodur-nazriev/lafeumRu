@@ -69,7 +69,8 @@ class TermsController extends Controller
     public function get(Request $request)
     {
         $termsQuery = Term::with('categories', 'knowledge');
-        return $termsQuery->latest()->paginate($request->perPage ?: 30);
+        
+        return $this->processIndexRequestItems($request, $termsQuery, 'body');
     }
 
     public function store(Request $request)

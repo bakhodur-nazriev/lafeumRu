@@ -17,11 +17,13 @@
                         :headers="processedHeaders"
                         :items="filteredItems"
                         :items-per-page="perPage"
+                        :server-items-length="totalCount"
                         hide-default-footer
                         class="elevation-2"
                         :loading="loadingItems"
                         loading-text="Загрузка..."
                         @click:row="$emit('click:item', $event)"
+                        @update:options="onUpdateOptions"
                     >
                         <template
                             v-for="(_, name) in $scopedSlots"
@@ -103,28 +105,38 @@ export default {
             items: [],
             search: "",
             pagination: null,
-            loadingItems: false
+            loadingItems: false,
+            pageData: null
         };
     },
-    mounted() {
-        this.loadItems();
+    created(){
+        this.pageData = {
+            number: 1,
+            sortBy: null,
+            sortDesc: false
+        };
     },
     methods: {
         getSlotName(fieldName) {
             return "item." + fieldName;
         },
-        getIndexUrl(page) {
+        getIndexUrl() {
             let url = this.indexUrl;
 
             if (!url.includes("?")) {
                 url += "?";
             }
-            url += "&page=";
+            
+            url += ("&page=" + this.currentPage);
 
-            if (page) {
-                url += page;
-            } else {
-                url += this.currentPage;
+            if(this.pageData.sortBy){
+
+                if(this.pageData.sortDesc){
+                   url += "&sortByDesc=" + this.pageData.sortBy; 
+                } else {
+                    url += "&sortBy=" + this.pageData.sortBy;
+                }
+                
             }
 
             return url;
@@ -142,26 +154,53 @@ export default {
                 this.pagination = null;
             }
         },
-        loadItems(page = null) {
+        loadItems() {
             this.loadingItems = true;
             this.items = [];
 
-                axios
-                    .get(this.getIndexUrl(page))
-                    .then(this.processResponse)
-                    .catch(err => {
-                        this.loadingItems = false;
-                        console.log(err);
-                    });
+            axios
+                .get(this.getIndexUrl())
+                .then(this.processResponse)
+                .catch(err => {
+                    this.loadingItems = false;
+                    console.log(err);
+                });
 
-                this.pagination = null;
-            }
+            this.pagination = null;
         },
-        computed: {
-            processedHeaders() {
-                if (this.noActions) {
-                    return this.tableHeaders;
-                }
+        onUpdateOptions(options){
+            let sortApplied = 
+                this.pageData.sortBy &&
+                options.sortBy[0] === this.pageData.sortBy &&
+                options.sortDesc[0] === this.pageData.sortDesc;
+            
+            if(sortApplied) return;
+
+            if(options.sortBy.length) {
+                this.pageData = {
+                    ...this.pageData, 
+                    sortBy: options.sortBy[0], 
+                    sortDesc: options.sortDesc[0]
+                };
+            } else if(!options.sortBy.length && this.pageData.sortBy) {
+                this.pageData = {
+                    ...this.pageData, 
+                    sortBy: null, 
+                    sortDesc: false
+                };
+            }
+        }
+    },
+    watch: {
+        pageData(v){
+            this.loadItems();
+        }
+    },
+    computed: {
+        processedHeaders() {
+            if (this.noActions) {
+                return this.tableHeaders;
+            }
 
             return [
                 ...this.tableHeaders,
@@ -187,20 +226,17 @@ export default {
         },
         currentPage: {
             get() {
-                if (this.pagination) {
-                    return this.pagination.current_page;
-                }
-                return 1;
+                return this.pageData.number;
             },
             set(v) {
-                this.loadItems(v);
+                this.pageData = {...this.pageData, number: v};
             }
         },
         totalPages() {
-            if (this.pagination) {
-                return this.pagination.last_page;
-            }
-            return null;
+            return this.pagination ? this.pagination.last_page: null;
+        },
+        totalCount() {
+            return this.pagination ? this.pagination.total: null;
         },
         perPage() {
             if (this.pagination) {

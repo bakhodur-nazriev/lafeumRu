@@ -39,9 +39,9 @@ a {
     color: #0645ad;
 }
 
-.list-col-3 > li, .list-col-4 > li {
+/*.list-col-3 > li, .list-col-4 > li {
     margin-bottom: 5px;
-}
+}*/
 
 .modal-open {
     padding-right: 0 !important;

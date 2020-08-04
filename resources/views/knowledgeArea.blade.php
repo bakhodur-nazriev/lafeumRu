@@ -22,7 +22,7 @@
                             type="string"
                             id="knowledge-area-search"
                             class="form-control"
-                            placeholder="Введите обдасть знаний"
+                            placeholder="Введите область знаний"
                         >
                         <div class="input-group-append">
                             <div class="input-group-text cursor-pointer" id="vocabulary-search-button">

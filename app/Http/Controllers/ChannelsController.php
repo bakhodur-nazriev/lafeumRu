@@ -9,7 +9,8 @@ use Illuminate\Http\Request;
 
 class ChannelsController extends Controller
 {
-    public function __construct() {
+    public function __construct()
+    {
         $this->authorizeResource(Channel::class);
     }
 
@@ -26,9 +27,10 @@ class ChannelsController extends Controller
         return view('shows.channel', compact(['channel', 'channels']));
     }
 
-    public function get()
+    public function get(Request $request)
     {
-        return Channel::latest()->get();
+        $channelQuery = Channel::latest()->first();
+        return $this->processIndexRequestItems($request, $channelQuery, 'name');
     }
 
     public function store(Request $request)
@@ -40,7 +42,7 @@ class ChannelsController extends Controller
         return Channel::create($request->all());
     }
 
-    public function update(Channel $channel,  Request $request)
+    public function update(Channel $channel, Request $request)
     {
         $channel->update($request->all());
 

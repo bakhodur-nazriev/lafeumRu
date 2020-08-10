@@ -27,12 +27,12 @@ class AuthorsController extends Controller
     public function show(Author $author)
     {
         switch ($author->authorGroup->name) {
-            
+
             case AuthorGroup::MOVIES_GROUP_NAME:
                 $authorListTitle = AuthorGroup::MOVIES_GROUP_NAME;
                 $authors = Author::movies()->get();
                 break;
-            
+
             case AuthorGroup::PROVERBS_GROUP_NAME:
                 $authorListTitle = AuthorGroup::PROVERBS_GROUP_NAME;
                 $authors = Author::proverbs()->get();
@@ -57,7 +57,7 @@ class AuthorsController extends Controller
             "name" => AuthorGroup::MOVIES_GROUP_NAME,
             "biography" => "Фильмы и Сериалы. Здесь собраны лучшие высказывания и цитаты из фильмов и сериалов всех времен."
         ]);
-        
+
         $movieIds = $authors->pluck('id');
 
         $currentAuthor->quotes = Quote::with('categories')->whereIn('author_id', $movieIds)->get();
@@ -74,7 +74,7 @@ class AuthorsController extends Controller
             "name" => AuthorGroup::PROVERBS_GROUP_NAME,
             "biography" => "Пословицы и поговорки. Коллекция пословиц и поговорок народов мира. В них собраны плоды опытности народов и здравый смысл."
         ]);
-        
+
         $proverbIds = $authors->pluck('id');
 
         $currentAuthor->quotes = Quote::with('categories')->whereIn('author_id', $proverbIds)->get();
@@ -82,9 +82,10 @@ class AuthorsController extends Controller
         return view('shows.author', compact(['authors', 'authorListTitle', 'currentAuthor']));
     }
 
-    public function get()
+    public function get(Request $request)
     {
-        return Author::latest()->get();
+        $authorsQuery = Author::latest()->first();
+        return $this->processIndexRequestItems($request, $authorsQuery, 'name');
     }
 
     public function store(Request $request)
@@ -120,22 +121,22 @@ class AuthorsController extends Controller
 
     /**
      * Helpers
-     * 
+     *
      */
     private function getPersonsList()
     {
         $authors = Author::persons()->get();
-        
+
         $authors->prepend(new Author([
-            "name" => AuthorGroup::PROVERBS_GROUP_NAME, 
+            "name" => AuthorGroup::PROVERBS_GROUP_NAME,
             "slug" => "poslovicy-i-pogovorki"
         ]));
 
         $authors->prepend(new Author([
-            "name" => AuthorGroup::MOVIES_GROUP_NAME, 
+            "name" => AuthorGroup::MOVIES_GROUP_NAME,
             "slug" => "filmy-i-serialy"
         ]));
-        
+
         return $authors;
     }
 }

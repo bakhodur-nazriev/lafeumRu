@@ -7,7 +7,7 @@
             searchField="title"
             ref="indexPage"
             @click:item="videoClick"
-            @add-item="dialogAdd = true"
+            @add-item="addVideo = true"
             @update-item="videoToUpdate = $event"
             @delete-item="videoToDelete = $event"
         >
@@ -28,7 +28,7 @@
         </index-page-layout>
 
         <videos-create-dialog
-            v-model="dialogAdd"
+            v-model="addVideo"
             :channels="channels"
             :categories="categories"
             @created="videoCreated"
@@ -71,7 +71,7 @@
         data() {
             return {
                 rules,
-                dialogAdd: false,
+                addVideo: false,
                 videoToShow: null,
                 videoToDelete: null,
                 videoToUpdate: null,
@@ -135,7 +135,7 @@
                     .catch(e => console.log(e));
             },
             videoCreated(newVideo) {
-                this.dialogAdd = false;
+                this.addVideo = false;
                 this.$refs.indexPage.loadItems();
             },
             videoUpdated(updated) {

@@ -16,9 +16,9 @@
                         placeholder="Логин"
                     >
                     @error('email')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
                     @enderror
                 </div>
             </div>
@@ -35,7 +35,7 @@
                         placeholder="Пароль"
                     >
                     @error('password')
-                    <span class="invalid-feedback" role="alert">
+                        <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror

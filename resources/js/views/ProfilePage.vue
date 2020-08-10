@@ -2,12 +2,10 @@
     <v-content class="pa-0">
         <v-container>
             <v-row justify="center">
-                <v-card class="pa-2" align="center" max-width="550">
+                <v-card class="pa-2" align="center" max-width="450">
                     <v-card-title class="align-items-start justify-center">
                         <v-col md="12" sm="12" align="center">
-                            <span class="headline font-weight-bold"
-                                >Мой профиль</span
-                            >
+                            <span class="headline font-weight-bold">Мой профиль</span>
                         </v-col>
                         <v-col md="4" sm="4">
                             <v-img
@@ -27,9 +25,7 @@
                         </v-col>
                     </v-card-title>
                     <v-card-text class="py-0">
-                        <label class="mb-0 d-flex subtitle-1 font-weight-bold"
-                            >Имя профиля</label
-                        >
+                        <label class="mb-0 d-flex subtitle-1 font-weight-bold">Имя профиля</label>
                         <v-row align="center">
                             <v-col class="pt-0 d-flex" md="12">
                                 <v-text-field
@@ -55,9 +51,7 @@
                             </v-col>
                         </v-row>
 
-                        <label class="mb-0 d-flex subtitle-1 font-weight-bold"
-                            >Email профиля</label
-                        >
+                        <label class="mb-0 d-flex subtitle-1 font-weight-bold">Email профиля</label>
                         <v-row align="center">
                             <v-col class="pt-0 d-flex" md="12">
                                 <v-text-field
@@ -83,9 +77,7 @@
                             </v-col>
                         </v-row>
 
-                        <label class="mb-0 d-flex subtitle-1 font-weight-bold"
-                            >Пароль профиля</label
-                        >
+                        <label class="mb-0 d-flex subtitle-1 font-weight-bold">Пароль профиля</label>
                         <v-row align="center">
                             <v-col class="pt-0 d-flex" md="12">
                                 <v-text-field
@@ -110,6 +102,110 @@
                                 </v-tooltip>
                             </v-col>
                         </v-row>
+
+                        <label class="mb-0 d-flex subtitle-1 font-weight-bold">Страна проживания</label>
+                        <v-row align="center">
+                            <v-col class="pt-0 d-flex" md="12">
+                                <v-text-field
+                                    disabled
+                                    hide-details
+                                    class="mb-4 pt-0"
+                                    :label="this.user.country"
+                                ></v-text-field>
+                                <v-tooltip top>
+                                    <template v-slot:activator="{ on }">
+                                        <v-btn
+                                            icon
+                                            text
+                                            v-on="on"
+                                            color="primary"
+                                            @click="updatingCountry = true"
+                                        >
+                                            <v-icon>mdi-pencil</v-icon>
+                                        </v-btn>
+                                    </template>
+                                    <span>Изменить страну</span>
+                                </v-tooltip>
+                            </v-col>
+                        </v-row>
+
+                        <label class="mb-0 d-flex subtitle-1 font-weight-bold">Возрасть</label>
+                        <v-row align="center">
+                            <v-col class="pt-0 d-flex" md="12">
+                                <v-text-field
+                                    disabled
+                                    hide-details
+                                    class="mb-4 pt-0"
+                                    :label="this.user.age"
+                                ></v-text-field>
+                                <v-tooltip top>
+                                    <template v-slot:activator="{ on }">
+                                        <v-btn
+                                            icon
+                                            text
+                                            v-on="on"
+                                            color="primary"
+                                            @click="updatingAge = true"
+                                        >
+                                            <v-icon>mdi-pencil</v-icon>
+                                        </v-btn>
+                                    </template>
+                                    <span>Изменить возрасть</span>
+                                </v-tooltip>
+                            </v-col>
+                        </v-row>
+
+                        <label class="mb-0 d-flex subtitle-1 font-weight-bold">Пол</label>
+                        <v-row align="center">
+                            <v-col class="pt-0 d-flex" md="12">
+                                <v-text-field
+                                    disabled
+                                    hide-details
+                                    class="mb-4 pt-0"
+                                    :label="this.user.age"
+                                ></v-text-field>
+                                <v-tooltip top>
+                                    <template v-slot:activator="{ on }">
+                                        <v-btn
+                                            icon
+                                            text
+                                            v-on="on"
+                                            color="primary"
+                                            @click="updatingAge = true"
+                                        >
+                                            <v-icon>mdi-pencil</v-icon>
+                                        </v-btn>
+                                    </template>
+                                    <span>Изменить возрасть</span>
+                                </v-tooltip>
+                            </v-col>
+                        </v-row>
+
+                        <label class="mb-0 d-flex subtitle-1 font-weight-bold">Хобби</label>
+                        <v-row align="center">
+                            <v-col class="pt-0 d-flex" md="12">
+                                <v-text-field
+                                    disabled
+                                    hide-details
+                                    class="mb-4 pt-0"
+                                    :label="this.user.hobby"
+                                ></v-text-field>
+                                <v-tooltip top>
+                                    <template v-slot:activator="{ on }">
+                                        <v-btn
+                                            icon
+                                            text
+                                            v-on="on"
+                                            color="primary"
+                                            @click="updatingHobby = true"
+                                        >
+                                            <v-icon>mdi-pencil</v-icon>
+                                        </v-btn>
+                                    </template>
+                                    <span>Изменить возрасть</span>
+                                </v-tooltip>
+                            </v-col>
+                        </v-row>
                     </v-card-text>
                 </v-card>
             </v-row>
@@ -125,28 +221,60 @@
 
                     <v-container class="pb-0" v-if="updatingAvatar">
                         <v-file-input
-                            prepend-icon=""
-                            prepend-inner-icon="mdi-camera"
                             outlined
+                            prepend-icon=""
                             label="Загрузить фото"
+                            prepend-inner-icon="mdi-camera"
                             v-model="profileToUpdate.avatar"
                         />
                     </v-container>
 
                     <v-container class="pb-0" v-if="updatingName">
                         <v-text-field
-                            :label="this.user.name"
                             outlined
+                            :label="this.user.name"
                             v-model="profileToUpdate.name"
                         />
                     </v-container>
 
                     <v-container class="pb-0" v-if="updatingEmail">
                         <v-text-field
-                            :label="this.user.email"
-                            :rules="[rules.required, rules.email]"
                             outlined
+                            :label="this.user.email"
                             v-model="profileToUpdate.email"
+                            :rules="[rules.required, rules.email]"
+                        />
+                    </v-container>
+
+                    <v-container class="pb-0" v-if="updatingCountry">
+                        <v-text-field
+                            outlined
+                            :label="this.user.country"
+                            v-model="profileToUpdate.country"
+                        />
+                    </v-container>
+
+                    <v-container class="pb-0" v-if="updatingAge">
+                        <v-text-field
+                            outlined
+                            :label="this.user.age"
+                            v-model="profileToUpdate.age"
+                        />
+                    </v-container>
+
+                    <v-container class="pb-0" v-if="updatingGender">
+                        <v-text-field
+                            outlined
+                            :label="this.user.gender"
+                            v-model="profileToUpdate.gender"
+                        />
+                    </v-container>
+
+                    <v-container class="pb-0" v-if="updatingHobby">
+                        <v-textarea
+                            outlined
+                            :label="this.user.hobby"
+                            v-model="profileToUpdate.hobby"
                         />
                     </v-container>
 
@@ -176,10 +304,8 @@
                         />
                     </v-container>
                     <v-card-actions>
-                        <v-spacer />
-                        <v-btn dark color="primary" type="submit"
-                            >Сохранить</v-btn
-                        >
+                        <v-spacer/>
+                        <v-btn dark color="primary" type="submit">Сохранить</v-btn>
                         <v-btn
                             dark
                             color="error"
@@ -196,128 +322,176 @@
 </template>
 
 <script>
-import rules from "../validation-rules";
+    import rules from "../validation-rules";
 
-export default {
-    data() {
-        return {
-            profileToUpdate: {
-                email: null,
-                name: null,
-                password: null,
-                avatar: null
-            },
-            showPass: false,
-            user: window.Laravel.auth,
-            updatingAvatar: false,
-            updatingName: false,
-            updatingEmail: false,
-            updatingPassword: false,
-            rules
-        };
-    },
-    methods: {
-        updateProfile(e) {
-            e.preventDefault();
-
-            const validForm = this.$refs.form.validate();
-
-            if (!validForm) return;
-
-            const formData = new FormData();
-
-            const { avatar, name, email, password } = this.profileToUpdate;
-
-            if (this.updatingAvatar && avatar instanceof File) {
-                formData.append("avatar", avatar);
-            }
-
-            if (this.updatingName) {
-                formData.append("name", name);
-            }
-
-            if (this.updatingEmail) {
-                formData.append("email", email);
-            }
-
-            if (this.updatingPassword) {
-                formData.append("password", password);
-            }
-
-            formData.append("_method", "put");
-
-            axios
-                .post("/api/users/" + this.user.id, formData, {
-                    headers: {
-                        "Content-Type": "multipart/form-data"
-                    }
-                })
-                .then(({ data }) => {
-                    this.showDialog = false;
-                    this.user = data;
-                    Event.fire("profileUpdated", data);
-                })
-                .catch(err => console.log(err));
+    export default {
+        data() {
+            return {
+                profileToUpdate: {
+                    email: null,
+                    name: null,
+                    country: null,
+                    age: null,
+                    gender: null,
+                    hobby: null,
+                    password: null,
+                    avatar: null
+                },
+                showPass: false,
+                user: window.Laravel.auth,
+                updatingAvatar: false,
+                updatingName: false,
+                updatingEmail: false,
+                updatingCountry: false,
+                updatingAge: false,
+                updatingGender: false,
+                updatingHobby: false,
+                updatingPassword: false,
+                rules
+            };
         },
-    },
-    computed: {
-        showDialog: {
-            get() {
-                return (
-                    this.updatingAvatar ||
-                    this.updatingName ||
-                    this.updatingEmail ||
-                    this.updatingPassword
-                );
-            },
-            set(v) {
-                if (!v) {
-                    this.updatingAvatar = false;
-                    this.updatingName = false;
-                    this.updatingEmail = false;
-                    this.updatingPassword = false;
+        methods: {
+            updateProfile(e) {
+                e.preventDefault();
+
+                const validForm = this.$refs.form.validate();
+
+                if (!validForm) return;
+
+                const formData = new FormData();
+
+                const {avatar, name, email, password} = this.profileToUpdate;
+
+                if (this.updatingAvatar && avatar instanceof File) {
+                    formData.append("avatar", avatar);
                 }
-            }
+
+                if (this.updatingName) {
+                    formData.append("name", name);
+                }
+
+                if (this.updatingEmail) {
+                    formData.append("email", email);
+                }
+
+                if (this.updatingCountry) {
+                    formData.append("country", country);
+                }
+
+                if (this.updatingAge) {
+                    formData.append("age", age);
+                }
+
+                if (this.updatingGender) {
+                    formData.append("gender", gender);
+                }
+
+                if (this.updatingHobby) {
+                    formData.append("hobby", hobby);
+                }
+
+                if (this.updatingPassword) {
+                    formData.append("password", password);
+                }
+
+                formData.append("_method", "put");
+
+                axios
+                    .post("/api/users/" + this.user.id, formData, {
+                        headers: {
+                            "Content-Type": "multipart/form-data"
+                        }
+                    })
+                    .then(({data}) => {
+                        this.showDialog = false;
+                        this.user = data;
+                        Event.fire("profileUpdated", data);
+                    })
+                    .catch(err => console.log(err));
+            },
         },
-        formTitle() {
-            let baseTitle = "Изменение";
+        computed: {
+            showDialog: {
+                get() {
+                    return (
+                        this.updatingAvatar ||
+                        this.updatingName ||
+                        this.updatingEmail ||
+                        this.updatingCountry ||
+                        this.updatingAge ||
+                        this.updatingGender ||
+                        this.updatingHobby ||
+                        this.updatingPassword
+                    );
+                },
+                set(v) {
+                    if (!v) {
+                        this.updatingAvatar = false;
+                        this.updatingName = false;
+                        this.updatingEmail = false;
+                        this.updatingCountry = false;
+                        this.updatingAge = false;
+                        this.updatingGender = false;
+                        this.updatingHobby = false;
+                        this.updatingPassword = false;
+                    }
+                }
+            },
+            formTitle() {
+                let baseTitle = "Изменение";
 
-            if (this.updatingAvatar) {
-                baseTitle += " аватара ";
+                if (this.updatingAvatar) {
+                    baseTitle += " аватара ";
+                }
+
+                if (this.updatingName) {
+                    baseTitle += " имени ";
+                }
+
+                if (this.updatingEmail) {
+                    baseTitle += " email-а ";
+                }
+
+                if (this.updatingCountry) {
+                    baseTitle += " страну ";
+                }
+
+                if (this.updatingAge) {
+                    baseTitle += " возраста ";
+                }
+
+                if (this.updatingGender) {
+                    baseTitle += " пола ";
+                }
+
+                if (this.updatingHobby) {
+                    baseTitle += " хобби ";
+                }
+
+                if (this.updatingPassword) {
+                    baseTitle += " пароля ";
+                }
+
+                return baseTitle;
             }
-
-            if (this.updatingName) {
-                baseTitle += " имени ";
-            }
-
-            if (this.updatingEmail) {
-                baseTitle += " email-а ";
-            }
-
-            if (this.updatingPassword) {
-                baseTitle += " пароля ";
-            }
-
-            return baseTitle;
         }
-    }
-};
+    };
 </script>
 <style>
-.change-avatar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    position: relative;
-    opacity: 0;
-    height: 100%;
-    cursor: pointer;
-    background-color: rgba(32, 33, 36, 0.6);
-}
+    .change-avatar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        position: relative;
+        opacity: 0;
+        height: 100%;
+        cursor: pointer;
+        background-color: rgba(32, 33, 36, 0.6);
+    }
 
-.change-avatar:hover {
-    opacity: 0.8;
-    transition: 0.2s ease-in;
-}
+    .change-avatar:hover {
+        opacity: 0.8;
+        transition: 0.2s ease-in;
+    }
 </style>

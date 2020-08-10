@@ -17,6 +17,9 @@
                 @case('App\\Video')
                     @include('layouts.videoItem', ['fullVariant' => true])
                 @break
+                @case('App\\Photo')
+                    @include('layouts.photoItem')
+                @break
             @endswitch
         </div>
     </div>

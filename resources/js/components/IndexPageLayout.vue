@@ -2,7 +2,7 @@
     <v-content class="pa-0">
         <v-container fluid>
             <v-row justify="center">
-                <v-col md="6" xl="4">
+                <v-col cols="6">
                     <v-text-field
                         solo
                         hide-details
@@ -12,6 +12,21 @@
                         append-icon="mdi-magnify"
                     />
                 </v-col>
+            </v-row>
+            <v-row class="w-50">
+                <v-col class="d-flex align-items-center">
+                    <v-select
+                        class="mr-2"
+                        label="Все рубрики"
+                        hide-details
+                        dense
+                        solo
+                    ></v-select>
+                    <v-btn color="primary" class="mx-2">Фильтр</v-btn>
+                    <span class="ml-2">{{ pagination.total }}: Элементов</span>
+                </v-col>
+            </v-row>
+            <v-row>
                 <v-col cols="12">
                     <v-data-table
                         :headers="processedHeaders"
@@ -92,160 +107,160 @@
 </template>
 
 <script>
-export default {
-    props: {
-        indexUrl: String,
-        tableHeaders: Array,
-        addLabel: String,
-        noActions: Boolean,
-        searchField: String
-    },
-    data() {
-        return {
-            items: [],
-            search: "",
-            pagination: null,
-            loadingItems: false,
-            pageData: null
-        };
-    },
-    created(){
-        this.pageData = {
-            number: 1,
-            sortBy: null,
-            sortDesc: false
-        };
-    },
-    methods: {
-        getSlotName(fieldName) {
-            return "item." + fieldName;
+    export default {
+        props: {
+            indexUrl: String,
+            tableHeaders: Array,
+            addLabel: String,
+            noActions: Boolean,
+            searchField: String
         },
-        getIndexUrl() {
-            let url = this.indexUrl;
-
-            if (!url.includes("?")) {
-                url += "?";
-            }
-            
-            url += ("&page=" + this.currentPage);
-
-            if(this.pageData.sortBy){
-
-                if(this.pageData.sortDesc){
-                   url += "&sortByDesc=" + this.pageData.sortBy; 
-                } else {
-                    url += "&sortBy=" + this.pageData.sortBy;
-                }
-                
-            }
-
-            return url;
+        data() {
+            return {
+                items: [],
+                search: "",
+                pageData: null,
+                pagination: null,
+                loadingItems: false
+            };
         },
-        processResponse({ data }) {
-            this.loadingItems = false;
-
-            const hasPagination = data.hasOwnProperty("data");
-
-            if (hasPagination) {
-                this.items = data.data;
-                this.pagination = data;
-            } else {
-                this.items = data;
-                this.pagination = null;
-            }
+        created() {
+            this.pageData = {
+                number: 1,
+                sortBy: null,
+                sortDesc: false
+            };
         },
-        loadItems() {
-            this.loadingItems = true;
-            this.items = [];
-
-            axios
-                .get(this.getIndexUrl())
-                .then(this.processResponse)
-                .catch(err => {
-                    this.loadingItems = false;
-                    console.log(err);
-                });
-
-            this.pagination = null;
-        },
-        onUpdateOptions(options){
-            let sortApplied = 
-                this.pageData.sortBy &&
-                options.sortBy[0] === this.pageData.sortBy &&
-                options.sortDesc[0] === this.pageData.sortDesc;
-            
-            if(sortApplied) return;
-
-            if(options.sortBy.length) {
-                this.pageData = {
-                    ...this.pageData, 
-                    sortBy: options.sortBy[0], 
-                    sortDesc: options.sortDesc[0]
-                };
-            } else if(!options.sortBy.length && this.pageData.sortBy) {
-                this.pageData = {
-                    ...this.pageData, 
-                    sortBy: null, 
-                    sortDesc: false
-                };
-            }
-        }
-    },
-    watch: {
-        pageData(v){
-            this.loadItems();
-        }
-    },
-    computed: {
-        processedHeaders() {
-            if (this.noActions) {
-                return this.tableHeaders;
-            }
-
-            return [
-                ...this.tableHeaders,
-                {
-                    text: "Действия",
-                    value: "action",
-                    align: "center",
-                    sortable: false,
-                    width: "160px"
-                }
-            ];
-        },
-        filteredItems() {
-            if (!Array.isArray(this.items)) return [];
-
-            if (!this.searchField) return this.items;
-
-            return this.items.filter(item => {
-                return item[this.searchField]
-                    .toLowerCase()
-                    .includes(this.search.toLowerCase());
-            });
-        },
-        currentPage: {
-            get() {
-                return this.pageData.number;
+        methods: {
+            getSlotName(fieldName) {
+                return "item." + fieldName;
             },
-            set(v) {
-                this.pageData = {...this.pageData, number: v};
+            getIndexUrl() {
+                let url = this.indexUrl;
+
+                if (!url.includes("?")) {
+                    url += "?";
+                }
+
+                url += ("&page=" + this.currentPage);
+
+                if (this.pageData.sortBy) {
+
+                    if (this.pageData.sortDesc) {
+                        url += "&sortByDesc=" + this.pageData.sortBy;
+                    } else {
+                        url += "&sortBy=" + this.pageData.sortBy;
+                    }
+
+                }
+
+                return url;
+            },
+            processResponse({data}) {
+                this.loadingItems = false;
+
+                const hasPagination = data.hasOwnProperty("data");
+
+                if (hasPagination) {
+                    this.items = data.data;
+                    this.pagination = data;
+                } else {
+                    this.items = data;
+                    this.pagination = null;
+                }
+            },
+            loadItems() {
+                this.loadingItems = true;
+                this.items = [];
+
+                axios
+                    .get(this.getIndexUrl())
+                    .then(this.processResponse)
+                    .catch(err => {
+                        this.loadingItems = false;
+                        console.log(err);
+                    });
+
+                this.pagination = null;
+            },
+            onUpdateOptions(options) {
+                let sortApplied =
+                    this.pageData.sortBy &&
+                    options.sortBy[0] === this.pageData.sortBy &&
+                    options.sortDesc[0] === this.pageData.sortDesc;
+
+                if (sortApplied) return;
+
+                if (options.sortBy.length) {
+                    this.pageData = {
+                        ...this.pageData,
+                        sortBy: options.sortBy[0],
+                        sortDesc: options.sortDesc[0]
+                    };
+                } else if (!options.sortBy.length && this.pageData.sortBy) {
+                    this.pageData = {
+                        ...this.pageData,
+                        sortBy: null,
+                        sortDesc: false
+                    };
+                }
             }
         },
-        totalPages() {
-            return this.pagination ? this.pagination.last_page: null;
-        },
-        totalCount() {
-            return this.pagination ? this.pagination.total: null;
-        },
-        perPage() {
-            if (this.pagination) {
-                return this.pagination.per_page;
+        watch: {
+            pageData(v) {
+                this.loadItems();
             }
-            return this.items.length;
+        },
+        computed: {
+            processedHeaders() {
+                if (this.noActions) {
+                    return this.tableHeaders;
+                }
+
+                return [
+                    ...this.tableHeaders,
+                    {
+                        text: "Действия",
+                        value: "action",
+                        align: "center",
+                        sortable: false,
+                        width: "160px"
+                    }
+                ];
+            },
+            filteredItems() {
+                if (!Array.isArray(this.items)) return [];
+
+                if (!this.searchField) return this.items;
+
+                return this.items.filter(item => {
+                    return item[this.searchField]
+                        .toLowerCase()
+                        .includes(this.search.toLowerCase());
+                });
+            },
+            currentPage: {
+                get() {
+                    return this.pageData.number;
+                },
+                set(v) {
+                    this.pageData = {...this.pageData, number: v};
+                }
+            },
+            totalPages() {
+                return this.pagination ? this.pagination.last_page : null;
+            },
+            totalCount() {
+                return this.pagination ? this.pagination.total : null;
+            },
+            perPage() {
+                if (this.pagination) {
+                    return this.pagination.per_page;
+                }
+                return this.items.length;
+            }
         }
-    }
-};
+    };
 </script>
 
 <style>

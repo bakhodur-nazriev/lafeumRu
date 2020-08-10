@@ -17,6 +17,14 @@
             <template v-slot:item.link="{ item }">
                 <a :href="item.link" target="_blank">{{ item.link }}</a>
             </template>
+            <template v-slot:item.categories="{ item }">
+                <div
+                    v-for="(category, i) in item.categories"
+                    :key="i"
+                >
+                    {{category.name}},
+                </div>
+            </template>
         </index-page-layout>
 
         <videos-create-dialog
@@ -81,6 +89,11 @@
                     {
                         text: "Ссылки",
                         value: "link"
+                    },
+                    {
+                        text: "Рубрики",
+                        value: "categories",
+                        align: "center"
                     },
                     {
                         text: "Дата добавления",

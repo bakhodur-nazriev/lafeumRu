@@ -17,6 +17,14 @@
                     class="my-3 three-line-truncate"
                 />
             </template>
+            <template v-slot:item.categories="{ item }">
+                <div
+                    v-for="(category, i) in item.categories"
+                    :key="i"
+                >
+                    {{category.name}},
+                </div>
+            </template>
         </index-page-layout>
 
         <quotes-create-dialog
@@ -79,6 +87,11 @@
                         text: "Автор",
                         value: "author.name",
                         align: "center",
+                    },
+                    {
+                        text: "Рубрики",
+                        value: "categories",
+                        align: "center"
                     },
                     {
                         text: "Дата добавления",

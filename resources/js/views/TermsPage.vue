@@ -4,7 +4,7 @@
             index-url="/api/terms"
             :table-headers="this.headers"
             add-label="Добавить термин"
-            searchField="name"
+            search-field="body"
             ref="indexPage"
             @click:item="termClick"
             @add-item="addTerm = true"
@@ -16,6 +16,14 @@
                     v-html="item.body"
                     class="my-3 three-line-truncate"
                 />
+            </template>
+            <template v-slot:item.categories="{ item }">
+                <div
+                    v-for="(category, i) in item.categories"
+                    :key="i"
+                >
+                    {{category.name}},
+                </div>
             </template>
         </index-page-layout>
 
@@ -70,13 +78,18 @@
                 termToDelete: null,
                 headers: [
                     {
-                        text: "Названия",
+                        text: "Словарь",
                         value: "name"
                     },
                     {
                         text: "Термины",
                         value: "body",
                         class: "ma-3"
+                    },
+                    {
+                        text: "Рубрики",
+                        value: "categories",
+                        align: "center"
                     },
                     {
                         text: "Дата добавления",

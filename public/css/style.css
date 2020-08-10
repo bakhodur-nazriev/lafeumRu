@@ -5,11 +5,17 @@
 }
 
 body {
+    font-family: 'Nunito Sans', sans-serif;
+
     display: flex;
     flex-direction: column;
     background-color: #e7ebf2;
     min-height: 100vh;
     padding-right: 0 !important;
+}
+
+.compensate-for-scrollbar {
+    margin-right: 0 !important;
 }
 
 .modal-open {
@@ -38,10 +44,6 @@ body {
 a {
     color: #0645ad;
 }
-
-/*.list-col-3 > li, .list-col-4 > li {
-    margin-bottom: 5px;
-}*/
 
 .modal-open {
     padding-right: 0 !important;

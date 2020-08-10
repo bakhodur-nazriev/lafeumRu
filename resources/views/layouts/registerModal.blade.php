@@ -51,9 +51,7 @@
                     </span>
                     @enderror
 
-
-                    <label for="user-password"
-                           class="col-form-label text-md-left py-1">{{ __('Пароль') }}</label>
+                    <label for="user-password" class="col-form-label text-md-left py-1">{{ __('Пароль') }}</label>
                     <input
                         required
                         id="user-password"

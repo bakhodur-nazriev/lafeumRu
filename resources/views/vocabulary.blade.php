@@ -64,29 +64,6 @@
         </div>
     </div>
     <div class="row">
-        <div class="col py-0">
-            <div class="accordion" id="ajax-search-results-accordion" style="display: none;">
-                <div class="card">
-                    <div class="card-header" id="headingOne">
-                        <h2 class="mb-0">
-                            <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
-                                    data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                Результаты по сети
-                            </button>
-                        </h2>
-                    </div>
-
-                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne"
-                         data-parent="#ajax-search-results-accordion">
-                        <div class="card-body">
-                            <ul id="ajax-search-results" class="list-inline py-1" style="column-count: 4;"></ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
         <div class="col">
             <ul class="list-inline py-1 list-col-3 summary-links-wrapper">
                 @foreach($terms as $term)

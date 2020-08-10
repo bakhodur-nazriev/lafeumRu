@@ -20,9 +20,7 @@
     <small id="authors-search-result" class="form-text text-muted ml-1"></small>
     <ul class="authors list-inline py-1">
         @foreach($authors as $author)
-            <li>
-                <a class="categories-color d-block" href="/authors/{{$author->slug}}">{{ $author->name }}</a>
-            </li>
+            <li><a class="categories-color d-block" href="/authors/{{$author->slug}}">{{ $author->name }}</a></li>
         @endforeach
     </ul>
     <script>
@@ -37,8 +35,13 @@
 @endsection
 
 @section('content')
-    <h3 class="secondary mb-2">{{$currentAuthor->name}}</h3>
-    <p>{{$currentAuthor->biography}}</p>
+    <div class="d-flex">
+        <img class="w-25 mr-3 mb-3 rounded-circle" src="{{$currentAuthor->photo}}" alt="">
+        <div>
+            <h3 class="secondary mb-2">{{$currentAuthor->name}}</h3>
+            <p>{{$currentAuthor->biography}}</p>
+        </div>
+    </div>
     @foreach($currentAuthor->quotes as $quote)
         @include('layouts.quoteItem')
     @endforeach

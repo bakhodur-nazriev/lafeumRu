@@ -58,7 +58,6 @@
                                 small
                                 color="primary"
                                 elevation="2"
-                                outlined
                                 @click.stop="$emit('update-item', { ...item })"
                             >
                                 <v-icon dark>mdi-pen</v-icon>
@@ -69,7 +68,6 @@
                                 small
                                 color="error"
                                 elevation="2"
-                                outlined
                                 @click.stop="$emit('delete-item', { ...item })"
                             >
                                 <v-icon dark>mdi-delete</v-icon>

@@ -36,7 +36,7 @@
 
 @section('content')
     <div class="d-flex">
-        <img class="w-25 mr-3 mb-3 rounded-circle" src="{{$currentAuthor->photo}}" alt="">
+        <img class="mr-3 mb-3 rounded-circle" style="width: 120px; height: 120px" src="{{$currentAuthor->photo}}" alt="">
         <div>
             <h3 class="secondary mb-2">{{$currentAuthor->name}}</h3>
             <p>{{$currentAuthor->biography}}</p>

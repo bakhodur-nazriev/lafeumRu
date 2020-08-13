@@ -241,8 +241,10 @@ class LafeumImportSeeder extends Seeder
 
         $chunked = array_chunk($dataToChunk, $size);
 
+        $tableName = (new $model())->getTable();
+
         foreach ($chunked as $chunk) {
-            $model::insert($chunk);
+            DB::table($tableName)->insert($chunk);
         }
     }
 

@@ -9,7 +9,7 @@
             @click:item="authorClick"
             @add-item="addAuthor = true"
             @update-item="authorToUpdate = $event"
-            @delete-item="quoteToDelete = $event"
+            @delete-item="authorToDelete = $event"
         >
             <template v-slot:item.biography="{ item }">
                 <div

@@ -47,7 +47,10 @@
             @close="videoToShow = null"
         />
 
-        <videos-delete-dialog v-model="videoToDelete" @deleted="videoDeleted"/>
+        <videos-delete-dialog
+            v-model="videoToDelete"
+            @deleted="videoDeleted"
+        />
     </v-content>
 </template>
 
@@ -122,7 +125,7 @@
                 axios
                     .get("/api/channels")
                     .then(res => {
-                        this.channels = res.data;
+                        this.channels = res.data.channels.data;
                     })
                     .catch(err => {
                         console.log(err);
@@ -131,7 +134,7 @@
             loadVideoCategories() {
                 axios
                     .get("/api/categories?type=" + VIDEO_TYPE)
-                    .then(res => (this.categories = res.data))
+                    .then(res => (this.categories = res.data.channels.data))
                     .catch(e => console.log(e));
             },
             videoCreated(newVideo) {

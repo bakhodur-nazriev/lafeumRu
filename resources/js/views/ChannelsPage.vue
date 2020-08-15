@@ -72,16 +72,15 @@
         },
         methods: {
             channelCreated(newChannel) {
-                this.loadChannels();
+                this.addChannel = false;
                 this.$refs.indexPage.loadItems();
             },
             channelUpdated(updated) {
-                this.loadChannels();
+                this.channelToUpdate = null;
                 this.$refs.indexPage.loadItems();
-
             },
             channelDeleted() {
-                this.loadChannels();
+                this.channelToDelete = null;
                 this.$refs.indexPage.loadItems();
             },
             channelClick(channel) {

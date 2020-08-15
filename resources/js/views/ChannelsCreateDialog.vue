@@ -25,49 +25,45 @@
                 </v-row>
             </v-container>
             <v-card-actions>
-                <v-spacer />
-                <v-btn dark color="green" @click="addChannel()"
-                    >Сохранить</v-btn
-                >
-                <v-btn dark color="error" @click="$emit('input', false)"
-                    >Отмена</v-btn
-                >
+                <v-spacer/>
+                <v-btn dark color="green" @click="addChannel()">Сохранить</v-btn>
+                <v-btn dark color="error" @click="$emit('input', false)">Отмена</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
 </template>
 
 <script>
-export default {
-    props: {
-        value: Boolean
-    },
-    data() {
-        return {
-            newChannel: null
-        };
-    },
-    beforeMount() {
-        this.newChannel = this.getDefaultChannel();
-    },
-    methods: {
-        getDefaultChannel() {
+    export default {
+        props: {
+            value: Boolean
+        },
+        data() {
             return {
-                name: "",
-                description: ""
+                newChannel: null
             };
         },
-        addChannel() {
-            axios
-                .post("/api/channels", this.newChannel)
-                .then(res => {
-                    this.newChannel = this.getDefaultChannel();
-                    this.$emit("created", res.data);
-                })
-                .catch(err => {
-                    console.log(err);
-                });
+        beforeMount() {
+            this.newChannel = this.getDefaultChannel();
+        },
+        methods: {
+            getDefaultChannel() {
+                return {
+                    name: "",
+                    description: ""
+                };
+            },
+            addChannel() {
+                axios
+                    .post("/api/channels", this.newChannel)
+                    .then(res => {
+                        this.newChannel = this.getDefaultChannel();
+                        this.$emit("created", res.data);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+            }
         }
-    }
-};
+    };
 </script>

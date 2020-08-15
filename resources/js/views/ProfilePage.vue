@@ -2,11 +2,8 @@
     <v-content class="pa-0">
         <v-container>
             <v-row justify="center">
-                <v-card class="pa-2" align="center" max-width="450">
+                <v-card class="pa-2" align="center" max-width="650">
                     <v-card-title class="align-items-start justify-center">
-                        <v-col md="12" sm="12" align="center">
-                            <span class="headline font-weight-bold">Мой профиль</span>
-                        </v-col>
                         <v-col md="4" sm="4">
                             <v-img
                                 :src="user.avatar"
@@ -25,185 +22,181 @@
                         </v-col>
                     </v-card-title>
                     <v-card-text class="py-0">
-                        <label class="mb-0 d-flex subtitle-1 font-weight-bold">Имя профиля</label>
                         <v-row align="center">
-                            <v-col class="pt-0 d-flex" md="12">
-                                <v-text-field
-                                    class="mb-4 pt-0"
-                                    hide-details
-                                    :label="user.name"
-                                    disabled
-                                ></v-text-field>
-                                <v-tooltip top>
-                                    <template v-slot:activator="{ on }">
-                                        <v-btn
-                                            v-on="on"
-                                            icon
-                                            color="primary"
-                                            text
-                                            @click="updatingName = true"
-                                        >
-                                            <v-icon>mdi-pencil</v-icon>
-                                        </v-btn>
-                                    </template>
-                                    <span>Изменить имя</span>
-                                </v-tooltip>
+                            <v-col md="6">
+                                <label class="w-100 text-start font-weight-bold ">Имя</label>
+                                <div class="d-flex">
+                                    <v-text-field
+                                        disabled
+                                        hide-details
+                                        class="mb-4 pt-0"
+                                        :label="user.name"
+                                    ></v-text-field>
+                                    <v-tooltip top>
+                                        <template v-slot:activator="{ on }">
+                                            <v-btn
+                                                icon
+                                                text
+                                                v-on="on"
+                                                color="primary"
+                                                @click="updatingName = true"
+                                            >
+                                                <v-icon>mdi-pencil</v-icon>
+                                            </v-btn>
+                                        </template>
+                                        <span>Изменить имя</span>
+                                    </v-tooltip>
+                                </div>
                             </v-col>
-                        </v-row>
-
-                        <label class="mb-0 d-flex subtitle-1 font-weight-bold">Email профиля</label>
-                        <v-row align="center">
-                            <v-col class="pt-0 d-flex" md="12">
-                                <v-text-field
-                                    class="mb-4 pt-0"
-                                    hide-details
-                                    disabled
-                                    :label="this.user.email"
-                                ></v-text-field>
-                                <v-tooltip top>
-                                    <template v-slot:activator="{ on }">
-                                        <v-btn
-                                            v-on="on"
-                                            icon
-                                            color="primary"
-                                            text
-                                            @click="updatingEmail = true"
-                                        >
-                                            <v-icon>mdi-pencil</v-icon>
-                                        </v-btn>
-                                    </template>
-                                    <span>Изменить email</span>
-                                </v-tooltip>
+                            <v-col md="6">
+                                <label class="w-100 text-start font-weight-bold">Email</label>
+                                <div class="d-flex">
+                                    <v-text-field
+                                        disabled
+                                        hide-details
+                                        class="mb-4 pt-0"
+                                        :label="user.email"
+                                    ></v-text-field>
+                                    <v-tooltip top>
+                                        <template v-slot:activator="{ on }">
+                                            <v-btn
+                                                icon
+                                                text
+                                                v-on="on"
+                                                color="primary"
+                                                @click="updatingEmail = true"
+                                            >
+                                                <v-icon>mdi-pencil</v-icon>
+                                            </v-btn>
+                                        </template>
+                                        <span>Изменить email</span>
+                                    </v-tooltip>
+                                </div>
                             </v-col>
-                        </v-row>
-
-                        <label class="mb-0 d-flex subtitle-1 font-weight-bold">Пароль профиля</label>
-                        <v-row align="center">
-                            <v-col class="pt-0 d-flex" md="12">
-                                <v-text-field
-                                    class="mb-4"
-                                    hide-details
-                                    disabled
-                                    :label="this.user.password"
-                                ></v-text-field>
-                                <v-tooltip top>
-                                    <template v-slot:activator="{ on }">
-                                        <v-btn
-                                            v-on="on"
-                                            icon
-                                            color="primary"
-                                            text
-                                            @click="updatingPassword = true"
-                                        >
-                                            <v-icon>mdi-pencil</v-icon>
-                                        </v-btn>
-                                    </template>
-                                    <span>Изменить пароль</span>
-                                </v-tooltip>
+                            <v-col md="6">
+                                <label class="w-100 text-start font-weight-bold">Пароль</label>
+                                <div class="d-flex">
+                                    <v-text-field
+                                        disabled
+                                        hide-details
+                                        class="mb-4 pt-0"
+                                        :label="user.password"
+                                    ></v-text-field>
+                                    <v-tooltip top>
+                                        <template v-slot:activator="{ on }">
+                                            <v-btn
+                                                icon
+                                                text
+                                                v-on="on"
+                                                color="primary"
+                                                @click="updatingPassword = true"
+                                            >
+                                                <v-icon>mdi-pencil</v-icon>
+                                            </v-btn>
+                                        </template>
+                                        <span>Изменить пароль</span>
+                                    </v-tooltip>
+                                </div>
                             </v-col>
-                        </v-row>
-
-                        <label class="mb-0 d-flex subtitle-1 font-weight-bold">Страна проживания</label>
-                        <v-row align="center">
-                            <v-col class="pt-0 d-flex" md="12">
-                                <v-text-field
-                                    disabled
-                                    hide-details
-                                    class="mb-4 pt-0"
-                                    :label="this.user.country"
-                                ></v-text-field>
-                                <v-tooltip top>
-                                    <template v-slot:activator="{ on }">
-                                        <v-btn
-                                            icon
-                                            text
-                                            v-on="on"
-                                            color="primary"
-                                            @click="updatingCountry = true"
-                                        >
-                                            <v-icon>mdi-pencil</v-icon>
-                                        </v-btn>
-                                    </template>
-                                    <span>Изменить страну</span>
-                                </v-tooltip>
+                            <v-col md="6">
+                                <label class="w-100 text-start font-weight-bold">Страна</label>
+                                <div class="d-flex">
+                                    <v-text-field
+                                        disabled
+                                        hide-details
+                                        class="mb-4 pt-0"
+                                        :label="user.country"
+                                    ></v-text-field>
+                                    <v-tooltip top>
+                                        <template v-slot:activator="{ on }">
+                                            <v-btn
+                                                icon
+                                                text
+                                                v-on="on"
+                                                color="primary"
+                                                @click="updatingCountry = true"
+                                            >
+                                                <v-icon>mdi-pencil</v-icon>
+                                            </v-btn>
+                                        </template>
+                                        <span>Изменить страну</span>
+                                    </v-tooltip>
+                                </div>
                             </v-col>
-                        </v-row>
-
-                        <label class="mb-0 d-flex subtitle-1 font-weight-bold">Возрасть</label>
-                        <v-row align="center">
-                            <v-col class="pt-0 d-flex" md="12">
-                                <v-text-field
-                                    disabled
-                                    hide-details
-                                    class="mb-4 pt-0"
-                                    :label="this.user.age"
-                                ></v-text-field>
-                                <v-tooltip top>
-                                    <template v-slot:activator="{ on }">
-                                        <v-btn
-                                            icon
-                                            text
-                                            v-on="on"
-                                            color="primary"
-                                            @click="updatingAge = true"
-                                        >
-                                            <v-icon>mdi-pencil</v-icon>
-                                        </v-btn>
-                                    </template>
-                                    <span>Изменить возрасть</span>
-                                </v-tooltip>
+                            <v-col md="6">
+                                <label class="w-100 text-start font-weight-bold">Возраст</label>
+                                <div class="d-flex">
+                                    <v-text-field
+                                        disabled
+                                        hide-details
+                                        class="mb-4 pt-0"
+                                        :label="user.age"
+                                    ></v-text-field>
+                                    <v-tooltip top>
+                                        <template v-slot:activator="{ on }">
+                                            <v-btn
+                                                icon
+                                                text
+                                                v-on="on"
+                                                color="primary"
+                                                @click="updatingAge = true"
+                                            >
+                                                <v-icon>mdi-pencil</v-icon>
+                                            </v-btn>
+                                        </template>
+                                        <span>Изменить возрасть</span>
+                                    </v-tooltip>
+                                </div>
                             </v-col>
-                        </v-row>
-
-                        <label class="mb-0 d-flex subtitle-1 font-weight-bold">Пол</label>
-                        <v-row align="center">
-                            <v-col class="pt-0 d-flex" md="12">
-                                <v-text-field
-                                    disabled
-                                    hide-details
-                                    class="mb-4 pt-0"
-                                    :label="this.user.age"
-                                ></v-text-field>
-                                <v-tooltip top>
-                                    <template v-slot:activator="{ on }">
-                                        <v-btn
-                                            icon
-                                            text
-                                            v-on="on"
-                                            color="primary"
-                                            @click="updatingAge = true"
-                                        >
-                                            <v-icon>mdi-pencil</v-icon>
-                                        </v-btn>
-                                    </template>
-                                    <span>Изменить возрасть</span>
-                                </v-tooltip>
+                            <v-col md="6">
+                                <label class="w-100 text-start font-weight-bold">Пол</label>
+                                <div class="d-flex">
+                                    <v-text-field
+                                        disabled
+                                        hide-details
+                                        class="mb-4 pt-0"
+                                        :label="user.gender"
+                                    ></v-text-field>
+                                    <v-tooltip top>
+                                        <template v-slot:activator="{ on }">
+                                            <v-btn
+                                                icon
+                                                text
+                                                v-on="on"
+                                                color="primary"
+                                                @click="updatingGender = true"
+                                            >
+                                                <v-icon>mdi-pencil</v-icon>
+                                            </v-btn>
+                                        </template>
+                                        <span>Изменить пол</span>
+                                    </v-tooltip>
+                                </div>
                             </v-col>
-                        </v-row>
-
-                        <label class="mb-0 d-flex subtitle-1 font-weight-bold">Хобби</label>
-                        <v-row align="center">
-                            <v-col class="pt-0 d-flex" md="12">
-                                <v-text-field
-                                    disabled
-                                    hide-details
-                                    class="mb-4 pt-0"
-                                    :label="this.user.hobby"
-                                ></v-text-field>
-                                <v-tooltip top>
-                                    <template v-slot:activator="{ on }">
-                                        <v-btn
-                                            icon
-                                            text
-                                            v-on="on"
-                                            color="primary"
-                                            @click="updatingHobby = true"
-                                        >
-                                            <v-icon>mdi-pencil</v-icon>
-                                        </v-btn>
-                                    </template>
-                                    <span>Изменить возрасть</span>
-                                </v-tooltip>
+                            <v-col md="12">
+                                <label class="w-100 text-start font-weight-bold">Хобби</label>
+                                <div class="d-flex">
+                                    <v-textarea
+                                        disabled
+                                        hide-details
+                                        class="mb-4 pt-0"
+                                        :value="user.hobby"
+                                    />
+                                    <v-tooltip top>
+                                        <template v-slot:activator="{ on }">
+                                            <v-btn
+                                                icon
+                                                text
+                                                v-on="on"
+                                                color="primary"
+                                                @click="updatingHobby = true"
+                                            >
+                                                <v-icon>mdi-pencil</v-icon>
+                                            </v-btn>
+                                        </template>
+                                        <span>Изменить хобби</span>
+                                    </v-tooltip>
+                                </div>
                             </v-col>
                         </v-row>
                     </v-card-text>
@@ -219,76 +212,80 @@
                         {{ formTitle }}
                     </v-card-title>
 
-                    <v-container class="pb-0" v-if="updatingAvatar">
+                    <v-container class="pb-2" v-if="updatingAvatar">
                         <v-file-input
                             outlined
+                            hide-details
                             prepend-icon=""
                             label="Загрузить фото"
                             prepend-inner-icon="mdi-camera"
                             v-model="profileToUpdate.avatar"
                         />
                     </v-container>
-
-                    <v-container class="pb-0" v-if="updatingName">
+                    <v-container class="pb-2" v-if="updatingName">
                         <v-text-field
                             outlined
+                            hide-details
                             :label="this.user.name"
                             v-model="profileToUpdate.name"
                         />
                     </v-container>
-
-                    <v-container class="pb-0" v-if="updatingEmail">
+                    <v-container class="pb-2" v-if="updatingEmail">
                         <v-text-field
                             outlined
+                            hide-details
                             :label="this.user.email"
                             v-model="profileToUpdate.email"
                             :rules="[rules.required, rules.email]"
                         />
                     </v-container>
-
-                    <v-container class="pb-0" v-if="updatingCountry">
+                    <v-container class="pb-2" v-if="updatingCountry">
                         <v-text-field
                             outlined
+                            hide-details
                             :label="this.user.country"
                             v-model="profileToUpdate.country"
                         />
                     </v-container>
-
-                    <v-container class="pb-0" v-if="updatingAge">
+                    <v-container class="pb-2" v-if="updatingAge">
                         <v-text-field
                             outlined
                             :label="this.user.age"
                             v-model="profileToUpdate.age"
+                            :rules="[rules.required, rules.age]"
                         />
                     </v-container>
-
-                    <v-container class="pb-0" v-if="updatingGender">
+                    <v-container class="pb-2" v-if="updatingGender">
                         <v-text-field
                             outlined
+                            hide-details
                             :label="this.user.gender"
                             v-model="profileToUpdate.gender"
                         />
                     </v-container>
-
-                    <v-container class="pb-0" v-if="updatingHobby">
+                    <v-container class="pb-2" v-if="updatingHobby">
                         <v-textarea
                             outlined
+                            hide-details
                             :label="this.user.hobby"
                             v-model="profileToUpdate.hobby"
                         />
                     </v-container>
-
                     <v-container v-if="updatingPassword">
                         <v-text-field
-                            v-model="profileToUpdate.password"
-                            :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
-                            :rules="[rules.required, rules.getMin(3)]"
-                            :type="showPass ? 'text' : 'password'"
-                            label="Новый пароль"
-                            @click:append="showPass = !showPass"
                             outlined
+                            hide-details
+                            class="mb-4"
+                            label="Новый пароль"
+                            v-model="profileToUpdate.password"
+                            @click:append="showPass = !showPass"
+                            :type="showPass ? 'text' : 'password'"
+                            :rules="[rules.required, rules.getMin(3)]"
+                            :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
                         />
                         <v-text-field
+                            outlined
+                            hide-details
                             v-model="profileToUpdate.passwordConfirmation"
                             :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
                             :rules="[
@@ -299,10 +296,9 @@
                             :type="showPass ? 'text' : 'password'"
                             label="Подтверждение нового пароля"
                             @click:append="showPass = !showPass"
-                            outlined
-                            hide-details
                         />
                     </v-container>
+
                     <v-card-actions>
                         <v-spacer/>
                         <v-btn dark color="primary" type="submit">Сохранить</v-btn>
@@ -328,26 +324,26 @@
         data() {
             return {
                 profileToUpdate: {
-                    email: null,
-                    name: null,
-                    country: null,
                     age: null,
-                    gender: null,
+                    name: null,
                     hobby: null,
-                    password: null,
-                    avatar: null
+                    email: null,
+                    avatar: null,
+                    gender: null,
+                    country: null,
+                    password: null
                 },
+                rules,
                 showPass: false,
-                user: window.Laravel.auth,
-                updatingAvatar: false,
+                updatingAge: false,
                 updatingName: false,
                 updatingEmail: false,
-                updatingCountry: false,
-                updatingAge: false,
-                updatingGender: false,
                 updatingHobby: false,
+                updatingAvatar: false,
+                updatingGender: false,
+                updatingCountry: false,
                 updatingPassword: false,
-                rules
+                user: window.Laravel.auth
             };
         },
         methods: {
@@ -360,7 +356,7 @@
 
                 const formData = new FormData();
 
-                const {avatar, name, email, password} = this.profileToUpdate;
+                const {avatar, name, email, password, country, age, gender, hobby} = this.profileToUpdate;
 
                 if (this.updatingAvatar && avatar instanceof File) {
                     formData.append("avatar", avatar);
@@ -477,6 +473,7 @@
         }
     };
 </script>
+
 <style>
     .change-avatar {
         display: flex;

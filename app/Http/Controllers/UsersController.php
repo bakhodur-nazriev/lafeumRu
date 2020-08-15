@@ -33,13 +33,13 @@ class UsersController extends Controller
 
     public function update(User $user, Request $request)
     {
-        $updatedUserData = $request->only(["name", "email"]);
+        $updatedUserData = $request->only(["name", "email", "country", "age", "gender", "hobby"]);
 
         if ($request->hasFile("avatar")) {
             $updatedUserData['avatar'] = $this->saveImage(time(), $request->avatar, self::USERS_AVATARS_PATH);
         }
 
-        if($request->has('password')){
+        if ($request->has('password')) {
             $updatedUserData['password'] = Hash::make($request->password);
         }
 
@@ -47,7 +47,7 @@ class UsersController extends Controller
 
         $authIsAdmin = auth()->user()->hasRole(Role::ADMIN_ROLE_NAME);
 
-        if($authIsAdmin && $request->role_id){
+        if ($authIsAdmin && $request->role_id) {
             $user->role_id = $request->role_id;
             $user->save();
         }

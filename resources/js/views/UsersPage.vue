@@ -33,7 +33,6 @@
                         small
                         color="primary"
                         elevation="2"
-                        outlined
                         @click="userToUpdate = { ...item }"
                     >
                         <v-icon dark>mdi-pen</v-icon>
@@ -44,7 +43,6 @@
                         small
                         color="error"
                         elevation="2"
-                        outlined
                         @click="userToDelete = { ...item }"
                     >
                         <v-icon dark>mdi-delete</v-icon>
@@ -57,7 +55,7 @@
                 <v-card-title class="primary white--text mb-5">
                     Изменение пользователя
                 </v-card-title>
-                <v-card-text class="pb-0">
+                <v-card-text class="pb-0 px-4">
                     <v-text-field
                         v-model="userToUpdate.name"
                         label="Имя пользователя"

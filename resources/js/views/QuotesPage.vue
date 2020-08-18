@@ -114,7 +114,7 @@
             loadAuthors() {
                 axios
                     .get("/api/authors")
-                    .then(res => (this.authors = res.data))
+                    .then(res => (this.authors = res.data.data))
                     .catch(e => console.log(e));
             },
             loadQuoteCategories() {

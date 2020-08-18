@@ -13,17 +13,18 @@
                     />
                 </v-col>
             </v-row>
-            <v-row class="w-50">
-                <v-col class="d-flex align-items-center">
+            <v-row class="align-center">
+                <v-col cols="4">
                     <v-select
-                        class="mr-2"
-                        label="Все рубрики"
-                        hide-details
-                        dense
                         solo
+                        dense
+                        clearable
+                        hide-details
+                        label="Все рубрики"
                     ></v-select>
-                    <v-btn color="primary" class="mx-2">Фильтр</v-btn>
-                    <span class="ml-2">{{ pagination.total }}: Элементов</span>
+                </v-col>
+                <v-col cols="6">
+                    <span class="ml-2" v-if="pagination">{{pagination.total}}: Элементов</span>
                 </v-col>
             </v-row>
             <v-row>
@@ -86,13 +87,13 @@
             <v-tooltip top v-if="!noActions">
                 <template v-slot:activator="{ on }">
                     <v-btn
-                        bottom
-                        color="primary"
-                        v-on="on"
-                        dark
                         fab
-                        fixed
+                        dark
                         right
+                        fixed
+                        bottom
+                        v-on="on"
+                        color="primary"
                         @click="$emit('add-item')"
                     >
                         <v-icon>mdi-plus</v-icon>
@@ -149,9 +150,10 @@
                     } else {
                         url += "&sortBy=" + this.pageData.sortBy;
                     }
-
                 }
-
+                if (this.search) {
+                    url += "&search=" + this.search;
+                }
                 return url;
             },
             processResponse({data}) {
@@ -205,6 +207,9 @@
             }
         },
         watch: {
+            search() {
+                this.loadItems();
+            },
             pageData(v) {
                 this.loadItems();
             }

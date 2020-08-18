@@ -22,7 +22,7 @@ class VideosController extends Controller
 
     public function get(Request $request)
     {
-        $videosQuery = Video::with("channel", "categories");
+        $videosQuery = Video::with("channel", "categories")->latest();
 
         return $this->processIndexRequestItems($request, $videosQuery, 'title');
     }

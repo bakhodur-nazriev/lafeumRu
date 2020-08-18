@@ -19,10 +19,4 @@ class Channel extends Model
     {
         return $this->hasMany(Video::class);
     }
-
-    public function setNameAttribute($value)
-    {
-        $this->attributes['name'] = $value;
-        $this->attributes['slug'] = generateSlug($value);
-    }
 }

@@ -24,12 +24,6 @@ class Knowledge extends Model
         return $this->belongsToMany(Term::class, 'knowledge_terms');
     }
 
-    public function setNameAttribute($value)
-    {
-        $this->attributes['name'] = $value;
-        $this->attributes['slug'] = generateSlug($value);
-    }
-
     public function getLinkedKnowledgeAttribute()
     {
         $relatedEntities = $this->relatedEntities(Knowledge::class);

@@ -2,11 +2,15 @@
 
 namespace App\Providers;
 
+use App\Author;
 use App\Category;
+use App\Channel;
 use App\Http\View\Composers\CategoriesSidebar;
 use App\Http\View\Composers\CountItemsComposer;
 use App\Http\View\Composers\DailyPostsComposer;
 use App\Http\View\Composers\MetatagsComposer;
+use App\Knowledge;
+use App\Observers\SluggableObserver;
 use ChristianKuri\LaravelFavorite\Models\Favorite;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -57,5 +61,10 @@ class AppServiceProvider extends ServiceProvider
 
             $view->with('favouriteCount', $favouriteCount);
         });
+
+        Category::observe(SluggableObserver::class);
+        Author::observe(SluggableObserver::class);
+        Channel::observe(SluggableObserver::class);
+        Knowledge::observe(SluggableObserver::class);
     }
 }

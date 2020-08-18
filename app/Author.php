@@ -43,10 +43,4 @@ class Author extends Model
     {
         return $query->where('author_group_id', AuthorGroup::where('name', AuthorGroup::PROVERBS_GROUP_NAME)->first()->id);
     }
-
-    public function setNameAttribute($value)
-    {
-        $this->attributes['name'] = $value;
-        $this->attributes['slug'] = generateSlug($value);
-    }
 }

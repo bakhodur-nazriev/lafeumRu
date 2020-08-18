@@ -28,12 +28,6 @@ class Category extends Model
         return $this->morphedByMany(Video::class, 'categoriable');
     }
 
-    public function setNameAttribute($value)
-    {
-        $this->attributes['name'] = $value;
-        $this->attributes['slug'] = generateSlug($value);
-    }
-
     public function scopeQuote($query)
     {
         return $query->where('type', Quote::class);

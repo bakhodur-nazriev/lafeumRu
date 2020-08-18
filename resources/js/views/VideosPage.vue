@@ -125,7 +125,7 @@
                 axios
                     .get("/api/channels")
                     .then(res => {
-                        this.channels = res.data.channels.data;
+                        this.channels = res.data.data;
                     })
                     .catch(err => {
                         console.log(err);
@@ -134,7 +134,7 @@
             loadVideoCategories() {
                 axios
                     .get("/api/categories?type=" + VIDEO_TYPE)
-                    .then(res => (this.categories = res.data.channels.data))
+                    .then(res => (this.categories = res.data))
                     .catch(e => console.log(e));
             },
             videoCreated(newVideo) {

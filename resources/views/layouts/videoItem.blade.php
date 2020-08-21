@@ -6,6 +6,8 @@
     if(!isset($fullVariant)) {
         $fullVariant = false;
     }
+
+    $videoСategories = collect($video->categories)->sortBy('name');
 @endphp
 <div class="col-12">
     <div class="card h-100 p-3">
@@ -84,7 +86,7 @@
                     <i class="fa fa-youtube-play mr-2"></i>{{$video->channel->name}}
                 </a>
                 <div class="inner-categories mb-0">
-                    @foreach($video->categories as $category)
+                    @foreach($videoСategories as $category)
                         <a href="/videos/{{ $category->slug }}" class="tags-color mr-1">
                             <i class="fa fa-tags mr-1"></i>{{$category->name}}
                         </a>

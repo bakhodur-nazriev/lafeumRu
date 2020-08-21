@@ -2,6 +2,8 @@
     if(isset($item) && !isset($qoute)){
         $quote = $item;
     }
+    
+    $quoteСategories = collect($quote->categories)->sortBy('name');
 @endphp
 
 <div class="card-block">
@@ -17,7 +19,7 @@
     </div>
     <div class="mb-1">{!! $quote->body !!}</div>
     <div class="tags-block">
-        @foreach($quote->categories as $category)
+        @foreach($quoteСategories as $category)
             <a class="tags-color" href="/quotes/{{ $category->slug }}">
                 <i class="fa fa-tags"></i>
                 {{ $category->name }}

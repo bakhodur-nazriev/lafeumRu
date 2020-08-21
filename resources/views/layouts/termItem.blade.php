@@ -2,6 +2,8 @@
     if(isset($item) && !isset($term)){
         $term = $item;
     }
+
+    $termСategories = collect($term->categories)->sortBy('name');
 @endphp
 
 <div class="card-block summary-links-wrapper">
@@ -17,7 +19,7 @@
     </div>
     <div class="mb-1">{!! $term->body !!}</div>
     <div class="tags-block">
-        @foreach($term->categories as $category)
+        @foreach($termСategories as $category)
             <a class="tags-color" href="/terms/{{ $category->slug }}">
                 <i class="fa fa-tags"></i>
                 {{ $category->name }}

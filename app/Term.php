@@ -21,6 +21,11 @@ class Term extends Model
         return $this->belongsToMany(Knowledge::class, 'knowledge_terms');
     }
 
+    public function termType()
+    {
+        return $this->belongsTo(TermType::class);
+    }
+
     public function post()
     {
         return $this->morphOne(Post::class, 'postable');
@@ -33,8 +38,8 @@ class Term extends Model
 
     public function scopeVocabulary($query)
     {
-        return $query->where('name','<>', '')
-                ->where('show_in_vocabulary', true)
-                ->orderBy('name');
+        return $query->where('name', '<>', '')
+            ->where('show_in_vocabulary', true)
+            ->orderBy('name');
     }
 }

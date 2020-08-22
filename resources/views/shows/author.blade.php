@@ -35,11 +35,12 @@
 @endsection
 
 @section('content')
-    <div class="d-flex">
-        <img class="mr-3 mb-3 rounded-circle" style="width: 120px; height: 120px" src="{{$currentAuthor->photo}}" alt="">
-        <div>
-            <h3 class="secondary mb-2">{{$currentAuthor->name}}</h3>
-            <p>{{$currentAuthor->biography}}</p>
+    <div class="d-flex align-items-center mb-3">
+        <img class="mr-3 rounded-circle" style="width: 120px; height: 120px" src="{{$currentAuthor->photo}}"
+             alt="">
+        <div class="authors-descriptions-block">
+            <h3 class="secondary my-1">{{$currentAuthor->name}}</h3>
+            <p class="my-1">{{$currentAuthor->biography}}</p>
         </div>
     </div>
     @foreach($currentAuthor->quotes as $quote)

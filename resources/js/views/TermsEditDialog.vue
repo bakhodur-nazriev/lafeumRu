@@ -125,9 +125,11 @@
                         updated_at: this.termToUpdate.updated_at
                     })
                     .then(res => {
+                        this.isSendingData = false;
                         this.$emit('updated', res.data);
                     })
                     .catch(err => {
+                        this.isSendingData = false;
                         console.log(err);
                     });
             },

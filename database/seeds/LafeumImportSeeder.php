@@ -10,6 +10,7 @@ use App\Quote;
 use App\Category;
 use App\Photo;
 use App\Post;
+use App\TermType;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -46,7 +47,7 @@ class LafeumImportSeeder extends Seeder
 
         foreach ($categories as $category) {
             Category::where('name', $category['name'])->update(['slug' => $category['slug']]);
-        }   
+        }
     }
 
     public function importAuthors()
@@ -113,12 +114,18 @@ class LafeumImportSeeder extends Seeder
     {
         $videos = require(app_path("/LafeumData/lafeumVideos.php"));
 
+        $collectionVideos = collect($videos);
+
+        $reversedVideos = $collectionVideos->reverse();
+
+        $reversedVideos->all();
+
         Video::truncate();
 
-        foreach ($videos as $video) {
+        foreach ($reversedVideos as $video) {
             $postExists = Post::where('id', $video['id'])->exists();
 
-            if($postExists){
+            if ($postExists) {
                 continue;
             }
 
@@ -131,7 +138,7 @@ class LafeumImportSeeder extends Seeder
             $newVideoData['channel_id'] = Channel::where('slug', $video['channel']['slug'])->first()->id;
 
             $newVideo = Video::create($newVideoData);
-            
+
             $newVideo->post()->create(['id' => $video['id']]);
 
             $categoryNames = collect($video['categories'])->pluck('name');
@@ -148,33 +155,40 @@ class LafeumImportSeeder extends Seeder
     {
         $terms = require(app_path("/LafeumData/lafeumTerms.php"));
 
+        $collectionTerms = collect($terms);
+
+        $reversedTerms = $collectionTerms->reverse();
+
+        $reversedTerms->all();
+
         Term::truncate();
         DB::table('knowledge_terms')->truncate();
 
-        foreach ($terms as $term) {
+        foreach ($reversedTerms as $term) {
             $postExists = Post::where('id', $term['id'])->exists();
 
-            if($postExists){
+            if ($postExists) {
                 continue;
             }
 
             $newTermData['name'] = $term['name'];
             $newTermData['link'] = $term['link'];
             $newTermData['body'] = $term['body'];
-            $newTermData['show_in_vocabulary'] = $term['name'] ? true: false;
+            $newTermData['term_type'] = $term['term_types']['name'];
+            $newTermData['show_in_vocabulary'] = $term['name'] ? true : false;
 
             echo $term['body'] . PHP_EOL;
 
             $termKnowledge = [];
 
             foreach ($term['knowledge_areas'] as $knowledgeArea) {
-                $termKnowledge[] = Knowledge::where('slug', $knowledgeArea['slug'])->first()->id;
+                $termKnowledge[] = Knowledge::where('name', $knowledgeArea['name'])->first()->id;
             }
 
             $newTerm = Term::create($newTermData);
-            
+
             $newTerm->post()->create(['id' => $term['id']]);
-            
+
             $newTerm->knowledge()->attach($termKnowledge);
 
             $categoryNames = collect($term['categories'])->pluck('name');
@@ -191,12 +205,18 @@ class LafeumImportSeeder extends Seeder
     {
         $quotes = require(app_path("/LafeumData/lafeumQuotes.php"));
 
+        $collectionQuotes = collect($quotes);
+
+        $reversedQuotes = $collectionQuotes->reverse();
+
+        $reversedQuotes->all();
+
         Quote::truncate();
 
-        foreach ($quotes as $quote) {
+        foreach ($reversedQuotes as $quote) {
             $postExists = Post::where('id', $quote['id'])->exists();
 
-            if($postExists){
+            if ($postExists) {
                 continue;
             }
 
@@ -205,7 +225,7 @@ class LafeumImportSeeder extends Seeder
             $newQuoteData['author_id'] = Author::where('slug', $quote['author']['slug'])->first()->id;
 
             $newQuote = Quote::create($newQuoteData);
-            
+
             $newQuote->post()->create(['id' => $quote['id']]);
 
             $categoryNames = collect($quote['categories'])->pluck('name');

@@ -15,10 +15,10 @@ class QuotesController extends Controller
 
     public function index()
     {
-        $quotes = Quote::with('author:id,name,slug', 'categories:id,name,slug', 'post')->paginate(30);
+        $quotes = Quote::with('author:id,name,slug', 'categories:id,name,slug', 'post')->orderBy('id','desc')->paginate(30);
         $categories = Category::quote()->get()->toTree()->unique('name');
 
-        return view('/quotes', compact(['quotes', 'categories',]));
+        return view('/quotes', compact(['quotes', 'categories']));
     }
 
     public function get(Request $request)
@@ -76,6 +76,7 @@ class QuotesController extends Controller
             unlink(public_path($metaImage));
         }
     }
+
     /**
      * Helpers
      *

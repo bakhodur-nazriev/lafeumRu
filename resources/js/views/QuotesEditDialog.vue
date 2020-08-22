@@ -101,7 +101,6 @@
                     })
                     .then(res => {
                         this.isSendingData = false;
-                        /*this.quoteToUpdate = res.data;*/
                         this.$emit('updated', res.data);
                     })
                     .catch(err => {

@@ -2,14 +2,20 @@
     if(isset($item) && !isset($term)){
         $term = $item;
     }
+
+    $termСategories = collect($term->categories)->sortBy('name');
 @endphp
 
 <div class="card-block summary-links-wrapper">
     <div class="row px-3 mb-2 d-flex">
         <div class="col-6 p-0 atom-icon-block">
-            <img src="/img/icons/atom.png"/>
-            <img src="/img/icons/atom.png"/>
-            <img src="/img/icons/atom.png"/>
+            @if($term->term_type == 'Термины научного мира')
+                <img src="/img/icons/atom.png"/>
+                <img src="/img/icons/atom.png"/>
+                <img src="/img/icons/atom.png"/>
+            @else
+                <span class="font-weight-bold secondary">{{ $term->term_type }}</span>
+            @endif
         </div>
         <div class="col-6 p-0 text-right">
             <a class="secondary mr-2 ignore-summary" href="/{{ $term->post->id }}">#{{$term->post->id}}</a>
@@ -17,7 +23,7 @@
     </div>
     <div class="mb-1">{!! $term->body !!}</div>
     <div class="tags-block">
-        @foreach($term->categories as $category)
+        @foreach($termСategories as $category)
             <a class="tags-color" href="/terms/{{ $category->slug }}">
                 <i class="fa fa-tags"></i>
                 {{ $category->name }}

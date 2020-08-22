@@ -6,7 +6,6 @@
 
 body {
     font-family: 'Nunito Sans', sans-serif;
-
     display: flex;
     flex-direction: column;
     background-color: #e7ebf2;
@@ -25,6 +24,15 @@ body {
 
 .modal-backdrop {
     z-index: 0 !important;
+}
+
+.authors-descriptions-block {
+    width: 450px;
+    height: 100%;
+    vertical-align: center;
+    padding: 0 10px;
+    border: 2px solid #1c7094;
+    border-radius: 5px;
 }
 
 /* ------------- COLORS -------------- */
@@ -510,7 +518,7 @@ a.active {
 }
 
 .right-sidebar-col {
-    flex: 0 0 22%;
+    flex: 0 0 21%;
     max-width: 22%;
     padding: 15px 15px 0 0;
 }
@@ -670,6 +678,7 @@ a.active {
     display: flex;
     justify-content: center !important;
     position: relative;
+    width: 100%;
 }
 
 .menu-toggle-btn button {
@@ -771,6 +780,20 @@ a.active {
     .navbar-login-block {
         display: none;
     }
+
+    .right-sidebar-col {
+        flex: 0 0 84% !important;
+        justify-content: center !important;
+        max-width: 100% !important;
+        padding-right: 0;
+    }
+
+    .left-sidebar-col {
+        border-radius: 5px;
+        margin-top: 30px;
+        flex: 0 0 84% !important;
+        max-width: 100% !important;
+    }
 }
 
 @media (min-width: 576px) {
@@ -801,7 +824,6 @@ a.active {
 @media (max-width: 768px) {
     .menu-toggle-btn {
         justify-content: space-between;
-        width: 100%;
     }
 
     .navbar-login-block {
@@ -818,14 +840,6 @@ a.active {
 
     .navbar-links > li > a {
         line-height: 1em;
-    }
-
-    .right-sidebar-col {
-        display: none;
-    }
-
-    .left-sidebar-col {
-        display: none;
     }
 }
 

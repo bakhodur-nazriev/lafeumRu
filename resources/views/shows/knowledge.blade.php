@@ -12,11 +12,20 @@
 @section('left-side-bar')
     <div class="left-sidebar-block">
         <h3 class="secondary">Области знаний</h3>
-        @foreach($knowledgeAreas as $knowledgeArea)
-            <div>
-                <a href="/knowledge/{{$knowledgeArea->slug}}">{{ $knowledgeArea->name }}</a>
-            </div>
+
+        @foreach ($knowledgeAreas as $knowledgeAreaParent)
+            <h4 class="knowledge-parent secondary mb-0" style="font-size: 1rem; margin-top: 15px">
+                {{$knowledgeAreaParent->name}}
+            </h4>
+            <hr class="mt-1" style="margin-bottom: 5px">
+                @foreach ($knowledgeAreaParent->children as $knowledgeArea)
+                    <div>
+                        <a class="knowledge-area-color"
+                           href="/knowledge/{{$knowledgeArea->slug}}">{{$knowledgeArea->name}}</a>
+                    </div>
+                @endforeach
         @endforeach
+
     </div>
 @endsection
 

@@ -2,7 +2,7 @@
 
 /**
  * Generates slug from $title
- * 
+ *
  * @param string $title
  * @return string
  */
@@ -48,5 +48,5 @@ function generateSlug($title)
         $title = str_replace($letter, $transliteration, $title);
     }
 
-    return Illuminate\Support\Str::slug($title, '_');
+    return Illuminate\Support\Str::slug($title, '-');
 }

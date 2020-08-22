@@ -2,6 +2,7 @@
     <v-content class="pa-0">
         <index-page-layout
             index-url="/api/videos"
+            :categories="categories"
             :table-headers="this.headers"
             add-label="Добавить видео"
             searchField="title"

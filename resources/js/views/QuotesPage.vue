@@ -3,7 +3,9 @@
         <index-page-layout
             ref="indexPage"
             search-field="body"
+            search-field-category="name"
             index-url="/api/quotes"
+            :categories="categories"
             :table-headers="this.headers"
             add-label="Добавить цитату"
             @click:item="quoteClick"

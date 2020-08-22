@@ -14,31 +14,36 @@
                 </v-col>
             </v-row>
             <v-row class="align-center">
-                <v-col cols="4">
+                <v-col cols="4" v-if="categories">
                     <v-select
                         solo
                         dense
-                        clearable
                         hide-details
+                        multiple
                         label="Все рубрики"
-                    ></v-select>
+                        item-text="name"
+                        item-value="id"
+                        :items="categories"
+                        v-model="enabled"
+                    >
+                    </v-select>
                 </v-col>
-                <v-col cols="6">
-                    <span class="ml-2" v-if="pagination">{{pagination.total}}: Элементов</span>
+                <v-col cols="6" v-if="pagination">
+                    <span class="ml-2">{{pagination.total}}: Элементов</span>
                 </v-col>
             </v-row>
             <v-row>
                 <v-col cols="12">
                     <v-data-table
+                        hide-default-footer
+                        class="elevation-2"
                         :headers="processedHeaders"
                         :items="filteredItems"
                         :items-per-page="perPage"
                         :server-items-length="totalCount"
-                        hide-default-footer
-                        class="elevation-2"
                         :loading="loadingItems"
                         loading-text="Загрузка..."
-                        @click:row="$emit('click:item', $event)"
+
                         @update:options="onUpdateOptions"
                     >
                         <template
@@ -112,12 +117,15 @@
             tableHeaders: Array,
             addLabel: String,
             noActions: Boolean,
-            searchField: String
+            searchField: String,
+            searchFieldCategory: String,
+            categories: Array
         },
         data() {
             return {
                 items: [],
                 search: "",
+                enabled: null,
                 pageData: null,
                 pagination: null,
                 loadingItems: false
@@ -207,6 +215,14 @@
             }
         },
         watch: {
+            enabled(categories) {
+                if (categories === '') {
+                    this.items = [];
+                } else {
+                    this.search = null
+                    this.items.categories
+                }
+            },
             search() {
                 this.loadItems();
             },
@@ -236,10 +252,10 @@
 
                 if (!this.searchField) return this.items;
 
+                if (!this.searchFieldCategory) return this.items;
+
                 return this.items.filter(item => {
-                    return item[this.searchField]
-                        .toLowerCase()
-                        .includes(this.search.toLowerCase());
+                    return item[this.searchField].toLowerCase().includes(this.search.toLowerCase());
                 });
             },
             currentPage: {

@@ -69,11 +69,11 @@ class CategoriesController extends Controller
         $category = Category::where('type', Term::class)
             ->where('slug', $categorySlug)
             ->first();
-        
+
         $terms = $this->getCategoriablesQuery(Term::class, $category)
             ->vocabulary()
             ->get();
-        
+
         return view('vocabulary', compact(['category', 'terms']));
     }
 

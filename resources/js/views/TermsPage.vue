@@ -2,6 +2,7 @@
     <v-content class="pa-0">
         <index-page-layout
             index-url="/api/terms"
+            :categories="categories"
             :table-headers="this.headers"
             add-label="Добавить термин"
             search-field="body"

@@ -213,7 +213,7 @@ class LafeumImportSeeder extends Seeder
 
         Quote::truncate();
 
-        foreach ($reversedQuotes->reverse() as $quote) {
+        foreach ($reversedQuotes as $quote) {
             $postExists = Post::where('id', $quote['id'])->exists();
 
             if ($postExists) {

@@ -4,7 +4,7 @@
     @include('layouts.navbar')
 
     <div class="container-fluid flex-grow-1 default-container">
-        <div class="row">
+        <div class="row justify-content-center">
             <div class="left-sidebar-col">@yield('left-side-bar')</div>
             <div class="col">
                 <div class="container">

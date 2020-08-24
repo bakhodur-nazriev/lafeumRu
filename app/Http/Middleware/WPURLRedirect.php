@@ -9,10 +9,10 @@ class WPURLRedirect
 {
     /**
      * Supported prefixes of wp routes
-     * 
+     *
      * Key is first part of wp route.
      * Value is it's analogue in laravel.
-     * 
+     *
      * @var array
      */
     protected $prefixes = [
@@ -28,10 +28,10 @@ class WPURLRedirect
 
     /**
      * Supported wp parent categories slug
-     * 
+     *
      * Key is parent category slug at wp.
      * Value is it's analogue in laravel.
-     * 
+     *
      * @var array
      */
     protected $parentCategorySlugs = [
@@ -40,17 +40,17 @@ class WPURLRedirect
         30 => "tsennosti-i-tseli",
         40 => "tsennosti-i-tseli",
 
-        13 => "obshchestvo-i-budushchee",
-        23 => "obshchestvo-i-budushchee",
-        33 => "obshchestvo-i-budushchee",
-        43 => "obshchestvo-i-budushchee",
+        13 => "obshchestvo",
+        23 => "obshchestvo",
+        33 => "obshchestvo",
+        43 => "obshchestvo",
 
         14 => "nauka-i-filosofiya",
         24 => "nauka-i-filosofiya",
         34 => "nauka-i-filosofiya",
         44 => "nauka-i-filosofiya",
 
-        15 => "yumor-tematicheskiy",
+        15 => "yumor-tematicheskii",
 
         "filmy-i-serialy" => "",
         "poslovicy-i-pogovorki" => ""
@@ -58,7 +58,7 @@ class WPURLRedirect
 
     /**
      * Supported wp category slug postfixes
-     * 
+     *
      * @var array
      */
     protected $categorySlugPostfix = [
@@ -92,7 +92,7 @@ class WPURLRedirect
 
     /**
      * Helpers
-     * 
+     *
      */
 
     /**

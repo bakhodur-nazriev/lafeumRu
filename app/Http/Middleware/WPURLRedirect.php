@@ -16,6 +16,7 @@ class WPURLRedirect
      * @var array
      */
     protected $prefixes = [
+        "category" => "",
         "citaty" => "quotes",
         "avtory" => "authors",
         "video" => "videos",

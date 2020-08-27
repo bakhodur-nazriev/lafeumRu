@@ -26,7 +26,7 @@
 
 
     <div class="mt-5 d-flex justify-content-center">
-        {!! $photos->onEachSide(1)->links(); !!}
+        {!! $photos->onEachSide(2)->links(); !!}
     </div>
 @endsection
 

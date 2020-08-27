@@ -37,9 +37,17 @@ class WPURLRedirect
      */
     protected $parentCategorySlugs = [
         10 => "tsennosti-i-tseli",
+        11 => "tsennosti-i-tseli",
+        12 => "tsennosti-i-tseli",
         20 => "tsennosti-i-tseli",
+        21 => "tsennosti-i-tseli",
+        22 => "tsennosti-i-tseli",
         30 => "tsennosti-i-tseli",
+        31 => "tsennosti-i-tseli",
+        32 => "tsennosti-i-tseli",
         40 => "tsennosti-i-tseli",
+        41 => "tsennosti-i-tseli",
+        42 => "tsennosti-i-tseli",
 
         13 => "obshchestvo",
         23 => "obshchestvo",

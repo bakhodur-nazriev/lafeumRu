@@ -9,13 +9,14 @@ class WPURLRedirect
 {
     /**
      * Supported prefixes of wp routes
-     * 
+     *
      * Key is first part of wp route.
      * Value is it's analogue in laravel.
-     * 
+     *
      * @var array
      */
     protected $prefixes = [
+        "category" => "",
         "citaty" => "quotes",
         "avtory" => "authors",
         "video" => "videos",
@@ -28,29 +29,37 @@ class WPURLRedirect
 
     /**
      * Supported wp parent categories slug
-     * 
+     *
      * Key is parent category slug at wp.
      * Value is it's analogue in laravel.
-     * 
+     *
      * @var array
      */
     protected $parentCategorySlugs = [
         10 => "tsennosti-i-tseli",
+        11 => "tsennosti-i-tseli",
+        12 => "tsennosti-i-tseli",
         20 => "tsennosti-i-tseli",
+        21 => "tsennosti-i-tseli",
+        22 => "tsennosti-i-tseli",
         30 => "tsennosti-i-tseli",
+        31 => "tsennosti-i-tseli",
+        32 => "tsennosti-i-tseli",
         40 => "tsennosti-i-tseli",
+        41 => "tsennosti-i-tseli",
+        42 => "tsennosti-i-tseli",
 
-        13 => "obshchestvo-i-budushchee",
-        23 => "obshchestvo-i-budushchee",
-        33 => "obshchestvo-i-budushchee",
-        43 => "obshchestvo-i-budushchee",
+        13 => "obshchestvo",
+        23 => "obshchestvo",
+        33 => "obshchestvo",
+        43 => "obshchestvo",
 
         14 => "nauka-i-filosofiya",
         24 => "nauka-i-filosofiya",
         34 => "nauka-i-filosofiya",
         44 => "nauka-i-filosofiya",
 
-        15 => "yumor-tematicheskiy",
+        15 => "yumor-tematicheskii",
 
         "filmy-i-serialy" => "",
         "poslovicy-i-pogovorki" => ""
@@ -58,7 +67,7 @@ class WPURLRedirect
 
     /**
      * Supported wp category slug postfixes
-     * 
+     *
      * @var array
      */
     protected $categorySlugPostfix = [
@@ -92,7 +101,7 @@ class WPURLRedirect
 
     /**
      * Helpers
-     * 
+     *
      */
 
     /**

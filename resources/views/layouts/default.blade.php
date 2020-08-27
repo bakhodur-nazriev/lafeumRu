@@ -1,4 +1,5 @@
 @extends('layouts.frontApp')
+@extends('layouts.seoMetrics')
 
 @section('layout')
     @include('layouts.navbar')

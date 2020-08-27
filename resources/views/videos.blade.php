@@ -22,7 +22,7 @@
     </div>
     <nav aria-label="Page navigation example">
         <div class="row d-flex justify-content-center mt-3">
-            {!! $videos->onEachSide(1)->links() !!}
+            {!! $videos->onEachSide(2)->links() !!}
         </div>
     </nav>
 @endsection

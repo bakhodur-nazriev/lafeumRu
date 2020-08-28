@@ -85,7 +85,7 @@
                 >
                     <i class="fa fa-youtube-play mr-2"></i>{{$video->channel->name}}
                 </a>
-                <div class="inner-categories mb-0">
+                <div class="tags-block inner-categories mb-0">
                     @foreach($videoСategories as $category)
                         <a href="/videos/{{ $category->slug }}" class="tags-color mr-1">
                             <i class="fa fa-tags mr-1"></i>{{$category->name}}

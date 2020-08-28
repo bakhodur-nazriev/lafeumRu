@@ -42,6 +42,7 @@ Route::put("/toggle-favourite", "FavoriteController@toggle")->middleware("auth")
 
 Route::get("/privacy-policy", "AppController@privacy")->name('privacy');
 Route::get("/terms-of-use", "AppController@termsOfUse")->name('terms-of-use');
+Route::get("/about-us", "AppController@aboutUs")->name('about-us');
 
 /* Should be on bottom */
 Route::get("/{post}", "PostsController@show")->name('post');

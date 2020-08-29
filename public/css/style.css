@@ -722,7 +722,7 @@ a.active {
     }
 
     .about-us-section img {
-        width: 80%;
+        width: 60%;
     }
 
     .list-col-4 {
@@ -805,7 +805,7 @@ a.active {
     }
 
     .about-us-section img {
-        width: 250px;
+        width: 150px;
     }
 
     .list-col-4 {
@@ -818,6 +818,10 @@ a.active {
 
     .small-modal-header-navbar {
         padding: 1rem 1rem;
+    }
+
+    br.mobile{
+        display: none;
     }
 }
 

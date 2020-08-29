@@ -75,7 +75,7 @@
                     @endforeach
 
                     @if($i === $categories->count() - 2)
-                        <div class="dropdown">
+                        <div class="dropdown" style="margin-top: 20px">
                             <button
                                 id="theme-{{ $categories[$i+1]->slug }}"
                                 type="button"

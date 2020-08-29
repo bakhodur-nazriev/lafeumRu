@@ -1,5 +1,5 @@
 <div class="right-sidebar-block my-2">
-    <a href="/{{$dailyPosts->quote->post->id}}">
+    <a href="/{{$dailyPosts->quote->post->id}}" target="_blank">
         <div class="title-of-right-sidebar-posts">
             <h5 class="pl-3 py-2 mb-0">Цитата дня</h5>
         </div>

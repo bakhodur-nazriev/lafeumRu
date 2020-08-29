@@ -1,7 +1,7 @@
 <div>
     <h3 class="secondary">Темы</h3>
     @foreach($categories as $category)
-        <div class="categories-main-name">
+        <div class="categories-main-name mt-3">
             <a
                 class="categories-color font-weight-bold {{$category->active ? 'active': ''}}"
                 href="{{ $category->link }}"

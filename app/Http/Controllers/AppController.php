@@ -45,6 +45,11 @@ class AppController extends Controller
         return view('termsOfUse');
     }
 
+    public function aboutUs()
+    {
+        return view('aboutUs');
+    }
+
     /**
      * Helpers
      */

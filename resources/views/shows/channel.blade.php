@@ -22,7 +22,7 @@
         <div class="channels">
             @foreach($channels as $channelItem)
                 <div>
-                    <a href="/channels/{{$channelItem->slug}}">
+                    <a href="/channels/{{$channelItem->slug}}" class="{{Request::is('channels/'.$channelItem->slug) ? 'active': ''}}">
                         {{ $channelItem->name }}
                     </a>
                 </div>

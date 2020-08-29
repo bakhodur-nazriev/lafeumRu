@@ -20,7 +20,7 @@
     <small id="authors-search-result" class="form-text text-muted ml-1"></small>
     <ul class="authors list-inline py-1">
         @foreach($authors as $author)
-            <li><a class="categories-color d-block" href="/authors/{{$author->slug}}">{{ $author->name }}</a></li>
+            <li><a class="categories-color d-block {{Request::is('authors/'.$author->slug) ? 'active': ''}}" href="/authors/{{$author->slug}}">{{ $author->name }}</a></li>
         @endforeach
     </ul>
     <script>

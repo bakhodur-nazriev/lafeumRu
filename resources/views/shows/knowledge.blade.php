@@ -20,7 +20,7 @@
             <hr class="mt-1" style="margin-bottom: 5px">
                 @foreach ($knowledgeAreaParent->children as $knowledgeArea)
                     <div>
-                        <a class="knowledge-area-color"
+                        <a class="knowledge-area-color {{Request::is('knowledge/'.$knowledgeArea->slug) ? 'active': ''}}"
                            href="/knowledge/{{$knowledgeArea->slug}}">{{$knowledgeArea->name}}</a>
                     </div>
                 @endforeach

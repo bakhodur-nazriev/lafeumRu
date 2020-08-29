@@ -120,6 +120,7 @@ class CategoriesController extends Controller
         $category = Category::where('type', $categoriable)->where('slug', $slug)->first();
 
         $category->categoriables = $this->getCategoriablesQuery($categoriable, $category)
+            ->orderBy('id', 'desc')
             ->paginate(30);
 
         return $category;

@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::group(['middleware' => 'auth:api'], function (){
+Route::group(['middleware' => 'auth:api'], function () {
 
     /* Users */
     Route::get("/users", "UsersController@index");
@@ -40,6 +40,9 @@ Route::group(['middleware' => 'auth:api'], function (){
     Route::post("/photos", "PhotosController@store");
     Route::put("/photos/{photo}", "PhotosController@update");
     Route::delete("/photos/{photo}", "PhotosController@destroy");
+
+    /*Term Types*/
+    Route::get("/term-types", "TermTypesController@get");
 
     /* Terms */
     Route::get("/terms", "TermsController@get");

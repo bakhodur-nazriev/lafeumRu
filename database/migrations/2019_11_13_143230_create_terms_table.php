@@ -18,7 +18,7 @@ class CreateTermsTable extends Migration
             $table->string('name')->nullable();
             $table->text('link')->nullable();
             $table->text('body');
-            $table->string('term_type');
+            $table->integer('term_type_id');
             $table->timestamps();
         });
     }

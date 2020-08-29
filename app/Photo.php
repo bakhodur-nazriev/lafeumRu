@@ -10,7 +10,7 @@ class Photo extends Model
 {
     use Favoriteable;
 
-    protected $fillable = ["path", "description", "created_at", "updated_at"];
+    protected $fillable = ["path", "description"];
 
     public function dailyPosts()
     {

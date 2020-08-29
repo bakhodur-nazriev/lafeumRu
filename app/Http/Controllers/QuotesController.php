@@ -23,7 +23,7 @@ class QuotesController extends Controller
 
     public function get(Request $request)
     {
-        $quotesQuery = Quote::with('author', 'categories');
+        $quotesQuery = Quote::with('author', 'categories')->latest();
 
         return $this->processIndexRequestItems($request, $quotesQuery, 'body');
     }
@@ -31,10 +31,9 @@ class QuotesController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'author_id' => 'required',
             'body' => 'required',
+            'author_id' => 'required',
             'categories' => 'required|array',
-            'created_at' => 'required'
         ]);
 
         $newQuote = Quote::create($request->all());
@@ -44,7 +43,7 @@ class QuotesController extends Controller
         $newQuote->post()->create();
 
         $newQuote->meta_image = $this->getMetaImage($newQuote);
-        $newQuote->save();
+   /*     $newQuote->save();*/
 
         return $newQuote->load('author', 'categories');
     }

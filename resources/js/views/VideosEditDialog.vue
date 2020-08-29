@@ -6,20 +6,17 @@
             </v-card-title>
             <v-container>
                 <v-row justify="center">
-                    <v-col cols="12">
+                    <v-col cols="12 py-0">
                         <v-textarea
                             outlined
-                            hide-details
                             :rules="[rules.required]"
                             v-model="videoToUpdate.title"
                             label="Изменить названия видео"
-                        >
-                        </v-textarea>
+                        />
                     </v-col>
-                    <v-col cols="12">
+                    <v-col cols="12 py-0">
                         <v-autocomplete
                             outlined
-                            hide-details
                             item-value="id"
                             item-text="name"
                             :items="channels"
@@ -28,31 +25,26 @@
                             v-model="videoToUpdate.channel_id"
                         />
                     </v-col>
-                    <v-col cols="12">
+                    <v-col cols="12 py-0">
                         <v-text-field
                             outlined
-                            hide-details
                             :rules="[rules.required]"
                             v-model="videoToUpdate.link"
                             label="Изменить ссылку видео"
-                        >
-                        </v-text-field>
+                        />
                     </v-col>
-                    <v-col cols="12">
+                    <v-col cols="12 py-0">
                         <v-text-field
                             outlined
-                            hide-details
                             :rules="[rules.required]"
                             v-model="videoToUpdate.duration"
                             label="Изменить продолжителность видео в минутах"
-                        >
-                        </v-text-field>
+                        />
                     </v-col>
-                    <v-col cols="12">
+                    <v-col cols="12 py-0">
                         <v-autocomplete
                             outlined
                             multiple
-                            hide-details
                             item-value="id"
                             item-text="name"
                             label="Категории"
@@ -61,7 +53,7 @@
                             v-model="videoToUpdate.categories"
                         />
                     </v-col>
-                    <v-col cols="12">
+                    <v-col cols="12 py-0">
                         <date-picker
                             label="Изменить дату"
                             :rules="[rules.required]"

@@ -1,22 +1,21 @@
 <template>
     <v-dialog v-if="photoToUpdate" v-model="photoToUpdate" width="700">
-        <v-card>
+        <v-card v-if="!isSendingData">
             <v-card-title class="primary white--text pa-4">
                 Изменить описание фото
             </v-card-title>
             <v-container>
                 <v-row justify="center">
-                    <v-col cols="12">
+                    <v-col cols="12 py-0">
                         <date-picker
                             label="Изменить дату"
                             :rules="[rules.required]"
                             v-model="photoToUpdate.updated_at"
                         />
                     </v-col>
-                    <v-col cols="12">
+                    <v-col cols="12 py-0">
                         <v-textarea
                             outlined
-                            hide-details
                             label="Описание"
                             :rules="[rules.required]"
                             v-model="photoToUpdate.description"
@@ -29,6 +28,11 @@
                 <v-btn dark color="green" @click="updatePhoto()">Сохранить</v-btn>
                 <v-btn dark color="error" @click="photoToUpdate = false">Отмена</v-btn>
             </v-card-actions>
+        </v-card>
+        <v-card v-else>
+            <div class="py-5 text-center">
+                <v-progress-circular indeterminate color="primary"/>
+            </div>
         </v-card>
     </v-dialog>
 </template>
@@ -47,11 +51,13 @@
         data() {
             return {
                 rules,
-                modalDate: ""
+                modalDate: "",
+                isSendingData: false
             }
         },
         methods: {
             updateDate() {
+                this.isSendingData = true;
                 this.photoToUpdate = null;
                 this.$refs.indexPage.loadItems();
             },
@@ -62,9 +68,11 @@
                         description: this.photoToUpdate.description
                     })
                     .then(res => {
+                        this.isSendingData = false;
                         this.$emit('updated', res.data);
                     })
                     .catch(err => {
+                        this.isSendingData = false;
                         console.log(err);
                     });
             }

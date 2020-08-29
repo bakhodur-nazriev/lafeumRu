@@ -11,7 +11,7 @@ class Quote extends Model
 {
     use Favoriteable;
 
-    protected $fillable = ['body', 'author_id', 'created_at', 'updated_at'];
+    protected $fillable = ['body', 'author_id'];
 
     public function author()
     {

@@ -30,7 +30,7 @@ class PhotosController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'created_at' => 'required',
+            'image' => 'required',
             'description' => 'required'
         ]);
         $newPhotoData = $request->all();

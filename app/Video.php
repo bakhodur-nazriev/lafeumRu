@@ -10,7 +10,7 @@ class Video extends Model
 {
     use Favoriteable;
 
-    protected $fillable = ["title", "channel_id", "link", "duration", "created_at", "updated_at"];
+    protected $fillable = ["title", "channel_id", "link", "duration"];
     protected $appends = ["link", "embeded_link", "thumbnail"];
 
     public function channel()

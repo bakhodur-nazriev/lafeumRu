@@ -17,7 +17,7 @@ class TermsController extends Controller
 
     public function index()
     {
-        $terms = Term::with('categories')->orderBy('id','desc')->paginate(30);
+        $terms = Term::with('categories', 'termType')->orderBy('id', 'desc')->paginate(30);
         return view('/terms', compact(['terms']));
     }
 
@@ -35,7 +35,7 @@ class TermsController extends Controller
     {
         $keyword = $request->key;
 
-        if(!$keyword) return [];
+        if (!$keyword) return [];
 
         $terms = Term::with('post')
             ->whereRaw("body like '%>%$keyword%<%'")
@@ -54,7 +54,7 @@ class TermsController extends Controller
                 $hasKeyword = strpos($termLink, $keyword) !== false;
                 $hasSpecialChars = preg_match('/[.]/', $termLink) === 1;
 
-                if($hasKeyword && !$hasSpecialChars) {
+                if ($hasKeyword && !$hasSpecialChars) {
                     $links[] = [
                         "link" => "/{$term->post->id}",
                         "text" => $termLink
@@ -68,7 +68,7 @@ class TermsController extends Controller
 
     public function get(Request $request)
     {
-        $termsQuery = Term::with('categories', 'knowledge');
+        $termsQuery = Term::with('categories', 'knowledge', 'termType')->latest();
 
         return $this->processIndexRequestItems($request, $termsQuery, 'body');
     }
@@ -80,7 +80,7 @@ class TermsController extends Controller
             'body' => 'required',
             'categories' => 'required|array',
             'knowledgeAreas' => 'required|array',
-            'created_at' => 'required'
+            'term_type_id' => 'required'
         ]);
 
         $newTerm = Term::create($request->all());

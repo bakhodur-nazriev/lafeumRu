@@ -6,18 +6,16 @@
             </v-card-title>
             <v-container>
                 <v-row justify="center">
-                    <v-col cols="12">
+                    <v-col cols="12 py-0">
                         <v-text-field
-                            hide-details
                             outlined
                             label="Изменить имя автора"
                             v-model="authorToUpdate.name"
                         >
                         </v-text-field>
                     </v-col>
-                    <v-col cols="12">
+                    <v-col cols="12 py-0">
                         <v-select
-                            hide-details
                             outlined
                             label="Группа авторов"
                             :items="groups"
@@ -26,24 +24,22 @@
                             v-model="authorToUpdate.author_group_id"
                         />
                     </v-col>
-                    <v-col cols="12">
+                    <v-col cols="12 py-0">
                         <v-file-input
-                            hide-details
                             outlined
                             name="photo"
-                            label="Изменить фото"
                             prepend-icon=""
+                            label="Изменить фото"
                             prepend-inner-icon="mdi-camera"
                             v-model="authorToUpdate.photo"
                         >
                         </v-file-input>
                     </v-col>
-                    <v-col cols="12">
+                    <v-col cols="12 py-0">
                         <v-textarea
                             outlined
-                            v-model="authorToUpdate.biography"
                             label="Добаить биографию здесь"
-                            hide-details
+                            v-model="authorToUpdate.biography"
                         />
                     </v-col>
                 </v-row>
@@ -69,10 +65,10 @@
 
                 const {
                     name,
-                    biography,
+                    slug,
                     photo,
-                    author_group_id,
-                    slug
+                    biography,
+                    author_group_id
                 } = this.authorToUpdate;
 
                 formData.append("name", name);

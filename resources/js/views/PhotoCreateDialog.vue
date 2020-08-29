@@ -1,34 +1,32 @@
 <template>
     <v-dialog :value="value" width="700" @input="$emit('input', false)">
         <v-card>
-            <v-form @submit="addPhoto" ref="createForm" v-if="!isSendingData">
+            <v-form @submit="addPhoto" ref="createForm">
                 <v-card-title class="primary white--text pa-4">
                     Добавить фото
                 </v-card-title>
                 <v-container>
                     <v-row justify="center">
-                        <v-col cols="12">
+                        <v-col cols="12 py-0">
                             <v-file-input
                                 outlined
-                                hide-details
                                 prepend-icon=""
                                 label="Выберите фото"
-                                v-model="newPhoto.image"
                                 :rules="[rules.required]"
+                                v-model="newPhoto.image"
                                 prepend-inner-icon="mdi-camera"
                             />
                         </v-col>
-                        <v-col cols="12">
+                        <v-col cols="12 py-0">
                             <date-picker
                                 label="Добавить дату"
                                 :rules="[rules.required]"
                                 v-model="newPhoto.created_at"
                             />
                         </v-col>
-                        <v-col cols="12">
+                        <v-col cols="12 py-0">
                             <v-textarea
                                 outlined
-                                hide-details
                                 :rules="[rules.required]"
                                 label="Добавить описание"
                                 v-model="newPhoto.description"
@@ -39,19 +37,12 @@
                 <v-card-actions>
                     <v-spacer/>
                     <v-btn dark color="green" type="submit">Сохранить</v-btn>
-                    <v-btn
-                        dark
-                        color="error"
-                        type="button"
-                        @click="$emit('input', false)"
-                    >
+                    <v-btn dark color="error" type="button" @click="$emit('input', false)">
                         Отмена
                     </v-btn>
                 </v-card-actions>
             </v-form>
-            <div class="py-5 text-center" v-else>
-                <v-progress-circular indeterminate color="primary"/>
-            </div>
+
         </v-card>
     </v-dialog>
 </template>
@@ -67,7 +58,7 @@
             return {
                 rules,
                 newPhoto: null,
-                isSendingData: false
+                /*isSendingData: false,*/
             }
         },
         beforeMount() {
@@ -83,19 +74,19 @@
             },
             resetNewPhoto() {
                 this.newPhoto = this.getDefaultPhoto();
-                // this.$refs.createForm.reset();
+                /*this.$refs.createForm.reset();*/
             },
             addPhoto(e) {
                 e.preventDefault();
 
-                this.$refs.createForm.validate();
-
-                this.isSendingData = true;
-
                 const validForm = this.$refs.createForm.validate();
 
+                /*this.isSendingData = true;*/
+
                 if (!validForm) return;
+
                 const formData = new FormData();
+
                 formData.append("image", this.newPhoto.image);
                 formData.append("description", this.newPhoto.description);
                 formData.append("created_at", this.newPhoto.created_at);
@@ -107,12 +98,12 @@
                         }
                     })
                     .then(res => {
-                        this.isSendingData = false;
+                  /*      this.isSendingData = false;*/
                         this.resetNewPhoto();
                         this.$emit('created', res.data);
                     })
                     .catch(err => {
-                        this.isSendingData = false;
+                        /*this.isSendingData = false;*/
                         console.log(err);
                     });
             },

@@ -124,9 +124,9 @@
         methods: {
             loadChannels() {
                 axios
-                    .get("/api/channels")
+                    .get("/api/channels/?no_pagination")
                     .then(res => {
-                        this.channels = res.data.data;
+                        this.channels = res.data;
                     })
                     .catch(err => {
                         console.log(err);

@@ -3,7 +3,6 @@
         <index-page-layout
             ref="indexPage"
             search-field="body"
-            search-field-category="name"
             index-url="/api/quotes"
             :categories="categories"
             :table-headers="this.headers"
@@ -115,8 +114,8 @@
         methods: {
             loadAuthors() {
                 axios
-                    .get("/api/authors")
-                    .then(res => (this.authors = res.data.data))
+                    .get("/api/authors/?no_pagination")
+                    .then(res => (this.authors = res.data))
                     .catch(e => console.log(e));
             },
             loadQuoteCategories() {

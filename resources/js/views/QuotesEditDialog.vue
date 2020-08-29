@@ -1,15 +1,14 @@
 <template>
     <v-dialog v-if="quoteToUpdate" v-model="quoteToUpdate" width="700">
-        <v-card v-if="!isSendingData">
+        <v-card>
             <v-card-title class="primary white--text pa-4">
                 Изменить Цитату
             </v-card-title>
             <v-container>
                 <v-row justify="center">
-                    <v-col cols="12">
-                        <v-autocomplete
+                    <v-col cols="12 py-0">
+                        <v-select
                             outlined
-                            hide-details
                             label="Авторы"
                             item-value="id"
                             item-text="name"
@@ -18,11 +17,10 @@
                             v-model="quoteToUpdate.author_id"
                         />
                     </v-col>
-                    <v-col cols="12">
+                    <v-col cols="12 py-0">
                         <v-autocomplete
                             outlined
                             multiple
-                            hide-details
                             item-value="id"
                             item-text="name"
                             label="Категории"
@@ -31,17 +29,15 @@
                             v-model="quoteToUpdate.categories"
                         />
                     </v-col>
-                    <v-col cols="12">
+                    <v-col cols="12 py-0">
                         <date-picker
                             label="Изменить дату"
-                            :rules="[rules.required]"
                             v-model="quoteToUpdate.updated_at"
                         />
                     </v-col>
-                    <v-col cols="12">
+                    <v-col cols="12 py-0">
                         <wysiwyg-editor
                             outlined
-                            hide-details
                             label="Изменить цитату"
                             :rules="[rules.required]"
                             v-model="quoteToUpdate.body"
@@ -54,11 +50,6 @@
                 <v-btn dark color="green" @click="updateQuote()">Сохранить</v-btn>
                 <v-btn dark color="error" @click="quoteToUpdate = false">Отмена</v-btn>
             </v-card-actions>
-        </v-card>
-        <v-card v-else>
-            <div class="py-5 text-center">
-                <v-progress-circular indeterminate color="primary"/>
-            </div>
         </v-card>
     </v-dialog>
 </template>
@@ -82,13 +73,11 @@
         data() {
             return {
                 rules,
-                isSendingData: false,
                 modalDate: false,
             }
         },
         methods: {
             updateQuote() {
-                this.isSendingData = true;
 
                 let updatedQuote = this.quoteToUpdate;
                 updatedQuote.categories = this.extractIds(updatedQuote.categories);
@@ -100,11 +89,9 @@
                         updated_at: this.quoteToUpdate.updated_at
                     })
                     .then(res => {
-                        this.isSendingData = false;
                         this.$emit('updated', res.data);
                     })
                     .catch(err => {
-                        this.isSendingData = false;
                         console.log(err);
                     });
             },

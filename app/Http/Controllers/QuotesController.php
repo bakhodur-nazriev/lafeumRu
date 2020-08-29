@@ -23,7 +23,7 @@ class QuotesController extends Controller
 
     public function get(Request $request)
     {
-        $quotesQuery = Quote::with('author', 'categories')->latest();
+        $quotesQuery = Quote::with('author', 'categories')->orderBy('id','desc');
 
         return $this->processIndexRequestItems($request, $quotesQuery, 'body');
     }

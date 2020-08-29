@@ -68,7 +68,7 @@ class TermsController extends Controller
 
     public function get(Request $request)
     {
-        $termsQuery = Term::with('categories', 'knowledge', 'termType')->latest();
+        $termsQuery = Term::with('categories', 'knowledge', 'termType')->orderBy('id','desc');
 
         return $this->processIndexRequestItems($request, $termsQuery, 'body');
     }

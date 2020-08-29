@@ -7,29 +7,18 @@
                 </v-card-title>
                 <v-container>
                     <v-row justify="center">
-                        <v-col cols="12">
+                        <v-col cols="12 py-0">
                             <v-text-field
                                 outlined
-                                hide-details
                                 v-model="newTerm.name"
                                 label="Введите название"
                                 :rules="[rules.required]"
                             />
                         </v-col>
-                        <v-col cols="12">
-                            <v-text-field
-                                outlined
-                                hide-details
-                                label="Ссылка"
-                                v-model="newTerm.link"
-                                :rules="[rules.required]"
-                            />
-                        </v-col>
-                        <v-col cols="12">
+                        <v-col cols="12 py-0">
                             <v-autocomplete
                                 outlined
                                 multiple
-                                hide-details
                                 item-value="id"
                                 item-text="name"
                                 label="Область знаний"
@@ -38,11 +27,10 @@
                                 v-model="newTerm.knowledgeAreas"
                             />
                         </v-col>
-                        <v-col cols="12">
+                        <v-col cols="12 py-0">
                             <v-autocomplete
                                 outlined
                                 multiple
-                                hide-details
                                 item-value="id"
                                 item-text="name"
                                 label="Категории"
@@ -51,21 +39,31 @@
                                 v-model="newTerm.categories"
                             />
                         </v-col>
-                        <v-col cols="12">
+                        <v-col cols="12 py-0">
+                            <v-select
+                                outlined
+                                label="Автор"
+                                item-value="id"
+                                item-text="name"
+                                :items="termTypes"
+                                :rules="[rules.required]"
+                                v-model="newTerm.term_type_id"
+                            />
+                        </v-col>
+                        <v-col cols="12 py-0">
                             <date-picker
                                 label="Выберите дату"
-                                :rules="[rules.required]"
                                 v-model="newTerm.created_at"
                             />
                         </v-col>
-                        <v-col cols="12">
+                        <v-col cols="12 py-0">
                             <v-checkbox
                                 class="mt-0"
                                 v-model="newTerm.show_in_vocabulary"
                                 label="Показать в словаре"
                             />
                         </v-col>
-                        <v-col cols="12">
+                        <v-col cols="12 py-0">
                             <wysiwyg-editor
                                 v-model="newTerm.body"
                                 label="Введите описание"
@@ -77,12 +75,7 @@
                 <v-card-actions>
                     <v-spacer/>
                     <v-btn dark color="green" type="submit">Сохранить</v-btn>
-                    <v-btn
-                        dark
-                        color="error"
-                        type="button"
-                        @click="$emit('input', false)"
-                    >
+                    <v-btn dark color="error" type="button" @click="$emit('input', false)">
                         Отмена
                     </v-btn>
                 </v-card-actions>
@@ -101,6 +94,7 @@
             value: Boolean,
             categories: Array,
             knowledgeAreas: Array,
+            termTypes: Array
         },
         components: {
             "date-picker": DatePicker,
@@ -120,9 +114,9 @@
                 return {
                     name: "",
                     body: "",
-                    link: "",
-                    knowledgeAreas: [],
                     categories: [],
+                    knowledgeAreas: [],
+                    term_type_id: null
                 };
             },
             resetNewTerm() {
@@ -132,7 +126,9 @@
             addTerm(e) {
                 e.preventDefault();
 
-                this.$refs.createForm.validate();
+                const validForm = this.$refs.createForm.validate();
+
+                if (!validForm) return;
 
                 axios
                     .post("/api/terms", this.newTerm)

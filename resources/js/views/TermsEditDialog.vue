@@ -6,29 +6,26 @@
             </v-card-title>
             <v-container>
                 <v-row justify="center">
-                    <v-col cols="12">
+                    <v-col cols="12 py-0">
                         <v-text-field
                             outlined
-                            hide-details
                             :rules="[rules.required]"
                             v-model="termToUpdate.name"
                             label="Изменить название термина"
                         />
                     </v-col>
-                    <v-col cols="12">
+                    <v-col cols="12 py-0">
                         <v-text-field
                             outlined
-                            hide-details
                             label="Ссылка"
                             :rules="[rules.required]"
                             v-model="termToUpdate.link"
                         />
                     </v-col>
-                    <v-col cols="12">
+                    <v-col cols="12 py-0">
                         <v-autocomplete
                             outlined
                             multiple
-                            hide-details
                             item-value="id"
                             item-text="name"
                             label="Область знаний"
@@ -37,11 +34,10 @@
                             v-model="termToUpdate.knowledge"
                         />
                     </v-col>
-                    <v-col cols="12">
+                    <v-col cols="12 py-0">
                         <v-autocomplete
                             outlined
                             multiple
-                            hide-details
                             item-value="id"
                             item-text="name"
                             label="Категории"
@@ -50,21 +46,31 @@
                             v-model="termToUpdate.categories"
                         />
                     </v-col>
-                    <v-col cols="12">
+                    <v-col cols="12 py-0">
+                        <v-select
+                            outlined
+                            label="Автор"
+                            item-value="id"
+                            item-text="name"
+                            :items="termTypes"
+                            v-model="termToUpdate.term_type_id"
+                        />
+                    </v-col>
+                    <v-col cols="12 py-0">
                         <date-picker
                             label="Изменить дату"
                             :rules="[rules.required]"
                             v-model="termToUpdate.updated_at"
                         />
                     </v-col>
-                    <v-col cols="12">
+                    <v-col cols="12 py-0">
                         <v-checkbox
                             class="mt-0"
                             v-model="termToUpdate.show_in_vocabulary"
                             label="Показать в словаре"
                         />
                     </v-col>
-                    <v-col cols="12">
+                    <v-col cols="12 py-0">
                         <wysiwyg-editor
                             :rules="[rules.required]"
                             v-model="termToUpdate.body"
@@ -96,6 +102,7 @@
         props: {
             knowledgeAreas: Array,
             categories: Array,
+            termTypes: Array,
             value: Object,
         },
         components: {
@@ -104,23 +111,24 @@
         },
         data() {
             return {
-                isSendingData: false,
+                rules,
                 modalDate: false,
-                rules
+                isSendingData: false
             };
         },
         methods: {
             updateTerm() {
-               let updatedTerm = this.termToUpdate;
+                let updatedTerm = this.termToUpdate;
 
                 updatedTerm.categories = this.extractIds(updatedTerm.categories);
                 updatedTerm.knowledge = this.extractIds(updatedTerm.knowledge);
 
                 axios
-                    .put("/api/terms/" + this.termToUpdate.id, updatedTerm,{
+                    .put("/api/terms/" + this.termToUpdate.id, updatedTerm, {
                         name: this.termToUpdate.name,
                         body: this.termToUpdate.body,
                         link: this.termToUpdate.link,
+                        term_type_id: this.termToUpdate.term_type_id,
                         categories: this.termToUpdate.categories,
                         updated_at: this.termToUpdate.updated_at
                     })

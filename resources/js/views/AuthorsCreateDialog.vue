@@ -14,9 +14,8 @@
                             v-model="newAuthor.name"
                         />
                     </v-col>
-                    <v-col cols="12">
+                    <v-col cols="12 py-0">
                         <v-select
-                            hide-details
                             outlined
                             label="Группа авторов"
                             :items="groups"

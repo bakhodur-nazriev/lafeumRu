@@ -11,7 +11,6 @@
                 readonly
                 outlined
                 v-on="on"
-                hide-details
                 :label="label"
                 :value="modalDate"
                 prepend-inner-icon="mdi-calendar"
@@ -20,13 +19,7 @@
         <v-date-picker scrollable v-model="modalDate">
             <v-spacer/>
             <v-btn text color="primary" @click="dialog = false">Отмена</v-btn>
-            <v-btn
-                text
-                color="primary"
-                @click="$refs.dialog.save(value)"
-            >
-                OK
-            </v-btn>
+            <v-btn text color="primary" @click="$refs.dialog.save(value)">OK</v-btn>
         </v-date-picker>
     </v-dialog>
 </template>
@@ -40,7 +33,6 @@
         data() {
             return {
                 dialog: false,
-
             }
         },
         computed: {
@@ -52,14 +44,14 @@
                     this.$emit('input', v);
                 }
             }
-        }
-        // watch: {
-        //     value(v){
-        //         this.modalDate = v;
-        //     },
-        //     modalDate(v){
-        //         this.$emit("input", v);
-        //     }
-        // }
+        },
+        /*watch: {
+            value(v){
+                this.modalDate = v;
+            },
+            modalDate(v){
+                this.$emit("input", v);
+            }
+        }*/
     }
 </script>

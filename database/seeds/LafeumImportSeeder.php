@@ -26,6 +26,7 @@ class LafeumImportSeeder extends Seeder
     {
         $this->call(CategoryTableSeeder::class);
         $this->call(AuthorsGroupSeeder::class);
+        $this->call(TermTypesSeeder::class);
 
         $this->syncCategorySlugs();
 
@@ -115,9 +116,7 @@ class LafeumImportSeeder extends Seeder
         $videos = require(app_path("/LafeumData/lafeumVideos.php"));
 
         $collectionVideos = collect($videos);
-
         $reversedVideos = $collectionVideos->reverse();
-
         $reversedVideos->all();
 
         Video::truncate();
@@ -156,9 +155,7 @@ class LafeumImportSeeder extends Seeder
         $terms = require(app_path("/LafeumData/lafeumTerms.php"));
 
         $collectionTerms = collect($terms);
-
         $reversedTerms = $collectionTerms->reverse();
-
         $reversedTerms->all();
 
         Term::truncate();
@@ -174,7 +171,9 @@ class LafeumImportSeeder extends Seeder
             $newTermData['name'] = $term['name'];
             $newTermData['link'] = $term['link'];
             $newTermData['body'] = $term['body'];
-            $newTermData['term_type'] = $term['term_types']['name'];
+
+            $newTermData['term_type_id'] = TermType::where('name', $term['term_types']['name'])->first()->id;
+
             $newTermData['show_in_vocabulary'] = $term['name'] ? true : false;
 
             echo $term['body'] . PHP_EOL;
@@ -206,9 +205,7 @@ class LafeumImportSeeder extends Seeder
         $quotes = require(app_path("/LafeumData/lafeumQuotes.php"));
 
         $collectionQuotes = collect($quotes);
-
         $reversedQuotes = $collectionQuotes->reverse();
-
         $reversedQuotes->all();
 
         Quote::truncate();

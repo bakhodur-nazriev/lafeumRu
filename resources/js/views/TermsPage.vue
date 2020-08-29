@@ -32,12 +32,14 @@
             v-model="addTerm"
             :knowledge-areas="knowledgeAreas"
             :categories="categories"
+            :term-types="termTypes"
             @created="termCreated"
         />
 
         <terms-edit-dialog
             v-model="termToUpdate"
             :knowledge-areas="knowledgeAreas"
+            :term-types="termTypes"
             :categories="categories"
             @updated="termUpdated"
         />
@@ -74,6 +76,7 @@
                 addTerm: false,
                 categories: [],
                 knowledgeAreas: [],
+                termTypes: [],
                 termToShow: null,
                 termToUpdate: null,
                 termToDelete: null,
@@ -86,6 +89,11 @@
                         text: "Термины",
                         value: "body",
                         class: "ma-3"
+                    },
+                    {
+                        text: "Автор",
+                        value: "term_type.name",
+                        align: "center"
                     },
                     {
                         text: "Рубрики",
@@ -108,8 +116,15 @@
         mounted() {
             this.loadKnowledgeAreas();
             this.loadTermCategories();
+            this.loadTermTypes();
         },
         methods: {
+            loadTermTypes() {
+                axios
+                    .get("/api/term-types")
+                    .then(res => (this.termTypes = res.data))
+                    .catch(e => console.log(e));
+            },
             loadKnowledgeAreas() {
                 axios
                     .get("/api/knowledge-areas")

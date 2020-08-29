@@ -18,13 +18,13 @@
                     <v-select
                         solo
                         dense
-                        hide-details
                         multiple
+                        hide-details
                         label="Все рубрики"
                         item-text="name"
                         item-value="id"
                         :items="categories"
-                        v-model="enabled"
+                        v-model="searchCategories"
                     >
                     </v-select>
                 </v-col>
@@ -43,7 +43,6 @@
                         :server-items-length="totalCount"
                         :loading="loadingItems"
                         loading-text="Загрузка..."
-
                         @update:options="onUpdateOptions"
                     >
                         <template
@@ -118,7 +117,7 @@
             addLabel: String,
             noActions: Boolean,
             searchField: String,
-            searchFieldCategory: String,
+            searchFieldCategory: Array,
             categories: Array
         },
         data() {
@@ -128,14 +127,15 @@
                 enabled: null,
                 pageData: null,
                 pagination: null,
-                loadingItems: false
+                loadingItems: false,
+                searchCategories: null
             };
         },
         created() {
             this.pageData = {
                 number: 1,
                 sortBy: null,
-                sortDesc: false
+                sortDesc: false,
             };
         },
         methods: {
@@ -162,6 +162,11 @@
                 if (this.search) {
                     url += "&search=" + this.search;
                 }
+
+                if (this.searchCategories) {
+                    url += "&searchBySelect=" + this.searchCategories;
+                }
+
                 return url;
             },
             processResponse({data}) {
@@ -215,13 +220,8 @@
             }
         },
         watch: {
-            enabled(categories) {
-                if (categories === '') {
-                    this.items = [];
-                } else {
-                    this.search = null
-                    this.items.categories
-                }
+            searchCategories() {
+                this.loadItems();
             },
             search() {
                 this.loadItems();
@@ -251,8 +251,6 @@
                 if (!Array.isArray(this.items)) return [];
 
                 if (!this.searchField) return this.items;
-
-                if (!this.searchFieldCategory) return this.items;
 
                 return this.items.filter(item => {
                     return item[this.searchField].toLowerCase().includes(this.search.toLowerCase());

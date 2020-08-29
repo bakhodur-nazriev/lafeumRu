@@ -9,7 +9,7 @@ class Term extends Model
 {
     use Favoriteable;
 
-    protected $fillable = ['name', 'body', 'link', 'show_in_vocabulary'];
+    protected $fillable = ['name', 'body', 'link', 'show_in_vocabulary', 'term_type_id'];
 
     public function categories()
     {

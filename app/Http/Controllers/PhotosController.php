@@ -43,7 +43,7 @@ class PhotosController extends Controller
 
     public function update(Photo $photo, Request $request)
     {
-        $newPhotoData = $request->only(["description", "updated_at"]);
+        $newPhotoData = $request->only(["description"]);
         if ($request->hasFile("image")) {
             $newPhotoData["image"] = $this->saveImage(time(), $request->image, self::PHOTOS_PATH);
         }

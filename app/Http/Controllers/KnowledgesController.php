@@ -14,13 +14,13 @@ class KnowledgesController extends Controller
 
     public function index()
     {
-        $knowledgeAreas = Knowledge::orderBy('name')->get()->toTree();
+        $knowledgeAreas = Knowledge::get()->toTree();
         return view('knowledgeArea', compact('knowledgeAreas'));
     }
 
     public function show(Knowledge $knowledge)
     {
-        $knowledgeAreas = Knowledge::orderBy('name')->get()->toTree();
+        $knowledgeAreas = Knowledge::get()->toTree();
 
         $currentKnowledgeArea = $knowledge;
         $currentKnowledgeArea->terms = $knowledge->terms()->latest()->paginate(30);

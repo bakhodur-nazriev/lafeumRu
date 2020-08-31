@@ -60,7 +60,7 @@ class AuthorsController extends Controller
 
         $movieIds = $authors->pluck('id');
 
-        $currentAuthor->quotes = Quote::with('categories')->whereIn('author_id', $movieIds)->get();
+        $currentAuthor->quotes = Quote::with('categories')->orderBy('id','desc')->whereIn('author_id', $movieIds)->get();
 
         return view('shows.author', compact(['authors', 'authorListTitle', 'currentAuthor']));
     }
@@ -77,14 +77,14 @@ class AuthorsController extends Controller
 
         $proverbIds = $authors->pluck('id');
 
-        $currentAuthor->quotes = Quote::with('categories')->whereIn('author_id', $proverbIds)->get();
+        $currentAuthor->quotes = Quote::with('categories')->orderBy('id','desc')->whereIn('author_id', $proverbIds)->get();
 
         return view('shows.author', compact(['authors', 'authorListTitle', 'currentAuthor']));
     }
 
     public function get(Request $request)
     {
-        $authorsQuery = Author::latest()->first();
+        $authorsQuery = Author::orderBy('name','asc');
         return $this->processIndexRequestItems($request, $authorsQuery, 'name');
     }
 
@@ -125,7 +125,7 @@ class AuthorsController extends Controller
      */
     private function getPersonsList()
     {
-        $authors = Author::persons()->whereNotIn('name', ['Фильмы и Сериалы', 'Пословицы и Поговорки', 'Термины научного мира', 'Комментарии специалистов'])->get();
+        $authors = Author::persons()->whereNotIn('name', ['Фильмы и Сериалы', 'Пословицы и Поговорки', 'Термины научного мира', 'Комментарии специалистов'])->orderBy('name','asc')->get();
 
         $authors->prepend(new Author([
             "name" => AuthorGroup::PROVERBS_GROUP_NAME,

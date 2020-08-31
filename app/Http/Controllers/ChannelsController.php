@@ -16,7 +16,7 @@ class ChannelsController extends Controller
 
     public function index()
     {
-        $channels = Channel::all();
+        $channels = Channel::orderBy('name','asc')->get();
         return view('/channels', compact('channels'));
     }
 
@@ -29,7 +29,7 @@ class ChannelsController extends Controller
 
     public function get(Request $request)
     {
-        $channelQuery = Channel::latest()->first();
+        $channelQuery = Channel::orderBy('name','asc');
         return $this->processIndexRequestItems($request, $channelQuery, 'name');
     }
 

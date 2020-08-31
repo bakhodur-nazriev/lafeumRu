@@ -97,11 +97,15 @@ class LafeumImportSeeder extends Seeder
     {
         $photos = require(app_path("/LafeumData/lafeumPhotos.php"));
 
+        $collectionPhotos = collect($photos);
+        $reversedPhotos= $collectionPhotos->reverse();
+        $reversedPhotos->all();
+
         Photo::truncate();
 
         $preparedPhotos = [];
 
-        foreach ($photos as $photo) {
+        foreach ($reversedPhotos as $photo) {
             $preparedPhotos[] = [
                 'path' => '/img/photos/' . $photo['file'],
                 'description' => $photo['description']

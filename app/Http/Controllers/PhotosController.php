@@ -16,13 +16,13 @@ class PhotosController extends Controller
 
     public function index()
     {
-        $photos = Photo::paginate(30);
+        $photos = Photo::orderBy('id','desc')->paginate(30);
         return view("/photos", compact("photos"));
     }
 
     public function get(Request $request)
     {
-        $photosQuery = Photo::latest();
+        $photosQuery = Photo::orderBy('id','desc');
 
         return $this->processIndexRequestItems($request, $photosQuery, 'description');
     }

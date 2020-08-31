@@ -20,7 +20,6 @@
                         <v-col cols="12 py-0">
                             <date-picker
                                 label="Добавить дату"
-                                :rules="[rules.required]"
                                 v-model="newPhoto.created_at"
                             />
                         </v-col>
@@ -58,7 +57,6 @@
             return {
                 rules,
                 newPhoto: null,
-                /*isSendingData: false,*/
             }
         },
         beforeMount() {
@@ -69,19 +67,16 @@
                 return {
                     image: null,
                     description: "",
-                    created_at: ""
                 };
             },
             resetNewPhoto() {
                 this.newPhoto = this.getDefaultPhoto();
-                /*this.$refs.createForm.reset();*/
             },
             addPhoto(e) {
                 e.preventDefault();
 
                 const validForm = this.$refs.createForm.validate();
 
-                /*this.isSendingData = true;*/
 
                 if (!validForm) return;
 
@@ -89,7 +84,6 @@
 
                 formData.append("image", this.newPhoto.image);
                 formData.append("description", this.newPhoto.description);
-                formData.append("created_at", this.newPhoto.created_at);
 
                 axios
                     .post("/api/photos/", formData, {
@@ -98,12 +92,10 @@
                         }
                     })
                     .then(res => {
-                  /*      this.isSendingData = false;*/
                         this.resetNewPhoto();
                         this.$emit('created', res.data);
                     })
                     .catch(err => {
-                        /*this.isSendingData = false;*/
                         console.log(err);
                     });
             },

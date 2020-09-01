@@ -97,9 +97,7 @@ class LafeumImportSeeder extends Seeder
     {
         $photos = require(app_path("/LafeumData/lafeumPhotos.php"));
 
-        $collectionPhotos = collect($photos);
-        $reversedPhotos= $collectionPhotos->reverse();
-        $reversedPhotos->all();
+        $reversedPhotos = collect($photos)->reverse();
 
         Photo::truncate();
 

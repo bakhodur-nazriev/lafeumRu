@@ -119,6 +119,10 @@ class CategoriesController extends Controller
     {
         $category = Category::where('type', $categoriable)->where('slug', $slug)->first();
 
+        if(!$category){
+            return $category;
+        }
+
         $category->categoriables = $this->getCategoriablesQuery($categoriable, $category)
             ->orderBy('id', 'desc')
             ->paginate(30);

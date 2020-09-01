@@ -23,24 +23,24 @@ class UsersTableSeeder extends Seeder
 
         User::create([
             "name" => "Admin",
-            "email" => "anvardzhabarov@gmail.com",
-            "password" => Hash::make("i6QSDNVcDd6g4XOwwdfL"),
+            "email" => "admin@gmail.com",
+            "password" => Hash::make("pass"),
             "role_id" => $adminRoleId
         ]);
 
-        // User::create([
-        //     "name" => "Author",
-        //     "email" => "author@gmail.com",
-        //     "password" => Hash::make("pass"),
-        //     "role_id" => $authorRoleId
-        // ]);
+        User::create([
+            "name" => "Author",
+            "email" => "author@gmail.com",
+            "password" => Hash::make("pass"),
+            "role_id" => $authorRoleId
+        ]);
 
-        // User::create([
-        //     "name" => "Member",
-        //     "email" => "member@gmail.com",
-        //     "password" => Hash::make("pass"),
-        //     "role_id" => $memberRoleId
-        // ]);
+        User::create([
+            "name" => "Member",
+            "email" => "member@gmail.com",
+            "password" => Hash::make("pass"),
+            "role_id" => $memberRoleId
+        ]);
 
     }
 }

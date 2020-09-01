@@ -1,6 +1,10 @@
 <?php
 
 return [
+    [ 'name' => 'Ценности и Цели', 'slug' => 'tsennosti-i-tseli', ],
+    [ 'name' => 'Общество', 'slug' => 'obshchestvo', ],
+    [ 'name' => 'Наука и Философия', 'slug' => 'nauka-i-filosofiya', ],
+    [ 'name' => 'Юмор тематический', 'slug' => 'yumor-tematicheskii', ],
     [ 'name' => 'Внеземная жизнь', 'slug' => 'vnezemnaya-zhizn', ],
     [ 'name' => 'Вселенная и Космология', 'slug' => 'vselennaya-i-kosmologiya', ],
     [ 'name' => 'Интеллект и Сознание', 'slug' => 'intellekt-i-soznanie', ],

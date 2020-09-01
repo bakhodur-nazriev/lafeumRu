@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
 use App\Channel;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class ChannelsController extends Controller
@@ -23,7 +21,10 @@ class ChannelsController extends Controller
     public function show(Channel $channel)
     {
         $channels = Channel::all();
-        $channel->load('videos');
+        $channel->load(['videos' => function($query) {
+            $query->orderby('id', 'desc');
+        }]);
+
         return view('shows.channel', compact(['channel', 'channels']));
     }
 

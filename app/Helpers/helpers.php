@@ -44,6 +44,8 @@ function generateSlug($title)
         'я' => 'ya',
     ];
 
+    $title = mb_strtolower($title);
+
     foreach ($customTransliteration as $letter => $transliteration) {
         $title = str_replace($letter, $transliteration, $title);
     }

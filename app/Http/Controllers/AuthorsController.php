@@ -44,7 +44,10 @@ class AuthorsController extends Controller
                 break;
         }
 
-        $currentAuthor = $author->load('quotes.categories');
+        $currentAuthor = $author->load(['quotes' => function ($query) {
+            $query->orderby('id', 'desc')->with('categories');
+        }]);
+
         return view('shows.author', compact(['authors', 'authorListTitle', 'currentAuthor']));
     }
 
@@ -125,7 +128,9 @@ class AuthorsController extends Controller
      */
     private function getPersonsList()
     {
-        $authors = Author::persons()->whereNotIn('name', ['Фильмы и Сериалы', 'Пословицы и Поговорки', 'Термины научного мира', 'Комментарии специалистов'])->orderBy('name','asc')->get();
+        $authors = Author::persons()
+            ->orderBy('name','asc')
+            ->get();
 
         $authors->prepend(new Author([
             "name" => AuthorGroup::PROVERBS_GROUP_NAME,

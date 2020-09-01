@@ -20,7 +20,7 @@
         <div class="col-sm-12 col-lg-4">
             <h3 class="mb-4 secondary">Свяжитесь с нами</h3>
             <div class="contact-form-block">
-                <form action="/feedbacks" method="POST">
+                <form method="POST">
                     <div class="form-group">
                         <label for="user_name">Ваше имя</label>
                         <input type="text" name="user_name" class="form-control">

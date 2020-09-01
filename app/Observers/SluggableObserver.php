@@ -9,8 +9,12 @@ class SluggableObserver
     {
         $slug = $model->getOriginal('slug');
         $name = $model->getOriginal('name');
+        
+        $noSlug = !$slug && !$model->isDirty('slug');
 
-        if((!$slug && $name) || $model->isDirty('name')) {
+        $nameUpdated = $name && $model->isDirty('name');
+
+        if($noSlug || $nameUpdated) {
             $model->slug = generateSlug($model->name);
         }
     }

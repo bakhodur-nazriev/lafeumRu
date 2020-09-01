@@ -1,5 +1,12 @@
 <title>{{$data['title']}}</title>
 
+@if (App::environment('production'))
+    @includeIf('seoMetrics')
+@else
+    <meta name="robots" content="noindex,nofollow"/>
+    <meta name="robots" content="none"/>
+@endif
+
 @if($data['description'])
     <meta name="description" content="{{$data['description']}}">
     <meta property="og:description" content="{{$data['description']}}">
@@ -35,10 +42,3 @@
 @isset($data['prev'])
     <link rel="prev" href="{{$data['prev']}}">
 @endisset
-
-@if (App::environment('production'))
-    @includeIf('seoMetrics')
-@else
-    <meta name="robots" content="noindex,nofollow"/>
-    <meta name="robots" content="none"/>
-@endif

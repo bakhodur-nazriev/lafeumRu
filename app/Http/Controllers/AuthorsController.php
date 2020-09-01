@@ -125,7 +125,9 @@ class AuthorsController extends Controller
      */
     private function getPersonsList()
     {
-        $authors = Author::persons()->whereNotIn('name', ['Фильмы и Сериалы', 'Пословицы и Поговорки', 'Термины научного мира', 'Комментарии специалистов'])->orderBy('name','asc')->get();
+        $authors = Author::persons()
+            ->orderBy('name','asc')
+            ->get();
 
         $authors->prepend(new Author([
             "name" => AuthorGroup::PROVERBS_GROUP_NAME,

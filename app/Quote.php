@@ -2,8 +2,6 @@
 
 namespace App;
 
-use Carbon\Carbon;
-use ChristianKuri\LaravelFavorite\Models\Favorite;
 use ChristianKuri\LaravelFavorite\Traits\Favoriteable;
 use Illuminate\Database\Eloquent\Model;
 

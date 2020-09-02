@@ -44,9 +44,12 @@ class AuthorsController extends Controller
                 break;
         }
 
-        $currentAuthor = $author->load(['quotes' => function ($query) {
-            $query->orderby('id', 'desc')->with('categories');
-        }]);
+        $currentAuthor = $author;
+        $currentAuthor->quotes = $currentAuthor
+            ->quotes()
+            ->orderby('id', 'desc')
+            ->with('categories')
+            ->paginate(30);
 
         return view('shows.author', compact(['authors', 'authorListTitle', 'currentAuthor']));
     }

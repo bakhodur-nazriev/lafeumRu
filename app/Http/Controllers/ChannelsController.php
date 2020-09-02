@@ -21,9 +21,11 @@ class ChannelsController extends Controller
     public function show(Channel $channel)
     {
         $channels = Channel::all();
-        $channel->load(['videos' => function($query) {
-            $query->orderby('id', 'desc');
-        }]);
+        $channel->videos = $channel
+            ->videos()
+            ->orderby('id', 'desc')
+            ->with('categories')
+            ->paginate(30);
 
         return view('shows.channel', compact(['channel', 'channels']));
     }

@@ -36,8 +36,9 @@
 
 @section('content')
     <div class="d-flex align-items-center mb-3">
-        <img class="mr-3 rounded-circle" style="width: 120px; height: 120px" src="{{$currentAuthor->photo}}"
-             alt="">
+        @if ($currentAuthor->photo)
+            <img class="mr-3 rounded-circle" style="width: 120px; height: 120px" src="{{$currentAuthor->photo}}" alt="">
+        @endif
         <div class="authors-descriptions-block">
             <h3 class="secondary my-1">{{$currentAuthor->name}}</h3>
             <p class="my-1">{{$currentAuthor->biography}}</p>

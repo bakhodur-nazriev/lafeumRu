@@ -66,7 +66,10 @@ class AuthorsController extends Controller
 
         $movieIds = $authors->pluck('id');
 
-        $currentAuthor->quotes = Quote::with('categories')->orderBy('id','desc')->whereIn('author_id', $movieIds)->get();
+        $currentAuthor->quotes = Quote::with('categories')
+            ->orderBy('id','desc')
+            ->whereIn('author_id', $movieIds)
+            ->paginate(30);
 
         return view('shows.author', compact(['authors', 'authorListTitle', 'currentAuthor']));
     }
@@ -83,7 +86,10 @@ class AuthorsController extends Controller
 
         $proverbIds = $authors->pluck('id');
 
-        $currentAuthor->quotes = Quote::with('categories')->orderBy('id','desc')->whereIn('author_id', $proverbIds)->get();
+        $currentAuthor->quotes = Quote::with('categories')
+            ->orderBy('id','desc')
+            ->whereIn('author_id', $proverbIds)
+            ->paginate(30);
 
         return view('shows.author', compact(['authors', 'authorListTitle', 'currentAuthor']));
     }

@@ -86,7 +86,7 @@
                 formData.append("description", this.newPhoto.description);
 
                 axios
-                    .post("/api/photos/", formData, {
+                    .post("/api/photos", formData, {
                         headers: {
                             "Content-Type": "multipart/form-data"
                         }

@@ -15,14 +15,6 @@
                         />
                     </v-col>
                     <v-col cols="12 py-0">
-                        <v-text-field
-                            outlined
-                            label="Ссылка"
-                            :rules="[rules.required]"
-                            v-model="termToUpdate.link"
-                        />
-                    </v-col>
-                    <v-col cols="12 py-0">
                         <v-autocomplete
                             outlined
                             multiple

@@ -43,7 +43,7 @@ class QuotesController extends Controller
         $newQuote->post()->create();
 
         $newQuote->meta_image = $this->getMetaImage($newQuote);
-   /*     $newQuote->save();*/
+        $newQuote->save();
 
         return $newQuote->load('author', 'categories');
     }

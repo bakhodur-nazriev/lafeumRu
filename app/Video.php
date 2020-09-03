@@ -2,16 +2,15 @@
 
 namespace App;
 
-use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
 use ChristianKuri\LaravelFavorite\Traits\Favoriteable;
+use Illuminate\Database\Eloquent\Model;
 
 class Video extends Model
 {
     use Favoriteable;
 
-    protected $fillable = ["title", "channel_id", "link", "duration"];
-    protected $appends = ["link", "embeded_link", "thumbnail"];
+    protected $fillable = ['title', 'channel_id', 'link', 'duration', 'publish_at'];
+    protected $appends = ['link', 'embeded_link', 'thumbnail'];
 
     public function channel()
     {
@@ -50,7 +49,7 @@ class Video extends Model
     {
         switch ($this->host_type_id) {
             case VideoHost::YOUTUBE_HOST_TYPE_ID:
-                return "https://youtu.be/" . $this->host_id;
+                return 'https://youtu.be/' . $this->host_id;
 
             default:
                 return $this->host_id;
@@ -61,7 +60,7 @@ class Video extends Model
     {
         switch ($this->host_type_id) {
             case VideoHost::YOUTUBE_HOST_TYPE_ID:
-                return "https://www.youtube.com/embed/" . $this->host_id;
+                return 'https://www.youtube.com/embed/' . $this->host_id;
 
             default:
                 return $this->host_id;
@@ -72,7 +71,7 @@ class Video extends Model
     {
         switch ($this->host_type_id) {
             case VideoHost::YOUTUBE_HOST_TYPE_ID:
-                return "https://i.ytimg.com/vi/{$this->host_id}/mqdefault.jpg";
+                return 'https://i.ytimg.com/vi/{$this->host_id}/mqdefault.jpg';
 
             default:
                 return null;
@@ -88,7 +87,7 @@ class Video extends Model
     {
         $hostData = [
             'host_type_id' => VideoHost::UNKNOWN_HOST_TYPE_ID,
-            'host_id' => $link
+            'host_id' => $link,
         ];
 
         $youtubeId = $this->getYoutubeId($link);

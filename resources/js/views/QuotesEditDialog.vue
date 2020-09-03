@@ -31,8 +31,9 @@
                     </v-col>
                     <v-col cols="12 py-0">
                         <date-picker
-                            label="Изменить дату"
-                            v-model="quoteToUpdate.updated_at"
+                            with-time
+                            label="Дата публикации"
+                            v-model="quoteToUpdate.publish_at"
                         />
                     </v-col>
                     <v-col cols="12 py-0">
@@ -82,12 +83,7 @@
                 let updatedQuote = this.quoteToUpdate;
                 updatedQuote.categories = this.extractIds(updatedQuote.categories);
                 axios
-                    .put("/api/quotes/" + this.quoteToUpdate.id, updatedQuote, {
-                        body: this.quoteToUpdate.body,
-                        author_id: this.quoteToUpdate.author_id,
-                        categories: this.quoteToUpdate.categories,
-                        updated_at: this.quoteToUpdate.updated_at
-                    })
+                    .put("/api/quotes/" + this.quoteToUpdate.id, updatedQuote)
                     .then(res => {
                         this.$emit('updated', res.data);
                     })

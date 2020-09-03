@@ -42,7 +42,7 @@
                         <v-col cols="12 py-0">
                             <v-select
                                 outlined
-                                label="Автор"
+                                label="Тип"
                                 item-value="id"
                                 item-text="name"
                                 :items="termTypes"
@@ -52,8 +52,9 @@
                         </v-col>
                         <v-col cols="12 py-0">
                             <date-picker
-                                label="Выберите дату"
-                                v-model="newTerm.created_at"
+                                with-time
+                                label="Дата публикации"
+                                v-model="newTerm.publish_at"
                             />
                         </v-col>
                         <v-col cols="12 py-0">
@@ -116,7 +117,8 @@
                     body: "",
                     categories: [],
                     knowledgeAreas: [],
-                    term_type_id: null
+                    term_type_id: null,
+                    publish_at: ''
                 };
             },
             resetNewTerm() {

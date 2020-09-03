@@ -19,8 +19,9 @@
                         </v-col>
                         <v-col cols="12 py-0">
                             <date-picker
-                                label="Добавить дату"
-                                v-model="newPhoto.created_at"
+                                with-time
+                                label="Дата публикации"
+                                v-model="newPhoto.publish_at"
                             />
                         </v-col>
                         <v-col cols="12 py-0">
@@ -67,6 +68,7 @@
                 return {
                     image: null,
                     description: "",
+                    publish_at: ""
                 };
             },
             resetNewPhoto() {
@@ -83,6 +85,7 @@
                 const formData = new FormData();
 
                 formData.append("image", this.newPhoto.image);
+                formData.append("publish_at", this.newPhoto.publish_at);
                 formData.append("description", this.newPhoto.description);
 
                 axios

@@ -41,7 +41,7 @@
                     <v-col cols="12 py-0">
                         <v-select
                             outlined
-                            label="Автор"
+                            label="Тип"
                             item-value="id"
                             item-text="name"
                             :items="termTypes"
@@ -50,9 +50,10 @@
                     </v-col>
                     <v-col cols="12 py-0">
                         <date-picker
-                            label="Изменить дату"
+                            with-time
+                            label="Дата публикации"
                             :rules="[rules.required]"
-                            v-model="termToUpdate.updated_at"
+                            v-model="termToUpdate.publish_at"
                         />
                     </v-col>
                     <v-col cols="12 py-0">
@@ -116,14 +117,7 @@
                 updatedTerm.knowledge = this.extractIds(updatedTerm.knowledge);
 
                 axios
-                    .put("/api/terms/" + this.termToUpdate.id, updatedTerm, {
-                        name: this.termToUpdate.name,
-                        body: this.termToUpdate.body,
-                        link: this.termToUpdate.link,
-                        term_type_id: this.termToUpdate.term_type_id,
-                        categories: this.termToUpdate.categories,
-                        updated_at: this.termToUpdate.updated_at
-                    })
+                    .put("/api/terms/" + this.termToUpdate.id, updatedTerm)
                     .then(res => {
                         this.isSendingData = false;
                         this.$emit('updated', res.data);

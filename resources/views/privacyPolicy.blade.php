@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="bg-white p-4 rounded">
-        <h2 class="font-weight-bold">Политика конфиденциальности</h2>
+        <h2 class="secondary">Политика конфиденциальности</h2>
 
         <p>
             Пользователь, регистрируясь на интернет-сайте <a href="/" target="_blank">ru.lafeum.org</a> (далее - Сервис), принимает настоящее Согласие

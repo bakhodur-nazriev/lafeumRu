@@ -132,8 +132,6 @@ class CategoriesController extends Controller
 
     private function getCategoriablesQuery($model, $category)
     {
-        $categoryIds = $category->descendants()->pluck('id');
-
         $categoryIds[] = $category->id;
 
         $categoriableIds = $this->getCategoriableIds($categoryIds, $model);

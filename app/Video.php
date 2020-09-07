@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Video extends Model
 {
     use Favoriteable;
+    use PublishableTrait;
 
     protected $fillable = ['title', 'channel_id', 'link', 'duration', 'publish_at'];
     protected $appends = ['link', 'embeded_link', 'thumbnail'];
@@ -71,7 +72,7 @@ class Video extends Model
     {
         switch ($this->host_type_id) {
             case VideoHost::YOUTUBE_HOST_TYPE_ID:
-                return 'https://i.ytimg.com/vi/{$this->host_id}/mqdefault.jpg';
+                return 'https://i.ytimg.com/vi/' . $this->host_id . '/mqdefault.jpg';
 
             default:
                 return null;

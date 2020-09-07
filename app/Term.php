@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Term extends Model
 {
     use Favoriteable;
+    use PublishableTrait;
 
     protected $fillable = [
         'name', 

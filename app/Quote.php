@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Quote extends Model
 {
     use Favoriteable;
+    use PublishableTrait;
 
     protected $fillable = ['body', 'author_id', 'publish_at'];
 

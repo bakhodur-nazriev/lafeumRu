@@ -9,6 +9,7 @@ use ChristianKuri\LaravelFavorite\Traits\Favoriteable;
 class Photo extends Model
 {
     use Favoriteable;
+    use PublishableTrait;
 
     protected $fillable = ['path', 'description', 'publish_at'];
 

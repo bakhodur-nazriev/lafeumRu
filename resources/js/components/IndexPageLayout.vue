@@ -250,9 +250,11 @@
             filteredItems() {
                 if (!Array.isArray(this.items)) return [];
 
-                if (!this.searchField) return this.items;
+                if (!this.searchField || !this.search) return this.items;
 
                 return this.items.filter(item => {
+                    if(!item[this.searchField]) return false;
+
                     return item[this.searchField].toLowerCase().includes(this.search.toLowerCase());
                 });
             },

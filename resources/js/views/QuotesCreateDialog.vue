@@ -32,8 +32,9 @@
                         </v-col>
                         <v-col cols="12 py-0">
                             <date-picker
-                                label="Добавить дату"
-                                v-model="newQuote.created_at"
+                                with-time
+                                label="Дата публикации"
+                                v-model="newQuote.publish_at"
                             />
                         </v-col>
                         <v-col cols="12 py-0">
@@ -87,6 +88,7 @@
                     body: "",
                     author_id: null,
                     categories: [],
+                    publish_at: ""
                 };
             },
             resetNewQuote() {

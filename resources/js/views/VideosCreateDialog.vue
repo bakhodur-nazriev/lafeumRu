@@ -57,8 +57,9 @@
                         </v-col>
                         <v-col cols="12 py-0">
                             <date-picker
-                                label="Добавить дату"
-                                v-model="newVideo.created_at"
+                                with-time
+                                label="Дата публикации"
+                                v-model="newVideo.publish_at"
                             />
                         </v-col>
                     </v-row>
@@ -105,7 +106,8 @@
                     title: "",
                     duration: "",
                     categories: [],
-                    channel_id: null
+                    channel_id: null,
+                    publish_at: ""
                 };
             },
             resetNewVideoForm() {

@@ -8,8 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Term extends Model
 {
     use Favoriteable;
+    use PublishableTrait;
 
-    protected $fillable = ['name', 'body', 'link', 'show_in_vocabulary', 'term_type_id'];
+    protected $fillable = [
+        'name', 
+        'body', 
+        'show_in_vocabulary', 
+        'term_type_id',
+        'publish_at'
+    ];
 
     public function categories()
     {

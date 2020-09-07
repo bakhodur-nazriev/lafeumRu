@@ -8,9 +8,9 @@
                 <v-row justify="center">
                     <v-col cols="12 py-0">
                         <date-picker
-                            label="Изменить дату"
-                            :rules="[rules.required]"
-                            v-model="photoToUpdate.updated_at"
+                            with-time
+                            label="Дата публикацииы"
+                            v-model="photoToUpdate.publish_at"
                         />
                     </v-col>
                     <v-col cols="12 py-0">
@@ -56,17 +56,10 @@
             }
         },
         methods: {
-            updateDate() {
-                this.isSendingData = true;
-                this.photoToUpdate = null;
-                this.$refs.indexPage.loadItems();
-            },
             updatePhoto() {
+                this.isSendingData = true;
                 axios
-                    .put("/api/photos/" + this.photoToUpdate.id, {
-                        updated_at: this.photoToUpdate.updated_at,
-                        description: this.photoToUpdate.description
-                    })
+                    .put("/api/photos/" + this.photoToUpdate.id, this.photoToUpdate)
                     .then(res => {
                         this.isSendingData = false;
                         this.$emit('updated', res.data);

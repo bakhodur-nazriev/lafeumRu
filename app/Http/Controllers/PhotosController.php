@@ -16,13 +16,13 @@ class PhotosController extends Controller
 
     public function index()
     {
-        $photos = Photo::orderBy('id','desc')->paginate(30);
+        $photos = Photo::published('desc')->paginate(30);
         return view("/photos", compact("photos"));
     }
 
     public function get(Request $request)
     {
-        $photosQuery = Photo::orderBy('id','desc');
+        $photosQuery = Photo::byPublishAt();
 
         return $this->processIndexRequestItems($request, $photosQuery, 'description');
     }
@@ -43,10 +43,12 @@ class PhotosController extends Controller
 
     public function update(Photo $photo, Request $request)
     {
-        $newPhotoData = $request->only(["description"]);
+        $newPhotoData = $request->all();
+        
         if ($request->hasFile("image")) {
             $newPhotoData["image"] = $this->saveImage(time(), $request->image, self::PHOTOS_PATH);
         }
+
         $photo->update($newPhotoData);
         return $photo;
     }

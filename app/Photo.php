@@ -9,21 +9,12 @@ use ChristianKuri\LaravelFavorite\Traits\Favoriteable;
 class Photo extends Model
 {
     use Favoriteable;
+    use PublishableTrait;
 
-    protected $fillable = ["path", "description"];
+    protected $fillable = ['path', 'description', 'publish_at'];
 
     public function dailyPosts()
     {
         return $this->hasMany(DailyPost::class);
-    }
-
-    public function getCreatedAtAttribute($date)
-    {
-        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('Y-m-d');
-    }
-
-    public function getUpdatedAtAttribute($date)
-    {
-        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('Y-m-d');
     }
 }

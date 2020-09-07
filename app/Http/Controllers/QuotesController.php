@@ -15,7 +15,12 @@ class QuotesController extends Controller
 
     public function index()
     {
-        $quotes = Quote::with('author:id,name,slug', 'categories:id,name,slug', 'post')->orderBy('id','desc')->paginate(30);
+        $quotes = Quote::with([
+            'author:id,name,slug', 
+            'categories:id,name,slug', 
+            'post'
+        ])->published('desc')->paginate(30);
+
         $categories = Category::quote()->get()->toTree()->unique('name');
 
         return view('/quotes', compact(['quotes', 'categories']));
@@ -23,7 +28,8 @@ class QuotesController extends Controller
 
     public function get(Request $request)
     {
-        $quotesQuery = Quote::with('author', 'categories')->orderBy('id','desc');
+        $quotesQuery = Quote::with('author', 'categories')
+            ->byPublishAt();
 
         return $this->processIndexRequestItems($request, $quotesQuery, 'body');
     }
@@ -42,8 +48,8 @@ class QuotesController extends Controller
 
         $newQuote->post()->create();
 
-        $newQuote->meta_image = $this->getMetaImage($newQuote);
-        $newQuote->save();
+        // $newQuote->meta_image = $this->getMetaImage($newQuote);
+        // $newQuote->save();
 
         return $newQuote->load('author', 'categories');
     }
@@ -56,8 +62,8 @@ class QuotesController extends Controller
             $quote->categories()->sync($request->categories);
         }
 
-        $quote->meta_image = $this->getMetaImage($quote);
-        $quote->save();
+        // $quote->meta_image = $this->getMetaImage($quote);
+        // $quote->save();
 
         return $quote;
     }

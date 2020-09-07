@@ -55,9 +55,10 @@
                     </v-col>
                     <v-col cols="12 py-0">
                         <date-picker
-                            label="Изменить дату"
+                            with-time
+                            label="Дата публикации"
                             :rules="[rules.required]"
-                            v-model="videoToUpdate.updated_at"
+                            v-model="videoToUpdate.publish_at"
                         />
                     </v-col>
                 </v-row>
@@ -93,11 +94,7 @@
 
                 updatedVideo.categories = this.extractIds(updatedVideo.categories);
                 axios
-                    .put("/api/videos/" + this.videoToUpdate.id, updatedVideo, {
-                        link: this.videoToUpdate.link,
-                        categories: this.videoToUpdate.categories,
-                        updated_at: this.videoToUpdate.updated_at
-                    })
+                    .put("/api/videos/" + this.videoToUpdate.id, updatedVideo)
                     .then(res => {
                         this.$emit('updated', res.data);
                     })

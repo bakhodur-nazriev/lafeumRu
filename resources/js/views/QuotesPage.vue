@@ -95,15 +95,10 @@
                         align: "center"
                     },
                     {
-                        text: "Дата добавления",
-                        value: "created_at",
-                        align: "center",
+                        text: "Опубликовано",
+                        value: "publish_at",
+                        width: 160
                     },
-                    {
-                        text: "Дата изменения",
-                        value: "updated_at",
-                        align: "center",
-                    }
                 ]
             };
         },

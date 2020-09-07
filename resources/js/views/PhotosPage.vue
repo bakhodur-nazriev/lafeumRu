@@ -79,14 +79,9 @@
                         value: "description"
                     },
                     {
-                        align: "center",
-                        value: "created_at",
-                        text: "Дата добавления"
-                    },
-                    {
-                        align: "center",
-                        value: "updated_at",
-                        text: "Дата изменения"
+                        text: "Опубликовано",
+                        value: "publish_at",
+                        width: 160
                     }
                 ]
             };

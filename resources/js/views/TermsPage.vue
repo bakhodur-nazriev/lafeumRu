@@ -91,7 +91,7 @@
                         class: "ma-3"
                     },
                     {
-                        text: "Автор",
+                        text: "Тип",
                         value: "term_type.name",
                         align: "center"
                     },
@@ -101,14 +101,9 @@
                         align: "center"
                     },
                     {
-                        text: "Дата добавления",
-                        value: "created_at",
-                        align: "center"
-                    },
-                    {
-                        text: "Дата изменения",
-                        value: "updated_at",
-                        align: "center"
+                        text: "Опубликовано",
+                        value: "publish_at",
+                        width: 160
                     }
                 ]
             };

@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
-use App\Post;
 use App\Term;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class TermsController extends Controller
 {
@@ -17,7 +14,10 @@ class TermsController extends Controller
 
     public function index()
     {
-        $terms = Term::with('categories', 'termType')->orderBy('id', 'desc')->paginate(30);
+        $terms = Term::with('categories', 'termType')
+            ->published('desc')
+            ->paginate(30);
+        
         return view('/terms', compact(['terms']));
     }
 
@@ -26,6 +26,7 @@ class TermsController extends Controller
         $terms = Term::with('post')
             ->where('name', '<>', '')
             ->orderBy('name')
+            ->published()
             ->get();
 
         return view("/vocabulary", compact(["terms"]));
@@ -38,6 +39,7 @@ class TermsController extends Controller
         if (!$keyword) return [];
 
         $terms = Term::with('post')
+            ->published()
             ->whereRaw("body like '%>%$keyword%<%'")
             ->get();
 
@@ -68,7 +70,7 @@ class TermsController extends Controller
 
     public function get(Request $request)
     {
-        $termsQuery = Term::with('categories', 'knowledge', 'termType')->orderBy('id','desc');
+        $termsQuery = Term::with('categories', 'knowledge', 'termType')->byPublishAt();
 
         return $this->processIndexRequestItems($request, $termsQuery, 'body');
     }

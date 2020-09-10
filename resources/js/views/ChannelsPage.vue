@@ -1,5 +1,5 @@
 <template>
-    <v-content class="pa-0">
+    <v-main class="pa-0">
         <index-page-layout
             ref="indexPage"
             index-url="/api/channels"
@@ -32,7 +32,7 @@
             v-model="channelToDelete"
             @deleted="channelDeleted"
         />
-    </v-content>
+    </v-main>
 </template>
 
 <script>

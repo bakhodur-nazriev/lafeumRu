@@ -1,5 +1,5 @@
 <template>
-    <v-content class="pa-0">
+    <v-main class="pa-0">
         <index-page-layout
             index-url="/api/authors"
             :table-headers="this.headers"
@@ -50,7 +50,7 @@
             v-model="authorToDelete"
             @deleted="authorDeleted"
         />
-    </v-content>
+    </v-main>
 </template>
 
 <script>

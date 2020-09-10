@@ -1,5 +1,5 @@
 <template>
-    <v-content class="pa-0">
+    <v-main class="pa-0">
         <index-page-layout
             index-url="/api/terms"
             :categories="categories"
@@ -54,7 +54,7 @@
             v-model="termToDelete"
             @deleted="termDeleted"
         />
-    </v-content>
+    </v-main>
 </template>
 <script>
     import IndexPageLayout from "../components/IndexPageLayout";

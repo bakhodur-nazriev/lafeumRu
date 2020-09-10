@@ -1,5 +1,5 @@
 <template>
-    <v-content class="pa-0">
+    <v-main class="pa-0">
         <index-page-layout
             ref="indexPage"
             search-field="body"
@@ -52,7 +52,7 @@
             v-model="quoteToDelete"
             @deleted="quoteDeleted"
         />
-    </v-content>
+    </v-main>
 </template>
 
 <script>

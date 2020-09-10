@@ -1,5 +1,5 @@
 <template>
-    <v-content class="pa-0">
+    <v-main class="pa-0">
         <v-container>
             <v-row justify="center">
                 <v-col md="6">
@@ -106,7 +106,7 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
-    </v-content>
+    </v-main>
 </template>
 
 <script>

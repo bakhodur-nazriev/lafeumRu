@@ -1,5 +1,5 @@
 <template>
-    <v-content class="pa-0">
+    <v-main class="pa-0">
         <v-container fluid>
             <v-row justify="center">
                 <v-col cols="6">
@@ -106,7 +106,7 @@
                 <span>{{addLabel}}</span>
             </v-tooltip>
         </v-container>
-    </v-content>
+    </v-main>
 </template>
 
 <script>

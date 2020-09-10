@@ -8,6 +8,7 @@ import "tiptap-vuetify/dist/main.css";
 import router from "./router.js";
 import App from "./components/App";
 import {TiptapVuetifyPlugin} from "tiptap-vuetify";
+import ru from 'vuetify/es5/locale/ru'
 
 require("./bootstrap");
 window.Vue = require("vue");
@@ -48,6 +49,7 @@ const vuetify = new Vuetify({
         iconfont: "mdi"
     },
     lang: {
+        locales: { ru },
         current: "ru" // en | es | fr | pl | ru
     }
 });

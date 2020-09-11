@@ -16,10 +16,9 @@
                         </v-text-field>
                     </v-col>
                     <v-col cols="12">
-                        <v-textarea
+                        <wysiwyg-editor
                             label="Добавить описание к каналу"
                             v-model="newChannel.description"
-                            outlined
                         />
                     </v-col>
                 </v-row>
@@ -34,36 +33,39 @@
 </template>
 
 <script>
-    export default {
-        props: {
-            value: Boolean
-        },
-        data() {
+import WysiwygEditor from '../components/WysiwygEditor';
+
+export default {
+    props: {
+        value: Boolean
+    },
+    components: { WysiwygEditor },
+    data() {
+        return {
+            newChannel: null
+        };
+    },
+    beforeMount() {
+        this.newChannel = this.getDefaultChannel();
+    },
+    methods: {
+        getDefaultChannel() {
             return {
-                newChannel: null
+                name: "",
+                description: ""
             };
         },
-        beforeMount() {
-            this.newChannel = this.getDefaultChannel();
-        },
-        methods: {
-            getDefaultChannel() {
-                return {
-                    name: "",
-                    description: ""
-                };
-            },
-            addChannel() {
-                axios
-                    .post("/api/channels", this.newChannel)
-                    .then(res => {
-                        this.newChannel = this.getDefaultChannel();
-                        this.$emit("created", res.data);
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    });
-            }
+        addChannel() {
+            axios
+                .post("/api/channels", this.newChannel)
+                .then(res => {
+                    this.newChannel = this.getDefaultChannel();
+                    this.$emit("created", res.data);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
         }
-    };
+    }
+};
 </script>

@@ -11,6 +11,12 @@
             @update-item="channelToUpdate = $event"
             @delete-item="channelToDelete = $event"
         >
+            <template v-slot:item.description="{ item }">
+                <div
+                    v-html="item.description"
+                    class="my-3 three-line-truncate"
+                />
+            </template>
         </index-page-layout>
 
         <channels-create-dialog

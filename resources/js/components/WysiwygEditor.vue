@@ -1,72 +1,46 @@
 <template>
-    <tiptap-vuetify
-        :extensions="extensions"
+    <quill-editor
+        :options="editorOptions"
         :value="value"
-        :placeholder="label"
         @input="textChanged"
-        :card-props="{ flat: true, color: '#21252921' }"
     />
 </template>
 
 <script>
-import {
-    // component
-    TiptapVuetify,
-    // extensions
-    Heading,
-    Bold,
-    Italic,
-    Strike,
-    Underline,
-    Paragraph,
-    BulletList,
-    OrderedList,
-    ListItem,
-    Link,
-    Blockquote,
-    HardBreak,
-    HorizontalRule,
-    History,
-    Code
-} from "tiptap-vuetify";
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+ 
+import { quillEditor } from 'vue-quill-editor'
 
 export default {
     props: {
         value: String,
         label: String
     },
-    components: { TiptapVuetify },
-    data() {
-        return {
-            extensions: [
-                History,
-                Blockquote,
-                Link,
-                Underline,
-                Strike,
-                Italic,
-                ListItem,
-                BulletList,
-                OrderedList,
-                [
-                    Heading,
-                    {
-                        options: {
-                            levels: [1, 2, 3]
-                        }
-                    }
-                ],
-                Code,
-                Bold,
-                HorizontalRule,
-                Paragraph,
-                HardBreak
-            ]
-        };
-    },
+    components: { quillEditor },
     methods: {
         textChanged(v) {
             this.$emit("input", v);
+        }
+    },
+    computed: {
+        editorOptions(){
+            return {
+                placeholder: this.label,
+                modules: {
+                    toolbar: [
+                        ['bold', 'italic', 'underline', 'strike', 'blockquote'],        // toggled buttons
+
+                        [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+                        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                        [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+
+                        ['link', { 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+                        [{ 'align': [] }],
+                    ]
+                }
+            }
         }
     }
 };

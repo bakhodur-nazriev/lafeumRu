@@ -41,7 +41,7 @@
         @endif
         <div class="authors-descriptions-block">
             <h3 class="secondary my-1">{{$currentAuthor->name}}</h3>
-            <p class="my-1">{{$currentAuthor->biography}}</p>
+            <p class="my-1">{!!$currentAuthor->biography!!}</p>
         </div>
     </div>
     @foreach($currentAuthor->quotes as $quote)

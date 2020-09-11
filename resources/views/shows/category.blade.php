@@ -31,7 +31,7 @@
 
 @section('content')
     <h3 class="secondary">{{$category->name}}</h3>
-    <p>{{$category->description}}</p>
+    <p>{!!$category->description!!}</p>
     
     <div class="row">
         @foreach ($category->categoriables as $item)

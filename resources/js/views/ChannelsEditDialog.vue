@@ -16,10 +16,9 @@
                         </v-text-field>
                     </v-col>
                     <v-col cols="12">
-                        <v-textarea
+                        <wysiwyg-editor
                             v-model="channelToUpdate.description"
                             label="Изменить описание канала"
-                            outlined
                         />
                     </v-col>
                 </v-row>
@@ -38,10 +37,13 @@
 </template>
 
 <script>
+import WysiwygEditor from '../components/WysiwygEditor';
+
 export default {
     props: {
         value: Object
     },
+    components: { WysiwygEditor },
     methods: {
         updateChannel() {
             axios

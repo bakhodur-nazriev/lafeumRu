@@ -1,5 +1,5 @@
 <template>
-    <v-content class="pa-0">
+    <v-main class="pa-0">
         <v-container fluid>
             <v-row justify="center">
                 <v-card
@@ -71,7 +71,7 @@
             @close="categoryToDelete = null"
             @deleted="categoryDeleted"
         />
-    </v-content>
+    </v-main>
 </template>
 
 <script>

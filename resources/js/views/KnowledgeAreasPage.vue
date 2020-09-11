@@ -1,5 +1,5 @@
 <template>
-    <v-content class="pa-0">
+    <v-main class="pa-0">
         <v-container>
             <v-row justify="center">
                 <v-card class="col-lg-12 col-xl-8 pa-4" v-if="!knowledgeAreasLoading">
@@ -65,7 +65,7 @@
             v-model="knowledgeAreaToDelete"
             @deleted="knowledgeDeleted"
         />
-    </v-content>
+    </v-main>
 </template>
 <script>
 import TreeView from "../components/TreeView";

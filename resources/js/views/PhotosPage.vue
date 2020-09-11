@@ -1,5 +1,5 @@
 <template>
-    <v-content class="pa-0">
+    <v-main class="pa-0">
         <index-page-layout
             index-url="/api/photos"
             :table-headers="this.headers"
@@ -42,7 +42,7 @@
             @deleted="photoDeleted"
         />
 
-    </v-content>
+    </v-main>
 </template>
 <script>
     import IndexPageLayout from "../components/IndexPageLayout";

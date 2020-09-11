@@ -1,5 +1,5 @@
 <template>
-    <v-content class="pa-0">
+    <v-main class="pa-0">
         <index-page-layout
             ref="indexPage"
             index-url="/api/channels"
@@ -11,6 +11,12 @@
             @update-item="channelToUpdate = $event"
             @delete-item="channelToDelete = $event"
         >
+            <template v-slot:item.description="{ item }">
+                <div
+                    v-html="item.description"
+                    class="my-3 three-line-truncate"
+                />
+            </template>
         </index-page-layout>
 
         <channels-create-dialog
@@ -32,7 +38,7 @@
             v-model="channelToDelete"
             @deleted="channelDeleted"
         />
-    </v-content>
+    </v-main>
 </template>
 
 <script>

@@ -44,7 +44,7 @@
 
 @section("content")
     <h3 class="secondary">{{ $channel->name }}</h3>
-    <p>{{ $channel->description }}</p>
+    <p>{!! $channel->description !!}</p>
     <div class="row">
         @foreach($channel->videos as $video)
             @include('layouts.videoItem')

@@ -12,9 +12,7 @@
                 </v-btn>
             </v-card-title>
 
-            <v-card-text>
-                {{ category.description }}
-            </v-card-text>
+            <v-card-text v-html="category.description" />
 
             <v-card-actions>
                 <v-spacer></v-spacer>

@@ -36,9 +36,8 @@
                         </v-file-input>
                     </v-col>
                     <v-col cols="12 py-0">
-                        <v-textarea
-                            outlined
-                            label="Добаить биографию здесь"
+                        <wysiwyg-editor
+                            label="Изменить биографию здесь"
                             v-model="authorToUpdate.biography"
                         />
                     </v-col>
@@ -54,56 +53,59 @@
 </template>
 
 <script>
-    export default {
-        props: {
-            value: Object,
-            groups: Array
-        },
-        methods: {
-            updateAuthor() {
-                const formData = new FormData();
+import WysiwygEditor from '../components/WysiwygEditor';
 
-                const {
-                    name,
-                    slug,
-                    photo,
-                    biography,
-                    author_group_id
-                } = this.authorToUpdate;
+export default {
+    props: {
+        value: Object,
+        groups: Array
+    },
+    components: { WysiwygEditor },
+    methods: {
+        updateAuthor() {
+            const formData = new FormData();
 
-                formData.append("name", name);
-                formData.append("biography", biography);
-                formData.append("photo", photo);
-                formData.append("author_group_id", author_group_id);
-                formData.append("_method", "put");
+            const {
+                name,
+                slug,
+                photo,
+                biography,
+                author_group_id
+            } = this.authorToUpdate;
 
-                const url = "/api/authors/" + slug;
+            formData.append("name", name);
+            formData.append("biography", biography);
+            formData.append("photo", photo);
+            formData.append("author_group_id", author_group_id);
+            formData.append("_method", "put");
 
-                axios
-                    .post(url, formData, {
-                        headers: {
-                            "Content-Type": "multipart/form-data"
-                        }
-                    })
-                    .then(res => {
-                        this.$emit("updated", res.data);
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    });
-            }
-        },
-        computed: {
-            authorToUpdate: {
-                get() {
-                    return this.value;
-                },
-                set(v) {
-                    if (!v) {
-                        this.$emit("input", null);
+            const url = "/api/authors/" + slug;
+
+            axios
+                .post(url, formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data"
                     }
+                })
+                .then(res => {
+                    this.$emit("updated", res.data);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        }
+    },
+    computed: {
+        authorToUpdate: {
+            get() {
+                return this.value;
+            },
+            set(v) {
+                if (!v) {
+                    this.$emit("input", null);
                 }
             }
         }
-    };
+    }
+};
 </script>

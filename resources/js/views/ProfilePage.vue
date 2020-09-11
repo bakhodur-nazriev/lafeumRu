@@ -1,5 +1,5 @@
 <template>
-    <v-content class="pa-0">
+    <v-main class="pa-0">
         <v-container>
             <v-row justify="center">
                 <v-card class="pa-2" align="center" max-width="650">
@@ -314,7 +314,7 @@
                 </v-form>
             </v-card>
         </v-dialog>
-    </v-content>
+    </v-main>
 </template>
 
 <script>

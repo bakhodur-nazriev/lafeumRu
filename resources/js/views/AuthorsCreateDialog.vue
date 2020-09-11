@@ -35,11 +35,9 @@
                         />
                     </v-col>
                     <v-col cols="12">
-                        <v-textarea
-                            outlined
+                        <wysiwyg-editor
                             label="Биография автора"
                             v-model="newAuthor.biography"
-                            hide-details
                         />
                     </v-col>
                 </v-row>
@@ -54,11 +52,14 @@
 </template>
 
 <script>
+import WysiwygEditor from '../components/WysiwygEditor';
+
 export default {
     props: {
         value: Boolean,
         groups: Array
     },
+    components: { WysiwygEditor },
     data() {
         return {
             newAuthor: null

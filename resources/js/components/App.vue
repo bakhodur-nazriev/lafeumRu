@@ -2,9 +2,9 @@
     <v-app class="grey lighten-4">
         <navbar />
 
-        <v-content class="mx-4 my-2">
+        <v-main class="mx-4 my-2">
             <router-view />
-        </v-content>
+        </v-main>
     </v-app>
 </template>
 

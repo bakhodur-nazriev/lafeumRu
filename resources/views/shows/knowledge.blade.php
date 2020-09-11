@@ -31,7 +31,7 @@
 
 @section('content')
     <h3 class="secondary mb-2">{{ $currentKnowledgeArea->name }}</h3>
-    <p>{{ $currentKnowledgeArea->description }}</p>
+    <p>{!! $currentKnowledgeArea->description !!}</p>
 
     @foreach($currentKnowledgeArea->terms as $term)
         @include('layouts.termItem')

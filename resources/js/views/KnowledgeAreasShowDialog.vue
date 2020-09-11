@@ -13,9 +13,10 @@
             </v-card-title>
 
             <v-card-text class="pb-0">
-                <div class="subtitle-1">
-                    {{ knowledgeArea.description || "Нет описания" }}
-                </div>
+                <div 
+                    class="subtitle-1" 
+                    v-html="knowledgeArea.description || 'Нет описания'"
+                />
                 <div class="pb-2">
                     <v-chip
                         v-for="(knowledge, i) in knowledgeArea.linked_knowledge"

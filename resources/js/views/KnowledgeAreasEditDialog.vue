@@ -20,10 +20,9 @@
                         </v-text-field>
                     </v-col>
                     <v-col cols="12">
-                        <v-textarea
-                            outlined
+                        <wysiwyg-editor
                             v-model="knowledgeAreaToUpdate.description"
-                            label="Изменить области знаний здесь"
+                            label="Изменить описание области знания"
                         />
                     </v-col>
                     <v-col cols="12">
@@ -52,13 +51,15 @@
     </v-dialog>
 </template>
 
-
 <script>
+import WysiwygEditor from '../components/WysiwygEditor';
+
 export default {
     props: {
         value: Object,
         knowledgeAreas: Array
     },
+    components: { WysiwygEditor },
     methods: {
         updateKnowledgeArea() {
             const url = "/api/knowledge-areas/" + this.knowledgeAreaToUpdate.slug;

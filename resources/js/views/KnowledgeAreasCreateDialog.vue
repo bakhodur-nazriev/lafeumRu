@@ -17,11 +17,9 @@
                         </v-text-field>
                     </v-col>
                     <v-col cols="12">
-                        <v-textarea
+                        <wysiwyg-editor
                             label="Добавить описание области знания"
                             v-model="newKnowledge.description"
-                            outlined
-                            hide-details
                         />
                     </v-col>
                     <v-col cols="12">
@@ -51,11 +49,14 @@
 </template>
 
 <script>
+import WysiwygEditor from '../components/WysiwygEditor';
+
 export default {
     props: {
         value: Boolean,
         knowledgeAreas: Array
     },
+    components: { WysiwygEditor },
     data(){
         return {
             newKnowledge: null

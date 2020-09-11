@@ -36,7 +36,14 @@ export default {
                         [{ 'list': 'ordered'}, { 'list': 'bullet' }],
                         [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
 
-                        ['link', { 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+                        ['link', { 
+                            'color': [
+                                'black',
+                                '#B83336',
+                                'white',
+                                '#0099ff'
+                            ] 
+                        }, { 'background': [] }],          // dropdown with defaults from theme
                         [{ 'align': [] }],
                     ]
                 }

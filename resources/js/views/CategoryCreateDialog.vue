@@ -20,10 +20,9 @@
                         outlined
                         :rules="[rules.required]"
                     />
-                    <v-textarea
+                    <wysiwyg-editor
                         label="Описание"
                         v-model="newCategory.description"
-                        outlined
                     />
                 </v-card-text>
 
@@ -43,6 +42,7 @@
 
 <script>
 import rules from "../validation-rules";
+import WysiwygEditor from '../components/WysiwygEditor';
 
 export default {
     props: {
@@ -52,6 +52,7 @@ export default {
             required: true
         }
     },
+    components: { WysiwygEditor },
     data() {
         return {
             rules,

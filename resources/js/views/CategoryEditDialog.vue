@@ -12,10 +12,9 @@
                     :rules="[rules.required]"
                     v-model="category.name"
                 />
-                <v-textarea
+                <wysiwyg-editor
                     label="Описание"
                     v-model="category.description"
-                    outlined
                 />
             </v-card-text>
 
@@ -42,11 +41,13 @@
 
 <script>
 import rules from "../validation-rules";
+import WysiwygEditor from '../components/WysiwygEditor';
 
 export default {
     props: {
         category: Object
     },
+    components: { WysiwygEditor },
     data(){
         return {rules}
     },

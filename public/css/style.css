@@ -189,6 +189,10 @@ button:focus {
     line-height: 40px;
 }
 
+.footer img {
+    width: 10%;
+}
+
 .carousel-item > img {
     width: 100%;
     cursor: pointer;
@@ -717,7 +721,7 @@ a.active {
     }
 
     .about-us-section img {
-        width: 60%;
+        width: 50%;
     }
 
     .list-col-4 {

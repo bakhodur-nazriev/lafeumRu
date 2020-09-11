@@ -15,6 +15,7 @@ class TermsController extends Controller
     public function index()
     {
         $terms = Term::with('categories', 'termType')
+            ->orderBy('term_type_id', 'asc')
             ->published('desc')
             ->paginate(30);
         

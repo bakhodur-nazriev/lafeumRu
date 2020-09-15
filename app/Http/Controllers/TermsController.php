@@ -25,7 +25,7 @@ class TermsController extends Controller
     public function indexVocabulary()
     {
         $terms = Term::with('post')
-            ->where('name', '<>', '')
+            ->where('show_in_vocabulary', true)
             ->orderBy('name')
             ->published()
             ->get();

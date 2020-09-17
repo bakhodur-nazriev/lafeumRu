@@ -7,7 +7,7 @@
             :categories="categories"
             :table-headers="this.headers"
             add-label="Добавить цитату"
-            @click:item="quoteClick"
+            @show-item="showQuote"
             @add-item="addQuote = true"
             @update-item="quoteToUpdate = $event"
             @delete-item="quoteToDelete = $event"
@@ -23,7 +23,7 @@
                     v-for="(category, i) in item.categories"
                     :key="i"
                 >
-                    {{category.name}},
+                    {{ category.name }},
                 </div>
             </template>
         </index-page-layout>
@@ -42,12 +42,6 @@
             @updated="quoteUpdated"
         />
 
-        <quotes-show-dialog
-            :quote="quoteToShow"
-            :categories="categories"
-            @close="quoteToShow = null"
-        />
-
         <quotes-delete-dialog
             v-model="quoteToDelete"
             @deleted="quoteDeleted"
@@ -56,84 +50,81 @@
 </template>
 
 <script>
-    import IndexPageLayout from "../components/IndexPageLayout";
-    import QuotesCreateDialog from "../views/QuotesCreateDialog";
-    import QuotesEditDialog from "../views/QuotesEditDialog";
-    import QuotesDeleteDialog from "../views/QuotesDeleteDialog";
-    import QuotesShowDialog from "../views/QuotesShowDialog";
+import IndexPageLayout from "../components/IndexPageLayout";
+import QuotesCreateDialog from "../views/QuotesCreateDialog";
+import QuotesEditDialog from "../views/QuotesEditDialog";
+import QuotesDeleteDialog from "../views/QuotesDeleteDialog";
 
-    export default {
-        components: {
-            IndexPageLayout,
-            QuotesCreateDialog,
-            QuotesEditDialog,
-            QuotesDeleteDialog,
-            QuotesShowDialog
+export default {
+    components: {
+        IndexPageLayout,
+        QuotesCreateDialog,
+        QuotesEditDialog,
+        QuotesDeleteDialog
+    },
+    data() {
+        return {
+            authors: [],
+            categories: [],
+            addQuote: false,
+            quoteToDelete: null,
+            quoteToUpdate: null,
+            headers: [
+                {
+                    text: "Цитаты",
+                    value: "body",
+                    align: "left",
+                },
+                {
+                    text: "Автор",
+                    value: "author.name",
+                    align: "center",
+                },
+                {
+                    text: "Рубрики",
+                    value: "categories",
+                    align: "center"
+                },
+                {
+                    text: "Опубликовано",
+                    value: "publish_at",
+                    width: 160
+                },
+            ]
+        };
+    },
+    mounted() {
+        this.loadAuthors();
+        this.loadQuoteCategories();
+    },
+    methods: {
+        loadAuthors() {
+            axios
+                .get("/api/authors/?no_pagination")
+                .then(res => (this.authors = res.data))
+                .catch(e => console.log(e));
         },
-        data() {
-            return {
-                authors: [],
-                categories: [],
-                addQuote: false,
-                quoteToShow: null,
-                quoteToDelete: null,
-                quoteToUpdate: null,
-                headers: [
-                    {
-                        text: "Цитаты",
-                        value: "body",
-                        align: "left",
-                    },
-                    {
-                        text: "Автор",
-                        value: "author.name",
-                        align: "center",
-                    },
-                    {
-                        text: "Рубрики",
-                        value: "categories",
-                        align: "center"
-                    },
-                    {
-                        text: "Опубликовано",
-                        value: "publish_at",
-                        width: 160
-                    },
-                ]
-            };
+        loadQuoteCategories() {
+            axios
+                .get("/api/categories?type=" + QUOTE_TYPE)
+                .then(res => (this.categories = res.data))
+                .catch(e => console.log(e));
         },
-        mounted() {
-            this.loadAuthors();
-            this.loadQuoteCategories();
+        quoteCreated() {
+            this.addQuote = false;
+            this.$refs.indexPage.loadItems();
         },
-        methods: {
-            loadAuthors() {
-                axios
-                    .get("/api/authors/?no_pagination")
-                    .then(res => (this.authors = res.data))
-                    .catch(e => console.log(e));
-            },
-            loadQuoteCategories() {
-                axios
-                    .get("/api/categories?type=" + QUOTE_TYPE)
-                    .then(res => (this.categories = res.data))
-                    .catch(e => console.log(e));
-            },
-            quoteCreated(newQuote) {
-                this.addQuote = false;
-                this.$refs.indexPage.loadItems();
-            },
-            quoteUpdated(updated) {
-                this.quoteToUpdate = null;
-                this.$refs.indexPage.loadItems();
-            },
-            quoteDeleted() {
-                this.quoteToDelete = null;
-                this.$refs.indexPage.loadItems();
-            },
-            quoteClick(quote) {
-                this.quoteToShow = quote;
-            }
+        quoteUpdated() {
+            this.quoteToUpdate = null;
+            this.$refs.indexPage.loadItems();
+        },
+        quoteDeleted() {
+            this.quoteToDelete = null;
+            this.$refs.indexPage.loadItems();
+        },
+        showQuote(quote) {
+            window.open('/' + quote.post.id, '_blank');
         }
-    };
+    }
+};
 </script>

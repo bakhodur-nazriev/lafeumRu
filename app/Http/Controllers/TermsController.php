@@ -18,7 +18,7 @@ class TermsController extends Controller
             ->orderBy('term_type_id', 'asc')
             ->published('desc')
             ->paginate(30);
-        
+
         return view('/terms', compact(['terms']));
     }
 
@@ -71,7 +71,7 @@ class TermsController extends Controller
 
     public function get(Request $request)
     {
-        $termsQuery = Term::with('categories', 'knowledge', 'termType')->byPublishAt();
+        $termsQuery = Term::with('categories', 'knowledge', 'termType', 'post')->byPublishAt();
 
         return $this->processIndexRequestItems($request, $termsQuery, 'body');
     }

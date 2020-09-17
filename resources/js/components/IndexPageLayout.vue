@@ -29,7 +29,7 @@
                     </v-select>
                 </v-col>
                 <v-col cols="6" v-if="pagination">
-                    <span class="ml-2">{{pagination.total}}: Элементов</span>
+                    <span class="ml-2">{{ pagination.total }}: Элементов</span>
                 </v-col>
             </v-row>
             <v-row>
@@ -57,6 +57,16 @@
                             v-if="!noActions"
                             v-slot:item.action="{ item }"
                         >
+                            <v-btn
+                                fab
+                                dark
+                                small
+                                color="primary"
+                                elevation="2"
+                                @click.stop="$emit('show-item', { ...item })"
+                            >
+                                <v-icon dark>mdi-eye</v-icon>
+                            </v-btn>
                             <v-btn
                                 fab
                                 dark
@@ -103,204 +113,204 @@
                         <v-icon>mdi-plus</v-icon>
                     </v-btn>
                 </template>
-                <span>{{addLabel}}</span>
+                <span>{{ addLabel }}</span>
             </v-tooltip>
         </v-container>
     </v-main>
 </template>
 
 <script>
-    export default {
-        props: {
-            indexUrl: String,
-            tableHeaders: Array,
-            addLabel: String,
-            noActions: Boolean,
-            searchField: String,
-            searchFieldCategory: Array,
-            categories: Array
+export default {
+    props: {
+        indexUrl: String,
+        tableHeaders: Array,
+        addLabel: String,
+        noActions: Boolean,
+        searchField: String,
+        searchFieldCategory: Array,
+        categories: Array
+    },
+    data() {
+        return {
+            items: [],
+            search: "",
+            enabled: null,
+            pageData: null,
+            pagination: null,
+            loadingItems: false,
+            searchCategories: null
+        };
+    },
+    created() {
+        this.pageData = {
+            number: 1,
+            sortBy: null,
+            sortDesc: false,
+        };
+    },
+    methods: {
+        getSlotName(fieldName) {
+            return "item." + fieldName;
         },
-        data() {
-            return {
-                items: [],
-                search: "",
-                enabled: null,
-                pageData: null,
-                pagination: null,
-                loadingItems: false,
-                searchCategories: null
-            };
-        },
-        created() {
-            this.pageData = {
-                number: 1,
-                sortBy: null,
-                sortDesc: false,
-            };
-        },
-        methods: {
-            getSlotName(fieldName) {
-                return "item." + fieldName;
-            },
-            getIndexUrl() {
-                let url = this.indexUrl;
+        getIndexUrl() {
+            let url = this.indexUrl;
 
-                if (!url.includes("?")) {
-                    url += "?";
-                }
+            if (!url.includes("?")) {
+                url += "?";
+            }
 
-                url += ("&page=" + this.currentPage);
+            url += ("&page=" + this.currentPage);
 
-                if (this.pageData.sortBy) {
+            if (this.pageData.sortBy) {
 
-                    if (this.pageData.sortDesc) {
-                        url += "&sortByDesc=" + this.pageData.sortBy;
-                    } else {
-                        url += "&sortBy=" + this.pageData.sortBy;
-                    }
-                }
-                if (this.search) {
-                    url += "&search=" + this.search;
-                }
-
-                if (this.searchCategories) {
-                    url += "&searchBySelect=" + this.searchCategories;
-                }
-
-                return url;
-            },
-            processResponse({data}) {
-                this.loadingItems = false;
-
-                const hasPagination = data.hasOwnProperty("data");
-
-                if (hasPagination) {
-                    this.items = data.data;
-                    this.pagination = data;
+                if (this.pageData.sortDesc) {
+                    url += "&sortByDesc=" + this.pageData.sortBy;
                 } else {
-                    this.items = data;
-                    this.pagination = null;
+                    url += "&sortBy=" + this.pageData.sortBy;
                 }
-            },
-            loadItems() {
-                this.loadingItems = true;
-                this.items = [];
+            }
+            if (this.search) {
+                url += "&search=" + this.search;
+            }
 
-                axios
-                    .get(this.getIndexUrl())
-                    .then(this.processResponse)
-                    .catch(err => {
-                        this.loadingItems = false;
-                        console.log(err);
-                    });
+            if (this.searchCategories) {
+                url += "&searchBySelect=" + this.searchCategories;
+            }
 
+            return url;
+        },
+        processResponse({data}) {
+            this.loadingItems = false;
+
+            const hasPagination = data.hasOwnProperty("data");
+
+            if (hasPagination) {
+                this.items = data.data;
+                this.pagination = data;
+            } else {
+                this.items = data;
                 this.pagination = null;
-            },
-            onUpdateOptions(options) {
-                let sortApplied =
-                    this.pageData.sortBy &&
-                    options.sortBy[0] === this.pageData.sortBy &&
-                    options.sortDesc[0] === this.pageData.sortDesc;
-
-                if (sortApplied) return;
-
-                if (options.sortBy.length) {
-                    this.pageData = {
-                        ...this.pageData,
-                        sortBy: options.sortBy[0],
-                        sortDesc: options.sortDesc[0]
-                    };
-                } else if (!options.sortBy.length && this.pageData.sortBy) {
-                    this.pageData = {
-                        ...this.pageData,
-                        sortBy: null,
-                        sortDesc: false
-                    };
-                }
             }
         },
-        watch: {
-            searchCategories() {
-                this.loadItems();
-            },
-            search() {
-                this.loadItems();
-            },
-            pageData(v) {
-                this.loadItems();
-            }
-        },
-        computed: {
-            processedHeaders() {
-                if (this.noActions) {
-                    return this.tableHeaders;
-                }
+        loadItems() {
+            this.loadingItems = true;
+            this.items = [];
 
-                return [
-                    ...this.tableHeaders,
-                    {
-                        text: "Действия",
-                        value: "action",
-                        align: "center",
-                        sortable: false,
-                        width: "160px"
-                    }
-                ];
-            },
-            filteredItems() {
-                if (!Array.isArray(this.items)) return [];
-
-                if (!this.searchField || !this.search) return this.items;
-
-                return this.items.filter(item => {
-                    if(!item[this.searchField]) return false;
-
-                    return item[this.searchField].toLowerCase().includes(this.search.toLowerCase());
+            axios
+                .get(this.getIndexUrl())
+                .then(this.processResponse)
+                .catch(err => {
+                    this.loadingItems = false;
+                    console.log(err);
                 });
-            },
-            currentPage: {
-                get() {
-                    return this.pageData.number;
-                },
-                set(v) {
-                    this.pageData = {...this.pageData, number: v};
-                }
-            },
-            totalPages() {
-                return this.pagination ? this.pagination.last_page : null;
-            },
-            totalCount() {
-                return this.pagination ? this.pagination.total : null;
-            },
-            perPage() {
-                if (this.pagination) {
-                    return this.pagination.per_page;
-                }
-                return this.items.length;
+
+            this.pagination = null;
+        },
+        onUpdateOptions(options) {
+            let sortApplied =
+                this.pageData.sortBy &&
+                options.sortBy[0] === this.pageData.sortBy &&
+                options.sortDesc[0] === this.pageData.sortDesc;
+
+            if (sortApplied) return;
+
+            if (options.sortBy.length) {
+                this.pageData = {
+                    ...this.pageData,
+                    sortBy: options.sortBy[0],
+                    sortDesc: options.sortDesc[0]
+                };
+            } else if (!options.sortBy.length && this.pageData.sortBy) {
+                this.pageData = {
+                    ...this.pageData,
+                    sortBy: null,
+                    sortDesc: false
+                };
             }
         }
-    };
+    },
+    watch: {
+        searchCategories() {
+            this.loadItems();
+        },
+        search() {
+            this.loadItems();
+        },
+        pageData(v) {
+            this.loadItems();
+        }
+    },
+    computed: {
+        processedHeaders() {
+            if (this.noActions) {
+                return this.tableHeaders;
+            }
+
+            return [
+                ...this.tableHeaders,
+                {
+                    text: "Действия",
+                    value: "action",
+                    align: "center",
+                    sortable: false,
+                    width: "160px"
+                }
+            ];
+        },
+        filteredItems() {
+            if (!Array.isArray(this.items)) return [];
+
+            if (!this.searchField || !this.search) return this.items;
+
+            return this.items.filter(item => {
+                if (!item[this.searchField]) return false;
+
+                return item[this.searchField].toLowerCase().includes(this.search.toLowerCase());
+            });
+        },
+        currentPage: {
+            get() {
+                return this.pageData.number;
+            },
+            set(v) {
+                this.pageData = {...this.pageData, number: v};
+            }
+        },
+        totalPages() {
+            return this.pagination ? this.pagination.last_page : null;
+        },
+        totalCount() {
+            return this.pagination ? this.pagination.total : null;
+        },
+        perPage() {
+            if (this.pagination) {
+                return this.pagination.per_page;
+            }
+            return this.items.length;
+        }
+    }
+};
 </script>
 
 <style>
-    .category-fieldset,
-    .knowledge-fieldset {
-        border: 1px solid #9e9e9e;
-        border-radius: 5px;
-        padding-left: 8px;
-    }
+.category-fieldset,
+.knowledge-fieldset {
+    border: 1px solid #9e9e9e;
+    border-radius: 5px;
+    padding-left: 8px;
+}
 
-    .category-fieldset-legend {
-        color: #9e9e9e;
-        font-size: 14px;
-        max-width: 12%;
-        padding: 0 3px 0 5px;
-    }
+.category-fieldset-legend {
+    color: #9e9e9e;
+    font-size: 14px;
+    max-width: 12%;
+    padding: 0 3px 0 5px;
+}
 
-    .knowledge-fieldset-legend {
-        color: #9e9e9e;
-        font-size: 14px;
-        max-width: 17%;
-        padding: 0 2px 0 4px;
-    }
+.knowledge-fieldset-legend {
+    color: #9e9e9e;
+    font-size: 14px;
+    max-width: 17%;
+    padding: 0 2px 0 4px;
+}
 </style>

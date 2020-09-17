@@ -6,7 +6,7 @@
             add-label="Добавить фото"
             searchField="description"
             ref="indexPage"
-            @click:item="photoClick"
+            @show-item="showPhoto"
             @add-item="addPhoto = true"
             @update-item="photoToUpdate = $event"
             @delete-item="photoToDelete = $event"
@@ -99,7 +99,7 @@
                 this.photoToDelete = null;
                 this.$refs.indexPage.loadItems();
             },
-            photoClick(photo) {
+            showPhoto(photo) {
                 this.photoToShow = photo;
             },
         }

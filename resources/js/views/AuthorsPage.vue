@@ -1,12 +1,12 @@
 <template>
     <v-main class="pa-0">
         <index-page-layout
-            index-url="/api/authors"
-            :table-headers="this.headers"
-            add-label="Добавить автора"
-            search-field="name"
             ref="indexPage"
-            @click:item="authorClick"
+            search-field="name"
+            index-url="/api/authors"
+            add-label="Добавить автора"
+            :table-headers="this.headers"
+            @show-item="showAuthor"
             @add-item="addAuthor = true"
             @update-item="authorToUpdate = $event"
             @delete-item="authorToDelete = $event"
@@ -41,11 +41,6 @@
             @updated="authorUpdated"
         />
 
-        <authors-show-dialog
-            :author="authorToShow"
-            @close="authorToShow = null"
-        />
-
         <authors-delete-dialog
             v-model="authorToDelete"
             @deleted="authorDeleted"
@@ -54,72 +49,69 @@
 </template>
 
 <script>
-    import IndexPageLayout from "../components/IndexPageLayout";
-    import AuthorsCreateDialog from "./AuthorsCreateDialog";
-    import AuthorsEditDialog from "./AuthorsEditDialog";
-    import AuthorsDeleteDialog from "./AuthorsDeleteDialog";
-    import AuthorsShowDialog from "./AuthorsShowDialog"
+import IndexPageLayout from "../components/IndexPageLayout";
+import AuthorsCreateDialog from "./AuthorsCreateDialog";
+import AuthorsEditDialog from "./AuthorsEditDialog";
+import AuthorsDeleteDialog from "./AuthorsDeleteDialog";
 
-    export default {
-        components: {
-            IndexPageLayout,
-            AuthorsShowDialog,
-            AuthorsCreateDialog,
-            AuthorsEditDialog,
-            AuthorsDeleteDialog
+export default {
+    components: {
+        IndexPageLayout,
+        AuthorsCreateDialog,
+        AuthorsEditDialog,
+        AuthorsDeleteDialog
+    },
+    data() {
+        return {
+            authorGroups: [],
+            authorToDelete: null,
+            authorToUpdate: null,
+            addAuthor: false,
+            headers: [
+                {
+                    text: "Имя",
+                    value: "name",
+                    sortable: false
+                },
+                {
+                    text: "Биография",
+                    value: "biography",
+                    sortable: false
+                },
+                {
+                    text: "Фото",
+                    value: "photo",
+                    align: "center",
+                    sortable: false
+                },
+            ]
+        };
+    },
+    mounted() {
+        this.loadAuthorGroups();
+    },
+    methods: {
+        loadAuthorGroups() {
+            axios
+                .get("/api/author-groups")
+                .then(res => (this.authorGroups = res.data))
+                .catch(err => console.log(err));
         },
-        data() {
-            return {
-                authorGroups: [],
-                authorToShow: null,
-                authorToDelete: null,
-                authorToUpdate: null,
-                addAuthor: false,
-                headers: [
-                    {
-                        text: "Имя",
-                        value: "name",
-                        sortable: false
-                    },
-                    {
-                        text: "Биография",
-                        value: "biography",
-                        sortable: false
-                    },
-                    {
-                        text: "Фото",
-                        value: "photo",
-                        align: "center",
-                        sortable: false
-                    },
-                ]
-            };
+        authorCreated(newAuthor) {
+            this.addAuthor = false;
+            this.$refs.indexPage.loadItems();
         },
-        mounted() {
-            this.loadAuthorGroups();
+        authorUpdated(updated) {
+            this.authorToUpdate = null;
+            this.$refs.indexPage.loadItems();
         },
-        methods: {
-            loadAuthorGroups() {
-                axios
-                    .get("/api/author-groups")
-                    .then(res => (this.authorGroups = res.data))
-                    .catch(err => console.log(err));
-            },
-            authorCreated(newAuthor) {
-                this.addAuthor = false;
-                this.$refs.indexPage.loadItems();
-            },
-            authorUpdated(updated) {
-                this.authorToUpdate = null;
-                this.$refs.indexPage.loadItems();
-            },
-            authorDeleted() {
-                this.authorToDelete = null;
-                this.$refs.indexPage.loadItems();
-            },
-            authorClick(author) {
-                this.authorToShow = author;
-            }
+        authorDeleted() {
+            this.authorToDelete = null;
+            this.$refs.indexPage.loadItems();
+        },
+        showAuthor(author) {
+            window.open('/authors/' + author.slug, '_blank');
         }
     }
+}
 </script>

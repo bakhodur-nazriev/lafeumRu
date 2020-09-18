@@ -54,12 +54,16 @@ export default {
 </script>
 
 <style>
+.ql-snow .ql-tooltip.ql-editing a.ql-action::after {
+    content: 'Сохранить';
+}
+
 .ql-snow .ql-tooltip {
     position: sticky;
     width: 100%;
 }
 
-.ql-snow .ql-tooltip input[type=text]{
+.ql-snow .ql-tooltip input[type=text] {
     width: 79%;
 }
 </style>

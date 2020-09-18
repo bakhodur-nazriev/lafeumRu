@@ -18,6 +18,14 @@
                     class="my-3 three-line-truncate"
                 />
             </template>
+            <template v-slot:item.knowledge="{ item }">
+                <div
+                    v-for="(know, i) in item.knowledge"
+                    :key="i"
+                >
+                    {{ know.name }},
+                </div>
+            </template>
             <template v-slot:item.categories="{ item }">
                 <div
                     v-for="(category, i) in item.categories"
@@ -87,6 +95,11 @@ export default {
                     align: "center"
                 },
                 {
+                    text: "Область знаний",
+                    value: "knowledge",
+                    align: "center"
+                },
+                {
                     text: "Рубрики",
                     value: "categories",
                     align: "center"
@@ -136,7 +149,7 @@ export default {
             this.$refs.indexPage.loadItems();
         },
         showTerm(term) {
-            window.open('/' + term.post.id,'_black');
+            window.open('/' + term.post.id, '_black');
         }
     }
 };

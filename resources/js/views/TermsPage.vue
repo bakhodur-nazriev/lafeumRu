@@ -55,7 +55,6 @@ import IndexPageLayout from "../components/IndexPageLayout";
 import TermsCreateDialog from "./TermsCreateDialog";
 import TermsEditDialog from "./TermsEditDialog";
 import TermsDeleteDialog from "./TermsDeleteDialog";
-import TermsShowDialog from "./TermsShowDialog";
 
 export default {
     components: {

@@ -367,6 +367,7 @@ button:focus {
 }
 
 .page-link {
+    padding: 0.5rem 0.75rem;
     color: #04718c;
 }
 
@@ -695,6 +696,10 @@ a.active {
 }
 
 @media (max-width: 576px) {
+    .page-link {
+        padding: 0.5rem 0.65rem;
+    }
+
     .default-container {
         margin-top: 58px;
     }
@@ -793,12 +798,44 @@ a.active {
         flex: 0 0 84% !important;
         max-width: 100% !important;
     }
+
+    .xs-first-order {
+        order: 1;
+    }
+
+    .xs-second-order {
+        order: 2;
+    }
+
+    .xs-third-order {
+        order: 3;
+    }
 }
 
 @media (min-width: 576px) {
+    .page-link {
+        padding: 0.5rem 0.65rem;
+    }
+
+    .sm-first-order {
+        order: 1;
+    }
+
+    .sm-second-order {
+        order: 2;
+    }
+
+    .sm-third-order {
+        order: 3;
+    }
+
 }
 
 @media (min-width: 768px) {
+    .page-link {
+        padding: 0.5rem 0.75rem;
+    }
+
     .main-navbar {
         padding: 1.5rem;
     }
@@ -819,7 +856,7 @@ a.active {
         padding: 1rem 1rem;
     }
 
-    br.mobile{
+    br.mobile {
         display: none;
     }
 }

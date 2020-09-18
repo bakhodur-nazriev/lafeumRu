@@ -5,8 +5,8 @@
 
     <div class="container-fluid flex-grow-1 default-container">
         <div class="row justify-content-center">
-            <div class="left-sidebar-col">@yield('left-side-bar')</div>
-            <div class="col">
+            <div class="left-sidebar-col xs-second-order sm-first-order">@yield('left-side-bar')</div>
+            <div class="col xs-first-order sm-second-order">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12">
@@ -15,8 +15,7 @@
                     </div>
                 </div>
             </div>
-            <div
-                class="right-sidebar-col">@yield('right-side-bar', View::make('layouts.right-sidebar.rightSidebar'))</div>
+            <div class="right-sidebar-col xs-third-order sm-third-order">@yield('right-side-bar', View::make('layouts.right-sidebar.rightSidebar'))</div>
             <button id="scrollToTopBtn" class="btn btn-primary">
                 <i class="fa fa-arrow-up"></i>
             </button>

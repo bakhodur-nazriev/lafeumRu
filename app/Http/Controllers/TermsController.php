@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\RedirectService;
 use App\Term;
 use Illuminate\Http\Request;
 
 class TermsController extends Controller
 {
-    public function __construct()
+    protected $redirectService;
+
+    public function __construct(RedirectService $redirectService)
     {
         $this->authorizeResource(Term::class);
+        $this->redirectService = $redirectService;
     }
 
     public function index()
@@ -114,6 +118,8 @@ class TermsController extends Controller
 
     public function destroy(Term $term)
     {
+        $this->redirectService->registerModelRemoval($term);
+
         $term->post()->delete();
         $term->categories()->detach();
         $term->delete();

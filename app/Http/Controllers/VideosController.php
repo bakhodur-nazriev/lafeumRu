@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
-use ChristianKuri\LaravelFavorite\Models\Favorite;
+use App\Services\RedirectService;
 use Illuminate\Http\Request;
 use App\Video;
 
 class VideosController extends Controller
 {
-    public function __construct()
+    protected $redirectService;
+
+    public function __construct(RedirectService $redirectService)
     {
         $this->authorizeResource(Video::class);
+        $this->redirectService = $redirectService;
     }
 
     public function index()
@@ -64,6 +66,8 @@ class VideosController extends Controller
 
     public function destroy(Video $video)
     {
+        $this->redirectService->registerModelRemoval($video);
+
         $video->post()->delete();
         $video->categories()->detach();
         $video->delete();

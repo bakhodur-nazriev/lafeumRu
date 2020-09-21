@@ -4,13 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Quote;
+use App\Services\RedirectService;
 use Illuminate\Http\Request;
 
 class QuotesController extends Controller
 {
-    public function __construct()
+    protected $redirectService;
+
+    public function __construct(RedirectService $redirectService)
     {
         $this->authorizeResource(Quote::class);
+        $this->redirectService = $redirectService;
     }
 
     public function index()
@@ -70,6 +74,8 @@ class QuotesController extends Controller
 
     public function destroy(Quote $quote)
     {
+        $this->redirectService->registerModelRemoval($quote);
+        
         $quote->post()->delete();
         $quote->categories()->detach();
 

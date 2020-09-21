@@ -4,17 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Author;
 use App\AuthorGroup;
-use App\Category;
 use App\Quote;
+use App\Services\RedirectService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class AuthorsController extends Controller
 {
     const AUTHORS_PHOTOS_PATH = "/img/authors/";
+    
+    protected $redirectService;
 
-    public function __construct() {
+    public function __construct(RedirectService $redirectService) {
         $this->authorizeResource(Author::class);
+        $this->redirectService = $redirectService;
     }
 
     public function index()
@@ -128,6 +130,7 @@ class AuthorsController extends Controller
 
     public function destroy(Author $author)
     {
+        $this->redirectService->registerModelRemoval($author);
         $author->delete();
     }
 

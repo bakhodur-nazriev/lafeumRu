@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
 use App\Knowledge;
+use App\Services\RedirectService;
 use Illuminate\Http\Request;
 
 class KnowledgesController extends Controller
 {
-    public function __construct() {
+    protected $redirectService;
+
+    public function __construct(RedirectService $redirectService)
+    {
         $this->authorizeResource(Knowledge::class, 'knowledge');
+        $this->redirectService = $redirectService;
     }
 
     public function index()
@@ -98,6 +102,8 @@ class KnowledgesController extends Controller
 
     public function destroy(Knowledge $knowledge)
     {
+        $this->redirectService->registerModelRemoval($knowledge);
+        
         $knowledge->unlinkAllEntities();
         $knowledge->delete();
     }

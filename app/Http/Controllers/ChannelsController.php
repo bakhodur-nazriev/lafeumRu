@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Channel;
+use App\Services\RedirectService;
 use Illuminate\Http\Request;
 
 class ChannelsController extends Controller
 {
-    public function __construct()
-    {
+    protected $redirectService;
+
+    public function __construct(RedirectService $redirectService) {
         $this->authorizeResource(Channel::class);
+        $this->redirectService = $redirectService;
     }
 
     public function index()
@@ -54,6 +57,8 @@ class ChannelsController extends Controller
 
     public function destroy(Channel $channel)
     {
+        $this->redirectService->registerModelRemoval($channel);
+        
         $channel->delete();
     }
 }

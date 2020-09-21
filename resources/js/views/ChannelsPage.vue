@@ -6,7 +6,7 @@
             search-field="name"
             add-label="Добавить канал"
             :table-headers="this.headers"
-            @click:item="channelClick"
+            @show-item="channelShow"
             @add-item="addChannel = true"
             @update-item="channelToUpdate = $event"
             @delete-item="channelToDelete = $event"
@@ -29,11 +29,6 @@
             @updated="channelUpdated"
         />
 
-        <channels-show-dialog
-            :channel="channelToShow"
-            @close="channelToShow = null"
-        />
-
         <channels-delete-dialog
             v-model="channelToDelete"
             @deleted="channelDeleted"
@@ -51,7 +46,6 @@
     export default {
         components: {
             IndexPageLayout,
-            ChannelsShowDialog,
             ChannelsCreateDialog,
             ChannelsEditDialog,
             ChannelsDeleteDialog
@@ -61,7 +55,6 @@
                 addChannel: false,
                 channelToDelete: null,
                 channelToUpdate: null,
-                channelToShow: null,
                 headers: [
                     {
                         text: "Название",
@@ -89,8 +82,8 @@
                 this.channelToDelete = null;
                 this.$refs.indexPage.loadItems();
             },
-            channelClick(channel) {
-                this.channelToShow = channel;
+            channelShow(channel) {
+                window.open('/channels/' + channel.slug, '_blank');
             }
         },
     }

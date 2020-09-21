@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-if="quoteToUpdate" v-model="quoteToUpdate" width="700">
+    <v-dialog v-if="quoteToUpdate" v-model="quoteToUpdate" width="750">
         <v-card>
             <v-card-title class="primary white--text pa-4">
                 Изменить Цитату
@@ -46,7 +46,7 @@
                     </v-col>
                 </v-row>
             </v-container>
-            <v-card-actions>
+            <v-card-actions class="p-3">
                 <v-spacer/>
                 <v-btn dark color="green" @click="updateQuote()">Сохранить</v-btn>
                 <v-btn dark color="error" @click="quoteToUpdate = false">Отмена</v-btn>

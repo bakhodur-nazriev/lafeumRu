@@ -73,7 +73,7 @@
                         </v-col>
                     </v-row>
                 </v-container>
-                <v-card-actions>
+                <v-card-actions class="p-3">
                     <v-spacer/>
                     <v-btn dark color="green" type="submit">Сохранить</v-btn>
                     <v-btn dark color="error" type="button" @click="$emit('input', false)">

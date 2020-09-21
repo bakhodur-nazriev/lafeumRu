@@ -17,8 +17,8 @@ class VideosController extends Controller
     public function index()
     {
         $videos = Video::with([
-            'channel', 
-            'favorites', 
+            'channel',
+            'favorites',
             'categories'
         ])->published('desc')->paginate(30);
 
@@ -27,7 +27,7 @@ class VideosController extends Controller
 
     public function get(Request $request)
     {
-        $videosQuery = Video::with("channel", "categories")->byPublishAt();
+        $videosQuery = Video::with('channel', 'categories', 'post')->byPublishAt();
 
         return $this->processIndexRequestItems($request, $videosQuery, 'title');
     }

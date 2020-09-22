@@ -14,38 +14,6 @@ class RedirectService
 {
     private $htacessService;
 
-    /**
-     * Models and it's related routes
-     * 
-     * Note: In wildcards ({}) we put model's attribute name.
-     */
-    private $modelRoutes = [
-        Category::class => [
-            '/quotes/{slug}',
-            '/terms/{slug}',
-            '/videos/{slug}',
-            '/vocabulary/{slug}'
-        ],
-        Knowledge::class => [
-            '/knowledge-areas/{slug}',
-        ],
-        Author::class => [
-            '/authors/{slug}'
-        ],
-        Channel::class => [
-            '/channels/{slug}',
-        ],
-        Quote::class => [
-            '/{post->id}'
-        ],
-        Term::class => [
-            '/{post->id}'
-        ],
-        Video::class => [
-            '/{post->id}'
-        ]
-    ];
-
     public function __construct(HtaccessService $htacessService) {
         $this->htacessService = $htacessService;
     }
@@ -107,51 +75,58 @@ class RedirectService
     {
         if(!$model) return null;
 
-        $routes = $this->modelRoutes[get_class($model)];
-        $urls = [];
+        $modelClass = get_class($model);
 
-        foreach ($routes as $route) {
-            $urls[] = $this->processRouteWildcards($route, $model);
-        }
-
-        return $urls;
-    }
-
-    private function processRouteWildcards($wildcardedRoute, $model)
-    {
-        do {
-            $startWildcard = mb_strpos($wildcardedRoute, '{');
-            $endWildcard = mb_strpos($wildcardedRoute, '}');
-
-            if(!$startWildcard || !$endWildcard){
-                break;
-            }
-
-            $attributeName = mb_substr(
-                $wildcardedRoute, 
-                $startWildcard + 1, 
-                ($endWildcard - $startWildcard) - 1
-            );
+        switch(get_class($model)) {
+            case Category::class:
+                return $this->getCategoryRelatedLinks($model);
             
-            $wildcardValue = $this->getDepthedAttributeValue($model, $attributeName);
-
-            $wildcardedRoute = str_replace('{'.$attributeName.'}', $wildcardValue, $wildcardedRoute);
-
-        } while ($startWildcard !== false && $endWildcard !== false);
-
-        return $wildcardedRoute;
-    }
-
-    private function getDepthedAttributeValue($model, $attributeName)
-    {
-        $attributeNames = explode('->', $attributeName);
-
-        $value = $model->{$attributeNames[0]};
-
-        for ($i = 1; $i < count($attributeNames); $i++) {
-            $value = $value->{$attributeNames[$i]};
+            case Knowledge::class:
+                return [
+                    "/knowledge/$model->slug",
+                ];
+                
+            case Author::class:
+                return [
+                    "/authors/$model->slug"
+                ];
+                
+            case Channel::class:
+                return [
+                    "/channels/$model->slug"
+                ];
+                
+            case Quote::class:
+            case Term::class:
+            case Video::class:
+                return [
+                    "/{$model->post->id}"
+                ];
         }
 
-        return $value;
+        return $this->modelRoutes[$modelClass]($model);
+    }
+
+    private function getCategoryRelatedLinks(Category $category)
+    {
+        $slug = $category->slug;
+    
+        switch($category->type){
+            case Quote::class:
+                return [
+                    "/quotes/$slug"
+                ];
+            case Term::class:
+                return [
+                    "/terms/$slug",
+                    "/vocabulary/$slug"
+                ];
+            case Video::class:
+                return [
+                    "/videos/$slug"
+                ];
+        }
+
+        return [];
     }
 }

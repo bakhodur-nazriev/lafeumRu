@@ -20,8 +20,9 @@ class AppController extends Controller
 
     public function index()
     {
-        $categories = Category::get()->each(function ($item) {
+        $categories = Category::orderBy('_lft')->get()->each(function ($item) {
             $supported_types = Category::where('name', $item->name)
+                ->orderBy('_lft')
                 ->get('type')
                 ->pluck('type');
             $item->post_links = $this->getCategoryPostLinks($item, $supported_types);

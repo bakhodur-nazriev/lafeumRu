@@ -28,6 +28,7 @@ class CategoriesSidebar
         }
 
         $categories = Category::where('type', $data['type'])
+            ->orderBy('_lft')
             ->get();
 
         $this->processCategories($categories, $data);

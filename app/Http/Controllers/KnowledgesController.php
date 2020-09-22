@@ -18,7 +18,7 @@ class KnowledgesController extends Controller
 
     public function index()
     {
-        $knowledgeAreas = Knowledge::get()->toTree();
+        $knowledgeAreas = Knowledge::orderBy('_lft')->get()->toTree();
         return view('knowledgeArea', compact('knowledgeAreas'));
     }
 
@@ -35,7 +35,8 @@ class KnowledgesController extends Controller
     public function get(Request $request)
     {
         if($request->has('tree')){
-            return Knowledge::latest()
+            return Knowledge::orderBy('_lft')
+                ->latest()
                 ->get()
                 ->each(function ($item) {
                     $item->append('linked_knowledge');
@@ -43,7 +44,8 @@ class KnowledgesController extends Controller
                 ->toTree();
         }
 
-        $knowledgeAreas = Knowledge::where('parent_id', '<>', null)
+        $knowledgeAreas = Knowledge::orderBy('_lft')
+            ->where('parent_id', '<>', null)
             ->latest()
             ->get()
             ->each(function ($item) {
@@ -81,7 +83,7 @@ class KnowledgesController extends Controller
 
         Knowledge::rebuildTree($request->knowledgeAreas);
 
-        return Knowledge::latest()->get()->toTree();
+        return Knowledge::orderBy('_lft')->latest()->get()->toTree();
     }
 
     public function update(Knowledge $knowledge, Request $request)

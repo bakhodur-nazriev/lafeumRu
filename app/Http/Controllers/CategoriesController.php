@@ -22,7 +22,7 @@ class CategoriesController extends Controller
 
     public function get(Request $request)
     {
-        $categoriesQuery = Category::query();
+        $categoriesQuery = Category::orderBy('_lft');
 
         if ($request->has('type')) {
             $categoriesQuery->where('type', $request->type);

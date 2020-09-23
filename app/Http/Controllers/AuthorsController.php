@@ -58,7 +58,7 @@ class AuthorsController extends Controller
 
     public function showMovies()
     {
-        $authors = Author::movies()->get();
+        $authors = Author::movies()->orderBy('name', 'asc')->get();
         $authorListTitle = AuthorGroup::MOVIES_GROUP_NAME;
 
         $currentAuthor = new Author([
@@ -78,7 +78,7 @@ class AuthorsController extends Controller
 
     public function showProverbs()
     {
-        $authors = Author::proverbs()->get();
+        $authors = Author::proverbs()->orderBy('name', 'asc')->get();
         $authorListTitle = AuthorGroup::PROVERBS_GROUP_NAME;
 
         $currentAuthor = new Author([

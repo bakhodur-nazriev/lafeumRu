@@ -49,7 +49,7 @@ class AuthorsController extends Controller
         $currentAuthor = $author;
         $currentAuthor->quotes = $currentAuthor
             ->quotes()
-            ->orderby('id', 'desc')
+            ->published('desc')
             ->with('categories')
             ->paginate(30);
 

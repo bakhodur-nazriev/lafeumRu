@@ -22,7 +22,10 @@ class VideosController extends Controller
             'channel',
             'favorites',
             'categories'
-        ])->published('desc')->paginate(30);
+        ])
+        ->published('desc')
+        ->has('channel')
+        ->paginate(30);
 
         return view('/videos', compact(['videos',]));
     }

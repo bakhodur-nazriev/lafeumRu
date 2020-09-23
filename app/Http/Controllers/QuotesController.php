@@ -23,7 +23,10 @@ class QuotesController extends Controller
             'author:id,name,slug',
             'categories:id,name,slug',
             'post'
-        ])->published('desc')->paginate(30);
+        ])
+        ->published('desc')
+        ->has('author')
+        ->paginate(30);
 
         $categories = Category::quote()->get()->toTree()->unique('name');
 

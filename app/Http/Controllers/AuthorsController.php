@@ -32,12 +32,12 @@ class AuthorsController extends Controller
 
             case AuthorGroup::MOVIES_GROUP_NAME:
                 $authorListTitle = AuthorGroup::MOVIES_GROUP_NAME;
-                $authors = Author::movies()->get();
+                $authors = Author::movies()->orderBy('name', 'asc')->get();
                 break;
 
             case AuthorGroup::PROVERBS_GROUP_NAME:
                 $authorListTitle = AuthorGroup::PROVERBS_GROUP_NAME;
-                $authors = Author::proverbs()->get();
+                $authors = Author::proverbs()->orderBy('name', 'asc')->get();
                 break;
 
             default:

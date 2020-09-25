@@ -27,7 +27,10 @@ class KnowledgesController extends Controller
         $knowledgeAreas = Knowledge::get()->toTree();
 
         $currentKnowledgeArea = $knowledge;
-        $currentKnowledgeArea->terms = $knowledge->terms()->published()->paginate(30);
+        $currentKnowledgeArea->terms = $knowledge->terms()
+            ->orderBy('term_type_id', 'asc')
+            ->published('desc')
+            ->paginate(30);
 
         return view('shows.knowledge', compact(['currentKnowledgeArea', 'knowledgeAreas',]));
     }

@@ -3,7 +3,10 @@
         <v-card v-if="showDialog">
             <v-card-title class="pr-2 primary white--text mb-3">
                 {{ knowledgeArea.name }}
-                <v-spacer />
+                <v-spacer/>
+                <v-btn icon @click="showKnowledgeArea">
+                    <v-icon color="white" small>mdi-eye</v-icon>
+                </v-btn>
                 <v-btn icon @click="editCategory">
                     <v-icon color="white" small>mdi-pencil</v-icon>
                 </v-btn>
@@ -13,8 +16,8 @@
             </v-card-title>
 
             <v-card-text class="pb-0">
-                <div 
-                    class="subtitle-1" 
+                <div
+                    class="subtitle-1"
                     v-html="knowledgeArea.description || 'Нет описания'"
                 />
                 <div class="pb-2">

@@ -1,14 +1,17 @@
 <template>
     <v-dialog v-model="showDialog" width="600">
         <v-card v-if="showDialog">
-            <v-card-title class="headline pr-2">
+            <v-card-title class="pr-2 primary white--text mb-3">
                 {{ category.name }}
-                <v-spacer />
+                <v-spacer/>
+                <v-btn icon @click="showCat">
+                    <v-icon color="white" small>mdi-eye</v-icon>
+                </v-btn>
                 <v-btn icon @click="editCategory">
-                    <v-icon small>mdi-pencil</v-icon>
+                    <v-icon color="white" small>mdi-pencil</v-icon>
                 </v-btn>
                 <v-btn icon @click="deleteCategory">
-                    <v-icon small>mdi-delete</v-icon>
+                    <v-icon color="white" small>mdi-delete</v-icon>
                 </v-btn>
             </v-card-title>
 

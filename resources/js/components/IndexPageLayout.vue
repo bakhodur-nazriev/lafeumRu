@@ -309,6 +309,7 @@ export default {
             },
             set(v) {
                 this.pageData = {...this.pageData, number: v};
+                this.pageToGo = v;
             }
         },
         totalPages() {

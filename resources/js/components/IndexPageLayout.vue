@@ -33,7 +33,7 @@
                 </v-col>
             </v-row>
             <v-row>
-                <v-col cols="12">
+                <v-col>
                     <v-data-table
                         hide-default-footer
                         class="elevation-2"
@@ -89,13 +89,44 @@
                             </v-btn>
                         </template>
                     </v-data-table>
-                    <v-col class="text-center mt-2">
-                        <v-pagination
-                            :total-visible="7"
-                            v-model="currentPage"
-                            :length="totalPages"
-                        ></v-pagination>
-                    </v-col>
+                </v-col>
+            </v-row>
+            <v-row justify="start">
+                <v-col md="5" xl="3" class="d-flex align-center">
+                    <v-btn
+                        class="mx-1"
+                        fab
+                        dark
+                        small
+                        color="primary"
+                        @click="currentPage > 1 && --currentPage"
+                    >
+                        <v-icon dark>mdi-chevron-left</v-icon>
+                    </v-btn>
+                    <v-btn
+                        class="mx-1"
+                        fab
+                        dark
+                        small
+                        color="primary"
+                        @click="currentPage < totalPages && ++currentPage"
+                    >
+                        <v-icon dark>mdi-chevron-right</v-icon>
+                    </v-btn>
+                    <v-text-field
+                        solo
+                        dense
+                        class="mx-3"
+                        hide-details
+                        label="Страница"
+                        v-model="pageToGo"
+                    />
+                    <v-btn
+                        color="primary"
+                        @click="goToPage"
+                    >
+                        Переход
+                    </v-btn>
                 </v-col>
             </v-row>
             <v-tooltip top v-if="!noActions">
@@ -123,17 +154,18 @@
 export default {
     props: {
         indexUrl: String,
-        tableHeaders: Array,
         addLabel: String,
+        categories: Array,
         noActions: Boolean,
+        tableHeaders: Array,
         searchField: String,
-        searchFieldCategory: Array,
-        categories: Array
+        searchFieldCategory: Array
     },
     data() {
         return {
             items: [],
             search: "",
+            pageToGo: 1,
             enabled: null,
             pageData: null,
             pagination: null,
@@ -149,6 +181,9 @@ export default {
         };
     },
     methods: {
+        goToPage() {
+            this.currentPage = this.pageToGo;
+        },
         getSlotName(fieldName) {
             return "item." + fieldName;
         },

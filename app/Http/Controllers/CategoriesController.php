@@ -131,14 +131,15 @@ class CategoriesController extends Controller
             abort(404);
         }
 
-        $categoriablesQuery = $this->getCategoriablesQuery($categoriable, $category)
-            ->published('desc');
+        $categoriablesQuery = $this->getCategoriablesQuery($categoriable, $category);
 
         if($queries){
             $categoriablesQuery = $queries($categoriablesQuery);
         }
 
-        $category->categoriables = $categoriablesQuery->paginate(30);
+        $category->categoriables = $categoriablesQuery
+            ->published('desc')
+            ->paginate(30);
 
         return $category;
     }

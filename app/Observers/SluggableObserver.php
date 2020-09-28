@@ -2,6 +2,8 @@
 
 namespace App\Observers;
 
+use App\Events\SlugUpdated;
+
 class SluggableObserver
 {
 
@@ -15,7 +17,13 @@ class SluggableObserver
         $nameUpdated = $name && $model->isDirty('name');
 
         if($noSlug || $nameUpdated) {
-            $model->slug = generateSlug($model->name);
+            $newSlug = generateSlug($model->name);
+
+            if($nameUpdated){
+                event(new SlugUpdated($model, $model->slug, $newSlug));
+            }
+
+            $model->slug = $newSlug;
         }
     }
 }

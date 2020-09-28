@@ -4,17 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Author;
 use App\AuthorGroup;
-use App\Category;
 use App\Quote;
+use App\Services\RedirectService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class AuthorsController extends Controller
 {
     const AUTHORS_PHOTOS_PATH = "/img/authors/";
+    
+    protected $redirectService;
 
-    public function __construct() {
+    public function __construct(RedirectService $redirectService) {
         $this->authorizeResource(Author::class);
+        $this->redirectService = $redirectService;
     }
 
     public function index()
@@ -30,12 +32,12 @@ class AuthorsController extends Controller
 
             case AuthorGroup::MOVIES_GROUP_NAME:
                 $authorListTitle = AuthorGroup::MOVIES_GROUP_NAME;
-                $authors = Author::movies()->get();
+                $authors = Author::movies()->orderBy('name', 'asc')->get();
                 break;
 
             case AuthorGroup::PROVERBS_GROUP_NAME:
                 $authorListTitle = AuthorGroup::PROVERBS_GROUP_NAME;
-                $authors = Author::proverbs()->get();
+                $authors = Author::proverbs()->orderBy('name', 'asc')->get();
                 break;
 
             default:
@@ -47,7 +49,7 @@ class AuthorsController extends Controller
         $currentAuthor = $author;
         $currentAuthor->quotes = $currentAuthor
             ->quotes()
-            ->orderby('id', 'desc')
+            ->published('desc')
             ->with('categories')
             ->paginate(30);
 
@@ -56,7 +58,7 @@ class AuthorsController extends Controller
 
     public function showMovies()
     {
-        $authors = Author::movies()->get();
+        $authors = Author::movies()->orderBy('name', 'asc')->get();
         $authorListTitle = AuthorGroup::MOVIES_GROUP_NAME;
 
         $currentAuthor = new Author([
@@ -76,7 +78,7 @@ class AuthorsController extends Controller
 
     public function showProverbs()
     {
-        $authors = Author::proverbs()->get();
+        $authors = Author::proverbs()->orderBy('name', 'asc')->get();
         $authorListTitle = AuthorGroup::PROVERBS_GROUP_NAME;
 
         $currentAuthor = new Author([
@@ -128,6 +130,7 @@ class AuthorsController extends Controller
 
     public function destroy(Author $author)
     {
+        $this->redirectService->registerModelRemoval($author);
         $author->delete();
     }
 

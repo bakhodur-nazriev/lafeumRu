@@ -4,24 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Quote;
+use App\Services\RedirectService;
 use App\Term;
 use App\Video;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 class CategoriesController extends Controller
 {
-
-    public function __construct()
+    protected $redirectService;
+    
+    public function __construct(RedirectService $redirectService)
     {
         $this->authorizeResource(Category::class);
+        $this->redirectService = $redirectService;
     }
 
     public function get(Request $request)
     {
-        $categoriesQuery = Category::query();
+        $categoriesQuery = Category::orderBy('_lft');
 
         if ($request->has('type')) {
             $categoriesQuery->where('type', $request->type);
@@ -108,6 +109,7 @@ class CategoriesController extends Controller
 
     public function destroy(Category $category)
     {
+        $this->redirectService->registerModelRemoval($category);
         $category->delete();
     }
 

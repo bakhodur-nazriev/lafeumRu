@@ -2,19 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
 use App\Knowledge;
+use App\Services\RedirectService;
 use Illuminate\Http\Request;
 
 class KnowledgesController extends Controller
 {
-    public function __construct() {
+    protected $redirectService;
+
+    public function __construct(RedirectService $redirectService)
+    {
         $this->authorizeResource(Knowledge::class, 'knowledge');
+        $this->redirectService = $redirectService;
     }
 
     public function index()
     {
-        $knowledgeAreas = Knowledge::get()->toTree();
+        $knowledgeAreas = Knowledge::orderBy('_lft')->get()->toTree();
         return view('knowledgeArea', compact('knowledgeAreas'));
     }
 
@@ -23,7 +27,10 @@ class KnowledgesController extends Controller
         $knowledgeAreas = Knowledge::get()->toTree();
 
         $currentKnowledgeArea = $knowledge;
-        $currentKnowledgeArea->terms = $knowledge->terms()->latest()->paginate(30);
+        $currentKnowledgeArea->terms = $knowledge->terms()
+            ->orderBy('term_type_id', 'asc')
+            ->published('desc')
+            ->paginate(30);
 
         return view('shows.knowledge', compact(['currentKnowledgeArea', 'knowledgeAreas',]));
     }
@@ -31,7 +38,8 @@ class KnowledgesController extends Controller
     public function get(Request $request)
     {
         if($request->has('tree')){
-            return Knowledge::latest()
+            return Knowledge::orderBy('_lft')
+                ->latest()
                 ->get()
                 ->each(function ($item) {
                     $item->append('linked_knowledge');
@@ -39,7 +47,8 @@ class KnowledgesController extends Controller
                 ->toTree();
         }
 
-        $knowledgeAreas = Knowledge::where('parent_id', '<>', null)
+        $knowledgeAreas = Knowledge::orderBy('_lft')
+            ->where('parent_id', '<>', null)
             ->latest()
             ->get()
             ->each(function ($item) {
@@ -77,7 +86,7 @@ class KnowledgesController extends Controller
 
         Knowledge::rebuildTree($request->knowledgeAreas);
 
-        return Knowledge::latest()->get()->toTree();
+        return Knowledge::orderBy('_lft')->latest()->get()->toTree();
     }
 
     public function update(Knowledge $knowledge, Request $request)
@@ -98,6 +107,8 @@ class KnowledgesController extends Controller
 
     public function destroy(Knowledge $knowledge)
     {
+        $this->redirectService->registerModelRemoval($knowledge);
+        
         $knowledge->unlinkAllEntities();
         $knowledge->delete();
     }

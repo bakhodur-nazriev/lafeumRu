@@ -94,7 +94,6 @@
             <v-row justify="start">
                 <v-col md="5" xl="3" class="d-flex align-center">
                     <v-btn
-                        class="mx-1"
                         fab
                         dark
                         small
@@ -104,23 +103,25 @@
                         <v-icon dark>mdi-chevron-left</v-icon>
                     </v-btn>
                     <v-btn
-                        class="mx-1"
                         fab
                         dark
                         small
+                        class="mx-4"
                         color="primary"
                         @click="currentPage < totalPages && ++currentPage"
                     >
                         <v-icon dark>mdi-chevron-right</v-icon>
                     </v-btn>
-                    <v-text-field
-                        solo
-                        dense
-                        class="mx-3"
-                        hide-details
-                        label="Страница"
-                        v-model="pageToGo"
-                    />
+                    <v-col md="1" class="p-0">
+                        <v-text-field
+                            solo
+                            dense
+                            hide-details
+                            lable="Страницы"
+                            v-model="pageToGo"
+                        />
+                    </v-col>
+                    <v-chip label class="mx-4 h-100">из {{ totalPages }}</v-chip>
                     <v-btn
                         color="primary"
                         @click="goToPage"

@@ -55,7 +55,13 @@ class CategoriesController extends Controller
 
     public function showTerms($categorySlug)
     {
-        $category = $this->getCategory(Term::class, $categorySlug);
+        $category = $this->getCategory(Term::class, 
+            $categorySlug, 
+            function ($categoriesQuery) {
+                return $categoriesQuery->orderBy('term_type_id', 'asc');
+            }
+        );
+            
         return view('shows.category', compact('category'));
     }
 
@@ -117,16 +123,22 @@ class CategoriesController extends Controller
      * Helpers
      */
 
-    private function getCategory($categoriable, $slug)
+    private function getCategory($categoriable, $slug, callable $queries = null)
     {
         $category = Category::where('type', $categoriable)->where('slug', $slug)->first();
 
         if(!$category){
-            return $category;
+            abort(404);
         }
 
-        $category->categoriables = $this->getCategoriablesQuery($categoriable, $category)
-            ->orderBy('id', 'desc')
+        $categoriablesQuery = $this->getCategoriablesQuery($categoriable, $category);
+
+        if($queries){
+            $categoriablesQuery = $queries($categoriablesQuery);
+        }
+
+        $category->categoriables = $categoriablesQuery
+            ->published('desc')
             ->paginate(30);
 
         return $category;

@@ -4,7 +4,7 @@
             <v-card-title class="pr-2 primary white--text mb-3">
                 {{ category.name }}
                 <v-spacer/>
-                <v-btn icon @click="showCat">
+                <v-btn icon @click="showCategoryPage">
                     <v-icon color="white" small>mdi-eye</v-icon>
                 </v-btn>
                 <v-btn icon @click="editCategory">
@@ -15,17 +15,11 @@
                 </v-btn>
             </v-card-title>
 
-            <v-card-text v-html="category.description" />
+            <v-card-text v-html="category.description"/>
 
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn
-                    color="primary darken-1"
-                    text
-                    @click="closeDialog"
-                >
-                    Закрыть
-                </v-btn>
+                <v-btn text @click="closeDialog" color="primary darken-1">Закрыть</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
@@ -36,24 +30,27 @@ export default {
     props: {
         category: Object
     },
-    methods:{
-        closeDialog(){
+    methods: {
+        showCategoryPage() {
+            this.$emit('showPage', this.category);
+        },
+        closeDialog() {
             this.$emit('close');
         },
-        editCategory(){
+        editCategory() {
             this.$emit('edit', this.category);
         },
-        deleteCategory(){
+        deleteCategory() {
             this.$emit('delete', this.category);
         }
     },
     computed: {
         showDialog: {
-            get(){
+            get() {
                 return this.category;
             },
-            set(show){
-                if(!show){
+            set(show) {
+                if (!show) {
                     this.closeDialog();
                 }
             }

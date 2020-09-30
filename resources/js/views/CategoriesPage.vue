@@ -7,7 +7,7 @@
                     v-if="!categoriesLoading"
                 >
                     <div class="d-flex mb-3">
-                        <v-spacer />
+                        <v-spacer/>
                         <v-btn
                             color="green accent-4 white--text"
                             outlined
@@ -17,14 +17,14 @@
                             Сохранить структуру
                         </v-btn>
                     </div>
-                    <tree-view 
+                    <tree-view
                         :tree-data="categories"
                         item-text="name"
                         ref="treeView"
                         @node-click="onCategoryClick"
                     />
                 </v-card>
-                <v-progress-circular indeterminate color="primary" v-else />
+                <v-progress-circular indeterminate color="primary" v-else/>
             </v-row>
         </v-container>
 
@@ -56,6 +56,7 @@
         <category-show-dialog
             :category="categoryToShow"
             @close="categoryToShow = null"
+            @showPage="goToCategoryPage"
             @edit="editCategory"
             @delete="deleteCategory"
         />
@@ -92,26 +93,39 @@ export default {
     data() {
         return {
             categories: [],
-            showCreateDialog: false,
-            categoriesLoading: false,
-            categoryType: this.$route.meta.type,
             categoryToShow: null,
             categoryToEdit: null,
             categoryToDelete: null,
+            showCreateDialog: false,
+            categoriesLoading: false,
+            categoryType: this.$route.meta.type,
         };
     },
     mounted() {
         this.loadCategoriesTree();
     },
     methods: {
-        onCategoryClick(category){
+        goToCategoryPage(category) {
+            switch (this.categoryType) {
+                case "App\\Quote":
+                    window.open(`/quotes/${category.slug}`, '_blank');
+                    break;
+                case "App\\Term":
+                    window.open(`/terms/${category.slug}`, '_blank');
+                    break;
+                case "App\\Video":
+                    window.open(`/videos/${category.slug}`, '_blank');
+                    break;
+            }
+        },
+        onCategoryClick(category) {
             this.categoryToShow = category;
         },
         loadCategoriesTree() {
             this.categoriesLoading = true;
             axios
                 .get("/api/categories?tree&type=" + this.categoryType)
-                .then(({ data }) => {
+                .then(({data}) => {
                     this.categoriesLoading = false;
                     this.setCategories(data);
                 })
@@ -128,7 +142,7 @@ export default {
                 .put("/api/categories?type=" + this.categoryType, {
                     categories: categoryTree
                 })
-                .then(({ data }) => {
+                .then(({data}) => {
                     this.categoriesLoading = false;
                     this.setCategories(data);
                 })
@@ -143,11 +157,11 @@ export default {
             this.categories = categories;
         },
         editCategory(category) {
-            this.categoryToEdit = { ...category };
+            this.categoryToEdit = {...category};
             this.categoryToShow = null;
         },
         deleteCategory(category) {
-            this.categoryToDelete = { ...category };
+            this.categoryToDelete = {...category};
             this.categoryToShow = null;
         },
         categoryCreated(newCategory) {
@@ -176,6 +190,7 @@ export default {
 .he-tree .tree-node {
     padding: 0;
 }
+
 .category-tree-node {
     padding: 5px;
 }

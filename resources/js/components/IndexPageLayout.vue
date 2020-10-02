@@ -112,7 +112,7 @@
                     >
                         <v-icon dark>mdi-chevron-right</v-icon>
                     </v-btn>
-                    <v-col md="1" class="p-0">
+                    <v-col md="2"  class="p-0">
                         <v-text-field
                             solo
                             dense

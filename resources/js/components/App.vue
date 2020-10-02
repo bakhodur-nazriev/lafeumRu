@@ -39,6 +39,11 @@ export default {
 *::-webkit-scrollbar-thumb:hover {
     background-color: #777;
 }
+
+body .v-application a {
+    color: #0645ad;
+}
+
 .v-application p {
     margin-bottom: 0;
 }

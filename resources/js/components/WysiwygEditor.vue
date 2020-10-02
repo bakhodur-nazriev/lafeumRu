@@ -54,6 +54,10 @@ export default {
 </script>
 
 <style>
+.ql-snow .ql-tooltip a.ql-action::after{
+    margin: 0 7px;
+}
+
 .ql-snow .ql-tooltip.ql-editing a.ql-action::after {
     content: 'Сохранить';
 }

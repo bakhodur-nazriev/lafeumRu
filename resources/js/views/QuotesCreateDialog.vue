@@ -38,11 +38,11 @@
                             />
                         </v-col>
                         <v-col cols="12 py-0">
-                            <wysiwyg-editor
-                                v-model="newQuote.body"
-                                label="Введите цитату здесь"
-                                :rules="[rules.required]"
-                            />
+                             <wysiwyg-editor
+                                 v-model="newQuote.body"
+                                 label="Введите цитату здесь"
+                                 :rules="[rules.required]"
+                             />
                         </v-col>
                     </v-row>
                 </v-container>
@@ -59,59 +59,59 @@
 </template>
 
 <script>
-    import rules from "../validation-rules";
-    import DatePicker from "../components/DatePicker";
-    import WysiwygEditor from "../components/WysiwygEditor";
+import rules from "../validation-rules";
+import DatePicker from "../components/DatePicker";
+import WysiwygEditor from "../components/WysiwygEditor";
 
-    export default {
-        props: {
-            value: Boolean,
-            authors: Array,
-            categories: Array,
-        },
-        components: {
-            "date-picker": DatePicker,
-            "wysiwyg-editor": WysiwygEditor
-        },
-        data() {
+export default {
+    props: {
+        value: Boolean,
+        authors: Array,
+        categories: Array,
+    },
+    components: {
+        DatePicker,
+        WysiwygEditor
+    },
+    data() {
+        return {
+            rules,
+            newQuote: null
+        }
+    },
+    beforeMount() {
+        this.newQuote = this.getDefaultQuote();
+    },
+    methods: {
+        getDefaultQuote() {
             return {
-                rules,
-                newQuote: null
-            }
+                body: "",
+                author_id: null,
+                categories: [],
+                publish_at: ""
+            };
         },
-        beforeMount() {
+        resetNewQuote() {
             this.newQuote = this.getDefaultQuote();
+            this.$refs.createForm.reset();
         },
-        methods: {
-            getDefaultQuote() {
-                return {
-                    body: "",
-                    author_id: null,
-                    categories: [],
-                    publish_at: ""
-                };
-            },
-            resetNewQuote() {
-                this.newQuote = this.getDefaultQuote();
-                this.$refs.createForm.reset();
-            },
-            addQuote(e) {
-                e.preventDefault();
+        addQuote(e) {
+            e.preventDefault();
 
-                const validForm = this.$refs.createForm.validate();
+            const validForm = this.$refs.createForm.validate();
 
-                if (!validForm) return;
+            if (!validForm) return;
 
-                axios
-                    .post("/api/quotes", this.newQuote)
-                    .then(res => {
-                        this.resetNewQuote();
-                        this.$emit('created', res.data);
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    });
-            }
-        },
-    };
+            axios
+                .post("/api/quotes", this.newQuote)
+                .then(res => {
+                    this.resetNewQuote();
+                    this.$emit('created', res.data);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        }
+    },
+};
 </script>

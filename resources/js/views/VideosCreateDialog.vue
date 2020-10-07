@@ -1,5 +1,5 @@
 <template>
-    <v-dialog :value="value" width="700px" @input="$emit('input', false)">
+    <v-dialog :value="value" width="750px" @input="$emit('input', false)">
         <v-card>
             <v-form @submit="addVideo" ref="createForm">
                 <v-card-title class="primary white--text">
@@ -66,8 +66,8 @@
                 </v-container>
                 <v-card-actions class="p-3">
                     <v-spacer/>
-                    <v-btn dark color="green" type="submit">Сохранить</v-btn>
-                    <v-btn dark color="error" type="button" @click="$emit('input', false)">
+                    <v-btn dark color="primary" type="submit">Сохранить</v-btn>
+                    <v-btn dark color="primary" type="button" @click="$emit('input', false)">
                         Отмена
                     </v-btn>
                 </v-card-actions>

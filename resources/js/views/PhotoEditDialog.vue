@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-if="photoToUpdate" v-model="photoToUpdate" width="700">
+    <v-dialog v-if="photoToUpdate" v-model="photoToUpdate" width="750">
         <v-card v-if="!isSendingData">
             <v-card-title class="primary white--text pa-4">
                 Изменить описание фото
@@ -25,8 +25,8 @@
             </v-container>
             <v-card-actions class="p-3">
                 <v-spacer/>
-                <v-btn dark color="green" @click="updatePhoto()">Сохранить</v-btn>
-                <v-btn dark color="error" @click="photoToUpdate = false">Отмена</v-btn>
+                <v-btn dark color="primary" @click="updatePhoto()">Сохранить</v-btn>
+                <v-btn dark color="primary" @click="photoToUpdate = false">Отмена</v-btn>
             </v-card-actions>
         </v-card>
         <v-card v-else>

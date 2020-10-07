@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-if="videoToUpdate" v-model="videoToUpdate" width="700px">
+    <v-dialog v-if="videoToUpdate" v-model="videoToUpdate" width="750px">
         <v-card>
             <v-card-title class="primary white--text pa-4">
                 Изменить Видео
@@ -65,8 +65,8 @@
             </v-container>
             <v-card-actions class="p-3">
                 <v-spacer/>
-                <v-btn dark color="green" @click="updateVideo()">Сохранить</v-btn>
-                <v-btn dark color="error" @click="$emit('input', null)">Отмена</v-btn>
+                <v-btn dark color="primary" @click="updateVideo()">Сохранить</v-btn>
+                <v-btn dark color="primary" @click="$emit('input', null)">Отмена</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>

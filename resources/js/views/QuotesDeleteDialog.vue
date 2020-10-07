@@ -5,8 +5,8 @@
                 Вы действительно хотите удалить эту цитату ?
             </v-card-title>
             <v-card-actions class="justify-center">
-                <v-btn color="green darken-1" dark @click="quoteToDelete = null">Нет</v-btn>
-                <v-btn color="red darken-1" dark @click="deleteQuote()">Да</v-btn>
+                <v-btn color="primary" dark @click="quoteToDelete = null">Нет</v-btn>
+                <v-btn color="primary" dark @click="deleteQuote()">Да</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>

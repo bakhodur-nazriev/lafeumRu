@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-if="termToUpdate" v-model="termToUpdate" width="700">
+    <v-dialog v-if="termToUpdate" v-model="termToUpdate" width="750">
         <v-card v-if="!isSendingData">
             <v-card-title class="primary white--text pa-4">
                 Изменить Термин
@@ -74,8 +74,8 @@
             </v-container>
             <v-card-actions class="p-3">
                 <v-spacer/>
-                <v-btn dark color="green" @click="updateTerm()">Сохранить</v-btn>
-                <v-btn dark color="error" @click="termToUpdate = false">Отмена</v-btn>
+                <v-btn dark color="primary" @click="updateTerm()">Сохранить</v-btn>
+                <v-btn dark color="primary" @click="termToUpdate = false">Отмена</v-btn>
             </v-card-actions>
         </v-card>
         <v-card v-else>

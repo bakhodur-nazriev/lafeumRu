@@ -48,8 +48,8 @@
             </v-container>
             <v-card-actions class="p-3">
                 <v-spacer/>
-                <v-btn dark color="green" @click="updateQuote()">Сохранить</v-btn>
-                <v-btn dark color="error" @click="quoteToUpdate = false">Отмена</v-btn>
+                <v-btn dark color="primary" @click="updateQuote()">Сохранить</v-btn>
+                <v-btn dark color="primary" @click="quoteToUpdate = false">Отмена</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>

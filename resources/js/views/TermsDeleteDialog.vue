@@ -5,8 +5,8 @@
                 >Вы действительно хотите удалить это термин ?
             </v-card-title>
             <v-card-actions class="justify-center">
-                <v-btn color="green darken-1" dark @click="termToDelete = false">Нет</v-btn>
-                <v-btn color="red darken-1" dark @click="deleteTerm()">Да</v-btn>
+                <v-btn color="primary" dark @click="termToDelete = false">Нет</v-btn>
+                <v-btn color="primary" dark @click="deleteTerm()">Да</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>

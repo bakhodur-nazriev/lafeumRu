@@ -1,76 +1,73 @@
 <template>
-    <froala
-        :label="label"
+    <quill-editor
+        :options="editorOptions"
         :value="value"
-        :config="config"
         @input="textChanged"
     />
 </template>
 
 <script>
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
 
-//Import Froala Editor
-import 'froala-editor/js/plugins.pkgd.min.js';
-import 'froala-editor/js/languages/ru.js';
-
-//Import third party plugins
-import 'froala-editor/js/third_party/embedly.min';
-import 'froala-editor/js/third_party/font_awesome.min';
-import 'froala-editor/js/third_party/spell_checker.min';
-import 'froala-editor/js/third_party/image_tui.min';
-
-// Import Froala Editor css files.
-import 'froala-editor/css/froala_editor.pkgd.min.css';
-import 'froala-editor/css/themes/gray.min.css';
-
-// Import and use Vue Froala lib.
-import VueFroala from 'vue-froala-wysiwyg';
+import {quillEditor} from 'vue-quill-editor'
 
 export default {
     props: {
         value: String,
         label: String
     },
-    data() {
-        return {
-            config: {
-                theme: 'gray',
-                zIndex: 2001,
-                language: 'ru',
-                placeholderText: this.label,
-                toolbarButtons: {
-                    moreText: {
-                        buttons: ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'fontFamily', 'fontSize', 'textColor', 'backgroundColor', 'inlineClass', 'inlineStyle', 'clearFormatting']
-                    },
-                    moreParagraph: {
-                        buttons: ['alignLeft', 'alignCenter', 'formatOLSimple', 'alignRight', 'alignJustify', 'formatOL', 'formatUL', 'paragraphFormat', 'paragraphStyle', 'lineHeight', 'outdent', 'indent', 'quote']
-                    },
-                    moreRich: {
-                        buttons: ['insertLink', 'html']
-                    },
-                    moreMisc: {
-                        align: 'right',
-                        buttonsVisible: 2,
-                        buttons: ['undo', 'redo', 'fullscreen']
-                    }
-
-                },
-            }
-        }
-    },
-    beforeMount() {
-        window.Vue.use(VueFroala);
-    },
+    components: {quillEditor},
     methods: {
         textChanged(v) {
             this.$emit("input", v);
         }
     },
+    computed: {
+        editorOptions() {
+            return {
+                placeholder: this.label,
+                modules: {
+                    toolbar: [
+                        ['bold', 'italic', 'underline', 'strike', 'blockquote'],        // toggled buttons
+
+                        [{'header': 1}, {'header': 2}],               // custom button values
+                        [{'list': 'ordered'}, {'list': 'bullet'}],
+                        [{'indent': '-1'}, {'indent': '+1'}],          // outdent/indent
+
+                        ['link', {
+                            'color': [
+                                'black',
+                                '#B83336',
+                                'white',
+                                '#0099ff'
+                            ]
+                        }, {'background': []}],          // dropdown with defaults from theme
+                        [{'align': []}],
+                    ]
+                }
+            }
+        }
+    }
 };
 </script>
 
 <style>
-.second-toolbar > #logo {
-    display: none;
+.ql-snow .ql-tooltip a.ql-action::after{
+    margin-left: 0;
+}
+
+.ql-snow .ql-tooltip.ql-editing a.ql-action::after {
+    content: 'Сохранить';
+}
+
+.ql-snow .ql-tooltip {
+    position: sticky;
+    width: 100%;
+}
+
+.ql-snow .ql-tooltip input[type=text] {
+    width: 79%;
 }
 </style>

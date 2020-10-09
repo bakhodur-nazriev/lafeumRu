@@ -17,7 +17,7 @@
                 type="string"
                 id="knowledge-search"
                 class="form-control"
-                placeholder="Введите название темы"
+                placeholder="Введите область знаний"
             >
             <small id="knowledge-search-result" class="form-text text-muted ml-1"></small>
         </div>

@@ -12,6 +12,15 @@
 @section('left-side-bar')
     <div class="left-sidebar-block">
         <h3 class="secondary">Области знаний</h3>
+        <div class="my-2 form-group">
+            <input
+                type="string"
+                id="knowledge-search"
+                class="form-control"
+                placeholder="Введите название темы"
+            >
+            <small id="knowledge-search-result" class="form-text text-muted ml-1"></small>
+        </div>
 
         @foreach ($knowledgeAreas as $knowledgeAreaParent)
             <h4 class="knowledge-parent secondary mb-0" style="font-size: 1rem; margin-top: 15px">
@@ -19,7 +28,7 @@
             </h4>
             <hr class="mt-1" style="margin-bottom: 5px">
                 @foreach ($knowledgeAreaParent->children as $knowledgeArea)
-                    <div>
+                    <div class="knowledge">
                         <a class="knowledge-area-color {{Request::is('knowledge/'.$knowledgeArea->slug) ? 'active': ''}}"
                            href="/knowledge/{{$knowledgeArea->slug}}">{{$knowledgeArea->name}}</a>
                     </div>
@@ -27,6 +36,15 @@
         @endforeach
 
     </div>
+    <script>
+        $(document).ready(() => {
+            attachSearch(
+                "#knowledge-search",
+                ".knowledge",
+                '#knowledge-search-result'
+            );
+        })
+    </script>
 @endsection
 
 @section('content')

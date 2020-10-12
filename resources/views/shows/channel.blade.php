@@ -15,7 +15,7 @@
                 type="string"
                 id="channels-search"
                 class="form-control"
-                placeholder="Введите названия канала"
+                placeholder="Введите название канала"
             >
             <small id="channels-search-result" class="form-text text-muted ml-1"></small>
         </div>

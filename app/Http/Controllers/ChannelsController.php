@@ -26,7 +26,7 @@ class ChannelsController extends Controller
         $channels = Channel::all();
         $channel->videos = $channel
             ->videos()
-            ->orderby('id', 'desc')
+            ->published('desc')
             ->with('categories')
             ->paginate(30);
 
@@ -58,7 +58,7 @@ class ChannelsController extends Controller
     public function destroy(Channel $channel)
     {
         $this->redirectService->registerModelRemoval($channel);
-        
+
         $channel->delete();
     }
 }

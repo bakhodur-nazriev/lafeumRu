@@ -5,8 +5,8 @@
 }
 
 body {
-    font-family: 'Verdana', sans-serif;
     display: flex;
+    font-family: 'Verdana', sans-serif;
     flex-direction: column;
     background-color: #e7ebf2;
     min-height: 100vh;

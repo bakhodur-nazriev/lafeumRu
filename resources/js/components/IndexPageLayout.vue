@@ -1,8 +1,8 @@
 <template>
     <v-main class="pa-0">
-        <v-container fluid>
+        <v-container fluid class="mb-4">
             <v-row justify="center">
-                <v-col cols="6">
+                <v-col md="6" lg="4">
                     <v-text-field
                         solo
                         hide-details
@@ -14,7 +14,7 @@
                 </v-col>
             </v-row>
             <v-row class="align-center">
-                <v-col cols="4" v-if="categories">
+                <v-col lg="3" md="4" v-if="categories">
                     <v-select
                         solo
                         dense
@@ -52,7 +52,6 @@
                         >
                             <slot :name="name" v-bind="slotData"/>
                         </template>
-
                         <template
                             v-if="!noActions"
                             v-slot:item.action="{ item }"
@@ -92,7 +91,7 @@
                 </v-col>
             </v-row>
             <v-row justify="start">
-                <v-col md="5" xl="3" class="d-flex align-center">
+                <v-col md="4" xl="3" class="d-flex align-center">
                     <v-btn
                         fab
                         dark
@@ -106,13 +105,13 @@
                         fab
                         dark
                         small
-                        class="mx-4"
+                        class="ml-2 mr-4"
                         color="primary"
                         @click="currentPage < totalPages && ++currentPage"
                     >
                         <v-icon dark>mdi-chevron-right</v-icon>
                     </v-btn>
-                    <v-col md="2"  class="p-0">
+                    <v-col md="2" class="p-0">
                         <v-text-field
                             solo
                             dense
@@ -121,13 +120,23 @@
                             v-model="pageToGo"
                         />
                     </v-col>
-                    <v-chip label class="mx-4 h-100">из {{ totalPages }}</v-chip>
+                    <span class="mx-4">из {{ totalPages }}</span>
                     <v-btn
                         color="primary"
                         @click="goToPage"
                     >
                         Переход
                     </v-btn>
+                </v-col>
+                <v-col class="d-flex align-center w-25">
+                    <v-select
+                        solo
+                        dense
+                        hide-details
+                        label="1-25"
+                        :items="items"
+                        class="mr-4"
+                    ></v-select>
                 </v-col>
             </v-row>
             <v-tooltip top v-if="!noActions">

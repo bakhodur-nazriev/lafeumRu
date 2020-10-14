@@ -1,8 +1,8 @@
 <template>
     <v-main class="pa-0">
-        <v-container fluid class="mb-4">
+        <v-container fluid class="mb-5">
             <v-row justify="center">
-                <v-col md="6" lg="4">
+                <v-col lg="5" xl="4">
                     <v-text-field
                         solo
                         hide-details
@@ -14,15 +14,15 @@
                 </v-col>
             </v-row>
             <v-row class="align-center">
-                <v-col lg="3" md="4" v-if="categories">
+                <v-col lg="4" xl="3" v-if="categories">
                     <v-select
                         solo
                         dense
                         multiple
                         hide-details
-                        label="Все рубрики"
-                        item-text="name"
                         item-value="id"
+                        item-text="name"
+                        label="Все рубрики"
                         :items="categories"
                         v-model="searchCategories"
                     >
@@ -90,53 +90,52 @@
                     </v-data-table>
                 </v-col>
             </v-row>
-            <v-row justify="start">
-                <v-col md="4" xl="3" class="d-flex align-center">
-                    <v-btn
-                        fab
-                        dark
-                        small
-                        color="primary"
-                        @click="currentPage > 1 && --currentPage"
-                    >
-                        <v-icon dark>mdi-chevron-left</v-icon>
-                    </v-btn>
-                    <v-btn
-                        fab
-                        dark
-                        small
-                        class="ml-2 mr-4"
-                        color="primary"
-                        @click="currentPage < totalPages && ++currentPage"
-                    >
-                        <v-icon dark>mdi-chevron-right</v-icon>
-                    </v-btn>
-                    <v-col md="2" class="p-0">
-                        <v-text-field
-                            solo
-                            dense
-                            hide-details
-                            lable="Страницы"
-                            v-model="pageToGo"
-                        />
-                    </v-col>
-                    <span class="mx-4">из {{ totalPages }}</span>
-                    <v-btn
-                        color="primary"
-                        @click="goToPage"
-                    >
-                        Переход
-                    </v-btn>
-                </v-col>
-                <v-col class="d-flex align-center w-25">
-                    <v-select
-                        solo
+            <v-row align="center" justify="start" class="pa-2">
+                <v-btn
+                    fab
+                    dark
+                    small
+                    depressed
+                    class="mx-1"
+                    color="primary"
+                    @click="currentPage > 1 && --currentPage"
+                >
+                    <v-icon dark>mdi-chevron-left</v-icon>
+                </v-btn>
+                <v-btn
+                    fab
+                    dark
+                    small
+                    depressed
+                    class="mx-1"
+                    color="primary"
+                    @click="currentPage < totalPages && ++currentPage"
+                >
+                    <v-icon dark>mdi-chevron-right</v-icon>
+                </v-btn>
+                <v-col md="1" class="py-0 pr-0">
+                    <v-text-field
                         dense
+                        outlined
                         hide-details
-                        label="1-25"
-                        :items="items"
-                        class="mr-4"
-                    ></v-select>
+                        v-model="pageToGo"
+                    />
+                </v-col>
+                <span class="mx-3">из {{ totalPages }}</span>
+                <v-btn
+                    depressed
+                    color="primary"
+                    @click="goToPage"
+                >
+                    Переход
+                </v-btn>
+                <v-col md="1" class="pa-0 ml-4">
+                    <v-select
+                        dense
+                        outlined
+                        label="250"
+                        hide-details
+                    />
                 </v-col>
             </v-row>
             <v-tooltip top v-if="!noActions">
@@ -180,7 +179,8 @@ export default {
             pageData: null,
             pagination: null,
             loadingItems: false,
-            searchCategories: null
+            searchCategories: null,
+            perPageValues: [25, 50, 75, 100]
         };
     },
     created() {

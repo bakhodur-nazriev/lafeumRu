@@ -55,7 +55,7 @@ class Paginator implements Arrayable {
 
         if($floatOfTotalPages - $totalPages > 0){
             $totalPages++;
-        }        
+        }
 
         return $totalPages;
     }

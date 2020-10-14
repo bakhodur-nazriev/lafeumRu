@@ -55,9 +55,6 @@ class QuotesController extends Controller
 
         $newQuote->post()->create();
 
-        // $newQuote->meta_image = $this->getMetaImage($newQuote);
-        // $newQuote->save();
-
         return $newQuote->load('author', 'categories');
     }
 
@@ -69,16 +66,13 @@ class QuotesController extends Controller
             $quote->categories()->sync($request->categories);
         }
 
-        // $quote->meta_image = $this->getMetaImage($quote);
-        // $quote->save();
-
         return $quote;
     }
 
     public function destroy(Quote $quote)
     {
         $this->redirectService->registerModelRemoval($quote);
-        
+
         $quote->post()->delete();
         $quote->categories()->detach();
 

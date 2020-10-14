@@ -11,10 +11,11 @@ use Illuminate\Http\Request;
 class AuthorsController extends Controller
 {
     const AUTHORS_PHOTOS_PATH = "/img/authors/";
-    
+
     protected $redirectService;
 
-    public function __construct(RedirectService $redirectService) {
+    public function __construct(RedirectService $redirectService)
+    {
         $this->authorizeResource(Author::class);
         $this->redirectService = $redirectService;
     }
@@ -69,7 +70,7 @@ class AuthorsController extends Controller
         $movieIds = $authors->pluck('id');
 
         $currentAuthor->quotes = Quote::with('categories')
-            ->orderBy('id','desc')
+            ->orderBy('id', 'desc')
             ->whereIn('author_id', $movieIds)
             ->paginate(30);
 
@@ -89,7 +90,7 @@ class AuthorsController extends Controller
         $proverbIds = $authors->pluck('id');
 
         $currentAuthor->quotes = Quote::with('categories')
-            ->orderBy('id','desc')
+            ->orderBy('id', 'desc')
             ->whereIn('author_id', $proverbIds)
             ->paginate(30);
 
@@ -98,7 +99,7 @@ class AuthorsController extends Controller
 
     public function get(Request $request)
     {
-        $authorsQuery = Author::orderBy('name','asc');
+        $authorsQuery = Author::orderBy('name', 'asc');
         return $this->processIndexRequestItems($request, $authorsQuery, 'name');
     }
 
@@ -141,7 +142,7 @@ class AuthorsController extends Controller
     private function getPersonsList()
     {
         $authors = Author::persons()
-            ->orderBy('name','asc')
+            ->orderBy('name', 'asc')
             ->get();
 
         $authors->prepend(new Author([

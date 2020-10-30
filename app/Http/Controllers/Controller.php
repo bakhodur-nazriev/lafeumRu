@@ -37,7 +37,7 @@ class Controller extends BaseController
     }
 
     /**
-     * Processes request items for index method: 
+     * Processes request items for index method:
      * - Filtering: ?[field]=[value],
      * - Sorting: ?sortBy=[field] and ?sortByDesc=[field],
      * - Pagination: ?page=[number] and ?perPage=[number] and ?no_pagination
@@ -51,7 +51,7 @@ class Controller extends BaseController
 
         $sortedResultCollection = $this->sortByRequest($request, $searchedQuery->get());
 
-        if(!$withPagination || $request->has('no_pagination')) return $sortedResultCollection;
+        if (!$withPagination || $request->has('no_pagination')) return $sortedResultCollection;
 
         $paginatedResult = $this->paginateByRequest($request, $sortedResultCollection);
 
@@ -81,10 +81,10 @@ class Controller extends BaseController
         $requests = $request->all();
 
         foreach ($requests as $key => $value) {
-            
+
             if ($value && in_array($key, $modelAttributes)) {
                 $query = $query->where($key, $value);
-            } 
+            }
         }
 
         return $query;
@@ -93,14 +93,14 @@ class Controller extends BaseController
     /**
      * Applies search to query, for example:
      * - URL: ?search=some -> Query: $query->where($searchFieldName, 'LIKE', "%some%")
-     * 
+     *
      */
     protected function searchByRequest(Request $request, $searchFieldName, $query)
     {
-        if(!$searchFieldName || !$request->has('search')){
+        if (!$searchFieldName || !$request->has('search')) {
             return $query;
         }
-        
+
         $key = $request->search;
 
         return $query->where($searchFieldName, 'LIKE', "%$key%");
@@ -118,7 +118,7 @@ class Controller extends BaseController
             return $collection->sortByDesc($request->sortByDesc)->values();
         }
 
-        if($request->has('sortBy')){
+        if ($request->has('sortBy')) {
             return $collection->sortBy($request->sortBy)->values();
         }
 
@@ -126,7 +126,7 @@ class Controller extends BaseController
     }
 
     /**
-     * Custom paginator to paginate collection by request items: 
+     * Custom paginator to paginate collection by request items:
      * - ?page=[number]
      * - ?perPage=[number | 'all']
      */

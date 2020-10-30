@@ -133,8 +133,10 @@
                     <v-select
                         dense
                         outlined
-                        label="250"
                         hide-details
+                        :items="perPageRowCount"
+                        v-model="perPageCount"
+                        item-text="perPageCount"
                     />
                 </v-col>
             </v-row>
@@ -178,9 +180,10 @@ export default {
             enabled: null,
             pageData: null,
             pagination: null,
+            perPageCount: 25,
             loadingItems: false,
             searchCategories: null,
-            perPageValues: [25, 50, 75, 100]
+            perPageRowCount: [25, 50, 75, 100, "Все"]
         };
     },
     created() {
@@ -188,9 +191,13 @@ export default {
             number: 1,
             sortBy: null,
             sortDesc: false,
+            row: this.perPageCount
         };
     },
     methods: {
+        showPerPageRow() {
+            this.row = this.rowPerPageChanged
+        },
         goToPage() {
             this.currentPage = this.pageToGo;
         },
@@ -202,6 +209,10 @@ export default {
 
             if (!url.includes("?")) {
                 url += "?";
+            }
+
+            if (this.pageData.row) {
+                url += "&perPage=" + this.pageData.row;
             }
 
             url += ("&page=" + this.currentPage);
@@ -272,7 +283,7 @@ export default {
                     sortDesc: false
                 };
             }
-        }
+        },
     },
     watch: {
         searchCategories() {
@@ -282,6 +293,10 @@ export default {
             this.loadItems();
         },
         pageData(v) {
+            this.loadItems();
+        },
+        perPageCount(v) {
+            this.pageData.row = v;
             this.loadItems();
         }
     },
@@ -320,6 +335,14 @@ export default {
             set(v) {
                 this.pageData = {...this.pageData, number: v};
                 this.pageToGo = v;
+            }
+        },
+        rowPerPageChanged: {
+            get() {
+                return this.pageData.row;
+            },
+            set(v) {
+                this.pageData = {...this.pageData, row: v};
             }
         },
         totalPages() {

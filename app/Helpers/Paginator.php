@@ -5,23 +5,23 @@ namespace App\Helpers;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
 
-class Paginator implements Arrayable {
+class Paginator implements Arrayable
+{
 
     const DEFAULT_PAGE = 1;
-    const DEFAULT_ITEMS_PER_PAGE = 30;
+    const DEFAULT_ITEMS_PER_PAGE = 25;
 
     private $items;
-
     private $perPage;
-
     private $currentPage;
 
-    public function __construct(Collection $items, $perPage, $currentPage) {
+    public function __construct(Collection $items, $perPage, $currentPage)
+    {
         $this->items = $items;
         $this->perPage = $perPage ?: self::DEFAULT_ITEMS_PER_PAGE;
         $this->currentPage = $currentPage ?: self::DEFAULT_PAGE;
 
-        if($perPage == "all"){
+        if ($perPage == "Все") {
             $this->perPage = $items->count();
         }
     }
@@ -53,10 +53,9 @@ class Paginator implements Arrayable {
 
         $totalPages = intval($floatOfTotalPages);
 
-        if($floatOfTotalPages - $totalPages > 0){
+        if ($floatOfTotalPages - $totalPages > 0) {
             $totalPages++;
         }
-
         return $totalPages;
     }
 }

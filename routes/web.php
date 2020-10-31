@@ -17,8 +17,8 @@ Route::get("/authors/{author}", "AuthorsController@show")->name("author");
 Route::get("/channels", "ChannelsController@index")->name("channels");
 Route::get("/channels/{channel}", "ChannelsController@show")->name("channels");;
 
-Route::get("/contacts", "FeedbacksController@create")->name("feedbacks.create");
-Route::post("/feedbacks", "FeedbacksController@store")->name("feedbacks.store");
+Route::get("/contacts", "FeedbacksController@create")->name("contacts.create");
+Route::post("/contacts", "FeedbacksController@store")->name("contacts.store");
 
 Route::get("/knowledge", "KnowledgesController@index")->name("knowledge");
 Route::get("/knowledge/{knowledge}", "KnowledgesController@show")->name("knowledge");

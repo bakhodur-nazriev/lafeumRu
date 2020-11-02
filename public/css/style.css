@@ -6,7 +6,7 @@
 
 body {
     display: flex;
-    font-family: 'Verdana', sans-serif;
+    font-family: 'Nunito Sans', sans-serif;
     flex-direction: column;
     background-color: #e7ebf2;
     min-height: 100vh;

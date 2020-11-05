@@ -20,27 +20,25 @@
         <div class="col-sm-12 col-lg-4">
             <h3 class="mb-4 secondary">Свяжитесь с нами</h3>
             <div class="contact-form-block">
-                <form method="POST">
+                <form action="/contacts" method="POST">
                     <div class="form-group">
                         <label for="user_name">Ваше имя</label>
-                        <input type="text" name="user_name" class="form-control">
+                        <input type="text" name="user_name" value="{{ old('user_name') }}" class="form-control">
                         <div>{{ $errors->first('user_name') }}</div>
                     </div>
                     <div class="form-group">
                         <label for="user_email">Ваша почта</label>
-                        <input type="email" name="user_email" class="form-control">
+                        <input type="email" name="user_email" value="{{ old('user_email') }}" class="form-control">
                         <div>{{ $errors->first('user_email') }}</div>
                     </div>
                     <div class="form-group">
                         <label for="topic">Тема</label>
-                        <input type="text" name="topic" class="form-control">
+                        <input type="text" name="topic" value="{{ old('topic') }}" class="form-control">
                         <div>{{ $errors->first('topic') }}</div>
                     </div>
                     <div class="form-group">
                         <label for="message">Сообщение</label>
-                        <textarea class="form-control" id="message" name="message" rows="3">
-                            {{ old('message') }}
-                        </textarea>
+                        <textarea class="form-control" id="message" name="message" rows="3"></textarea>
                         <div>{{ $errors->first('message') }}</div>
                     </div>
 
@@ -50,6 +48,13 @@
                 </form>
             </div>
         </div>
+    </div>
+    <div class="row justify-content-center mt-4">
+        @if(session()->has('message'))
+            <div class="col-lg-8 alert alert-success text-center mb-0" role="alert">
+                <strong>Спасибо</strong>, {{ session()->get('message') }}
+            </div>
+        @endif
     </div>
 @endsection
 

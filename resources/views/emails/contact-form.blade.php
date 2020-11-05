@@ -1,8 +1,8 @@
 @component('mail::message')
-# Thank you for your message
+    # Спасибо за ваше письмо!
 
-<strong>Имя: </strong>{{ $data['name'] }}<br>
-<strong>Email: </strong>{{ $data['email'] }}<br>
-<strong>Тема: </strong>{{ $data['theme'] }}<br>
-<strong>Сообщение: </strong>{{ $data['message'] }}
+    <b>Имя: </b>{{ $data['user_name'] }}<br>
+    <b>Email: </b>{{ $data['user_email'] }}<br>
+    <b>Тема: </b>{{ $data['topic'] }}<br>
+    <b>Сообщение: </b>{{ $data['message'] }}
 @endcomponent

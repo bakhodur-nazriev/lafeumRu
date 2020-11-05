@@ -32,7 +32,7 @@ class FeedbacksController extends Controller
 
         Feedback::create($data);
 
-        Mail::to(env("CONTACT_EMAIL"))->send(new ContactMail($data));
+        Mail::to(env('CONTACT_EMAIL'))->send(new ContactMail($data));
 
         return redirect("/contacts")->with("message", "Ваше письмо успешно отправлено!");
     }

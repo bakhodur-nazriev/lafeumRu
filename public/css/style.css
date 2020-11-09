@@ -87,17 +87,25 @@ button:focus {
     outline: none;
 }
 
-#scrollToTopBtn {
+.scrollBtn {
     display: inline-block;
     position: fixed;
-    bottom: 20px;
-    right: 20px;
     visibility: hidden;
     transition: background-color 0.3s;
     z-index: 1000;
 }
 
-#scrollToTopBtn.show {
+#scrollToTopBtn {
+    bottom: 60px;
+    right: 20px;
+}
+
+#scrollToBottomBtn {
+    bottom: 20px;
+    right: 20px;
+}
+
+#scrollToTopBtn.show, #scrollToBottomBtn.show {
     opacity: 1;
     visibility: visible;
 }

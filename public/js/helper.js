@@ -94,18 +94,25 @@ function onCloseVideoModal() {
 }
 
 function setUpScrollButton() {
-    let btn = document.getElementById('scrollToTopBtn');
+    let btnToTop = document.getElementById('scrollToTopBtn');
+    let btnToBottom = document.getElementById('scrollToBottomBtn');
 
     $(window).scroll(function () {
-        if ($(window).scrollTop() > 700) {
-            btn.classList.add('show');
+        if ($(window).scrollTop() > 200) {
+            btnToTop.classList.add('show');
+            btnToBottom.classList.add('show');
         } else {
-            btn.classList.remove('show');
+            btnToTop.classList.remove('show');
+            btnToBottom.classList.remove('show');
         }
     });
 
-    btn.addEventListener('click', function (e) {
+    btnToTop.addEventListener('click', function (e) {
         $('html, body').animate({scrollTop: 0});
+    });
+
+    btnToBottom.addEventListener('click', function (e) {
+        $('html, body').animate({scrollTop: $(document).height()});
     });
 }
 

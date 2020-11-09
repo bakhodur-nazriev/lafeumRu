@@ -16,8 +16,11 @@
                 </div>
             </div>
             <div class="right-sidebar-col xs-third-order sm-third-order">@yield('right-side-bar', View::make('layouts.right-sidebar.rightSidebar'))</div>
-            <button id="scrollToTopBtn" class="btn btn-primary">
+            <button id="scrollToTopBtn" class="btn btn-primary scrollBtn">
                 <i class="fa fa-arrow-up"></i>
+            </button>
+            <button id="scrollToBottomBtn" class="btn btn-primary scrollBtn">
+                <i class="fa fa-arrow-down"></i>
             </button>
         </div>
         <div class="row justify-content-center">

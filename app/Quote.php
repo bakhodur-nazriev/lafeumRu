@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use ChristianKuri\LaravelFavorite\Traits\Favoriteable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -35,5 +36,10 @@ class Quote extends Model
     public function dailyPosts()
     {
         return $this->hasMany(DailyPost::class);
+    }
+
+    public function getPublishAtAttribute($date)
+    {
+        return Carbon::createFromFormat("Y-m-d H:i:s", $date)->format("d/m/Y");
     }
 }

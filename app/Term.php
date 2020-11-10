@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use ChristianKuri\LaravelFavorite\Traits\Favoriteable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,9 +12,9 @@ class Term extends Model
     use PublishableTrait;
 
     protected $fillable = [
-        'name', 
-        'body', 
-        'show_in_vocabulary', 
+        'name',
+        'body',
+        'show_in_vocabulary',
         'term_type_id',
         'publish_at'
     ];
@@ -48,5 +49,10 @@ class Term extends Model
         return $query->where('name', '<>', '')
             ->where('show_in_vocabulary', true)
             ->orderBy('name');
+    }
+
+    public function getPublishAtAttribute($date)
+    {
+        return Carbon::createFromFormat("Y-m-d H:i:s", $date)->format("d/m/Y");
     }
 }

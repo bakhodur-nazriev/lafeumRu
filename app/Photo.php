@@ -17,4 +17,9 @@ class Photo extends Model
     {
         return $this->hasMany(DailyPost::class);
     }
+
+    public function getPublishAtAttribute($date)
+    {
+        return Carbon::createFromFormat("Y-m-d H:i:s", $date)->format("d/m/Y");
+    }
 }

@@ -26,19 +26,19 @@
 
                 <v-card-text>
                     <p>
-                        <b>Имя:</b> {{feedbackToShow.user_name}}
+                        <b>Имя:</b> {{ feedbackToShow.user_name }}
                     </p>
                     <p>
-                        <b>Email:</b> {{feedbackToShow.user_email}}
+                        <b>Email:</b> {{ feedbackToShow.user_email }}
                     </p>
                     <p>
-                        <b>Тема:</b> {{feedbackToShow.topic}}
+                        <b>Тема:</b> {{ feedbackToShow.topic }}
                     </p>
                     <p>
-                        <b>Добавлено:</b> {{feedbackToShow.created_at}}
+                        <b>Добавлено:</b> {{ feedbackToShow.created_at }}
                     </p>
                     <p><b>Сообщение:</b></p>
-                    <p>{{feedbackToShow.message}}</p>
+                    <p>{{ feedbackToShow.message }}</p>
                 </v-card-text>
 
                 <v-card-actions>
@@ -97,7 +97,7 @@ export default {
         };
     },
     methods: {
-        feedbackClick(feedback){
+        feedbackClick(feedback) {
             this.feedbackToShow = feedback;
             this.feedbackDialog = true;
         }

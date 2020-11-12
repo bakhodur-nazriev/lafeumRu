@@ -40,6 +40,6 @@ class Quote extends Model
 
     public function getPublishAtAttribute($date)
     {
-        return Carbon::createFromFormat("Y-m-d H:i:s", $date)->format("d/m/Y");
+        return Carbon::createFromFormat("Y-m-d H:i:s", $date)->format("d/m/Y H:i:s");
     }
 }

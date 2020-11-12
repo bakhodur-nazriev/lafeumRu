@@ -13,8 +13,8 @@
                     />
                 </v-col>
             </v-row>
-            <v-row class="align-center">
-                <v-col lg="4" xl="3" v-if="categories">
+            <v-row class="pa-3 align-center justify-space-between">
+                <div v-if="categories">
                     <v-select
                         solo
                         dense
@@ -27,10 +27,10 @@
                         v-model="searchCategories"
                     >
                     </v-select>
-                </v-col>
-                <v-col cols="6" v-if="pagination">
-                    <span class="ml-2">{{ pagination.total }}: Элементов</span>
-                </v-col>
+                </div>
+                <div v-if="pagination">
+                    <span>{{ pagination.total }}: Элементов</span>
+                </div>
             </v-row>
             <v-row>
                 <v-col>

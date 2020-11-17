@@ -13,7 +13,7 @@ class PostsPolicy extends GlobalPolicy
     /**
      * Determine whether the user can view any posts.
      *
-     * @param  \App\User  $user
+     * @param \App\User $user
      * @return mixed
      */
     public function viewAny(?User $user)
@@ -24,7 +24,7 @@ class PostsPolicy extends GlobalPolicy
     /**
      * Determine whether the user can view the post.
      *
-     * @param  \App\User  $user
+     * @param \App\User $user
      * @return mixed
      */
     public function view(?User $user)
@@ -35,7 +35,7 @@ class PostsPolicy extends GlobalPolicy
     /**
      * Determine whether the user can create posts.
      *
-     * @param  \App\User  $user
+     * @param \App\User $user
      * @return mixed
      */
     public function create(User $user)
@@ -46,7 +46,7 @@ class PostsPolicy extends GlobalPolicy
     /**
      * Determine whether the user can update the post.
      *
-     * @param  \App\User  $user
+     * @param \App\User $user
      * @return mixed
      */
     public function update(User $user)
@@ -57,11 +57,35 @@ class PostsPolicy extends GlobalPolicy
     /**
      * Determine whether the user can delete the post.
      *
-     * @param  \App\User  $user
+     * @param \App\User $user
      * @return mixed
      */
     public function delete(User $user)
     {
         return $user->hasRole(Role::AUTHOR_ROLE_NAME);
+    }
+
+    /**
+     * Determine whether the user can restore the post.
+     *
+     * @param \App\User $user
+     * @return mixed
+     */
+
+    public function restore(User $user)
+    {
+        return $user->hasRole(Role::ADMIN_ROLE_NAME);
+    }
+
+    /**
+     * Determine whether the can permanently delete the post
+     *
+     * @param \App\User $user
+     * @return mixed
+     */
+
+    public function forceDelete(User $user)
+    {
+        return $user->hasRole(Role::ADMIN_ROLE_NAME);
     }
 }

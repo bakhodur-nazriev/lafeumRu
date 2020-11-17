@@ -26,18 +26,18 @@
 
                 <v-card-text>
                     <p>
-                        <b>Имя:</b> {{ feedbackToShow.user_name }}
+                        <strong>Имя:</strong> {{ feedbackToShow.user_name }}
                     </p>
                     <p>
-                        <b>Email:</b> {{ feedbackToShow.user_email }}
+                        <strong>Email:</strong> {{ feedbackToShow.user_email }}
                     </p>
                     <p>
-                        <b>Тема:</b> {{ feedbackToShow.topic }}
+                        <strong>Тема:</strong> {{ feedbackToShow.topic }}
                     </p>
                     <p>
-                        <b>Добавлено:</b> {{ feedbackToShow.created_at }}
+                        <strong>Добавлено:</strong> {{ feedbackToShow.created_at }}
                     </p>
-                    <p><b>Сообщение:</b></p>
+                    <p><strong>Сообщение:</strong></p>
                     <p>{{ feedbackToShow.message }}</p>
                 </v-card-text>
 

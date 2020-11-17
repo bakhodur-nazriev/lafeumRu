@@ -75,6 +75,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     /* User-Feedbacks */
     Route::get("/feedbacks", "FeedbacksController@get");
 
+    /* Trash Data */
+    /*Route::get("/trash");*/
 });
 
 Route::get("/summary/{id}", "PostsController@termSummary");

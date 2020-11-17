@@ -5,13 +5,15 @@ namespace App;
 use Carbon\Carbon;
 use ChristianKuri\LaravelFavorite\Traits\Favoriteable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Quote extends Model
 {
+    use SoftDeletes;
     use Favoriteable;
     use PublishableTrait;
 
-    protected $fillable = ['body', 'author_id', 'publish_at'];
+    protected $fillable = ['body', 'author_id', 'publish_at', 'deleted_at'];
 
     public function author()
     {

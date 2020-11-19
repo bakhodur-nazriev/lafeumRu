@@ -51,8 +51,8 @@ class Term extends Model
             ->orderBy('name');
     }
 
-    public function getPublishAtAttribute($date)
+    /*public function getPublishAtAttribute($date)
     {
         return Carbon::parse($date)->format('d/m/Y H:i:s');
-    }
+    }*/
 }

@@ -33,7 +33,7 @@
             Примеры информативных поисковых запросов: «нау», «логия», «ика», «изм», «фило», «само», «чело», «соц»,
             «пси», «эво» и т.п.<br>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
             <form id="vocabulary-search-form">
                 <div class="input-group">
                     <input
@@ -57,6 +57,7 @@
                         >
                             <i class="fa fa-search"></i>
                         </button>
+                        <span class="ml-2 mt-1">Дополнительный поиск</span>
                     </div>
                     {{-- <div class="input-group-append">
                         <div class="input-group-text cursor-pointer" id="vocabulary-search-button">
@@ -69,29 +70,6 @@
         </div>
     </div>
     <div class="row">
-        <div class="col py-0">
-            <div class="accordion" id="ajax-search-results-accordion" style="display: none;">
-                <div class="card">
-                    <div class="card-header" id="headingOne">
-                        <h2 class="mb-0">
-                            <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
-                                    data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                Результаты по сети
-                            </button>
-                        </h2>
-                    </div>
-
-                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
-                         data-parent="#ajax-search-results-accordion">
-                        <div class="card-body">
-                            <ul id="ajax-search-results" class="list-inline py-1" style="column-count: 4;"></ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
         <div class="col">
             <ul class="list-inline py-1 list-col-3 summary-links-wrapper">
                 @foreach($terms as $term)
@@ -100,6 +78,29 @@
                     </li>
                 @endforeach
             </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col py-0">
+            <div class="accordion" id="ajax-search-results-accordion" style="display: none;">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-block text-left" type="button" data-toggle="collapse"
+                                    data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                Дополнительные результаты поиска
+                            </button>
+                        </h2>
+                    </div>
+
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                         data-parent="#ajax-search-results-accordion">
+                        <div class="card-body">
+                            <ul id="ajax-search-results" class="list-inline py-1" style="column-count: 3;"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <script>

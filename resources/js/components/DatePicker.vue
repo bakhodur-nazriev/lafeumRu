@@ -20,16 +20,15 @@
             <div class="w-100 px-3">
                 <time-picker v-if="withTime" v-model="time"/>
                 <v-row>
-                    <v-spacer />
-                    <v-btn text color="primary" @click="dialog = false"
-                        >Отмена</v-btn
-                    >
+                    <v-spacer/>
+                    <v-btn text color="primary" @click="dialog = false">Отмена</v-btn>
                     <v-btn
                         text
                         color="primary"
                         @click="$refs.dialog.save(value)"
-                        >OK</v-btn
                     >
+                        OK
+                    </v-btn>
                 </v-row>
             </div>
         </v-date-picker>
@@ -66,7 +65,7 @@ export default {
 
                 let splitedDate = this.dateTime.split(" ");
 
-                if(splitedDate.length > 1){
+                if (splitedDate.length > 1) {
                     this.dateTime = v + " " + splitedDate[1];
                     return;
                 }
@@ -78,17 +77,17 @@ export default {
             get() {
                 let splitedDate = this.dateTime.split(" ");
 
-                if(splitedDate.length > 1){
+                if (splitedDate.length > 1) {
                     return splitedDate[1];
                 }
 
                 return '';
             },
             set(v) {
-                
+
                 let splitedDate = this.dateTime.split(" ");
 
-                if(!v) {
+                if (!v) {
                     this.dateTime = splitedDate[0];
                     return;
                 }
@@ -106,7 +105,7 @@ export default {
         }
     },
     watch: {
-        value(v){
+        value(v) {
             this.dateTime = v;
         }
     }

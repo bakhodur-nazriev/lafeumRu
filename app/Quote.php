@@ -38,8 +38,8 @@ class Quote extends Model
         return $this->hasMany(DailyPost::class);
     }
 
-    public function getPublishAtAttribute($date)
+    /*public function getPublishAtAttribute($date)
     {
         return Carbon::parse($date)->format('d/m/Y H:i:s');
-    }
+    }*/
 }

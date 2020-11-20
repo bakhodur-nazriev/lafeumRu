@@ -119,3 +119,12 @@ function setUpScrollButton() {
 $(document).ready(function () {
     setUpScrollButton();
 });
+
+$(function () {
+    $('#contact-form').submit(function (event) {
+        let verified = grecaptcha.getResponse();
+        if (verified.length === 0) {
+            event.preventDefault();
+        }
+    });
+});

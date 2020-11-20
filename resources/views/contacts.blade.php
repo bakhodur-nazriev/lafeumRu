@@ -20,7 +20,7 @@
         <div class="col-sm-12 col-lg-4">
             <h3 class="mb-4 secondary">Свяжитесь с нами</h3>
             <div class="contact-form-block">
-                <form action="/contacts" method="POST">
+                <form action="/contacts" method="POST" id="contact-form">
                     <div class="form-group">
                         <label for="user_name">Ваше имя</label>
                         <input type="text" name="user_name" value="{{ old('user_name') }}" class="form-control">
@@ -41,7 +41,9 @@
                         <textarea class="form-control" id="message" name="message" rows="3"></textarea>
                         <div>{{ $errors->first('message') }}</div>
                     </div>
-
+                    <div class="form-group">
+                        <div class="g-recaptcha" data-sitekey="6LfWsOQZAAAAAAH1X_78-a9ccHDQau6Njuf6WBra"></div>
+                    </div>
                     @csrf
 
                     <button type="submit" class="btn btn-light">Отправить</button>
@@ -51,8 +53,8 @@
     </div>
     <div class="row justify-content-center mt-4">
         @if(session()->has('message'))
-            <div class="col-lg-8 alert alert-success text-center mb-0" role="alert">
-                <strong>Спасибо</strong>, {{ session()->get('message') }}
+            <div class="col-lg-8 alert alert-primary text-center mb-0" role="alert">
+                <strong>{{ session()->get('message') }}</strong>
             </div>
         @endif
     </div>

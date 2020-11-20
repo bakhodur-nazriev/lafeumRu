@@ -6,6 +6,7 @@ use App\Feedback;
 use App\Mail\ContactMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
+use GuzzleHttp\Client;
 
 class FeedbacksController extends Controller
 {
@@ -19,7 +20,7 @@ class FeedbacksController extends Controller
         return Feedback::latest()->paginate($request->perPage ?: 15);
     }
 
-    public function store()
+    public function store(Request $request)
     {
         $data = request()->validate([
             "user_name" => "required",
@@ -28,13 +29,29 @@ class FeedbacksController extends Controller
             "message" => "required"
         ]);
 
-        /* Send and Email */
-
         Feedback::create($data);
 
-        Mail::to(env('CONTACT_EMAIL'))->send(new ContactMail($data));
+        $token = $request->input('g-recaptcha-response');
+        if ($token) {
+            $client = new Client();
+            $response = $client->post('https://www.google.com/recaptcha/api/siteverify', [
+                'form_params' => array(
+                    'secret' => '6LfWsOQZAAAAAGUXKihrceAFgpgryepgSQn53a1L',
+                    'response' => $token
+                )
+            ]);
+            $result = json_decode($response->getBody()->getContents());
 
-        return redirect("/contacts")->with("message", "Ваше письмо успешно отправлено!");
+            if ($result->success) {
+                return redirect("/contacts")->with('message', 'Спасибо! Ваше письмо успешно отправлено!');
+            } else {
+                return redirect("/contacts")->with('message', 'Ошибка! Вероятно вы робот');
+            }
+        } else {
+            redirect('/contacts');
+        }
+
+        Mail::to(env('CONTACT_EMAIL'))->send(new ContactMail($data));
     }
 
     public function destroy(Feedback $feedback)

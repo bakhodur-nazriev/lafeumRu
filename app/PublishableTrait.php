@@ -10,7 +10,7 @@ trait PublishableTrait
     {
         $query->where('publish_at', '<=', Carbon::now());
 
-        if(!$sortType){
+        if (!$sortType) {
             return $query;
         }
 

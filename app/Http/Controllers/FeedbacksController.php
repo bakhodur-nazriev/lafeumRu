@@ -36,7 +36,7 @@ class FeedbacksController extends Controller
             $client = new Client();
             $response = $client->post('https://www.google.com/recaptcha/api/siteverify', [
                 'form_params' => array(
-                    'secret' => '6Ld0rOQZAAAAAGPufj5-chUh9IOpmVOYH4Wc1dma',
+                    'secret' => '6LdvqeQZAAAAAK_WqRhGHDNW8wQJsud2YS4Ao09A',
                     'response' => $token
                 )
             ]);

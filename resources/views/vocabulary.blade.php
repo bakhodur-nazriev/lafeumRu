@@ -27,12 +27,12 @@
             указанием ссылки на источник. В большинстве понятий имеются другие взаимосвязанные термины и ссылки.
             По мере обновления на основном источнике здесь они будут равным образом обновляться.
         </p>
-    @endif
-    <div class="row d-flex justify-content-center">
         <div class="col-12 text-center">
             Примеры информативных поисковых запросов: «нау», «логия», «ика», «изм», «фило», «само», «чело», «соц»,
             «пси», «эво» и т.п.<br>
         </div>
+    @endif
+    <div class="row d-flex justify-content-center">
         <div class="col-md-6">
             <form id="vocabulary-search-form">
                 <div class="input-group">

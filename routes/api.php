@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::group(['middleware' => 'auth:api'], function () {
+//Route::group(['middleware' => 'auth:api'], function () {
 
     /* Users */
     Route::get("/users", "UsersController@index");
@@ -76,7 +76,10 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get("/feedbacks", "FeedbacksController@get");
 
     /* Trash Data */
-    /*Route::get("/trash");*/
-});
+    Route::get("/quotes-trashes", "QuotesController@getTrashes");
+    Route::get("/terms-trashes", "TermsController@getTrashed");
+    Route::get("/videos-trashes", "VideosController@getTrashed");
+    Route::get("/photos-trashes", "PhotosController@getTrashed");
+//});
 
 Route::get("/summary/{id}", "PostsController@termSummary");

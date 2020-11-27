@@ -24,9 +24,9 @@ class QuotesController extends Controller
             'categories:id,name,slug',
             'post'
         ])
-        ->published('desc')
-        ->has('author')
-        ->paginate(30);
+            ->published('desc')
+            ->has('author')
+            ->paginate(30);
 
         $categories = Category::quote()->get()->toTree()->unique('name');
 
@@ -83,6 +83,20 @@ class QuotesController extends Controller
         if ($metaImage) {
             unlink(public_path($metaImage));
         }
+    }
+
+    public function getTrashes(Request $request)
+    {
+        $quotesTrashedQuery = Quote::onlyTrashed('author', 'categories', 'post')
+            ->byPublishAt();
+
+        return $this->processIndexRequestItems($request, $quotesTrashedQuery, 'body');
+
+    }
+
+    public function forceDelete()
+    {
+
     }
 
     /**

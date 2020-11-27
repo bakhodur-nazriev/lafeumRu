@@ -25,18 +25,10 @@
                 </v-card-title>
 
                 <v-card-text>
-                    <p>
-                        <strong>Имя:</strong> {{ feedbackToShow.user_name }}
-                    </p>
-                    <p>
-                        <strong>Email:</strong> {{ feedbackToShow.user_email }}
-                    </p>
-                    <p>
-                        <strong>Тема:</strong> {{ feedbackToShow.topic }}
-                    </p>
-                    <p>
-                        <strong>Добавлено:</strong> {{ feedbackToShow.created_at }}
-                    </p>
+                    <p><strong>Имя:</strong> {{ feedbackToShow.user_name }}</p>
+                    <p><strong>Email:</strong> {{ feedbackToShow.user_email }}</p>
+                    <p><strong>Тема:</strong> {{ feedbackToShow.topic }}</p>
+                    <p><strong>Добавлено:</strong> {{ feedbackToShow.created_at }}</p>
                     <p><strong>Сообщение:</strong></p>
                     <p>{{ feedbackToShow.message }}</p>
                 </v-card-text>
@@ -44,8 +36,8 @@
                 <v-card-actions>
                     <v-spacer/>
                     <v-btn
-                        color="primary darken-1"
                         text
+                        color="primary darken-1"
                         @click="feedbackDialog = null"
                     >
                         Закрыть

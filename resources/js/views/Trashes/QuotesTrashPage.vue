@@ -30,7 +30,7 @@
 
 <script>
 import IndexPageLayout from "../../components/IndexPageLayout";
-import QuotesReverseDialog from "./QuotesReverseDialog";
+import QuotesReverseDialog from "./QuotesRestoreDialog";
 import QuoteForceDeleteDialog from "./QuotesForceDeleteDialog";
 
 export default {

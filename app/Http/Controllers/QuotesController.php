@@ -85,16 +85,17 @@ class QuotesController extends Controller
         }
     }
 
-    public function getTrashes(Request $request)
+    public function getTrashed(Request $request)
     {
-        $quotesTrashedQuery = Quote::onlyTrashed('author', 'categories', 'post')
+        $quotesTrashedQuery = Quote::with('author', 'categories', 'post')
+            ->onlyTrashed()
             ->byPublishAt();
 
         return $this->processIndexRequestItems($request, $quotesTrashedQuery, 'body');
 
     }
 
-    public function forceDelete()
+    public function forceDeleteTrashed()
     {
 
     }

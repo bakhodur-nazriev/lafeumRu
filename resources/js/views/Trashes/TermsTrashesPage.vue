@@ -2,10 +2,12 @@
     <v-main class="pa-0">
         <index-page-layout
             ref="indexPage"
+            search-field="body"
             index-url="/api/terms-trashes"
             :categories="categories"
             :table-headers="this.headers"
-            search-field="body"
+            @restore-item="restoreTerm"
+            @force-delete-item="forceDeleteTerm"
         >
             <template v-slot:item.body="{item}">
                 <div
@@ -31,7 +33,12 @@
             </template>
         </index-page-layout>
 
-        <terms-reverse-dialog/>
+        <terms-restore-dialog
+            v-model="termToRestore"
+            :knowledge-areas="knowledgeAreas"
+            :categories="categories"
+            :term-types="termTypes"
+        />
 
         <terms-force-delete-dialog/>
     </v-main>
@@ -40,16 +47,18 @@
 <script>
 import IndexPageLayout from "../../components/IndexPageLayout";
 import TermsForceDeleteDialog from "./TermsForceDeleteDialog";
-import TermsReverseDialog from "./TermsReverseDialog";
+import TermsRestoreDialog from "./TermsRestoreDialog";
 
 export default {
-    components: {TermsReverseDialog, TermsForceDeleteDialog, IndexPageLayout},
+    components: {TermsRestoreDialog, TermsForceDeleteDialog, IndexPageLayout},
     data() {
         return {
             authors: [],
             termTypes: [],
             categories: [],
             knowledgeAreas: [],
+            termToRestore: null,
+            termToForceDelete: null,
             headers: [
                 {
                     text: "Словарь",
@@ -106,6 +115,14 @@ export default {
                 .get("/api/categories?type=" + TERM_TYPE)
                 .then(res => (this.categories = res.data))
                 .catch(e => console.log(e));
+        },
+        restoreTerm() {
+            this.termToRestore = null;
+            this.$refs.indexPage.loadItems();
+        },
+        forceDeleteTerm() {
+            this.termToForceDelete = null;
+            this.$refs.indexPage.loadItems();
         }
     }
 }

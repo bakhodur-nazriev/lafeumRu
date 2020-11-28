@@ -23,8 +23,13 @@ class PhotosController extends Controller
     public function get(Request $request)
     {
         $photosQuery = Photo::byPublishAt();
-
         return $this->processIndexRequestItems($request, $photosQuery, 'description');
+    }
+
+    public function getTrashed(Request $request)
+    {
+        $photosTrashedQuery = Photo::onlyTrashed()->byPublishAt();
+        return $this->processIndexRequestItems($request, $photosTrashedQuery, 'description');
     }
 
     public function store(Request $request)
@@ -44,7 +49,7 @@ class PhotosController extends Controller
     public function update(Photo $photo, Request $request)
     {
         $newPhotoData = $request->all();
-        
+
         if ($request->hasFile("image")) {
             $newPhotoData["image"] = $this->saveImage(time(), $request->image, self::PHOTOS_PATH);
         }

@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-//Route::group(['middleware' => 'auth:api'], function () {
+Route::group(['middleware' => 'auth:api'], function () {
 
     /* Users */
     Route::get("/users", "UsersController@index");
@@ -76,10 +76,22 @@ use Illuminate\Support\Facades\Route;
     Route::get("/feedbacks", "FeedbacksController@get");
 
     /* Trash Data */
-    Route::get("/quotes-trashes", "QuotesController@getTrashes");
+    Route::get("/quotes-trashes", "QuotesController@getTrashed");
+    Route::post("/quotes-trashes", "QuotesController@restoreTrashed");
+    Route::delete("/quotes-trashes/{quote}", "QuotesController@forceDeleteTrashed");
+
     Route::get("/terms-trashes", "TermsController@getTrashed");
+    Route::post("/terms-trashes", "TermsController@restoreTrashed");
+    Route::delete("/terms-trashes/{term}", "TermsController@forceDeleteTrashed");
+
     Route::get("/videos-trashes", "VideosController@getTrashed");
+    Route::post("/videos-trashes", "VideosController@restoreTrashed");
+    Route::delete("/videos-trashes/{video}", "VideosController@forceDeleteTrashed");
+
     Route::get("/photos-trashes", "PhotosController@getTrashed");
-//});
+    Route::post("/photos-trashes", "PhotosController@restoreTrashed");
+    Route::delete("/photos-trashes/{photo}", "PhotosController@getTrashed");
+
+});
 
 Route::get("/summary/{id}", "PostsController@termSummary");

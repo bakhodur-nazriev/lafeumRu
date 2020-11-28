@@ -31,7 +31,7 @@
 <script>
 import IndexPageLayout from "../../components/IndexPageLayout";
 import VideosForceDeleteDialog from "./VideosForceDeleteDialog";
-import VideosReverseDialog from "./VideosReverseDialog";
+import VideosReverseDialog from "./VideosRestoreDialog";
 
 export default {
     components: {VideosReverseDialog, VideosForceDeleteDialog, IndexPageLayout},
@@ -71,6 +71,8 @@ export default {
         };
     },
     mounted() {
+        this.loadChannels();
+        this.loadCategories();
     },
     methods: {
         loadChannels() {
@@ -88,7 +90,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-
-</style>

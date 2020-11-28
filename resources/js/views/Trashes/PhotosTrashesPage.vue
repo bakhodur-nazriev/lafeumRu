@@ -25,7 +25,7 @@
 <script>
 import IndexPageLayout from "../../components/IndexPageLayout";
 import PhotosForceDeleteDialog from "./PhotosForceDeleteDialog";
-import PhotosReverseDialog from "./PhotosReverseDialog";
+import PhotosReverseDialog from "./PhotosRestoreDialog";
 
 export default {
     components: {PhotosReverseDialog, PhotosForceDeleteDialog, IndexPageLayout},

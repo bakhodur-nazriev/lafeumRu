@@ -75,22 +75,25 @@ Route::group(['middleware' => 'auth:api'], function () {
     /* User-Feedbacks */
     Route::get("/feedbacks", "FeedbacksController@get");
 
-    /* Trash Data */
-    Route::get("/quotes-trashes", "QuotesController@getTrashed");
-    Route::post("/quotes-trashes", "QuotesController@restoreTrashed");
-    Route::delete("/quotes-trashes/{quote}", "QuotesController@forceDeleteTrashed");
+    /* Quotes Trashed */
+    Route::get("/quotes-trashed", "QuotesController@getTrashed");
+    Route::post("/quotes-trashed", "QuotesController@restoreTrashed");
+    Route::delete("/quotes-trashed/{quote}", "QuotesController@forceDeleteTrashed");
 
-    Route::get("/terms-trashes", "TermsController@getTrashed");
-    Route::post("/terms-trashes", "TermsController@restoreTrashed");
-    Route::delete("/terms-trashes/{term}", "TermsController@forceDeleteTrashed");
+    /* Terms Trashed */
+    Route::get("/terms-trashed", "TermsController@getTrashed");
+    Route::post("/terms-trashed", "TermsController@restoreTrashed");
+    Route::delete("/terms-trashed/{term}", "TermsController@forceDeleteTrashed");
 
-    Route::get("/videos-trashes", "VideosController@getTrashed");
-    Route::post("/videos-trashes", "VideosController@restoreTrashed");
-    Route::delete("/videos-trashes/{video}", "VideosController@forceDeleteTrashed");
+    /* Videos Trashed */
+    Route::get("/videos-trashed", "VideosController@getTrashed");
+    Route::post("/videos-trashed", "VideosController@restoreTrashed");
+    Route::delete("/videos-trashed/{video}", "VideosController@forceDeleteTrashed");
 
-    Route::get("/photos-trashes", "PhotosController@getTrashed");
-    Route::post("/photos-trashes", "PhotosController@restoreTrashed");
-    Route::delete("/photos-trashes/{photo}", "PhotosController@getTrashed");
+    /* Photos Trashed */
+    Route::get("/photos-trashed", "PhotosController@getTrashed");
+    Route::post("/photos-trashed", "PhotosController@restoreTrashed");
+    Route::delete("/photos-trashed/{photo}", "PhotosController@getTrashed");
 
 });
 

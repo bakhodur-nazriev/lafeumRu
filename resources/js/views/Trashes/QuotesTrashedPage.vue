@@ -6,6 +6,9 @@
             :categories="categories"
             :table-headers="this.headers"
             search-field="body"
+            @show-item="showQuote"
+            @force-delete="quoteToDelete = $event"
+            noActions
         >
             <template v-slot:item.body="{ item }">
                 <div
@@ -21,24 +24,49 @@
                     {{ category.name }},
                 </div>
             </template>
+            <template v-if="!noActions" v-slot:item.action="{ item }">
+                <v-btn
+                    fab
+                    dark
+                    small
+                    elevation="2"
+                    color="green"
+                >
+                    <v-icon dark>mdi-arrow-left</v-icon>
+                </v-btn>
+                <v-btn
+                    fab
+                    dark
+                    small
+                    elevation="2"
+                    color="red"
+                >
+                    <v-icon dark>mdi-delete</v-icon>
+                </v-btn>
+            </template>
         </index-page-layout>
 
-        <quotes-reverse-dialog/>
-        <quote-force-delete-dialog/>
+        <quotes-restore-dialog/>
+        <quote-force-delete-dialog
+            v-model="quoteToForceDelete"
+            @force-deleted="quoteForceDeleted"
+        />
     </v-main>
 </template>
 
 <script>
 import IndexPageLayout from "../../components/IndexPageLayout";
-import QuotesReverseDialog from "./QuotesRestoreDialog";
+import QuotesRestoreDialog from "./QuotesRestoreDialog";
 import QuoteForceDeleteDialog from "./QuotesForceDeleteDialog";
 
 export default {
-    components: {QuoteForceDeleteDialog, QuotesReverseDialog, IndexPageLayout},
+    components: {QuotesRestoreDialog, QuoteForceDeleteDialog, IndexPageLayout},
     data() {
         return {
             authors: [],
             categories: [],
+            noActions: false,
+            quoteToForceDelete: null,
             headers: [
                 {
                     text: "Цитаты",
@@ -60,6 +88,13 @@ export default {
                     value: "publish_at",
                     width: 160
                 },
+                {
+                    text: "Действия",
+                    value: "action",
+                    sortable: false,
+                    align: "center",
+                    width: "160px"
+                }
             ]
         }
     },
@@ -82,6 +117,10 @@ export default {
         },
         showQuote(quote) {
             window.open('/' + quote.post.id, '_blank');
+        },
+        quoteForceDeleted() {
+            this.quoteToForceDelete = null;
+            this.$refs.indexPage.loadItems();
         }
     }
 }

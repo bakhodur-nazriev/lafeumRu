@@ -1,11 +1,11 @@
 import QuotesPage from "./views/QuotesPage";
-import QuotesTrashPage from "./views/Trashes/QuotesTrashPage";
+import QuotesTrashedPage from "./views/Trashes/QuotesTrashedPage";
 import TermsPage from "./views/TermsPage";
-import TermsTrashesPage from "./views/Trashes/TermsTrashesPage";
+import TermsTrashedPage from "./views/Trashes/TermsTrashedPage";
 import VideosPage from "./views/VideosPage";
-import VideosTrashesPage from "./views/Trashes/VideosTrashesPage";
+import VideosTrashedPage from "./views/Trashes/VideosTrashedPage";
 import PhotosPage from "./views/PhotosPage";
-import PhotosForceDeleteDialog from "./views/Trashes/PhotosTrashesPage";
+import PhotosTrashedPage from "./views/Trashes/PhotosTrashedPage";
 import AuthorsPage from "./views/AuthorsPage";
 import UsersPage from "./views/UsersPage";
 import ProfilePage from "./views/ProfilePage";
@@ -114,7 +114,7 @@ let allSidebarRoutes = [
             }
         ]
     },
-    /* Trashes Section */
+    /* Trashed Data Section */
     {
         meta: {
             icon: "mdi-delete",
@@ -124,40 +124,40 @@ let allSidebarRoutes = [
         path: "",
         subLinks: [
             {
-                path: "/dashboard/quotes-trashes",
-                name: "/dashboard/quotes-trashes",
+                path: "/dashboard/quotes-trashed",
+                name: "/dashboard/quotes-trashed",
                 meta: {
                     icon: "mdi-plus",
                     title: "Карзина Цитаты"
                 },
-                component: QuotesTrashPage
+                component: QuotesTrashedPage
             },
             {
                 meta: {
                     icon: "mdi-tag",
                     title: "Карзина Термины"
                 },
-                path: "/dashboard/terms-trashes",
-                name: "/dashboard/terms-trashes",
-                component: TermsTrashesPage
+                path: "/dashboard/terms-trashed",
+                name: "/dashboard/terms-trashed",
+                component: TermsTrashedPage
             },
             {
                 meta: {
                     icon: "mdi-youtube",
                     title: "Карзина Видео"
                 },
-                path: "/dashboard/videos-trashes",
-                name: "/dashboard/videos-trashes",
-                component: VideosTrashesPage
+                path: "/dashboard/videos-trashed",
+                name: "/dashboard/videos-trashed",
+                component: VideosTrashedPage
             },
             {
                 meta: {
                     icon: "mdi-image",
                     title: "Карзина Фото"
                 },
-                path: "/dashboard/photos-trashes",
-                name: "/dashboard/photos-trashes",
-                component: PhotosForceDeleteDialog
+                path: "/dashboard/photos-trashed",
+                name: "/dashboard/photos-trashed",
+                component: PhotosTrashedPage
             }
         ]
     },

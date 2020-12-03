@@ -95,8 +95,20 @@ class QuotesController extends Controller
 
     }
 
-    public function forceDeleteTrashed()
+    public function forceDeleteTrashed(Quote $quote)
     {
+        $this->redirectService->registerModelRemoval($quote);
+
+        $quote->post()->forceDelete();
+        $quote->categories()->detach();
+
+        $metaImage = $quote->meta_image;
+
+        $quote->forceDelete();
+
+        if ($metaImage) {
+            unlink(public_path($metaImage));
+        }
 
     }
 

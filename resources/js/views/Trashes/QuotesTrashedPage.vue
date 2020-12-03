@@ -1,14 +1,14 @@
 <template>
     <v-main class="pa-0">
         <index-page-layout
+            no-actions
             ref="indexPage"
             index-url="/api/quotes-trashes"
             :categories="categories"
             :table-headers="this.headers"
             search-field="body"
             @show-item="showQuote"
-            @force-delete="quoteToDelete = $event"
-            noActions
+            @force-delete-item="quoteToForceDelete = $event"
         >
             <template v-slot:item.body="{ item }">
                 <div
@@ -24,29 +24,41 @@
                     {{ category.name }},
                 </div>
             </template>
-            <template v-if="!noActions" v-slot:item.action="{ item }">
-                <v-btn
-                    fab
-                    dark
-                    small
-                    elevation="2"
-                    color="green"
-                >
-                    <v-icon dark>mdi-arrow-left</v-icon>
-                </v-btn>
-                <v-btn
-                    fab
-                    dark
-                    small
-                    elevation="2"
-                    color="red"
-                >
-                    <v-icon dark>mdi-delete</v-icon>
-                </v-btn>
+            <template v-slot:item.action="{ item }">
+                <v-tooltip top>
+                    <template v-slot:activator="{ on }">
+                        <v-btn
+                            fab
+                            dark
+                            small
+                            v-on="on"
+                            color="green"
+                            elevetion="2"
+                        >
+                            <v-icon>mdi-arrow-left</v-icon>
+                        </v-btn>
+                    </template>
+                    <span>Восстановить</span>
+                </v-tooltip>
+                <v-tooltip top>
+                    <template v-slot:activator="{ on }">
+                        <v-btn
+                            fab
+                            dark
+                            small
+                            v-on="on"
+                            color="red"
+                            elevetion="2"
+                        >
+                            <v-icon>mdi-delete</v-icon>
+                        </v-btn>
+                    </template>
+                    <span>Удалить безвозвратно</span>
+                </v-tooltip>
             </template>
+
         </index-page-layout>
 
-        <quotes-restore-dialog/>
         <quote-force-delete-dialog
             v-model="quoteToForceDelete"
             @force-deleted="quoteForceDeleted"
@@ -56,16 +68,14 @@
 
 <script>
 import IndexPageLayout from "../../components/IndexPageLayout";
-import QuotesRestoreDialog from "./QuotesRestoreDialog";
 import QuoteForceDeleteDialog from "./QuotesForceDeleteDialog";
 
 export default {
-    components: {QuotesRestoreDialog, QuoteForceDeleteDialog, IndexPageLayout},
+    components: {QuoteForceDeleteDialog, IndexPageLayout},
     data() {
         return {
             authors: [],
             categories: [],
-            noActions: false,
             quoteToForceDelete: null,
             headers: [
                 {
@@ -86,14 +96,12 @@ export default {
                 {
                     text: "Опубликовано",
                     value: "publish_at",
-                    width: 160
+                    width: "160px"
                 },
                 {
                     text: "Действия",
                     value: "action",
-                    sortable: false,
-                    align: "center",
-                    width: "160px"
+                    width: "140px"
                 }
             ]
         }

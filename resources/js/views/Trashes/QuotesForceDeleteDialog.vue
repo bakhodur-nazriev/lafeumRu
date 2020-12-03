@@ -1,20 +1,12 @@
 <template>
     <v-dialog v-if="quoteToForceDelete" v-model="quoteToForceDelete" width="500">
         <v-card class="pa-2">
-            <p class="pt-1 regular headline text-center">
+            <v-card-title class="regular headline text-center pa-2">
                 Вы действительно хотите безвозвратно удалить эту цитату ?
-            </p>
+            </v-card-title>
             <v-card-actions class="justify-center">
-                <v-btn
-                    dark
-                    color="green darken-1"
-                    @click="$emit('input', null)"
-                >
-                    Нет
-                </v-btn>
-                <v-btn color="red darken-1" dark @click="forceDeleteQuote()">
-                    Да
-                </v-btn>
+                <v-btn dark color="green" @click="quoteToForceDelete = null">Нет</v-btn>
+                <v-btn dark color="red" @click="forceDeleteQuote()">Да</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
@@ -22,19 +14,12 @@
 
 <script>
 export default {
-    props: {
-        value: Object
-    },
-    data() {
-        return {}
-    },
+    props: {value: Object},
     methods: {
         forceDeleteQuote() {
-            const url = "/api/quotes-trashed" + this.quoteToForceDelete.slug;
-
             axios
-                .delete(url)
-                .then(res => (this.$emit('force-deleted', res.data)))
+                .delete("/api/quotes-trashed/" + this.quoteToForceDelete.id)
+                .then(res => (this.$emit('force-deleted')))
                 .catch(err => (console.log(err)))
         }
     },

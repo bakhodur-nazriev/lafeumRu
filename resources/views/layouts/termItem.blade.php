@@ -10,9 +10,7 @@
     <div class="row px-3 mb-2 d-flex">
         <div class="col-6 p-0 atom-icon-block">
             @if($term->termType['name'] == 'Термины научного мира')
-                <img src="/img/icons/atom.png"/>
-                <img src="/img/icons/atom.png"/>
-                <img src="/img/icons/atom.png"/>
+                <div></div>
             @else
                 <span class="font-weight-bold secondary">{{ $term->termType['name'] }}</span>
             @endif

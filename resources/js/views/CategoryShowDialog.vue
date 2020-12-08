@@ -14,11 +14,10 @@
                     <v-icon color="white" small>mdi-delete</v-icon>
                 </v-btn>
             </v-card-title>
-
             <v-card-text v-html="category.description"/>
 
             <v-card-actions>
-                <v-spacer></v-spacer>
+                <v-spacer/>
                 <v-btn text @click="closeDialog" color="primary darken-1">Закрыть</v-btn>
             </v-card-actions>
         </v-card>

@@ -31,10 +31,15 @@
             Примеры информативных поисковых запросов: «нау», «логия», «ика», «изм», «фило», «само», «чело», «соц»,
             «пси», «эво» и т.п.<br>
         </div>
+<<<<<<< HEAD
     @endif
     <div class="row d-flex justify-content-center">
         <div class="col-md-6">
             <form id="vocabulary-search-form">
+=======
+        <div class="col-md-4">
+            {{-- <form id="vocabulary-search-form"> --}}
+>>>>>>> parent of c86636f (restore vocabulary search)
                 <div class="input-group">
                     <input
                         type="search"
@@ -42,7 +47,7 @@
                         class="form-control"
                         placeholder="Введите термин"
                     />
-                    <div class="input-group-append">
+                    {{-- <div class="input-group-append">
                         <button
                             id="vocabulary-search-reset"
                             type="button"
@@ -57,6 +62,7 @@
                         >
                             <i class="fa fa-search"></i>
                         </button>
+<<<<<<< HEAD
                         <span class="ml-2 mt-1">Дополнительный поиск</span>
                     </div>
                     {{-- <div class="input-group-append">
@@ -98,9 +104,17 @@
                         <div class="card-body">
                             <ul id="ajax-search-results" class="list-inline py-1" style="column-count: 3;"></ul>
                         </div>
+=======
+                    </div> --}}
+                    <div class="input-group-append">
+                        <div class="input-group-text cursor-pointer" id="vocabulary-search-button">
+                            <i class="fa fa-search"></i>
+                        </div>
+>>>>>>> parent of c86636f (restore vocabulary search)
                     </div>
                 </div>
-            </div>
+                <small id="vocabulary-search-result" class="form-text text-muted ml-1"></small>
+            {{-- </form> --}}
         </div>
     </div>
     <script>
@@ -111,91 +125,91 @@
                 '#vocabulary-search-result'
             );
         })
-        $(document).ready(() => {
-            $("#vocabulary-search-form").submit((e) => {
-                e.preventDefault();
+        // $(document).ready(() => {
+        //     $("#vocabulary-search-form").submit((e) => {
+        //         e.preventDefault();
 
-                let filter = document.getElementById("vocabulary-search").value;
+        //         let filter = document.getElementById("vocabulary-search").value;
 
-                runVocabularySearch(filter);
-            });
-        });
+        //         runVocabularySearch(filter);
+        //     });
+        // });
 
-        function runVocabularySearch(keyword) {
-            searchInTerms(keyword);
+        // function runVocabularySearch(keyword) {
+        //     searchInTerms(keyword);
 
-            let foundCount = search(".list-col-3", keyword);
+        //     let foundCount = search(".list-col-3", keyword);
 
-            attachSummaryModals();
+        //     attachSummaryModals();
 
-            attachSearchResults(foundCount, '#vocabulary-search-result');
+        //     attachSearchResults(foundCount, '#vocabulary-search-result');
 
-            showResetButton();
-        }
+        //     showResetButton();
+        // }
 
-        function searchInTerms(keyword) {
-            $.get(`/terms/links-search?key=${keyword}`)
-                .then(r => applyAjaxSearchResults(r));
-        }
+        // function searchInTerms(keyword) {
+        //     $.get(`/terms/links-search?key=${keyword}`)
+        //         .then(r => applyAjaxSearchResults(r));
+        // }
 
-        function applyAjaxSearchResults(results) {
-            let accordion = document.getElementById("ajax-search-results-accordion");
-            let listElement = document.getElementById("ajax-search-results");
+        // function applyAjaxSearchResults(results) {
+        //     let accordion = document.getElementById("ajax-search-results-accordion");
+        //     let listElement = document.getElementById("ajax-search-results");
 
-            listElement.innerHTML = "";
+        //     listElement.innerHTML = "";
 
-            if (!Array.isArray(results) || !results.length) {
-                accordion.style.display = "none";
-                return;
-            }
+        //     if (!Array.isArray(results) || !results.length) {
+        //         accordion.style.display = "none";
+        //         return;
+        //     }
 
-            for (const result of results) {
-                let li = document.createElement('li');
-                li.className = "vocabulary";
+        //     for (const result of results) {
+        //         let li = document.createElement('li');
+        //         li.className = "vocabulary";
 
-                let anchor = document.createElement('a');
-                anchor.href = result.link;
-                anchor.innerText = result.text;
+        //         let anchor = document.createElement('a');
+        //         anchor.href = result.link;
+        //         anchor.innerText = result.text;
 
-                li.appendChild(anchor);
+        //         li.appendChild(anchor);
 
-                listElement.appendChild(li);
-            }
+        //         listElement.appendChild(li);
+        //     }
 
-            accordion.style.display = "block";
-        }
+        //     accordion.style.display = "block";
+        // }
 
-        function attachSearchResults(count, element) {
-            let elementToShowResult = document.querySelector(element);
+        // function attachSearchResults(count, element) {
+        //     let elementToShowResult = document.querySelector(element);
 
-            if (!elementToShowResult) return;
+        //     if (!elementToShowResult) return;
 
-            if (foundCount === null) {
-                elementToShowResult.textContent = '';
+        //     if (foundCount === null) {
+        //         elementToShowResult.textContent = '';
 
-            } else if (foundCount > 0) {
-                elementToShowResult.textContent = `Обнаружено ${foundCount} совпадений`;
+        //     } else if (foundCount > 0) {
+        //         elementToShowResult.textContent = `Обнаружено ${foundCount} совпадений`;
 
-            } else {
-                elementToShowResult.textContent = `По вашему запросу ничего не обнаружено`;
-            }
-        }
+        //     } else {
+        //         elementToShowResult.textContent = `По вашему запросу ничего не обнаружено`;
+        //     }
+        // }
 
-        function showResetButton() {
-            let resetButton = document.getElementById("vocabulary-search-reset");
+        // function showResetButton() {
+        //     let resetButton = document.getElementById("vocabulary-search-reset");
 
-            let searchInput = document.getElementById("vocabulary-search");
+        //     let searchInput = document.getElementById("vocabulary-search");
 
-            searchInput.style.borderRight = 'none';
-            resetButton.style.display = 'block';
+        //     searchInput.style.borderRight = 'none';
+        //     resetButton.style.display = 'block';
 
-            resetButton.onclick = () => {
-                searchInput.value = '';
-                runVocabularySearch('');
-                resetButton.style.display = 'none';
-                searchInput.style.removeProperty('border-right');
-            };
-        }
+        //     resetButton.onclick = () => {
+        //         searchInput.value = '';
+        //         runVocabularySearch('');
+        //         resetButton.style.display = 'none';
+        //         searchInput.style.removeProperty('border-right');
+        //     };
+        // }
 
     </script>
 @endsection

@@ -31,19 +31,10 @@
             Примеры информативных поисковых запросов: «нау», «логия», «ика», «изм», «фило», «само», «чело», «соц»,
             «пси», «эво» и т.п.<br>
         </div>
-<<<<<<< HEAD
-<<<<<<< HEAD
     @endif
     <div class="row d-flex justify-content-center">
-        <div class="col-md-6">
-=======
-        <div class="col-md-4">
->>>>>>> parent of 0bb37a9 (Styles changed on vocabulary page)
-            <form id="vocabulary-search-form">
-=======
         <div class="col-md-4">
             {{-- <form id="vocabulary-search-form"> --}}
->>>>>>> parent of c86636f (restore vocabulary search)
                 <div class="input-group">
                     <input
                         type="search"
@@ -66,47 +57,12 @@
                         >
                             <i class="fa fa-search"></i>
                         </button>
-<<<<<<< HEAD
-<<<<<<< HEAD
                         <span class="ml-2 mt-1">Дополнительный поиск</span>
-=======
->>>>>>> parent of 0bb37a9 (Styles changed on vocabulary page)
-                    </div>
-                    {{-- <div class="input-group-append">
-                        <div class="input-group-text cursor-pointer" id="vocabulary-search-button">
-                            <i class="fa fa-search"></i>
-                        </div>
-                    </div> --}}
-                </div>
-                <small id="vocabulary-search-result" class="form-text text-muted ml-1"></small>
-            </form>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col py-0">
-            <div class="accordion" id="ajax-search-results-accordion" style="display: none;">
-                <div class="card">
-                    <div class="card-header" id="headingOne">
-                        <h2 class="mb-0">
-                            <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
-                                    data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                Результаты по сети
-                            </button>
-                        </h2>
-                    </div>
-
-                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
-                         data-parent="#ajax-search-results-accordion">
-                        <div class="card-body">
-                            <ul id="ajax-search-results" class="list-inline py-1" style="column-count: 4;"></ul>
-                        </div>
-=======
                     </div> --}}
                     <div class="input-group-append">
                         <div class="input-group-text cursor-pointer" id="vocabulary-search-button">
                             <i class="fa fa-search"></i>
                         </div>
->>>>>>> parent of c86636f (restore vocabulary search)
                     </div>
                 </div>
                 <small id="vocabulary-search-result" class="form-text text-muted ml-1"></small>
@@ -124,6 +80,29 @@
             </ul>
         </div>
     </div>
+    {{-- <div class="row">
+        <div class="col py-0">
+            <div class="accordion" id="ajax-search-results-accordion" style="display: none;">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-block text-left" type="button" data-toggle="collapse"
+                                    data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                Дополнительные результаты поиска
+                            </button>
+                        </h2>
+                    </div>
+
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                         data-parent="#ajax-search-results-accordion">
+                        <div class="card-body">
+                            <ul id="ajax-search-results" class="list-inline py-1" style="column-count: 3;"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> --}}
     <script>
         $(document).ready(() => {
             attachSearch(

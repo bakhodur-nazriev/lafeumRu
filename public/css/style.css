@@ -410,6 +410,7 @@ button:focus {
 .tags-block a {
     margin-right: 10px;
     color: #04718c;
+    font-size: 13px;
 }
 
 .navbar-light .navbar-nav .nav-link {

@@ -95,7 +95,7 @@ class QuotesController extends Controller
 
     }
 
-    public function forceDeleteTrashed(Quote $quote)
+    public function forceDelete(Quote $quote)
     {
         $this->redirectService->registerModelRemoval($quote);
 
@@ -109,7 +109,6 @@ class QuotesController extends Controller
         if ($metaImage) {
             unlink(public_path($metaImage));
         }
-
     }
 
     /**

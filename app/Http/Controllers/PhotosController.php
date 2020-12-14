@@ -26,12 +26,6 @@ class PhotosController extends Controller
         return $this->processIndexRequestItems($request, $photosQuery, 'description');
     }
 
-    public function getTrashed(Request $request)
-    {
-        $photosTrashedQuery = Photo::onlyTrashed()->byPublishAt();
-        return $this->processIndexRequestItems($request, $photosTrashedQuery, 'description');
-    }
-
     public function store(Request $request)
     {
         $request->validate([
@@ -61,5 +55,16 @@ class PhotosController extends Controller
     public function destroy(Photo $photo)
     {
         $photo->delete();
+    }
+
+    public function getTrashed(Request $request)
+    {
+        $photosTrashedQuery = Photo::onlyTrashed()->byPublishAt();
+        return $this->processIndexRequestItems($request, $photosTrashedQuery, 'description');
+    }
+
+    public function forceDelete(Photo $photo)
+    {
+        $photo->forceDelete();
     }
 }

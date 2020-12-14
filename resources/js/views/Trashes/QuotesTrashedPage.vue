@@ -1,13 +1,12 @@
 <template>
     <v-main class="pa-0">
         <index-page-layout
-            no-actions
             ref="indexPage"
-            index-url="/api/quotes-trashes"
+            search-field="body"
+            index-url="/api/quotes-trashed"
             :categories="categories"
             :table-headers="this.headers"
-            search-field="body"
-            @show-item="showQuote"
+            @restore-item="quoteToRestore = $event"
             @force-delete-item="quoteToForceDelete = $event"
         >
             <template v-slot:item.body="{ item }">
@@ -24,42 +23,14 @@
                     {{ category.name }},
                 </div>
             </template>
-            <template v-slot:item.action="{ item }">
-                <v-tooltip top>
-                    <template v-slot:activator="{ on }">
-                        <v-btn
-                            fab
-                            dark
-                            small
-                            v-on="on"
-                            color="green"
-                            elevetion="2"
-                        >
-                            <v-icon>mdi-arrow-left</v-icon>
-                        </v-btn>
-                    </template>
-                    <span>Восстановить</span>
-                </v-tooltip>
-                <v-tooltip top>
-                    <template v-slot:activator="{ on }">
-                        <v-btn
-                            fab
-                            dark
-                            small
-                            v-on="on"
-                            color="red"
-                            elevetion="2"
-                        >
-                            <v-icon>mdi-delete</v-icon>
-                        </v-btn>
-                    </template>
-                    <span>Удалить безвозвратно</span>
-                </v-tooltip>
-            </template>
-
         </index-page-layout>
 
-        <quote-force-delete-dialog
+        <quotes-restore-dialog
+            v-model="quoteToRestore"
+            @restored="quoteRestored"
+        />
+
+        <quotes-force-delete-dialog
             v-model="quoteToForceDelete"
             @force-deleted="quoteForceDeleted"
         />
@@ -68,14 +39,20 @@
 
 <script>
 import IndexPageLayout from "../../components/IndexPageLayout";
-import QuoteForceDeleteDialog from "./QuotesForceDeleteDialog";
+import QuotesForceDeleteDialog from "./QuotesForceDeleteDialog";
+import QuotesRestoreDialog from "./QuotesRestoreDialog";
 
 export default {
-    components: {QuoteForceDeleteDialog, IndexPageLayout},
+    components: {
+        IndexPageLayout,
+        QuotesForceDeleteDialog,
+        QuotesRestoreDialog
+    },
     data() {
         return {
             authors: [],
             categories: [],
+            quoteToRestore: null,
             quoteToForceDelete: null,
             headers: [
                 {
@@ -97,11 +74,6 @@ export default {
                     text: "Опубликовано",
                     value: "publish_at",
                     width: "160px"
-                },
-                {
-                    text: "Действия",
-                    value: "action",
-                    width: "140px"
                 }
             ]
         }
@@ -123,8 +95,9 @@ export default {
                 .then(res => (this.categories = res.data))
                 .catch(e => console.log(e));
         },
-        showQuote(quote) {
-            window.open('/' + quote.post.id, '_blank');
+        quoteRestored() {
+            this.quoteToRestore = null;
+            this.$refs.indexPage.loadItems();
         },
         quoteForceDeleted() {
             this.quoteToForceDelete = null;

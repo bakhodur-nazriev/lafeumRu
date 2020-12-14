@@ -5,7 +5,9 @@
             search-field="title"
             :categories="categories"
             :table-headers="this.headers"
-            index-url="/api/videos-trashes"
+            index-url="/api/videos-trashed"
+            @restore-item="videoToRestore = $event"
+            @force-delete-item="videoToForceDelete = $event"
         >
             <template v-slot:item.duration="{ item }">
                 <p v-html="item.duration + ' мин'"></p>
@@ -23,8 +25,14 @@
             </template>
         </index-page-layout>
 
-        <videos-reverse-dialog/>
-        <videos-force-delete-dialog/>
+        <videos-reverse-dialog
+            v-model="videoToRestore"
+            @restored="videoRestored"
+        />
+        <videos-force-delete-dialog
+            v-model="videoToForceDelete"
+            @force-deleted="videoForceDeleted"
+        />
     </v-main>
 </template>
 
@@ -34,11 +42,17 @@ import VideosForceDeleteDialog from "./VideosForceDeleteDialog";
 import VideosReverseDialog from "./VideosRestoreDialog";
 
 export default {
-    components: {VideosReverseDialog, VideosForceDeleteDialog, IndexPageLayout},
+    components: {
+        IndexPageLayout,
+        VideosReverseDialog,
+        VideosForceDeleteDialog
+    },
     data() {
         return {
             channels: [],
             categories: [],
+            videoToRestore: null,
+            videoToForceDelete: null,
             headers: [
                 {
                     text: "Названия",
@@ -75,6 +89,14 @@ export default {
         this.loadCategories();
     },
     methods: {
+        videoRestored() {
+            this.videoToRestore = null;
+            this.$refs.indexPage.loadItems();
+        },
+        videoForceDeleted() {
+            this.videoForceDelete = null;
+            this.$refs.indexPage.loadItems();
+        },
         loadChannels() {
             axios
                 .get("/api/channels/?no_pagination")

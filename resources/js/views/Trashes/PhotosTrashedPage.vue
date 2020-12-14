@@ -2,9 +2,11 @@
     <main class="pa-0">
         <index-page-layout
             ref="indexPage"
-            index-url="/api/photos-trashes"
+            index-url="/api/photos-trashed"
             search-field="description"
             :table-headers="this.headers"
+            @restore-item="photoToRestore = $event"
+            @force-delete-item="photoToForceDelete = $event"
         >
             <template v-slot:item.image="{item}">
                 <div class="text-center pa-2">
@@ -17,8 +19,15 @@
             </template>
         </index-page-layout>
 
-        <photos-reverse-dialog/>
-        <photos-force-delete-dialog/>
+        <photos-reverse-dialog
+            v-model="photoToRestore"
+            @restored="photoRestored"
+        />
+
+        <photos-force-delete-dialog
+            v-model="photoToForceDelete"
+            @force-deleted="photoForceDeleted"
+        />
     </main>
 </template>
 
@@ -28,9 +37,15 @@ import PhotosForceDeleteDialog from "./PhotosForceDeleteDialog";
 import PhotosReverseDialog from "./PhotosRestoreDialog";
 
 export default {
-    components: {PhotosReverseDialog, PhotosForceDeleteDialog, IndexPageLayout},
+    components: {
+        IndexPageLayout,
+        PhotosReverseDialog,
+        PhotosForceDeleteDialog
+    },
     data() {
         return {
+            photoToRestore: null,
+            photoToForceDelete: null,
             headers: [
                 {
                     text: "Фото",
@@ -50,6 +65,16 @@ export default {
                     width: 160
                 }
             ]
+        }
+    },
+    methods: {
+        photoRestored() {
+            this.photoToRestore = null;
+            this.$refs.indexPage.loadItems();
+        },
+        photoForceDeleted() {
+            this.photoToForceDelete = null;
+            this.$refs.indexPage.loadItems();
         }
     }
 }

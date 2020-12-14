@@ -3,7 +3,7 @@
         <index-page-layout
             ref="indexPage"
             search-field="body"
-            index-url="/api/terms-trashes"
+            index-url="/api/terms-trashed"
             :categories="categories"
             :table-headers="this.headers"
             @restore-item="restoreTerm"
@@ -35,12 +35,19 @@
 
         <terms-restore-dialog
             v-model="termToRestore"
-            :knowledge-areas="knowledgeAreas"
-            :categories="categories"
+            @restored="termRestored"
             :term-types="termTypes"
+            :categories="categories"
+            :knowledge-areas="knowledgeAreas"
         />
 
-        <terms-force-delete-dialog/>
+        <terms-force-delete-dialog
+            v-model="termToForceDelete"
+            @force-deleted="termForceDeleted"
+            :term-types="termTypes"
+            :categories="categories"
+            :knowledge-areas="knowledgeAreas"
+        />
     </v-main>
 </template>
 
@@ -50,7 +57,11 @@ import TermsForceDeleteDialog from "./TermsForceDeleteDialog";
 import TermsRestoreDialog from "./TermsRestoreDialog";
 
 export default {
-    components: {TermsRestoreDialog, TermsForceDeleteDialog, IndexPageLayout},
+    components: {
+        IndexPageLayout,
+        TermsRestoreDialog,
+        TermsForceDeleteDialog
+    },
     data() {
         return {
             authors: [],

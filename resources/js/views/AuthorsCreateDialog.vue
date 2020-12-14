@@ -18,6 +18,7 @@
                         <v-select
                             outlined
                             label="Группа авторов"
+                            hide-details
                             :items="groups"
                             item-text="name"
                             item-value="id"

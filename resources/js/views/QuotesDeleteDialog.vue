@@ -1,7 +1,7 @@
 <template>
     <v-dialog v-if="quoteToDelete" v-model="quoteToDelete" width="500">
-        <v-card class="pa-2">
-            <v-card-title class="pt-1 regular headline text-center">
+        <v-card class="pa-1">
+            <v-card-title class="pt-1 font-weight-regular headline text-center">
                 Вы действительно хотите удалить эту цитату ?
             </v-card-title>
             <v-card-actions class="justify-center">

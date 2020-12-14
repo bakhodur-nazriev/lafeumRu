@@ -82,9 +82,24 @@ class TermsController extends Controller
     public function getTrashed(Request $request)
     {
         $termsTrashedQuery = Term::with('categories', 'knowledge', 'termType', 'post')
-            ->onlyTrasThed()
+            ->onlyTrashed()
             ->byPublishAt();
         return $this->processIndexRequestItems($request, $termsTrashedQuery, 'body');
+    }
+
+    public function restore($id)
+    {
+        $term = Term::onlyTrashed()->find($id);
+        $term->restore();
+    }
+
+    public function forceDelete($id)
+    {
+        $term = Term::onlyTrashed()->find($id);
+        $this->redirectService->registerModelRemoval($term);
+        $term->categories()->detach();
+        $term->post()->forceDelete();
+        $term->forceDelete();
     }
 
     public function store(Request $request)

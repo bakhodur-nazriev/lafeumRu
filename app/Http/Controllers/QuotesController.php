@@ -95,8 +95,16 @@ class QuotesController extends Controller
 
     }
 
-    public function forceDelete(Quote $quote)
+    public function restore($id)
     {
+        $quote = Quote::onlyTrashed()->find($id);
+        $quote->restore();
+    }
+
+    public function forceDelete($id)
+    {
+        $quote = Quote::onlyTrashed()->find($id);
+
         $this->redirectService->registerModelRemoval($quote);
 
         $quote->post()->forceDelete();

@@ -6,6 +6,7 @@
             :categories="categories"
             :table-headers="this.headers"
             index-url="/api/videos-trashed"
+            @show-item="addVideo = true"
             @restore-item="videoToRestore = $event"
             @force-delete-item="videoToForceDelete = $event"
         >
@@ -24,11 +25,11 @@
                 </div>
             </template>
         </index-page-layout>
-
-        <videos-reverse-dialog
+        <videos-restore-dialog
             v-model="videoToRestore"
             @restored="videoRestored"
         />
+
         <videos-force-delete-dialog
             v-model="videoToForceDelete"
             @force-deleted="videoForceDeleted"
@@ -38,19 +39,20 @@
 
 <script>
 import IndexPageLayout from "../../components/IndexPageLayout";
+import VideosRestoreDialog from "./VideosRestoreDialog";
 import VideosForceDeleteDialog from "./VideosForceDeleteDialog";
-import VideosReverseDialog from "./VideosRestoreDialog";
 
 export default {
     components: {
         IndexPageLayout,
-        VideosReverseDialog,
+        VideosRestoreDialog,
         VideosForceDeleteDialog
     },
     data() {
         return {
             channels: [],
             categories: [],
+            addVideo: false,
             videoToRestore: null,
             videoToForceDelete: null,
             headers: [
@@ -89,14 +91,6 @@ export default {
         this.loadCategories();
     },
     methods: {
-        videoRestored() {
-            this.videoToRestore = null;
-            this.$refs.indexPage.loadItems();
-        },
-        videoForceDeleted() {
-            this.videoForceDelete = null;
-            this.$refs.indexPage.loadItems();
-        },
         loadChannels() {
             axios
                 .get("/api/channels/?no_pagination")
@@ -108,7 +102,18 @@ export default {
                 .get("/api/categories?type=" + VIDEO_TYPE)
                 .then(res => (this.categories = res.data))
                 .catch(e => console.log(e));
-        }
+        },
+        videoRestored() {
+            this.videoToRestore = null;
+            this.$refs.indexPage.loadItems();
+        },
+        videoForceDeleted() {
+            this.videoForceDelete = null;
+            this.$refs.indexPage.loadItems();
+        },
+        showVideo(video) {
+            window.open('/' + video.post.id, '_blank');
+        },
     }
 }
 </script>

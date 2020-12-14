@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Photo;
+use App\Quote;
 use Illuminate\Http\Request;
 
 class PhotosController extends Controller
@@ -63,8 +64,9 @@ class PhotosController extends Controller
         return $this->processIndexRequestItems($request, $photosTrashedQuery, 'description');
     }
 
-    public function forceDelete(Photo $photo)
+    public function forceDelete($id)
     {
+        $photo = Quote::onlyTrashed()->find($id);
         $photo->forceDelete();
     }
 }

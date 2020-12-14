@@ -82,17 +82,17 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     /* Terms Trashed */
     Route::get("/terms-trashed", "TermsController@getTrashed");
-    Route::post("/terms-trashed", "TermsController@restore");
+    Route::put("/terms-trashed/{term}", "TermsController@restore");
     Route::delete("/terms-trashed/{term}", "TermsController@forceDelete");
 
     /* Videos Trashed */
     Route::get("/videos-trashed", "VideosController@getTrashed");
-    Route::post("/videos-trashed", "VideosController@restore");
+    Route::put("/videos-trashed/{video}", "VideosController@restore");
     Route::delete("/videos-trashed/{video}", "VideosController@forceDelete");
 
     /* Photos Trashed */
     Route::get("/photos-trashed", "PhotosController@getTrashed");
-    Route::put("/photos-trashed", "PhotosController@restore");
+    Route::put("/photos-trashed/{photo}", "PhotosController@restore");
     Route::delete("/photos-trashed/{photo}", "PhotosController@forceDelete");
 
 });

@@ -18,7 +18,7 @@ export default {
     methods: {
         restoreQuote() {
             axios
-                .delete("/api/quotes-trashed/" + this.restoreQuote.id)
+                .put("/api/quotes-trashed/" + this.quoteToRestore.id)
                 .then(res => (this.$emit('restored')))
                 .catch(err => (console.log(err)))
         }

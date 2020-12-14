@@ -6,26 +6,26 @@
             index-url="/api/terms-trashed"
             :categories="categories"
             :table-headers="this.headers"
-            @restore-item="restoreTerm"
-            @force-delete-item="forceDeleteTerm"
+            @restore-item="termToRestore = $event"
+            @force-delete-item="termToForceDelete = $event"
         >
-            <template v-slot:item.body="{item}">
+            <template v-slot:item.body="{ item }">
                 <div
                     v-html="item.body"
                     class="my-3 three-line-truncate"
                 />
             </template>
-            <template v-slot:item.knowlegde="{item}">
+            <template v-slot:item.knowledge="{ item }">
                 <div
                     v-for="(know, i) in item.knowledge"
                     :key="i"
                 >
-                    {{ know.name }}
+                    {{ know.name }},
                 </div>
             </template>
-            <template v-slot:item.categories="{item}">
+            <template v-slot:item.categories="{ item }">
                 <div
-                    v-for="(category,i) in item.categories"
+                    v-for="(category, i) in item.categories"
                     :key="i"
                 >
                     {{ category.name }},
@@ -36,25 +36,19 @@
         <terms-restore-dialog
             v-model="termToRestore"
             @restored="termRestored"
-            :term-types="termTypes"
-            :categories="categories"
-            :knowledge-areas="knowledgeAreas"
         />
 
         <terms-force-delete-dialog
             v-model="termToForceDelete"
             @force-deleted="termForceDeleted"
-            :term-types="termTypes"
-            :categories="categories"
-            :knowledge-areas="knowledgeAreas"
         />
     </v-main>
 </template>
 
 <script>
+import TermsRestoreDialog from "./TermsRestoreDialog";
 import IndexPageLayout from "../../components/IndexPageLayout";
 import TermsForceDeleteDialog from "./TermsForceDeleteDialog";
-import TermsRestoreDialog from "./TermsRestoreDialog";
 
 export default {
     components: {
@@ -64,7 +58,6 @@ export default {
     },
     data() {
         return {
-            authors: [],
             termTypes: [],
             categories: [],
             knowledgeAreas: [],
@@ -104,9 +97,9 @@ export default {
         };
     },
     mounted() {
-        this.loadTermTypes();
-        this.loadTermCategories();
         this.loadKnowledgeAreas();
+        this.loadTermCategories();
+        this.loadTermTypes();
     },
     methods: {
         loadTermTypes() {
@@ -127,13 +120,16 @@ export default {
                 .then(res => (this.categories = res.data))
                 .catch(e => console.log(e));
         },
-        restoreTerm() {
+        termRestored() {
             this.termToRestore = null;
             this.$refs.indexPage.loadItems();
         },
-        forceDeleteTerm() {
+        termForceDeleted() {
             this.termToForceDelete = null;
             this.$refs.indexPage.loadItems();
+        },
+        showTerm(term) {
+            window.open('/' + term.post.id, '_black');
         }
     }
 }

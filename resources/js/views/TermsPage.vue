@@ -1,12 +1,12 @@
 <template>
     <v-main class="pa-0">
         <index-page-layout
+            ref="indexPage"
+            search-field="body"
             index-url="/api/terms"
             :categories="categories"
             :table-headers="this.headers"
             add-label="Добавить термин"
-            search-field="body"
-            ref="indexPage"
             @show-item="showTerm"
             @add-item="addTerm = true"
             @update-item="termToUpdate = $event"
@@ -74,9 +74,9 @@ export default {
     data() {
         return {
             addTerm: false,
+            termTypes: [],
             categories: [],
             knowledgeAreas: [],
-            termTypes: [],
             termToUpdate: null,
             termToDelete: null,
             headers: [

@@ -45,8 +45,8 @@ import QuotesRestoreDialog from "./QuotesRestoreDialog";
 export default {
     components: {
         IndexPageLayout,
-        QuotesForceDeleteDialog,
-        QuotesRestoreDialog
+        QuotesRestoreDialog,
+        QuotesForceDeleteDialog
     },
     data() {
         return {

@@ -318,177 +318,177 @@
 </template>
 
 <script>
-    import rules from "../validation-rules";
+import rules from "../validation-rules";
 
-    export default {
-        data() {
-            return {
-                profileToUpdate: {
-                    age: null,
-                    name: null,
-                    hobby: null,
-                    email: null,
-                    avatar: null,
-                    gender: null,
-                    country: null,
-                    password: null
-                },
-                rules,
-                showPass: false,
-                updatingAge: false,
-                updatingName: false,
-                updatingEmail: false,
-                updatingHobby: false,
-                updatingAvatar: false,
-                updatingGender: false,
-                updatingCountry: false,
-                updatingPassword: false,
-                user: window.Laravel.auth
-            };
-        },
-        methods: {
-            updateProfile(e) {
-                e.preventDefault();
-
-                const validForm = this.$refs.form.validate();
-
-                if (!validForm) return;
-
-                const formData = new FormData();
-
-                const {avatar, name, email, password, country, age, gender, hobby} = this.profileToUpdate;
-
-                if (this.updatingAvatar && avatar instanceof File) {
-                    formData.append("avatar", avatar);
-                }
-
-                if (this.updatingName) {
-                    formData.append("name", name);
-                }
-
-                if (this.updatingEmail) {
-                    formData.append("email", email);
-                }
-
-                if (this.updatingCountry) {
-                    formData.append("country", country);
-                }
-
-                if (this.updatingAge) {
-                    formData.append("age", age);
-                }
-
-                if (this.updatingGender) {
-                    formData.append("gender", gender);
-                }
-
-                if (this.updatingHobby) {
-                    formData.append("hobby", hobby);
-                }
-
-                if (this.updatingPassword) {
-                    formData.append("password", password);
-                }
-
-                formData.append("_method", "put");
-
-                axios
-                    .post("/api/users/" + this.user.id, formData, {
-                        headers: {
-                            "Content-Type": "multipart/form-data"
-                        }
-                    })
-                    .then(({data}) => {
-                        this.showDialog = false;
-                        this.user = data;
-                        Event.fire("profileUpdated", data);
-                    })
-                    .catch(err => console.log(err));
+export default {
+    data() {
+        return {
+            profileToUpdate: {
+                age: null,
+                name: null,
+                hobby: null,
+                email: null,
+                avatar: null,
+                gender: null,
+                country: null,
+                password: null
             },
-        },
-        computed: {
-            showDialog: {
-                get() {
-                    return (
-                        this.updatingAvatar ||
-                        this.updatingName ||
-                        this.updatingEmail ||
-                        this.updatingCountry ||
-                        this.updatingAge ||
-                        this.updatingGender ||
-                        this.updatingHobby ||
-                        this.updatingPassword
-                    );
-                },
-                set(v) {
-                    if (!v) {
-                        this.updatingAvatar = false;
-                        this.updatingName = false;
-                        this.updatingEmail = false;
-                        this.updatingCountry = false;
-                        this.updatingAge = false;
-                        this.updatingGender = false;
-                        this.updatingHobby = false;
-                        this.updatingPassword = false;
-                    }
-                }
-            },
-            formTitle() {
-                let baseTitle = "Изменение";
+            rules,
+            showPass: false,
+            updatingAge: false,
+            updatingName: false,
+            updatingEmail: false,
+            updatingHobby: false,
+            updatingAvatar: false,
+            updatingGender: false,
+            updatingCountry: false,
+            updatingPassword: false,
+            user: window.Laravel.auth
+        };
+    },
+    methods: {
+        updateProfile(e) {
+            e.preventDefault();
 
-                if (this.updatingAvatar) {
-                    baseTitle += " аватара ";
-                }
+            const validForm = this.$refs.form.validate();
 
-                if (this.updatingName) {
-                    baseTitle += " имени ";
-                }
+            if (!validForm) return;
 
-                if (this.updatingEmail) {
-                    baseTitle += " email-а ";
-                }
+            const formData = new FormData();
 
-                if (this.updatingCountry) {
-                    baseTitle += " страну ";
-                }
+            const {avatar, name, email, password, country, age, gender, hobby} = this.profileToUpdate;
 
-                if (this.updatingAge) {
-                    baseTitle += " возраста ";
-                }
-
-                if (this.updatingGender) {
-                    baseTitle += " пола ";
-                }
-
-                if (this.updatingHobby) {
-                    baseTitle += " хобби ";
-                }
-
-                if (this.updatingPassword) {
-                    baseTitle += " пароля ";
-                }
-
-                return baseTitle;
+            if (this.updatingAvatar && avatar instanceof File) {
+                formData.append("avatar", avatar);
             }
+
+            if (this.updatingName) {
+                formData.append("name", name);
+            }
+
+            if (this.updatingEmail) {
+                formData.append("email", email);
+            }
+
+            if (this.updatingCountry) {
+                formData.append("country", country);
+            }
+
+            if (this.updatingAge) {
+                formData.append("age", age);
+            }
+
+            if (this.updatingGender) {
+                formData.append("gender", gender);
+            }
+
+            if (this.updatingHobby) {
+                formData.append("hobby", hobby);
+            }
+
+            if (this.updatingPassword) {
+                formData.append("password", password);
+            }
+
+            formData.append("_method", "put");
+
+            axios
+                .post("/api/users/" + this.user.id, formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data"
+                    }
+                })
+                .then(({data}) => {
+                    this.showDialog = false;
+                    this.user = data;
+                    Event.fire("profileUpdated", data);
+                })
+                .catch(err => console.log(err));
+        },
+    },
+    computed: {
+        showDialog: {
+            get() {
+                return (
+                    this.updatingAvatar ||
+                    this.updatingName ||
+                    this.updatingEmail ||
+                    this.updatingCountry ||
+                    this.updatingAge ||
+                    this.updatingGender ||
+                    this.updatingHobby ||
+                    this.updatingPassword
+                );
+            },
+            set(v) {
+                if (!v) {
+                    this.updatingAvatar = false;
+                    this.updatingName = false;
+                    this.updatingEmail = false;
+                    this.updatingCountry = false;
+                    this.updatingAge = false;
+                    this.updatingGender = false;
+                    this.updatingHobby = false;
+                    this.updatingPassword = false;
+                }
+            }
+        },
+        formTitle() {
+            let baseTitle = "Изменение";
+
+            if (this.updatingAvatar) {
+                baseTitle += " аватара ";
+            }
+
+            if (this.updatingName) {
+                baseTitle += " имени ";
+            }
+
+            if (this.updatingEmail) {
+                baseTitle += " email-а ";
+            }
+
+            if (this.updatingCountry) {
+                baseTitle += " страну ";
+            }
+
+            if (this.updatingAge) {
+                baseTitle += " возраста ";
+            }
+
+            if (this.updatingGender) {
+                baseTitle += " пола ";
+            }
+
+            if (this.updatingHobby) {
+                baseTitle += " хобби ";
+            }
+
+            if (this.updatingPassword) {
+                baseTitle += " пароля ";
+            }
+
+            return baseTitle;
         }
-    };
+    }
+};
 </script>
 
 <style>
-    .change-avatar {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 50%;
-        position: relative;
-        opacity: 0;
-        height: 100%;
-        cursor: pointer;
-        background-color: rgba(32, 33, 36, 0.6);
-    }
+.change-avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    position: relative;
+    opacity: 0;
+    height: 100%;
+    cursor: pointer;
+    background-color: rgba(32, 33, 36, 0.6);
+}
 
-    .change-avatar:hover {
-        opacity: 0.8;
-        transition: 0.2s ease-in;
-    }
+.change-avatar:hover {
+    opacity: 0.8;
+    transition: 0.2s ease-in;
+}
 </style>

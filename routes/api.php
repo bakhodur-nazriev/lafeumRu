@@ -75,6 +75,26 @@ Route::group(['middleware' => 'auth:api'], function () {
     /* User-Feedbacks */
     Route::get("/feedbacks", "FeedbacksController@get");
 
+    /* Quotes Trashed */
+    Route::get("/quotes-trashed", "QuotesController@getTrashed");
+    Route::put("/quotes-trashed/{quote}", "QuotesController@restore");
+    Route::delete("/quotes-trashed/{quote}", "QuotesController@forceDelete");
+
+    /* Terms Trashed */
+    Route::get("/terms-trashed", "TermsController@getTrashed");
+    Route::post("/terms-trashed", "TermsController@restore");
+    Route::delete("/terms-trashed/{term}", "TermsController@forceDelete");
+
+    /* Videos Trashed */
+    Route::get("/videos-trashed", "VideosController@getTrashed");
+    Route::post("/videos-trashed", "VideosController@restore");
+    Route::delete("/videos-trashed/{video}", "VideosController@forceDelete");
+
+    /* Photos Trashed */
+    Route::get("/photos-trashed", "PhotosController@getTrashed");
+    Route::put("/photos-trashed", "PhotosController@restore");
+    Route::delete("/photos-trashed/{photo}", "PhotosController@forceDelete");
+
 });
 
 Route::get("/summary/{id}", "PostsController@termSummary");

@@ -42,7 +42,7 @@
                         <div>{{ $errors->first('message') }}</div>
                     </div>
                     <div class="form-group">
-                        <div class="g-recaptcha" data-sitekey="6LfWsOQZAAAAAAH1X_78-a9ccHDQau6Njuf6WBra"></div>
+                        <div class="g-recaptcha" data-sitekey="6LdvqeQZAAAAACPBX0Cfhg89K82X7yBQS9eEHIS8"></div>
                     </div>
                     @csrf
 

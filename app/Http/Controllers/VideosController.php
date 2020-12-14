@@ -23,9 +23,9 @@ class VideosController extends Controller
             'favorites',
             'categories'
         ])
-        ->published('desc')
-        ->has('channel')
-        ->paginate(30);
+            ->published('desc')
+            ->has('channel')
+            ->paginate(30);
 
         return view('/videos', compact(['videos',]));
     }
@@ -33,8 +33,15 @@ class VideosController extends Controller
     public function get(Request $request)
     {
         $videosQuery = Video::with('channel', 'categories', 'post')->byPublishAt();
-
         return $this->processIndexRequestItems($request, $videosQuery, 'title');
+    }
+
+    public function getTrashed(Request $request)
+    {
+        $videosTrashedQuery = Video::with('channel', 'categories', 'post')
+            ->onlyTrashed()
+            ->byPublishAt();
+        return $this->processIndexRequestItems($request, $videosTrashedQuery, 'title');
     }
 
     public function store(Request $request)

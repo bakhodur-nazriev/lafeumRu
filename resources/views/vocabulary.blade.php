@@ -60,10 +60,10 @@
                         <div class="input-group-text cursor-pointer" id="vocabulary-search-button">
                             <i class="fa fa-search"></i>
                         </div>
-                    </div> --}}
+                    </div>
                 </div>
                 <small id="vocabulary-search-result" class="form-text text-muted ml-1"></small>
-            </form>
+            {{-- </form> --}}
         </div>
     </div>
     <div class="row">
@@ -99,7 +99,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <script>
         $(document).ready(() => {
             attachSearch(

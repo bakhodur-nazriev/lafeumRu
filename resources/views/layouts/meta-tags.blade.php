@@ -3,8 +3,9 @@
 @if (App::environment('production'))
     @includeIf('seoMetrics')
 @else
-    <meta name="robots" content="noindex,nofollow"/>
     <meta name="robots" content="none"/>
+    <meta name="googlebot" content="noindex, nofollow"/>
+    <meta name="yandex" content="none"/>
 @endif
 
 @if($data['description'])

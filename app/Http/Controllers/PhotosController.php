@@ -23,7 +23,6 @@ class PhotosController extends Controller
     public function get(Request $request)
     {
         $photosQuery = Photo::byPublishAt();
-
         return $this->processIndexRequestItems($request, $photosQuery, 'description');
     }
 
@@ -44,7 +43,7 @@ class PhotosController extends Controller
     public function update(Photo $photo, Request $request)
     {
         $newPhotoData = $request->all();
-        
+
         if ($request->hasFile("image")) {
             $newPhotoData["image"] = $this->saveImage(time(), $request->image, self::PHOTOS_PATH);
         }
@@ -56,5 +55,16 @@ class PhotosController extends Controller
     public function destroy(Photo $photo)
     {
         $photo->delete();
+    }
+
+    public function getTrashed(Request $request)
+    {
+        $photosTrashedQuery = Photo::onlyTrashed()->byPublishAt();
+        return $this->processIndexRequestItems($request, $photosTrashedQuery, 'description');
+    }
+
+    public function forceDelete(Photo $photo)
+    {
+        $photo->forceDelete();
     }
 }

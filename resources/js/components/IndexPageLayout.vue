@@ -56,36 +56,86 @@
                             v-if="!noActions"
                             v-slot:item.action="{ item }"
                         >
-                            <v-btn
-                                fab
-                                dark
-                                small
-                                color="primary"
-                                elevation="2"
-                                @click.stop="$emit('show-item', { ...item })"
-                            >
-                                <v-icon dark>mdi-eye</v-icon>
-                            </v-btn>
-                            <v-btn
-                                fab
-                                dark
-                                small
-                                color="primary"
-                                elevation="2"
-                                @click.stop="$emit('update-item', { ...item })"
-                            >
-                                <v-icon dark>mdi-pen</v-icon>
-                            </v-btn>
-                            <v-btn
-                                fab
-                                dark
-                                small
-                                color="error"
-                                elevation="2"
-                                @click.stop="$emit('delete-item', { ...item })"
-                            >
-                                <v-icon dark>mdi-delete</v-icon>
-                            </v-btn>
+                            <v-tooltip top>
+                                <template v-slot:activator="{ on }">
+                                    <v-btn
+                                        fab
+                                        dark
+                                        small
+                                        v-on="on"
+                                        elevation="2"
+                                        color="primary"
+                                        @click.stop="$emit('show-item', { ...item })"
+                                    >
+                                        <v-icon dark>mdi-eye</v-icon>
+                                    </v-btn>
+                                </template>
+                                <span>Посмотреть</span>
+                            </v-tooltip>
+                            <v-tooltip top>
+                                <template v-slot:activator="{ on }">
+                                    <v-btn
+                                        fab
+                                        dark
+                                        small
+                                        v-on="on"
+                                        elevation="2"
+                                        color="primary"
+                                        @click.stop="$emit('update-item', { ...item })"
+                                    >
+                                        <v-icon dark>mdi-pen</v-icon>
+                                    </v-btn>
+                                </template>
+                                <span>Изменить</span>
+                            </v-tooltip>
+                            <v-tooltip top>
+                                <template v-slot:activator="{ on }">
+                                    <v-btn
+                                        fab
+                                        dark
+                                        small
+                                        v-on="on"
+                                        color="red"
+                                        elevation="2"
+                                        @click.stop="$emit('delete-item', { ...item })"
+                                    >
+                                        <v-icon dark>mdi-delete</v-icon>
+                                    </v-btn>
+                                </template>
+                                <span>Отправить в карзину</span>
+                            </v-tooltip>
+                            <v-tooltip top>
+                                <template v-slot:activator="{ on }">
+                                    <v-btn
+                                        fab
+                                        dark
+                                        small
+                                        v-on="on"
+                                        elevation="2"
+                                        color="green"
+                                        @click.stop="$emit('restore-item', { ...item })"
+                                    >
+                                        <v-icon dark>mdi-arrow-left</v-icon>
+                                    </v-btn>
+                                </template>
+                                <span>Восстановить</span>
+                            </v-tooltip>
+                            <v-tooltip top>
+                                <template v-slot:activator="{ on }">
+                                    <v-btn
+                                        fab
+                                        dark
+                                        small
+                                        v-on="on"
+                                        color="red"
+                                        elevation="2"
+                                        @click.stop="$emit('force-delete-item', { ...item })"
+                                    >
+                                        <v-icon dark>mdi-delete</v-icon>
+                                    </v-btn>
+                                </template>
+                                <span>Удалить безвозвратрно</span>
+                            </v-tooltip>
                         </template>
                     </v-data-table>
                 </v-col>

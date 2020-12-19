@@ -24,9 +24,9 @@ class QuotesController extends Controller
             'categories:id,name,slug',
             'post'
         ])
-        ->published('desc')
-        ->has('author')
-        ->paginate(30);
+            ->published('desc')
+            ->has('author')
+            ->paginate(30);
 
         $categories = Category::quote()->get()->toTree()->unique('name');
 
@@ -79,6 +79,32 @@ class QuotesController extends Controller
         $metaImage = $quote->meta_image;
 
         $quote->delete();
+
+        if ($metaImage) {
+            unlink(public_path($metaImage));
+        }
+    }
+
+    public function getTrashed(Request $request)
+    {
+        $quotesTrashedQuery = Quote::with('author', 'categories', 'post')
+            ->onlyTrashed()
+            ->byPublishAt();
+
+        return $this->processIndexRequestItems($request, $quotesTrashedQuery, 'body');
+
+    }
+
+    public function forceDelete(Quote $quote)
+    {
+        $this->redirectService->registerModelRemoval($quote);
+
+        $quote->post()->forceDelete();
+        $quote->categories()->detach();
+
+        $metaImage = $quote->meta_image;
+
+        $quote->forceDelete();
 
         if ($metaImage) {
             unlink(public_path($metaImage));

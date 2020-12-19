@@ -1,8 +1,12 @@
 import QuotesPage from "./views/QuotesPage";
-import AuthorsPage from "./views/AuthorsPage";
+import QuotesTrashedPage from "./views/Trashes/QuotesTrashedPage";
 import TermsPage from "./views/TermsPage";
+import TermsTrashedPage from "./views/Trashes/TermsTrashedPage";
 import VideosPage from "./views/VideosPage";
+import VideosTrashedPage from "./views/Trashes/VideosTrashedPage";
 import PhotosPage from "./views/PhotosPage";
+import PhotosTrashedPage from "./views/Trashes/PhotosTrashedPage";
+import AuthorsPage from "./views/AuthorsPage";
 import UsersPage from "./views/UsersPage";
 import ProfilePage from "./views/ProfilePage";
 import FavouritesPage from "./views/FavouritesPage";
@@ -13,9 +17,9 @@ import SettingsPage from "./views/SettingsPage";
 import FeedbacksPage from "./views/FeedbacksPage";
 
 // import Vocabulary from "./components/admin/Vocabulary";
-// import Chat from "./components/admin/Chat";
 
 import role from "./role";
+
 require("../js/constants");
 
 let allSidebarRoutes = [
@@ -110,6 +114,53 @@ let allSidebarRoutes = [
             }
         ]
     },
+    /* Trashed Data Section */
+    {
+        meta: {
+            icon: "mdi-delete",
+            title: "Карзина",
+            authorize: [role.author]
+        },
+        path: "",
+        subLinks: [
+            {
+                path: "/dashboard/quotes-trashed",
+                name: "/dashboard/quotes-trashed",
+                meta: {
+                    icon: "mdi-plus",
+                    title: "Карзина Цитаты"
+                },
+                component: QuotesTrashedPage
+            },
+            {
+                meta: {
+                    icon: "mdi-tag",
+                    title: "Карзина Термины"
+                },
+                path: "/dashboard/terms-trashed",
+                name: "/dashboard/terms-trashed",
+                component: TermsTrashedPage
+            },
+            {
+                meta: {
+                    icon: "mdi-youtube",
+                    title: "Карзина Видео"
+                },
+                path: "/dashboard/videos-trashed",
+                name: "/dashboard/videos-trashed",
+                component: VideosTrashedPage
+            },
+            {
+                meta: {
+                    icon: "mdi-image",
+                    title: "Карзина Фото"
+                },
+                path: "/dashboard/photos-trashed",
+                name: "/dashboard/photos-trashed",
+                component: PhotosTrashedPage
+            }
+        ]
+    },
     {
         meta: {
             icon: "mdi-account-tie",
@@ -190,14 +241,6 @@ let allSidebarRoutes = [
         path: "/dashboard/feedbacks",
         component: FeedbacksPage
     }
-    /*{
-        meta: {
-            icon: "mdi-chat",
-            title: "Чат",
-        },
-        path: "/dashboard/chat",
-        component: Chat
-    }*/
 ];
 
 function getAuthorizedRoutes(routes) {

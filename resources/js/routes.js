@@ -7,17 +7,16 @@ import VideosTrashedPage from "./views/Trashes/VideosTrashedPage";
 import PhotosPage from "./views/PhotosPage";
 import PhotosTrashedPage from "./views/Trashes/PhotosTrashedPage";
 import AuthorsPage from "./views/AuthorsPage";
+import AuthorsTrashedPage from "./views/Trashes/AuthorsTrashedPage";
 import UsersPage from "./views/UsersPage";
 import ProfilePage from "./views/ProfilePage";
 import FavouritesPage from "./views/FavouritesPage";
 import CategoriesPage from "./views/CategoriesPage";
 import ChannelsPage from "./views/ChannelsPage";
 import KnowledgeAreasPage from "./views/KnowledgeAreasPage";
+
 import SettingsPage from "./views/SettingsPage";
 import FeedbacksPage from "./views/FeedbacksPage";
-
-// import Vocabulary from "./components/admin/Vocabulary";
-
 import role from "./role";
 
 require("../js/constants");
@@ -114,7 +113,7 @@ let allSidebarRoutes = [
             }
         ]
     },
-    /* Trashed Data Section */
+    /* Trashed Page Section */
     {
         meta: {
             icon: "mdi-delete",
@@ -128,14 +127,16 @@ let allSidebarRoutes = [
                 name: "/dashboard/quotes-trashed",
                 meta: {
                     icon: "mdi-plus",
-                    title: "Карзина Цитаты"
+                    title: "Цитаты",
+                    pageTitle: "Карзина Цитаты"
                 },
                 component: QuotesTrashedPage
             },
             {
                 meta: {
                     icon: "mdi-tag",
-                    title: "Карзина Термины"
+                    title: "Термины",
+                    pageTitle: "Карзина Термины"
                 },
                 path: "/dashboard/terms-trashed",
                 name: "/dashboard/terms-trashed",
@@ -144,7 +145,8 @@ let allSidebarRoutes = [
             {
                 meta: {
                     icon: "mdi-youtube",
-                    title: "Карзина Видео"
+                    title: "Видео",
+                    pageTitle: "Карзина Видео"
                 },
                 path: "/dashboard/videos-trashed",
                 name: "/dashboard/videos-trashed",
@@ -153,11 +155,22 @@ let allSidebarRoutes = [
             {
                 meta: {
                     icon: "mdi-image",
-                    title: "Карзина Фото"
+                    title: "Фото",
+                    pageTitle: "Карзина Фото"
                 },
                 path: "/dashboard/photos-trashed",
                 name: "/dashboard/photos-trashed",
                 component: PhotosTrashedPage
+            },
+            {
+                meta: {
+                    icon: "mdi-image",
+                    title: "Авторы",
+                    pageTitle: "Карзина Авторы"
+                },
+                path: "/dashboard/authors-trashed",
+                name: "/dashboard/authors-trashed",
+                component: AuthorsTrashedPage,
             }
         ]
     },

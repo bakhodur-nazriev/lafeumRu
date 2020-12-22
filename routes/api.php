@@ -77,8 +77,8 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     /* Quotes Trashed */
     Route::get("/quotes-trashed", "QuotesController@getTrashed");
-    Route::put("/quotes-trashed/{quote}", "QuotesController@restore");
-    Route::delete("/quotes-trashed/{quote}", "QuotesController@forceDelete");
+    Route::put("/quotes-trashed/{quote}", "QuotesController@restored");
+    Route::delete("/quotes-trashed/{quote}", "QuotesController@forceDeleted");
 
     /* Terms Trashed */
     Route::get("/terms-trashed", "TermsController@getTrashed");
@@ -92,8 +92,13 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     /* Photos Trashed */
     Route::get("/photos-trashed", "PhotosController@getTrashed");
-    Route::put("/photos-trashed/{photo}", "PhotosController@restore");
-    Route::delete("/photos-trashed/{photo}", "PhotosController@forceDelete");
+    Route::put("/photos-trashed/{id}", "PhotosController@restored");
+    Route::delete("/photos-trashed/{id}", "PhotosController@forceDeleted");
+
+    /* Authors Trashed */
+    Route::get("/authors-trashed", "AuthorsController@getTrashed");
+    Route::put("/authors-trashed/{id}", "AuthorsController@restored");
+    Route::delete("/authors-trashed/{id}", "AuthorsController@forceDeleted");
 
 });
 

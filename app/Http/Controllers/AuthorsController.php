@@ -157,10 +157,4 @@ class AuthorsController extends Controller
 
         return $authors;
     }
-
-    public function getTrashed(Request $request)
-    {
-        $authorsTrashedQuery = Author::onlyTrashed()->orderBy('name', 'asc');
-        return $this->processIndexRequestItems($request, $authorsTrashedQuery, 'name');
-    }
 }

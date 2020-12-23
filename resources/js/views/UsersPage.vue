@@ -76,33 +76,27 @@
                     />
                 </v-card-text>
                 <v-card-actions>
-                    <v-spacer />
-                    <v-btn dark color="green" @click="updateUser()"
-                        >Сохранить</v-btn
-                    >
-                    <v-btn dark color="error" @click="userToUpdate = null"
-                        >Отмена</v-btn
-                    >
+                    <v-spacer/>
+                    <v-btn dark color="green" @click="updateUser()">Сохранить</v-btn>
+                    <v-btn dark color="error" @click="userToUpdate = null">Отмена</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
-        <v-dialog v-model="showDeleteDialog" width="600">
-            <v-card v-if="showDeleteDialog">
-                <v-card-title class="pt-4 regular headline text-center">
+        <v-dialog v-model="showDeleteDialog" width="430">
+            <v-card v-if="showDeleteDialog" class="pa-2">
+                <v-card-title class="font-weight-regular regular headline text-center pa-2">
                     Вы действительно хотите удалить пользователя
                     {{ userToDelete.name }} ?
                 </v-card-title>
                 <v-card-actions class="justify-center">
                     <v-btn
-                        color="green darken-1"
                         dark
+                        color="green darken-1"
                         @click="userToDelete = null"
                     >
                         Нет
                     </v-btn>
-                    <v-btn color="red darken-1" dark @click="deleteUser()"
-                        >Да</v-btn
-                    >
+                    <v-btn color="red darken-1" dark @click="deleteUser()">Да</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -116,10 +110,10 @@ export default {
             users: [],
             usersLoading: false,
             headers: [
-                { text: "Аватар", value: "avatar" },
-                { text: "Имя", value: "name" },
-                { text: "Email", value: "email" },
-                { text: "Роль", value: "role.name" },
+                {text: "Аватар", value: "avatar"},
+                {text: "Имя", value: "name"},
+                {text: "Email", value: "email"},
+                {text: "Роль", value: "role.name"},
                 {
                     text: "Действия",
                     value: "action",
@@ -166,14 +160,12 @@ export default {
         },
         deleteUser() {
             axios
-                .delete("/admin/users" + this.userToDelete.id)
+                .delete("/api/users/" + this.userToDelete.id)
                 .then(res => {
                     this.userToDelete = false;
-                    this.loadUsers;
+                    this.loadUsers();
                 })
-                .catch(err => {
-                    console.log(err);
-                });
+                .catch(err => console.log(err));
         }
     },
     computed: {

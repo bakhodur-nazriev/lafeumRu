@@ -37,54 +37,53 @@
 </template>
 
 <script>
-    import IndexPageLayout from "../components/IndexPageLayout";
-    import ChannelsCreateDialog from "./ChannelsCreateDialog";
-    import ChannelsEditDialog from "./ChannelsEditDialog";
-    import ChannelsDeleteDialog from "./ChannelsDeleteDialog";
-    import ChannelsShowDialog from "./ChannelsShowDialog";
+import IndexPageLayout from "../components/IndexPageLayout";
+import ChannelsCreateDialog from "./ChannelsCreateDialog";
+import ChannelsEditDialog from "./ChannelsEditDialog";
+import ChannelsDeleteDialog from "./ChannelsDeleteDialog";
 
-    export default {
-        components: {
-            IndexPageLayout,
-            ChannelsCreateDialog,
-            ChannelsEditDialog,
-            ChannelsDeleteDialog
+export default {
+    components: {
+        IndexPageLayout,
+        ChannelsCreateDialog,
+        ChannelsEditDialog,
+        ChannelsDeleteDialog,
+    },
+    data() {
+        return {
+            addChannel: false,
+            channelToDelete: null,
+            channelToUpdate: null,
+            headers: [
+                {
+                    text: "Название",
+                    value: "name",
+                    sortable: false
+                },
+                {
+                    text: "Описание",
+                    value: "description",
+                    sortable: false
+                }
+            ]
+        };
+    },
+    methods: {
+        channelCreated(newChannel) {
+            this.addChannel = false;
+            this.$refs.indexPage.loadItems();
         },
-        data() {
-            return {
-                addChannel: false,
-                channelToDelete: null,
-                channelToUpdate: null,
-                headers: [
-                    {
-                        text: "Название",
-                        value: "name",
-                        sortable: false
-                    },
-                    {
-                        text: "Описание",
-                        value: "description",
-                        sortable: false
-                    }
-                ]
-            };
+        channelUpdated(updated) {
+            this.channelToUpdate = null;
+            this.$refs.indexPage.loadItems();
         },
-        methods: {
-            channelCreated(newChannel) {
-                this.addChannel = false;
-                this.$refs.indexPage.loadItems();
-            },
-            channelUpdated(updated) {
-                this.channelToUpdate = null;
-                this.$refs.indexPage.loadItems();
-            },
-            channelDeleted() {
-                this.channelToDelete = null;
-                this.$refs.indexPage.loadItems();
-            },
-            channelShow(channel) {
-                window.open('/channels/' + channel.slug, '_blank');
-            }
+        channelDeleted() {
+            this.channelToDelete = null;
+            this.$refs.indexPage.loadItems();
         },
-    }
+        channelShow(channel) {
+            window.open('/channels/' + channel.slug, '_blank');
+        }
+    },
+}
 </script>

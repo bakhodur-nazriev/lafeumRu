@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-if="photoToDelete" v-model="photoToDelete" width="430">
+    <v-dialog v-if="photoToDelete" v-model="photoToDelete" width="460">
         <v-card class="pa-2">
             <v-card-title class="pt-1 font-weight-regular headline text-center">
                 Вы действительно хотите удалить это фото ?

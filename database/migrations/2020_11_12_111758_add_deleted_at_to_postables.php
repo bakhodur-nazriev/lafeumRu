@@ -13,20 +13,32 @@ class AddDeletedAtToPostables extends Migration
      */
     public function up()
     {
-        Schema::table('quotes', function (Blueprint $table) {
-            $table->timestamp('deleted_at')->nullable();
+        Schema::table("quotes", function (Blueprint $table) {
+            $table->timestamp("deleted_at")->nullable();
         });
 
-        Schema::table('terms', function (Blueprint $table) {
-            $table->timestamp('deleted_at')->nullable();
+        Schema::table("terms", function (Blueprint $table) {
+            $table->timestamp("deleted_at")->nullable();
         });
 
-        Schema::table('videos', function (Blueprint $table) {
-            $table->timestamp('deleted_at')->nullable();
+        Schema::table("videos", function (Blueprint $table) {
+            $table->timestamp("deleted_at")->nullable();
         });
 
-        Schema::table('photos', function (Blueprint $table) {
-            $table->timestamp('deleted_at')->nullable();
+        Schema::table("photos", function (Blueprint $table) {
+            $table->timestamp("deleted_at")->nullable();
+        });
+
+        Schema::table("authors", function (Blueprint $table) {
+            $table->timestamp("deleted_at")->nullable();
+        });
+
+        Schema::table("channels", function (Blueprint $table) {
+            $table->timestamp("deleted_at")->nullable();
+        });
+
+        Schema::table("users", function (Blueprint $table) {
+            $table->timestamp("deleted_at")->nullable();
         });
     }
 
@@ -37,20 +49,32 @@ class AddDeletedAtToPostables extends Migration
      */
     public function down()
     {
-        Schema::table('quotes', function (Blueprint $table) {
-            $table->dropColumn('deleted_at');
+        Schema::table("quotes", function (Blueprint $table) {
+            $table->dropColumn("deleted_at");
         });
 
-        Schema::table('terms', function (Blueprint $table) {
-            $table->dropColumn('deleted_at');
+        Schema::table("terms", function (Blueprint $table) {
+            $table->dropColumn("deleted_at");
         });
 
-        Schema::table('videos', function (Blueprint $table) {
-            $table->dropColumn('deleted_at');
+        Schema::table("videos", function (Blueprint $table) {
+            $table->dropColumn("deleted_at");
         });
 
-        Schema::table('photos', function (Blueprint $table) {
-            $table->dropColumn('deleted_at');
+        Schema::table("photos", function (Blueprint $table) {
+            $table->dropColumn("deleted_at");
+        });
+
+        Schema::table("authors", function (Blueprint $table) {
+            $table->dropColumn("deleted_at");
+        });
+
+        Schema::table("channels", function (Blueprint $table) {
+            $table->dropColumn("deleted_at");
+        });
+
+        Schema::table("users", function (Blueprint $table) {
+            $table->dropColumn("deleted_at");
         });
     }
 }

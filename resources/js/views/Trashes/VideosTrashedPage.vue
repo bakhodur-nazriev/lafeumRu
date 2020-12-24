@@ -6,9 +6,6 @@
             :categories="categories"
             :table-headers="this.headers"
             index-url="/api/videos-trashed"
-            @show-item="addVideo = true"
-            @restore-item="videoToRestore = $event"
-            @force-delete-item="videoToForceDelete = $event"
         >
             <template v-slot:item.duration="{ item }">
                 <p v-html="item.duration + ' мин'"></p>
@@ -25,29 +22,15 @@
                 </div>
             </template>
         </index-page-layout>
-        <videos-restore-dialog
-            v-model="videoToRestore"
-            @restored="videoRestored"
-        />
 
-        <videos-force-delete-dialog
-            v-model="videoToForceDelete"
-            @force-deleted="videoForceDeleted"
-        />
     </v-main>
 </template>
 
 <script>
 import IndexPageLayout from "../../components/IndexPageLayout";
-import VideosRestoreDialog from "./VideosRestoreDialog";
-import VideosForceDeleteDialog from "./VideosForceDeleteDialog";
 
 export default {
-    components: {
-        IndexPageLayout,
-        VideosRestoreDialog,
-        VideosForceDeleteDialog
-    },
+    components: {IndexPageLayout},
     data() {
         return {
             channels: [],
@@ -104,16 +87,9 @@ export default {
                 .catch(e => console.log(e));
         },
         videoRestored() {
-            this.videoToRestore = null;
-            this.$refs.indexPage.loadItems();
         },
         videoForceDeleted() {
-            this.videoForceDelete = null;
-            this.$refs.indexPage.loadItems();
-        },
-        showVideo(video) {
-            window.open('/' + video.post.id, '_blank');
-        },
+        }
     }
 }
 </script>

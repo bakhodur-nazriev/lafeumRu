@@ -91,9 +91,9 @@ class VideosController extends Controller
     public function forceDelete($id)
     {
         $video = Video::onlyTrashed()->find($id);
-//        $this->redirectService->registerModelRemoval($video);
-//        $video->post()->forceDelete();
-//        $video->categories()->detach();
+        $this->redirectService->registerModelRemoval($video);
+        $video->post()->forceDelete();
+        $video->categories()->detach();
         $video->forceDelete();
     }
 }

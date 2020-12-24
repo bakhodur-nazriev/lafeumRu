@@ -95,13 +95,13 @@ class QuotesController extends Controller
 
     }
 
-    public function restore($id)
+    public function restored($id)
     {
         $quote = Quote::onlyTrashed()->find($id);
         $quote->restore();
     }
 
-    public function forceDelete($id)
+    public function forceDeleted($id)
     {
         $quote = Quote::onlyTrashed()->find($id);
 

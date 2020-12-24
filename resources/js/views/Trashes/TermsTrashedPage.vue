@@ -6,8 +6,6 @@
             index-url="/api/terms-trashed"
             :categories="categories"
             :table-headers="this.headers"
-            @restore-item="termToRestore = $event"
-            @force-delete-item="termToForceDelete = $event"
         >
             <template v-slot:item.body="{ item }">
                 <div
@@ -33,29 +31,14 @@
             </template>
         </index-page-layout>
 
-        <terms-restore-dialog
-            v-model="termToRestore"
-            @restored="termRestored"
-        />
-
-        <terms-force-delete-dialog
-            v-model="termToForceDelete"
-            @force-deleted="termForceDeleted"
-        />
     </v-main>
 </template>
 
 <script>
-import TermsRestoreDialog from "./TermsRestoreDialog";
 import IndexPageLayout from "../../components/IndexPageLayout";
-import TermsForceDeleteDialog from "./TermsForceDeleteDialog";
 
 export default {
-    components: {
-        IndexPageLayout,
-        TermsRestoreDialog,
-        TermsForceDeleteDialog
-    },
+    components: {IndexPageLayout},
     data() {
         return {
             termTypes: [],
@@ -121,15 +104,10 @@ export default {
                 .catch(e => console.log(e));
         },
         termRestored() {
-            this.termToRestore = null;
-            this.$refs.indexPage.loadItems();
+
         },
         termForceDeleted() {
-            this.termToForceDelete = null;
-            this.$refs.indexPage.loadItems();
-        },
-        showTerm(term) {
-            window.open('/' + term.post.id, '_black');
+
         }
     }
 }

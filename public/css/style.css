@@ -13,6 +13,10 @@ body {
     padding-right: 0 !important;
 }
 
+ol {
+    list-style-position: inside;
+}
+
 .compensate-for-scrollbar {
     margin-right: 0 !important;
 }

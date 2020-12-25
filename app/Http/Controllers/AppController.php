@@ -61,7 +61,7 @@ class AppController extends Controller
         if ($supported_types->contains('App\Quote')) {
             $links[] = [
                 'href' => '/quotes/' . $category->slug,
-                'label' => 'Цитаты'
+                'label' => 'Цитаты и Афоризмы'
             ];
         }
 

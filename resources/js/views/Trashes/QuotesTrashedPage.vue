@@ -144,13 +144,13 @@ export default {
         },
         restoreQuote() {
             axios
-                .put("/api/quotes-trashed/" + this.quoteToRestore.id)
+                .put("/api/quote-trashed/" + this.quoteToRestore.id)
                 .then(res => (this.quoteToRestore = false))
                 .catch(err => console.log(err))
         },
         forceDeleteQuote() {
             axios
-                .delete("/api/quotes-trashed/" + this.quoteToForceDelete.id)
+                .delete("/api/quote-trashed/" + this.quoteToForceDelete.id)
                 .then(res => (this.quoteToForceDelete = false))
                 .catch(err => console.log(err))
         }

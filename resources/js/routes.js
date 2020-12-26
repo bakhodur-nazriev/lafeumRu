@@ -9,7 +9,6 @@ import PhotosTrashedPage from "./views/Trashes/PhotosTrashedPage";
 import AuthorsPage from "./views/Authors/AuthorsPage";
 import AuthorsTrashedPage from "./views/Trashes/AuthorsTrashedPage";
 import UsersPage from "./views/Users/UsersPage";
-import UsersTrashedPage from "./views/Trashes/UsersTrashedPage";
 import ProfilePage from "./views/Profile/ProfilePage";
 import FavouritesPage from "./views/Favourites/FavouritesPage";
 import CategoriesPage from "./views/Categories/CategoriesPage";
@@ -182,16 +181,6 @@ let allSidebarRoutes = [
                 path: "/dashboard/channels-trashed",
                 name: "/dashboard/channels-trashed",
                 component: ChannelsTrashedPage
-            },
-            {
-                meta: {
-                    icon: "mdi-image",
-                    title: "Пользователи",
-                    pageTitle: "Карзина Пользователи",
-                },
-                path: "/dashboard/users-trashed",
-                name: "/dashboard/users-trashed",
-                component: UsersTrashedPage
             }
         ]
     },

@@ -1,11 +1,11 @@
 <template>
     <main class="pa-0">
         <index-page-layout
-            ref="indexPage"
-            index-url="/api/photos-trashed"
-            search-field="description"
-            :table-headers="this.headers"
             no-actions
+            ref="indexPage"
+            search-field="description"
+            index-url="/api/photos-trashed"
+            :table-headers="this.headers"
         >
             <template v-slot:item.image="{item}">
                 <div class="text-center pa-2">

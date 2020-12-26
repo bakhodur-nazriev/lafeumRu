@@ -1,12 +1,11 @@
 <template>
     <v-main class="pa-0">
         <index-page-layout
-
+            no-actions
             search-field="body"
             index-url="/api/quotes-trashed"
             :categories="categories"
             :table-headers="this.headers"
-            no-actions
         >
             <template v-slot:item.body="{ item }">
                 <div

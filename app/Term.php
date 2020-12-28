@@ -5,9 +5,11 @@ namespace App;
 use Carbon\Carbon;
 use ChristianKuri\LaravelFavorite\Traits\Favoriteable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Term extends Model
 {
+    use SoftDeletes;
     use Favoriteable;
     use PublishableTrait;
 
@@ -16,7 +18,8 @@ class Term extends Model
         'body',
         'show_in_vocabulary',
         'term_type_id',
-        'publish_at'
+        'publish_at',
+        'deleted_at'
     ];
 
     public function categories()

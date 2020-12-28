@@ -75,6 +75,31 @@ Route::group(['middleware' => 'auth:api'], function () {
     /* User-Feedbacks */
     Route::get("/feedbacks", "FeedbacksController@get");
 
+    /* Quotes Trashed */
+    Route::get("/quotes-trashed", "QuotesController@getTrashed");
+    Route::put("/quotes-trashed/{quote}", "QuotesController@restored");
+    Route::delete("/quotes-trashed/{quote}", "QuotesController@forceDeleted");
+
+    /* Terms Trashed */
+    Route::get("/terms-trashed", "TermsController@getTrashed");
+    Route::put("/terms-trashed/{term}", "TermsController@restore");
+    Route::delete("/terms-trashed/{term}", "TermsController@forceDelete");
+
+    /* Videos Trashed */
+    Route::get("/videos-trashed", "VideosController@getTrashed");
+    Route::put("/videos-trashed/{video}", "VideosController@restore");
+    Route::delete("/videos-trashed/{video}", "VideosController@forceDelete");
+
+    /* Photos Trashed */
+    Route::get("/photos-trashed", "PhotosController@getTrashed");
+    Route::put("/photos-trashed/{id}", "PhotosController@restored");
+    Route::delete("/photos-trashed/{id}", "PhotosController@forceDeleted");
+
+    /* Authors Trashed */
+    Route::get("/authors-trashed", "AuthorsController@getTrashed");
+    Route::put("/authors-trashed/{id}", "AuthorsController@restored");
+    Route::delete("/authors-trashed/{id}", "AuthorsController@forceDeleted");
+
 });
 
 Route::get("/summary/{id}", "PostsController@termSummary");

@@ -1,16 +1,14 @@
 <template>
     <v-main class="pa-0">
         <index-page-layout
-            index-url="/api/videos"
+            ref="indexPage"
+            search-field="title"
             :categories="categories"
             :table-headers="this.headers"
-            add-label="Добавить видео"
-            searchField="title"
-            ref="indexPage"
-            @show-item="showVideo"
-            @add-item="addVideo = true"
-            @update-item="videoToUpdate = $event"
-            @delete-item="videoToDelete = $event"
+            index-url="/api/videos-trashed"
+            @show-item="addVideo = true"
+            @restore-item="videoToRestore = $event"
+            @force-delete-item="videoToForceDelete = $event"
         >
             <template v-slot:item.duration="{ item }">
                 <p v-html="item.duration + ' мин'"></p>
@@ -27,52 +25,36 @@
                 </div>
             </template>
         </index-page-layout>
-
-        <videos-create-dialog
-            v-model="addVideo"
-            :channels="channels"
-            :categories="categories"
-            @created="videoCreated"
+        <videos-restore-dialog
+            v-model="videoToRestore"
+            @restored="videoRestored"
         />
 
-        <videos-edit-dialog
-            v-model="videoToUpdate"
-            :channels="channels"
-            :categories="categories"
-            @updated="videoUpdated"
-        />
-
-        <videos-delete-dialog
-            v-model="videoToDelete"
-            @deleted="videoDeleted"
+        <videos-force-delete-dialog
+            v-model="videoToForceDelete"
+            @force-deleted="videoForceDeleted"
         />
     </v-main>
 </template>
 
 <script>
-import rules from "../validation-rules";
-
-import IndexPageLayout from "../components/IndexPageLayout";
-import VideosCreateDialog from "./VideosCreateDialog";
-import VideosEditDialog from "./VideosEditDialog";
-import VideosDeleteDialog from "./VideosDeleteDialog";
-import VideosShowDialog from "./VideosShowDialog";
+import IndexPageLayout from "../../components/IndexPageLayout";
+import VideosRestoreDialog from "./VideosRestoreDialog";
+import VideosForceDeleteDialog from "./VideosForceDeleteDialog";
 
 export default {
     components: {
         IndexPageLayout,
-        VideosCreateDialog,
-        VideosEditDialog,
-        VideosDeleteDialog,
+        VideosRestoreDialog,
+        VideosForceDeleteDialog
     },
     data() {
         return {
-            rules,
-            addVideo: false,
-            videoToDelete: null,
-            videoToUpdate: null,
             channels: [],
             categories: [],
+            addVideo: false,
+            videoToRestore: null,
+            videoToForceDelete: null,
             headers: [
                 {
                     text: "Названия",
@@ -113,7 +95,7 @@ export default {
             axios
                 .get("/api/channels/?no_pagination")
                 .then(res => (this.channels = res.data))
-                .catch(err => console.log(err))
+                .catch(e => console.log(e))
         },
         loadCategories() {
             axios
@@ -121,21 +103,17 @@ export default {
                 .then(res => (this.categories = res.data))
                 .catch(e => console.log(e));
         },
-        videoCreated(newVideo) {
-            this.addVideo = false;
+        videoRestored() {
+            this.videoToRestore = null;
             this.$refs.indexPage.loadItems();
         },
-        videoUpdated(updated) {
-            this.videoToUpdate = null;
-            this.$refs.indexPage.loadItems();
-        },
-        videoDeleted() {
-            this.videoToDelete = null;
+        videoForceDeleted() {
+            this.videoForceDelete = null;
             this.$refs.indexPage.loadItems();
         },
         showVideo(video) {
             window.open('/' + video.post.id, '_blank');
         },
     }
-};
+}
 </script>

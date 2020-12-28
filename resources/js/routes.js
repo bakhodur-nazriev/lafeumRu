@@ -1,21 +1,19 @@
 import QuotesPage from "./views/QuotesPage";
-import AuthorsPage from "./views/AuthorsPage";
 import TermsPage from "./views/TermsPage";
 import VideosPage from "./views/VideosPage";
 import PhotosPage from "./views/PhotosPage";
+import AuthorsPage from "./views/AuthorsPage";
 import UsersPage from "./views/UsersPage";
 import ProfilePage from "./views/ProfilePage";
 import FavouritesPage from "./views/FavouritesPage";
 import CategoriesPage from "./views/CategoriesPage";
 import ChannelsPage from "./views/ChannelsPage";
 import KnowledgeAreasPage from "./views/KnowledgeAreasPage";
+
 import SettingsPage from "./views/SettingsPage";
 import FeedbacksPage from "./views/FeedbacksPage";
-
-// import Vocabulary from "./components/admin/Vocabulary";
-// import Chat from "./components/admin/Chat";
-
 import role from "./role";
+
 require("../js/constants");
 
 let allSidebarRoutes = [
@@ -190,14 +188,6 @@ let allSidebarRoutes = [
         path: "/dashboard/feedbacks",
         component: FeedbacksPage
     }
-    /*{
-        meta: {
-            icon: "mdi-chat",
-            title: "Чат",
-        },
-        path: "/dashboard/chat",
-        component: Chat
-    }*/
 ];
 
 function getAuthorizedRoutes(routes) {

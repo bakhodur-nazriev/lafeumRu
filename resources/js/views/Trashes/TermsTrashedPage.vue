@@ -3,14 +3,11 @@
         <index-page-layout
             ref="indexPage"
             search-field="body"
-            index-url="/api/terms"
+            index-url="/api/terms-trashed"
             :categories="categories"
             :table-headers="this.headers"
-            add-label="Добавить термин"
-            @show-item="showTerm"
-            @add-item="addTerm = true"
-            @update-item="termToUpdate = $event"
-            @delete-item="termToDelete = $event"
+            @restore-item="termToRestore = $event"
+            @force-delete-item="termToForceDelete = $event"
         >
             <template v-slot:item.body="{ item }">
                 <div
@@ -36,49 +33,36 @@
             </template>
         </index-page-layout>
 
-        <terms-create-dialog
-            v-model="addTerm"
-            :knowledge-areas="knowledgeAreas"
-            :categories="categories"
-            :term-types="termTypes"
-            @created="termCreated"
+        <terms-restore-dialog
+            v-model="termToRestore"
+            @restored="termRestored"
         />
 
-        <terms-edit-dialog
-            v-model="termToUpdate"
-            :knowledge-areas="knowledgeAreas"
-            :term-types="termTypes"
-            :categories="categories"
-            @updated="termUpdated"
-        />
-
-        <terms-delete-dialog
-            v-model="termToDelete"
-            @deleted="termDeleted"
+        <terms-force-delete-dialog
+            v-model="termToForceDelete"
+            @force-deleted="termForceDeleted"
         />
     </v-main>
 </template>
+
 <script>
-import IndexPageLayout from "../components/IndexPageLayout";
-import TermsCreateDialog from "./TermsCreateDialog";
-import TermsEditDialog from "./TermsEditDialog";
-import TermsDeleteDialog from "./TermsDeleteDialog";
+import TermsRestoreDialog from "./TermsRestoreDialog";
+import IndexPageLayout from "../../components/IndexPageLayout";
+import TermsForceDeleteDialog from "./TermsForceDeleteDialog";
 
 export default {
     components: {
         IndexPageLayout,
-        TermsCreateDialog,
-        TermsEditDialog,
-        TermsDeleteDialog,
+        TermsRestoreDialog,
+        TermsForceDeleteDialog
     },
     data() {
         return {
-            addTerm: false,
             termTypes: [],
             categories: [],
             knowledgeAreas: [],
-            termToUpdate: null,
-            termToDelete: null,
+            termToRestore: null,
+            termToForceDelete: null,
             headers: [
                 {
                     text: "Словарь",
@@ -136,21 +120,17 @@ export default {
                 .then(res => (this.categories = res.data))
                 .catch(e => console.log(e));
         },
-        termCreated(newTerm) {
-            this.addTerm = false;
+        termRestored() {
+            this.termToRestore = null;
             this.$refs.indexPage.loadItems();
         },
-        termUpdated(newTerm) {
-            this.termToUpdate = null;
-            this.$refs.indexPage.loadItems();
-        },
-        termDeleted(newTerm) {
-            this.termToDelete = null;
+        termForceDeleted() {
+            this.termToForceDelete = null;
             this.$refs.indexPage.loadItems();
         },
         showTerm(term) {
             window.open('/' + term.post.id, '_black');
         }
     }
-};
+}
 </script>

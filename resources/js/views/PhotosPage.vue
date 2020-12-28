@@ -1,11 +1,11 @@
 <template>
     <v-main class="pa-0">
         <index-page-layout
+            ref="indexPage"
             index-url="/api/photos"
+            searchField="description"
             :table-headers="this.headers"
             add-label="Добавить фото"
-            searchField="description"
-            ref="indexPage"
             @show-item="showPhoto"
             @add-item="addPhoto = true"
             @update-item="photoToUpdate = $event"

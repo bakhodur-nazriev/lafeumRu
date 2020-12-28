@@ -154,13 +154,19 @@ export default {
         restoreVideo() {
             axios
                 .put("/api/video-trashed/" + this.videoToRestore.id)
-                .then(res => (this.videoToRestore = false))
+                .then(res => {
+                    this.videoToRestore = false;
+                    this.$refs.indexPage.loadItems();
+                })
                 .catch(err => console.log(err))
         },
         forceDeleteVideo() {
             axios
                 .delete("/api/video-trashed/" + this.videoToForceDelete.id)
-                .then(res => (this.videoToForceDelete = false))
+                .then(res => {
+                    this.videoToForceDelete = false;
+                    this.$refs.indexPage.loadItems();
+                })
                 .catch(err => console.log(err))
         }
     },

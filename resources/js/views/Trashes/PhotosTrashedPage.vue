@@ -118,14 +118,20 @@ export default {
     methods: {
         restorePhoto() {
             axios
-                .put("/api/photos-trashed/" + this.photoToRestore.id)
-                .then(res => (this.photoToRestore = false))
+                .put("/api/photo-trashed/" + this.photoToRestore.id)
+                .then(res => {
+                    this.photoToRestore = false;
+                    this.$refs.indexPage.loadItems();
+                })
                 .catch(err => console.log(err))
         },
         forceDeletePhoto() {
             axios
-                .delete("/api/photos-trashed/" + this.photoToForceDelete.id)
-                .then(res => (this.photoToForceDelete = false))
+                .delete("/api/photo-trashed/" + this.photoToForceDelete.id)
+                .then(res => {
+                    this.photoToForceDelete = false;
+                    this.$refs.indexPage.loadItems();
+                })
                 .catch(err => console.log(err))
         }
     },

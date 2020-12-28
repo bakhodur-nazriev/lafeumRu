@@ -136,13 +136,19 @@ export default {
         restoreAuthor() {
             axios
                 .put("/api/author-trashed/" + this.authorToRestore.id)
-                .then(res => (this.authorToRestore = false))
+                .then(res => {
+                    this.authorToRestore = false;
+                    this.$refs.indexPage.loadItems();
+                })
                 .catch(err => console.log(err))
         },
         forceDeleteAuthor() {
             axios
                 .delete("/api/author-trashed/" + this.authorToForceDelete.id)
-                .then(res => (this.authorToForceDelete = false))
+                .then(res => {
+                    this.authorToForceDelete = false;
+                    this.$refs.indexPage.loadItems();
+                })
                 .catch(err => console.log(err))
         }
     },

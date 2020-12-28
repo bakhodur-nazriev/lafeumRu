@@ -109,13 +109,19 @@ export default {
         restoreChannel() {
             axios
                 .put("/api/channel-trashed/" + this.channelToRestore.id)
-                .then(res => (this.channelToRestore = false))
+                .then(res => {
+                    this.channelToRestore = false;
+                    this.$refs.indePage.loadItems();
+                })
                 .catch(err => console.log(err))
         },
         forceDeleteChannel() {
             axios
                 .delete("/api/channel-trashed/" + this.channelToForceDelete.id)
-                .then(res => (this.channelToForceDelete = false))
+                .then(res => {
+                    this.channelToForceDelete = false;
+                    this.$refs.indePage.loadItems();
+                })
                 .catch(err => console.log(err))
         }
     },

@@ -80,7 +80,7 @@
         <v-dialog v-model="showForceDeleteDialog" width="500">
             <v-card v-if="showForceDeleteDialog" class="pa-2">
                 <v-card-title class="font-weight-regular headline text-center pa-2">
-                    Вы действительно хотите безвозвратно удалить эту термин ?
+                    Вы действительно хотите безвозвратно удалить термин ?
                 </v-card-title>
                 <v-card-actions class="justify-center">
                     <v-btn dark color="green" @click="termToForceDelete = null">Нет</v-btn>
@@ -170,13 +170,19 @@ export default {
         restoreTerm() {
             axios
                 .put("/api/term-trashed/" + this.termToRestore.id)
-                .then(res => this.termToRestore = false)
+                .then(res => {
+                    this.termToRestore = false;
+                    this.$refs.indexPage.loadItems();
+                })
                 .catch(err => console.log(err))
         },
         forceDeleteTerm() {
             axios
                 .delete("/api/term-trashed/" + this.termToForceDelete.id)
-                .then(res => this.termToForceDelete = false)
+                .then(res => {
+                    this.termToForceDelete = false;
+                    this.$refs.indexPage.loadItems();
+                })
                 .catch(err => console.log(err))
         }
     },

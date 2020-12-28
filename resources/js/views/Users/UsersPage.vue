@@ -156,7 +156,7 @@ export default {
                     this.loadUsers();
                     this.userToUpdate = false;
                 })
-                .catch(e => console.log(e));
+                .catch(err => console.log(err));
         },
         deleteUser() {
             axios

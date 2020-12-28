@@ -2,6 +2,7 @@
     <v-main class="pa-0">
         <index-page-layout
             no-actions
+            ref="indexPage"
             search-field="body"
             index-url="/api/quotes-trashed"
             :categories="categories"
@@ -58,7 +59,7 @@
         </index-page-layout>
 
         <v-dialog v-model="showRestoreDialog" width="480">
-            <v-card v-if="showRestoreDialog" class="pa-2">
+            <v-card v-if="showRestoreDialog" class="pa-1">
                 <v-card-title class="font-weight-regular headline text-center pa-2">
                     Вы действительно хотите востановить цитату ?
                 </v-card-title>
@@ -145,15 +146,21 @@ export default {
         restoreQuote() {
             axios
                 .put("/api/quote-trashed/" + this.quoteToRestore.id)
-                .then(res => (this.quoteToRestore = false))
+                .then(res => {
+                    this.quoteToRestore = false;
+                    this.$refs.indexPage.loadItems();
+                })
                 .catch(err => console.log(err))
         },
         forceDeleteQuote() {
             axios
                 .delete("/api/quote-trashed/" + this.quoteToForceDelete.id)
-                .then(res => (this.quoteToForceDelete = false))
+                .then(res => {
+                    this.quoteToForceDelete = false;
+                    this.$refs.indexPage.loadItems();
+                })
                 .catch(err => console.log(err))
-        }
+        },
     },
     computed: {
         showRestoreDialog: {

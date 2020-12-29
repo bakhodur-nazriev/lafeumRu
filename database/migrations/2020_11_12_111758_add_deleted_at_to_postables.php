@@ -36,10 +36,6 @@ class AddDeletedAtToPostables extends Migration
         Schema::table("channels", function (Blueprint $table) {
             $table->timestamp("deleted_at")->nullable();
         });
-
-        Schema::table("users", function (Blueprint $table) {
-            $table->timestamp("deleted_at")->nullable();
-        });
     }
 
     /**
@@ -70,10 +66,6 @@ class AddDeletedAtToPostables extends Migration
         });
 
         Schema::table("channels", function (Blueprint $table) {
-            $table->dropColumn("deleted_at");
-        });
-
-        Schema::table("users", function (Blueprint $table) {
             $table->dropColumn("deleted_at");
         });
     }

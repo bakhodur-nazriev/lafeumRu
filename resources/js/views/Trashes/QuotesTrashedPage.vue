@@ -32,7 +32,7 @@
                             v-on="on"
                             elevation="2"
                             color="green"
-                            @click="quoteToRestore = true"
+                            @click="quoteToRestore = { ...item }"
                         >
                             <v-icon dark>mdi-arrow-left</v-icon>
                         </v-btn>
@@ -46,9 +46,9 @@
                             dark
                             small
                             v-on="on"
-                            elevation="2"
                             color="red"
-                            @click="quoteToForceDelete = true"
+                            elevation="2"
+                            @click="quoteToForceDelete = { ...item }"
                         >
                             <v-icon dark>mdi-delete</v-icon>
                         </v-btn>
@@ -57,7 +57,6 @@
                 </v-tooltip>
             </template>
         </index-page-layout>
-
         <v-dialog v-model="showRestoreDialog" width="480">
             <v-card v-if="showRestoreDialog" class="pa-1">
                 <v-card-title class="font-weight-regular headline text-center pa-2">
@@ -69,7 +68,6 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
-
         <v-dialog v-model="showForceDeleteDialog" width="500">
             <v-card v-if="showForceDeleteDialog" class="pa-2">
                 <v-card-title class="font-weight-regular headline text-center pa-2">

@@ -87,18 +87,15 @@ class TermsController extends Controller
         return $this->processIndexRequestItems($request, $termsTrashedQuery, 'body');
     }
 
-    public function restore($id)
+    public function restored($id)
     {
         $term = Term::onlyTrashed()->find($id);
         $term->restore();
     }
 
-    public function forceDelete($id)
+    public function forceDeleted($id)
     {
         $term = Term::onlyTrashed()->find($id);
-        $this->redirectService->registerModelRemoval($term);
-        $term->categories()->detach();
-        $term->post()->forceDelete();
         $term->forceDelete();
     }
 

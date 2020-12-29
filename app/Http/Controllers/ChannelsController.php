@@ -66,4 +66,16 @@ class ChannelsController extends Controller
         $channelTrashedQuery = Channel::onlyTrashed()->orderBy('name', 'asc');
         return $this->processIndexRequestItems($request, $channelTrashedQuery, 'name');
     }
+
+    public function restored($id)
+    {
+        $channel = Channel::onlyTrashed()->find($id);
+        $channel->restore();
+    }
+
+    public function forceDeleted($id)
+    {
+        $channel = Channel::onlyTrashed()->find($id);
+        $channel->forceDelete();
+    }
 }

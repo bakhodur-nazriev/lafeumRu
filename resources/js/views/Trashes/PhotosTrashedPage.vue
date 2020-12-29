@@ -26,7 +26,7 @@
                             v-on="on"
                             elevation="2"
                             color="green"
-                            @click="photoToRestore = true"
+                            @click="photoToRestore = { ...item }"
                         >
                             <v-icon dark>mdi-arrow-left</v-icon>
                         </v-btn>
@@ -42,7 +42,7 @@
                             v-on="on"
                             elevation="2"
                             color="red"
-                            @click="photoToForceDelete = true"
+                            @click="photoToForceDelete = { ...item }"
                         >
                             <v-icon dark>mdi-delete</v-icon>
                         </v-btn>

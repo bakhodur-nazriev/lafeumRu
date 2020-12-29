@@ -95,33 +95,16 @@ class QuotesController extends Controller
 
     }
 
-    public function restored(Quote $quote, Request $request)
+    public function restored($id)
     {
-        $quote->onlyTrashed();
-
-        if ($request->has('categories')) {
-            $quote->categories()->sync($request->categories);
-        }
-
-        return $quote->restore();
+        $quote = Quote::onlyTrashed()->find($id);
+        $quote->restore();
     }
 
-    public function forceDeleted(Quote $quote)
+    public function forceDeleted($id)
     {
-        $quote->onlyTrashed()->forceDelete();
-
-//        $this->redirectService->registerModelRemoval($quote);
-//
-//        $quote->post()->forceDelete();
-//        $quote->categories()->detach();
-//
-//        $metaImage = $quote->meta_image;
-
-//        $quote->forceDelete();
-
-//        if ($metaImage) {
-//            unlink(public_path($metaImage));
-//        }
+        $quote = Quote::onlyTrashed()->find($id);
+        $quote->forceDelete();
     }
 
     /**

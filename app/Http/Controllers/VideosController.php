@@ -82,18 +82,15 @@ class VideosController extends Controller
         return $this->processIndexRequestItems($request, $videosTrashedQuery, 'title');
     }
 
-    public function restore($id)
+    public function restored($id)
     {
         $video = Video::onlyTrashed()->find($id);
         $video->restore();
     }
 
-    public function forceDelete($id)
+    public function forceDeleted($id)
     {
         $video = Video::onlyTrashed()->find($id);
-        $this->redirectService->registerModelRemoval($video);
-        $video->post()->forceDelete();
-        $video->categories()->detach();
         $video->forceDelete();
     }
 }

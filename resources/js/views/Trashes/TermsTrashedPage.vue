@@ -40,7 +40,7 @@
                             v-on="on"
                             elevation="2"
                             color="green"
-                            @click="termToRestore = true"
+                            @click="termToRestore = { ...item }"
                         >
                             <v-icon dark>mdi-arrow-left</v-icon>
                         </v-btn>
@@ -54,9 +54,9 @@
                             dark
                             small
                             v-on="on"
-                            elevation="2"
                             color="red"
-                            @click="termToForceDelete = true"
+                            elevation="2"
+                            @click="termToForceDelete = { ...item }"
                         >
                             <v-icon dark>mdi-delete</v-icon>
                         </v-btn>
@@ -76,7 +76,6 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
-
         <v-dialog v-model="showForceDeleteDialog" width="500">
             <v-card v-if="showForceDeleteDialog" class="pa-2">
                 <v-card-title class="font-weight-regular headline text-center pa-2">

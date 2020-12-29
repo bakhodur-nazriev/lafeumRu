@@ -32,7 +32,7 @@
                             v-on="on"
                             elevation="2"
                             color="green"
-                            @click="videoToRestore = true"
+                            @click="videoToRestore = { ...item }"
                         >
                             <v-icon dark>mdi-arrow-left</v-icon>
                         </v-btn>
@@ -46,9 +46,9 @@
                             dark
                             small
                             v-on="on"
-                            elevation="2"
                             color="red"
-                            @click="videoToForceDelete = true"
+                            elevation="2"
+                            @click="videoToForceDelete = { ...item }"
                         >
                             <v-icon dark>mdi-delete</v-icon>
                         </v-btn>
@@ -57,11 +57,10 @@
                 </v-tooltip>
             </template>
         </index-page-layout>
-
         <v-dialog v-model="showRestoreDialog" width="480">
             <v-card v-if="showRestoreDialog" class="pa-2">
                 <v-card-title class="font-weight-regular headline text-center pa-2">
-                    Вы действительно хотите востановить цитату ?
+                    Вы действительно хотите востановить видео ?
                 </v-card-title>
                 <v-card-actions class="justify-center">
                     <v-btn dark color="green" @click="videoToRestore = null">Нет</v-btn>
@@ -69,11 +68,10 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
-
         <v-dialog v-model="showForceDeleteDialog" width="500">
             <v-card v-if="showForceDeleteDialog" class="pa-2">
                 <v-card-title class="font-weight-regular headline text-center pa-2">
-                    Вы действительно хотите безвозвратно удалить эту цитату ?
+                    Вы действительно хотите безвозвратно удалить видео ?
                 </v-card-title>
                 <v-card-actions class="justify-center">
                     <v-btn dark color="green" @click="videoToForceDelete = null">Нет</v-btn>

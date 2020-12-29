@@ -63,8 +63,15 @@ class PhotosController extends Controller
         return $this->processIndexRequestItems($request, $photosTrashedQuery, 'description');
     }
 
-    public function forceDelete(Photo $photo)
+    public function restored($id)
     {
+        $photo = Photo::onlyTrashed()->find($id);
+        $photo->restore();
+    }
+
+    public function forceDeleted($id)
+    {
+        $photo = Photo::onlyTrashed()->find($id);
         $photo->forceDelete();
     }
 }

@@ -10,14 +10,15 @@ class ChannelsController extends Controller
 {
     protected $redirectService;
 
-    public function __construct(RedirectService $redirectService) {
+    public function __construct(RedirectService $redirectService)
+    {
         $this->authorizeResource(Channel::class);
         $this->redirectService = $redirectService;
     }
 
     public function index()
     {
-        $channels = Channel::orderBy('name','asc')->get();
+        $channels = Channel::orderBy('name', 'asc')->get();
         return view('/channels', compact('channels'));
     }
 
@@ -35,7 +36,7 @@ class ChannelsController extends Controller
 
     public function get(Request $request)
     {
-        $channelQuery = Channel::orderBy('name','asc');
+        $channelQuery = Channel::orderBy('name', 'asc');
         return $this->processIndexRequestItems($request, $channelQuery, 'name');
     }
 
@@ -51,14 +52,30 @@ class ChannelsController extends Controller
     public function update(Channel $channel, Request $request)
     {
         $channel->update($request->all());
-
         return $channel;
     }
 
     public function destroy(Channel $channel)
     {
         $this->redirectService->registerModelRemoval($channel);
-
         $channel->delete();
+    }
+
+    public function getTrashed(Request $request)
+    {
+        $channelTrashedQuery = Channel::onlyTrashed()->orderBy('name', 'asc');
+        return $this->processIndexRequestItems($request, $channelTrashedQuery, 'name');
+    }
+
+    public function restored($id)
+    {
+        $channel = Channel::onlyTrashed()->find($id);
+        $channel->restore();
+    }
+
+    public function forceDeleted($id)
+    {
+        $channel = Channel::onlyTrashed()->find($id);
+        $channel->forceDelete();
     }
 }

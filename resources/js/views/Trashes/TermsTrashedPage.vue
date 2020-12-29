@@ -1,70 +1,102 @@
 <template>
     <v-main class="pa-0">
         <index-page-layout
+            no-actions
             ref="indexPage"
             search-field="body"
             index-url="/api/terms-trashed"
             :categories="categories"
             :table-headers="this.headers"
-            @restore-item="restoreTerm"
-            @force-delete-item="forceDeleteTerm"
         >
-            <template v-slot:item.body="{item}">
+            <template v-slot:item.body="{ item }">
                 <div
                     v-html="item.body"
                     class="my-3 three-line-truncate"
                 />
             </template>
-            <template v-slot:item.knowlegde="{item}">
+            <template v-slot:item.knowledge="{ item }">
                 <div
                     v-for="(know, i) in item.knowledge"
                     :key="i"
                 >
-                    {{ know.name }}
+                    {{ know.name }},
                 </div>
             </template>
-            <template v-slot:item.categories="{item}">
+            <template v-slot:item.categories="{ item }">
                 <div
-                    v-for="(category,i) in item.categories"
+                    v-for="(category, i) in item.categories"
                     :key="i"
                 >
                     {{ category.name }},
                 </div>
             </template>
+            <template v-slot:item.action="{ item }">
+                <v-tooltip top>
+                    <template v-slot:activator="{ on }">
+                        <v-btn
+                            fab
+                            dark
+                            small
+                            v-on="on"
+                            elevation="2"
+                            color="green"
+                            @click="termToRestore = { ...item }"
+                        >
+                            <v-icon dark>mdi-arrow-left</v-icon>
+                        </v-btn>
+                    </template>
+                    <span>Востановить</span>
+                </v-tooltip>
+                <v-tooltip top>
+                    <template v-slot:activator="{ on }">
+                        <v-btn
+                            fab
+                            dark
+                            small
+                            v-on="on"
+                            color="red"
+                            elevation="2"
+                            @click="termToForceDelete = { ...item }"
+                        >
+                            <v-icon dark>mdi-delete</v-icon>
+                        </v-btn>
+                    </template>
+                    <span>Удалить безвазвратно</span>
+                </v-tooltip>
+            </template>
         </index-page-layout>
-
-        <terms-restore-dialog
-            v-model="termToRestore"
-            @restored="termRestored"
-            :term-types="termTypes"
-            :categories="categories"
-            :knowledge-areas="knowledgeAreas"
-        />
-
-        <terms-force-delete-dialog
-            v-model="termToForceDelete"
-            @force-deleted="termForceDeleted"
-            :term-types="termTypes"
-            :categories="categories"
-            :knowledge-areas="knowledgeAreas"
-        />
+        <v-dialog v-model="showRestoreDialog" width="480">
+            <v-card v-if="showRestoreDialog" class="pa-2">
+                <v-card-title class="font-weight-regular headline text-center pa-2">
+                    Вы действительно хотите востановить термин ?
+                </v-card-title>
+                <v-card-actions class="justify-center">
+                    <v-btn dark color="green" @click="termToRestore = null">Нет</v-btn>
+                    <v-btn dark color="red" @click="restoreTerm()">Да</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+        <v-dialog v-model="showForceDeleteDialog" width="500">
+            <v-card v-if="showForceDeleteDialog" class="pa-2">
+                <v-card-title class="font-weight-regular headline text-center pa-2">
+                    Вы действительно хотите безвозвратно удалить термин ?
+                </v-card-title>
+                <v-card-actions class="justify-center">
+                    <v-btn dark color="green" @click="termToForceDelete = null">Нет</v-btn>
+                    <v-btn dark color="red" @click="forceDeleteTerm()">Да</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
     </v-main>
 </template>
 
 <script>
 import IndexPageLayout from "../../components/IndexPageLayout";
-import TermsForceDeleteDialog from "./TermsForceDeleteDialog";
-import TermsRestoreDialog from "./TermsRestoreDialog";
 
 export default {
-    components: {
-        IndexPageLayout,
-        TermsRestoreDialog,
-        TermsForceDeleteDialog
-    },
+    components: {IndexPageLayout},
     data() {
         return {
-            authors: [],
             termTypes: [],
             categories: [],
             knowledgeAreas: [],
@@ -99,14 +131,21 @@ export default {
                     text: "Опубликовано",
                     value: "publish_at",
                     width: 160
+                },
+                {
+                    text: "Действия",
+                    value: "action",
+                    align: "center",
+                    sortable: false,
+                    width: "160px"
                 }
             ]
         };
     },
     mounted() {
-        this.loadTermTypes();
-        this.loadTermCategories();
         this.loadKnowledgeAreas();
+        this.loadTermCategories();
+        this.loadTermTypes();
     },
     methods: {
         loadTermTypes() {
@@ -128,13 +167,45 @@ export default {
                 .catch(e => console.log(e));
         },
         restoreTerm() {
-            this.termToRestore = null;
-            this.$refs.indexPage.loadItems();
+            axios
+                .put("/api/term-trashed/" + this.termToRestore.id)
+                .then(res => {
+                    this.termToRestore = false;
+                    this.$refs.indexPage.loadItems();
+                })
+                .catch(err => console.log(err))
         },
         forceDeleteTerm() {
-            this.termToForceDelete = null;
-            this.$refs.indexPage.loadItems();
+            axios
+                .delete("/api/term-trashed/" + this.termToForceDelete.id)
+                .then(res => {
+                    this.termToForceDelete = false;
+                    this.$refs.indexPage.loadItems();
+                })
+                .catch(err => console.log(err))
         }
-    }
+    },
+    computed: {
+        showRestoreDialog: {
+            get() {
+                return this.termToRestore;
+            },
+            set(v) {
+                if (!v) {
+                    this.termToRestore = null;
+                }
+            }
+        },
+        showForceDeleteDialog: {
+            get() {
+                return this.termToForceDelete;
+            },
+            set(v) {
+                if (!v) {
+                    this.termToForceDelete = null;
+                }
+            }
+        }
+    },
 }
 </script>

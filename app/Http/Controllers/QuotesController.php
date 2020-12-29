@@ -95,20 +95,16 @@ class QuotesController extends Controller
 
     }
 
-    public function forceDelete(Quote $quote)
+    public function restored($id)
     {
-        $this->redirectService->registerModelRemoval($quote);
+        $quote = Quote::onlyTrashed()->find($id);
+        $quote->restore();
+    }
 
-        $quote->post()->forceDelete();
-        $quote->categories()->detach();
-
-        $metaImage = $quote->meta_image;
-
+    public function forceDeleted($id)
+    {
+        $quote = Quote::onlyTrashed()->find($id);
         $quote->forceDelete();
-
-        if ($metaImage) {
-            unlink(public_path($metaImage));
-        }
     }
 
     /**

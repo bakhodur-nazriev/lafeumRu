@@ -36,14 +36,6 @@ class VideosController extends Controller
         return $this->processIndexRequestItems($request, $videosQuery, 'title');
     }
 
-    public function getTrashed(Request $request)
-    {
-        $videosTrashedQuery = Video::with('channel', 'categories', 'post')
-            ->onlyTrashed()
-            ->byPublishAt();
-        return $this->processIndexRequestItems($request, $videosTrashedQuery, 'title');
-    }
-
     public function store(Request $request)
     {
         $request->validate([
@@ -77,9 +69,28 @@ class VideosController extends Controller
     public function destroy(Video $video)
     {
         $this->redirectService->registerModelRemoval($video);
-
         $video->post()->delete();
         $video->categories()->detach();
         $video->delete();
+    }
+
+    public function getTrashed(Request $request)
+    {
+        $videosTrashedQuery = Video::with('channel', 'categories', 'post')
+            ->onlyTrashed()
+            ->byPublishAt();
+        return $this->processIndexRequestItems($request, $videosTrashedQuery, 'title');
+    }
+
+    public function restored($id)
+    {
+        $video = Video::onlyTrashed()->find($id);
+        $video->restore();
+    }
+
+    public function forceDeleted($id)
+    {
+        $video = Video::onlyTrashed()->find($id);
+        $video->forceDelete();
     }
 }

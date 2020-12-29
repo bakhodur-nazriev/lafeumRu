@@ -3,15 +3,17 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Author extends Model
 {
+    use SoftDeletes;
 
-    protected $fillable = ["name", "biography", "photo", "author_group_id", "slug"];
+    protected $fillable = ["name", "biography", "photo", "author_group_id", "slug", "deleted_at"];
 
     public function getRouteKeyName()
     {
-        return 'slug';
+        return "slug";
     }
 
     public function quotes()
@@ -26,21 +28,21 @@ class Author extends Model
 
     public function categories()
     {
-        return $this->morphMany(Category::class, 'categoriable');
+        return $this->morphMany(Category::class, "categoriable");
     }
 
     public function scopePersons($query)
     {
-        return $query->where('author_group_id', AuthorGroup::where('name', AuthorGroup::PERSONS_GROUP_NAME)->first()->id);
+        return $query->where("author_group_id", AuthorGroup::where("name", AuthorGroup::PERSONS_GROUP_NAME)->first()->id);
     }
 
     public function scopeMovies($query)
     {
-        return $query->where('author_group_id', AuthorGroup::where('name', AuthorGroup::MOVIES_GROUP_NAME)->first()->id);
+        return $query->where("author_group_id", AuthorGroup::where("name", AuthorGroup::MOVIES_GROUP_NAME)->first()->id);
     }
 
     public function scopeProverbs($query)
     {
-        return $query->where('author_group_id', AuthorGroup::where('name', AuthorGroup::PROVERBS_GROUP_NAME)->first()->id);
+        return $query->where("author_group_id", AuthorGroup::where("name", AuthorGroup::PROVERBS_GROUP_NAME)->first()->id);
     }
 }

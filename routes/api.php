@@ -77,33 +77,33 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     /* Quotes Trashed */
     Route::get("/quotes-trashed", "QuotesController@getTrashed");
-    Route::put("/quote-trashed/{id}", "QuotesController@restored");
-    Route::delete("/quote-trashed/{id}", "QuotesController@forceDeleted");
+    Route::put("/quote-trashed/{quote}", "QuotesController@restored");
+    Route::delete("/quote-trashed/{quote}", "QuotesController@forceDeleted");
 
     /* Terms Trashed */
     Route::get("/terms-trashed", "TermsController@getTrashed");
-    Route::put("/term-trashed/{id}", "TermsController@restored");
-    Route::delete("/term-trashed/{id}", "TermsController@forceDeleted");
+    Route::put("/term-trashed/{term}", "TermsController@restored");
+    Route::delete("/term-trashed/{term}", "TermsController@forceDeleted");
 
     /* Videos Trashed */
     Route::get("/videos-trashed", "VideosController@getTrashed");
-    Route::put("/video-trashed/{id}", "VideosController@restored");
-    Route::delete("/video-trashed/{id}", "VideosController@forceDeleted");
+    Route::put("/video-trashed/{video}", "VideosController@restored");
+    Route::delete("/video-trashed/{video}", "VideosController@forceDeleted");
 
     /* Photos Trashed */
     Route::get("/photos-trashed", "PhotosController@getTrashed");
-    Route::put("/photo-trashed/{id}", "PhotosController@restored");
-    Route::delete("/photo-trashed/{id}", "PhotosController@forceDeleted");
+    Route::put("/photo-trashed/{photo}", "PhotosController@restored");
+    Route::delete("/photo-trashed/{photo}", "PhotosController@forceDeleted");
 
     /* Authors Trashed */
     Route::get("/authors-trashed", "AuthorsController@getTrashed");
-    Route::put("/author-trashed/{id}", "AuthorsController@restored");
-    Route::delete("/author-trashed/{id}", "AuthorsController@forceDeleted");
+    Route::put("/author-trashed/{author}", "AuthorsController@restored");
+    Route::delete("/author-trashed/{author}", "AuthorsController@forceDeleted");
 
     /* Channels Trashed */
     Route::get("/channels-trashed", "ChannelsController@getTrashed");
-    Route::put("/channel-trashed/{id}", "ChannelsController@restored");
-    Route::delete("/channel-trashed/{id}", "ChannelsController@forceDeleted");
+    Route::put("/channel-trashed/{channel}", "ChannelsController@restored");
+    Route::delete("/channel-trashed/{channel}", "ChannelsController@forceDeleted");
 });
 
 Route::get("/summary/{id}", "PostsController@termSummary");

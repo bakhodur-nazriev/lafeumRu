@@ -11,14 +11,16 @@ use ChristianKuri\LaravelFavorite\Traits\Favoriteability;
 
 class User extends Authenticatable /*implements MustVerifyEmail*/
 {
-    use HasApiTokens, Notifiable, Favoriteability, SoftDeletes;
+    use Notifiable;
+    use HasApiTokens;
+    use Favoriteability;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ["name", "email", "password", "avatar", "country", "age", "gender", "hobby", "deleted_at"];
+    protected $fillable = ["name", "email", "password", "avatar", "country", "age", "gender", "hobby"];
 
     /* public function favorite()
      {

@@ -1,17 +1,22 @@
-import QuotesPage from "./views/QuotesPage";
-import TermsPage from "./views/TermsPage";
-import VideosPage from "./views/VideosPage";
-import PhotosPage from "./views/PhotosPage";
-import AuthorsPage from "./views/AuthorsPage";
-import UsersPage from "./views/UsersPage";
-import ProfilePage from "./views/ProfilePage";
-import FavouritesPage from "./views/FavouritesPage";
-import CategoriesPage from "./views/CategoriesPage";
-import ChannelsPage from "./views/ChannelsPage";
-import KnowledgeAreasPage from "./views/KnowledgeAreasPage";
-
+import QuotesPage from "./views/Quotes/QuotesPage";
+import QuotesTrashedPage from "./views/Trashes/QuotesTrashedPage";
+import TermsPage from "./views/Terms/TermsPage";
+import TermsTrashedPage from "./views/Trashes/TermsTrashedPage";
+import VideosPage from "./views/Videos/VideosPage";
+import VideosTrashedPage from "./views/Trashes/VideosTrashedPage";
+import PhotosPage from "./views/Photos/PhotosPage";
+import PhotosTrashedPage from "./views/Trashes/PhotosTrashedPage";
+import AuthorsPage from "./views/Authors/AuthorsPage";
+import AuthorsTrashedPage from "./views/Trashes/AuthorsTrashedPage";
+import UsersPage from "./views/Users/UsersPage";
+import ProfilePage from "./views/Profile/ProfilePage";
+import FavouritesPage from "./views/Favourites/FavouritesPage";
+import CategoriesPage from "./views/Categories/CategoriesPage";
+import ChannelsPage from "./views/Channels/ChannelsPage";
+import ChannelsTrashedPage from "./views/Trashes/ChannelsTrashedPage";
+import KnowledgeAreasPage from "./views/KnowledgeAreas/KnowledgeAreasPage";
 import SettingsPage from "./views/SettingsPage";
-import FeedbacksPage from "./views/FeedbacksPage";
+import FeedbacksPage from "./views/Feedback/FeedbacksPage";
 import role from "./role";
 
 require("../js/constants");
@@ -105,6 +110,77 @@ let allSidebarRoutes = [
                 path: "/dashboard/categories/videos",
                 name: "/dashboard/categories/videos",
                 component: CategoriesPage
+            }
+        ]
+    },
+    /* Trashed Data Section */
+    {
+        meta: {
+            icon: "mdi-delete",
+            title: "Карзина",
+            authorize: [role.author]
+        },
+        path: "",
+        subLinks: [
+            {
+                meta: {
+                    icon: "mdi-plus",
+                    title: "Цитаты",
+                    pageTitle: "Карзина Цитаты"
+                },
+                path: "/dashboard/quotes-trashed",
+                name: "/dashboard/quotes-trashed",
+                component: QuotesTrashedPage
+            },
+            {
+                meta: {
+                    icon: "mdi-tag",
+                    title: "Термины",
+                    pageTitle: "Карзина Термины"
+                },
+                path: "/dashboard/terms-trashed",
+                name: "/dashboard/terms-trashed",
+                component: TermsTrashedPage
+            },
+            {
+                meta: {
+                    icon: "mdi-youtube",
+                    title: "Видео",
+                    pageTitle: "Карзина Видео"
+                },
+                path: "/dashboard/videos-trashed",
+                name: "/dashboard/videos-trashed",
+                component: VideosTrashedPage
+            },
+            {
+                meta: {
+                    icon: "mdi-image",
+                    title: "Фото",
+                    pageTitle: "Карзина Фото"
+                },
+                path: "/dashboard/photos-trashed",
+                name: "/dashboard/photos-trashed",
+                component: PhotosTrashedPage
+            },
+            {
+                meta: {
+                    icon: "mdi-image",
+                    title: "Авторы",
+                    pageTitle: "Карзина Авторы",
+                },
+                path: "/dashboard/authors-trashed",
+                name: "/dashboard/authors-trashed",
+                component: AuthorsTrashedPage
+            },
+            {
+                meta: {
+                    icon: "mdi-image",
+                    title: "Каналы",
+                    pageTitle: "Карзина Каналы",
+                },
+                path: "/dashboard/channels-trashed",
+                name: "/dashboard/channels-trashed",
+                component: ChannelsTrashedPage
             }
         ]
     },

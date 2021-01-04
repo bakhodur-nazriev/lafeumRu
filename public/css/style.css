@@ -34,6 +34,10 @@ ol {
     max-width: 450px;
 }
 
+.card-block > div > p {
+    margin-bottom: 0.3rem;
+}
+
 /* ------------- COLORS -------------- */
 .knowledge-area-color {
     color: #1c7094;

@@ -1,12 +1,11 @@
 <template>
     <main class="pa-0">
         <index-page-layout
+            no-actions
             ref="indexPage"
-            index-url="/api/photos-trashed"
             search-field="description"
+            index-url="/api/photos-trashed"
             :table-headers="this.headers"
-            @restore-item="photoToRestore = $event"
-            @force-delete-item="photoToForceDelete = $event"
         >
             <template v-slot:item.image="{item}">
                 <div class="text-center pa-2">
@@ -17,31 +16,73 @@
                     />
                 </div>
             </template>
+            <template v-slot:item.action="{ item }">
+                <v-tooltip top>
+                    <template v-slot:activator="{ on }">
+                        <v-btn
+                            fab
+                            dark
+                            small
+                            v-on="on"
+                            elevation="2"
+                            color="green"
+                            @click="photoToRestore = { ...item }"
+                        >
+                            <v-icon dark>mdi-arrow-left</v-icon>
+                        </v-btn>
+                    </template>
+                    <span>Востановить</span>
+                </v-tooltip>
+                <v-tooltip top>
+                    <template v-slot:activator="{ on }">
+                        <v-btn
+                            fab
+                            dark
+                            small
+                            v-on="on"
+                            elevation="2"
+                            color="red"
+                            @click="photoToForceDelete = { ...item }"
+                        >
+                            <v-icon dark>mdi-delete</v-icon>
+                        </v-btn>
+                    </template>
+                    <span>Удалить безвазвратно</span>
+                </v-tooltip>
+            </template>
         </index-page-layout>
 
-        <photos-reverse-dialog
-            v-model="photoToRestore"
-            @restored="photoRestored"
-        />
+        <v-dialog v-model="showRestoreDialog" width="480">
+            <v-card v-if="showRestoreDialog" class="pa-2">
+                <v-card-title class="font-weight-regular headline text-center pa-2">
+                    Вы действительно хотите востановить фото ?
+                </v-card-title>
+                <v-card-actions class="justify-center">
+                    <v-btn dark color="green" @click="photoToRestore = null">Нет</v-btn>
+                    <v-btn dark color="red" @click="restorePhoto()">Да</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
 
-        <photos-force-delete-dialog
-            v-model="photoToForceDelete"
-            @force-deleted="photoForceDeleted"
-        />
+        <v-dialog v-model="showForceDeleteDialog" width="500">
+            <v-card v-if="showForceDeleteDialog" class="pa-2">
+                <v-card-title class="font-weight-regular headline text-center pa-2">
+                    Вы действительно хотите безвозвратно удалить эту фото ?
+                </v-card-title>
+                <v-card-actions class="justify-center">
+                    <v-btn dark color="green" @click="photoToForceDelete = null">Нет</v-btn>
+                    <v-btn dark color="red" @click="forceDeletePhoto()">Да</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
     </main>
 </template>
 
 <script>
 import IndexPageLayout from "../../components/IndexPageLayout";
-import PhotosForceDeleteDialog from "./PhotosForceDeleteDialog";
-import PhotosReverseDialog from "./PhotosRestoreDialog";
 
 export default {
-    components: {
-        IndexPageLayout,
-        PhotosReverseDialog,
-        PhotosForceDeleteDialog
-    },
+    components: {IndexPageLayout},
     data() {
         return {
             photoToRestore: null,
@@ -63,18 +104,59 @@ export default {
                     text: "Опубликовано",
                     value: "publish_at",
                     width: 160
+                },
+                {
+                    text: "Действия",
+                    value: "action",
+                    align: "center",
+                    sortable: false,
+                    width: "160px"
                 }
             ]
         }
     },
     methods: {
-        photoRestored() {
-            this.photoToRestore = null;
-            this.$refs.indexPage.loadItems();
+        restorePhoto() {
+            axios
+                .put("/api/photo-trashed/" + this.photoToRestore.id)
+                .then(res => {
+                    this.photoToRestore = false;
+                    this.$refs.indexPage.loadItems();
+                })
+                .catch(err => console.log(err))
         },
-        photoForceDeleted() {
-            this.photoToForceDelete = null;
-            this.$refs.indexPage.loadItems();
+        forceDeletePhoto() {
+            axios
+                .delete("/api/photo-trashed/" + this.photoToForceDelete.id)
+                .then(res => {
+                    this.photoToForceDelete = false;
+                    this.$refs.indexPage.loadItems();
+                })
+                .catch(err => console.log(err))
+        }
+    },
+
+    computed: {
+        showRestoreDialog: {
+            get() {
+                return this.photoToRestore;
+            },
+            set(v) {
+                if (!v) {
+                    this.photoToRestore = null;
+                }
+            }
+        },
+
+        showForceDeleteDialog: {
+            get() {
+                return this.photoToForceDelete;
+            },
+            set(v) {
+                if (!v) {
+                    this.photoToForceDelete = null;
+                }
+            }
         }
     }
 }

@@ -1,12 +1,12 @@
 <template>
-    <v-dialog v-if="termToDelete" v-model="termToDelete" width="500">
+    <v-dialog v-if="termToDelete" v-model="termToDelete" width="460">
         <v-card class="pa-2">
-            <v-card-title class="pt-1 regular headline text-center"
-                >Вы действительно хотите удалить это термин ?
+            <v-card-title class="font-weight-regular headline text-center pa-2">
+                Вы действительно хотите отправить термин в карзину ?
             </v-card-title>
             <v-card-actions class="justify-center">
-                <v-btn color="primary" dark @click="termToDelete = false">Нет</v-btn>
-                <v-btn color="primary" dark @click="deleteTerm()">Да</v-btn>
+                <v-btn dark color="green" @click="termToDelete = false">Нет</v-btn>
+                <v-btn dark color="red" @click="deleteTerm()">Да</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>

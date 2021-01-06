@@ -1,12 +1,12 @@
 <template>
-    <v-dialog v-if="channelToDelete" v-model="channelToDelete" width="430">
-        <v-card class="pa-1">
+    <v-dialog v-if="channelToDelete" v-model="channelToDelete" width="460">
+        <v-card class="pa-2">
             <v-card-title class="font-weight-regular headline text-center pa-2">
-                Вы действительно хотите удалить канал ?
+                Вы действительно хотите отправить канал в карзину ?
             </v-card-title>
             <v-card-actions class="justify-center">
-                <v-btn dark color="green darken-1" @click="$emit('input', null)">Нет</v-btn>
-                <v-btn color="red darken-1" dark @click="deleteChannel()">Да</v-btn>
+                <v-btn dark color="green" @click="$emit('input', null)">Нет</v-btn>
+                <v-btn dark color="red" @click="deleteChannel()">Да</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
@@ -14,19 +14,13 @@
 
 <script>
 export default {
-    props: {
-        value: Object
-    },
+    props: {value: Object},
     methods: {
         deleteChannel() {
             axios
                 .delete("/api/channels/" + this.channelToDelete.slug)
-                .then(res => {
-                    this.$emit('deleted');
-                })
-                .catch(err => {
-                    console.log(err);
-                });
+                .then(res => (this.$emit('deleted')))
+                .catch(err => (console.log(err)))
         }
     },
     computed: {

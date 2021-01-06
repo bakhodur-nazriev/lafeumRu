@@ -1,8 +1,8 @@
 <template>
-    <v-dialog v-if="quoteToDelete" v-model="quoteToDelete" width="500">
-        <v-card class="pa-1">
-            <v-card-title class="pt-1 font-weight-regular headline text-center">
-                Вы действительно хотите удалить эту цитату ?
+    <v-dialog v-if="quoteToDelete" v-model="quoteToDelete" width="460">
+        <v-card class="pa-2">
+            <v-card-title class="font-weight-regular headline text-center pa-2">
+                Вы действительно хотите отправить цитату в карзину ?
             </v-card-title>
             <v-card-actions class="justify-center">
                 <v-btn dark color="green" @click="quoteToDelete = null">Нет</v-btn>

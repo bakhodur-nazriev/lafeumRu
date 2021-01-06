@@ -1,12 +1,12 @@
 <template>
-    <v-dialog v-if="authorToDelete" v-model="authorToDelete" width="430">
-        <v-card class="pa-1">
+    <v-dialog v-if="authorToDelete" v-model="authorToDelete" width="460">
+        <v-card class="pa-2">
             <v-card-title class="font-weight-regular headline text-center pa-2">
-                Вы действительно хотите удалить автора ?
+                Вы действительно хотите отправить автора в карзину ?
             </v-card-title>
             <v-card-actions class="justify-center">
-                <v-btn dark color="green darken-1" @click="$emit('input', null)">Нет</v-btn>
-                <v-btn dark color="red darken-1" @click="deleteAuthor()">Да</v-btn>
+                <v-btn dark color="green" @click="$emit('input', null)">Нет</v-btn>
+                <v-btn dark color="red" @click="deleteAuthor()">Да</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
@@ -14,9 +14,7 @@
 
 <script>
 export default {
-    props: {
-        value: Object
-    },
+    props: {value: Object},
     methods: {
         deleteAuthor() {
             const url = "/api/authors/" + this.authorToDelete.slug;

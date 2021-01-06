@@ -1,8 +1,8 @@
 <template>
-    <v-dialog v-if="photoToDelete" v-model="photoToDelete" width="460">
+    <v-dialog v-if="photoToDelete" v-model="photoToDelete" width="480">
         <v-card class="pa-2">
-            <v-card-title class="pt-1 font-weight-regular headline text-center">
-                Вы действительно хотите удалить это фото ?
+            <v-card-title class="font-weight-regular headline text-center pt-2">
+                Вы действительно хотите отправить фото в карзину ?
             </v-card-title>
             <v-card-actions class="justify-center">
                 <v-btn dark color="green" @click="photoToDelete = null">Нет</v-btn>

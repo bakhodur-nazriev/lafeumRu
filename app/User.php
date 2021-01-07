@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -11,14 +10,16 @@ use ChristianKuri\LaravelFavorite\Traits\Favoriteability;
 
 class User extends Authenticatable /*implements MustVerifyEmail*/
 {
-    use HasApiTokens, Notifiable, Favoriteability, SoftDeletes;
+    use HasApiTokens, Notifiable, Favoriteability;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ["name", "email", "password", "avatar", "country", "age", "gender", "hobby", "deleted_at"];
+    protected $fillable = [
+        "name", "email", "password", "avatar", "country", "age", "gender", "hobby"
+    ];
 
     /* public function favorite()
      {

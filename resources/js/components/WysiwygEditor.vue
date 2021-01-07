@@ -54,7 +54,7 @@ export default {
 </script>
 
 <style>
-.ql-snow .ql-tooltip a.ql-action::after {
+.ql-snow .ql-tooltip a.ql-action::after{
     margin-left: 0;
 }
 
@@ -65,10 +65,6 @@ export default {
 .ql-snow .ql-tooltip {
     position: sticky;
     width: 100%;
-}
-
-.ql-editor ol li:not(.ql-direction-rtl), .ql-editor ul li:not(.ql-direction-rtl) {
-    padding-left: 0;
 }
 
 .ql-snow .ql-tooltip input[type=text] {

@@ -26,6 +26,12 @@
                     {{ category.name }},
                 </div>
             </template>
+            <template v-slot:item.authors_thoughts="{ item }">
+                <div
+                    v-html="item.authors_thoughts"
+                    class="my-3 three-line-truncate"
+                />
+            </template>
         </index-page-layout>
 
         <quotes-create-dialog
@@ -79,6 +85,12 @@ export default {
                     text: "Автор",
                     value: "author.name",
                     align: "center",
+                },
+                {
+                    text: "Мысли автора",
+                    value: "authors_thoughts",
+                    align: "center",
+                    width: "160px"
                 },
                 {
                     text: "Рубрики",

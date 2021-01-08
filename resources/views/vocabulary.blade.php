@@ -18,7 +18,7 @@
 @section("content")
     @if (isset($category))
         <h3 class="secondary">{{$category->name}}</h3>
-        <p>{{$category->description}}</p>
+        <p>{{ $category->description }}</p>
     @else
         <h3 class="secondary">Словарь «ЛАФЕЮМ»</h3>
         <p>
@@ -35,37 +35,37 @@
     <div class="row d-flex justify-content-center">
         <div class="col-md-4">
             {{-- <form id="vocabulary-search-form"> --}}
-                <div class="input-group">
-                    <input
-                        type="search"
-                        id="vocabulary-search"
-                        class="form-control"
-                        placeholder="Введите термин"
-                    />
-                    {{-- <div class="input-group-append">
-                        <button
-                            id="vocabulary-search-reset"
-                            type="button"
-                            class="input-group-text cursor-pointer"
-                            style="display: none;"
-                        >
-                            <i class="fa fa-times-circle"></i>
-                        </button>
-                        <button
-                            type="submit"
-                            class="input-group-text cursor-pointer"
-                        >
-                            <i class="fa fa-search"></i>
-                        </button>
-                        <span class="ml-2 mt-1">Дополнительный поиск</span>
-                    </div> --}}
-                    <div class="input-group-append">
-                        <div class="input-group-text cursor-pointer" id="vocabulary-search-button">
-                            <i class="fa fa-search"></i>
-                        </div>
+            <div class="input-group">
+                <input
+                    type="search"
+                    id="vocabulary-search"
+                    class="form-control"
+                    placeholder="Введите термин"
+                />
+                {{-- <div class="input-group-append">
+                    <button
+                        id="vocabulary-search-reset"
+                        type="button"
+                        class="input-group-text cursor-pointer"
+                        style="display: none;"
+                    >
+                        <i class="fa fa-times-circle"></i>
+                    </button>
+                    <button
+                        type="submit"
+                        class="input-group-text cursor-pointer"
+                    >
+                        <i class="fa fa-search"></i>
+                    </button>
+                    <span class="ml-2 mt-1">Дополнительный поиск</span>
+                </div> --}}
+                <div class="input-group-append">
+                    <div class="input-group-text cursor-pointer" id="vocabulary-search-button">
+                        <i class="fa fa-search"></i>
                     </div>
                 </div>
-                <small id="vocabulary-search-result" class="form-text text-muted ml-1"></small>
+            </div>
+            <small id="vocabulary-search-result" class="form-text text-muted ml-1"></small>
             {{-- </form> --}}
         </div>
     </div>

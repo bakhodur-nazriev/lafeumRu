@@ -13,7 +13,7 @@ class Quote extends Model
     use Favoriteable;
     use PublishableTrait;
 
-    protected $fillable = ['body', 'author_id', 'publish_at', 'deleted_at'];
+    protected $fillable = ["body", "author_id", "publish_at", "deleted_at"];
 
     public function author()
     {
@@ -22,7 +22,7 @@ class Quote extends Model
 
     public function categories()
     {
-        return $this->morphToMany(Category::class, 'categoriable');
+        return $this->morphToMany(Category::class, "categoriable");
     }
 
     public function user()
@@ -32,7 +32,7 @@ class Quote extends Model
 
     public function post()
     {
-        return $this->morphOne(Post::class, 'postable');
+        return $this->morphOne(Post::class, "postable");
     }
 
     public function dailyPosts()
@@ -42,6 +42,6 @@ class Quote extends Model
 
     /*public function getPublishAtAttribute($date)
     {
-        return Carbon::parse($date)->format('d/m/Y H:i:s');
+        return Carbon::parse($date)->format("d/m/Y H:i:s");
     }*/
 }

@@ -3,32 +3,26 @@
         <index-page-layout
             no-actions
             ref="indexPage"
-            search-field="body"
-            index-url="/api/terms-trashed"
-            :categories="categories"
+            search-field="name"
+            add-label="Добавить автора"
+            index-url="/api/authors-trashed"
             :table-headers="this.headers"
         >
-            <template v-slot:item.body="{ item }">
+            <template v-slot:item.biography="{ item }">
                 <div
-                    v-html="item.body"
+                    v-html="item.biography"
                     class="my-3 three-line-truncate"
                 />
             </template>
-            <template v-slot:item.knowledge="{ item }">
-                <div
-                    v-for="(know, i) in item.knowledge"
-                    :key="i"
-                >
-                    {{ know.name }},
-                </div>
-            </template>
-            <template v-slot:item.categories="{ item }">
-                <div
-                    v-for="(category, i) in item.categories"
-                    :key="i"
-                >
-                    {{ category.name }},
-                </div>
+            <template v-slot:item.photo="{ item }">
+                <v-avatar size="78" class="ma-1" v-if="item.photo">
+                    <v-img
+                        :src="item.photo"
+                        :alt="item.name"
+                        max-width="6rem"
+                    >
+                    </v-img>
+                </v-avatar>
             </template>
             <template v-slot:item.action="{ item }">
                 <v-tooltip top>
@@ -40,7 +34,7 @@
                             v-on="on"
                             elevation="2"
                             color="green"
-                            @click="termToRestore = { ...item }"
+                            @click="authorToRestore = { ...item }"
                         >
                             <v-icon dark>mdi-arrow-left</v-icon>
                         </v-btn>
@@ -56,7 +50,7 @@
                             v-on="on"
                             color="red"
                             elevation="2"
-                            @click="termToForceDelete = { ...item }"
+                            @click="authorToForceDelete = { ...item }"
                         >
                             <v-icon dark>mdi-delete</v-icon>
                         </v-btn>
@@ -68,22 +62,22 @@
         <v-dialog v-model="showRestoreDialog" width="480">
             <v-card v-if="showRestoreDialog" class="pa-2">
                 <v-card-title class="font-weight-regular headline text-center pa-2">
-                    Вы действительно хотите востановить термин ?
+                    Вы действительно хотите востановить автора ?
                 </v-card-title>
                 <v-card-actions class="justify-center">
-                    <v-btn dark color="green" @click="termToRestore = null">Нет</v-btn>
-                    <v-btn dark color="red" @click="restoreTerm()">Да</v-btn>
+                    <v-btn dark color="green" @click="authorToRestore = null">Нет</v-btn>
+                    <v-btn dark color="red" @click="restoreAuthor()">Да</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
         <v-dialog v-model="showForceDeleteDialog" width="500">
             <v-card v-if="showForceDeleteDialog" class="pa-2">
                 <v-card-title class="font-weight-regular headline text-center pa-2">
-                    Вы действительно хотите безвозвратно удалить термин ?
+                    Вы действительно хотите безвозвратно удалить автора ?
                 </v-card-title>
                 <v-card-actions class="justify-center">
-                    <v-btn dark color="green" @click="termToForceDelete = null">Нет</v-btn>
-                    <v-btn dark color="red" @click="forceDeleteTerm()">Да</v-btn>
+                    <v-btn dark color="green" @click="authorToForceDelete = null">Нет</v-btn>
+                    <v-btn dark color="red" @click="forceDeleteAuthor()">Да</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -97,40 +91,25 @@ export default {
     components: {IndexPageLayout},
     data() {
         return {
-            termTypes: [],
-            categories: [],
-            knowledgeAreas: [],
-            termToRestore: null,
-            termToForceDelete: null,
+            authorGroups: [],
+            authorToRestore: null,
+            authorToForceDelete: null,
             headers: [
                 {
-                    text: "Словарь",
-                    value: "name"
+                    text: "Имя",
+                    value: "name",
+                    sortable: false
                 },
                 {
-                    text: "Термины",
-                    value: "body",
-                    class: "ma-3"
+                    text: "Биография",
+                    value: "biography",
+                    sortable: false
                 },
                 {
-                    text: "Тип",
-                    value: "term_type.name",
-                    align: "center"
-                },
-                {
-                    text: "Область знаний",
-                    value: "knowledge",
-                    align: "center"
-                },
-                {
-                    text: "Рубрики",
-                    value: "categories",
-                    align: "center"
-                },
-                {
-                    text: "Опубликовано",
-                    value: "publish_at",
-                    width: 160
+                    text: "Фото",
+                    value: "photo",
+                    align: "center",
+                    sortable: false
                 },
                 {
                     text: "Действия",
@@ -143,43 +122,29 @@ export default {
         };
     },
     mounted() {
-        this.loadKnowledgeAreas();
-        this.loadTermCategories();
-        this.loadTermTypes();
+        this.loadAuthorGroups();
     },
     methods: {
-        loadTermTypes() {
+        loadAuthorGroups() {
             axios
-                .get("/api/term-types")
-                .then(res => (this.termTypes = res.data))
-                .catch(e => console.log(e));
+                .get("/api/author-groups")
+                .then(res => (this.authorGroups = res.data))
+                .catch(err => console.log(err));
         },
-        loadKnowledgeAreas() {
+        restoreAuthor() {
             axios
-                .get("/api/knowledge-areas")
-                .then(res => (this.knowledgeAreas = res.data))
-                .catch(e => console.log(e));
-        },
-        loadTermCategories() {
-            axios
-                .get("/api/categories?type=" + TERM_TYPE)
-                .then(res => (this.categories = res.data))
-                .catch(e => console.log(e));
-        },
-        restoreTerm() {
-            axios
-                .put("/api/term-trashed/" + this.termToRestore.id)
+                .put("/api/author-trashed/" + this.authorToRestore.id)
                 .then(res => {
-                    this.termToRestore = false;
+                    this.authorToRestore = false;
                     this.$refs.indexPage.loadItems();
                 })
                 .catch(err => console.log(err))
         },
-        forceDeleteTerm() {
+        forceDeleteAuthor() {
             axios
-                .delete("/api/term-trashed/" + this.termToForceDelete.id)
+                .delete("/api/author-trashed/" + this.authorToForceDelete.id)
                 .then(res => {
-                    this.termToForceDelete = false;
+                    this.authorToForceDelete = false;
                     this.$refs.indexPage.loadItems();
                 })
                 .catch(err => console.log(err))
@@ -188,24 +153,24 @@ export default {
     computed: {
         showRestoreDialog: {
             get() {
-                return this.termToRestore;
+                return this.authorToRestore;
             },
             set(v) {
                 if (!v) {
-                    this.termToRestore = null;
+                    this.authorToRestore = null;
                 }
             }
         },
         showForceDeleteDialog: {
             get() {
-                return this.termToForceDelete;
+                return this.authorToForceDelete;
             },
             set(v) {
                 if (!v) {
-                    this.termToForceDelete = null;
+                    this.authorToForceDelete = null;
                 }
             }
         }
-    },
+    }
 }
 </script>

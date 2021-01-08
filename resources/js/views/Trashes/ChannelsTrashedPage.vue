@@ -1,20 +1,17 @@
 <template>
-    <main class="pa-0">
+    <v-main class="pa-0">
         <index-page-layout
             no-actions
             ref="indexPage"
-            search-field="description"
-            index-url="/api/photos-trashed"
+            search-field="name"
+            index-url="/api/channels-trashed"
             :table-headers="this.headers"
         >
-            <template v-slot:item.image="{item}">
-                <div class="text-center pa-2">
-                    <v-img
-                        :src="item.path"
-                        :alt="item.description"
-                        max-width="6rem"
-                    />
-                </div>
+            <template v-slot:item.description="{ item }">
+                <div
+                    v-html="item.description"
+                    class="my-3 three-line-truncate"
+                />
             </template>
             <template v-slot:item.action="{ item }">
                 <v-tooltip top>
@@ -26,7 +23,7 @@
                             v-on="on"
                             elevation="2"
                             color="green"
-                            @click="photoToRestore = { ...item }"
+                            @click="channelToRestore = true"
                         >
                             <v-icon dark>mdi-arrow-left</v-icon>
                         </v-btn>
@@ -42,7 +39,7 @@
                             v-on="on"
                             elevation="2"
                             color="red"
-                            @click="photoToForceDelete = { ...item }"
+                            @click="channelToForceDelete = true"
                         >
                             <v-icon dark>mdi-delete</v-icon>
                         </v-btn>
@@ -55,11 +52,11 @@
         <v-dialog v-model="showRestoreDialog" width="480">
             <v-card v-if="showRestoreDialog" class="pa-2">
                 <v-card-title class="font-weight-regular headline text-center pa-2">
-                    Вы действительно хотите востановить фото ?
+                    Вы действительно хотите востановить канал ?
                 </v-card-title>
                 <v-card-actions class="justify-center">
-                    <v-btn dark color="green" @click="photoToRestore = null">Нет</v-btn>
-                    <v-btn dark color="red" @click="restorePhoto()">Да</v-btn>
+                    <v-btn dark color="green" @click="channelToRestore = null">Нет</v-btn>
+                    <v-btn dark color="red" @click="restoreChannel()">Да</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -67,15 +64,15 @@
         <v-dialog v-model="showForceDeleteDialog" width="500">
             <v-card v-if="showForceDeleteDialog" class="pa-2">
                 <v-card-title class="font-weight-regular headline text-center pa-2">
-                    Вы действительно хотите безвозвратно удалить фото ?
+                    Вы действительно хотите безвозвратно удалить канал ?
                 </v-card-title>
                 <v-card-actions class="justify-center">
-                    <v-btn dark color="green" @click="photoToForceDelete = null">Нет</v-btn>
-                    <v-btn dark color="red" @click="forceDeletePhoto()">Да</v-btn>
+                    <v-btn dark color="green" @click="channelToForceDelete = null">Нет</v-btn>
+                    <v-btn dark color="red" @click="forceDeleteChannel()">Да</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
-    </main>
+    </v-main>
 </template>
 
 <script>
@@ -85,25 +82,18 @@ export default {
     components: {IndexPageLayout},
     data() {
         return {
-            photoToRestore: null,
-            photoToForceDelete: null,
+            channelToRestore: null,
+            channelToForceDelete: null,
             headers: [
                 {
-                    text: "Фото",
-                    width: "150px",
-                    value: "image",
-                    align: "center",
-                    sortable: false,
-                    class: "mine-table-headers"
+                    text: "Название",
+                    value: "name",
+                    sortable: false
                 },
                 {
                     text: "Описание",
-                    value: "description"
-                },
-                {
-                    text: "Опубликовано",
-                    value: "publish_at",
-                    width: 160
+                    value: "description",
+                    sortable: false
                 },
                 {
                     text: "Действия",
@@ -113,51 +103,49 @@ export default {
                     width: "160px"
                 }
             ]
-        }
+        };
     },
     methods: {
-        restorePhoto() {
+        restoreChannel() {
             axios
-                .put("/api/photo-trashed/" + this.photoToRestore.id)
+                .put("/api/channel-trashed/" + this.channelToRestore.id)
                 .then(res => {
-                    this.photoToRestore = false;
-                    this.$refs.indexPage.loadItems();
+                    this.channelToRestore = false;
+                    this.$refs.indePage.loadItems();
                 })
                 .catch(err => console.log(err))
         },
-        forceDeletePhoto() {
+        forceDeleteChannel() {
             axios
-                .delete("/api/photo-trashed/" + this.photoToForceDelete.id)
+                .delete("/api/channel-trashed/" + this.channelToForceDelete.id)
                 .then(res => {
-                    this.photoToForceDelete = false;
-                    this.$refs.indexPage.loadItems();
+                    this.channelToForceDelete = false;
+                    this.$refs.indePage.loadItems();
                 })
                 .catch(err => console.log(err))
         }
     },
-
     computed: {
         showRestoreDialog: {
             get() {
-                return this.photoToRestore;
+                return this.channelToRestore;
             },
             set(v) {
                 if (!v) {
-                    this.photoToRestore = null;
+                    this.channelToRestore = null;
                 }
             }
         },
-
         showForceDeleteDialog: {
             get() {
-                return this.photoToForceDelete;
+                return this.channelToForceDelete;
             },
             set(v) {
                 if (!v) {
-                    this.photoToForceDelete = null;
+                    this.channelToForceDelete = null;
                 }
             }
         }
-    }
+    },
 }
 </script>

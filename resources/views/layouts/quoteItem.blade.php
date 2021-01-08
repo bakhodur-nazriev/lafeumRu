@@ -18,7 +18,9 @@
         </div>
     </div>
     <div>
-        <p class="font-italic">{{ $quote->authors_thoughts }}</p>
+        <p class="text-secondary" style="font-size: 0.7rem">
+            <em>{{ $quote->authors_thoughts }}</em>
+        </p>
     </div>
     <div class="mb-1">{!! $quote->body !!}</div>
     <div class="tags-block">

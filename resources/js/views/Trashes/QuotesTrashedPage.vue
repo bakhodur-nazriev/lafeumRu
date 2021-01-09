@@ -58,7 +58,7 @@
             </template>
         </index-page-layout>
         <v-dialog v-model="showRestoreDialog" width="480">
-            <v-card v-if="showRestoreDialog" class="pa-1">
+            <v-card v-if="showRestoreDialog" class="pa-2">
                 <v-card-title class="font-weight-regular headline text-center pa-2">
                     Вы действительно хотите востановить цитату ?
                 </v-card-title>

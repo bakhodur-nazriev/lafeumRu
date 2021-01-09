@@ -1,7 +1,7 @@
 <template>
-    <v-dialog v-if="termToDelete" v-model="termToDelete" width="460">
+    <v-dialog v-if="termToDelete" v-model="termToDelete" width="480">
         <v-card class="pa-2">
-            <v-card-title class="font-weight-regular headline text-center pa-2">
+            <v-card-title class="font-weight-regular headline text-center pt-2">
                 Вы действительно хотите отправить термин в карзину ?
             </v-card-title>
             <v-card-actions class="justify-center">
@@ -14,28 +14,22 @@
 
 <script>
 export default {
-    props:{
-        value: Object
-    },
+    props: {value: Object},
     methods: {
         deleteTerm() {
             axios
                 .delete("/api/terms/" + this.termToDelete.id)
-                .then(res => {
-                    this.$emit('deleted');
-                })
-                .catch(err => {
-                    console.log(err);
-                });
+                .then(res => (this.$emit('deleted')))
+                .catch(err => (console.log(err)))
         }
     },
     computed: {
         termToDelete: {
-            get(){
+            get() {
                 return this.value;
             },
-            set(v){
-                if(!v){
+            set(v) {
+                if (!v) {
                     this.$emit('input', null);
                 }
             }

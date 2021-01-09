@@ -15,7 +15,6 @@ body {
 
 ol {
     list-style-position: inside;
-    padding-left: 0;
 }
 
 .compensate-for-scrollbar {
@@ -33,6 +32,10 @@ ol {
 
 .authors-descriptions-block {
     max-width: 450px;
+}
+
+.card-block > div > p {
+    margin-bottom: 0.3rem;
 }
 
 /* ------------- COLORS -------------- */

@@ -8,11 +8,11 @@
 /public/img/avatars
 /public/img/photos
 /public/img/meta*
+/public/.htaccess
 /public/google0244cd168ef8f2be.html
 /public/google80efb4bc72ea7f17.html
 /public/yandex_925895738a2b09da.html
 /public/sitemap.xml
-/public/.htaccess
 /resources/views/seoMetrics.blade.php
 /storage/*.key
 /storage/debugbar/

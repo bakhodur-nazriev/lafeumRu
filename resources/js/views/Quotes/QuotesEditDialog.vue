@@ -17,6 +17,13 @@
                             v-model="quoteToUpdate.author_id"
                         />
                     </v-col>
+                    <v-col>
+                        <v-textarea
+                            outlined
+                            label="Мысли автора"
+                            v-model="quoteToUpdate.authors_thoughts"
+                        />
+                    </v-col>
                     <v-col cols="12 py-0">
                         <v-autocomplete
                             outlined
@@ -56,58 +63,58 @@
 </template>
 
 <script>
-    import rules from "../../validation-rules"
-    import DatePicker from "../../components/DatePicker";
-    import WysiwygEditor from "../../components/WysiwygEditor";
+import rules from "../../validation-rules"
+import DatePicker from "../../components/DatePicker";
+import WysiwygEditor from "../../components/WysiwygEditor";
 
 
-    export default {
-        components: {
-            "date-picker": DatePicker,
-            "wysiwyg-editor": WysiwygEditor
-        },
-        props: {
-            value: Object, //quote
-            authors: Array,
-            categories: Array,
-        },
-        data() {
-            return {
-                rules,
-                modalDate: false,
-            }
-        },
-        methods: {
-            updateQuote() {
+export default {
+    components: {
+        "date-picker": DatePicker,
+        "wysiwyg-editor": WysiwygEditor
+    },
+    props: {
+        value: Object, //quote
+        authors: Array,
+        categories: Array,
+    },
+    data() {
+        return {
+            rules,
+            modalDate: false,
+        }
+    },
+    methods: {
+        updateQuote() {
 
-                let updatedQuote = this.quoteToUpdate;
-                updatedQuote.categories = this.extractIds(updatedQuote.categories);
-                axios
-                    .put("/api/quotes/" + this.quoteToUpdate.id, updatedQuote)
-                    .then(res => {
-                        this.$emit('updated', res.data);
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    });
-            },
-            extractIds(array) {
-                return array.map(a => {
-                    return typeof a === 'number' ? a : (a.hasOwnProperty('id') ? a.id : null);
+            let updatedQuote = this.quoteToUpdate;
+            updatedQuote.categories = this.extractIds(updatedQuote.categories);
+            axios
+                .put("/api/quotes/" + this.quoteToUpdate.id, updatedQuote)
+                .then(res => {
+                    this.$emit('updated', res.data);
+                })
+                .catch(err => {
+                    console.log(err);
                 });
-            }
         },
-        computed: {
-            quoteToUpdate: {
-                get() {
-                    return this.value;
-                },
-                set(v) {
-                    if (!v) {
-                        this.$emit('input', null);
-                    }
+        extractIds(array) {
+            return array.map(a => {
+                return typeof a === 'number' ? a : (a.hasOwnProperty('id') ? a.id : null);
+            });
+        }
+    },
+    computed: {
+        quoteToUpdate: {
+            get() {
+                return this.value;
+            },
+            set(v) {
+                if (!v) {
+                    this.$emit('input', null);
                 }
             }
         }
-    };
+    }
+};
 </script>

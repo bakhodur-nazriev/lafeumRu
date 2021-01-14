@@ -67,7 +67,7 @@
         <v-dialog v-model="showForceDeleteDialog" width="500">
             <v-card v-if="showForceDeleteDialog" class="pa-2">
                 <v-card-title class="font-weight-regular headline text-center pa-2">
-                    Вы действительно хотите безвозвратно удалить эту фото ?
+                    Вы действительно хотите безвозвратно удалить фото ?
                 </v-card-title>
                 <v-card-actions class="justify-center">
                     <v-btn dark color="green" @click="photoToForceDelete = null">Нет</v-btn>

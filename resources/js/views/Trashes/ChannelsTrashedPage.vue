@@ -23,12 +23,12 @@
                             v-on="on"
                             elevation="2"
                             color="green"
-                            @click="channelToRestore = true"
+                            @click="channelToRestore = { ...item }"
                         >
                             <v-icon dark>mdi-arrow-left</v-icon>
                         </v-btn>
                     </template>
-                    <span>Востановить</span>
+                    <span>Восстановить</span>
                 </v-tooltip>
                 <v-tooltip top>
                     <template v-slot:activator="{ on }">
@@ -39,7 +39,7 @@
                             v-on="on"
                             elevation="2"
                             color="red"
-                            @click="channelToForceDelete = true"
+                            @click="channelToForceDelete = { ...item }"
                         >
                             <v-icon dark>mdi-delete</v-icon>
                         </v-btn>
@@ -48,19 +48,17 @@
                 </v-tooltip>
             </template>
         </index-page-layout>
-
-        <v-dialog v-model="showRestoreDialog" width="480">
+        <v-dialog v-model="showRestoreDialog" width="500">
             <v-card v-if="showRestoreDialog" class="pa-2">
                 <v-card-title class="font-weight-regular headline text-center pa-2">
-                    Вы действительно хотите востановить канал ?
+                    Вы действительно хотите восстановить канал ?
                 </v-card-title>
                 <v-card-actions class="justify-center">
-                    <v-btn dark color="green" @click="channelToRestore = null">Нет</v-btn>
-                    <v-btn dark color="red" @click="restoreChannel()">Да</v-btn>
+                    <v-btn dark color="red" @click="channelToRestore = null">Нет</v-btn>
+                    <v-btn dark color="green" @click="restoreChannel()">Да</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
-
         <v-dialog v-model="showForceDeleteDialog" width="500">
             <v-card v-if="showForceDeleteDialog" class="pa-2">
                 <v-card-title class="font-weight-regular headline text-center pa-2">
@@ -111,7 +109,7 @@ export default {
                 .put("/api/channel-trashed/" + this.channelToRestore.id)
                 .then(res => {
                     this.channelToRestore = false;
-                    this.$refs.indePage.loadItems();
+                    this.$refs.indexPage.loadItems();
                 })
                 .catch(err => console.log(err))
         },
@@ -120,7 +118,7 @@ export default {
                 .delete("/api/channel-trashed/" + this.channelToForceDelete.id)
                 .then(res => {
                     this.channelToForceDelete = false;
-                    this.$refs.indePage.loadItems();
+                    this.$refs.indexPage.loadItems();
                 })
                 .catch(err => console.log(err))
         }

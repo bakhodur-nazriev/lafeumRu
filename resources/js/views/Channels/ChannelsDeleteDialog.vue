@@ -1,8 +1,8 @@
 <template>
-    <v-dialog v-if="channelToDelete" v-model="channelToDelete" width="430">
+    <v-dialog v-if="channelToDelete" v-model="channelToDelete" width="450">
         <v-card class="pa-1">
             <v-card-title class="font-weight-regular headline text-center pa-2">
-                Вы действительно хотите удалить канал ?
+                Вы действительно хотите отправить канал в корзину ?
             </v-card-title>
             <v-card-actions class="justify-center">
                 <v-btn dark color="green darken-1" @click="$emit('input', null)">Нет</v-btn>

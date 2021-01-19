@@ -102,7 +102,7 @@
                                         <v-icon dark>mdi-delete</v-icon>
                                     </v-btn>
                                 </template>
-                                <span>Отправить в карзину</span>
+                                <span>Отправить в корзину</span>
                             </v-tooltip>
                         </template>
                     </v-data-table>

@@ -39,7 +39,7 @@
                             <v-icon dark>mdi-arrow-left</v-icon>
                         </v-btn>
                     </template>
-                    <span>Востановить</span>
+                    <span>Восстановить</span>
                 </v-tooltip>
                 <v-tooltip top>
                     <template v-slot:activator="{ on }">
@@ -62,18 +62,18 @@
         <v-dialog v-model="showRestoreDialog" width="480">
             <v-card v-if="showRestoreDialog" class="pa-2">
                 <v-card-title class="font-weight-regular headline text-center pa-2">
-                    Вы действительно хотите востановить автора ?
+                    Вы действительно хотите восстановить автора ?
                 </v-card-title>
                 <v-card-actions class="justify-center">
-                    <v-btn dark color="green" @click="authorToRestore = null">Нет</v-btn>
-                    <v-btn dark color="red" @click="restoreAuthor()">Да</v-btn>
+                    <v-btn dark color="red" @click="authorToRestore = null">Нет</v-btn>
+                    <v-btn dark color="green" @click="restoreAuthor()">Да</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
         <v-dialog v-model="showForceDeleteDialog" width="500">
             <v-card v-if="showForceDeleteDialog" class="pa-2">
                 <v-card-title class="font-weight-regular headline text-center pa-2">
-                    Вы действительно хотите безвозвратно удалить автора ?
+                    Вы действительно хотите безвозвратно удалить автора  ?
                 </v-card-title>
                 <v-card-actions class="justify-center">
                     <v-btn dark color="green" @click="authorToForceDelete = null">Нет</v-btn>

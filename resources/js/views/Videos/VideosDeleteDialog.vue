@@ -2,7 +2,7 @@
     <v-dialog v-if="videoToDelete" v-model="videoToDelete" width="460">
         <v-card class="pa-2">
             <v-card-title class="font-weight-regular headline text-center pa-2">
-                Вы действительно хотите отправить видео в карзину ?
+                Вы действительно хотите отправить видео в корзину ?
             </v-card-title>
             <v-card-actions class="justify-center">
                 <v-btn dark color="green" @click="$emit('input', null)">Нет</v-btn>

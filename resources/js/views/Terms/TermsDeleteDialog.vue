@@ -2,7 +2,7 @@
     <v-dialog v-if="termToDelete" v-model="termToDelete" width="480">
         <v-card class="pa-2">
             <v-card-title class="font-weight-regular headline text-center pt-2">
-                Вы действительно хотите отправить термин в карзину ?
+                Вы действительно хотите отправить термин в корзину ?
             </v-card-title>
             <v-card-actions class="justify-center">
                 <v-btn dark color="green" @click="termToDelete = false">Нет</v-btn>

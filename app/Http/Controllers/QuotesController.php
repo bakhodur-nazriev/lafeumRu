@@ -71,18 +71,7 @@ class QuotesController extends Controller
 
     public function destroy(Quote $quote)
     {
-        $this->redirectService->registerModelRemoval($quote);
-
-        $quote->post()->delete();
-        $quote->categories()->detach();
-
-        $metaImage = $quote->meta_image;
-
         $quote->delete();
-
-        if ($metaImage) {
-            unlink(public_path($metaImage));
-        }
     }
 
     public function getTrashed(Request $request)
@@ -104,7 +93,19 @@ class QuotesController extends Controller
     public function forceDeleted($id)
     {
         $quote = Quote::onlyTrashed()->find($id);
+
+        $this->redirectService->registerModelRemoval($quote);
+
+        $quote->post()->delete();
+        $quote->categories()->detach();
+
+        $metaImage = $quote->meta_image;
+
         $quote->forceDelete();
+
+        if ($metaImage) {
+            unlink(public_path($metaImage));
+        }
     }
 
     /**

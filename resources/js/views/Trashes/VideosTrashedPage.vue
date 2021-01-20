@@ -37,7 +37,7 @@
                             <v-icon dark>mdi-arrow-left</v-icon>
                         </v-btn>
                     </template>
-                    <span>Востановить</span>
+                    <span>Восстановить</span>
                 </v-tooltip>
                 <v-tooltip top>
                     <template v-slot:activator="{ on }">
@@ -60,11 +60,11 @@
         <v-dialog v-model="showRestoreDialog" width="480">
             <v-card v-if="showRestoreDialog" class="pa-2">
                 <v-card-title class="font-weight-regular headline text-center pa-2">
-                    Вы действительно хотите востановить видео ?
+                    Вы действительно хотите восстановить видео ?
                 </v-card-title>
                 <v-card-actions class="justify-center">
-                    <v-btn dark color="green" @click="videoToRestore = null">Нет</v-btn>
-                    <v-btn dark color="red" @click="restoreVideo()">Да</v-btn>
+                    <v-btn dark color="red" @click="videoToRestore = null">Нет</v-btn>
+                    <v-btn dark color="green" @click="restoreVideo()">Да</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>

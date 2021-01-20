@@ -131,7 +131,6 @@ class AuthorsController extends Controller
 
     public function destroy(Author $author)
     {
-        $this->redirectService->registerModelRemoval($author);
         $author->delete();
     }
 
@@ -173,6 +172,9 @@ class AuthorsController extends Controller
     public function forceDeleted($id)
     {
         $author = Author::onlyTrashed()->find($id);
+
+        $this->redirectService->registerModelRemoval($author);
+
         $author->forceDelete();
     }
 }

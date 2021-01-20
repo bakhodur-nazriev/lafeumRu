@@ -117,7 +117,7 @@ let allSidebarRoutes = [
     {
         meta: {
             icon: "mdi-delete",
-            title: "Карзина",
+            title: "Корзина",
             authorize: [role.author]
         },
         path: "",
@@ -126,7 +126,7 @@ let allSidebarRoutes = [
                 meta: {
                     icon: "mdi-plus",
                     title: "Цитаты",
-                    pageTitle: "Карзина Цитаты"
+                    pageTitle: "Корзина Цитаты"
                 },
                 path: "/dashboard/quotes-trashed",
                 name: "/dashboard/quotes-trashed",
@@ -136,7 +136,7 @@ let allSidebarRoutes = [
                 meta: {
                     icon: "mdi-tag",
                     title: "Термины",
-                    pageTitle: "Карзина Термины"
+                    pageTitle: "Корзина Термины"
                 },
                 path: "/dashboard/terms-trashed",
                 name: "/dashboard/terms-trashed",
@@ -146,7 +146,7 @@ let allSidebarRoutes = [
                 meta: {
                     icon: "mdi-youtube",
                     title: "Видео",
-                    pageTitle: "Карзина Видео"
+                    pageTitle: "Корзина Видео"
                 },
                 path: "/dashboard/videos-trashed",
                 name: "/dashboard/videos-trashed",
@@ -156,7 +156,7 @@ let allSidebarRoutes = [
                 meta: {
                     icon: "mdi-image",
                     title: "Фото",
-                    pageTitle: "Карзина Фото"
+                    pageTitle: "Корзина Фото"
                 },
                 path: "/dashboard/photos-trashed",
                 name: "/dashboard/photos-trashed",
@@ -166,7 +166,7 @@ let allSidebarRoutes = [
                 meta: {
                     icon: "mdi-image",
                     title: "Авторы",
-                    pageTitle: "Карзина Авторы",
+                    pageTitle: "Корзина Авторы",
                 },
                 path: "/dashboard/authors-trashed",
                 name: "/dashboard/authors-trashed",
@@ -176,7 +176,7 @@ let allSidebarRoutes = [
                 meta: {
                     icon: "mdi-image",
                     title: "Каналы",
-                    pageTitle: "Карзина Каналы",
+                    pageTitle: "Корзина Каналы",
                 },
                 path: "/dashboard/channels-trashed",
                 name: "/dashboard/channels-trashed",

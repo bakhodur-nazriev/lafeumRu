@@ -2,7 +2,7 @@
     <v-dialog v-if="photoToDelete" v-model="photoToDelete" width="460">
         <v-card class="pa-2">
             <v-card-title class="font-weight-regular headline text-center pa-2">
-                Вы действительно хотите отправить фото в карзину ?
+                Вы действительно хотите отправить фото в корзину ?
             </v-card-title>
             <v-card-actions class="justify-center">
                 <v-btn dark color="green" @click="photoToDelete = null">Нет</v-btn>

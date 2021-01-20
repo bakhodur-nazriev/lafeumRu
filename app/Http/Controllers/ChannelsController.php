@@ -57,7 +57,6 @@ class ChannelsController extends Controller
 
     public function destroy(Channel $channel)
     {
-        $this->redirectService->registerModelRemoval($channel);
         $channel->delete();
     }
 
@@ -76,6 +75,9 @@ class ChannelsController extends Controller
     public function forceDeleted($id)
     {
         $channel = Channel::onlyTrashed()->find($id);
+
+        $this->redirectService->registerModelRemoval($channel);
+
         $channel->forceDelete();
     }
 }

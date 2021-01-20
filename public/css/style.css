@@ -75,6 +75,7 @@ a {
 .nav-pills .show > .nav-link {
     background-color: #fff;
     color: #000;
+    font-weight: 300;
 }
 
 .nav-pills .login-nav-link,

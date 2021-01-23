@@ -23,10 +23,11 @@ class AppController extends Controller
         $categories = Category::orderBy('_lft')->get()->each(function ($item) {
             $supported_types = Category::where('name', $item->name)
                 ->orderBy('_lft')
-                ->get('type')
                 ->pluck('type');
             $item->post_links = $this->getCategoryPostLinks($item, $supported_types);
-        })->toTree()->unique('name');
+        })->filter(function ($cat, $index) {
+            return $cat->type == "App\\Quote";
+        })->toTree();
 
         return view('/home', compact('categories'));
     }

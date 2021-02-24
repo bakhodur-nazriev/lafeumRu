@@ -1,29 +1,19 @@
 <nav class="navbar navbar-expand-lg navbar-light main-navbar fixed-top">
     <!-- Right Side Of Navbar -->
     @include('layouts.smallNavBar')
-    @include('layouts.loginModal')
-    @include('layouts.registerModal')
     <div class="navbar-login-block">
         <ul class="navbar-nav ml-auto">
             @guest
-                <button
-                    data-toggle="modal"
-                    data-target="#loginModal"
-                    class="text-light navbar-login-button px-2"
-                >
+                <a class="text-light navbar-login-button px-2 text-decoration-none" href="{{ route('login') }}">
                     Вход
-                </button>
+                </a>
                 @if (Route::has('register'))
-                    <button
-                        data-toggle="modal"
-                        data-target="#registerModal"
-                        class="text-light navbar-register-button px-2"
-                    >
+                    <a class="text-light navbar-login-button px-2 text-decoration-none" href="{{ route('register') }}">
                         Регистрация
-                    </button>
+                    </a>
                 @endif
             @else
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown align-self-center">
                     <a
                         href="#"
                         role="button"
@@ -35,10 +25,19 @@
                     >
                         {{ Auth::user()->name }}<span class="caret"></span>
                     </a>
-                    <div class="dropdown-menu nav-menu-dropdown-right p-0 rounded-0" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item py-2" href="{{route('dashboard')}}">{{ __('Личный Кабинет') }}</a>
+                    <div
+                        class="dropdown-menu nav-menu-dropdown-right p-0"
+                        aria-labelledby="navbarDropdown"
+                    >
                         <a
-                            class="dropdown-item py-2"
+                            class="dropdown-item py-2 rounded-top"
+                            href="{{route('profile')}}"
+                        >
+                            {{ __('Профиль') }}
+                        </a>
+                        <hr class="m-0">
+                        <a
+                            class="dropdown-item py-2 rounded-bottom"
                             href="{{ route('logout') }}"
                             onclick="event.preventDefault();
                                      document.getElementById('logout-form').submit();"
@@ -55,12 +54,16 @@
                         </form>
                     </div>
                 </li>
+                <img src="{{ Auth::user()->avatar }}" class="rounded-circle navbar-avatar" alt="">
             @endguest
         </ul>
     </div>
 
     <!-- Left side of navbar -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div
+        class="collapse navbar-collapse"
+        id="navbarSupportedContent"
+    >
         <ul class="nav navbar-links align-items-center small-nav-display">
             @php
                 $links = [
@@ -69,7 +72,6 @@
                     ['href' => '/vocabulary', 'name' => 'Словарь'],
                     ['href' => '/quotes', 'name' => 'Цитаты'],
                     ['href' => '/authors', 'name' => 'Авторы'],
-
                     ['href' => '/videos', 'name' => 'Видео'],
                     ['href' => '/channels', 'name' => 'Каналы'],
                     ['href' => '/terms', 'name' => 'Термины'],
@@ -90,6 +92,8 @@
         </ul>
     </div>
 </nav>
+{{--@include('layouts.loginModal')--}}
+{{--@include('layouts.registerModal')--}}
 <script>
     $(document).ready(function () {
         $("#loginBtn").click(function () {

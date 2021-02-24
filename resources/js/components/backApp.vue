@@ -1,20 +1,20 @@
 <template>
-    <v-app class="grey lighten-4">
-        <navbar />
+    <v-app class="grey lighten-3">
+        <navbar/>
 
         <v-main class="mx-4 my-2">
-            <router-view />
+            <router-view/>
         </v-main>
     </v-app>
 </template>
 
 <script>
-import navbar from "./layouts/TheNavbar";
+import navbar from "./layouts/AdminNavbar";
 
 export default {
     props: ["users"],
-    name: "App",
-    components: { navbar },
+    name: "backApp",
+    components: {navbar},
     data() {
         return {};
     }
@@ -36,6 +36,7 @@ export default {
     border-radius: 50px;
     background-color: #ababab;
 }
+
 *::-webkit-scrollbar-thumb:hover {
     background-color: #777;
 }

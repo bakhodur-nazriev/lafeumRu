@@ -41,7 +41,7 @@ class MetatagsComposer
 
     /**
      * Helpers
-     * 
+     *
      */
 
     private function setDefault(&$array, $key, $value)
@@ -92,7 +92,7 @@ class MetatagsComposer
         ];
 
         if(isset($data['article'])){
-            
+
             $baseSchema['@graph'][] = [
                 "@type" => "WebPage",
                 "@id" => url()->current() . '/#webpage',

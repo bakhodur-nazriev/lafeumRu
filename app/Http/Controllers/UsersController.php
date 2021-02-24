@@ -26,10 +26,6 @@ class UsersController extends Controller
         return User::with("role")->get();
     }
 
-    public function show(User $user)
-    {
-        return $user;
-    }
 
     public function update(User $user, Request $request)
     {

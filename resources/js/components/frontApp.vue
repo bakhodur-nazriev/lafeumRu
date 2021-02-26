@@ -1,6 +1,7 @@
 <template>
     <v-app>
         <navbar/>
+        <h1>Just Test</h1>
     </v-app>
 </template>
 

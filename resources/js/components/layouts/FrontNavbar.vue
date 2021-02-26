@@ -1,35 +1,79 @@
 <template>
-    <v-card
-        color="grey lighten-4"
+    <v-app-bar
+        app
         flat
-        height="200px"
-        tile
+        height="84"
+        class="bg-primary text-white"
     >
-        <v-toolbar dense>
-            <v-app-bar-nav-icon></v-app-bar-nav-icon>
+        <v-avatar size="32"></v-avatar>
 
-            <v-toolbar-title>Title</v-toolbar-title>
+        <v-tabs
+            centered
+            class="ml-n9"
+            color="grey darken-1"
+        >
+            <v-tab
+                v-for="link in links"
+                :key="link"
+                class="text-white"
+            >
+                    {{ link.name }}
+            </v-tab>
+        </v-tabs>
 
-            <v-spacer></v-spacer>
-
-            <v-btn icon>
-                <v-icon>mdi-magnify</v-icon>
-            </v-btn>
-
-            <v-btn icon>
-                <v-icon>mdi-heart</v-icon>
-            </v-btn>
-
-            <v-btn icon>
-                <v-icon>mdi-dots-vertical</v-icon>
-            </v-btn>
-        </v-toolbar>
-    </v-card>
+        <v-avatar
+            class="hidden-sm-and-down"
+            color="grey darken-1 shrink"
+            size="32"
+        ></v-avatar>
+    </v-app-bar>
 </template>
 
 <script>
 export default {
-    name: "FrontNavbar"
+    name: "FrontNavbar",
+    data() {
+        return {
+            links: [
+                {
+                    name: "Главная",
+                    href: "/"
+                },
+                {
+                    name: "Области Знаний",
+                    href: "/knowledge",
+                },
+                {
+                    name: "Словарь",
+                    href: "/vocabulary"
+                },
+                {
+                    name: "Цитаты",
+                    href: "/quotes"
+                },
+                {
+                    name: "Авторы",
+                    href: "/authors"
+                },
+                {
+                    name: "Видео",
+                    href: "/videos"
+                },
+                {
+                    name: "Каналы",
+                    href: "/channels"
+                },
+                {
+                    name: "Термины",
+                    href: "/terms"
+                },
+                {
+                    name: "Фотографии",
+                    href: "/photos"
+                },
+            ]
+        }
+    }
 }
 </script>
 

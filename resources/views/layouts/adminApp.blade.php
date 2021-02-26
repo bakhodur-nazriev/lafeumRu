@@ -22,10 +22,10 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-<v-app id="app" style="background-color: #E7EBF2;">
+
+<v-app id="app">
     @yield('layout')
 </v-app>
-
 
 <script>
     window.Laravel = {!! json_encode([
@@ -35,6 +35,7 @@
         'avatars_path' => asset('img/avatars')
     ]); !!}
 </script>
+<script src="{{ mix('js/app.js') }}"></script>
 
 </body>
 </html>

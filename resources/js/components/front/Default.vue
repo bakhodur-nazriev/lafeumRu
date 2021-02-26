@@ -1,5 +1,5 @@
 <template>
-    <h1>Defaule Page</h1>
+
 </template>
 
 <script>

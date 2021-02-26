@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-/*Route::group(["middleware" => "auth"], function () {
+Route::group(["middleware" => "auth"], function () {
     Route::get("/profile", "ProfileController@show")->name("profile");
     Route::put("/profile/{profile}", "ProfileController@update");
 
@@ -13,8 +13,8 @@ Auth::routes();
     Route::get("/favorites", "AppController@favorites")->name("favorites");
     Route::put("/toggle-favourite", "FavoriteController@toggle");
 
-});*/
-/*
+});
+
 Route::get("/", "AppController@index")->name("home");
 
 Route::get("/authors", "AuthorsController@index")->name("author");
@@ -43,15 +43,15 @@ Route::get("/terms/{categorySlug}", "CategoriesController@showTerms")->name("cat
 Route::get("/vocabulary/{categorySlug}", "CategoriesController@showVocabulary")->name("category.vocabulary");
 Route::get("/vocabulary", "TermsController@indexVocabulary")->name("vocabulary");
 Route::get("/videos", "VideosController@index")->name("videos");
-Route::get("/videos/{categorySlug}", "CategoriesController@showVideos")->name("category.videos");*/
+Route::get("/videos/{categorySlug}", "CategoriesController@showVideos")->name("category.videos");
 
 /* Favorite */
 
-/*Route::get("/privacy-policy", "AppController@privacy")->name('privacy');
+Route::get("/privacy-policy", "AppController@privacy")->name('privacy');
 Route::get("/terms-of-use", "AppController@termsOfUse")->name('terms-of-use');
-Route::get("/about-us", "AppController@aboutUs")->name('about-us');*/
+Route::get("/about-us", "AppController@aboutUs")->name('about-us');
 
 /* Should be on bottom */
-/*Route::get("/{post}", "PostsController@show")->name('post');*/
+Route::get("/{post}", "PostsController@show")->name('post');
 
-Route::view("/", "home");
+//Route::view("/", "home");

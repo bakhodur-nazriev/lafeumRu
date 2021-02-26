@@ -1,8 +1,7 @@
 @extends('layouts.frontApp')
 
 @section('layout')
-    {{--@include('layouts.navbar')--}}
-    <front-navbar></front-navbar>
+    @include('layouts.navbar')
 
     <div class="container-fluid flex-grow-1 default-container">
         <div class="row justify-content-center">
@@ -16,11 +15,7 @@
                     </div>
                 </div>
             </div>
-            <div
-                class="right-sidebar-col xs-third-order sm-third-order"
-            >
-                @yield('right-side-bar', View::make('layouts.right-sidebar.rightSidebar'))
-            </div>
+
             <button id="scrollToTopBtn" class="btn btn-primary scrollBtn">
                 <i class="fa fa-arrow-up"></i>
             </button>
@@ -35,13 +30,12 @@
         </div>
     </div>
 
-    <front-footer></front-footer>
-    {{--    @include('layouts.footer')--}}
-    {{--    <script src="/js/favourite.js"></script>--}}
+    @include('layouts.footer')
+    <script src="/js/favourite.js"></script>
 
-    {{--    <div id="summaryModal" class="card">--}}
-    {{--        <div class="content"></div>--}}
-    {{--    </div>--}}
-    {{--    <script src="/js/summary.js"></script>--}}
+    <div id="summaryModal" class="card">
+        <div class="content"></div>
+    </div>
+    <script src="/js/summary.js"></script>
 
 @endsection

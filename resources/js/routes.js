@@ -10,7 +10,6 @@ import AuthorsPage from "./views/Authors/AuthorsPage";
 import AuthorsTrashedPage from "./views/Trashes/AuthorsTrashedPage";
 import UsersPage from "./views/Users/UsersPage";
 import ProfilePage from "./views/Profile/ProfilePage";
-import FavouritesPage from "./views/Favourites/FavouritesPage";
 import CategoriesPage from "./views/Categories/CategoriesPage";
 import ChannelsPage from "./views/Channels/ChannelsPage";
 import ChannelsTrashedPage from "./views/Trashes/ChannelsTrashedPage";
@@ -233,16 +232,6 @@ let allSidebarRoutes = [
         path: "/dashboard/profile",
         name: "/dashboard/profile",
         component: ProfilePage
-    },
-    {
-        meta: {
-            icon: "mdi-star",
-            title: "Избранный",
-            authorize: [role.author, role.member]
-        },
-        path: "/dashboard/favorite",
-        name: "/dashboard/favorite",
-        component: FavouritesPage
     },
     {
         meta: {

@@ -11,34 +11,38 @@
             <ul class="nav nav-pills" id="pills-tab" role="tablist">
                 <li class="nav-item w-50" role="presentation">
                     <a
-                        class="nav-link login-nav-link h5 text-center m-0 py-3"
-                        id="pills-login-tab"
+                        role="tab"
                         data-toggle="pill"
                         href="#pills-login"
-                        role="tab"
-                        aria-controls="pills-login"
                         aria-selected="true"
-                    >Вход</a>
+                        id="pills-login-tab"
+                        aria-controls="pills-login"
+                        class="nav-link active login-nav-link h5 text-center m-0 py-3"
+                    >
+                        Вход
+                    </a>
                 </li>
                 <li class="nav-item w-50" role="presentation">
                     <a
-                        class="nav-link register-nav-link h5 text-center m-0 py-3"
-                        id="pills-register-tab"
-                        data-toggle="pill"
-                        href="#pills-register"
                         role="tab"
-                        aria-controls="pills-register"
+                        data-toggle="pill"
                         aria-selected="false"
-                    >Регистрация</a>
+                        href="#pills-register"
+                        id="pills-register-tab"
+                        aria-controls="pills-register"
+                        class="nav-link register-nav-link h5 text-center m-0 py-3"
+                    >
+                        Регистрация
+                    </a>
                 </li>
             </ul>
 
             <div class="tab-content" id="pills-tabContent">
                 <div
-                    class="tab-pane fade show active"
-                    id="pills-login"
                     role="tabpanel"
+                    id="pills-login"
                     aria-labelledby="pills-login-tab"
+                    class="tab-pane fade show active"
                 >
                     <form method="POST" action="{{ route('login') }}">
                         <div class="modal-body">
@@ -60,7 +64,7 @@
                                 class="form-control @error('email') is-invalid @enderror mb-2"
                             >
                             @error('email')
-                                <span class="invalid-feedback" role="alert">
+                            <span class="invalid-feedback" role="alert">
                                    <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
@@ -79,7 +83,7 @@
                                 class="form-control @error('password') is-invalid @enderror mb-2"
                             >
                             @error('password')
-                                <span class="invalid-feedback" role="alert">
+                            <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
@@ -122,7 +126,7 @@
                                 class="form-control mb-2 @error('name') is-invalid @enderror"
                             >
                             @error('name')
-                                <span class="invalid-feedback" role="alert">
+                            <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
@@ -139,7 +143,7 @@
                                 autocomplete="email"
                             >
                             @error('email')
-                                <span class="invalid-feedback" role="alert">
+                            <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
@@ -155,7 +159,7 @@
                                 class="form-control mb-2 @error('password') is-invalid @enderror"
                             >
                             @error('password')
-                                <span class="invalid-feedback" role="alert">
+                            <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror

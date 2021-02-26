@@ -5,7 +5,6 @@ import Vuetify from "vuetify";
 import "vuetify/dist/vuetify.min.css";
 import "@mdi/font/css/materialdesignicons.css";
 import router from "./router.js";
-import App from "./components/App";
 import ru from 'vuetify/es5/locale/ru'
 
 require("./bootstrap");
@@ -26,7 +25,7 @@ const vuetifyOptions = {
         }
     },
     lang: {
-        locales: { ru },
+        locales: {ru},
         current: "ru" // en | es | fr | pl | ru
     }
 };
@@ -45,13 +44,24 @@ window.Event = new (class {
     }
 })();
 
-
 Vue.use("draggable");
 Vue.use(Vuetify);
 
+Vue.component("default", require("./components/front/Default").default);
+Vue.component("home", require("./components/front/Home").default);
+Vue.component("front-navbar", require("./components/layouts/FrontNavbar").default);
+Vue.component("front-footer", require("./components/layouts/FrontFooter").default);
+Vue.component("left-side-bar", require("./components/layouts/LeftSideBar").default);
+Vue.component("right-side-bar", require("./components/layouts/RightSideBar").default);
+
 const app = new Vue({
-    el: "#app",
     router,
-    components: {App},
+    el: "#app",
     vuetify: new Vuetify(vuetifyOptions)
 });
+
+/*const app = new Vue({
+    el: "#app",
+    components: {app},
+    vuetify: new Vuetify(vuetifyOptions)
+});*/

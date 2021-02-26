@@ -1,9 +1,69 @@
 <nav class="navbar navbar-expand-lg navbar-light main-navbar fixed-top">
     <!-- Right Side Of Navbar -->
     @include('layouts.smallNavBar')
+    <div class="navbar-login-block">
+        <ul class="navbar-nav ml-auto">
+            @guest
+                <a class="text-light navbar-login-button px-2 text-decoration-none" href="{{ route('login') }}">
+                    Вход
+                </a>
+                @if (Route::has('register'))
+                    <a class="text-light navbar-login-button px-2 text-decoration-none" href="{{ route('register') }}">
+                        Регистрация
+                    </a>
+                @endif
+            @else
+                <li class="nav-item dropdown align-self-center">
+                    <a
+                        href="#"
+                        role="button"
+                        id="navbarDropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        data-toggle="dropdown"
+                        class="nav-link dropdown-toggle"
+                    >
+                        {{ Auth::user()->name }}<span class="caret"></span>
+                    </a>
+                    <div
+                        class="dropdown-menu nav-menu-dropdown-right p-0"
+                        aria-labelledby="navbarDropdown"
+                    >
+                        <a
+                            class="dropdown-item py-2 rounded-top"
+                            href="{{route('profile')}}"
+                        >
+                            {{ __('Профиль') }}
+                        </a>
+                        <hr class="m-0">
+                        <a
+                            class="dropdown-item py-2 rounded-bottom"
+                            href="{{ route('logout') }}"
+                            onclick="event.preventDefault();
+                                     document.getElementById('logout-form').submit();"
+                        >
+                            {{ __('Выход') }}
+                        </a>
+                        <form
+                            method="POST"
+                            id="logout-form"
+                            style="display: none;"
+                            action="{{ route('logout') }}"
+                        >
+                            @csrf
+                        </form>
+                    </div>
+                </li>
+                <img src="{{ Auth::user()->avatar }}" class="rounded-circle navbar-avatar" alt="">
+            @endguest
+        </ul>
+    </div>
 
     <!-- Left side of navbar -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div
+        class="collapse navbar-collapse"
+        id="navbarSupportedContent"
+    >
         <ul class="nav navbar-links align-items-center small-nav-display">
             @php
                 $links = [
@@ -32,6 +92,8 @@
         </ul>
     </div>
 </nav>
+{{--@include('layouts.loginModal')--}}
+{{--@include('layouts.registerModal')--}}
 <script>
     $(document).ready(function () {
         $("#loginBtn").click(function () {

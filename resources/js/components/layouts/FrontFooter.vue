@@ -8,7 +8,6 @@
         <v-card
             flat
             tile
-            class="bg-primary"
             width="100%"
             height="256"
         >

@@ -4,6 +4,7 @@ import Vue from "vue";
 import Vuetify from "vuetify";
 import "vuetify/dist/vuetify.min.css";
 import "@mdi/font/css/materialdesignicons.css";
+import frontApp from "./components/frontApp";
 import router from "./router.js";
 import ru from 'vuetify/es5/locale/ru'
 
@@ -57,6 +58,7 @@ Vue.component("right-side-bar", require("./components/layouts/RightSideBar").def
 const app = new Vue({
     router,
     el: "#app",
+    components: {frontApp},
     vuetify: new Vuetify(vuetifyOptions)
 });
 

@@ -6,27 +6,18 @@
 
     <div class="container-fluid flex-grow-1 default-container">
         <div class="row justify-content-center">
-            <div class="left-sidebar-col xs-second-order sm-first-order">@yield('left-side-bar')</div>
-            <div class="col xs-first-order sm-second-order">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            @yield('content')
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div
-                class="right-sidebar-col xs-third-order sm-third-order"
-            >
-                @yield('right-side-bar', View::make('layouts.right-sidebar.rightSidebar'))
-            </div>
-            <button id="scrollToTopBtn" class="btn btn-primary scrollBtn">
-                <i class="fa fa-arrow-up"></i>
-            </button>
-            <button id="scrollToBottomBtn" class="btn btn-primary scrollBtn">
-                <i class="fa fa-arrow-down"></i>
-            </button>
+            {{--            <div class="left-sidebar-col xs-second-order sm-first-order">@yield('left-side-bar')</div>--}}
+            <left-side-bar></left-side-bar>
+<!--            <div class="col-lg-8">
+                @yield('content')
+            </div>-->
+            <right-side-bar></right-side-bar>
+            {{--            <button id="scrollToTopBtn" class="btn btn-primary scrollBtn">--}}
+            {{--                <i class="fa fa-arrow-up"></i>--}}
+            {{--            </button>--}}
+            {{--            <button id="scrollToBottomBtn" class="btn btn-primary scrollBtn">--}}
+            {{--                <i class="fa fa-arrow-down"></i>--}}
+            {{--            </button>--}}
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-6 col-sm-10">

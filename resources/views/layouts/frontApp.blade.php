@@ -33,8 +33,8 @@
 <body>
 
 <v-app id="app">
-    <v-main class="grey lighten-3">
-        <v-container>
+    <v-main class="grey lighten-3 pb-0">
+        <v-container class="my-6">
             <v-row>
                 @yield('layout')
             </v-row>

@@ -1,7 +1,6 @@
 <template>
     <v-footer
         app
-        bottom
         padless
         absolute
     >
@@ -10,26 +9,29 @@
             tile
             width="100%"
             height="256"
+            class="primary "
         >
-            <v-card-text class="text-center">
-                <div class="d-flex justify-content-center">
+            <v-card-text class="d-flex flex-column align-center">
+                <div class="mb-3">
                     <v-img
                         max-width="88"
                         src="/img/white-footer-logo.png"
                     >
                     </v-img>
                 </div>
-                <v-btn
-                    v-for="link in links"
-                    :key="link"
-                    class="text-white"
-                    text
-                >
-                    {{ link.name }}
-                </v-btn>
+                <div>
+                    <a
+                        class="navbar-links mx-3"
+                        v-for="link in links"
+                        :href="link.href"
+                        :key="link"
+                    >
+                        {{ link.name }}
+                    </a>
+                </div>
             </v-card-text>
 
-            <v-divider class="bg-white"></v-divider>
+            <v-divider class="bg-white mx-10" ></v-divider>
 
             <v-card-text class="d-flex justify-content-around align-items-center">
                 <span class="text-white">© 2017 - {{ new Date().getFullYear() }} — Lafeum. Все права защищены.</span>
@@ -40,9 +42,9 @@
                         small
                         depressed
                         class="mx-2"
-                        color="primary"
+                        color="primary lighten-1"
                     >
-                        <v-icon dark>
+                        <v-icon color="white">
                             mdi-instagram
                         </v-icon>
                     </v-btn>
@@ -52,9 +54,9 @@
                         small
                         depressed
                         class="mx-2"
-                        color="primary"
+                        color="primary lighten-1"
                     >
-                        <v-icon>
+                        <v-icon color="white">
                             mdi-basketball
                         </v-icon>
                     </v-btn>
@@ -64,8 +66,9 @@
                         small
                         depressed
                         class="mx-2"
+                        color="primary lighten-1"
                     >
-                        <v-icon color="text-primary">
+                        <v-icon color="white">
                             mdi-twitter
                         </v-icon>
                     </v-btn>
@@ -75,9 +78,9 @@
                         small
                         depressed
                         class="mx-2"
-                        color="primary"
+                        color="primary lighten-1"
                     >
-                        <v-icon>
+                        <v-icon color="white">
                             mdi-youtube
                         </v-icon>
                     </v-btn>
@@ -115,5 +118,14 @@ export default {
 </script>
 
 <style scoped>
+.navbar-links {
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+}
 
+.navbar-links:hover {
+    text-decoration: none;
+    color: #A4C2FF;
+}
 </style>

@@ -3,7 +3,7 @@
         app
         flat
         height="84"
-        class="primary text-white"
+        class="primary"
     >
         <v-col cols="12" class="d-flex justify-content-around">
             <div class="d-flex align-items-center">
@@ -108,7 +108,7 @@ export default {
 <style scoped>
 .navbar-links {
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 500;
     color: #fff;
 }
 

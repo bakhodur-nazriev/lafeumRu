@@ -26,13 +26,13 @@
 
 
 @section('left-side-bar')
-    @include('layouts.left-sidebar.categories', ['type' => $category->type, 'active' => $category->id])
+    @include('layouts.left-sidebar.leftSidebar', ['type' => $category->type, 'active' => $category->id])
 @endsection
 
 @section('content')
     <h3 class="secondary">{{$category->name}}</h3>
     <p>{!!$category->description!!}</p>
-    
+
     <div class="row">
         @foreach ($category->categoriables as $item)
             @switch($category->type)

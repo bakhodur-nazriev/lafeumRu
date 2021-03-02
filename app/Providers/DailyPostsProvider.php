@@ -29,6 +29,6 @@ class DailyPostsProvider extends ServiceProvider
 
     public function composeDailyPosts()
     {
-        view()->composer('layouts.right-sidebar.rightSidebar', DailyPostsComposer::class);
+        view()->composer('layouts.default', DailyPostsComposer::class);
     }
 }

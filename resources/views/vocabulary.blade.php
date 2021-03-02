@@ -6,7 +6,7 @@
     ])
 @endsection
 @section('left-side-bar')
-    @include('layouts.left-sidebar.categories', [
+    @include('layouts.left-sidebar.leftSidebar', [
         'type' => 'App\Term',
         'linkPrefix' => 'vocabulary',
         'active' => isset($category) ? $category->id : null

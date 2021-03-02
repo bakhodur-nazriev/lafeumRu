@@ -11,7 +11,7 @@
                     class="navbar-links mx-3 "
                     v-for="link in links"
                     :href="link.href"
-                    :key="link"
+                    :key="link.href"
                 >
                     {{ link.name }}
                 </a>
@@ -40,10 +40,10 @@
                         </template>
                         <v-list>
                             <v-list-item
-                                v-for="(item, index) in items"
-                                :key="index"
+                                v-for="profileLink in profileLinks"
+                                :key="profileLink.href"
                             >
-                                <v-list-item-title>{{ item.title }}</v-list-item-title>
+                                <v-list-item-title>{{ profileLink.title }}</v-list-item-title>
                             </v-list-item>
                         </v-list>
                     </v-menu>
@@ -58,9 +58,15 @@ export default {
     name: "FrontNavbar",
     data() {
         return {
-            items: [
-                {title: 'Профил'},
-                {title: 'Выход'},
+            profileLinks: [
+                {
+                    title: "Профил",
+                    href: ""
+                },
+                {
+                    title: "Выход",
+                    href: ""
+                },
             ],
             links: [
                 {

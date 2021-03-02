@@ -9,7 +9,7 @@
             tile
             width="100%"
             height="256"
-            class="primary "
+            class="primary"
         >
             <v-card-text class="d-flex flex-column align-center">
                 <div class="mb-3">
@@ -24,7 +24,7 @@
                         class="navbar-links mx-3"
                         v-for="link in links"
                         :href="link.href"
-                        :key="link"
+                        :key="link.href"
                     >
                         {{ link.name }}
                     </a>
@@ -35,7 +35,7 @@
 
             <v-card-text class="d-flex justify-content-around align-items-center">
                 <span class="text-white">© 2017 - {{ new Date().getFullYear() }} — Lafeum. Все права защищены.</span>
-                <v-div>
+                <div>
                     <v-btn
                         fab
                         icon
@@ -84,14 +84,14 @@
                             mdi-youtube
                         </v-icon>
                     </v-btn>
-                </v-div>
+                </div>
             </v-card-text>
         </v-card>
     </v-footer>
 </template>
 <script>
 export default {
-    name: "FrontBack",
+    name: "FrontFooter",
     data() {
         return {
             links: [
@@ -129,3 +129,4 @@ export default {
     color: #A4C2FF;
 }
 </style>
+

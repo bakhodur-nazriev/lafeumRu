@@ -52,7 +52,11 @@ Vue.component("default", require("./components/front/Default").default);
 Vue.component("home", require("./components/front/Home").default);
 Vue.component("front-navbar", require("./components/layouts/FrontNavbar").default);
 Vue.component("front-footer", require("./components/layouts/FrontFooter").default);
+
+/* Left Side Bar */
 Vue.component("left-side-bar", require("./components/layouts/LeftSideBar").default);
+
+/* Right Side Bar */
 Vue.component("right-side-bar", require("./components/layouts/RightSideBar").default);
 
 const app = new Vue({

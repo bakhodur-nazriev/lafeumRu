@@ -10,7 +10,7 @@
 @endsection
 
 @section('left-side-bar')
-    @include('layouts.left-sidebar.categories', ['type' => 'App\Video'])
+    @include('layouts.left-sidebar.leftSidebar', ['type' => 'App\Video'])
 @endsection
 
 @section('content')

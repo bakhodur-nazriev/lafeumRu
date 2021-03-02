@@ -1,6 +1,1 @@
-<div>
-    @include('layouts.right-sidebar.quote')
-    @include('layouts.right-sidebar.term')
-    @include('layouts.right-sidebar.video')
-    @include('layouts.right-sidebar.photo')
-</div>
+{{--<right-side-bar :daily-posts="{{ $dailyPosts }}"></right-side-bar>--}}

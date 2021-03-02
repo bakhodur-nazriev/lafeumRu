@@ -10,7 +10,7 @@
 @endsection
 
 @section('left-side-bar')
-    @include('layouts.left-sidebar.categories', ['type' => 'App\Quote'])
+    @include('layouts.left-sidebar.leftSidebar', ['type' => 'App\Quote'])
 @endsection
 
 @section('content')

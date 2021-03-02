@@ -42,7 +42,7 @@ class AppServiceProvider extends ServiceProvider
         View::composer('layouts.right-sidebar.rightSidebar', DailyPostsComposer::class);
 
         /* View Categories */
-        View::composer('layouts.left-sidebar.categories', CategoriesSidebar::class);
+        View::composer('layouts.right-sidebar.categories', CategoriesSidebar::class);
 
         /* Meta tags */
         View::composer('layouts.meta-tags', MetatagsComposer::class);

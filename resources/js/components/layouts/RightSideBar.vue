@@ -1,41 +1,80 @@
 <template>
-    <v-col cols="12" sm="2">
+    <v-col>
         <h5 class="text-uppercase text-secondary font-weight-normal py-4">Рекоммендуемые</h5>
-        <v-sheet rounded="lg" width="266">
-            <h6 class="pa-6 mb-0">Цитата дня</h6>
-            <div>
-                <h6>Джордж Монбио
-                    Категория: Цитата дня</h6>
-                <p>В постиндустриальном обществе будут цениться творческие способности, умение критически мыслить и
-                    находить общий язык с другими людьми. Однако современная образовательная...</p>
-            </div>
-            <h6 class="pa-6 mb-0">Термин дня</h6>
-            <div>
-                <p>Инструментализм — направление в философии и методологии науки, рассматривающее научные понятия,
-                    теории и гипотезы как инструменты, необходимые для ориентации...
-                </p>
-            </div>
-            <h6 class="pa-6 mb-0">Видео дня</h6>
-            <div>
-                <h6>Нил Деграсс Тайсон - кому верить?</h6>
-                <p>Мировоззрение Наука и Философия Эрудиция</p>
-            </div>
-            <h6 class="pa-6 mb-0">Фото дня</h6>
-            <div>
-                <h6>Название фотографии, смысл ?</h6>
-                <p>Передо мной фотография, сделанная в музее палеонтологии. В центре изображен мальчик в белом свитере и
-                    темных джинсах, стоящий перед витриной с экспонатами</p>
-            </div>
-        </v-sheet>
+        <v-card class="rounded-lg pa-2" flat>
+            <!-- Quote Section -->
+            <v-card-title class="subtitle-2 font-weight-bold">Цитата дня</v-card-title>
+            <v-divider class="ma-0"></v-divider>
+
+            <v-card-title class="subtitle-2 font-weight-bold">{{ quote.author.name }}<br/> Категория: Цитата дня
+            </v-card-title>
+            <v-card-text>{{ quote.body }}</v-card-text>
+
+            <v-card-actions class="justify-content-end">
+                <a href="/quotes" class="font-italic">еще.</a>
+            </v-card-actions>
+
+            <!-- Term Section -->
+            <v-card-title class="subtitle-2 font-weight-bold">Термин дня</v-card-title>
+            <v-divider class="ma-0"></v-divider>
+            <v-card-text class="truncate-to-five-line">
+                {{ term.body }}
+            </v-card-text>
+            <v-card-actions class="justify-content-end">
+                <a href="/terms" class="font-italic">еще.</a>
+            </v-card-actions>
+
+            <!-- Video section -->
+            <v-card-title class="subtitle-2 font-weight-bold">Видео дня</v-card-title>
+            <v-divider class="ma-0"></v-divider>
+
+            <v-card-title class="subtitle-2 font-weight-bold">{{ video.title }}</v-card-title>
+            <v-card-text></v-card-text>
+            <v-card-actions class="justify-content-end">
+                <a href="/videos" class="font-italic">еще.</a>
+            </v-card-actions>
+
+            <!-- Photo Section -->
+            <v-card-title class="subtitle-2 font-weight-bold">Фото дня</v-card-title>
+            <v-divider class="ma-0"></v-divider>
+            <v-card-text>
+                <v-img
+                    :src="photo.path"
+                    :alt="photo.description"
+                    max-height="150"
+                    max-width="225"
+                ></v-img>
+            </v-card-text>
+            <v-card-actions class="justify-content-end">
+                <a href="/photos" class="font-italic">еще.</a>
+            </v-card-actions>
+        </v-card>
     </v-col>
 </template>
 
 <script>
 export default {
-    name: "RightSideBar"
+    name: "RightSideBar",
+    props: ["dailyPosts"],
+    data() {
+        return {
+            quote: this.dailyPosts.quote,
+            term: this.dailyPosts.term,
+            video: this.dailyPosts.video,
+            photo: this.dailyPosts.photo,
+        }
+    },
+    mounted() {
+        console.log(this.quote.author.name);
+    }
 }
 </script>
 
 <style scoped>
-
+.truncate-to-five-line {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
 </style>

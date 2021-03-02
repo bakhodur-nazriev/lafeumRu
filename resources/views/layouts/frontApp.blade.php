@@ -33,13 +33,15 @@
 <body>
 
 <v-app id="app">
-    <v-main class="grey lighten-3 pb-0">
-        <v-container class="my-6">
+    <front-navbar></front-navbar>
+    <v-main class="grey lighten-3">
+        <v-container>
             <v-row>
                 @yield('layout')
             </v-row>
         </v-container>
     </v-main>
+    <front-footer></front-footer>
 </v-app>
 
 

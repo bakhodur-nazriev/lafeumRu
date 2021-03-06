@@ -6,6 +6,8 @@
     $quoteСategories = collect($quote->categories)->sortBy('name');
 @endphp
 
+
+
 <div class="card-block">
     <div class="row mb-2">
         <div class="col-6 py-0">

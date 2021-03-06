@@ -47,11 +47,11 @@
     @foreach($currentAuthor->quotes as $quote)
         @include('layouts.quoteItem')
     @endforeach
-    <div class="col-12">
+    <!-- <div class="col-12">
         <nav aria-label="Page navigation example">
             <div class="row d-flex justify-content-center mt-3">
                 {!! $currentAuthor->quotes->onEachSide(2)->links() !!}
             </div>
         </nav>
-    </div>
+    </div> -->
 @endsection

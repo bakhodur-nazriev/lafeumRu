@@ -56,11 +56,6 @@
                         </button>
                         <span class="ml-2 mt-1">Дополнительный поиск</span>
                     </div>
-                    {{-- <div class="input-group-append">
-                        <div class="input-group-text cursor-pointer" id="vocabulary-search-button">
-                            <i class="fa fa-search"></i>
-                        </div>
-                    </div> --}}
                 </div>
                 <small id="vocabulary-search-result" class="form-text text-muted ml-1"></small>
             </form>

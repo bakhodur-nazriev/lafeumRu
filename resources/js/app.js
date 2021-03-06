@@ -7,6 +7,7 @@ import "@mdi/font/css/materialdesignicons.css";
 import frontApp from "./components/frontApp";
 import router from "./router.js";
 import ru from 'vuetify/es5/locale/ru'
+import Embed from 'v-video-embed'
 
 require("./bootstrap");
 window.Vue = require("vue");
@@ -47,9 +48,12 @@ window.Event = new (class {
 
 Vue.use("draggable");
 Vue.use(Vuetify);
+Vue.use(Embed);
 
 Vue.component("default", require("./components/front/Default").default);
 Vue.component("home", require("./components/front/Home").default);
+Vue.component("quotes", require("./components/front/Quotes").default);
+Vue.component("photos", require("./components/front/Photos").default);
 Vue.component("front-navbar", require("./components/layouts/FrontNavbar").default);
 Vue.component("front-footer", require("./components/layouts/FrontFooter").default);
 

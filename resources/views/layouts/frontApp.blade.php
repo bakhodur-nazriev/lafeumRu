@@ -36,7 +36,7 @@
     <front-navbar></front-navbar>
     <v-main class="grey lighten-3">
         <v-container>
-            <v-row>
+            <v-row class="justify-center">
                 @yield('layout')
             </v-row>
         </v-container>

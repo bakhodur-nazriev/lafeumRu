@@ -14,19 +14,8 @@
 @endsection
 
 @section('content')
-    <h3 class="secondary">Цитаты и Афоризмы</h3>
-    <p>
-        Лучшие цитаты, афоризмы и высказывания великих ученых и мыслителей, известных и успешных людей на тематику
-        сайта.
-    </p>
-    @foreach ($quotes as $quote)
-        @include('layouts.quoteItem')
-    @endforeach
-    <div class="col-12">
-        <nav aria-label="Page navigation example">
-            <div class="row d-flex justify-content-center mt-3">
-                {!! $quotes->onEachSide(2)->links() !!}
-            </div>
-        </nav>
-    </div>
+    <quotes></quotes>
+{{--    @foreach ($quotes as $quote)--}}
+{{--        @include('layouts.quoteItem')--}}
+{{--    @endforeach--}}
 @endsection

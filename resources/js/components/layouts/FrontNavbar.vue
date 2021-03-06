@@ -7,47 +7,48 @@
     >
         <v-col cols="12" class="d-flex justify-content-around">
             <div class="d-flex align-items-center">
-                <a
-                    class="navbar-links mx-3 "
+                <div 
                     v-for="link in links"
-                    :href="link.href"
                     :key="link.href"
                 >
-                    {{ link.name }}
-                </a>
-            </div>
-            <div>
-                <div class="text-center">
-                    <v-avatar>
-                        <img
-                            src="https://cdn.vuetifyjs.com/images/john.jpg"
-                            alt="John"
-                        >
-                    </v-avatar>
-                    <v-menu offset-y left>
-                        <template v-slot:activator="{ on, attrs }">
-                            <v-btn
-                                dark
-                                icon
-                                v-on="on"
-                                color="white"
-                                v-bind="attrs"
-                            >
-                                <v-icon>
-                                    mdi-chevron-down
-                                </v-icon>
-                            </v-btn>
-                        </template>
-                        <v-list>
-                            <v-list-item
-                                v-for="profileLink in profileLinks"
-                                :key="profileLink.href"
-                            >
-                                <v-list-item-title>{{ profileLink.title }}</v-list-item-title>
-                            </v-list-item>
-                        </v-list>
-                    </v-menu>
+                    <a :href="link.href" class="navbar-links mx-3">
+                        <span v-if="link.name">{{ link.name }}</span>
+                        <v-img v-else width="71" class="mr-5" src="/img/lafeum-ru-home.png"></v-img>
+                    </a>
                 </div>
+            </div>
+            <div class="d-flex align-items-center">
+                <v-avatar>
+                    <img
+                        src="https://cdn.vuetifyjs.com/images/john.jpg"
+                        alt="John"
+                    >
+                </v-avatar>
+                <v-menu offset-y left min-width="240" rounded="lg" nudge-bottom="20">
+                    <template v-slot:activator="{ on }">
+                        <v-btn
+                            icon
+                            v-on="on"
+                            color="white"
+                        >
+                            <v-icon>
+                                mdi-menu-down
+                            </v-icon>
+                        </v-btn>
+                    </template>
+                    <v-list>
+                        <v-list-item
+                            v-for="profileLink in profileLinks"
+                            :key="profileLink.href"
+                        >
+                        
+                            <v-list-item-title class=" px-3 py-5">
+                                <v-icon color="grey lighten-1" class="mr-6">{{ profileLink.icon }}</v-icon>
+                                <a class="navbar-profile-links" :href="profileLink.href">{{ profileLink.title }}</a>
+                            </v-list-item-title>
+                        </v-list-item>
+                    </v-list>
+                </v-menu>
             </div>
         </v-col>
     </v-app-bar>
@@ -60,18 +61,30 @@ export default {
         return {
             profileLinks: [
                 {
-                    title: "Профил",
-                    href: ""
+                    title: "Мой Профил",
+                    href: "/profile",
+                    icon: "mdi-account-circle"
+                },
+                {
+                    title: "Избранное",
+                    href: "profile-favorites",
+                    icon: "mdi-briefcase"
+                },
+                {
+                    title: "Настройки",
+                    href: "",
+                    icon: "mdi-tune"
                 },
                 {
                     title: "Выход",
-                    href: ""
+                    href: "/logout",
+                    icon: "mdi-logout"
                 },
             ],
             links: [
                 {
-                    name: "Главная",
-                    href: "/"
+                    imageUrl: "/img/lafeum-ru-home.png",
+                    href: "/",
                 },
                 {
                     name: "Области Знаний",
@@ -103,7 +116,7 @@ export default {
                 },
                 {
                     name: "Фотографии",
-                    href: "/photos"
+                    href: "/photo"
                 },
             ]
         }
@@ -121,6 +134,19 @@ export default {
 .navbar-links:hover {
     text-decoration: none;
     color: #A4C2FF;
+}
+
+.navbar-profile-links {
+    text-decoration: none;
+    color: #676767;
+}
+
+.navbar-profile-links:hover{
+    color:#1a718c;
+}
+
+button:focus{
+    outline: none;
 }
 
 </style>

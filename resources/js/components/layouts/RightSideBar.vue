@@ -1,5 +1,5 @@
 <template>
-    <v-col>
+    <v-col cols="2">
         <h5 class="text-uppercase text-secondary font-weight-normal py-4">Рекоммендуемые</h5>
         <v-card class="rounded-lg pa-2" flat>
             <!-- Quote Section -->
@@ -17,8 +17,7 @@
             <!-- Term Section -->
             <v-card-title class="subtitle-2 font-weight-bold">Термин дня</v-card-title>
             <v-divider class="ma-0"></v-divider>
-            <v-card-text class="truncate-to-five-line">
-                {{ term.body }}
+            <v-card-text class="truncate-to-five-line" v-html="term.body">
             </v-card-text>
             <v-card-actions class="justify-content-end">
                 <a href="/terms" class="font-italic">еще.</a>
@@ -29,7 +28,9 @@
             <v-divider class="ma-0"></v-divider>
 
             <v-card-title class="subtitle-2 font-weight-bold">{{ video.title }}</v-card-title>
-            <v-card-text></v-card-text>
+            <v-card-text>
+                <video-embed :src="video.embeded_link"></video-embed>
+            </v-card-text>
             <v-card-actions class="justify-content-end">
                 <a href="/videos" class="font-italic">еще.</a>
             </v-card-actions>
@@ -63,9 +64,6 @@ export default {
             video: this.dailyPosts.video,
             photo: this.dailyPosts.photo,
         }
-    },
-    mounted() {
-        console.log(this.quote.author.name);
     }
 }
 </script>
@@ -74,7 +72,7 @@ export default {
 .truncate-to-five-line {
     overflow: hidden;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
 }
 </style>

@@ -55,13 +55,13 @@
         @include('layouts.termItem')
     @endforeach
 
-    <div class="col-12">
+    <!-- <div class="col-12">
         <nav>
             <div class="row d-flex justify-content-center mt-3">
                 {{ $currentKnowledgeArea->terms->links() }}
             </div>
         </nav>
-    </div>
+    </div> -->
 
     @if (count($currentKnowledgeArea->linked_knowledge))
         <div>

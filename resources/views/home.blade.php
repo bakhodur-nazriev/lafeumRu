@@ -9,5 +9,5 @@
 {{--@endsection--}}
 
 @section('content')
-    <home :categories="{{ $categories }}"></home>
+    <home></home>
 @endsection

@@ -41,8 +41,7 @@
                         icon
                         small
                         depressed
-                        class="mx-2"
-                        color="primary lighten-1"
+                        class="primary lighten-1 mx-2"
                     >
                         <v-icon color="white">
                             mdi-instagram
@@ -53,8 +52,7 @@
                         icon
                         small
                         depressed
-                        class="mx-2"
-                        color="primary lighten-1"
+                        class="primary lighten-1 mx-2"
                     >
                         <v-icon color="white">
                             mdi-basketball
@@ -65,8 +63,7 @@
                         icon
                         small
                         depressed
-                        class="mx-2"
-                        color="primary lighten-1"
+                        class="primary lighten-1 mx-2"
                     >
                         <v-icon color="white">
                             mdi-twitter
@@ -77,8 +74,7 @@
                         icon
                         small
                         depressed
-                        class="mx-2"
-                        color="primary lighten-1"
+                        class="primary lighten-1 mx-2"
                     >
                         <v-icon color="white">
                             mdi-youtube

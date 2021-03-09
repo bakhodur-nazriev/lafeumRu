@@ -69,9 +69,3 @@ const app = new Vue({
     components: {frontApp},
     vuetify: new Vuetify(vuetifyOptions)
 });
-
-/*const app = new Vue({
-    el: "#app",
-    components: {app},
-    vuetify: new Vuetify(vuetifyOptions)
-});*/

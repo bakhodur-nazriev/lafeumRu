@@ -4,7 +4,7 @@
 
 <script>
 export default {
-    name: "Authors"
+    name: "VideoItem"
 }
 </script>
 

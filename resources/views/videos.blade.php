@@ -14,10 +14,11 @@
 @endsection
 
 @section('content')
-    <h3 class="secondary">Видео</h3>
-    <div class="row">
+    <videos></videos>
+
+    {{-- <div class="row">
         @foreach($videos as $video)
             @include('layouts.videoItem')
         @endforeach
-    </div>
+    </div> --}}
 @endsection

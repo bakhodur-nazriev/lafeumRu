@@ -23,7 +23,7 @@
 import QuoteItem from "../layouts/QuoteItem";
 
 export default {
-    name: "AuthorShow",
+    name: "Author",
     components: { QuoteItem },
     props: ["author"],
 

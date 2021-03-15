@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import QuoteItem from "./layouts/QuoteItem";
+import QuoteItem from "../layouts/QuoteItem";
 
 export default {
     name: "AuthorShow",

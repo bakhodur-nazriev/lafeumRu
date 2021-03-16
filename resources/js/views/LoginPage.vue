@@ -78,7 +78,7 @@
 
 <script>
     export default {
-        name: "Login",
+        name: "LoginPage",
         data () {
             return {
                 valid: false,

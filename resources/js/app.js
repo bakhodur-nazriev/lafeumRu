@@ -70,7 +70,8 @@ Vue.component("login", require("./views/LoginPage").default);
 Vue.component("register", require("./views/RegisterPage").default);
 
 /* Contacts */
-Vue.component("contacts", require("./components/front/Contacts").default);
+Vue.component("contacts", require("./views/front/Contacts").default);
+
 /* Layouts */
 Vue.component("quoteItem", require("./views/front/layouts/QuoteItem").default);
 Vue.component("termItem", require("./views/front/layouts/TermItem").default);

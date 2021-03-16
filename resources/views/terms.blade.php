@@ -14,9 +14,9 @@
 @endsection
 
 @section('content')
-    <h3 class="secondary mb-4">Термины</h3>
-    @foreach($terms as $term)
+    <terms></terms>
+    
+    {{-- @foreach($terms as $term)
         @include('layouts.termItem')
-    @endforeach
-
+    @endforeach --}}
 @endsection

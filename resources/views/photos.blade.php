@@ -10,7 +10,7 @@
 @section('content')
     <photos></photos>
 
-    <!-- <div class="mt-5 d-flex justify-content-center">
+    {{-- <div class="mt-5 d-flex justify-content-center">
         {!! $photos->onEachSide(2)->links(); !!}
-    </div> -->
+    </div> --}}
 @endsection

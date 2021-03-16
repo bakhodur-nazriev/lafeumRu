@@ -1,21 +1,20 @@
-import QuotesPage from "./views/Quotes/QuotesPage";
-import QuotesTrashedPage from "./views/Trashes/QuotesTrashedPage";
-import TermsPage from "./views/Terms/TermsPage";
-import TermsTrashedPage from "./views/Trashes/TermsTrashedPage";
-import VideosPage from "./views/Videos/VideosPage";
-import VideosTrashedPage from "./views/Trashes/VideosTrashedPage";
-import PhotosPage from "./views/Photos/PhotosPage";
-import PhotosTrashedPage from "./views/Trashes/PhotosTrashedPage";
-import AuthorsPage from "./views/Authors/AuthorsPage";
-import AuthorsTrashedPage from "./views/Trashes/AuthorsTrashedPage";
-import UsersPage from "./views/Users/UsersPage";
-import ProfilePage from "./views/Profile/ProfilePage";
-import CategoriesPage from "./views/Categories/CategoriesPage";
-import ChannelsPage from "./views/Channels/ChannelsPage";
-import ChannelsTrashedPage from "./views/Trashes/ChannelsTrashedPage";
-import KnowledgeAreasPage from "./views/KnowledgeAreas/KnowledgeAreasPage";
-import SettingsPage from "./views/SettingsPage";
-import FeedbacksPage from "./views/Feedback/FeedbacksPage";
+import QuotesPage from "./views/back/Quotes/QuotesPage";
+import QuotesTrashedPage from "./views/back/Trashes/QuotesTrashedPage";
+import TermsPage from "./views/back/Terms/TermsPage";
+import TermsTrashedPage from "./views/back/Trashes/TermsTrashedPage";
+import VideosPage from "./views/back/Videos/VideosPage";
+import VideosTrashedPage from "./views/back/Trashes/VideosTrashedPage";
+import PhotosPage from "./views/back/Photos/PhotosPage";
+import PhotosTrashedPage from "./views/back/Trashes/PhotosTrashedPage";
+import AuthorsPage from "./views/back/Authors/AuthorsPage";
+import AuthorsTrashedPage from "./views/back/Trashes/AuthorsTrashedPage";
+import UsersPage from "./views/back/Users/UsersPage";
+import ProfilePage from "./views/back/Profile/ProfilePage";
+import CategoriesPage from "./views/back/Categories/CategoriesPage";
+import ChannelsPage from "./views/back/Channels/ChannelsPage";
+import ChannelsTrashedPage from "./views/back/Trashes/ChannelsTrashedPage";
+import KnowledgeAreasPage from "./views/back/KnowledgeAreas/KnowledgeAreasPage";
+import FeedbacksPage from "./views/back/Feedback/FeedbacksPage";
 import role from "./role";
 
 require("../js/constants");
@@ -232,16 +231,6 @@ let allSidebarRoutes = [
         path: "/dashboard/profile",
         name: "/dashboard/profile",
         component: ProfilePage
-    },
-    {
-        meta: {
-            icon: "mdi-settings",
-            title: "Настройки сайта",
-            authorize: [role.admin]
-        },
-        name: "/dashboard/setting",
-        path: "/dashboard/setting",
-        component: SettingsPage
     },
     {
         meta: {

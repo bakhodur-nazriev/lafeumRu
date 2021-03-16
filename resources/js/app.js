@@ -50,10 +50,17 @@ Vue.use("draggable");
 Vue.use(Vuetify);
 Vue.use(Embed);
 
-Vue.component("default", require("./components/front/Default").default);
-Vue.component("home", require("./components/front/Home").default);
-Vue.component("quotes", require("./components/front/Quotes").default);
-Vue.component("photos", require("./components/front/Photos").default);
+Vue.component("default", require("./views/front/Default").default);
+Vue.component("home", require("./views/front/Home").default);
+Vue.component("quotes", require("./views/front/Quotes").default);
+Vue.component("terms", require("./views/front/Terms").default);
+Vue.component("videos", require("./views/front/Videos").default);
+Vue.component("photos", require("./views/front/Photos").default);
+Vue.component("authors", require("./views/front/Authors").default);
+Vue.component("author-show", require("./views/front/shows/Author").default);
+Vue.component("knowledge-area", require("./views/front/KnowledgeArea").default);
+Vue.component("vocabulary", require("./views/front/Vocabulary").default);
+Vue.component("channels", require("./views/front/Channels").default);
 Vue.component("front-navbar", require("./components/layouts/FrontNavbar").default);
 Vue.component("front-footer", require("./components/layouts/FrontFooter").default);
 
@@ -64,6 +71,11 @@ Vue.component("register", require("./views/RegisterPage").default);
 
 /* Contacts */
 Vue.component("contacts", require("./components/front/Contacts").default);
+/* Layouts */
+Vue.component("quoteItem", require("./views/front/layouts/QuoteItem").default);
+Vue.component("termItem", require("./views/front/layouts/TermItem").default);
+Vue.component("videoItem", require("./views/front/layouts/VideoItem").default);
+Vue.component("photoItem", require("./views/front/layouts/PhotoItem").default);
 
 /* Left Side Bar */
 Vue.component("left-side-bar", require("./components/layouts/LeftSideBar").default);
@@ -77,9 +89,3 @@ const app = new Vue({
     components: {frontApp},
     vuetify: new Vuetify(vuetifyOptions)
 });
-
-/*const app = new Vue({
-    el: "#app",
-    components: {app},
-    vuetify: new Vuetify(vuetifyOptions)
-});*/

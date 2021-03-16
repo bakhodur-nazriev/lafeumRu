@@ -1,5 +1,5 @@
 @extends("layouts.default")
-@section('meta-tags')
+{{-- @section('meta-tags')
     @include('layouts.meta-tags', [
         'title' => isset($category) ? $category->name . ' - словарь': 'Словарь',
         'description' => isset($category) ? $category->description: ''
@@ -11,9 +11,10 @@
         'linkPrefix' => 'vocabulary',
         'active' => isset($category) ? $category->id : null
     ])
-@endsection
+@endsection --}}
 @section("content")
-    @if (isset($category))
+    <vocabulary :terms="{{ $terms }}"></vocabulary>
+    {{-- @if (isset($category))
         <h3 class="secondary">{{$category->name}}</h3>
         <p>{!! $category->description !!}</p>
     @else
@@ -94,7 +95,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <script>
         $(document).ready(() => {
             attachSearch(
@@ -165,4 +166,4 @@
         }
     </script>
 @endsection
-@section('right-side-bar')@endsection
+{{-- @section('right-side-bar')@endsection --}}

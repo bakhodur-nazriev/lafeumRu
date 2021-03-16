@@ -3,54 +3,54 @@
         app
         flat
         height="84"
-        class="primary"
+        class="primary d-flex justify-content-around"
     >
-        <v-col cols="12" class="d-flex justify-content-around">
-            <div class="d-flex align-items-center">
-                <div 
-                    v-for="link in links"
-                    :key="link.href"
+        <div class="d-flex align-items-center">
+            <div
+                v-for="link in links"
+                :key="link.href"
+            >
+                <a :href="link.href" class="navbar-links mx-3">
+                    <span v-if="link.name">{{ link.name }}</span>
+                    <v-img v-else width="71" class="mr-5" src="/img/lafeum-ru-home.png"></v-img>
+                </a>
+            </div>
+        </div>
+        <div class="d-flex align-items-center">
+            <v-avatar>
+                <img
+                    src="https://cdn.vuetifyjs.com/images/john.jpg"
+                    alt="John"
                 >
-                    <a :href="link.href" class="navbar-links mx-3">
-                        <span v-if="link.name">{{ link.name }}</span>
-                        <v-img v-else width="71" class="mr-5" src="/img/lafeum-ru-home.png"></v-img>
-                    </a>
-                </div>
-            </div>
-            <div class="d-flex align-items-center">
-                <v-avatar>
-                    <img
-                        src="https://cdn.vuetifyjs.com/images/john.jpg"
-                        alt="John"
+            </v-avatar>
+            <v-menu offset-y left min-width="240" rounded="lg" nudge-bottom="20">
+                <template v-slot:activator="{ on }">
+                    <v-btn
+                        icon
+                        v-on="on"
+                        color="white"
                     >
-                </v-avatar>
-                <v-menu offset-y left min-width="240" rounded="lg" nudge-bottom="20">
-                    <template v-slot:activator="{ on }">
-                        <v-btn
-                            icon
-                            v-on="on"
-                            color="white"
-                        >
-                            <v-icon>
-                                mdi-menu-down
-                            </v-icon>
-                        </v-btn>
-                    </template>
-                    <v-list>
-                        <v-list-item
-                            v-for="profileLink in profileLinks"
-                            :key="profileLink.href"
-                        >
-                        
-                            <v-list-item-title class=" px-3 py-5">
-                                <v-icon color="grey lighten-1" class="mr-6">{{ profileLink.icon }}</v-icon>
-                                <a class="navbar-profile-links" :href="profileLink.href">{{ profileLink.title }}</a>
-                            </v-list-item-title>
-                        </v-list-item>
-                    </v-list>
-                </v-menu>
-            </div>
-        </v-col>
+                        <v-icon>
+                            mdi-menu-down
+                        </v-icon>
+                    </v-btn>
+                </template>
+                <v-list>
+                    <v-list-item
+                        v-for="profileLink in profileLinks"
+                        :key="profileLink.href"
+                    >
+
+                        <v-list-item-title class=" px-3 py-5">
+                            <v-icon color="grey lighten-1" class="mr-6">{{ profileLink.icon }}</v-icon>
+                            <a class="navbar-profile-links" :href="profileLink.href">{{
+                                profileLink.title
+                                }}</a>
+                        </v-list-item-title>
+                    </v-list-item>
+                </v-list>
+            </v-menu>
+        </div>
     </v-app-bar>
 </template>
 
@@ -141,11 +141,11 @@ export default {
     color: #676767;
 }
 
-.navbar-profile-links:hover{
-    color:#1a718c;
+.navbar-profile-links:hover {
+    color: #1a718c;
 }
 
-button:focus{
+button:focus {
     outline: none;
 }
 

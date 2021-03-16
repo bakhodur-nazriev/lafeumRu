@@ -15,7 +15,4 @@
 
 @section('content')
     <quotes></quotes>
-{{--    @foreach ($quotes as $quote)--}}
-{{--        @include('layouts.quoteItem')--}}
-{{--    @endforeach--}}
 @endsection

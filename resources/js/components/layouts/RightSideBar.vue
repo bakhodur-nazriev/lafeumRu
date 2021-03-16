@@ -1,54 +1,57 @@
 <template>
     <v-col cols="2">
         <h5 class="text-uppercase text-secondary font-weight-normal py-4">Рекоммендуемые</h5>
-        <v-card class="rounded-lg pa-2" flat>
+        <v-card class="rounded-lg" flat>
             <!-- Quote Section -->
-            <v-card-title class="subtitle-2 font-weight-bold">Цитата дня</v-card-title>
-            <v-divider class="ma-0"></v-divider>
-
-            <v-card-title class="subtitle-2 font-weight-bold">{{ quote.author.name }}<br/> Категория: Цитата дня
-            </v-card-title>
-            <v-card-text>{{ quote.body }}</v-card-text>
-
-            <v-card-actions class="justify-content-end">
-                <a href="/quotes" class="font-italic">еще.</a>
-            </v-card-actions>
+            <div class="pa-5 pb-0">
+                <v-card-title class="subtitle-2 font-weight-medium pa-0">Цитата дня <v-spacer></v-spacer><v-icon>mdi-dots-horizontal</v-icon></v-card-title>
+                <v-divider></v-divider>
+                <v-card-title class="subtitle-2 font-weight-medium pa-0 mb-1">{{ quote.author.name }}<br/> Категория: Цитата дня
+                </v-card-title>
+                <v-card-text class="truncate-to-five-line" v-html="quote.body"></v-card-text>
+                <v-card-actions class="justify-content-end">
+                    <a href="/quotes" class="font-italic">еще.</a>
+                </v-card-actions>
+            </div>
 
             <!-- Term Section -->
-            <v-card-title class="subtitle-2 font-weight-bold">Термин дня</v-card-title>
-            <v-divider class="ma-0"></v-divider>
-            <v-card-text class="truncate-to-five-line" v-html="term.body">
-            </v-card-text>
-            <v-card-actions class="justify-content-end">
-                <a href="/terms" class="font-italic">еще.</a>
-            </v-card-actions>
+            <div class="pa-5 pb-0">
+                <v-card-title class="subtitle-2 font-weight-medium pa-0">Термин дня</v-card-title>
+                <v-divider></v-divider>
+                <v-card-text class="truncate-to-five-line" v-html="term.body"></v-card-text>
+                <v-card-actions class="justify-content-end">
+                    <a href="/terms" class="font-italic">еще.</a>
+                </v-card-actions>
+            </div>
 
             <!-- Video section -->
-            <v-card-title class="subtitle-2 font-weight-bold">Видео дня</v-card-title>
-            <v-divider class="ma-0"></v-divider>
-
-            <v-card-title class="subtitle-2 font-weight-bold">{{ video.title }}</v-card-title>
-            <v-card-text>
-                <video-embed :src="video.embeded_link"></video-embed>
-            </v-card-text>
-            <v-card-actions class="justify-content-end">
-                <a href="/videos" class="font-italic">еще.</a>
-            </v-card-actions>
-
+            <div class="pa-5 pb-0">
+                <v-card-title class="subtitle-2 font-weight-medium pa-0">Видео дня</v-card-title>
+                <v-divider></v-divider>
+                <v-card-text class="pa-0 mb-3">
+                    <video-embed :src="video.embeded_link"></video-embed>
+                </v-card-text>
+                <v-card-title class="subtitle-2 font-weight-medium pa-0">{{ video.title }}</v-card-title>
+                <v-card-actions class="justify-content-end">
+                    <a href="/videos" class="font-italic">еще.</a>
+                </v-card-actions>
+            </div>
+        
             <!-- Photo Section -->
-            <v-card-title class="subtitle-2 font-weight-bold">Фото дня</v-card-title>
-            <v-divider class="ma-0"></v-divider>
-            <v-card-text>
-                <v-img
-                    :src="photo.path"
-                    :alt="photo.description"
-                    max-height="150"
-                    max-width="225"
-                ></v-img>
-            </v-card-text>
-            <v-card-actions class="justify-content-end">
-                <a href="/photos" class="font-italic">еще.</a>
-            </v-card-actions>
+            <div class="pa-5">
+                <v-card-title class="subtitle-2 font-weight-medium pa-0">Фото дня</v-card-title>
+                <v-divider></v-divider>
+                <v-card-text class="pa-0">
+                    <v-img
+                        :src="photo.path"
+                        :alt="photo.description"
+                        max-height="150"
+                    ></v-img>
+                </v-card-text>
+                <v-card-actions class="justify-content-end">
+                    <a href="/photos" class="font-italic">еще.</a>
+                </v-card-actions>
+            </div>
         </v-card>
     </v-col>
 </template>
@@ -70,9 +73,10 @@ export default {
 
 <style scoped>
 .truncate-to-five-line {
+    padding: 0;
     overflow: hidden;
     display: -webkit-box;
-    -webkit-line-clamp: 4;
+    -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
 }
 </style>

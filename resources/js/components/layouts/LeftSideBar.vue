@@ -8,7 +8,7 @@
                     :key="i"
                 >
                     <v-expansion-panel-header ripple class="px-0" expand-icon="mdi-menu-down">
-                        <v-icon>{{ category.icon }}</v-icon> 
+                        <v-icon>{{ category.icon }}</v-icon>
                         {{ category.name }}
                     </v-expansion-panel-header>
                     <v-expansion-panel-content
@@ -31,7 +31,7 @@ export default {
 
     data() {
         return {
-        
+
         }
     }
 }

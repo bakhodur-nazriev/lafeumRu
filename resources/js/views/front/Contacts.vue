@@ -33,62 +33,29 @@
                     <v-card-title class="pa-0">
                         <h2 class="mb-4">Свяжитесь с нами</h2>
                     </v-card-title>
-                    <v-card-subtitle class="card-subtitle pa-0 mt-0 mb-10">
+                    <div class="card-subtitle pa-0 mt-0 mb-10">
                         Добро пожаловать, мы ждали Вас !
-                    </v-card-subtitle>
+                    </div>
                     <v-card-text class="pa-0">
-                        <v-form ref="form" v-model="valid" lazy-validation>
-                            <v-text-field
-                                name="name"
-                                v-model="name"
-                                :rules="nameRules"
-                                validate-on-blur
-                                label="Ваше Имя"
-                                placeholder="Абуамр"
-                                type="text"
-                                clearable
-                            ></v-text-field>
-                            <v-text-field
-                                name="email"
-                                v-model="email"
-                                :rules="emailRules"
-                                validate-on-blur
-                                label="Ваша Почта"
-                                placeholder="Введите адрес электронной почты"
-                                type="email"
-                                clearable
-                            ></v-text-field>
-                            <v-text-field
-                                name="password"
-                                v-model="password"
-                                :rules="passwordRules"
-                                validate-on-blur
-                                label="Пароль"
-                                placeholder="Введите Ваш пароль"
-                                type="password"
-                                clearable
-                            ></v-text-field>
-                            <v-textarea
-                                v-model="message"
-                                :rules="messageRules"
-                                class="rounded-lg "
-                                background-color="rgba(249, 249, 249, 1)"
-                                label="Сообщение"
-                                placeholder=" "
-                                clearable
-                                loading="false"
-                                no-resize
-                                validate-on-blur
-                            ></v-textarea>
-                        </v-form>
-                        <v-card-action>
-                            <v-btn
-                                block
-                                class="rounded-lg mt-10"
-                                height="55"
-                                color="rgba(4,113,140,1)"
-                            ><span>Вход</span></v-btn>
-                        </v-card-action>
+                        <form>
+                            <div class="input-container">
+                                <label class="input-label" for="name">Ваше Имя</label> <br>
+                                <input class="input" type="text" name="name" id="name" placeholder="Введите Ваше имя">
+                            </div>
+                            <div class="input-container">
+                                <label class="input-label" for="email">Ваша Почта</label> <br>
+                                <input class="input" type="email" name="email" id="email" placeholder="Введите адрес электронной почты">
+                            </div>
+                            <div class="input-container">
+                                <label class="input-label" for="password">Пароль</label> <br>
+                                <input class="input" type="password" name="password" id="password" placeholder="Введите Ваш пароль">
+                            </div>
+                            <div class="textarea-container">
+                                <label class="input-label" for="message">Сообщение</label> <br>
+                                <textarea class="message" name="message" id="message" cols="30" rows="10"></textarea>
+                            </div>
+                            <button class="submit-btn" type="submit">Вход</button>
+                        </form>
                     </v-card-text>
                 </v-card>
             </v-col>
@@ -100,27 +67,7 @@
 export default {
     name: 'contacts',
     data () {
-        return {
-            valid: false,
-            name: '',
-            nameRules: [
-                value => !!value || 'Это поле обязательное'
-            ],
-            email: '',
-            emailRules: [
-                value => !!value || 'E-mail обязательна',
-                value => /.+@.+/.test(value) || 'E-mail должна быть действительной'
-            ],
-            password: '',
-            passwordRules: [
-                value => !!value || 'E-mail обязательна'
-            ],
-            message: "",
-            messageRules: [
-                value => !!value || 'Это поле не должно быть пустым',
-                value => (value && value.length) >= 6 || 'Слишком короткий'
-            ]
-        }
+        return {}
     }
 }
 </script>
@@ -134,13 +81,15 @@ export default {
     }
     h2 {
         font-size: 36px;
-        font-weight: 700;
+        font-weight: 600;
         line-height: 110%;
+        letter-spacing: -1px;
     }
     .contact-text {
         font-size: 14px;
         line-height: 136%;
         color: #676767;
+        max-width: 720px;
     }
     h3 {
         font-size: 22px;
@@ -153,22 +102,76 @@ export default {
         line-height: 110%;
         color: #676767;
     }
+    .item:last-child {
+        margin-bottom: 100px;
+    }
     .card {
         margin-bottom: 149px;
         padding: 66px 90px 78px 99px;
+        background-color: #f5f5f5 !important;
+        border: none;
     }
     .card-subtitle {
         font-weight: 300;
         font-size: 16px;
         line-height: 110%;
-        color: rgba(40, 44, 64, 0.6);
+        color: rgba(40, 44, 64, 0.5);
     }
-    span {
+    .input-container {
+        margin-bottom: 18px;
+    }
+    .input-label {
+        font-size: 12px;
+        font-weight: 500;
+        color: #82869A;
+        line-height: 110%;
+    }
+    .input {
+        color: rgba(55,60,86,1);
+        line-height: 110%;
+        font-weight: 500;
+        display: block;
+        width: 100%;
+        border-bottom: 2px solid rgb(199 199 199 / 50%);
+        padding: 9px 0;
+    }
+    .input:focus {
+        outline: none;
+    }
+    .input::placeholder {
+        color: rgba(130, 134, 154, 0.5);
+        line-height: 110%;
+        font-size: 14px;
+        font-weight: 400;
+    }
+    .message {
+        display: block;
+        width: 100%;
+        background-color: rgb(239 239 239);
+        border-radius: 8px;
+        margin-top: 8px;
+        resize: none;
+        max-height: 100px;
+    }
+    .message:focus {
+        outline: none;
+    }
+    .submit-btn {
+        display: block;
+        background-color: rgba(4,113,140,1);
+        border-radius: 8px;
+        width: 100%;
         color: white;
-        text-transform: none;
-        font-weight: 600;
-        line-height: 18px;
-        font-size: 15px;
-        text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.15);
+        height: 55px;
+        box-shadow: 0 12px 40px rgb(0 0 0 / 20%);
+        margin-top: 45px;
+    }
+    @media screen and (max-width: 599px) {
+        .card {
+            padding: 40px;
+        }
+        h2 {
+            font-size: 30px;
+        }
     }
 </style>

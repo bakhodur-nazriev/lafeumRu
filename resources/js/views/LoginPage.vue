@@ -2,7 +2,7 @@
     <v-container>
         <v-row>
             <v-col cols="12">
-                <h1 class="mb-0 text-uppercase">Регистрация</h1>
+                <h1 class="mb-0 text-uppercase">Вход</h1>
             </v-col>
         </v-row>
         <v-row>
@@ -10,64 +10,38 @@
                 <v-card 
                 elevation="0" 
                 max-width="566" 
-                class="card mx-auto rounded-lg"
+                class="card rounded-lg mx-auto"
                 >
-                    <v-card-title class="card-title font-weight-bold pa-0 mb-4">
-                        Вход
+                    <v-card-title class="pa-0">
+                        <h2 class="mb-4">Вход</h2>
                     </v-card-title>
-                    <v-card-subtitle class="card-subtitle pa-0 mt-0 mb-10">
+                    <div class="card-subtitle pa-0 mt-0 mb-10">
                         Добро пожаловать, мы ждали Вас !
-                    </v-card-subtitle>
+                    </div>
                     <v-card-text class="pa-0">
-                        <v-form ref="form" v-model="valid" lazy-validation="lazy-validation">
-                            <v-text-field
-                                class="mt-0"
-                                clearable
-                                v-model="email"
-                                :rules="emailRules"
-                                name="email"
-                                label="Ваш Email"
-                                type="email"
-                                validate-on-blur
-                                placeholder="Введите Ваш Email"
-                            ></v-text-field>
-                            <v-text-field
-                                class="mt-2 mb-2"
-                                label="Пароль"
-                                placeholder="Введите Ваш пароль"
-                                v-model="password"
-                                name="password"
-                                type="password"
-                                clearable
-                                :rules="passwordRules"
-                                validate-on-blur
-                            ></v-text-field>
+                        <form>
+                            <div class="input-container">
+                                <label class="input-label" for="email">Ваш Email</label> <br>
+                                <input class="input" type="email" name="email" id="email" placeholder="Введите Ваше E-mail">
+                            </div>
+                            <div class="input-container">
+                                <label class="input-label" for="password">Пароль</label> <br>
+                                <input class="input" type="password" name="password" id="password" placeholder="Введите Ваш пароль">
+                            </div>
                             <div class="grid-container">
-                                <v-checkbox 
-                                color="success"
-                                v-model="agreement"
-                                label="Запомнить меня"
-                                on-icon="mdi-check-circle"
-                                off-icon="mdi-circle-outline"
-                                ></v-checkbox>
-                                <div class="grid-item">
+                                <div>
+                                    <label class="checkbox-label" for="checkbox">
+                                        <input class="checkbox" type="checkbox" name="checkbox" id="checkbox" >
+                                        <span class="checkmark"></span>
+                                        Запомнить меня
+                                    </label>
+                                </div>
+                                <div class="grid-container-item">
                                     <a href="#">Забыли пароль?</a>
                                 </div>
                             </div>
-                        </v-form>
-                        <v-card-actions class="pa-0">
-                            <v-btn 
-                            :disabled="!valid"
-                            class="button mt-5"
-                            color="rgba(4,113,140,1)"
-                            height="55"
-                            block 
-                            elevation="2"
-                            @click="submit"
-                            >
-                                <span>Вход</span>
-                            </v-btn>
-                        </v-card-actions>
+                            <button class="submit-btn" type="submit">Вход</button>
+                        </form>
                     </v-card-text>
                 </v-card>
                 <div class="space"></div>
@@ -77,86 +51,148 @@
 </template>
 
 <script>
-    export default {
-        name: "LoginPage",
-        data () {
-            return {
-                valid: false,
-                email: '',
-                emailRules: [
-                    value => !!value || 'E-mail обязательна',
-                    value => /.+@.+/.test(value) || 'E-mail должна быть действительной'
-                ],
-                password: '',
-                passwordRules: [
-                    value => !!value || 'Это поле обязательное'
-                ],
-                agreement: false
-            }
-        },
-        methods: {
-            submit() {
-                if (this.$refs.form.validate()) {
-                    const user = {
-                        email: this.email,
-                        password: this.password
-                    }
-                    console.log(user)
-                }
-            }
-        }
-    };
+export default {
+    name: 'LoginPage',
+    data() {
+        return {}
+    }
+}
 </script>
+
 
 <style scoped>
     h1 {
+        font-weight: 400;
         font-size: 16px;
-        color: rgba(108, 108, 100, 1);
-        margin-top: 10px;
+        line-height: 24px;
+        color: #6C6C64;
+    }
+    h2 {
+        font-size: 36px;
+        font-weight: 600;
+        line-height: 110%;
+        letter-spacing: -1px;
     }
     .card {
-        margin-top: 10px;
-        border: none;
+        margin-bottom: 283px;
         padding: 66px 90px 117px 99px;
-    }
-    .card-title {
-        font-size: 36px;
-        line-height: 40px;
+        background-color: #f5f5f5 !important;
+        border: none;
     }
     .card-subtitle {
+        font-weight: 300;
         font-size: 16px;
         line-height: 110%;
-        font-weight: 300;
-        color: rgba(40, 44, 64, 0.6);
+        color: rgba(40, 44, 64, 0.5);
     }
-    .button {
-        border-radius: 10px;
+    .input-container {
+        margin-bottom: 18px;
     }
-    span {
-        color: white;
-        text-transform: none;
-        font-weight: 600;
-        line-height: 18px;
-        font-size: 15px;
-        text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.15);
+    .input-label {
+        font-size: 12px;
+        font-weight: 500;
+        color: #82869A;
+        line-height: 110%;
+    }
+    .input {
+        color: rgba(55,60,86,1);
+        line-height: 110%;
+        font-weight: 500;
+        display: block;
+        width: 100%;
+        border-bottom: 2px solid rgb(199 199 199 / 50%);
+        padding: 9px 0;
+    }
+    .input:focus {
+        outline: none;
+    }
+    .input::placeholder, .checkbox-label {
+        color: rgba(130, 134, 154, 0.5);
+        line-height: 110%;
+        font-size: 14px;
+        font-weight: 400;
+    }
+    .checkbox-label {
+        position:relative;
+        padding-left: 30px;
+        cursor: pointer;
+    }
+    .checkbox-label:hover input ~ .checkmark {
+        background-color: rgb(219, 219, 219);
+        border-color: rgb(161, 161, 161);
+    }
+    .checkbox {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+    }
+    .checkmark {
+        position: absolute;
+        box-sizing: border-box;
+        height: 20px;
+        width: 20px;
+        background-color: rgba(230, 230, 230, 1);
+        border: 1px solid rgba(216, 216, 216, 1);
+        border-radius: 50%;
+        left: 0px;
+        top: -3px;
+    }
+    .checkmark::after {
+        display: none;
+        content: "";
+        position: absolute;
+        left: 6px;
+        top: 2.5px;
+        width: 5px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+    .checkbox-label input:checked ~ .checkmark {
+        background-color: rgb(74, 134, 14);
+    }
+    .checkbox-label input:checked ~ .checkmark::after {
+        display: block;
     }
     .grid-container {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        margin-top: -20px;
+        padding-top: 10px;
     }
-    .grid-item {
-        justify-self: end;
-        align-self: center;
+    .grid-container-item {
+        text-align: end;
     }
-    .grid-item a {
-        font-size: 14px;
-        color: #F0AE4B;
-        font-weight: 500;
-        line-height: 110%;
-        padding-right: 18px;
+    .grid-container-item a {
+        padding-right: 16px;
+        color: rgba(240,174,75,1);
     }
-    .space {
-        height: 246px;
+    .submit-btn {
+        display: block;
+        background-color: rgba(4,113,140,1);
+        border-radius: 8px;
+        width: 100%;
+        color: white;
+        height: 55px;
+        box-shadow: 0 12px 40px rgb(0 0 0 / 20%);
+        margin-top: 40px;
+    }
+    .submit-btn:focus {
+        outline: none;
+    }
+    .submit-btn:active {
+        opacity: 0.5;
+    }
+    @media screen and (max-width: 599px) {
+        .card {
+            padding: 40px;
+        }
+        h2 {
+            font-size: 30px;
+        }
     }
 </style>

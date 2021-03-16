@@ -152,6 +152,7 @@ export default {
         margin-top: 8px;
         resize: none;
         max-height: 100px;
+        padding: 10px;
     }
     .message:focus {
         outline: none;
@@ -165,6 +166,12 @@ export default {
         height: 55px;
         box-shadow: 0 12px 40px rgb(0 0 0 / 20%);
         margin-top: 45px;
+    }
+    .submit-btn:focus {
+        outline: none;
+    }
+    .submit-btn:active {
+        opacity: 0.5;
     }
     @media screen and (max-width: 599px) {
         .card {

@@ -1,7 +1,8 @@
 @extends('layouts.default-empty')
 
 @section('content')
-    <div class="row justify-content-center my-3">
+    <register></register>
+    <!-- <div class="row justify-content-center my-3">
         <div class="col-md-6">
             <h4 class="title-pages">регисрация</h4>
         </div>
@@ -115,5 +116,5 @@
                 </div>
             </form>
         </div>
-    </div>
+    </div> -->
 @endsection

@@ -57,6 +57,14 @@ Vue.component("photos", require("./components/front/Photos").default);
 Vue.component("front-navbar", require("./components/layouts/FrontNavbar").default);
 Vue.component("front-footer", require("./components/layouts/FrontFooter").default);
 
+
+/* Login */
+Vue.component("login", require("./views/LoginPage").default);
+Vue.component("register", require("./views/RegisterPage").default);
+
+/* Contacts */
+Vue.component("contacts", require("./components/front/Contacts").default);
+
 /* Left Side Bar */
 Vue.component("left-side-bar", require("./components/layouts/LeftSideBar").default);
 

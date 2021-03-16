@@ -1,4 +1,4 @@
-@extends('layouts.default')
+@extends('layouts.default-empty')
 
 @section('meta-tags')
     @include('layouts.meta-tags', [
@@ -7,7 +7,8 @@
 @endsection
 
 @section('content')
-    <div class="row">
+    <contacts></contacts>
+    <!-- <div class="row">
         <div class="col-sm-12 col-lg-8">
             <h3 class="secondary">Контакты</h3>
             <p>Мы рады, что Вы посетили наш сайт и ознакомились с находящейся на нем информацией.
@@ -45,7 +46,6 @@
                         <div class="g-recaptcha" data-sitekey="6LdvqeQZAAAAACPBX0Cfhg89K82X7yBQS9eEHIS8"></div>
                     </div>
                     @csrf
-
                     <button type="submit" class="btn btn-light">Отправить</button>
                 </form>
             </div>
@@ -57,7 +57,7 @@
                 <strong>{{ session()->get('message') }}</strong>
             </div>
         @endif
-    </div>
+    </div> -->
 @endsection
 
 @section('right-side-bar')@endsection

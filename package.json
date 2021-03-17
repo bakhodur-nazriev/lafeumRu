@@ -39,6 +39,7 @@
         "vue-froala-wysiwyg": "^3.2.2",
         "vue-quill-editor": "^3.0.6",
         "vue-router": "^3.1.6",
+        "vuelidate": "^0.7.6",
         "vuetify": "^2.3.10"
     }
 }

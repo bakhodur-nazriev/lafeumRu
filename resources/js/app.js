@@ -2,6 +2,7 @@ require("./constants");
 
 import Vue from "vue";
 import Vuetify from "vuetify";
+import Vuelidate from "vuelidate"
 import "vuetify/dist/vuetify.min.css";
 import "@mdi/font/css/materialdesignicons.css";
 import frontApp from "./components/frontApp";
@@ -48,6 +49,7 @@ window.Event = new (class {
 
 Vue.use("draggable");
 Vue.use(Vuetify);
+Vue.use(Vuelidate);
 Vue.use(Embed);
 
 Vue.component("default", require("./views/front/Default").default);

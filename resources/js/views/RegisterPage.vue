@@ -19,22 +19,55 @@
                         <a href="#">У Bас есть аккаунт?</a>
                     </div>
                     <v-card-text class="pa-0">
-                        <form>
+                        <form @submit.prevent="submitForm">
                             <div class="input-container">
                                 <label class="input-label" for="name">Имя, Фамилия</label> <br>
-                                <input class="input" type="text" name="name" id="name" placeholder="Abuamr Gafurov">
+                                <input class="input" type="text" name="name" id="name" placeholder="Abuamr Gafurov" 
+                                    v-model.trim="$v.name.$model" 
+                                    :class="{ 'is-invalid':$v.name.$error, 'is-valid':!$v.name.$invalid }"
+                                >
+                                <div class="valid-feedback"></div>
+                                <div class="invalid-feedback">
+                                    <span v-if="!$v.name.required">Это поле обязательное. <button type="button" @click="clearName"><v-icon class="v-icon">mdi-close</v-icon></button></span>
+                                    <span v-if="!$v.name.minLength">Это поле должен содержать минимум {{ $v.name.$params.minLength.min }} букв. <button type="button" @click="clearName"><v-icon class="v-icon">mdi-close</v-icon></button></span>
+                                    <span v-if="!$v.name.maxLength">Это поле не может содержать более {{ $v.name.$params.maxLength.max }} букв. <button type="button" @click="clearName"><v-icon class="v-icon">mdi-close</v-icon></button></span>
+                                </div>
                             </div>
                             <div class="input-container">
                                 <label class="input-label" for="email">Ваш Email</label> <br>
-                                <input class="input" type="email" name="email" id="email" placeholder="Введите Ваше E-mail">
+                                <input class="input" type="email" name="email" id="email" placeholder="Введите Ваше E-mail"
+                                    v-model.trim="$v.email.$model" 
+                                    :class="{ 'is-invalid':$v.email.$error, 'is-valid':!$v.email.$invalid }"    
+                                >
+                                <div class="valid-feedback"></div>
+                                <div class="invalid-feedback">
+                                    <span v-if="!$v.email.required">Это поле обязательное. <button type="button" @click="clearEmail"><v-icon class="v-icon">mdi-close</v-icon></button></span>
+                                    <span v-if="!$v.email.email">E-mail должен быть действительным. <button type="button" @click="clearEmail"><v-icon class="v-icon">mdi-close</v-icon></button></span>
+                                </div>
                             </div>
                             <div class="input-container">
                                 <label class="input-label" for="password">Пароль</label> <br>
-                                <input class="input" type="password" name="password" id="password" placeholder="Введите Ваш пароль">
+                                <input class="input" type="password" name="password" id="password" placeholder="Введите Ваш пароль"
+                                    v-model.trim="$v.password.$model" 
+                                    :class="{ 'is-invalid':$v.password.$error, 'is-valid':!$v.password.$invalid }"
+                                >
+                                <div class="valid-feedback"></div>
+                                <div class="invalid-feedback">
+                                    <span v-if="!$v.password.required">Введите Ваш пароль. <button type="button" @click="clearPassword"><v-icon class="v-icon">mdi-close</v-icon></button></span>
+                                    <span v-if="!$v.password.minLength">Пароль должен содержать минимум {{ $v.password.$params.minLength.min }} символов. <button type="button" @click="clearPassword"><v-icon class="v-icon">mdi-close</v-icon></button></span>
+                                </div>
                             </div>
                             <div class="input-container">
                                 <label class="input-label" for="confirmPassword">Подтверждение пароля</label> <br>
-                                <input class="input" type="password" name="confirmPassword" id="confirmPassword" placeholder="Ваш пароль">
+                                <input class="input" type="password" name="confirmPassword" id="confirmPassword" placeholder="Ваш пароль" 
+                                    v-model.trim="$v.confirmPassword.$model" 
+                                    :class="{ 'is-invalid':$v.confirmPassword.$error, 'is-valid': (password != '') ? !$v.confirmPassword.$invalid : '' }"
+                                >
+                                <div class="valid-feedback"></div>
+                                <div class="invalid-feedback">
+                                    <span v-if="!$v.confirmPassword.required">Подтвердите Ваш пароль.<button type="button" @click="clearConfirmPassword"><v-icon class="v-icon">mdi-close</v-icon></button></span>
+                                    <span v-if="!$v.confirmPassword.sameAsPassword">Пароли не совпадают. <button type="button" @click="clearConfirmPassword"><v-icon class="v-icon">mdi-close</v-icon></button></span>
+                                </div>
                             </div>
                             <button class="submit-btn" type="submit">Регистрация</button>
                         </form>
@@ -47,10 +80,58 @@
 </template>
 
 <script>
+import { required, minLength, maxLength, email, sameAs } from 'vuelidate/lib/validators'
 export default {
     name: 'RegisterPage',
     data() {
-        return {}
+        return {
+            name: '',
+            email: '',
+            password: '',
+            confirmPassword: '',
+            valid: false
+        }
+    },
+    validations: {
+        name: {
+            required,
+            minLength: minLength(5),
+            maxLength: maxLength(30)
+        },
+        email: {
+            required,
+            email
+        },
+        password: {
+            required,
+            minLength: minLength(8)
+        },
+        confirmPassword: {
+            required,
+            sameAsPassword: sameAs('password')
+        }
+    },
+    methods: {
+        clearName () {
+            this.name = ''
+        },
+        clearEmail () {
+            this.email = ''
+        },
+        clearPassword () {
+            this.password = ''
+        },
+        clearConfirmPassword () {
+            this.confirmPassword = ''
+        },
+        submitForm () {
+            this.$v.$touch() 
+            if(this.$v.$invalid) {
+                console.log('Fail')
+            } else {
+                console.log('Success')
+            }
+        }
     }
 }
 </script>
@@ -82,6 +163,7 @@ export default {
         color: rgba(40, 44, 64, 0.7);
     }
     .input-container {
+        position: relative;
         margin-bottom: 18px;
     }
     .input-label {
@@ -124,6 +206,40 @@ export default {
     }
     .submit-btn:active {
         opacity: 0.5;
+    }
+    .valid-feedback {
+        position: absolute;
+        top: 51px;
+        left: 0px;
+        border-bottom: 2px solid;
+    }
+    .valid-feedback::after {
+        content: "";
+        position: absolute;
+        right: 7px;
+        top: -30px;
+        width: 6px;
+        height: 14px;
+        border: solid rgb(0 195 17);
+        border-width: 0px 2px 2px 0;
+        transform: rotate(45deg);
+    }
+    .invalid-feedback {
+        position: absolute;
+        top: 51px;
+        left: 0px;
+        border-top: 2px solid;
+    }
+    .invalid-feedback button {
+        position: absolute;
+        top: -35px;
+        right: 0px;
+    }
+    button:focus {
+        outline: none;
+    }
+    .v-icon {
+        color: inherit !important;
     }
     @media screen and (max-width: 599px) {
         .card {

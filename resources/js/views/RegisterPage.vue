@@ -88,8 +88,7 @@ export default {
             name: '',
             email: '',
             password: '',
-            confirmPassword: '',
-            valid: false
+            confirmPassword: ''
         }
     },
     validations: {

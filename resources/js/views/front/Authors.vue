@@ -1,5 +1,5 @@
 <template>
-    <v-col cols="7">
+    <v-col cols="5">
         <h5 class="text-uppercase font-weight-regular py-4">Авторы</h5>
         <p class="grey--text">Авторы. Полный список всех авторов по алфавиту, а также есть возможность поиска.</p>
         <v-col cols="8" class="d-flex align-items-center pl-0">

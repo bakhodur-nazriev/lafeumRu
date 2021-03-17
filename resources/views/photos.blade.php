@@ -8,7 +8,7 @@
 @endsection
 
 @section('content')
-        <photos :photos="{{ $photos }}"></photos>
+    <photos></photos>
 
     {{-- <div class="mt-5 d-flex justify-content-center">
         {!! $photos->onEachSide(2)->links(); !!}

@@ -2,6 +2,7 @@ require("./constants");
 
 import Vue from "vue";
 import Vuetify from "vuetify";
+import Vuelidate from "vuelidate"
 import "vuetify/dist/vuetify.min.css";
 import "@mdi/font/css/materialdesignicons.css";
 import frontApp from "./components/frontApp";
@@ -48,6 +49,7 @@ window.Event = new (class {
 
 Vue.use("draggable");
 Vue.use(Vuetify);
+Vue.use(Vuelidate);
 Vue.use(Embed);
 
 Vue.component("default", require("./views/front/Default").default);
@@ -63,6 +65,14 @@ Vue.component("vocabulary", require("./views/front/Vocabulary").default);
 Vue.component("channels", require("./views/front/Channels").default);
 Vue.component("front-navbar", require("./components/layouts/FrontNavbar").default);
 Vue.component("front-footer", require("./components/layouts/FrontFooter").default);
+
+
+/* Login */
+Vue.component("login", require("./views/LoginPage").default);
+Vue.component("register", require("./views/RegisterPage").default);
+
+/* Contacts */
+Vue.component("contacts", require("./views/front/Contacts").default);
 
 /* Layouts */
 Vue.component("quoteItem", require("./views/front/layouts/QuoteItem").default);

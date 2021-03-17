@@ -47,8 +47,7 @@
                                 <div class="valid-feedback"></div>
                                 <div class="invalid-feedback">
                                     <span v-if="!$v.name.required">Это поле обязательное. <button type="button" @click="clearName"><v-icon class="v-icon">mdi-close</v-icon></button></span>
-                                    <span v-if="!$v.name.minLength">Это поле должен содержать минимум {{ $v.name.$params.minLength.min }} букв. <button type="button" @click="clearName"><v-icon class="v-icon">mdi-close</v-icon></button></span>
-                                    <span v-if="!$v.name.maxLength">Это поле не может содержать более {{ $v.name.$params.maxLength.max }} букв. <button type="button" @click="clearName"><v-icon class="v-icon">mdi-close</v-icon></button></span>
+                                    <span v-if="!$v.name.minLength">Это поле должен содержать минимум {{ $v.name.$params.minLength.min }} буквы. <button type="button" @click="clearName"><v-icon class="v-icon">mdi-close</v-icon></button></span>
                                 </div>
                             </div>
                             <div class="input-container">
@@ -64,15 +63,14 @@
                                 </div>
                             </div>
                             <div class="input-container">
-                                <label class="input-label" for="password">Пароль</label> <br>
-                                <input class="input" type="password" name="password" id="password" placeholder="Введите Ваш пароль"
-                                    v-model.trim="$v.password.$model" 
-                                    :class="{ 'is-invalid':$v.password.$error, 'is-valid':!$v.password.$invalid }"
+                                <label class="input-label" for="theme">Тема</label> <br>
+                                <input class="input" type="text" name="theme" id="theme" placeholder="Тема"
+                                    v-model.trim="$v.theme.$model" 
+                                    :class="{ 'is-invalid':$v.theme.$error, 'is-valid':!$v.theme.$invalid }"
                                 >
                                 <div class="valid-feedback"></div>
                                 <div class="invalid-feedback">
-                                    <span v-if="!$v.password.required">Введите Ваш пароль. <button type="button" @click="clearPassword"><v-icon class="v-icon">mdi-close</v-icon></button></span>
-                                    <span v-if="!$v.password.minLength">Пароль должен содержать минимум {{ $v.password.$params.minLength.min }} символов. <button type="button" @click="clearPassword"><v-icon class="v-icon">mdi-close</v-icon></button></span>
+                                    <span v-if="!$v.theme.required">Введите Вашу тему. <button type="button" @click="clearTheme"><v-icon class="v-icon">mdi-close</v-icon></button></span>
                                 </div>
                             </div>
                             <div class="textarea-container">
@@ -86,8 +84,6 @@
                                 <div class="invalid-feedback">
                                     <button type="button" @click="clearMessage"><v-icon class="v-icon">mdi-close</v-icon></button>
                                     <span v-if="!$v.message.required">Это поле обязательное.</span>
-                                    <span v-if="!$v.message.minLength">Пароль должен содержать минимум {{ $v.message.$params.minLength.min }} символов. </span>
-                                    <span v-if="!$v.message.maxLength">Это поле не может содержать более {{ $v.message.$params.maxLength.max }} букв. </span>
                                 </div>
                             </div>
                             <button class="submit-btn" type="submit">Вход</button>
@@ -100,35 +96,31 @@
 </template>
 
 <script>
-import { required, minLength, maxLength, email, sameAs } from 'vuelidate/lib/validators'
+import { required, minLength, email, } from 'vuelidate/lib/validators'
 export default {
     name: 'Contacts',
     data() {
         return {
             name: '',
             email: '',
-            password: '',
+            theme: '',
             message: ''
         }
     },
     validations: {
         name: {
             required,
-            minLength: minLength(5),
-            maxLength: maxLength(30)
+            minLength: minLength(2)
         },
         email: {
             required,
             email
         },
-        password: {
-            required,
-            minLength: minLength(8)
+        theme: {
+            required
         },
         message: {
-            required,
-            minLength: minLength(10),
-            maxLength: maxLength(100)
+            required
         }
     },
     methods: {
@@ -138,7 +130,7 @@ export default {
         clearEmail () {
             this.email = ''
         },
-        clearPassword () {
+        clearTheme () {
             this.password = ''
         },
         clearMessage () {
@@ -152,7 +144,7 @@ export default {
                 const user = {
                     name: this.name,
                     email: this.email,
-                    password: this.password,
+                    theme: this.theme,
                     message: this.message
                 }
                 console.log(user)

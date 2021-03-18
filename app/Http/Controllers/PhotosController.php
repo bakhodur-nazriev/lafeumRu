@@ -16,7 +16,7 @@ class PhotosController extends Controller
 
     public function index()
     {
-        $photos = Photo::published('desc')->paginate(30);
+        $photos = Photo::published('desc')->get();
         return view("/photos", compact("photos"));
     }
 

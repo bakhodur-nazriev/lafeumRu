@@ -1,13 +1,9 @@
 <template>
-    <v-container>
-        <v-row>
-            <v-col cols="12">
-                <h1 class="text-uppercase mb-0">Контакты</h1>
-            </v-col>
-        </v-row>
-        <v-row>
-            <v-col cols="12" lg="6">
-                <h2 class="mb-0">Контакты</h2>
+        <v-col cols="8">
+        <h5 class="text-uppercase font-weight-regular py-4">Контакты</h5>
+        <div class="d-flex justify-content-between">
+            <div>
+                <h2 class="display-1 font-weight-medium">Контакты</h2>
                 <p class="contact-text mt-2 pr-4 mb-8">
                     Мы рады, что Вы посетили наш сайт и ознакомились с находящейся на нем информацией.
                     Вся информация находится в свободном доступе и предназначена только для частного пользования.
@@ -16,19 +12,19 @@
                     Будем рады рассмотреть Ваши рекомендации по усовершенствованию сайта.
                 </p>
                 <div class="item mb-11">
-                    <h3 class="mb-3">Электронная почта</h3>
+                    <h4 class="mb-3">Электронная почта</h4>
                     <a href="mailto:info@lafeum.org">info@lafeum.org</a>
                 </div>
                 <div class="item">
-                    <h3 class="mb-3">Адрес</h3>
+                    <h4 class="mb-3">Адрес</h4>
                     <a href="mailto:info@lafeum.org">info@lafeum.org</a>
                 </div>
-            </v-col>
-            <v-col cols="12" lg="6">
+            </div>
+            <div>
                 <v-card 
-                elevation="0"
-                max-width="566"
-                class="card rounded-lg mx-auto"
+                    elevation="0"
+                    width="566"
+                    class="card rounded-lg mx-auto"
                 >
                     <v-card-title class="pa-0">
                         <h2 class="mb-4">Свяжитесь с нами</h2>
@@ -90,9 +86,9 @@
                         </form>
                     </v-card-text>
                 </v-card>
-            </v-col>
-        </v-row>
-    </v-container>
+            </div>
+        </div>
+        </v-col>
 </template>
 
 <script>
@@ -154,30 +150,11 @@ export default {
 }
 </script>
 <style scoped>
-    h1 {
-        font-weight: 400;
-        font-size: 16px;
-        line-height: 24px;
-        letter-spacing: 0.07em;
-        color: #6C6C64;
-    }
-    h2 {
-        font-size: 36px;
-        font-weight: 600;
-        line-height: 110%;
-        letter-spacing: -1px;
-    }
     .contact-text {
         font-size: 14px;
         line-height: 136%;
         color: #676767;
-        max-width: 720px;
-    }
-    h3 {
-        font-size: 22px;
-        line-height: 110%;
-        font-weight: 700;
-        color: #494949;
+        max-width: 543px;
     }
     .item a {
         font-size: 18px;
@@ -188,7 +165,7 @@ export default {
         margin-bottom: 100px;
     }
     .card {
-        margin-bottom: 149px;
+        margin-bottom: 40px;
         padding: 66px 90px 78px 99px;
         background-color: #f5f5f5 !important;
         border: none;

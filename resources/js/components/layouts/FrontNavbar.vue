@@ -3,54 +3,65 @@
         app
         flat
         height="84"
-        class="primary d-flex justify-content-around"
+        class="primary"
     >
-        <div class="d-flex align-items-center">
-            <div
-                v-for="link in links"
-                :key="link.href"
-            >
-                <a :href="link.href" class="navbar-links mx-3">
-                    <span v-if="link.name">{{ link.name }}</span>
-                    <v-img v-else width="71" class="mr-5" src="/img/lafeum-ru-home.png"></v-img>
-                </a>
-            </div>
-        </div>
-        <div class="d-flex align-items-center">
-            <v-avatar>
-                <img
-                    src="https://cdn.vuetifyjs.com/images/john.jpg"
-                    alt="John"
-                >
-            </v-avatar>
-            <v-menu offset-y left min-width="240" rounded="lg" nudge-bottom="20">
-                <template v-slot:activator="{ on }">
-                    <v-btn
-                        icon
-                        v-on="on"
-                        color="white"
-                    >
-                        <v-icon>
-                            mdi-menu-down
-                        </v-icon>
-                    </v-btn>
-                </template>
-                <v-list>
-                    <v-list-item
-                        v-for="profileLink in profileLinks"
-                        :key="profileLink.href"
-                    >
+        <v-container>
+            <v-row justify="center">
+                <v-col cols="8" class="d-flex justify-content-between">
+                    <div class="d-flex align-items-center">
+                        <div
+                            v-for="link in links"
+                            :key="link.href"
+                        >
+                            <a :href="link.href" class="navbar-links mx-3">
+                                <span v-if="link.name">{{ link.name }}</span>
+                                <v-img v-else width="71" class="mr-5" src="/img/lafeum-ru-home.png"></v-img>
+                            </a>
+                        </div>
+                    </div>
 
-                        <v-list-item-title class=" px-3 py-5">
-                            <v-icon color="grey lighten-1" class="mr-6">{{ profileLink.icon }}</v-icon>
-                            <a class="navbar-profile-links" :href="profileLink.href">{{
-                                profileLink.title
-                                }}</a>
-                        </v-list-item-title>
-                    </v-list-item>
-                </v-list>
-            </v-menu>
-        </div>
+                    <div class="d-flex align-items-center" v-if="!user">
+                        <v-btn 
+                            color="white" 
+                            class="text-capitalize rounded-lg"
+                            elevation="0"
+                            width="88"
+                        >
+                            <a href="/login" class="text-decoration-none">вход</a>
+                        </v-btn>
+                    </div>
+                    <div class="d-flex align-items-center" v-else>
+                        <v-avatar>
+                            <img :src="user.avatar">
+                        </v-avatar>
+                        <v-menu offset-y left min-width="240" rounded="lg" nudge-bottom="20">
+                            <template v-slot:activator="{ on }">
+                                <v-btn
+                                    icon
+                                    v-on="on"
+                                    color="white"
+                                >
+                                    <v-icon>
+                                        mdi-menu-down
+                                    </v-icon>
+                                </v-btn>
+                            </template>
+                            <v-list>
+                                <v-list-item
+                                    v-for="profileLink in profileLinks"
+                                    :key="profileLink.href"
+                                >
+                                    <v-list-item-title class=" px-3 py-5">
+                                        <v-icon color="grey lighten-1" class="mr-6">{{ profileLink.icon }}</v-icon>
+                                        <a class="navbar-profile-links" :href="profileLink.href">{{ profileLink.title }}</a>
+                                    </v-list-item-title>
+                                </v-list-item>
+                            </v-list>
+                        </v-menu>
+                    </div>
+                </v-col>
+            </v-row>
+        </v-container>
     </v-app-bar>
 </template>
 
@@ -59,6 +70,7 @@ export default {
     name: "FrontNavbar",
     data() {
         return {
+            user: window.Laravel.auth,
             profileLinks: [
                 {
                     title: "Мой Профил",
@@ -120,7 +132,7 @@ export default {
                 },
             ]
         }
-    }
+    },
 }
 </script>
 

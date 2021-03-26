@@ -100,15 +100,13 @@
                                         height="52"
                                         color="primary"
                                         class="rounded-lg"
-                                        @click=""
                                     >
                                         Сохранить изменения
                                     </v-btn>
                                 </div>
                             </v-col>
                             <v-col cols="12">
-                                <label class="w-100 grey--text text-start font-weight-regular mb-2">Адрес
-                                    E-mail*</label>
+                                <label class="w-100 grey--text text-start font-weight-regular mb-2">Адрес E-mail*</label>
                                 <div class="d-flex">
                                     <v-text-field
                                         dense

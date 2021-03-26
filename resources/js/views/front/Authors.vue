@@ -2,7 +2,7 @@
     <v-col cols="5">
         <h5 class="text-uppercase font-weight-regular py-4">Авторы</h5>
         <p class="grey--text">Авторы. Полный список всех авторов по алфавиту, а также есть возможность поиска.</p>
-        <v-col cols="8" class="d-flex align-items-center pl-0">
+        <v-col cols="8" class="d-flex align-items-center pl-0 mb-9">
             <div class="form-search rounded-lg w-100">
                 <v-text-field
                     solo
@@ -26,7 +26,7 @@
         </v-col>
         <div class="row">
             <ul class="list-inline py-1 list-col-4">
-                <li v-for="(author ,i) in allAuthors" :key="i">
+                <li v-for="(author ,i) in allAuthors" :key="i" class="my-2">
                     <a :href="`/authors/`+author.slug" v-html="author.name"></a>
                 </li>
             </ul>

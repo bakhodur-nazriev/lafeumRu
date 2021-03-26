@@ -96,7 +96,7 @@
             </div>
         </div>
     </div> --}}
-    <script>
+    {{-- <script>
         $(document).ready(() => {
             attachSearch(
                 "#vocabulary-search",
@@ -164,6 +164,6 @@
                 searchInput.style.removeProperty('border-right');
             };
         }
-    </script>
+    </script> --}}
 @endsection
 {{-- @section('right-side-bar')@endsection --}}

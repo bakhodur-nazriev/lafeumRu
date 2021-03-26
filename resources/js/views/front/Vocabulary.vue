@@ -17,6 +17,7 @@
                     clearable
                     height="52"
                     hide-details
+                    v-model="vocabularySearch"
                     placeholder="Область знаний"
                     background-color="transparent"
                     class="rounded-lg rounded-tr-0 rounded-br-0"
@@ -41,23 +42,24 @@
 
         <h5 class="text-uppercase font-weight-regular">все слова</h5>
 
-        <div class="row">
-            <v-col cols="6 px-4">
-                <v-card rounded="lg" flat height="250">
-                    <v-card-text class="py-1" v-for="(term, i) in allTerms" :key="i">
-                        <!--<h1></h1>-->
-                        <a href="#">
-                            {{ term.name }}
-                        </a>
+        <div class="row" justify="center">
+            <v-col cols="6" v-for="(column, i) in columns" :key="i">
+                <v-card rounded="lg" class="pa-6" flat>
+                    <v-card-text class="truncate-to-seven-line" v-for="(term ,i) in column" :key="i">
+                        <h1 class="mb-4 vocabulary-words text-decoration-none">{{ term.group }}</h1>
+                        <span v-for="(child ,i) in term.children" :key="i">
+                            <a
+                                class="vocabulary-words text-decoration-none my-2"
+                                :href="child.post.id"
+                            >
+                                {{ child.name }}
+                            </a>
+                            <br/>
+                        </span>
                     </v-card-text>
                 </v-card>
             </v-col>
 
-            <v-col class="text-center my-5">
-                <v-btn large class="grey lighten-1" icon>
-                    <v-icon color="white">mdi-arrow-down</v-icon>
-                </v-btn>
-            </v-col>
         </div>
         <div class="text-center">
             <v-pagination v-model="page" :length="3"></v-pagination>
@@ -71,8 +73,33 @@ export default {
     data() {
         return {
             allTerms: this.terms,
-            page: 1,
+            vocabularySearch: "",
+            maxVocabularyHeight: 100,
+            page: 0,
+            cols: 2
         };
+    },
+    computed: {
+        orderVocabulary() {
+            let allData = this.allTerms.reduce((r, e) => {
+                let group = e.name[0];
+                if (!r[group]) r[group] = {group, children: [e]}
+                else r[group].children.push(e);
+                return r;
+            }, {})
+            return Object.values(allData);
+        },
+        columns () {
+            let columns = []
+            let mid = Math.ceil(this.orderVocabulary.length / this.cols)
+            for (let col = 0; col < this.cols; col++) {
+                columns.push(this.orderVocabulary.slice(col * mid, col * mid + mid))
+            }
+            return columns
+        }
+    },
+    created(){
+        console.log(this.orderVocabulary);
     }
 };
 </script>
@@ -83,5 +110,21 @@ export default {
     border: 2px solid #1a718c;
 }
 
+.truncate-to-seven-line{
+    padding: 0;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+}
+
+
+.vocabulary-words {
+    color: #494949;
+}
+
+.vocabulary-words:hover {
+    color: #1a718c;
+}
 
 </style>

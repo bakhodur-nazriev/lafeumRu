@@ -29,27 +29,13 @@ class TermsController extends Controller
 
     public function indexVocabulary()
     {
-//        $terms = Term::with('post')
-//            ->where('show_in_vocabulary', true)
-//            ->orderBy('name')
-//            ->published()
-//            ->get();
+        $terms = Term::with('post')
+            ->where('show_in_vocabulary', true)
+            ->orderBy('name')
+            ->published()
+            ->get();
 
-
-//        $terms = Term::select(DB::raw('SUBSTR(terms.name, 1, 1) as index'))->with('post')
-//            ->where('show_in_vocabulary', true)
-//            ->orderBy('name')
-//            ->published()->groupBy('index')->get();
-
-        dd(Term::select(
-            DB::raw('GROUP_CONCAT(name) as name'),
-            DB::raw('GROUP_CONCAT(id) as id'))
-            ->where('name', '!=', '')
-            ->groupBy(DB::raw('SUBSTR(name, 1, 1)'))
-            ->get());
-
-
-        return view("/vocabulary", compact(["terms"]));
+        return view("/vocabulary", compact("terms"));
     }
 
     public function linksSearch(Request $request)

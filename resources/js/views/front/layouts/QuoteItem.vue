@@ -1,57 +1,57 @@
 <template>
     <div>
-        <v-card rounded="lg" flat v-for="i in 3" :key="i" class="mb-8">
+        <v-card
+            rounded="lg"
+            flat class="mb-8"
+        >
             <v-card-subtitle class="d-flex p-4">
                 <v-spacer></v-spacer>
-                <a class="grey--text text-decoration-none" href="#">#12345</a>
+                <a 
+                    class="grey--text text-decoration-none" 
+                    :href="quoteItem.post.id"
+                >
+                    #{{ quoteItem.post.id }}
+                </a>
             </v-card-subtitle>
 
-            <v-divider class="m-0 b"></v-divider>
+            <v-divider class="m-0 grey lighten-3"></v-divider>
 
             <v-card-text class="p-4">
-                <p class="subtitle-1">Законы математики, имеющие какое-либо отношение к реальному миру, ненадёжны; а
-                    надёжные
-                    математические законы не имеют отношения к реальному миру.</p>
+                <p class="subtitle-1">{{ quoteItem.body }}</p>
                 <div class="mb-2">
                     <a class="d-flex align-items-center text-decoration-none" href="#">
                         <v-icon color="grey lighten-1">mdi-account</v-icon>
-                        <h5 class="mb-0 ml-1 black--text">Альберт Эйнштейн</h5>
+                        <h5 class="mb-0 ml-1 black--text subtitle-1">{{ quoteItem.author.name }}</h5>
                     </a>
                 </div>
                 <div class="categories-block">
-                    <a href="#" class="mx-1 grey--text text-decoration-none">Достижения</a>
-                    <a href="#" class="mx-1 grey--text text-decoration-none">Эрудиция</a>
-                    <a href="#" class="mx-1 grey--text text-decoration-none">Компетентность</a>
+                    <a 
+                        class="mx-1 grey--text text-decoration-none"
+                        v-for="(quoteCategories ,i) in quoteItem.categories" 
+                        :key="i"
+                        :href="`/quotes/` + quoteCategories.slug" 
+                    >{{ quoteCategories.name }}</a>
                 </div>
             </v-card-text>
 
-            <v-divider class="m-0"></v-divider>
+            <v-divider class="m-0 grey lighten-3"></v-divider>
 
-            <v-card-actions class="p-4">
-                <div>
-                    <v-btn icon color="grey lighten-1">
-                        <v-icon color="red">mdi-heart</v-icon>
+            <v-card-actions class="px-5 py-4">
+                <div v-for="(quoteAction ,i) in quoteActions" :key="i">
+                    <v-btn icon>
+                        <v-icon color="grey lighten-1">{{ quoteAction.icon }}</v-icon>
                     </v-btn>
-                    <span class="grey--text lighten-1">44</span>
-                    <v-btn icon color="grey lighten-1">
-                        <v-icon>mdi-bookmark</v-icon>
-                    </v-btn>
-                    <span class="grey--text lighten-1">13</span>
-                    <v-btn icon color="grey lighten-1">
-                        <v-icon>mdi-message-reply-text</v-icon>
-                    </v-btn>
-                    <span class="grey--text lighten-1">3</span>
+                    <span>{{ quoteAction.count }}</span>
                 </div>
                 <v-spacer></v-spacer>
                 <div>
                     <v-btn icon color="grey lighten-1">
                         <v-icon>mdi-share-variant</v-icon>
                     </v-btn>
-                    <span></span>
                 </div>
             </v-card-actions>
 
-            <v-divider class="m-0"></v-divider>
+            <v-divider class="m-0 grey lighten-3"></v-divider>
 
             <v-card-text class="d-flex align-items-center p-4">
                 <v-avatar size="50">
@@ -73,8 +73,25 @@
 
 <script>
 export default {
+    props: ["authorsQuote"],
     data() {
-        return {}
+        return {
+            quoteItem: this.authorsQuote,
+            quoteActions: [
+                {
+                    icon: "mdi-heart",
+                    count: 45
+                },
+                {
+                    icon: "mdi-bookmark",
+                    count: 87
+                },
+                {
+                    icon: "mdi-message-reply-text",
+                    count: 52
+                }
+            ]
+        }
     }
 }
 </script>

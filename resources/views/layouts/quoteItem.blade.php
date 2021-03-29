@@ -2,7 +2,7 @@
     if(isset($item) && !isset($qoute)){
         $quote = $item;
     }
-    
+
     $quoteСategories = collect($quote->categories)->sortBy('name');
 @endphp
 
@@ -16,6 +16,11 @@
         <div class="col-6 py-0 text-right">
             <a class="secondary mr-2" href="/{{ $quote->post->id }}">#{{ $quote->post->id }}</a>
         </div>
+    </div>
+    <div>
+        <p class="text-secondary" style="font-size: 0.7rem">
+            <em>{{ $quote->authors_thoughts }}</em>
+        </p>
     </div>
     <div class="mb-1">{!! $quote->body !!}</div>
     <div class="tags-block">

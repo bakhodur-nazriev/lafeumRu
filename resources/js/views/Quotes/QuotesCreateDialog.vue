@@ -18,6 +18,13 @@
                                 v-model="newQuote.author_id"
                             />
                         </v-col>
+                        <v-col cols="12" md="py-0">
+                            <v-textarea
+                                outlined
+                                v-model="newQuote.authors_thoughts"
+                                label="Мысли автора"
+                            />
+                        </v-col>
                         <v-col cols="12 py-0">
                             <v-autocomplete
                                 outlined
@@ -38,11 +45,11 @@
                             />
                         </v-col>
                         <v-col cols="12 py-0">
-                             <wysiwyg-editor
-                                 v-model="newQuote.body"
-                                 label="Введите цитату здесь"
-                                 :rules="[rules.required]"
-                             />
+                            <wysiwyg-editor
+                                v-model="newQuote.body"
+                                label="Введите цитату здесь"
+                                :rules="[rules.required]"
+                            />
                         </v-col>
                     </v-row>
                 </v-container>
@@ -86,9 +93,10 @@ export default {
         getDefaultQuote() {
             return {
                 body: "",
-                author_id: null,
                 categories: [],
-                publish_at: ""
+                publish_at: "",
+                author_id: null,
+                authors_thoughts: ""
             };
         },
         resetNewQuote() {

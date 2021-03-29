@@ -13,7 +13,7 @@ class Quote extends Model
     use Favoriteable;
     use PublishableTrait;
 
-    protected $fillable = ["body", "author_id", "publish_at", "deleted_at"];
+    protected $fillable = ["body", "author_id", "publish_at", "deleted_at", "authors_thoughts"];
 
     public function author()
     {

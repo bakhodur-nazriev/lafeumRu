@@ -1,5 +1,5 @@
 <template>
-    <v-col cols="5 px-5">
+    <v-col cols="5" class="px-7">
         <h5 class="text-uppercase font-weight-regular py-4">Словарь «ЛАФЕЮМ»</h5>
         <p class="grey--text">
             На сегодня содержит более одной тысячи основных терминов, соответствующих
@@ -44,26 +44,37 @@
 
         <div class="row" justify="center">
             <v-col cols="6" v-for="(column, i) in columns" :key="i">
-                <v-card rounded="lg" class="pa-6" flat>
-                    <v-card-text class="truncate-to-seven-line" v-for="(term ,i) in column" :key="i">
-                        <h1 class="mb-4 vocabulary-words text-decoration-none">{{ term.group }}</h1>
-                        <span v-for="(child ,i) in term.children" :key="i">
-                            <a
-                                class="vocabulary-words text-decoration-none my-2"
-                                :href="child.post.id"
+                <v-card rounded="lg" class="px-8 py-5" flat>
+                    <v-card-text class="pa-1" v-for="(term ,i) in column" :key="i">
+                        <h1 class="vocabulary-letter text-decoration-none pt-4 pb-2">{{ term.group }}</h1>
+                        <div class="truncate-to-seven-line">
+                            <div
+                                class="pb-1"
+                                v-for="(child ,i) in term.children"
+                                :key="i"
                             >
-                                {{ child.name }}
-                            </a>
-                            <br/>
-                        </span>
+                                <a
+                                    class="vocabulary-words text-decoration-none"
+                                    :href="child.post.id"
+                                >
+                                    {{ child.name }}
+                                </a>
+                                <br/>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <a href="#" class="font-italic">Еще.</a>
+                        </div>
                     </v-card-text>
                 </v-card>
             </v-col>
+        </div>
 
-        </div>
-        <div class="text-center">
-            <v-pagination v-model="page" :length="3"></v-pagination>
-        </div>
+        <v-col cols class="text-center my-5">
+<!--            <v-btn large class="grey lighten-1" icon>-->
+<!--                <v-icon color="white">mdi-arrow-down</v-icon>-->
+<!--            </v-btn>-->
+        </v-col>
     </v-col>
 </template>
 
@@ -89,7 +100,7 @@ export default {
             }, {})
             return Object.values(allData);
         },
-        columns () {
+        columns() {
             let columns = []
             let mid = Math.ceil(this.orderVocabulary.length / this.cols)
             for (let col = 0; col < this.cols; col++) {
@@ -98,9 +109,6 @@ export default {
             return columns
         }
     },
-    created(){
-        console.log(this.orderVocabulary);
-    }
 };
 </script>
 
@@ -110,14 +118,17 @@ export default {
     border: 2px solid #1a718c;
 }
 
-.truncate-to-seven-line{
+.truncate-to-seven-line {
     padding: 0;
     overflow: hidden;
     display: -webkit-box;
-    -webkit-line-clamp: 6;
+    -webkit-line-clamp: 7;
     -webkit-box-orient: vertical;
 }
 
+.vocabulary-letter {
+    color: #494949;
+}
 
 .vocabulary-words {
     color: #494949;

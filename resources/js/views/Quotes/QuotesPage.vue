@@ -87,7 +87,7 @@ export default {
                     align: "center",
                 },
                 {
-                    text: "Мысли автора",
+                    text: "Примечание",
                     value: "authors_thoughts",
                     align: "center",
                     width: "160px"

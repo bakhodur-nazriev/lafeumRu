@@ -17,9 +17,9 @@
             <a class="secondary mr-2" href="/{{ $quote->post->id }}">#{{ $quote->post->id }}</a>
         </div>
     </div>
-    <div>
-        <p class="text-secondary" style="font-size: 0.7rem">
-            <em>{{ $quote->authors_thoughts }}</em>
+    <div class="text-secondary">
+        <p style="font-size: 0.8rem">
+            {!! $quote->authors_thoughts !!}
         </p>
     </div>
     <div class="mb-1">{!! $quote->body !!}</div>

@@ -21,13 +21,14 @@
                     </div>
 
                     <div class="d-flex align-items-center" v-if="!user">
-                        <v-btn 
-                            color="white" 
-                            class="text-capitalize rounded-lg"
+                        <v-btn
+                            color="white primary--text"
+                            class="text-capitalize rounded-lg text-decoration-none primary"
                             elevation="0"
                             width="88"
+                            href="/login"
                         >
-                            <a href="/login" class="text-decoration-none">вход</a>
+                            вход
                         </v-btn>
                     </div>
                     <div class="d-flex align-items-center" v-else>
@@ -53,7 +54,9 @@
                                 >
                                     <v-list-item-title class=" px-3 py-5">
                                         <v-icon color="grey lighten-1" class="mr-6">{{ profileLink.icon }}</v-icon>
-                                        <a class="navbar-profile-links" :href="profileLink.href">{{ profileLink.title }}</a>
+                                        <a class="navbar-profile-links" :href="profileLink.href">{{
+                                            profileLink.title
+                                            }}</a>
                                     </v-list-item-title>
                                 </v-list-item>
                             </v-list>

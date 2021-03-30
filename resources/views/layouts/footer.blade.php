@@ -1,7 +1,7 @@
 <footer class="text-white-50 footer">
     <div class="container text-center">
         <div><img src="/img/white-footer-logo.png" alt="white logo lafuem"></div>
-        <small class="text-light">&copy; 2017-2020 LAFEUM. ВСЕ ПРАВА ЗАЩИЩЕНЫ.</small><br>
+        <small class="text-light">&copy; 2017-2021 LAFEUM. ВСЕ ПРАВА ЗАЩИЩЕНЫ.</small><br>
         <a class="text-decoration-none text-light px-2" href="/about-us" target="_blank">О сайте</a>
         <a class="text-decoration-none text-light px-2" href="/contacts" target="_blank">Контакты</a>
         <br class="mobile">

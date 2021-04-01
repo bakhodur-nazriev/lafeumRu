@@ -35,9 +35,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        /* Counter Posts Block View */
-        View::composer('layouts.countItems', CountItemsComposer::class);
-
         /* Right Sidebar Daily Posts Block View */
         View::composer('layouts.right-sidebar.rightSidebar', DailyPostsComposer::class);
 

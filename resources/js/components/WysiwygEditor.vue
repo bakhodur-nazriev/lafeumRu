@@ -31,7 +31,6 @@ export default {
                 modules: {
                     toolbar: [
                         ['bold', 'italic', 'underline', 'strike', 'blockquote'],        // toggled buttons
-
                         [{'header': 1}, {'header': 2}],               // custom button values
                         [{'list': 'ordered'}, {'list': 'bullet'}],
                         [{'indent': '-1'}, {'indent': '+1'}],          // outdent/indent
@@ -41,7 +40,8 @@ export default {
                                 'black',
                                 '#B83336',
                                 'white',
-                                '#0099ff'
+                                '#0099ff',
+                                '#6c757d'
                             ]
                         }, {'background': []}],          // dropdown with defaults from theme
                         [{'align': []}],
@@ -54,7 +54,7 @@ export default {
 </script>
 
 <style>
-.ql-snow .ql-tooltip a.ql-action::after{
+.ql-snow .ql-tooltip a.ql-action::after {
     margin-left: 0;
 }
 

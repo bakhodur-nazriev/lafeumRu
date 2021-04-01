@@ -35,7 +35,7 @@ ol {
 }
 
 .card-block > div > p {
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.1rem;
 }
 
 /* ------------- COLORS -------------- */
@@ -151,7 +151,7 @@ button:focus {
 
 .main-themes .dropdown-menu {
     top: 25px !important;
-    width: 75%;
+    width: auto;
 }
 
 /* ------------ COLORS  ---------- */

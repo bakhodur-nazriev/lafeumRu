@@ -18,7 +18,7 @@
 @section("content")
     @if (isset($category))
         <h3 class="secondary">{{$category->name}}</h3>
-        <p>{{ $category->description }}</p>
+        <p>{!! $category->description !!}</p>
     @else
         <h3 class="secondary">Словарь «ЛАФЕЮМ»</h3>
         <p>

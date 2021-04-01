@@ -18,11 +18,12 @@
                                 v-model="newQuote.author_id"
                             />
                         </v-col>
-                        <v-col cols="12" md="py-0">
-                            <v-textarea
-                                outlined
+                        <v-col cols="12 pt-0">
+                            <wysiwyg-editor
+                                class="mb-5"
                                 v-model="newQuote.authors_thoughts"
-                                label="Мысли автора"
+                                label="Примечание"
+                                :rules="[rules.required]"
                             />
                         </v-col>
                         <v-col cols="12 py-0">

@@ -17,10 +17,11 @@
                             v-model="quoteToUpdate.author_id"
                         />
                     </v-col>
-                    <v-col>
-                        <v-textarea
-                            outlined
-                            label="Мысли автора"
+                    <v-col cols="12 pt-0">
+                        <wysiwyg-editor
+                            class="mb-5"
+                            label="Изменить примечание"
+                            :rules="[rules.required]"
                             v-model="quoteToUpdate.authors_thoughts"
                         />
                     </v-col>

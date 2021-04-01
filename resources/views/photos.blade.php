@@ -1,4 +1,4 @@
-@extends('layouts.default-empty')
+@extends('layouts.empty')
 
 @section('meta-tags')
     @include('layouts.meta-tags', [
@@ -8,9 +8,5 @@
 @endsection
 
 @section('content')
-<photos :photos="{{ $photos }}"></photos>
-
-    {{-- <div class="mt-5 d-flex justify-content-center">
-        {!! $photos->onEachSide(2)->links(); !!}
-    </div> --}}
+    <photos></photos>
 @endsection

@@ -1,4 +1,4 @@
-@extends("layouts.default-right-sidebar")
+@extends("layouts.default")
 
 @section('meta-tags')
     @include('layouts.meta-tags', [
@@ -9,7 +9,7 @@
 
 @section("content")
     <authors :authors="{{ $authors }}"></authors>
-    
+
     {{-- <div class="row">
         <div class="col-lg-12">
             <div class="authors-main-title">

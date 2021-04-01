@@ -1,4 +1,4 @@
-@extends('layouts.default-empty')
+@extends('layouts.empty')
 
 @section('content')
     <register></register>

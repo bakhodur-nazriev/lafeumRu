@@ -1,42 +1,24 @@
 <template>
     <v-col cols="2">
         <h5 class="text-uppercase text-secondary font-weight-normal py-4">темы</h5>
-        <v-sheet class="pa-5" rounded="lg" width="100%" height="95%">
-            <v-expansion-panels
-                flat
-                multiple
-                v-model="panel"
-            >
+        <v-sheet class="pa-2" rounded="lg" width="100%">
+            <v-expansion-panels flat multiple v-model="panel">
                 <v-expansion-panel
                     v-for="(category, i) in allCategories"
                     :key="i"
                 >
-                    <v-expansion-panel-header class="px-0">
-                        {{ category.name }}
+                    <v-expansion-panel-header class="font-weight-medium">
+                        <a href="">{{ category.label }}</a>
                     </v-expansion-panel-header>
-                    <v-divider class="m-0"></v-divider>
-<!--                    <v-expansion-panel-content>-->
-<!--                        <v-btn-->
-<!--                            class="text-capitalize px-0 font-weight-normal"-->
-<!--                            v-for="(subCategory, i) in category.children"-->
-<!--                            :key="i"-->
-<!--                            href=""-->
-<!--                            text-->
-<!--                        >-->
-<!--                            {{ subCategory.name }}-->
-<!--                        </v-btn>-->
-<!--                    </v-expansion-panel-content>-->
-                    <v-col class="v-expansion-panel-content d-block">
-                        <v-btn
-                            class="text-capitalize px-0 font-weight-normal"
-                            v-for="(subCategory, i) in category.children"
-                            :key="i"
-                            href=""
-                            text
-                        >
-                            {{ subCategory.name }}
-                        </v-btn>
-                    </v-col>
+                    <!--                    <v-expansion-panel-content>-->
+                    <!--                        <div-->
+                    <!--                            v-for="(subCategory, i) in category.children"-->
+                    <!--                            :key="i"-->
+                    <!--                            class="py-1"-->
+                    <!--                        >-->
+                    <!--                            <a href="" class="sub-category-links">{{ subCategory.name }}</a>-->
+                    <!--                        </div>-->
+                    <!--                    </v-expansion-panel-content>-->
                 </v-expansion-panel>
             </v-expansion-panels>
         </v-sheet>
@@ -50,15 +32,17 @@ export default {
     data() {
         return {
             allCategories: this.categories,
-            panel: [0]
+            panel: [0, 1, 2]
         }
     },
     created() {
-        for (const categ of this.allCategories) {
-            console.log(categ.name);
-            for (const subCat of categ.children) {
-                console.log(" - " + subCat.name);
-            }
+        for (const categ of this.parentCategories) {
+            console.log(categ.label);
+        }
+    },
+    computed: {
+        parentCategories(){
+            return this.categories[0].post_links
         }
     }
 }
@@ -67,5 +51,14 @@ export default {
 <style scoped>
 button:focus {
     outline: none;
+}
+
+.sub-category-links {
+    color: #494949;
+    text-decoration: none;
+}
+
+.sub-category-links:hover {
+    color: #04718c;
 }
 </style>

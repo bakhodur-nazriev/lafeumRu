@@ -1,4 +1,4 @@
-@extends("layouts.default-right-sidebar")
+@extends("layouts.default")
 
 @section('meta-tags')
     @include('layouts.meta-tags', [
@@ -64,5 +64,3 @@
 {{--        </div>--}}
 {{--    </div>--}}
 @endsection
-
-@section('right-side-bar')@endsection

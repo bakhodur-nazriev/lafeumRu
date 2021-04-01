@@ -65,7 +65,8 @@ Vue.component("vocabulary", require("./views/front/Vocabulary").default);
 Vue.component("channels", require("./views/front/Channels").default);
 Vue.component("front-navbar", require("./components/layouts/FrontNavbar").default);
 Vue.component("front-footer", require("./components/layouts/FrontFooter").default);
-
+Vue.component("privacy-policy", require("./views/front/PrivacyPolicy").default);
+Vue.component("terms-of-use", require("./views/front/TermsOfUse").default);
 
 /* Login */
 Vue.component("login", require("./views/LoginPage").default);

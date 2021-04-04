@@ -31,7 +31,7 @@ Route::post("/contacts", "FeedbacksController@store")->name("contacts.store");
 Route::get("/knowledge", "KnowledgesController@index")->name("knowledge");
 Route::get("/knowledge/{knowledge}", "KnowledgesController@show")->name("knowledge");
 
-Route::get("/photo", "PhotosController@index")->name("photo");
+Route::get("/photos", "PhotosController@index")->name("photos");
 
 Route::get("/quotes", "QuotesController@index")->name("quotes");
 

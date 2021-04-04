@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+/* Back Routes */
 Route::group(['middleware' => 'auth:api'], function () {
 
     /* Users */
@@ -105,5 +106,13 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::put("/channel-trashed/{channel}", "ChannelsController@restored");
     Route::delete("/channel-trashed/{channel}", "ChannelsController@forceDeleted");
 });
+
+/* Front Routes */
+Route::group(['middleware' => 'api'], function () {
+    Route::get("/photo", "PhotosController@getPhotos");
+    Route::get("/quotes", "QuotesController@getQuotes");
+    Route::get("/terms", "TermsController@getTerms");
+});
+
 
 Route::get("/summary/{id}", "PostsController@termSummary");

@@ -19,19 +19,24 @@ class TermsController extends Controller
 
     public function index()
     {
-        $terms = Term::with('categories', 'termType')
-            ->orderBy('term_type_id', 'asc')
-            ->published('desc')
-            ->paginate(30);
+        $terms = Term::with("categories", "termType")
+            ->orderBy("term_type_id", 'asc')
+            ->published("desc")
+            ->get();
 
-        return view('/terms', compact(['terms']));
+        return view("/terms", compact("terms"));
     }
+
+//    public function getTerms()
+//    {
+//
+//    }
 
     public function indexVocabulary()
     {
-        $terms = Term::with('post')
-            ->where('show_in_vocabulary', true)
-            ->orderBy('name')
+        $terms = Term::with("post")
+            ->where("show_in_vocabulary", true)
+            ->orderBy("name")
             ->published()
             ->get();
 

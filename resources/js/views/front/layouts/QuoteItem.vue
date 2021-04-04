@@ -6,31 +6,31 @@
         >
             <v-card-subtitle class="d-flex p-4">
                 <v-spacer></v-spacer>
-                <a 
-                    class="grey--text text-decoration-none" 
-                    :href="quoteItem.post.id"
+                <a
+                    class="grey--text text-decoration-none"
+                    href="#"
                 >
-                    #{{ quoteItem.post.id }}
+                    #123564
                 </a>
             </v-card-subtitle>
 
             <v-divider class="m-0 grey lighten-3"></v-divider>
 
             <v-card-text class="p-4">
-                <p class="subtitle-1">{{ quoteItem.body }}</p>
+                <p class="subtitle-1"></p>
                 <div class="mb-2">
                     <a class="d-flex align-items-center text-decoration-none" href="#">
                         <v-icon color="grey lighten-1">mdi-account</v-icon>
-                        <h5 class="mb-0 ml-1 black--text subtitle-1">{{ quoteItem.author.name }}</h5>
+                        <h5 class="mb-0 ml-1 black--text subtitle-1">Ovaev nea</h5>
                     </a>
                 </div>
                 <div class="categories-block">
-                    <a 
+                    <a
                         class="mx-1 grey--text text-decoration-none"
-                        v-for="(quoteCategories ,i) in quoteItem.categories" 
-                        :key="i"
-                        :href="`/quotes/` + quoteCategories.slug" 
-                    >{{ quoteCategories.name }}</a>
+                        href=""
+                    >
+                        Just Test
+                    </a>
                 </div>
             </v-card-text>
 
@@ -73,10 +73,8 @@
 
 <script>
 export default {
-    props: ["authorsQuote"],
     data() {
         return {
-            quoteItem: this.authorsQuote,
             quoteActions: [
                 {
                     icon: "mdi-heart",
@@ -90,7 +88,7 @@ export default {
                     icon: "mdi-message-reply-text",
                     count: 52
                 }
-            ]
+            ],
         }
     }
 }

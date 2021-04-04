@@ -1,5 +1,6 @@
 @extends('layouts.default')
 
 @section('content')
-    <quotes :quotes="{{ $quotes }}"></quotes>
+    <left-side-bar></left-side-bar>
+    <quotes></quotes>
 @endsection

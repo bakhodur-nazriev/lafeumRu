@@ -19,6 +19,11 @@ class QuotesController extends Controller
 
     public function index()
     {
+        return view("/quotes");
+    }
+
+    public function getQuotes()
+    {
         $quotes = Quote::with([
             'author:id,name,slug',
             'categories:id,name,slug',
@@ -26,11 +31,11 @@ class QuotesController extends Controller
         ])
             ->published('desc')
             ->has('author')
-            ->paginate(30);
+            ->paginate(5);
 
         $categories = Category::quote()->get()->toTree()->unique('name');
 
-        return view('/quotes', compact('quotes', 'categories'));
+        return response()->json(compact("quotes", "categories"));
     }
 
     public function get(Request $request)

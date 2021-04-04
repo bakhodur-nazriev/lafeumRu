@@ -16,9 +16,13 @@ class PhotosController extends Controller
 
     public function index()
     {
-        $photos = Photo::published('desc')->get();
+        return view("/photos");
+    }
+
+    public function getPhotos()
+    {
+        $photos = Photo::published('desc')->paginate(9);
         return response()->json($photos);
-//        return view("/photos", compact("photos"));
     }
 
     public function get(Request $request)

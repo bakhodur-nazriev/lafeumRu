@@ -1,7 +1,16 @@
 <template>
     <v-col cols="8">
-        <v-row>
-            <v-col cols="4">
+        <h5 class="text-uppercase font-weight-regular py-4">фотографии</h5>
+        <v-row align="center">
+            <v-col cols="12" class="d-flex justify-center" v-if="loading">
+                <h5 class="text-uppercase font-weight-regular py-4">загурзка...</h5>
+            </v-col>
+            <v-col
+                v-else
+                cols="4"
+                v-for="(photo, i) in photos"
+                :key="i"
+            >
                 <v-card
                     elevation="0"
                     width="367"
@@ -9,16 +18,30 @@
                     rounded="lg"
                 >
                     <v-card-text class="d-flex justify-content-center align-items-center h-100">
-                        <v-img max-width="268" height="180" class="d-flex" src=""></v-img>
+                        <v-img max-width="268" height="180" class="d-flex" :src="photo.path"></v-img>
                     </v-card-text>
                 </v-card>
             </v-col>
+            <v-col cols="12" class="d-flex justify-center mt-2">
+                <v-btn
+                    fab
+                    small
+                    rounded
+                    elevation="0"
+                    color="grey lighten-2"
+                >
+                    <v-icon color="white">mdi-arrow-down</v-icon>
+                </v-btn>
+            </v-col>
+            <v-col cols="12">
+                <v-pagination
+                    v-model="pagination.current"
+                    :length="pagination.total"
+                    :total-visible="7"
+                    @input="onPageChange"
+                ></v-pagination>
+            </v-col>
         </v-row>
-
-        <v-btn class="btn" fab small elevation="0" rounded color="grey lighten-2">
-            <v-icon color="white">mdi-arrow-down</v-icon>
-        </v-btn>
-        <!--<v-pagination>{{ allPhotos.links() }}</v-pagination>-->
     </v-col>
 </template>
 
@@ -26,23 +49,36 @@
 export default {
     data() {
         return {
-            photos: {}
-
+            photos: {},
+            loading: false,
+            pagination: {
+                current: 1,
+                total: 0
+            },
         };
-    },
-    mounted() {
-        this.getAllPhotos();
     },
     methods: {
         getAllPhotos() {
+            this.loading = true;
             axios
-                .get("/photo")
-                .then(res => (this.lol = res.data))
-                .catch(err => console.log(err))
+                .get("/api/photo?page=" + this.pagination.current)
+                .then(res => {
+                    this.loading = false;
+                    this.photos = res.data.data;
+                    this.pagination.current = res.data.current_page;
+                    this.pagination.total = res.data.last_page;
+                })
+                .catch(err => {
+                    this.loading = false;
+                    console.log(err)
+                })
+        },
+        onPageChange() {
+            this.getAllPhotos();
         }
     },
-    created() {
-        console.log(this.getAllPhotos());
+    mounted() {
+        this.getAllPhotos();
     }
 };
 </script>

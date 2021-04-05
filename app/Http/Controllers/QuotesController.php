@@ -35,7 +35,7 @@ class QuotesController extends Controller
 
         $categories = Category::quote()->get()->toTree()->unique('name');
 
-        return response()->json(compact("quotes", "categories"));
+        return response()->json(collect($quotes, $categories));
     }
 
     public function get(Request $request)

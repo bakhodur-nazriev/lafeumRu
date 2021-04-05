@@ -7,13 +7,13 @@
     >
         <v-container>
             <v-row justify="center">
-                <v-col cols="8" class="d-flex justify-content-between">
+                <v-col cols="9" class="d-flex justify-content-between">
                     <div class="d-flex align-items-center">
                         <div
                             v-for="link in links"
                             :key="link.href"
                         >
-                            <a :href="link.href" class="navbar-links mx-3">
+                            <a :href="link.href" class="navbar-links mx-4">
                                 <span v-if="link.name">{{ link.name }}</span>
                                 <v-img v-else width="71" class="mr-5" src="/img/lafeum-ru-home.png"></v-img>
                             </a>
@@ -131,7 +131,7 @@ export default {
                 },
                 {
                     name: "Фотографии",
-                    href: "/photo"
+                    href: "/photos"
                 },
             ]
         }

@@ -18,16 +18,22 @@ class VideosController extends Controller
 
     public function index()
     {
+        return view("/videos");
+    }
+
+    public function getVideos()
+    {
         $videos = Video::with([
             'channel',
             'favorites',
-            'categories'
+            'categories',
+            'post'
         ])
             ->published('desc')
             ->has('channel')
-            ->paginate(30);
+            ->paginate(5);
 
-        return view('/videos', compact(['videos',]));
+        return response()->json(collect($videos));
     }
 
     public function get(Request $request)

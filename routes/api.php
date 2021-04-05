@@ -109,9 +109,10 @@ Route::group(['middleware' => 'auth:api'], function () {
 
 /* Front Routes */
 Route::group(['middleware' => 'api'], function () {
-    Route::get("/photo", "PhotosController@getPhotos");
     Route::get("/quotes", "QuotesController@getQuotes");
     Route::get("/terms", "TermsController@getTerms");
+    Route::get("/videos", "VideosController@getVideos");
+    Route::get("/photos", "PhotosController@getPhotos");
 });
 
 

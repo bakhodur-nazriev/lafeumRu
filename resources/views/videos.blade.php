@@ -3,17 +3,16 @@
 @section('meta-tags')
     @include('layouts.meta-tags', [
         'title' => 'Видео',
-        'description' => '',
-        'next' => $videos->nextPageUrl(),
-        'prev' => $videos->previousPageUrl()
+        'description' => ''
     ])
 @endsection
 
-@section('left-side-bar')
-    @include('layouts.left-sidebar.leftSidebar', ['type' => 'App\Video'])
-@endsection
+{{--@section('left-side-bar')--}}
+{{--    @include('layouts.left-sidebar.leftSidebar', ['type' => 'App\Video'])--}}
+{{--@endsection--}}
 
 @section('content')
+    <left-side-bar></left-side-bar>
     <videos></videos>
 
     {{-- <div class="row">

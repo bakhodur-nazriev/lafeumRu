@@ -61,7 +61,7 @@ export default {
         getAllPhotos() {
             this.loading = true;
             axios
-                .get("/api/photo?page=" + this.pagination.current)
+                .get("/api/photos?page=" + this.pagination.current)
                 .then(res => {
                     this.loading = false;
                     this.photos = res.data.data;

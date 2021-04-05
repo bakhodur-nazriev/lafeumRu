@@ -12,7 +12,7 @@
         </div>
 
         <div v-for="(authorsQuote, i) in currentAuthor.quotes" :key="i">
-            <quote-item :authors-quote="authorsQuote"></quote-item>
+            <quote-item></quote-item>
         </div>
 
     </v-col>
@@ -25,11 +25,13 @@ export default {
     name: "Author",
     components: {QuoteItem},
     props: ["author"],
-
     data() {
         return {
             currentAuthor: this.author
         }
+    },
+    created() {
+        console.log(this.author);
     }
 };
 </script>

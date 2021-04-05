@@ -13,6 +13,7 @@
     ])
 @endsection --}}
 @section("content")
+    <left-side-bar></left-side-bar>
     <vocabulary :terms="{{ $terms }}"></vocabulary>
     {{-- @if (isset($category))
         <h3 class="secondary">{{$category->name}}</h3>

@@ -1,3 +1,5 @@
+import {req} from "vuelidate/lib/validators/common";
+
 require("./constants");
 
 import Vue from "vue";
@@ -67,6 +69,7 @@ Vue.component("front-navbar", require("./components/layouts/FrontNavbar").defaul
 Vue.component("front-footer", require("./components/layouts/FrontFooter").default);
 Vue.component("privacy-policy", require("./views/front/PrivacyPolicy").default);
 Vue.component("terms-of-use", require("./views/front/TermsOfUse").default);
+Vue.component("about-us", require("./views/front/AboutUs").default);
 
 /* Login */
 Vue.component("login", require("./views/LoginPage").default);
@@ -76,10 +79,10 @@ Vue.component("register", require("./views/RegisterPage").default);
 Vue.component("contacts", require("./views/front/Contacts").default);
 
 /* Layouts */
-Vue.component("quoteItem", require("./views/front/layouts/QuoteItem").default);
-Vue.component("termItem", require("./views/front/layouts/TermItem").default);
-Vue.component("videoItem", require("./views/front/layouts/VideoItem").default);
-Vue.component("photoItem", require("./views/front/layouts/PhotoItem").default);
+Vue.component("quote-item", require("./views/front/layouts/QuoteItem").default);
+Vue.component("term-item", require("./views/front/layouts/TermItem").default);
+Vue.component("video-item", require("./views/front/layouts/VideoItem").default);
+Vue.component("photo-item", require("./views/front/layouts/PhotoItem").default);
 
 /* Left Side Bar */
 Vue.component("left-side-bar", require("./components/layouts/LeftSideBar").default);

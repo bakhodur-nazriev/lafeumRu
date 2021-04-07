@@ -24,14 +24,14 @@
                         class="navbar-links mx-3"
                         v-for="link in links"
                         :href="link.href"
-                        :key="link.href"
+                        :key="link.id"
                     >
                         {{ link.name }}
                     </a>
                 </div>
             </v-card-text>
 
-            <v-divider class="bg-white mx-10" ></v-divider>
+            <v-divider class="bg-white mx-10"></v-divider>
 
             <v-card-text class="d-flex justify-content-around align-items-center">
                 <span class="text-white">© 2017 - {{ new Date().getFullYear() }} — Lafeum. Все права защищены.</span>
@@ -92,18 +92,22 @@ export default {
         return {
             links: [
                 {
+                    id: 1,
                     name: "О сайте",
                     href: "/about-us"
                 },
                 {
+                    id: 2,
                     name: "Контакты",
                     href: "/contacts"
                 },
                 {
+                    id: 3,
                     name: "Политика конфиденциальности",
                     href: "/privacy-policy"
                 },
                 {
+                    id: 4,
                     name: "Пользовательское соглашение",
                     href: "/terms-of-use"
                 }

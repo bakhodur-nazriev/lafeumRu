@@ -1,12 +1,12 @@
 <template>
     <div>
-        <Telegram :url="quote.post.id" class="share-button--circle" btnText/>
-        <Facebook :url="quote.post.id" class="share-button--circle" btnText/>
-        <Odnoklassniki :url="quote.post.id" class="share-button--circle" btnText/>
-        <Twitter :url="quote.post.id" class="share-button--circle" btnText/>
-        <viber :url="quote.post.id" class="share-button--circle" btnText/>
-        <WhatsApp :url="quote.post.id" class="share-button--circle" btnText/>
-        <Telegram :url="quote.post.id" class="share-button--circle" btnText/>
+        <Vkontakte :url="post.id" class="share-button--circle" btnText/>
+        <Facebook :url="post.id" class="share-button--circle" btnText/>
+        <Odnoklassniki :url="post.id" class="share-button--circle" btnText/>
+        <Twitter :url="post.id" class="share-button--circle" btnText/>
+        <viber :url="post.id" class="share-button--circle" btnText/>
+        <WhatsApp :url="post.id" class="share-button--circle" btnText/>
+        <Telegram :url="post.id" class="share-button--circle" btnText/>
     </div>
 </template>
 
@@ -34,5 +34,6 @@ export default {
 </script>
 
 <style scoped>
-
+.share-button--circle {
+}
 </style>

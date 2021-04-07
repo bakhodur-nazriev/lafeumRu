@@ -20,11 +20,6 @@
 
 @yield('meta-tags', View::make('layouts.meta-tags'))
 
-{{--    <link rel="icon" href="{{url("/img/cropped-favi-32x32.png")}}" sizes="32x32">--}}
-{{--    <link rel="icon" href="{{url("/img/cropped-favi-192x192.png")}}" sizes="192x192">--}}
-{{--    <link rel="apple-touch-icon-precomposed" href="{{url("/img/cropped-favi-180x180.png")}}">--}}
-{{--    <meta name="msapplication-TileImage" content="{{url("/img/cropped-favi-270x270.png")}}">--}}
-
 
 {{--<script src="{{ asset('js/helper.js') }}" defer></script>--}}
 

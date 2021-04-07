@@ -12,7 +12,7 @@
                 :key="i"
             >
                 <v-card
-                    elevation="0"
+                    flat
                     width="367"
                     height="264"
                     rounded="lg"

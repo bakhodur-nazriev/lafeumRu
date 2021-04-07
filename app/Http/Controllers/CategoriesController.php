@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 class CategoriesController extends Controller
 {
     protected $redirectService;
-    
+
     public function __construct(RedirectService $redirectService)
     {
         $this->authorizeResource(Category::class);
@@ -55,13 +55,13 @@ class CategoriesController extends Controller
 
     public function showTerms($categorySlug)
     {
-        $category = $this->getCategory(Term::class, 
-            $categorySlug, 
+        $category = $this->getCategory(Term::class,
+            $categorySlug,
             function ($categoriesQuery) {
                 return $categoriesQuery->orderBy('term_type_id', 'asc');
             }
         );
-            
+
         return view('shows.category', compact('category'));
     }
 

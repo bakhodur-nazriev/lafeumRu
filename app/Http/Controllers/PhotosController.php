@@ -21,8 +21,8 @@ class PhotosController extends Controller
 
     public function getPhotos()
     {
-        $photos = Photo::published('desc')->paginate(9);
-        return response()->json($photos);
+        $photos = Photo::published('desc')->paginate(12);
+        return response()->json(collect($photos));
     }
 
     public function get(Request $request)

@@ -1,70 +1,30 @@
 <template>
     <v-col cols="5">
         <h5 class="text-uppercase font-weight-regular py-4 mx-4">Цитаты</h5>
-        <v-card
-            flat
-            rounded="lg"
-            class="mb-8"
-            v-for="(quote , i) in quotes.data"
-            :key="i"
-        >
-            <v-card-subtitle class="d-flex px-6 py-4">
-                <v-spacer></v-spacer>
-                <a
-                    class="grey--text text-decoration-none"
-                    :href="quote.post.id"
+        <v-row align="center">
+            <v-col cols="12" class="d-flex justify-center" v-if="loading">
+                <h5 class="text-uppercase font-weight-regular py-4">загурзка...</h5>
+            </v-col>
+            <v-col v-else class="py-0">
+                <quote-item
+                    v-for="(quote ,i) in quotes.data"
+                    :key="i"
+                    :quote="quote"
                 >
-                    #{{ quote.post.id }}
-                </a>
-            </v-card-subtitle>
-
-            <v-divider class="m-0 grey lighten-3"></v-divider>
-
-            <v-card-text class="px-6 py-3">
-                <p class="subtitle-1">{{ quote.body }}</p>
-                <div class="mb-2">
-                    <a class="d-flex align-items-center text-decoration-none" :href="`/authors/` + quote.author.slug">
-                        <v-icon color="grey lighten-1">mdi-account</v-icon>
-                        <h5 class="mb-0 ml-1 black--text subtitle-1">{{ quote.author.name }}</h5>
-                    </a>
-                </div>
-                <div class="categories-block">
-                    <a
-                        class="mx-1 grey--text text-decoration-none"
-                        href=""
-                        v-for="(category, i) in quote.categories"
-                        :key="i"
-                    >
-                        {{ category.name }}
-                    </a>
-                </div>
-            </v-card-text>
-            <v-divider class="m-0 grey lighten-3"></v-divider>
-            <v-card-actions class="px-4 py-3">
-                <div>
-                    <v-btn icon>
-                        <v-icon color="grey lighten-1">
-                            mdi-heart
-                        </v-icon>
-                    </v-btn>
-                    <span>45</span>
-                    <v-btn icon>
-                        <v-icon color="grey lighten-1">
-                            mdi-bookmark
-                        </v-icon>
-                    </v-btn>
-                    <span>45</span>
-                </div>
-
-                <v-spacer></v-spacer>
-
-                <div>
-                    <v-btn icon color="grey lighten-1">
-                        <v-icon>mdi-share-variant</v-icon>
-                    </v-btn>
-                </div>
-            </v-card-actions>
-        </v-card>
+                </quote-item>
+            </v-col>
+        </v-row>
+        <v-col cols="12" class="d-flex justify-center mt-2">
+            <v-btn
+                fab
+                small
+                rounded
+                elevation="0"
+                color="grey lighten-2"
+            >
+                <v-icon color="white">mdi-arrow-down</v-icon>
+            </v-btn>
+        </v-col>
         <v-col cols="12">
             <v-pagination
                 class="ova"
@@ -78,7 +38,12 @@
 </template>
 
 <script>
+import QuoteItem from "./layouts/QuoteItem";
+
 export default {
+    components: {
+        QuoteItem
+    },
     data() {
         return {
             quotes: {},
@@ -99,7 +64,6 @@ export default {
                     this.quotes = res.data;
                     this.pagination.current = res.data.current_page;
                     this.pagination.total = res.data.last_page;
-                    // console.log(res.data);
                 })
                 .catch(err => {
                     this.loading = false;
@@ -116,7 +80,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .categories-block a:hover {
     color: #04718C !important;
 }

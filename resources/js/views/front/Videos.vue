@@ -5,7 +5,6 @@
             <h5 class="text-uppercase font-weight-regular py-4">загурзка...</h5>
         </div>
         <div v-else>
-
             <v-card
                 flat
                 rounded="lg"
@@ -13,20 +12,24 @@
                 v-for="(video, i) in videos.data"
                 :key="i"
             >
-                <v-card-subtitle class="d-flex px-6 py-4">
-                    <iframe
-                        class="video-iframe"
-                        :src="video.embeded_link"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen=""
-                    ></iframe>
-                    <v-spacer></v-spacer>
-                    <h4 class="font-weight-regular title-color">{{ video.title }}</h4>
+                <v-card-subtitle class="d-flex px-6 pb-4 pt-6">
+                    <div class="mr-6">
+                        <iframe
+                            class="video-iframe h-100"
+                            :src="video.embeded_link"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen=""
+                        ></iframe>
+                    </div>
+
+                    <div>
+                        <h5 class="font-weight-regular title-color ma-0">{{ video.title }}</h5>
+                    </div>
                 </v-card-subtitle>
 
                 <v-card-text class="px-6 py-3">
-                    <div class="mb-2 d-flex justify-content-between">
+                    <div class="mb-2">
                         <a
                             :href="`/channels/`+ video.channel.slug"
                             class="h4 text-decoration-none font-weight-regular title-color"
@@ -34,19 +37,23 @@
                             <v-icon size="34">mdi-youtube</v-icon>
                             {{ video.channel.name }}
                         </a>
-                        <a class="grey--text text-decoration-none" :href="video.post.id">
-                            #{{ video.post.id }}
-                        </a>
                     </div>
-                    <div class="categories-block">
-                        <a
-                            class="mx-1 grey--text text-decoration-none"
-                            href=""
-                            v-for="(category, i) in video.categories"
-                            :key="i"
-                        >
-                            {{ category.name }}
-                        </a>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <a
+                                class="mx-1 grey--text text-decoration-none"
+                                href=""
+                                v-for="(category, i) in video.categories"
+                                :key="i"
+                            >
+                                {{ category.name }}
+                            </a>
+                        </div>
+                        <div>
+                            <a class="grey--text text-decoration-none" :href="video.post.id">
+                                #{{ video.post.id }}
+                            </a>
+                        </div>
                     </div>
                 </v-card-text>
 
@@ -78,6 +85,17 @@
                 </v-card-actions>
             </v-card>
         </div>
+        <v-col cols="12" class="d-flex justify-center mt-2">
+            <v-btn
+                fab
+                small
+                rounded
+                elevation="0"
+                color="grey lighten-2"
+            >
+                <v-icon color="white">mdi-arrow-down</v-icon>
+            </v-btn>
+        </v-col>
         <v-col cols="12">
             <v-pagination
                 v-model="pagination.current"

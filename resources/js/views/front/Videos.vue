@@ -1,5 +1,5 @@
 <template>
-    <v-col cols="5">
+    <v-col xl="5" lg="6">
         <h5 class="text-uppercase font-weight-regular py-4 mx-4">Видео</h5>
         <div v-if="loading" class="d-flex justify-center">
             <h5 class="text-uppercase font-weight-regular py-4">загурзка...</h5>

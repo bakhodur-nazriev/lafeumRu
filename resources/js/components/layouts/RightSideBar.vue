@@ -1,5 +1,5 @@
 <template>
-    <v-col cols="2">
+    <v-col xl="2" lg="3">
         <h5 class="text-uppercase text-secondary font-weight-normal py-4">Рекоммендуемые</h5>
         <v-card class="rounded-lg" flat>
             <!-- Quote Section -->
@@ -36,7 +36,7 @@
                     <a href="/videos" class="font-italic">еще.</a>
                 </v-card-actions>
             </div>
-        
+
             <!-- Photo Section -->
             <div class="pa-5">
                 <v-card-title class="subtitle-2 font-weight-medium pa-0">Фото дня</v-card-title>

@@ -55,13 +55,13 @@
             <v-spacer></v-spacer>
 
             <div class="d-flex align-items-center">
-                <!--                <Vkontakte :url="baseUrl + quote.post.id" class="share-button&#45;&#45;circle" btnText/>-->
-                <!--                <Facebook :url="baseUrl + quote.post.id" class="share-button&#45;&#45;circle" btnText/>-->
-                <!--                <Odnoklassniki :url="baseUrl + quote.post.id" class="share-button&#45;&#45;circle" btnText/>-->
-                <!--                <Twitter :url="baseUrl + quote.post.id" class="share-button&#45;&#45;circle" btnText/>-->
-                <!--                <viber :url="baseUrl + quote.post.id" class="share-button&#45;&#45;circle" btnText/>-->
-                <!--                <WhatsApp :url="baseUrl + quote.post.id" class="share-button&#45;&#45;circle" btnText/>-->
-                <!--                <Telegram :url="baseUrl + quote.post.id" class="share-button&#45;&#45;circle" btnText/>-->
+                <Vkontakte :url="baseUrl + quote.post.id" class="share-button--circle" btnText/>
+                <Facebook :url="baseUrl + quote.post.id" class="share-button--circle" btnText/>
+                <Odnoklassniki :url="baseUrl + quote.post.id" class="share-button--circle" btnText/>
+                <Twitter :url="baseUrl + quote.post.id" class="share-button--circle" btnText/>
+                <viber :url="baseUrl + quote.post.id" class="share-button--circle" btnText/>
+                <WhatsApp :url="baseUrl + quote.post.id" class="share-button--circle" btnText/>
+                <Telegram :url="baseUrl + quote.post.id" class="share-button--circle" btnText/>
                 <v-btn icon color="grey lighten-1">
                     <v-icon>mdi-share-variant</v-icon>
                 </v-btn>
@@ -71,33 +71,30 @@
 </template>
 
 <script>
-// import Vkontakte from "vue-share-buttons/src/components/VkontakteButton"
-// import Facebook from "vue-share-buttons/src/components/FacebookButton"
-// import Odnoklassniki from "vue-share-buttons/src/components/OdnoklassnikiButton"
-// import Twitter from "vue-share-buttons/src/components/TwitterButton"
-// import Viber from "vue-share-buttons/src/components/ViberButton"
-// import WhatsApp from "vue-share-buttons/src/components/WhatsAppButton"
-// import Telegram from "vue-share-buttons/src/components/TelegramButton"
+import Vkontakte from "vue-share-buttons/src/components/VkontakteButton"
+import Facebook from "vue-share-buttons/src/components/FacebookButton"
+import Odnoklassniki from "vue-share-buttons/src/components/OdnoklassnikiButton"
+import Twitter from "vue-share-buttons/src/components/TwitterButton"
+import Viber from "vue-share-buttons/src/components/ViberButton"
+import WhatsApp from "vue-share-buttons/src/components/WhatsAppButton"
+import Telegram from "vue-share-buttons/src/components/TelegramButton"
 
 export default {
     props: ["quote"],
     components: {
-        // Vkontakte,
-        // Facebook,
-        // Odnoklassniki,
-        // Twitter,
-        // Viber,
-        // WhatsApp,
-        // Telegram
+        Vkontakte,
+        Facebook,
+        Odnoklassniki,
+        Twitter,
+        Viber,
+        WhatsApp,
+        Telegram
     },
     data() {
         return {
             test: this.quote,
             baseUrl: "http://127.0.0.1:8000/"
         }
-    },
-    created() {
-        console.log(this.quote);
     }
 }
 </script>

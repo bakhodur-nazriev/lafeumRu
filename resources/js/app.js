@@ -86,6 +86,7 @@ Vue.component("photo-item", require("./views/front/layouts/PhotoItem").default);
 
 /* Left Side Bar */
 Vue.component("left-side-bar", require("./components/layouts/LeftSideBar").default);
+Vue.component("home-left-sidebar", require("./components/layouts/HomeLeftSideBar").default);
 
 /* Right Side Bar */
 Vue.component("right-side-bar", require("./components/layouts/RightSideBar").default);

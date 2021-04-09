@@ -7,12 +7,8 @@
     ])
 @endsection
 
-{{--@section('left-side-bar')--}}
-{{--    @include('layouts.left-sidebar.leftSidebar', ['type' => 'App\Video'])--}}
-{{--@endsection--}}
-
 @section('content')
-    <left-side-bar></left-side-bar>
+    @include('layouts.left-sidebar.left-side-bar', ['type' => 'App\Video'])
     <videos></videos>
 
     {{-- <div class="row">

@@ -41,6 +41,7 @@
 import QuoteItem from "./layouts/QuoteItem";
 
 export default {
+    props: ['categories'],
     components: {
         QuoteItem
     },

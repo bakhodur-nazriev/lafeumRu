@@ -19,7 +19,9 @@ class QuotesController extends Controller
 
     public function index()
     {
-        return view("/quotes");
+        $categories = Category::quote()->get()->toTree()->unique('name');
+
+        return view("/quotes", compact('categories'));
     }
 
     public function getQuotes()

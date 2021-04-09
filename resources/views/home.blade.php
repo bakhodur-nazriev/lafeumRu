@@ -1,6 +1,6 @@
 @extends('layouts.default')
 
 @section('content')
-    <left-side-bar :categories="{{ $categories }}"></left-side-bar>
+    <home-left-sidebar :categories="{{ $categories }}"></home-left-sidebar>
     <home></home>
 @endsection

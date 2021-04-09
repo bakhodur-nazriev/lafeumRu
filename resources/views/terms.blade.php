@@ -7,12 +7,8 @@
     ])
 @endsection
 
-{{--@section('left-side-bar')--}}
-{{--    @include('layouts.left-sidebar.leftSidebar', ['type' => 'App\Term'])--}}
-{{--@endsection--}}
-
 @section('content')
-    <left-side-bar></left-side-bar>
+    <left-side-bar :categories="{{ $categories }}"></left-side-bar>
     <terms></terms>
 
     {{-- @foreach($terms as $term)

@@ -8,6 +8,6 @@
 @endsection
 
 @section('content')
-    <left-side-bar></left-side-bar>
+    <left-side-bar :categories="{{ $categories }}"></left-side-bar>
     <quotes></quotes>
 @endsection

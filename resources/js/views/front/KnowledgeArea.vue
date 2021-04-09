@@ -1,5 +1,5 @@
 <template>
-    <v-col cols="7 px-5">
+    <v-col xl="5" lg="9">
         <h5 class="text-uppercase font-weight-regular py-4">Области знаний</h5>
         <p class="grey--text">В этой рубрике термины и комментарии специалистов классифицированы<br/> более развернуто
             по
@@ -26,11 +26,11 @@
                 </v-btn>
             </div>
         </v-col>
-        <v-card 
+        <v-card
             flat
             :key="i"
             class="knowledge-area-card mb-9 pa-7"
-            v-for="(knowledgeAreaParent, i) in knowledgeArea" 
+            v-for="(knowledgeAreaParent, i) in knowledgeArea"
         >
             <v-card-title class="d-flex flex-column">
                 <div class="text-start w-100 mb-4">
@@ -66,14 +66,16 @@ export default {
 </script>
 
 <style scoped>
-.list-col-4{
+.list-col-4 {
     column-count: 3;
 }
+
 .form-search {
     display: flex;
     border: 2px solid #1a718c;
 }
-.knowledge-area-card{
+
+.knowledge-area-card {
     border-radius: 16px !important;
 }
 </style>

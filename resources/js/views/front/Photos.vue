@@ -1,5 +1,5 @@
 <template>
-    <v-col cols="8">
+    <v-col xl="8" lg="12">
         <h5 class="text-uppercase font-weight-regular py-4">фотографии</h5>
         <v-row align="center">
             <v-col cols="12" class="d-flex justify-center" v-if="loading">

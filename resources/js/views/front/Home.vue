@@ -1,5 +1,5 @@
 <template>
-    <v-col cols="5">
+    <v-col xl="5" lg="6">
         <div class="d-flex flex-column align-items-center text-center">
             <v-img
                 class="mt-10 mb-8"

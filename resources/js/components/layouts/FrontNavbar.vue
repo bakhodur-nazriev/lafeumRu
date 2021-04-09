@@ -7,7 +7,7 @@
     >
         <v-container>
             <v-row justify="center">
-                <v-col cols="9" class="d-flex justify-content-between">
+                <v-col lg="12" xl="9" class="d-flex justify-content-between">
                     <div class="d-flex align-items-center">
                         <div
                             v-for="link in links"
@@ -55,7 +55,7 @@
                                     <v-list-item-title class=" px-3 py-5">
                                         <v-icon color="grey lighten-1" class="mr-6">{{ profileLink.icon }}</v-icon>
                                         <a class="navbar-profile-links" :href="profileLink.href">{{
-                                            profileLink.title
+                                                profileLink.title
                                             }}</a>
                                     </v-list-item-title>
                                 </v-list-item>

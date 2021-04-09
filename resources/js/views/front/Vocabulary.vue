@@ -1,5 +1,5 @@
 <template>
-    <v-col cols="5" class="px-7">
+    <v-col xl="5" lg="6" class="px-7">
         <h5 class="text-uppercase font-weight-regular py-4">Словарь «ЛАФЕЮМ»</h5>
         <p class="grey--text">
             На сегодня содержит более одной тысячи основных терминов, соответствующих

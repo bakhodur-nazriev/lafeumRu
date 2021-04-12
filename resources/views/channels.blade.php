@@ -8,5 +8,5 @@
 @endsection
 
 @section('content')
-    <channels :channels="{{ $channels }}"></channels>
+    <channels></channels>
 @endsection

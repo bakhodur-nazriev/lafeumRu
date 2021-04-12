@@ -27,7 +27,7 @@
             </div>
             <div class="categories-block">
                 <a
-                    class="mx-1 grey--text text-decoration-none"
+                    class="mr-2 grey--text text-decoration-none"
                     v-for="(category, i) in quote.categories"
                     :key="i"
                     :href="`/quotes/` + category.slug"

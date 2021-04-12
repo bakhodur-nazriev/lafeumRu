@@ -41,8 +41,10 @@
         </div>
 
         <h5 class="text-uppercase font-weight-regular">все слова</h5>
-
-        <div class="row" justify="center">
+        <v-col cols="12" class="d-flex justify-center" v-if="loading">
+            <h5 class="text-uppercase font-weight-regular py-4">загурзка...</h5>
+        </v-col>
+        <div class="row" justify="center" v-else>
             <v-col cols="6" v-for="(column, i) in columns" :key="i">
                 <v-card rounded="lg" class="px-8 py-5" flat>
                     <v-card-text class="pa-1" v-for="(term ,i) in column" :key="i">
@@ -71,28 +73,46 @@
         </div>
 
         <v-col cols class="text-center my-5">
-<!--            <v-btn large class="grey lighten-1" icon>-->
-<!--                <v-icon color="white">mdi-arrow-down</v-icon>-->
-<!--            </v-btn>-->
+            <!--            <v-btn large class="grey lighten-1" icon>-->
+            <!--                <v-icon color="white">mdi-arrow-down</v-icon>-->
+            <!--            </v-btn>-->
         </v-col>
     </v-col>
 </template>
 
 <script>
 export default {
-    props: ["terms"],
     data() {
         return {
-            allTerms: this.terms,
+            terms: [],
+            loading: false,
             vocabularySearch: "",
             maxVocabularyHeight: 100,
             page: 0,
             cols: 2
         };
     },
+    methods: {
+        getVocabulary() {
+            this.loading = true;
+            axios
+                .get("/api/vocabulary")
+                .then(res => {
+                    this.loading = false;
+                    this.terms = res.data
+                })
+                .catch(err => {
+                    this.loading = false;
+                    console.log(err)
+                })
+        }
+    },
+    mounted() {
+        this.getVocabulary();
+    },
     computed: {
         orderVocabulary() {
-            let allData = this.allTerms.reduce((r, e) => {
+            let allData = this.terms.reduce((r, e) => {
                 let group = e.name[0];
                 if (!r[group]) r[group] = {group, children: [e]}
                 else r[group].children.push(e);

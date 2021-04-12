@@ -8,7 +8,7 @@
 @endsection
 
 @section("content")
-    <authors :authors="{{ $authors }}"></authors>
+    <authors></authors>
 
     {{-- <div class="row">
         <div class="col-lg-12">

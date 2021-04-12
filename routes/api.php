@@ -113,6 +113,9 @@ Route::group(['middleware' => 'api'], function () {
     Route::get("/terms", "TermsController@getTerms");
     Route::get("/videos", "VideosController@getVideos");
     Route::get("/photos", "PhotosController@getPhotos");
+    Route::get("/vocabulary", "TermsController@getIndexVocabulary");
+    Route::get("/authors", "AuthorsController@getAuthors");
+    Route::get("/channels", "ChannelsController@getChannels");
 });
 
 

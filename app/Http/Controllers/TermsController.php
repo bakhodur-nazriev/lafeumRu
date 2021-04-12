@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\RedirectService;
+use App\Category;
 use App\Term;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -19,7 +20,9 @@ class TermsController extends Controller
 
     public function index()
     {
-        return view("/terms");
+        $categories = Category::term()->get()->toTree()->unique('name');
+
+        return view("/terms", compact("categories"));
     }
 
     public function getTerms()
@@ -34,13 +37,20 @@ class TermsController extends Controller
 
     public function indexVocabulary()
     {
+        $categories = Category::where('type', 'App\Term')->get()->toTree()->unique('name');
+
+        return view("/vocabulary", compact("categories"));
+    }
+
+    public function getIndexVocabulary()
+    {
         $terms = Term::with("post")
             ->where("show_in_vocabulary", true)
             ->orderBy("name")
             ->published()
             ->get();
 
-        return view("/vocabulary", compact("terms"));
+        return response()->json(collect($terms));
     }
 
     public function linksSearch(Request $request)

@@ -8,12 +8,6 @@
 @endsection
 
 @section('content')
-    @include('layouts.left-sidebar.left-side-bar', ['type' => 'App\Video'])
+    <left-side-bar :categories="{{ $categories }}"></left-side-bar>
     <videos></videos>
-
-    {{-- <div class="row">
-        @foreach($videos as $video)
-            @include('layouts.videoItem')
-        @endforeach
-    </div> --}}
 @endsection

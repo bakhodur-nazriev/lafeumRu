@@ -10,8 +10,4 @@
 @section('content')
     <left-side-bar :categories="{{ $categories }}"></left-side-bar>
     <terms></terms>
-
-    {{-- @foreach($terms as $term)
-        @include('layouts.termItem')
-    @endforeach --}}
 @endsection

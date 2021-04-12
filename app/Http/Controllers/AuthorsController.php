@@ -22,9 +22,14 @@ class AuthorsController extends Controller
 
     public function index()
     {
-        $authors = $this->getPersonsList();
+        return view("/authors");
+    }
 
-        return view("/authors", compact("authors"));
+    public function getAuthors()
+    {
+        $authors = $this->getPersonsList();
+        
+        return response()->json(collect($authors));
     }
 
     public function show(Author $author)

@@ -24,9 +24,12 @@
                 </v-btn>
             </div>
         </v-col>
-        <div class="row">
+        <v-col cols="12" class="d-flex justify-center" v-if="loading">
+            <h5 class="text-uppercase font-weight-regular py-4">загурзка...</h5>
+        </v-col>
+        <div class="row" v-else>
             <ul class="list-inline py-1 list-col-4">
-                <li v-for="(author ,i) in allAuthors" :key="i" class="my-2">
+                <li v-for="(author ,i) in authors" :key="i" class="my-2">
                     <a :href="`/authors/`+author.slug" v-html="author.name"></a>
                 </li>
             </ul>
@@ -38,12 +41,29 @@
 <script>
 export default {
     name: "Authors",
-    props: ["authors"],
-
     data() {
         return {
-            allAuthors: this.authors,
+            authors: [],
+            loading: false
         };
+    },
+    methods: {
+        getAuthors(){
+            this.loading = true;
+            axios
+            .get("/api/authors")
+            .then(res => {
+                this.loading = false;
+                this.authors = res.data;
+            })
+            .catch(err => {
+                this.loading = false;
+                console.log(err);
+            })
+        }
+    },
+    mounted(){
+        this.getAuthors();
     }
 };
 </script>

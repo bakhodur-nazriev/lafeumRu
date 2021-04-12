@@ -24,9 +24,12 @@
                 </v-btn>
             </div>
         </v-col>
-        <div class="row">
+        <v-col cols="12" class="d-flex justify-center" v-if="loading">
+            <h5 class="text-uppercase font-weight-regular py-4">загурзка...</h5>
+        </v-col>
+        <div class="row" v-else>
             <ul class="list-inline py-1 list-col-4">
-                <li v-for="(channel,i) in allChannels" :key="i" class="my-2">
+                <li v-for="(channel,i) in channels" :key="i" class="my-2">
                     <a :href="`/channels/` + channel.slug">{{ channel.name }}</a>
                 </li>
             </ul>
@@ -36,12 +39,30 @@
 
 <script>
 export default {
-    props: ["channels"],
     name: "Channels",
     data() {
         return {
-            allChannels: this.channels
+            channels: [],
+            loading: false
         }
+    },
+    methods: {
+        getChannels(){
+            this.loading = true;
+            axios
+            .get("/api/channels")
+            .then(res => {
+                this.loading = false;
+                this.channels = res.data;
+            })
+            .catch(err =>{
+                this.loading = false;
+                console.log(err);
+            })
+        }
+    },
+    mounted(){
+        this.getChannels();
     }
 }
 </script>

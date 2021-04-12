@@ -18,8 +18,14 @@ class ChannelsController extends Controller
 
     public function index()
     {
+        return view('/channels');
+    }
+
+    public function getChannels()
+    {
         $channels = Channel::orderBy('name', 'asc')->get();
-        return view('/channels', compact('channels'));
+
+        return response()->json(collect($channels));
     }
 
     public function show(Channel $channel)

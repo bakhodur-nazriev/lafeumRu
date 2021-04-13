@@ -30,7 +30,7 @@
         <div class="row" v-else>
             <ul class="list-inline py-1 list-col-4">
                 <li v-for="(author ,i) in authors" :key="i" class="my-2">
-                    <a :href="`/authors/`+author.slug" v-html="author.name"></a>
+                    <a :href="`/authors/`+author.slug">{{ author.name }}</a>
                 </li>
             </ul>
         </div>

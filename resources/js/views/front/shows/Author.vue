@@ -1,20 +1,19 @@
 <template>
-    <v-col cols="5">
+    <v-col xl="5">
         <h5 class="text-uppercase font-weight-regular py-4">Автор</h5>
         <div class="d-flex">
-            <v-avatar class="mr-7 mb-7" size="100" v-if="currentAuthor.photo">
-                <img :src="currentAuthor.photo"/>
-            </v-avatar>
-            <div>
-                <h3 class="blue--text">{{ currentAuthor.name }}</h3>
-                <h5 class="author-biography" v-html="currentAuthor.biography"></h5>
-            </div>
+            <!--            <v-avatar class="mr-7 mb-7" size="100" v-if="currentAuthor.photo">-->
+            <!--                <img src="currentAuthor.photo"/>-->
+            <!--            </v-avatar>-->
+            <!--            <div>-->
+            <!--                <h3 class="blue&#45;&#45;text">{{ currentAuthor.name }}</h3>-->
+            <!--                <h5 class="author-biography" v-html="currentAuthor.biography"></h5>-->
+            <!--            </div>-->
         </div>
 
-        <div v-for="(authorsQuote, i) in currentAuthor.quotes" :key="i">
-            <quote-item></quote-item>
-        </div>
-
+        <!--        <div v-for="(authorQuote, i) in quote.quotes" :key="i">-->
+        <!--            <quote-item :quote="authorQuote"></quote-item>-->
+        <!--        </div>-->
     </v-col>
 </template>
 
@@ -27,11 +26,26 @@ export default {
     props: ["author"],
     data() {
         return {
-            currentAuthor: this.author
+            currentAuthor: this.author,
+            quote: {},
+            pagination: {
+                current: 1,
+                total: 0
+            }
         }
     },
-    created() {
-        console.log(this.author);
+    methods: {
+        getAuthor() {
+            axios
+                .get("/api/authors")
+                .then(res => {
+                    this.quote = res.data;
+                })
+                .catch(err => console.log(err))
+        }
+    },
+    mounted() {
+        this.getAuthor();
     }
 };
 </script>

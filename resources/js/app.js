@@ -65,6 +65,7 @@ Vue.component("author-show", require("./views/front/shows/Author").default);
 Vue.component("knowledge-area", require("./views/front/KnowledgeArea").default);
 Vue.component("vocabulary", require("./views/front/Vocabulary").default);
 Vue.component("channels", require("./views/front/Channels").default);
+Vue.component("channel-show", require("./views/front/shows/Channel").default);
 Vue.component("front-navbar", require("./components/layouts/FrontNavbar").default);
 Vue.component("front-footer", require("./components/layouts/FrontFooter").default);
 Vue.component("privacy-policy", require("./views/front/PrivacyPolicy").default);
@@ -87,6 +88,8 @@ Vue.component("photo-item", require("./views/front/layouts/PhotoItem").default);
 /* Left Side Bar */
 Vue.component("left-side-bar", require("./components/layouts/LeftSideBar").default);
 Vue.component("home-left-sidebar", require("./components/layouts/HomeLeftSideBar").default);
+Vue.component("authors-left-sidebar", require("./components/layouts/AuthorsLeftSideBar").default);
+Vue.component("channels-left-sidebar", require("./components/layouts/ChannelsLeftSideBar").default);
 
 /* Right Side Bar */
 Vue.component("right-side-bar", require("./components/layouts/RightSideBar").default);

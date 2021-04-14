@@ -9,5 +9,5 @@
 
 @section("content")
     <channels-left-sidebar></channels-left-sidebar>
-    <channel-show :channel="{{ $channel }}"></channel-show>
+    <channel-show :channel="{{ $channel }}" :channels="{{ $channels }}"></channel-show>
 @endsection

@@ -28,7 +28,7 @@ class AuthorsController extends Controller
     public function getAuthors()
     {
         $authors = $this->getPersonsList();
-        
+
         return response()->json(collect($authors));
     }
 
@@ -56,8 +56,8 @@ class AuthorsController extends Controller
         $currentAuthor->quotes = $currentAuthor
             ->quotes()
             ->published('desc')
-            ->with('categories')
-            ->paginate(30);
+            ->with('categories', 'post', 'author')
+            ->paginate(5);
 
         return view('shows.author', compact(['authors', 'authorListTitle', 'currentAuthor']));
     }

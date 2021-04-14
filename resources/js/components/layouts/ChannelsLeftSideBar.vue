@@ -12,8 +12,9 @@
                 <v-text-field
                     label="Введите имя автора"
                     hide-details
-                    outlined
                     class="mb-1"
+                    clearable
+                    outlined
                 >
                 </v-text-field>
 

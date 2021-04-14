@@ -34,7 +34,7 @@ class ChannelsController extends Controller
         $channel->videos = $channel
             ->videos()
             ->published('desc')
-            ->with('categories')
+            ->with('categories', 'channel', 'post')
             ->paginate(30);
 
         return view('shows.channel', compact(['channel', 'channels']));

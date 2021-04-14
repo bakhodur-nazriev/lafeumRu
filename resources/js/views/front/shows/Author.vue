@@ -1,19 +1,28 @@
 <template>
     <v-col xl="5">
         <h5 class="text-uppercase font-weight-regular py-4">Автор</h5>
-        <div class="d-flex">
-            <!--            <v-avatar class="mr-7 mb-7" size="100" v-if="currentAuthor.photo">-->
-            <!--                <img src="currentAuthor.photo"/>-->
-            <!--            </v-avatar>-->
-            <!--            <div>-->
-            <!--                <h3 class="blue&#45;&#45;text">{{ currentAuthor.name }}</h3>-->
-            <!--                <h5 class="author-biography" v-html="currentAuthor.biography"></h5>-->
-            <!--            </div>-->
+        <div class="d-flex mb-5">
+            <v-avatar class="mr-7 mb-7" size="100" v-if="current.photo">
+                <img :src="current.photo"/>
+            </v-avatar>
+            <div>
+                <h3 class="blue--text">{{ current.name }}</h3>
+                <h5 class="author-biography" v-html="current.biography"></h5>
+            </div>
         </div>
 
-        <!--        <div v-for="(authorQuote, i) in quote.quotes" :key="i">-->
-        <!--            <quote-item :quote="authorQuote"></quote-item>-->
-        <!--        </div>-->
+        <div v-for="(quote ,i) in current.quotes.data" :key="i">
+            <quote-item :quote="quote"></quote-item>
+        </div>
+
+        <v-col cols="12">
+            <v-pagination
+                v-model="current.quotes.current_page"
+                :length="current.quotes.last_page"
+                :total-visible="7"
+                @input="onPageChange"
+            ></v-pagination>
+        </v-col>
     </v-col>
 </template>
 
@@ -23,11 +32,10 @@ import QuoteItem from "../layouts/QuoteItem";
 export default {
     name: "Author",
     components: {QuoteItem},
-    props: ["author"],
+    props: ["current", "authors"],
     data() {
         return {
-            currentAuthor: this.author,
-            quote: {},
+            loading: false,
             pagination: {
                 current: 1,
                 total: 0
@@ -35,17 +43,12 @@ export default {
         }
     },
     methods: {
-        getAuthor() {
-            axios
-                .get("/api/authors")
-                .then(res => {
-                    this.quote = res.data;
-                })
-                .catch(err => console.log(err))
+        onPageChange() {
+
         }
     },
-    mounted() {
-        this.getAuthor();
+    created() {
+        console.log(this.current.quotes);
     }
 };
 </script>

@@ -27,7 +27,6 @@
         </v-col>
         <v-col cols="12">
             <v-pagination
-                class="ova"
                 v-model="pagination.current"
                 :length="pagination.total"
                 :total-visible="7"

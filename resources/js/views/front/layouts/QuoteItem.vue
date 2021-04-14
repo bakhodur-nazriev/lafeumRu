@@ -19,8 +19,10 @@
         <v-card-text class="px-6 py-3">
             <p class="subtitle-1">{{ quote.body }}</p>
             <div class="mb-2">
-                <a class="d-flex align-items-center text-decoration-none"
-                   :href="`/authors/` + quote.author.slug">
+                <a
+                    class="d-flex align-items-center text-decoration-none"
+                    :href="`/authors/` + quote.author.slug"
+                >
                     <v-icon color="grey lighten-1">mdi-account</v-icon>
                     <h5 class="mb-0 ml-1 black--text subtitle-1">{{ quote.author.name }}</h5>
                 </a>
@@ -54,18 +56,18 @@
             </div>
             <v-spacer></v-spacer>
 
-            <div class="d-flex align-items-center">
-                <Vkontakte :url="baseUrl + quote.post.id" class="share-button--circle" btnText/>
-                <Facebook :url="baseUrl + quote.post.id" class="share-button--circle" btnText/>
-                <Odnoklassniki :url="baseUrl + quote.post.id" class="share-button--circle" btnText/>
-                <Twitter :url="baseUrl + quote.post.id" class="share-button--circle" btnText/>
-                <viber :url="baseUrl + quote.post.id" class="share-button--circle" btnText/>
-                <WhatsApp :url="baseUrl + quote.post.id" class="share-button--circle" btnText/>
-                <Telegram :url="baseUrl + quote.post.id" class="share-button--circle" btnText/>
-                <v-btn icon color="grey lighten-1">
-                    <v-icon>mdi-share-variant</v-icon>
-                </v-btn>
-            </div>
+            <!--            <div class="d-flex align-items-center">-->
+            <!--                <Vkontakte :url="baseUrl + quote.post.id" class="share-button&#45;&#45;circle" btnText/>-->
+            <!--                <Facebook :url="baseUrl + quote.post.id" class="share-button&#45;&#45;circle" btnText/>-->
+            <!--                <Odnoklassniki :url="baseUrl + quote.post.id" class="share-button&#45;&#45;circle" btnText/>-->
+            <!--                <Twitter :url="baseUrl + quote.post.id" class="share-button&#45;&#45;circle" btnText/>-->
+            <!--                <viber :url="baseUrl + quote.post.id" class="share-button&#45;&#45;circle" btnText/>-->
+            <!--                <WhatsApp :url="baseUrl + quote.post.id" class="share-button&#45;&#45;circle" btnText/>-->
+            <!--                <Telegram :url="baseUrl + quote.post.id" class="share-button&#45;&#45;circle" btnText/>-->
+            <v-btn icon color="grey lighten-1">
+                <v-icon>mdi-share-variant</v-icon>
+            </v-btn>
+            <!--            </div>-->
         </v-card-actions>
     </v-card>
 </template>
@@ -92,7 +94,6 @@ export default {
     },
     data() {
         return {
-            test: this.quote,
             baseUrl: "http://127.0.0.1:8000/"
         }
     }

@@ -5,7 +5,7 @@
         <v-sheet rounded="lg" width="100%">
             <div class="d-flex align-center pa-5">
                 <v-icon>mdi-account-group-outline</v-icon>
-                <h5 class="ml-2 mb-0">Авторы</h5>
+                <!--                <h5 class="ml-2 mb-0">{{ title }}</h5>-->
             </div>
             <v-divider class="ma-0"></v-divider>
             <div class="pa-6">
@@ -14,6 +14,7 @@
                     hide-details
                     outlined
                     class="mb-1"
+                    clearable
                 >
                 </v-text-field>
 
@@ -25,7 +26,7 @@
                 >
                     <v-list-item-content class="py-0">
                         <v-list-item-subtitle>
-                            <a :href="author.slug">{{ author.name }}</a>
+                            <a class="author-links font-weight-medium" :href="author.slug">{{ author.name }}</a>
                         </v-list-item-subtitle>
                     </v-list-item-content>
                 </v-list-item>
@@ -47,10 +48,10 @@
 
 <script>
 export default {
-    name: "AuthorsLeftSideBar",
     data() {
         return {
             authors: [],
+            test: this
         }
     },
     methods: {
@@ -59,7 +60,6 @@ export default {
                 .get("/api/authors")
                 .then(res => {
                     this.authors = res.data;
-                    console.log(this.authors);
                 })
                 .catch(err => console.log(err))
         }
@@ -74,5 +74,14 @@ export default {
 .authors-list {
     min-height: 28px;
     padding: 0;
+}
+
+.author-links {
+    text-decoration: none;
+    color: #676767;
+}
+
+.author-links:hover {
+    color: #04718c;
 }
 </style>

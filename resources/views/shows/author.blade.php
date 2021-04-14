@@ -9,5 +9,9 @@
 
 @section('content')
     <authors-left-sidebar></authors-left-sidebar>
-    <author-show :author="{{ $currentAuthor }}"></author-show>
+    <author-show
+        :authors="{{ $authors }}"
+        :current="{{ $currentAuthor }}"
+        :title="{{ $authorListTitle }}"
+    ></author-show>
 @endsection

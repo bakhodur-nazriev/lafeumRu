@@ -9,6 +9,7 @@
                     clearable
                     height="52"
                     hide-details
+                    v-model="search"
                     background-color="transparent"
                     placeholder="Введите имя автора"
                     class="rounded-lg rounded-tr-0 rounded-br-0"
@@ -29,13 +30,12 @@
         </v-col>
         <div class="row" v-else>
             <ul class="list-inline py-1 list-col-4">
-                <li v-for="(author ,i) in authors" :key="i" class="my-2">
+                <li v-for="(author ,i) in filteredList" :key="i" class="my-2">
                     <a :href="`/authors/`+author.slug">{{ author.name }}</a>
                 </li>
             </ul>
         </div>
     </v-col>
-
 </template>
 
 <script>
@@ -43,27 +43,35 @@ export default {
     name: "Authors",
     data() {
         return {
+            search: "",
             authors: [],
             loading: false
         };
     },
     methods: {
-        getAuthors(){
+        getAuthors() {
             this.loading = true;
             axios
-            .get("/api/authors")
-            .then(res => {
-                this.loading = false;
-                this.authors = res.data;
-            })
-            .catch(err => {
-                this.loading = false;
-                console.log(err);
-            })
+                .get("/api/authors")
+                .then(res => {
+                    this.loading = false;
+                    this.authors = res.data;
+                })
+                .catch(err => {
+                    this.loading = false;
+                    console.log(err);
+                })
         }
     },
-    mounted(){
+    mounted() {
         this.getAuthors();
+    },
+    computed: {
+        filteredList() {
+            return this.authors.filter(author => {
+                return author.name.toLowerCase().includes(this.search.toLowerCase())
+            })
+        }
     }
 };
 </script>

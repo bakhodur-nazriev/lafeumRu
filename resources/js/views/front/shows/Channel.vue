@@ -6,16 +6,18 @@
             <h5 class="channel-description">{{ channel.description }}</h5>
         </div>
 
-        <div v-for="(video, i) in channel.videos.data" :key="i">
-            <video-item :video="video"></video-item>
-        </div>
+        <video-item
+            v-for="(video, i) in channel.videos.data"
+            :key="i"
+            :video="video"
+        ></video-item>
     </v-col>
 </template>
 
 <script>
 export default {
     name: "Channel",
-    props: ["channel", "channels"],
+    props: ["channel"],
     data() {
         return {}
     }
@@ -29,6 +31,3 @@ export default {
     line-height: 22px;
 }
 </style>
-
-Взято из статьи. Источник.
-https://naked-science.ru/article/interview/aleksandr-markov-nas-zhdet

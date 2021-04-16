@@ -11,9 +11,12 @@
             </div>
         </div>
 
-        <div v-for="(quote ,i) in current.quotes.data" :key="i">
-            <quote-item :quote="quote"></quote-item>
-        </div>
+        <quote-item
+            v-for="(quote ,i) in current.quotes.data"
+            :key="i"
+            :quote="quote"
+        >
+        </quote-item>
 
         <v-col cols="12">
             <v-pagination
@@ -43,12 +46,7 @@ export default {
         }
     },
     methods: {
-        onPageChange() {
-
-        }
-    },
-    created() {
-        console.log(this.current.quotes);
+        onPageChange() {}
     }
 };
 </script>

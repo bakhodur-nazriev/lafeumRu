@@ -11,16 +11,18 @@
             <div class="pa-6">
                 <v-text-field
                     label="Введите имя автора"
+                    v-model="search"
                     hide-details
                     class="mb-1"
                     clearable
                     outlined
+                    dense
                 >
                 </v-text-field>
 
                 <!-- Authors -->
                 <v-list-item
-                    v-for="(channel, i) in channels"
+                    v-for="(channel, i) in filteredList"
                     :key="i"
                     class="channels-list pl-1"
                 >
@@ -51,24 +53,35 @@ export default {
     name: "ChannelsLeftSideBar",
     data() {
         return {
-            channels: []
+            channels: [],
+            loading: false,
+            search: ""
         }
     },
     methods: {
         getChannels() {
+            this.loading = true;
             axios
                 .get("/api/channels")
                 .then(res => {
-                    this.channels = res.data
-                    console.log(res.data)
+                    this.loading = false;
+                    this.channels = res.data;
                 })
                 .catch(err => {
-                    console.log(err)
+                    this.loading = false;
+                    console.log(err);
                 })
         }
     },
     mounted() {
         this.getChannels();
+    },
+    computed: {
+        filteredList() {
+            return this.channels.filter(channel => {
+                return channel.name.toLowerCase().includes(this.search.toLowerCase())
+            })
+        }
     }
 }
 </script>

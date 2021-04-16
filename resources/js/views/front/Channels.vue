@@ -9,6 +9,7 @@
                     clearable
                     height="52"
                     hide-details
+                    v-model="search"
                     background-color="transparent"
                     placeholder="Введите имя канала"
                     class="rounded-lg rounded-tr-0 rounded-br-0"
@@ -29,11 +30,22 @@
         </v-col>
         <div class="row" v-else>
             <ul class="list-inline py-1 list-col-4">
-                <li v-for="(channel,i) in channels" :key="i" class="my-2">
-                    <a :href="`/channels/` + channel.slug">{{ channel.name }}</a>
+                <li v-for="(channel, i) in filteredList" :key="i">
+                    <a :href="`/channels/` + channel.slug" class="channels-links">{{ channel.name }}</a>
                 </li>
             </ul>
         </div>
+        <v-btn
+            fab
+            dark
+            color="primary"
+            @click="scrollToTop"
+        >
+            <v-icon dark>mdi-chevron-up</v-icon>
+        </v-btn>
+        <!--        <v-btn @click="scrollToDown" icon>-->
+        <!--            <v-icon>mdi-chevron-down</v-icon>-->
+        <!--        </v-btn>-->
     </v-col>
 </template>
 
@@ -43,26 +55,37 @@ export default {
     data() {
         return {
             channels: [],
-            loading: false
+            loading: false,
+            search: ""
         }
     },
     methods: {
-        getChannels(){
+        getChannels() {
             this.loading = true;
             axios
-            .get("/api/channels")
-            .then(res => {
-                this.loading = false;
-                this.channels = res.data;
-            })
-            .catch(err =>{
-                this.loading = false;
-                console.log(err);
-            })
+                .get("/api/channels")
+                .then(res => {
+                    this.loading = false;
+                    this.channels = res.data;
+                })
+                .catch(err => {
+                    this.loading = false;
+                    console.log(err);
+                })
+        },
+        scrollToTop() {
+            window.scrollTo(0, 0);
         }
     },
-    mounted(){
+    mounted() {
         this.getChannels();
+    },
+    computed: {
+        filteredList() {
+            return this.channels.filter(channel => {
+                return channel.name.toLowerCase().includes(this.search.toLowerCase())
+            })
+        }
     }
 }
 </script>
@@ -76,6 +99,11 @@ export default {
 .list-col-4 {
     column-count: 3;
 }
+
+.channels-links {
+    line-height: 2;
+}
+
 
 .form-search {
     display: flex;

@@ -5,31 +5,39 @@
         <v-sheet rounded="lg" width="100%">
             <div class="d-flex align-center pa-5">
                 <v-icon>mdi-account-group-outline</v-icon>
-                <!--                <h5 class="ml-2 mb-0">{{ title }}</h5>-->
+                <!--<h5 class="ml-2 mb-0">{{ title }}</h5>-->
+                <h5 class="ml-2 mb-0">Авторы</h5>
             </div>
             <v-divider class="ma-0"></v-divider>
             <div class="pa-6">
                 <v-text-field
                     label="Введите имя автора"
+                    v-model="search"
                     hide-details
-                    outlined
                     class="mb-1"
                     clearable
+                    outlined
+                    dense
                 >
                 </v-text-field>
 
                 <!-- Authors -->
-                <v-list-item
-                    v-for="(author, i) in authors"
-                    :key="i"
-                    class="authors-list pl-1"
-                >
-                    <v-list-item-content class="py-0">
-                        <v-list-item-subtitle>
-                            <a class="author-links font-weight-medium" :href="author.slug">{{ author.name }}</a>
-                        </v-list-item-subtitle>
-                    </v-list-item-content>
-                </v-list-item>
+                <div v-if="loading">
+                    <h5 class="text-uppercase font-weight-regular py-4">загурзка...</h5>
+                </div>
+                <div v-else>
+                    <v-list-item
+                        v-for="(author, i) in filteredList"
+                        :key="i"
+                        class="authors-list pl-1"
+                    >
+                        <v-list-item-content class="py-0">
+                            <v-list-item-subtitle>
+                                <a class="author-links font-weight-medium" :href="author.slug">{{ author.name }}</a>
+                            </v-list-item-subtitle>
+                        </v-list-item-content>
+                    </v-list-item>
+                </div>
             </div>
             <v-col cols="12" class="d-flex justify-center mt-2">
                 <v-btn
@@ -51,21 +59,34 @@ export default {
     data() {
         return {
             authors: [],
-            test: this
+            search: "",
+            loading: false
         }
     },
     methods: {
         getAuthors() {
+            this.loading = true;
             axios
                 .get("/api/authors")
                 .then(res => {
+                    this.loading = false;
                     this.authors = res.data;
                 })
-                .catch(err => console.log(err))
+                .catch(err => {
+                    this.loading = false;
+                    console.log(err);
+                })
         }
     },
     mounted() {
         this.getAuthors();
+    },
+    computed: {
+        filteredList() {
+            return this.authors.filter(author => {
+                return author.name.toLowerCase().includes(this.search.toLowerCase())
+            })
+        }
     }
 }
 </script>

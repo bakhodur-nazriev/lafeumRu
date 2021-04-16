@@ -18,8 +18,13 @@ class KnowledgesController extends Controller
 
     public function index()
     {
+        return view('knowledgeArea');
+    }
+
+    public function getKnowledgeAreas()
+    {
         $knowledgeAreas = Knowledge::orderBy('_lft')->get()->toTree();
-        return view('knowledgeArea', compact('knowledgeAreas'));
+        return response()->json(collect($knowledgeAreas));
     }
 
     public function show(Knowledge $knowledge)
@@ -37,7 +42,7 @@ class KnowledgesController extends Controller
 
     public function get(Request $request)
     {
-        if($request->has('tree')){
+        if ($request->has('tree')) {
             return Knowledge::orderBy('_lft')
                 ->latest()
                 ->get()
@@ -66,10 +71,10 @@ class KnowledgesController extends Controller
 
         $newKnowledgeArea = Knowledge::create($request->all());
 
-        if(
+        if (
             $request->has('linked_knowledge') &&
             gettype($request->linked_knowledge) === "array"
-        ){
+        ) {
             $relatedKnowledge = Knowledge::whereIn('id', $request->linked_knowledge)->get();
 
             $newKnowledgeArea->linkEntities($relatedKnowledge);
@@ -93,10 +98,10 @@ class KnowledgesController extends Controller
     {
         $knowledge->update($request->all());
 
-        if(
+        if (
             $request->has('linked_knowledge') &&
             gettype($request->linked_knowledge) === "array"
-        ){
+        ) {
             $relatedKnowledge = Knowledge::whereIn('id', $request->linked_knowledge)->get();
 
             $knowledge->syncRelatedEntities($relatedKnowledge);
@@ -108,7 +113,7 @@ class KnowledgesController extends Controller
     public function destroy(Knowledge $knowledge)
     {
         $this->redirectService->registerModelRemoval($knowledge);
-        
+
         $knowledge->unlinkAllEntities();
         $knowledge->delete();
     }

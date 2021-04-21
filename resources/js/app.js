@@ -1,4 +1,4 @@
-import {req} from "vuelidate/lib/validators/common";
+// import {req} from "vuelidate/lib/validators/common";
 
 require("./constants");
 
@@ -63,6 +63,7 @@ Vue.component("photos", require("./views/front/Photos").default);
 Vue.component("authors", require("./views/front/Authors").default);
 Vue.component("author-show", require("./views/front/shows/Author").default);
 Vue.component("knowledge-area", require("./views/front/KnowledgeArea").default);
+Vue.component("knowledge", require("./views/front/shows/KnowledgeArea").default);
 Vue.component("vocabulary", require("./views/front/Vocabulary").default);
 Vue.component("channels", require("./views/front/Channels").default);
 Vue.component("channel-show", require("./views/front/shows/Channel").default);
@@ -90,6 +91,7 @@ Vue.component("left-side-bar", require("./components/layouts/LeftSideBar").defau
 Vue.component("home-left-sidebar", require("./components/layouts/HomeLeftSideBar").default);
 Vue.component("authors-left-sidebar", require("./components/layouts/AuthorsLeftSideBar").default);
 Vue.component("channels-left-sidebar", require("./components/layouts/ChannelsLeftSideBar").default);
+Vue.component("knowledge-area-left-sidebar", require("./components/layouts/KnowledgeLeftSideBar").default);
 
 /* Right Side Bar */
 Vue.component("right-side-bar", require("./components/layouts/RightSideBar").default);

@@ -6,22 +6,26 @@
             группам и направлениям.</p>
         <v-col cols="7" class="d-flex align-items-center pl-0 mb-11">
             <div class="form-search rounded-lg w-100">
-                <v-text-field
-                    solo
-                    clearable
-                    height="52"
-                    hide-details
-                    v-model="search"
-                    background-color="transparent"
-                    placeholder="Область знаний"
-                    class="rounded-lg rounded-tr-0 rounded-br-0"
-                >
-                </v-text-field>
+                <div class="form-search-text-side">
+                    <v-text-field
+                        solo
+                        flat
+                        clearable
+                        height="48"
+                        hide-details
+                        v-model="search"
+                        placeholder="Область знаний"
+                        background-color="transparent"
+                        class="rounded-lg rounded-tr-0 rounded-br-0 search-field"
+                    >
+                    </v-text-field>
+                </div>
                 <v-btn
+                    text
                     depressed
                     height="52"
-                    color="primary"
-                    class="text-capitalize rounded-0"
+                    color="white"
+                    class="text-capitalize rounded-0 primary rounded-br-lg rounded-tr-lg"
                 >
                     Поиск
                 </v-btn>
@@ -30,9 +34,9 @@
         <v-col cols="12" class="d-flex justify-center" v-if="loading">
             <h5 class="text-uppercase font-weight-regular py-4">загурзка...</h5>
         </v-col>
-
         <div v-else>
             <v-card
+                width="99%"
                 flat
                 :key="i"
                 class="knowledge-area-card mb-9 pa-7"
@@ -77,7 +81,6 @@ export default {
                 .then(res => {
                     this.loading = false;
                     this.knowledgeAreas = res.data;
-                    console.log(res.data);
                 })
                 .catch(err => {
                     this.laoding = false;
@@ -90,22 +93,46 @@ export default {
     },
     computed: {
         filteredList() {
-            return this.knowledgeAreas.filter(knowledge => {
-                return knowledge.name.toLowerCase().includes(this.search.toLowerCase())
+            return this.knowledgeAreas.map(knowledge => {
+                const children = knowledge.children.filter(child => {
+                    // return child.name.toLowerCase().includes(this.search.toLowerCase()) || this.search.includes(child.name);
+                    console.log(knowledge);
+                });
+                return {...knowledge, children}
             })
         }
     }
 }
 </script>
 
-<style scope>
+<style scoped>
 .list-col-4 {
     column-count: 3;
 }
 
 .form-search {
     display: flex;
+}
+
+.search-field {
     border: 2px solid #1a718c;
+}
+
+.form-search-text-side {
+    width: 80%;
+}
+
+.form-search-button-side {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background-color: #1a718c;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    position: relative;
+    bottom: 1px;
 }
 
 .knowledge-area-card {

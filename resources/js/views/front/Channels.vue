@@ -6,20 +6,21 @@
             <div class="form-search rounded-lg w-100">
                 <v-text-field
                     solo
+                    flat
                     clearable
-                    height="52"
+                    height="48"
                     hide-details
                     v-model="search"
                     background-color="transparent"
                     placeholder="Введите имя канала"
-                    class="rounded-lg rounded-tr-0 rounded-br-0"
+                    class="rounded-lg rounded-tr-0 rounded-br-0 search-field"
                 >
                 </v-text-field>
                 <v-btn
                     depressed
                     height="52"
                     color="primary"
-                    class="text-capitalize rounded-0"
+                    class="text-capitalize rounded-0 rounded-br-lg rounded-tr-lg"
                 >
                     Поиск
                 </v-btn>
@@ -43,9 +44,9 @@
         >
             <v-icon dark>mdi-chevron-up</v-icon>
         </v-btn>
-        <!--        <v-btn @click="scrollToDown" icon>-->
-        <!--            <v-icon>mdi-chevron-down</v-icon>-->
-        <!--        </v-btn>-->
+        <v-btn @click="scrollToDown" icon>
+            <v-icon>mdi-chevron-down</v-icon>
+        </v-btn>
     </v-col>
 </template>
 
@@ -104,9 +105,11 @@ export default {
     line-height: 2;
 }
 
-
 .form-search {
     display: flex;
+}
+
+.search-field {
     border: 2px solid #1a718c;
 }
 </style>

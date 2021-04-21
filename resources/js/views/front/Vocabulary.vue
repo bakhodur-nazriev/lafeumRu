@@ -10,44 +10,46 @@
             обновляться.
         </p>
 
-        <v-col cols="12" class="d-flex align-items-center pl-0 mb-8">
+        <v-col cols="12" class="d-flex align-items-center pl-0 mb-5">
             <div class="form-search rounded-lg w-100">
                 <v-text-field
                     solo
+                    flat
                     clearable
-                    height="52"
+                    height="48"
                     hide-details
-                    v-model="vocabularySearch"
+                    v-model="search"
                     placeholder="Область знаний"
                     background-color="transparent"
-                    class="rounded-lg rounded-tr-0 rounded-br-0"
+                    class="rounded-lg rounded-tr-0 rounded-br-0 search-filed"
                 >
                 </v-text-field>
                 <v-btn
                     depressed
                     height="52"
                     color="primary"
-                    class="text-capitalize rounded-0"
+                    class="text-capitalize rounded-0 rounded-br-lg rounded-tr-lg"
                 >
                     Поиск
                 </v-btn>
             </div>
         </v-col>
-        <div class="mb-9">
+        <v-col cols="12" class="mb-5">
             <h5 class="subtitle-1">
                 Примеры информативных поисковых запросов: «нау», «логия», «ика», «изм»,
                 «фило», «само», «чело», «соц», «пси», «эво» и т.п.
             </h5>
-        </div>
+        </v-col>
 
         <h5 class="text-uppercase font-weight-regular">все слова</h5>
         <v-col cols="12" class="d-flex justify-center" v-if="loading">
             <h5 class="text-uppercase font-weight-regular py-4">загурзка...</h5>
         </v-col>
-        <div class="row" justify="center" v-else>
-            <v-col cols="6" v-for="(column, i) in columns" :key="i">
+
+        <v-row justify="center" v-else>
+            <v-col cols="6" v-for="(vocabulary, i) in columns" :key="i">
                 <v-card rounded="lg" class="px-8 py-5" flat>
-                    <v-card-text class="pa-1" v-for="(term ,i) in column" :key="i">
+                    <v-card-text class="pa-1" v-for="(term ,i) in vocabulary" :key="i">
                         <h1 class="vocabulary-letter text-decoration-none pt-4 pb-2">{{ term.group }}</h1>
                         <div class="truncate-to-seven-line">
                             <div
@@ -57,7 +59,6 @@
                             >
                                 <a
                                     class="vocabulary-words text-decoration-none"
-                                    :href="child.post.id"
                                 >
                                     {{ child.name }}
                                 </a>
@@ -70,12 +71,11 @@
                     </v-card-text>
                 </v-card>
             </v-col>
-        </div>
-
-        <v-col cols class="text-center my-5">
-            <!--            <v-btn large class="grey lighten-1" icon>-->
-            <!--                <v-icon color="white">mdi-arrow-down</v-icon>-->
-            <!--            </v-btn>-->
+        </v-row>
+        <v-col cols="12" class="text-center my-5">
+            <v-btn large class="grey lighten-1" icon>
+                <v-icon color="white">mdi-arrow-down</v-icon>
+            </v-btn>
         </v-col>
     </v-col>
 </template>
@@ -84,10 +84,9 @@
 export default {
     data() {
         return {
+            search: "",
             terms: [],
             loading: false,
-            vocabularySearch: "",
-            maxVocabularyHeight: 100,
             page: 0,
             cols: 2
         };
@@ -99,7 +98,7 @@ export default {
                 .get("/api/vocabulary")
                 .then(res => {
                     this.loading = false;
-                    this.terms = res.data
+                    this.terms = res.data;
                 })
                 .catch(err => {
                     this.loading = false;
@@ -112,22 +111,31 @@ export default {
     },
     computed: {
         orderVocabulary() {
-            let allData = this.terms.reduce((r, e) => {
+            let allTerms = this.terms.reduce((r, e) => {
                 let group = e.name[0];
                 if (!r[group]) r[group] = {group, children: [e]}
                 else r[group].children.push(e);
                 return r;
             }, {})
-            return Object.values(allData);
+            return Object.values(allTerms);
+        },
+        filteredVocabulary() {
+            return this.orderVocabulary.map(terms => {
+                const children = terms.children.filter(term => {
+                    // return term.name.toLowerCase().includes(this.search.toLowerCase()) || this.search.includes(child.name);
+                    console.log(this.columns);
+                });
+                // return {...terms, children}
+            });
         },
         columns() {
-            let columns = []
-            let mid = Math.ceil(this.orderVocabulary.length / this.cols)
+            let columns = [];
+            let mid = Math.ceil(this.orderVocabulary.length / this.cols);
             for (let col = 0; col < this.cols; col++) {
-                columns.push(this.orderVocabulary.slice(col * mid, col * mid + mid))
+                columns.push(this.orderVocabulary.slice(col * mid, col * mid + mid));
             }
-            return columns
-        }
+            return columns;
+        },
     },
 };
 </script>
@@ -135,6 +143,9 @@ export default {
 <style scoped>
 .form-search {
     display: flex;
+}
+
+.search-filed {
     border: 2px solid #1a718c;
 }
 

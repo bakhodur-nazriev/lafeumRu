@@ -4,7 +4,7 @@
         <v-card class="rounded-lg" flat>
             <!-- Quote Section -->
             <div class="pa-5 pb-0">
-                <v-card-title class="subtitle-2 font-weight-medium pa-0">Цитата дня
+                <v-card-title class="subtitle-2 font-weight-bold pa-0">Цитата дня
                     <v-spacer></v-spacer>
                     <v-icon>mdi-dots-horizontal</v-icon>
                 </v-card-title>
@@ -20,7 +20,7 @@
 
             <!-- Term Section -->
             <div class="pa-5 pb-0">
-                <v-card-title class="subtitle-2 font-weight-medium pa-0">Термин дня</v-card-title>
+                <v-card-title class="subtitle-2 font-weight-bold pa-0">Термин дня</v-card-title>
                 <v-divider></v-divider>
                 <v-card-text class="truncate-to-five-line" v-html="term.body"></v-card-text>
                 <v-card-actions class="justify-content-end">
@@ -30,7 +30,7 @@
 
             <!-- Video section -->
             <div class="pa-5 pb-0">
-                <v-card-title class="subtitle-2 font-weight-medium pa-0">Видео дня</v-card-title>
+                <v-card-title class="subtitle-2 font-weight-bold pa-0">Видео дня</v-card-title>
                 <v-divider></v-divider>
                 <v-card-text class="pa-0 mb-3">
                     <video-embed :src="video.embeded_link"></video-embed>
@@ -45,9 +45,8 @@
             <v-dialog v-model="dialog" width="1000">
                 <template v-slot:activator="{ on, attrs }">
                     <div class="pa-5">
-                        <v-card-title class="subtitle-2 font-weight-medium pa-0">Фотография дня</v-card-title>
+                        <v-card-title class="subtitle-2 font-weight-bold pa-0">Фотография дня</v-card-title>
                         <v-divider></v-divider>
-
                         <v-card-text
                             class="pa-0"
                             v-on="on"

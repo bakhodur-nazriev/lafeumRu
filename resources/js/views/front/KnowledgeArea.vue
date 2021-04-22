@@ -1,9 +1,9 @@
 <template>
     <v-col xl="7" lg="9">
         <h5 class="text-uppercase font-weight-regular py-4">Области знаний</h5>
-        <p class="grey--text">В этой рубрике термины и комментарии специалистов классифицированы<br/> более развернуто
-            по
-            группам и направлениям.</p>
+        <p class="grey--text">В этой рубрике термины и комментарии специалистов классифицированы
+            <br/>более развернуто по группам и направлениям.
+        </p>
         <v-col cols="7" class="d-flex align-items-center pl-0 mb-11">
             <div class="form-search rounded-lg w-100">
                 <div class="form-search-text-side">
@@ -32,13 +32,18 @@
             </div>
         </v-col>
         <v-col cols="12" class="d-flex justify-center" v-if="loading">
-            <h5 class="text-uppercase font-weight-regular py-4">загурзка...</h5>
+            <v-progress-circular
+                width="5"
+                size="48"
+                indeterminate
+                color="primary"
+            ></v-progress-circular>
         </v-col>
-        <div v-else>
+        <v-col v-else>
             <v-card
-                width="99%"
                 flat
                 :key="i"
+                width="99%"
                 class="knowledge-area-card mb-9 pa-7"
                 v-for="(knowledgeArea, i) in filteredList"
             >
@@ -59,7 +64,7 @@
                     </v-col>
                 </v-card-title>
             </v-card>
-        </div>
+        </v-col>
     </v-col>
 </template>
 
@@ -95,8 +100,7 @@ export default {
         filteredList() {
             return this.knowledgeAreas.map(knowledge => {
                 const children = knowledge.children.filter(child => {
-                    // return child.name.toLowerCase().includes(this.search.toLowerCase()) || this.search.includes(child.name);
-                    console.log(knowledge);
+                    return child.name.toLowerCase().includes(this.search.toLowerCase()) || this.search.includes(child.name);
                 });
                 return {...knowledge, children}
             })

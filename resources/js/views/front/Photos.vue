@@ -3,36 +3,42 @@
         <h5 class="text-uppercase font-weight-regular py-4">фотографии</h5>
         <v-row align="center">
             <v-col cols="12" class="d-flex justify-center" v-if="loading">
-                <h5 class="text-uppercase font-weight-regular py-4">загурзка...</h5>
+                <v-progress-circular
+                    width="5"
+                    size="48"
+                    indeterminate
+                    color="primary"
+                ></v-progress-circular>
             </v-col>
-            <v-col
-                v-else
-                cols="4"
-                v-for="(photo, i) in photos"
-                :key="i"
-            >
-                <v-card
-                    flat
-                    width="367"
-                    height="264"
-                    rounded="lg"
+            <v-row align="center" v-else>
+                <v-col
+                    cols="4"
+                    v-for="(photo, i) in photos"
+                    :key="i"
                 >
-                    <v-card-text class="d-flex justify-content-center align-items-center h-100">
-                        <v-img max-width="268" height="180" class="d-flex" :src="photo.path"></v-img>
-                    </v-card-text>
-                </v-card>
-            </v-col>
-            <v-col cols="12" class="d-flex justify-center mt-2">
-                <v-btn
-                    fab
-                    small
-                    rounded
-                    elevation="0"
-                    color="grey lighten-2"
-                >
-                    <v-icon color="white">mdi-arrow-down</v-icon>
-                </v-btn>
-            </v-col>
+                    <v-card
+                        flat
+                        width="367"
+                        height="264"
+                        rounded="lg"
+                    >
+                        <v-card-text class="d-flex justify-content-center align-items-center h-100">
+                            <v-img max-width="268" height="180" class="d-flex" :src="photo.path"></v-img>
+                        </v-card-text>
+                    </v-card>
+                </v-col>
+                <v-col cols="12" class="d-flex justify-center mt-2">
+                    <v-btn
+                        fab
+                        small
+                        rounded
+                        elevation="0"
+                        color="grey lighten-2"
+                    >
+                        <v-icon color="white">mdi-arrow-down</v-icon>
+                    </v-btn>
+                </v-col>
+            </v-row>
             <v-col cols="12">
                 <v-pagination
                     v-model="pagination.current"

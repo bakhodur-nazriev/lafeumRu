@@ -3,7 +3,12 @@
         <h5 class="text-uppercase font-weight-regular py-4 mx-4">Цитаты</h5>
         <v-row align="center">
             <v-col cols="12" class="d-flex justify-center" v-if="loading">
-                <h5 class="text-uppercase font-weight-regular py-4">загурзка...</h5>
+                <v-progress-circular
+                    width="5"
+                    size="48"
+                    indeterminate
+                    color="primary"
+                ></v-progress-circular>
             </v-col>
             <v-col v-else class="py-0">
                 <quote-item

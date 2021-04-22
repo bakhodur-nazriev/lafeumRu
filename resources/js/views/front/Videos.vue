@@ -1,16 +1,21 @@
 <template>
     <v-col xl="5" lg="6">
         <h5 class="text-uppercase font-weight-regular py-4 mx-4">Видео</h5>
-        <div v-if="loading" class="d-flex justify-center">
-            <h5 class="text-uppercase font-weight-regular py-4">загурзка...</h5>
-        </div>
-        <div v-else>
+        <v-col cols="12" v-if="loading" class="d-flex justify-center">
+            <v-progress-circular
+                width="5"
+                size="48"
+                indeterminate
+                color="primary"
+            ></v-progress-circular>
+        </v-col>
+        <v-col cols="12" v-else>
             <video-item
                 v-for="(video,i) in videos.data"
                 :key="i"
                 :video="video"
             ></video-item>
-        </div>
+        </v-col>
         <v-col cols="12" class="d-flex justify-center mt-2">
             <v-btn
                 fab
@@ -57,7 +62,6 @@ export default {
                     this.videos = res.data;
                     this.pagination.current = res.data.current_page;
                     this.pagination.total = res.data.last_page;
-                    // console.log(res.data.data);
                 })
                 .catch(err => {
                     this.loading = false;

@@ -27,15 +27,20 @@
             </div>
         </v-col>
         <v-col cols="12" class="d-flex justify-center" v-if="loading">
-            <h5 class="text-uppercase font-weight-regular py-4">загурзка...</h5>
+            <v-progress-circular
+                width="5"
+                size="48"
+                indeterminate
+                color="primary"
+            ></v-progress-circular>
         </v-col>
-        <div class="row" v-else>
+        <v-row v-else>
             <ul class="list-inline py-1 list-col-4">
                 <li v-for="(author ,i) in filteredList" :key="i" class="my-2">
                     <a :href="`/authors/`+author.slug">{{ author.name }}</a>
                 </li>
             </ul>
-        </div>
+        </v-row>
     </v-col>
 </template>
 

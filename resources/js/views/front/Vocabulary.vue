@@ -10,7 +10,7 @@
             обновляться.
         </p>
 
-        <v-col cols="12" class="d-flex align-items-center pl-0 mb-5">
+        <v-col cols="12" class="d-flex align-items-center pl-0">
             <div class="form-search rounded-lg w-100">
                 <v-text-field
                     solo
@@ -34,7 +34,7 @@
                 </v-btn>
             </div>
         </v-col>
-        <v-col cols="12" class="mb-5">
+        <v-col cols="12" class="mb-3">
             <h5 class="subtitle-1">
                 Примеры информативных поисковых запросов: «нау», «логия», «ика», «изм»,
                 «фило», «само», «чело», «соц», «пси», «эво» и т.п.
@@ -43,40 +43,55 @@
 
         <h5 class="text-uppercase font-weight-regular">все слова</h5>
         <v-col cols="12" class="d-flex justify-center" v-if="loading">
-            <h5 class="text-uppercase font-weight-regular py-4">загурзка...</h5>
+            <v-progress-circular
+                width="5"
+                size="48"
+                indeterminate
+                color="primary"
+            ></v-progress-circular>
         </v-col>
 
         <v-row justify="center" v-else>
-            <v-col cols="6" v-for="(vocabulary, i) in columns" :key="i">
+            <v-col cols="6" v-for="(vocabulary, i) in filteredVocabulary" :key="i">
                 <v-card rounded="lg" class="px-8 py-5" flat>
-                    <v-card-text class="pa-1" v-for="(term ,i) in vocabulary" :key="i">
+                    <v-card-text
+                        class="pa-1"
+                        v-for="(term ,i) in vocabulary"
+                        :key="i"
+                    >
                         <h1 class="vocabulary-letter text-decoration-none pt-4 pb-2">{{ term.group }}</h1>
-                        <div class="truncate-to-seven-line">
+                        <div :class="{'truncate-to-seven-line': isActive}">
                             <div
                                 class="pb-1"
                                 v-for="(child ,i) in term.children"
                                 :key="i"
                             >
-                                <a
-                                    class="vocabulary-words text-decoration-none"
-                                >
+                                <a class="vocabulary-words text-decoration-none">
                                     {{ child.name }}
                                 </a>
                                 <br/>
                             </div>
                         </div>
                         <div class="text-right">
-                            <a href="#" class="font-italic">Еще.</a>
+                            <v-btn
+                                text
+                                color="primary"
+                                @click="toggleVocabulary(term.children)"
+                                class="font-italic font-weight-normal text-decoration-none"
+                            >
+                                еще.
+                                <v-icon small>mdi-arrow-right</v-icon>
+                            </v-btn>
                         </div>
                     </v-card-text>
                 </v-card>
             </v-col>
+            <v-col cols="12" class="text-center my-5">
+                <v-btn large class="grey lighten-1" icon>
+                    <v-icon color="white">mdi-arrow-down</v-icon>
+                </v-btn>
+            </v-col>
         </v-row>
-        <v-col cols="12" class="text-center my-5">
-            <v-btn large class="grey lighten-1" icon>
-                <v-icon color="white">mdi-arrow-down</v-icon>
-            </v-btn>
-        </v-col>
     </v-col>
 </template>
 
@@ -84,6 +99,7 @@
 export default {
     data() {
         return {
+            isActive: true,
             search: "",
             terms: [],
             loading: false,
@@ -104,6 +120,9 @@ export default {
                     this.loading = false;
                     console.log(err)
                 })
+        },
+        toggleVocabulary() {
+            this.isActive = !this.isActive;
         }
     },
     mounted() {
@@ -119,15 +138,6 @@ export default {
             }, {})
             return Object.values(allTerms);
         },
-        filteredVocabulary() {
-            return this.orderVocabulary.map(terms => {
-                const children = terms.children.filter(term => {
-                    // return term.name.toLowerCase().includes(this.search.toLowerCase()) || this.search.includes(child.name);
-                    console.log(this.columns);
-                });
-                // return {...terms, children}
-            });
-        },
         columns() {
             let columns = [];
             let mid = Math.ceil(this.orderVocabulary.length / this.cols);
@@ -136,11 +146,25 @@ export default {
             }
             return columns;
         },
-    },
+        filteredVocabulary() {
+            return this.columns.map(terms => {
+                return terms.map(term => {
+                    const children = term.children.filter(child => {
+                        return child.name.toLowerCase().includes(this.search.toLowerCase()) || this.search.includes(child.name)
+                    });
+                    return {...term, children}
+                })
+            });
+        },
+    }
 };
 </script>
 
 <style scoped>
+.v-btn {
+    text-transform: lowercase;
+}
+
 .form-search {
     display: flex;
 }

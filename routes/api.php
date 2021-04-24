@@ -117,6 +117,12 @@ Route::group(['middleware' => 'api'], function () {
     Route::get("/authors", "AuthorsController@getAuthors");
     Route::get("/channels", "ChannelsController@getChannels");
     Route::get("/knowledge", "KnowledgesController@getKnowledgeAreas");
+
+    /* Posts Categories routes */
+    Route::get("/quotes/{categorySlug}", "CategoriesController@getShowQuotes");
+    Route::get("/terms/{categorySlug}", "CategoriesController@getShowTerms");
+    Route::get("/videos/{categorySlug}", "CategoriesController@getShowVideos");
+    Route::get("/vocabulary/{categorySlug}", "CategoriesController@getShowVocabulary");
 });
 
 

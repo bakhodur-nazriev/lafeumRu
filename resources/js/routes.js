@@ -1,3 +1,15 @@
+/* Import Front components */
+import Home from "./views/front/Home";
+import KnowledgeArea from "./views/front/KnowledgeArea";
+import Vocabulary from "./views/front/Vocabulary";
+import Quotes from "./views/front/Quotes";
+import Authors from "./views/front/Authors";
+import Videos from "./views/front/Videos";
+import Channels from "./views/front/Channels";
+import Terms from "./views/front/Terms";
+import Photos from "./views/front/Photos";
+
+/* Import Back components */
 import QuotesPage from "./views/back/Quotes/QuotesPage";
 import QuotesTrashedPage from "./views/back/Trashes/QuotesTrashedPage";
 import TermsPage from "./views/back/Terms/TermsPage";
@@ -242,6 +254,54 @@ let allSidebarRoutes = [
         path: "/dashboard/feedbacks",
         component: FeedbacksPage
     }
+];
+
+let allFrontRoutes = [
+    {
+        imageUrl: "/img/lafeum-ru-home.png",
+        path: "/",
+        component: Home
+    },
+    {
+        name: "Области Знаний",
+        path: "/knowledge",
+        component: KnowledgeArea
+    },
+    {
+        name: "Словарь",
+        path: "/vocabulary",
+        component: Vocabulary
+    },
+    {
+        name: "Цитаты",
+        path: "/quotes",
+        component: Quotes
+    },
+    {
+        name: "Авторы",
+        path: "/authors",
+        component: Authors
+    },
+    {
+        name: "Видео",
+        path: "/videos",
+        component: Videos
+    },
+    {
+        name: "Каналы",
+        path: "/channels",
+        component: Channels
+    },
+    {
+        name: "Термины",
+        path: "/terms",
+        component: Terms
+    },
+    {
+        name: "Фотографии",
+        path: "/photos",
+        component: Photos
+    },
 ];
 
 function getAuthorizedRoutes(routes) {

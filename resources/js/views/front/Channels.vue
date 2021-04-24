@@ -115,6 +115,7 @@ export default {
 }
 
 .search-field {
-    border: 2px solid #1a718c;
+    border: 2px solid #9B9B9B;
+    border-right: none;
 }
 </style>

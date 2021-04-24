@@ -72,12 +72,12 @@
                                 <br/>
                             </div>
                         </div>
-                        <div class="text-right">
+                        <div class="text-right load-more-vocabulary" v-if="term.children.length > 7">
                             <v-btn
                                 text
                                 color="primary"
-                                @click="toggleVocabulary(term.children)"
-                                class="font-italic font-weight-normal text-decoration-none"
+                                @click="toggleVocabulary()"
+                                class="font-italic"
                             >
                                 еще.
                                 <v-icon small>mdi-arrow-right</v-icon>
@@ -156,7 +156,7 @@ export default {
                 })
             });
         },
-    }
+    },
 };
 </script>
 
@@ -165,12 +165,17 @@ export default {
     text-transform: lowercase;
 }
 
+.load-more-vocabulary {
+    position: relative;
+}
+
 .form-search {
     display: flex;
 }
 
 .search-filed {
-    border: 2px solid #1a718c;
+    border: 2px solid #9B9B9B;
+    border-right: none;
 }
 
 .truncate-to-seven-line {

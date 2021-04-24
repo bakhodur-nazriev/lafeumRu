@@ -17,7 +17,7 @@
                                 :key="i"
                                 class="font-weight-normal"
                             >
-                                <a :href="postLink.href">{{ postLink.label }}</a>
+                                <a :href="postLink.href" class="text-decoration-none">{{ postLink.label }}</a>
                             </div>
                         </v-expansion-panel-content>
                     </v-expansion-panel>
@@ -43,7 +43,7 @@
                                 v-for="(subPostLink ,i) in subCategory.post_links"
                                 :key="i"
                             >
-                                <a :href="subPostLink.href">{{ subPostLink.label }}</a>
+                                <a :href="subPostLink.href" class="text-decoration-none">{{ subPostLink.label }}</a>
                             </div>
                         </v-expansion-panel-content>
                     </v-expansion-panel>

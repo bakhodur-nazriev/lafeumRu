@@ -53,7 +53,19 @@ class CategoriesController extends Controller
         return view('shows.category', compact('category'));
     }
 
-    public function showTerms($categorySlug)
+    public function getShowQuotes($categorySlug)
+    {
+        $category = $this->getCategory(Quote::class, $categorySlug);
+
+        return response()->json(collect($category));
+    }
+
+    public function showTerms()
+    {
+        return view('shows.category');
+    }
+
+    public function getShowTerms($categorySlug)
     {
         $category = $this->getCategory(Term::class,
             $categorySlug,
@@ -62,16 +74,27 @@ class CategoriesController extends Controller
             }
         );
 
-        return view('shows.category', compact('category'));
+        return response()->json(collect($category));
     }
 
-    public function showVideos($categorySlug)
+    public function showVideos()
+    {
+        return view('shows.category');
+    }
+
+    public function getShowVideos($categorySlug)
     {
         $category = $this->getCategory(Video::class, $categorySlug);
-        return view('shows.category', compact('category'));
+
+        return response()->json(collect($category));
     }
 
-    public function showVocabulary($categorySlug)
+    public function showVocabulary()
+    {
+        return view('vocabulary');
+    }
+
+    public function getShowVocabulary($categorySlug)
     {
         $category = Category::where('type', Term::class)
             ->where('slug', $categorySlug)
@@ -81,7 +104,7 @@ class CategoriesController extends Controller
             ->vocabulary()
             ->get();
 
-        return view('vocabulary', compact(['category', 'terms']));
+        return response()->json(collect($category, $terms));
     }
 
     public function store(Request $request)
@@ -127,13 +150,13 @@ class CategoriesController extends Controller
     {
         $category = Category::where('type', $categoriable)->where('slug', $slug)->first();
 
-        if(!$category){
+        if (!$category) {
             abort(404);
         }
 
         $categoriablesQuery = $this->getCategoriablesQuery($categoriable, $category);
 
-        if($queries){
+        if ($queries) {
             $categoriablesQuery = $queries($categoriablesQuery);
         }
 

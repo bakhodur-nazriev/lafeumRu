@@ -7,7 +7,12 @@
     ])
 @endsection
 
+@section('left-side-bar')
+@endsection
+
 @section('content')
-    <left-side-bar :categories="{{ $categories }}"></left-side-bar>
+    @include('layouts.left-sidebar.leftSideBar', ['type' => 'App\Quote'])
+
+    {{--    <left-side-bar :categories="{{ $categories }}"></left-side-bar>--}}
     <quotes></quotes>
 @endsection

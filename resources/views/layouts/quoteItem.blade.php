@@ -8,5 +8,5 @@
 @endphp
 
 @section('content')
-    <quote-item></quote-item>
+    <quote-item :quote="{{ $quote }}"></quote-item>
 @endsection

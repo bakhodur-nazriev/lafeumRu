@@ -16,6 +16,8 @@ class PostsController extends Controller
 
         $postMetatags = $this->getPostMetatags($post);
 
+        // return collect($item, $post, $postMetatags);
+
         return view('shows.post', compact('post', 'item', 'postMetatags'));
     }
 
@@ -25,10 +27,10 @@ class PostsController extends Controller
             ->where('id', $id)
             ->first()
             ->postable;
-        
+
         $wikipediaSummaryStyle = ['extract_html' => ''];
 
-        if($term){
+        if ($term) {
             $wikipediaSummaryStyle['extract_html'] = $term->body;
         }
 
@@ -49,13 +51,13 @@ class PostsController extends Controller
             'published' => $postable->created_at->toAtomString(),
             'updated' => $postable->updated_at->toAtomString()
         ];
-    
+
         switch ($post->postable_type) {
             case Quote::class:
                 $quoteBody = mb_substr(strip_tags($postable->body), 0, 60);
                 $quoteAuthor = $postable->author->name;
-    
-                if($postable->meta_image){
+
+                if ($postable->meta_image) {
                     $postMetatags['imageUrl'] = url($postable->meta_image);
                 }
 
@@ -66,8 +68,8 @@ class PostsController extends Controller
             case Term::class:
                 $termName = $postable->name;
                 $termBody = mb_substr(strip_tags($postable->body), 0, 150);
-                
-                if(!$termName){
+
+                if (!$termName) {
                     $termName = 'Термин';
                 }
 
@@ -81,7 +83,7 @@ class PostsController extends Controller
                 $postMetatags['article']['section'] = "Видео";
                 break;
         }
-        
+
         return $postMetatags;
     }
 }

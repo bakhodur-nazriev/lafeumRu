@@ -61,18 +61,21 @@ Vue.component("terms", require("./views/front/Terms").default);
 Vue.component("videos", require("./views/front/Videos").default);
 Vue.component("photos", require("./views/front/Photos").default);
 Vue.component("authors", require("./views/front/Authors").default);
-Vue.component("author-show", require("./views/front/shows/Author").default);
 Vue.component("knowledge-area", require("./views/front/KnowledgeArea").default);
-Vue.component("knowledge", require("./views/front/shows/KnowledgeArea").default);
 Vue.component("vocabulary", require("./views/front/Vocabulary").default);
 Vue.component("channels", require("./views/front/Channels").default);
-Vue.component("channel-show", require("./views/front/shows/Channel").default);
 Vue.component("front-navbar", require("./components/layouts/FrontNavbar").default);
 Vue.component("front-footer", require("./components/layouts/FrontFooter").default);
 Vue.component("privacy-policy", require("./views/front/PrivacyPolicy").default);
 Vue.component("terms-of-use", require("./views/front/TermsOfUse").default);
 Vue.component("about-us", require("./views/front/AboutUs").default);
+
+/* Shows */
 Vue.component("category", require("./views/front/shows/Category").default);
+Vue.component("author-show", require("./views/front/shows/Author").default);
+Vue.component("knowledge", require("./views/front/shows/KnowledgeArea").default);
+Vue.component("channel-show", require("./views/front/shows/Channel").default);
+Vue.component("post-show", require("./views/front/shows/Post.vue").default);
 
 /* Login */
 Vue.component("login", require("./views/LoginPage").default);

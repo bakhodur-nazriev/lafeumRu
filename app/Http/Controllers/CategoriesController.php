@@ -7,6 +7,7 @@ use App\Quote;
 use App\Services\RedirectService;
 use App\Term;
 use App\Video;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -53,48 +54,27 @@ class CategoriesController extends Controller
         return view('shows.category', compact('category'));
     }
 
-    public function getShowQuotes($categorySlug)
+    public function showTerms($categorySlug)
     {
-        $category = $this->getCategory(Quote::class, $categorySlug);
-
-        return response()->json(collect($category));
-    }
-
-    public function showTerms()
-    {
-        return view('shows.category');
-    }
-
-    public function getShowTerms($categorySlug)
-    {
-        $category = $this->getCategory(Term::class,
+        $category = $this->getCategory(
+            Term::class,
             $categorySlug,
             function ($categoriesQuery) {
                 return $categoriesQuery->orderBy('term_type_id', 'asc');
             }
         );
 
-        return response()->json(collect($category));
+        return view('shows.category', compact('category'));
     }
 
-    public function showVideos()
-    {
-        return view('shows.category');
-    }
-
-    public function getShowVideos($categorySlug)
+    public function showVideos($categorySlug)
     {
         $category = $this->getCategory(Video::class, $categorySlug);
 
-        return response()->json(collect($category));
+        return view('shows.category', compact('category'));
     }
 
-    public function showVocabulary()
-    {
-        return view('vocabulary');
-    }
-
-    public function getShowVocabulary($categorySlug)
+    public function showVocabulary($categorySlug)
     {
         $category = Category::where('type', Term::class)
             ->where('slug', $categorySlug)
@@ -104,7 +84,7 @@ class CategoriesController extends Controller
             ->vocabulary()
             ->get();
 
-        return response()->json(collect($category, $terms));
+        return view('vocabulary', compact(['category', 'terms']));
     }
 
     public function store(Request $request)
@@ -148,7 +128,9 @@ class CategoriesController extends Controller
 
     private function getCategory($categoriable, $slug, callable $queries = null)
     {
-        $category = Category::where('type', $categoriable)->where('slug', $slug)->first();
+        $category = Category::where('type', $categoriable)
+            ->where('slug', $slug)
+            ->first();
 
         if (!$category) {
             abort(404);
@@ -156,13 +138,9 @@ class CategoriesController extends Controller
 
         $categoriablesQuery = $this->getCategoriablesQuery($categoriable, $category);
 
-        if ($queries) {
-            $categoriablesQuery = $queries($categoriablesQuery);
-        }
-
         $category->categoriables = $categoriablesQuery
             ->published('desc')
-            ->paginate(30);
+            ->paginate(5);
 
         return $category;
     }
@@ -175,7 +153,30 @@ class CategoriesController extends Controller
 
         $categoriablesQuery = $model::whereIn('id', $categoriableIds);
 
-        return $categoriablesQuery;
+        if ($model == 'App\\Quote') {
+            return $categoriablesQuery->with([
+                'author:id,name,slug',
+                'categories:id,name,slug',
+                'post'
+            ]);
+        };
+
+        if ($model == 'App\\Term') {
+            return $categoriablesQuery->with([
+                'categories',
+                'termType',
+                'post'
+            ]);
+        };
+
+        if ($model == 'App\\Video') {
+            return $categoriablesQuery->with([
+                'channel',
+                'favorites',
+                'categories',
+                'post'
+            ]);
+        }
     }
 
     private function getCategoriableIds($categoryIds, $categoriable)

@@ -18,12 +18,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-@yield('meta-tags', View::make('layouts.meta-tags'))
-
-
-{{--<script src="{{ asset('js/helper.js') }}" defer></script>--}}
-
-<!-- Font -->
+   {{-- @yield('meta-tags', View::make('layouts.meta-tags')) --}}
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>

@@ -45,7 +45,7 @@
 import QuoteItem from "./layouts/QuoteItem";
 
 export default {
-    props: ['categories'],
+    props: ['categories', 'item'],
     components: {
         QuoteItem
     },
@@ -57,6 +57,7 @@ export default {
                 current: 1,
                 total: 0
             },
+            test: this.item
         };
     },
     methods: {

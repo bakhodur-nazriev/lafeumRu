@@ -5,7 +5,7 @@
         class="mb-8"
     >
         <v-card-subtitle class="d-flex p-4">
-            <div class="d-flex" v-if="term.term_type.name === `Термины научного мира`">
+            <div class="d-flex" v-if="item.term_type.name === `Термины научного мира`">
                 <v-img
                     v-for="icon in 3"
                     :key="icon"
@@ -17,29 +17,29 @@
                 </v-img>
             </div>
             <div v-else>
-                <span>{{ term.term_type.name }}</span>
+                <span>{{ item.term_type.name }}</span>
             </div>
 
             <v-spacer></v-spacer>
 
             <a
                 class="grey--text text-decoration-none"
-                :href="term.post.id"
+                :href="item.post.id"
             >
-                #{{ term.post.id }}
+                #{{ item.post.id }}
             </a>
         </v-card-subtitle>
 
         <v-divider class="m-0 grey lighten-3"></v-divider>
 
         <v-card-text class="p-4">
-            <p class="subtitle-1" v-html="term.body"></p>
+            <p class="subtitle-1" v-html="item.body"></p>
             <div class="categories-block">
                 <a
                     class="mx-1 grey--text text-decoration-none"
-                    v-for="(termCategories ,i) in term.categories"
+                    v-for="(termCategories ,i) in item.categories"
                     :key="i"
-                    :href="`/quotes/` + termCategories.slug"
+                    :href="`/terms/` + termCategories.slug"
                 >{{ termCategories.name }}</a>
             </div>
         </v-card-text>
@@ -76,7 +76,9 @@ export default {
     props: ["term"],
     name: "TermItem",
     data() {
-        return {}
+        return {
+            item: this.term
+        }
     }
 }
 </script>

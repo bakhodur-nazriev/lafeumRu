@@ -35,11 +35,3 @@
 <script type="application/ld+json">{!! json_encode($data['schema'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE); !!}</script>
 
 <link rel="canonical" href="{{$data['canonical']}}">
-
-@isset($data['next'])
-    <link rel="next" href="{{$data['next']}}">
-@endisset
-
-@isset($data['prev'])
-    <link rel="prev" href="{{$data['prev']}}">
-@endisset

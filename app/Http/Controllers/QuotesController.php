@@ -88,7 +88,6 @@ class QuotesController extends Controller
             ->byPublishAt();
 
         return $this->processIndexRequestItems($request, $quotesTrashedQuery, 'body');
-
     }
 
     public function restored($id)

@@ -39,7 +39,7 @@
                 color="primary"
             ></v-progress-circular>
         </v-col>
-        <v-col v-else>
+        <v-col v-else class="pl-0">
             <v-card
                 flat
                 :key="i"
@@ -142,5 +142,7 @@ export default {
 
 .knowledge-area-card {
     border-radius: 16px !important;
+    display: flex;
+    justify-content: start;
 }
 </style>

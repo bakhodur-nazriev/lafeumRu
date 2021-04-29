@@ -1,11 +1,7 @@
 <template>
     <v-col cols="8">
         <h5 class="text-uppercase font-weight-regular py-4">логин</h5>
-        <v-card
-            elevation="0"
-            max-width="566"
-            class="card rounded-lg mx-auto"
-        >
+        <v-card elevation="0" max-width="566" class="card rounded-lg mx-auto">
             <v-card-title class="pa-0">
                 <h2 class="mb-4 display-1 font-weight-medium">Вход</h2>
             </v-card-title>
@@ -14,9 +10,10 @@
             </div>
             <v-card-text class="pa-0">
                 <form ref="form" :action="appPath('login')" method="POST">
-                    <input type="hidden" name="_token" :value="csrf">
+                    <input type="hidden" name="_token" :value="csrf" />
                     <div class="input-container">
-                        <label class="input-label" for="email">Ваш Email</label> <br>
+                        <label class="input-label" for="email">Ваш Email</label>
+                        <br />
                         <input
                             id="email"
                             type="email"
@@ -24,16 +21,21 @@
                             class="input"
                             placeholder="Введите Ваш E-mail"
                             v-model.trim="$v.email.$model"
-                            :class="{ 'is-invalid':$v.email.$error, 'is-valid':!$v.email.$invalid }"
-                        >
+                            :class="{
+                                'is-invalid': $v.email.$error,
+                                'is-valid': !$v.email.$invalid,
+                            }"
+                        />
                         <div class="valid-feedback"></div>
                         <div class="invalid-feedback">
-                            <span v-if="!$v.email.required">Это поле обязательное.
+                            <span v-if="!$v.email.required"
+                                >Это поле обязательное.
                                 <button type="button" @click="clearEmail">
                                     <v-icon class="v-icon">mdi-close</v-icon>
                                 </button>
                             </span>
-                            <span v-if="!$v.email.email">E-mail должен быть действительным.
+                            <span v-if="!$v.email.email"
+                                >E-mail должен быть действительным.
                                 <button type="button" @click="clearEmail">
                                     <v-icon class="v-icon">mdi-close</v-icon>
                                 </button>
@@ -41,29 +43,34 @@
                         </div>
                     </div>
                     <div class="input-container">
-                        <label class="input-label" for="password">Пароль</label> <br>
-                        <input 
-                            class="input" 
-                            type="password" 
-                            name="password" 
+                        <label class="input-label" for="password">Пароль</label>
+                        <br />
+                        <input
+                            class="input"
+                            type="password"
+                            name="password"
                             id="password"
                             placeholder="Введите Ваш пароль"
                             v-model.trim="$v.password.$model"
-                            :class="{ 'is-invalid':$v.password.$error, 'is-valid':!$v.password.$invalid }"
-                        >
+                            :class="{
+                                'is-invalid': $v.password.$error,
+                                'is-valid': !$v.password.$invalid,
+                            }"
+                        />
                         <div class="valid-feedback"></div>
                         <div class="invalid-feedback">
-                                <span v-if="!$v.password.required">Введите Ваш пароль. 
-                                    <button 
-                                        type="button"
-                                        @click="clearPassword"
-                                    >
-                                        <v-icon class="v-icon">mdi-close</v-icon>
-                                    </button>
-                                </span>
-                            <span 
-                                v-if="!$v.password.minLength"
-                            >Пароль должен содержать минимум {{ $v.password.$params.minLength.min }} символов. 
+                            <span v-if="!$v.password.required"
+                                >Введите Ваш пароль.
+                                <button type="button" @click="clearPassword">
+                                    <v-icon class="v-icon">mdi-close</v-icon>
+                                </button>
+                            </span>
+                            <span v-if="!$v.password.minLength"
+                                >Пароль должен содержать минимум
+                                {{
+                                    $v.password.$params.minLength.min
+                                }}
+                                символов.
                                 <button type="button" @click="clearPassword">
                                     <v-icon class="v-icon">mdi-close</v-icon>
                                 </button>
@@ -73,7 +80,13 @@
                     <div class="grid-container">
                         <div>
                             <label class="checkbox-label" for="checkbox">
-                                <input v-model="checked" class="checkbox" type="checkbox" name="checkbox" id="checkbox">
+                                <input
+                                    v-model="checked"
+                                    class="checkbox"
+                                    type="checkbox"
+                                    name="checkbox"
+                                    id="checkbox"
+                                />
                                 <span class="checkmark"></span>
                                 Запомнить меня
                             </label>
@@ -82,9 +95,17 @@
                             <a href="#">Забыли пароль?</a>
                         </div>
                     </div>
-                    <button class="submit-btn" type="submit" @click.prevent="submit">Вход</button>
+                    <button
+                        class="submit-btn"
+                        type="submit"
+                        @click.prevent="submit"
+                    >
+                        Вход
+                    </button>
                     <div class="d-flex justify-content-center mt-5">
-                        <span class="grey--text lighten-1 mr-4">У вас нет аккаунта ?</span>
+                        <span class="grey--text lighten-1 mr-4"
+                            >У вас нет аккаунта ?</span
+                        >
                         <a href="/register">Регистрация</a>
                     </div>
                 </form>
@@ -95,15 +116,15 @@
 </template>
 
 <script>
-import {required, minLength, email,} from 'vuelidate/lib/validators'
+import { required, minLength, email } from "vuelidate/lib/validators";
 
 export default {
     data() {
         return {
-            email: '',
-            password: '',
+            email: "",
+            password: "",
             checked: false,
-        }
+        };
     },
     created() {
         console.log(this.r);
@@ -111,19 +132,19 @@ export default {
     validations: {
         email: {
             required,
-            email
+            email,
         },
         password: {
             required,
-            minLength: minLength(4)
-        }
+            minLength: minLength(4),
+        },
     },
     methods: {
         clearEmail() {
-            this.email = ''
+            this.email = "";
         },
         clearPassword() {
-            this.password = ''
+            this.password = "";
         },
         // login() {
         //     this.$v.$touch()
@@ -135,21 +156,21 @@ export default {
         //             password: this.password,
         //             remember: this.checked
         //         }
-                
+
         //         // console.log(user)
         //     }
         // }
-        appPath(url){
+        appPath(url) {
             window.laravel + url;
         },
-        submit(){
+        submit() {
             let valid = this.$refs.form.validate();
             if (valid) {
                 this.$refs.form.$el.submit();
             }
-        }
-    }
-}
+        },
+    },
+};
 </script>
 
 
@@ -176,7 +197,7 @@ export default {
 .input-label {
     font-size: 12px;
     font-weight: 500;
-    color: #82869A;
+    color: #82869a;
     line-height: 110%;
 }
 
@@ -194,7 +215,8 @@ export default {
     outline: none;
 }
 
-.input::placeholder, .checkbox-label {
+.input::placeholder,
+.checkbox-label {
     color: rgba(130, 134, 154, 0.5);
     line-height: 110%;
     font-size: 14px;

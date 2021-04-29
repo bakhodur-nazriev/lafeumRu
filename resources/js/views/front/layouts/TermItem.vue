@@ -13,7 +13,6 @@
                     width="20"
                     class="mr-1"
                 >
-
                 </v-img>
             </div>
             <div v-else>

@@ -12,7 +12,7 @@
             </v-col>
             <v-col v-else class="py-0">
                 <quote-item
-                    v-for="(quote ,i) in quotes.data"
+                    v-for="(quote, i) in quotes.data"
                     :key="i"
                     :quote="quote"
                 >
@@ -20,17 +20,19 @@
             </v-col>
         </v-row>
         <v-col cols="12" class="d-flex justify-center mt-2">
-            <v-btn
-                fab
-                small
-                rounded
-                elevation="0"
-                color="grey lighten-2"
-            >
+            <v-btn fab small rounded elevation="0" color="grey lighten-2">
                 <v-icon color="white">mdi-arrow-down</v-icon>
             </v-btn>
         </v-col>
-        <v-col cols="12">
+        <v-col class="d-flex flex-column">
+            <v-btn small fab color="primary" v-scroll-to="'h5'">
+                <v-icon>mdi-arrow-up</v-icon>
+            </v-btn>
+            <v-btn small fab color="primary" v-scroll-to="'#lol'">
+                <v-icon>mdi-arrow-down</v-icon>
+            </v-btn>
+        </v-col>
+        <v-col cols="12" id="lol">
             <v-pagination
                 v-model="pagination.current"
                 :length="pagination.total"
@@ -45,9 +47,9 @@
 import QuoteItem from "./layouts/QuoteItem";
 
 export default {
-    props: ['categories', 'item'],
+    props: ["categories", "item"],
     components: {
-        QuoteItem
+        QuoteItem,
     },
     data() {
         return {
@@ -55,9 +57,9 @@ export default {
             loading: false,
             pagination: {
                 current: 1,
-                total: 0
+                total: 0,
             },
-            test: this.item
+            test: this.item,
         };
     },
     methods: {
@@ -65,30 +67,30 @@ export default {
             this.loading = true;
             axios
                 .get("/api/quotes?page=" + this.pagination.current)
-                .then(res => {
+                .then((res) => {
                     this.loading = false;
                     this.quotes = res.data;
                     this.pagination.current = res.data.current_page;
                     this.pagination.total = res.data.last_page;
                 })
-                .catch(err => {
+                .catch((err) => {
                     this.loading = false;
-                    console.log(err)
-                })
+                    console.log(err);
+                });
         },
         onPageChange() {
             this.getQuotes();
-        }
+        },
     },
     mounted() {
         this.getQuotes();
-    }
+    },
 };
 </script>
 
 <style>
 .categories-block a:hover {
-    color: #04718C !important;
+    color: #04718c !important;
 }
 
 button:focus {

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 /* Back Routes */
+
 Route::group(['middleware' => 'auth:api'], function () {
 
     /* Users */
@@ -123,7 +124,18 @@ Route::group(['middleware' => 'api'], function () {
     Route::get("/terms/{categorySlug}", "CategoriesController@getShowTerms");
     Route::get("/videos/{categorySlug}", "CategoriesController@getShowVideos");
     Route::get("/vocabulary/{categorySlug}", "CategoriesController@getShowVocabulary");
-});
 
+    /* Shows routes */
+    Route::get("/authors/filmy-i-serialy", "AuthorsController@showMovies");
+    Route::get("/authors/poslovicy-i-pogovorki", "AuthorsController@showProverbs");
+    Route::get("/authors/{author}", "AuthorsController@show");
+    Route::get("/channels/{channel}", "ChannelsController@show");
+    Route::get("/knowledge/{knowledge}", "KnowledgesController@getShowKnowledgeArea");
+    
+    Route::get("/quotes/{categorySlug}", "CategoriesController@showQuotes");
+    Route::get("/terms/{categorySlug}", "CategoriesController@showTerms");
+    Route::get("/videos/{categorySlug}", "CategoriesController@showVideos");
+    Route::get("/vocabulary/{categorySlug}", "CategoriesController@showVocabulary");
+});
 
 Route::get("/summary/{id}", "PostsController@termSummary");

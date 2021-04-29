@@ -1,13 +1,42 @@
 <template>
-    <div></div>
+    <v-col xl="5" lg="6">
+        <div>
+            <h5 class="text-uppercase font-weight-regular py-4">
+                {{ currentKnowledge.name }}
+            </h5>
+            <p v-if="currentKnowledge.description">
+                {{ currentKnowledge.description }}
+            </p>
+        </div>
+        <div v-for="(knowledge, i) in currentKnowledge.terms.data" :key="i">
+            <term-item :term="knowledge"></term-item>
+        </div>
+        
+    </v-col>
 </template>
 
 <script>
+import TermItem from "../layouts/TermItem.vue";
+
+
 export default {
-    name: "KnowledgeArea"   
-}
+    components: {
+        TermItem,
+    },
+    name: "KnowledgeArea",
+    props: ["currentKnowledgeArea"],
+    data() {
+        return {
+            currentKnowledge: this.currentKnowledgeArea,
+        };
+    },
+};
 </script>
 
 <style scoped>
-
+.scrollBlock {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap-reverse;
+}
 </style>

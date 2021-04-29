@@ -51,7 +51,7 @@
                     </v-list-item>
                 </v-col>
             </div>
-            <v-col cols="12" class="d-flex justify-center mt-2">
+            <!-- <v-col cols="12" class="d-flex justify-center mt-2">
                 <v-btn
                     fab
                     small
@@ -61,7 +61,7 @@
                 >
                     <v-icon color="white">mdi-arrow-down</v-icon>
                 </v-btn>
-            </v-col>
+            </v-col> -->
         </v-sheet>
     </v-col>
 </template>

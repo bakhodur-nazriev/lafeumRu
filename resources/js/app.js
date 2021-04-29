@@ -11,6 +11,7 @@ import frontApp from "./components/frontApp";
 import router from "./router.js";
 import ru from 'vuetify/es5/locale/ru'
 import Embed from 'v-video-embed'
+import VueScrollTo from 'vue-scrollto'
 
 require("./bootstrap");
 window.Vue = require("vue");
@@ -30,12 +31,14 @@ const vuetifyOptions = {
         }
     },
     lang: {
-        locales: {ru},
+        locales: {
+            ru
+        },
         current: "ru" // en | es | fr | pl | ru
     }
 };
 
-window.Event = new (class {
+window.Event = new(class {
     constructor() {
         this.vue = new Vue();
     }
@@ -53,6 +56,22 @@ Vue.use("draggable");
 Vue.use(Vuetify);
 Vue.use(Vuelidate);
 Vue.use(Embed);
+Vue.use(VueScrollTo)
+
+// You can also pass in the default options
+Vue.use(VueScrollTo, {
+    container: "body",
+    duration: 500,
+    easing: "ease",
+    offset: 0,
+    force: true,
+    cancelable: true,
+    onStart: false,
+    onDone: false,
+    onCancel: false,
+    x: false,
+    y: true
+})
 
 Vue.component("default", require("./views/front/Default").default);
 Vue.component("home", require("./views/front/Home").default);
@@ -103,6 +122,8 @@ Vue.component("right-side-bar", require("./components/layouts/RightSideBar").def
 const app = new Vue({
     router,
     el: "#app",
-    components: {frontApp},
+    components: {
+        frontApp
+    },
     vuetify: new Vuetify(vuetifyOptions)
 });

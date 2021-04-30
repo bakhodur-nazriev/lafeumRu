@@ -34,7 +34,7 @@ class VideosController extends Controller
         ])
             ->published('desc')
             ->has('channel')
-            ->paginate(5);
+            ->paginate(20);
 
         return response()->json(collect($videos));
     }

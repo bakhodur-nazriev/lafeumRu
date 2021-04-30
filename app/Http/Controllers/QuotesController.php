@@ -33,7 +33,7 @@ class QuotesController extends Controller
         ])
             ->published('desc')
             ->has('author')
-            ->paginate(5);
+            ->paginate(2);
 
         $categories = Category::quote()->get()->toTree()->unique('name');
 

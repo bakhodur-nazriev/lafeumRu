@@ -7,7 +7,6 @@
                 <v-text-field
                     solo
                     flat
-                    clearable
                     height="48"
                     hide-details
                     v-model="search"
@@ -41,23 +40,16 @@
                 </li>
             </ul>
         </div>
-        <v-btn
-            fab
-            dark
-            color="primary"
-            @click="scrollToTop"
-        >
-            <v-icon dark>mdi-chevron-up</v-icon>
-        </v-btn>
-        <v-btn @click="scrollToDown" icon>
-            <v-icon>mdi-chevron-down</v-icon>
-        </v-btn>
+        <scroller></scroller>
     </v-col>
 </template>
 
 <script>
+import Scroller from "../../components/Scroller";
+
 export default {
     name: "Channels",
+    components: {Scroller},
     data() {
         return {
             channels: [],
@@ -78,9 +70,6 @@ export default {
                     this.loading = false;
                     console.log(err);
                 })
-        },
-        scrollToTop() {
-            window.scrollTo(0, 0);
         }
     },
     mounted() {

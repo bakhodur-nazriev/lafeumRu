@@ -15,7 +15,6 @@
                 <v-text-field
                     solo
                     flat
-                    clearable
                     height="48"
                     hide-details
                     v-model="search"
@@ -66,7 +65,7 @@
                                 v-for="(child ,i) in term.children"
                                 :key="i"
                             >
-                                <a class="vocabulary-words text-decoration-none">
+                                <a class="vocabulary-words text-decoration-none" :href="child.post.id" target="_blank">
                                     {{ child.name }}
                                 </a>
                                 <br/>
@@ -92,11 +91,15 @@
                 </v-btn>
             </v-col>
         </v-row>
+        <scroller></scroller>
     </v-col>
 </template>
 
 <script>
+import Scroller from "../../components/Scroller";
+
 export default {
+    components: {Scroller},
     data() {
         return {
             isActive: true,

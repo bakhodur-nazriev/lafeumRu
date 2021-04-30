@@ -11,13 +11,11 @@
         <div v-for="(knowledge, i) in currentKnowledge.terms.data" :key="i">
             <term-item :term="knowledge"></term-item>
         </div>
-        
     </v-col>
 </template>
 
 <script>
 import TermItem from "../layouts/TermItem.vue";
-
 
 export default {
     components: {

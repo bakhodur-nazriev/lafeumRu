@@ -10,7 +10,6 @@
                     <v-text-field
                         solo
                         flat
-                        clearable
                         height="48"
                         hide-details
                         v-model="search"
@@ -65,11 +64,14 @@
                 </v-card-title>
             </v-card>
         </v-col>
+        <scroller></scroller>
     </v-col>
 </template>
 
 <script>
+import Scroller from "../../components/Scroller";
 export default {
+    components: {Scroller},
     name: "knowledgeArea",
     data() {
         return {

@@ -42,9 +42,7 @@
                 >{{ termCategories.name }}</a>
             </div>
         </v-card-text>
-
         <v-divider class="m-0 grey lighten-3"></v-divider>
-
         <v-card-actions class="px-5 py-4">
             <div>
                 <v-btn icon>
@@ -61,18 +59,17 @@
                 <span>45</span>
             </div>
             <v-spacer></v-spacer>
-            <div>
-                <v-btn icon color="grey lighten-1">
-                    <v-icon>mdi-share-variant</v-icon>
-                </v-btn>
-            </div>
+            <share-button :post="item.post"></share-button>
         </v-card-actions>
     </v-card>
 </template>
 
 <script>
+import ShareButton from "../../../components/ShareButton";
+
 export default {
     props: ["term"],
+    components: {ShareButton},
     name: "TermItem",
     data() {
         return {

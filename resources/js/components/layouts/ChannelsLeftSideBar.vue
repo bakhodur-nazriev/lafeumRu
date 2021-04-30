@@ -14,7 +14,6 @@
                     v-model="search"
                     hide-details
                     class="mb-1"
-                    clearable
                     outlined
                     dense
                 >

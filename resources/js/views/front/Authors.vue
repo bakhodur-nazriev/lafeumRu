@@ -41,11 +41,14 @@
                 </li>
             </ul>
         </v-row>
+        <scroller></scroller>
     </v-col>
 </template>
 
 <script>
+import Scroller from "../../components/Scroller";
 export default {
+    components: {Scroller},
     name: "Authors",
     data() {
         return {

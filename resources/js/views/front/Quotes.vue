@@ -19,19 +19,6 @@
                 </quote-item>
             </v-col>
         </v-row>
-        <v-col cols="12" class="d-flex justify-center mt-2">
-            <v-btn fab small rounded elevation="0" color="grey lighten-2">
-                <v-icon color="white">mdi-arrow-down</v-icon>
-            </v-btn>
-        </v-col>
-        <v-col class="d-flex flex-column">
-            <v-btn small fab color="primary" v-scroll-to="'h5'">
-                <v-icon>mdi-arrow-up</v-icon>
-            </v-btn>
-            <v-btn small fab color="primary" v-scroll-to="'#lol'">
-                <v-icon>mdi-arrow-down</v-icon>
-            </v-btn>
-        </v-col>
         <v-col cols="12" id="lol">
             <v-pagination
                 v-model="pagination.current"
@@ -40,16 +27,19 @@
                 @input="onPageChange"
             ></v-pagination>
         </v-col>
+        <scroller></scroller>
     </v-col>
 </template>
 
 <script>
 import QuoteItem from "./layouts/QuoteItem";
+import Scroller from "../../components/Scroller";
 
 export default {
     props: ["categories", "item"],
     components: {
         QuoteItem,
+        Scroller
     },
     data() {
         return {

@@ -20,17 +20,6 @@
                 <term-item :term="term"></term-item>
             </v-col>
         </v-row>
-        <v-col cols="12" class="d-flex justify-center mt-2">
-            <v-btn
-                fab
-                small
-                rounded
-                elevation="0"
-                color="grey lighten-2"
-            >
-                <v-icon color="white">mdi-arrow-down</v-icon>
-            </v-btn>
-        </v-col>
         <v-col cols="12">
             <v-pagination
                 class="ova"
@@ -40,12 +29,16 @@
                 @input="onPageChange"
             ></v-pagination>
         </v-col>
+        <scroller></scroller>
     </v-col>
 </template>
 
 <script>
+import Scroller from "../../components/Scroller";
+
 export default {
     name: "Terms",
+    components: {Scroller},
     data() {
         return {
             loading: false,

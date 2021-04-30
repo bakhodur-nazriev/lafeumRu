@@ -63,9 +63,6 @@ export default {
         return {
             item: this.quote,
         };
-    },
-    created() {
-        console.log(this.item.post);
     }
 };
 </script>

@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import ShareButton from ""
+import ShareButton from "../../../components/ShareButton";
 
 export default {
     components: {ShareButton},

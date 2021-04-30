@@ -1,5 +1,5 @@
 <template>
-    <v-col class="scrollBlock" v-if="scroll > 200">
+    <v-col class="scrollBlock" v-if="scroll > 280">
         <v-btn class="my-1" small fab color="primary" v-scroll-to="'header'">
             <v-icon>mdi-arrow-up</v-icon>
         </v-btn>
@@ -37,7 +37,8 @@ export default {
     flex-direction: column;
     align-items: flex-end;
     position: fixed;
-    bottom: 80px;
-    right: 180px;
+    bottom: 20px;
+    right: 110px;
+    z-index: 10;
 }
 </style>

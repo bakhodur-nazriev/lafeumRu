@@ -5,5 +5,8 @@
 @endsection
 
 @section('content')
-    <post-show :post="{{ $post }}" :item="{{ $item }}"></post-show>
+    <post-show
+        :post="{{ $post }}"
+        :item="{{ $item }}"
+    ></post-show>
 @endsection

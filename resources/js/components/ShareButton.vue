@@ -2,37 +2,16 @@
     <div class="d-flex align-center">
         <v-expand-transition>
             <div v-show="expand">
-                <div v-if="postLink.postable_type == 'App\\Term'">
-                    <Vkontakte :url="`/terms/` + postLink.id" class="share-button--circle" btnText/>
-                    <Facebook :url="`/terms/` + postLink.id" class="share-button--circle" btnText/>
-                    <Odnoklassniki :url="`/terms/` + postLink.id" class="share-button--circle" btnText/>
-                    <Twitter :url="`/terms/` + postLink.id" class="share-button--circle" btnText/>
-                    <viber :url="`/terms/` + postLink.id" class="share-button--circle" btnText/>
-                    <WhatsApp :url="`/terms/` + postLink.id" class="share-button--circle" btnText/>
-                    <Telegram :url="`/terms/` + postLink.id" class="share-button--circle" btnText/>
-                </div>
-                <div v-if="postLink.postable_type == 'App\\Video'">
-                    <Vkontakte :url="`/video/` + postLink.id" class="share-button--circle" btnText/>
-                    <Facebook :url="`/video/` + postLink.id" class="share-button--circle" btnText/>
-                    <Odnoklassniki :url="`/video/` + postLink.id" class="share-button--circle" btnText/>
-                    <Twitter :url="`/video/` + postLink.id" class="share-button--circle" btnText/>
-                    <viber :url="`/video/` + postLink.id" class="share-button--circle" btnText/>
-                    <WhatsApp :url="`/video/` + postLink.id" class="share-button--circle" btnText/>
-                    <Telegram :url="`/video/` + postLink.id" class="share-button--circle" btnText/>
-                </div>
+                <Vkontakte :url="`${appUrl}/` + postLink.id" class="share-button--circle" btnText/>
+                <Facebook :url="`${appUrl}/` + postLink.id" class="share-button--circle" btnText/>
+                <Odnoklassniki :url="`${appUrl}/` + postLink.id" class="share-button--circle" btnText/>
+                <Twitter :url="`${appUrl}/` + postLink.id" class="share-button--circle" btnText/>
+                <viber :url="`${appUrl}/` + postLink.id" class="share-button--circle" btnText/>
+                <WhatsApp :url="`${appUrl}/` + postLink.id" class="share-button--circle" btnText/>
+                <Telegram :url="`${appUrl}/` + postLink.id" class="share-button--circle" btnText/>
             </div>
         </v-expand-transition>
-        <div v-if="postLink.postable_type == 'App\\Quote'">
-            <Vkontakte :url="`/quotes/` + postLink.id" class="share-button--circle" btnText/>
-            <Facebook :url="`/quotes/` + postLink.id" class="share-button--circle" btnText/>
-            <Odnoklassniki :url="`/quotes/` + postLink.id" class="share-button--circle" btnText/>
-            <Twitter :url="`/quotes/` + postLink.id" class="share-button--circle" btnText/>
-            <viber :url="`/quotes/` + postLink.id" class="share-button--circle" btnText/>
-            <WhatsApp :url="`/quotes/` + postLink.id" class="share-button--circle" btnText/>
-            <Telegram :url="`/quotes/` + postLink.id" class="share-button--circle" btnText/>
-        </div>
-
-        <v-btn icon color="grey lighten-1" @click="expand = !expand">
+        <v-btn icon color="grey lighten-1" class="ma-1" @click="expand = !expand">
             <v-icon>mdi-share-variant</v-icon>
         </v-btn>
     </div>
@@ -62,12 +41,10 @@ export default {
     data() {
         return {
             postLink: this.post,
-            expand: false
+            expand: false,
+            appUrl: process.env.MIX_APP_URL
         }
     },
-    create() {
-        console.log(this.postLink);
-    }
 }
 </script>
 

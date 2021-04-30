@@ -16,8 +16,6 @@ class PostsController extends Controller
 
         $postMetatags = $this->getPostMetatags($post);
 
-        // return collect($item, $post, $postMetatags);
-
         return view('shows.post', compact('post', 'item', 'postMetatags'));
     }
 
@@ -39,7 +37,7 @@ class PostsController extends Controller
 
     /**
      * Helpers
-     * 
+     *
      */
 
     private function getPostMetatags(Post $post)

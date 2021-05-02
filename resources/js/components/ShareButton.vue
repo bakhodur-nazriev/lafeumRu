@@ -60,14 +60,4 @@ export default {
     min-width: 34px;
     min-height: 34px;
 }
-
-.share-button__icon[data-v-7db37067],
-.share-button__icon[data-v-71655f98],
-.share-button__icon[data-v-519b00aa],
-.share-button__icon[data-v-79361461],
-.share-button__icon[data-v-32004731],
-.share-button__icon[data-v-cbff2028],
-.share-button__icon[data-v-8d0542ae] {
-    width: 10px;
-}
 </style>

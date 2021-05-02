@@ -1,5 +1,5 @@
 <template>
-    <v-col xl="5" lg="6" class="px-7">
+    <v-col xl="5" lg="6" class="px-5">
         <h5 class="text-uppercase font-weight-regular py-4">Словарь «ЛАФЕЮМ»</h5>
         <p class="grey--text">
             На сегодня содержит более одной тысячи основных терминов, соответствующих
@@ -58,37 +58,9 @@
                         v-for="(term ,i) in vocabulary"
                         :key="i"
                     >
-                        <h1 class="vocabulary-letter text-decoration-none pt-4 pb-2">{{ term.group }}</h1>
-                        <div :class="{'truncate-to-seven-line': isActive}">
-                            <div
-                                class="pb-1"
-                                v-for="(child ,i) in term.children"
-                                :key="i"
-                            >
-                                <a class="vocabulary-words text-decoration-none" :href="child.post.id" target="_blank">
-                                    {{ child.name }}
-                                </a>
-                                <br/>
-                            </div>
-                        </div>
-                        <div class="text-right load-more-vocabulary" v-if="term.children.length > 7">
-                            <v-btn
-                                text
-                                color="primary"
-                                @click="toggleVocabulary()"
-                                class="font-italic"
-                            >
-                                еще.
-                                <v-icon small>mdi-arrow-right</v-icon>
-                            </v-btn>
-                        </div>
+                        <vocabulary-children :term="term"></vocabulary-children>
                     </v-card-text>
                 </v-card>
-            </v-col>
-            <v-col cols="12" class="text-center my-5">
-                <v-btn large class="grey lighten-1" icon>
-                    <v-icon color="white">mdi-arrow-down</v-icon>
-                </v-btn>
             </v-col>
         </v-row>
         <scroller></scroller>
@@ -97,12 +69,15 @@
 
 <script>
 import Scroller from "../../components/Scroller";
+import VocabularyChildren from "../../components/VocabularyChildren";
 
 export default {
-    components: {Scroller},
+    components: {
+        Scroller,
+        VocabularyChildren
+    },
     data() {
         return {
-            isActive: true,
             search: "",
             terms: [],
             loading: false,
@@ -124,9 +99,6 @@ export default {
                     console.log(err)
                 })
         },
-        toggleVocabulary() {
-            this.isActive = !this.isActive;
-        }
     },
     mounted() {
         this.getVocabulary();
@@ -164,13 +136,6 @@ export default {
 </script>
 
 <style scoped>
-.v-btn {
-    text-transform: lowercase;
-}
-
-.load-more-vocabulary {
-    position: relative;
-}
 
 .form-search {
     display: flex;
@@ -181,24 +146,6 @@ export default {
     border-right: none;
 }
 
-.truncate-to-seven-line {
-    padding: 0;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 7;
-    -webkit-box-orient: vertical;
-}
 
-.vocabulary-letter {
-    color: #494949;
-}
-
-.vocabulary-words {
-    color: #494949;
-}
-
-.vocabulary-words:hover {
-    color: #1a718c;
-}
 
 </style>

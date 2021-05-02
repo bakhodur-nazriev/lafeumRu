@@ -1,11 +1,8 @@
 <template>
-    <v-col xl="5" lg="6">
-        <quote-item v-if="post.postable_type == 'App\\Quote'" :quote="items">
-        </quote-item>
-        <term-item v-if="post.postable_type == 'App\\Term'" :term="item">
-        </term-item>
-        <video-item v-if="post.postable_type == 'App\\Video'" :video="item">
-        </video-item>
+    <v-col xl="7" lg="8" class="pt-5">
+        <quote-item :quote="post"></quote-item>
+        <term-item :term="post"></term-item>
+        <video-item :video="post"></video-item>
     </v-col>
 </template>
 
@@ -16,19 +13,14 @@ import VideoItem from "../layouts/VideoItem.vue";
 
 export default {
     name: "Post",
-    props: ["post", "item"],
+    props: ["post"],
     components: {
         QuoteItem,
         TermItem,
         VideoItem,
     },
     data() {
-        return {
-            items: this.item
-        };
-    },
-    created() {
-        console.log(this.items);
+        return {};
     }
 };
 </script>

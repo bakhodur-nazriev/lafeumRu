@@ -12,11 +12,25 @@ class PostsController extends Controller
 {
     public function show(Post $post)
     {
-        $item = $post->postable;
-
         $postMetatags = $this->getPostMetatags($post);
 
-        return view('shows.post', compact('post', 'item', 'postMetatags'));
+        if ($post->postable_type == 'App\\Quote') {
+            $post = Quote::with('author:id,name,slug', 'post', 'categories')->find($post)->first();
+
+            return view('shows.post', compact('post', 'postMetatags'));
+        }
+
+        if ($post->postable_type == 'App\\Term') {
+            $post = Term::with('categories', 'termType', 'post')->find($post)->first();
+
+            return view('shows.post', compact('post', 'postMetatags'));
+        }
+
+        if ($post->postable_type == 'App\\Video') {
+            $post = Video::with('channel', 'favorites', 'categories', 'post')->find($post)->first();
+
+            return view('shows.post', compact('post', 'postMetatags'));
+        }
     }
 
     public function termSummary($id)

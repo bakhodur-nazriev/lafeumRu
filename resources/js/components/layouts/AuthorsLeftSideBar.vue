@@ -5,8 +5,8 @@
         <v-sheet rounded="lg" width="100%">
             <div class="d-flex align-center pa-5">
                 <v-icon>mdi-account-group-outline</v-icon>
-                <!--<h5 class="ml-2 mb-0">{{ title }}</h5>-->
-                <h5 class="ml-2 mb-0">Авторы</h5>
+                <h5 class="ml-2 mb-0">{{ currentList }}</h5>
+                <!--                <h5 class="ml-2 mb-0" v-esle>Авторы</h5>-->
             </div>
             <v-divider class="ma-0"></v-divider>
             <div class="pa-6">
@@ -38,53 +38,52 @@
                     </v-list-item>
                 </div>
             </div>
-            <v-col cols="12" class="d-flex justify-center mt-2">
-                <v-btn
-                    fab
-                    small
-                    rounded
-                    elevation="0"
-                    color="grey lighten-2"
-                >
-                    <v-icon color="white">mdi-arrow-down</v-icon>
-                </v-btn>
-            </v-col>
         </v-sheet>
     </v-col>
 </template>
 
 <script>
 export default {
+    props: ["authors", "current", "authorListTitle"],
     data() {
         return {
-            authors: [],
+            // authors: [],
             search: "",
-            loading: false
+            loading: false,
+            currentList: this.authorListTitle
         }
     },
-    methods: {
-        getAuthors() {
-            this.loading = true;
-            axios
-                .get("/api/authors")
-                .then(res => {
-                    this.loading = false;
-                    this.authors = res.data;
-                })
-                .catch(err => {
-                    this.loading = false;
-                    console.log(err);
-                })
-        }
+
+    created() {
+        console.log(this.listTitle);
     },
-    mounted() {
-        this.getAuthors();
-    },
+    // methods: {
+    //     getAuthors() {
+    //         this.loading = true;
+    //         axios
+    //             .get("/api/authors")
+    //             .then(res => {
+    //                 this.loading = false;
+    //                 this.authors = res.data;
+    //                 console.log(res.data);
+    //             })
+    //             .catch(err => {
+    //                 this.loading = false;
+    //                 console.log(err);
+    //             })
+    //     }
+    // },
+    // mounted() {
+    //     this.getAuthors();
+    // },
     computed: {
         filteredList() {
             return this.authors.filter(author => {
                 return author.name.toLowerCase().includes(this.search.toLowerCase())
             })
+        },
+        listTitle() {
+            return this.authorListTitle
         }
     }
 }

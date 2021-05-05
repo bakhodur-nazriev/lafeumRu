@@ -40,7 +40,7 @@
             </h5>
         </v-col>
 
-        <h5 class="text-uppercase font-weight-regular">все слова</h5>
+        <h5 class="text-uppercase font-weight-regular ml-1">все слова</h5>
         <v-col cols="12" class="d-flex justify-center" v-if="loading">
             <v-progress-circular
                 width="5"
@@ -145,7 +145,4 @@ export default {
     border: 2px solid #9B9B9B;
     border-right: none;
 }
-
-
-
 </style>

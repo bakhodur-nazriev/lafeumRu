@@ -1,7 +1,6 @@
 <template>
     <v-col xl="5">
-        <h5 class="text-uppercase font-weight-regular py-4">Автор</h5>
-        <div class="d-flex mb-5">
+        <div class="d-flex mb-5 mt-3">
             <v-avatar class="mr-7 mb-7" size="100" v-if="current.photo">
                 <img :src="current.photo"/>
             </v-avatar>
@@ -10,6 +9,7 @@
                 <h5 class="author-biography" v-html="current.biography"></h5>
             </div>
         </div>
+
 
         <quote-item
             v-for="(quote ,i) in current.quotes.data"
@@ -35,9 +35,10 @@ import QuoteItem from "../layouts/QuoteItem";
 export default {
     name: "Author",
     components: {QuoteItem},
-    props: ["current", "authors"],
+    props: ["current", "authorListTitle", "authors"],
     data() {
         return {
+            title: this.authorListTitle,
             loading: false,
             pagination: {
                 current: 1,
@@ -45,8 +46,13 @@ export default {
             }
         }
     },
+    created() {
+        console.log(this.current);
+    },
     methods: {
-        onPageChange() {}
+        onPageChange() {
+
+        }
     }
 };
 </script>

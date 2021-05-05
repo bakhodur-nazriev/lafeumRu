@@ -13,7 +13,7 @@
                 </a>
                 <br/>
             </div>
-            <div class="text-right load-more-vocabulary">
+            <div v-if="term.children.length >= 17" class="text-right load-more-vocabulary">
                 <v-btn
                     text
                     color="primary"
@@ -55,7 +55,7 @@ export default {
     padding: 0;
     overflow: hidden;
     display: -webkit-box;
-    -webkit-line-clamp: 7;
+    -webkit-line-clamp: 17;
     -webkit-box-orient: vertical;
 }
 

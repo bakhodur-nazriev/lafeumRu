@@ -38,11 +38,14 @@
                         >
                             {{ subCategory.name }}
                         </v-expansion-panel-header>
-                        <v-expansion-panel-content class="deep-expansion-panel-content">
+                        <v-expansion-panel-content>
                             <div v-for="(subPostLink, i) in subCategory.post_links" :key="i">
-                                <a :href="subPostLink.href" class="text-decoration-none">{{
-                                    subPostLink.label
-                                    }}</a>
+                                <a
+                                    :href="subPostLink.href"
+                                    class="text-decoration-none"
+                                >
+                                    {{ subPostLink.label }}
+                                </a>
                             </div>
                         </v-expansion-panel-content>
                     </v-expansion-panel>
@@ -90,11 +93,15 @@ button:focus {
 }
 
 .v-expansion-panel--active > .v-expansion-panel-header {
-    min-height: 50px;
+    min-height: 30px;
 }
 
-.v-expansion-panel-content__wrap {
-    padding: 0 24px !important;
+.v-expansion-panel--active + .v-expansion-panel, .v-expansion-panel--active:not(:first-child) {
+    margin-top: 0px;
+}
+
+.v-expansion-panel-header .deep-sub-expansion-panel-header .v-expansion-panel-header--active {
+    min-height: 30px;
 }
 
 .deep-sub-expansion-panel-header {

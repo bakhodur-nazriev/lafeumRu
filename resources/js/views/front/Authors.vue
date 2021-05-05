@@ -36,8 +36,8 @@
         </v-col>
         <v-row v-else>
             <ul class="list-inline py-1 list-col-4">
-                <li v-for="(author ,i) in filteredList" :key="i" class="my-2">
-                    <a :href="`/authors/`+author.slug">{{ author.name }}</a>
+                <li v-for="(author ,i) in filteredList" :key="i" class="mb-2">
+                    <a :href="`/authors/`+author.slug" class="authors-link text-decoration-none">{{ author.name }}</a>
                 </li>
             </ul>
         </v-row>
@@ -47,6 +47,7 @@
 
 <script>
 import Scroller from "../../components/Scroller";
+
 export default {
     components: {Scroller},
     name: "Authors",
@@ -86,6 +87,11 @@ export default {
 </script>
 
 <style scoped>
+
+.authors-link:hover {
+    color: #212529;
+}
+
 .list-inline {
     padding-left: 15px;
     list-style: none;

@@ -53,11 +53,12 @@ class AuthorsController extends Controller
         }
 
         $currentAuthor = $author;
+
         $currentAuthor->quotes = $currentAuthor
             ->quotes()
             ->published('desc')
             ->with('categories', 'post', 'author')
-            ->paginate(5);
+            ->paginate(10);
 
         return view('shows.author', compact(['authors', 'authorListTitle', 'currentAuthor']));
     }
@@ -74,10 +75,10 @@ class AuthorsController extends Controller
 
         $movieIds = $authors->pluck('id');
 
-        $currentAuthor->quotes = Quote::with('categories')
+        $currentAuthor->quotes = Quote::with('categories', 'post', 'author')
             ->orderBy('id', 'desc')
             ->whereIn('author_id', $movieIds)
-            ->paginate(30);
+            ->paginate(10);
 
         return view('shows.author', compact(['authors', 'authorListTitle', 'currentAuthor']));
     }
@@ -94,10 +95,10 @@ class AuthorsController extends Controller
 
         $proverbIds = $authors->pluck('id');
 
-        $currentAuthor->quotes = Quote::with('categories')
+        $currentAuthor->quotes = Quote::with('categories', 'post', 'author')
             ->orderBy('id', 'desc')
             ->whereIn('author_id', $proverbIds)
-            ->paginate(30);
+            ->paginate(10);
 
         return view('shows.author', compact(['authors', 'authorListTitle', 'currentAuthor']));
     }

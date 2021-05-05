@@ -33,6 +33,7 @@ export default {
 
 <style scoped>
 .scrollBlock {
+    width: 4.3%;
     display: flex;
     flex-direction: column;
     align-items: flex-end;

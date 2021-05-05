@@ -8,10 +8,11 @@
 @endsection
 
 @section('content')
-    <authors-left-sidebar></authors-left-sidebar>
-    <author-show
+    <authors-left-sidebar
         :authors="{{ $authors }}"
         :current="{{ $currentAuthor }}"
-        :title="{{ $authorListTitle }}"
+    ></authors-left-sidebar>
+    <author-show
+        :current="{{ $currentAuthor }}"
     ></author-show>
 @endsection

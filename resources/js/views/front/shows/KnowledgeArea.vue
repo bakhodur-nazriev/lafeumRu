@@ -32,9 +32,4 @@ export default {
 </script>
 
 <style scoped>
-.scrollBlock {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap-reverse;
-}
 </style>

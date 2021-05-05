@@ -4,7 +4,7 @@
         <p class="grey--text">В этой рубрике термины и комментарии специалистов классифицированы
             <br/>более развернуто по группам и направлениям.
         </p>
-        <v-col cols="7" class="d-flex align-items-center pl-0 mb-11">
+        <v-col cols="7" class="d-flex align-center pl-0 mb-11">
             <div class="form-search rounded-lg w-100">
                 <div class="form-search-text-side">
                     <v-text-field
@@ -46,7 +46,7 @@
                 class="knowledge-area-card mb-9 pa-7"
                 v-for="(knowledgeArea, i) in filteredList"
             >
-                <v-card-title class="d-flex flex-column">
+                <v-card-title class="d-flex">
                     <div class="text-start w-100 mb-4">
                         <h2 class="display-1 font-weight-medium">
                             {{ knowledgeArea.name }}
@@ -55,7 +55,7 @@
                     <v-col cols="12" class="list-col-4 px-0">
                         <v-card-text
                             :key="i"
-                            class="pa-0 py-1"
+                            class="pa-0 pb-2"
                             v-for="(knowledge, i) in knowledgeArea.children"
                         >
                             <a :href="`/knowledge/` + knowledge.slug">{{ knowledge.name }}</a>
@@ -70,6 +70,7 @@
 
 <script>
 import Scroller from "../../components/Scroller";
+
 export default {
     components: {Scroller},
     name: "knowledgeArea",

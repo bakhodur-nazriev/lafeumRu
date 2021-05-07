@@ -12,7 +12,10 @@
                 <v-card-title class="subtitle-2 font-weight-medium pa-0 mb-1">{{ quote.author.name }}<br/> Категория:
                     Цитата дня
                 </v-card-title>
-                <v-card-text class="truncate-to-five-line" v-html="quote.body"></v-card-text>
+                <v-card-text
+                    class="truncate-to-five-line title-break-word"
+                    v-html="quote.body"
+                ></v-card-text>
                 <v-card-actions class="justify-content-end">
                     <a href="/quotes" class="font-italic">еще.</a>
                 </v-card-actions>
@@ -22,7 +25,10 @@
             <div class="pa-5 pb-0">
                 <v-card-title class="subtitle-2 font-weight-bold pa-0">Термин дня</v-card-title>
                 <v-divider></v-divider>
-                <v-card-text class="truncate-to-five-line" v-html="term.body"></v-card-text>
+                <v-card-text
+                    class="truncate-to-five-line title-break-word"
+                    v-html="term.body"
+                ></v-card-text>
                 <v-card-actions class="justify-content-end">
                     <a href="/terms" class="font-italic">еще.</a>
                 </v-card-actions>
@@ -35,7 +41,11 @@
                 <v-card-text class="pa-0 mb-3">
                     <video-embed :src="video.embeded_link"></video-embed>
                 </v-card-text>
-                <v-card-title class="subtitle-2 font-weight-medium pa-0">{{ video.title }}</v-card-title>
+                <v-card-title
+                    class="subtitle-2 font-weight-medium pa-0 title-break-word"
+                >
+                    {{ video.title }}
+                </v-card-title>
                 <v-card-actions class="justify-content-end">
                     <a href="/videos" class="font-italic">еще.</a>
                 </v-card-actions>
@@ -101,6 +111,10 @@ export default {
 </script>
 
 <style scoped>
+.title-break-word {
+    word-break: break-word;
+}
+
 .truncate-to-five-line {
     padding: 0;
     overflow: hidden;

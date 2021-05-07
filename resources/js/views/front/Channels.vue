@@ -34,11 +34,17 @@
             ></v-progress-circular>
         </v-col>
         <div class="row" v-else>
-            <ul class="list-inline py-1 list-col-4">
-                <li v-for="(channel, i) in filteredList" :key="i">
-                    <a :href="`/channels/` + channel.slug" class="channels-links">{{ channel.name }}</a>
-                </li>
-            </ul>
+            <v-col cols="6" v-for="(channels, i) in filteredChannels" :key="i">
+                <v-card rounded="lg" class="px-8 py-5" flat>
+                    <v-card-text
+                        class="pa-1"
+                        v-for="(channel ,i) in channels"
+                        :key="i"
+                    >
+                        <list-of-channel :item="channel"></list-of-channel>
+                    </v-card-text>
+                </v-card>
+            </v-col>
         </div>
         <scroller></scroller>
     </v-col>
@@ -46,15 +52,20 @@
 
 <script>
 import Scroller from "../../components/Scroller";
+import ListOfChannel from "../../components/ListOfChildren/ListOfChannel";
 
 export default {
     name: "Channels",
-    components: {Scroller},
+    components: {
+        Scroller,
+        ListOfChannel
+    },
     data() {
         return {
             channels: [],
             loading: false,
-            search: ""
+            search: "",
+            cols: 2
         }
     },
     methods: {
@@ -76,11 +87,33 @@ export default {
         this.getChannels();
     },
     computed: {
-        filteredList() {
-            return this.channels.filter(channel => {
-                return channel.name.toLowerCase().includes(this.search.toLowerCase())
-            })
-        }
+        orderChannels() {
+            let allChannels = this.channels.reduce((r, e) => {
+                let group = e.name[0];
+                if (!r[group]) r[group] = {group, children: [e]}
+                else r[group].children.push(e);
+                return r;
+            }, {})
+            return Object.values(allChannels);
+        },
+        columns() {
+            let columns = [];
+            let mid = Math.ceil(this.orderChannels.length / this.cols);
+            for (let col = 0; col < this.cols; col++) {
+                columns.push(this.orderChannels.slice(col * mid, col * mid + mid));
+            }
+            return columns;
+        },
+        filteredChannels() {
+            return this.columns.map(channels => {
+                return channels.map(channel => {
+                    const children = channel.children.filter(child => {
+                        return child.name.toLowerCase().includes(this.search.toLowerCase()) || this.search.includes(child.name)
+                    });
+                    return {...channel, children}
+                })
+            });
+        },
     }
 }
 </script>

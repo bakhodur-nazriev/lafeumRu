@@ -58,7 +58,7 @@
                         v-for="(term ,i) in vocabulary"
                         :key="i"
                     >
-                        <vocabulary-children :term="term"></vocabulary-children>
+                        <list-of-vocabulary :item="term"></list-of-vocabulary>
                     </v-card-text>
                 </v-card>
             </v-col>
@@ -69,12 +69,12 @@
 
 <script>
 import Scroller from "../../components/Scroller";
-import VocabularyChildren from "../../components/VocabularyChildren";
+import ListOfVocabulary from "../../components/ListOfChildren/ListOfVocabulary";
 
 export default {
     components: {
         Scroller,
-        VocabularyChildren
+        ListOfVocabulary
     },
     data() {
         return {

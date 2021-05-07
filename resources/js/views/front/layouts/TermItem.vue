@@ -4,7 +4,7 @@
         rounded="lg"
         class="mb-8"
     >
-        <v-card-subtitle class="d-flex p-4">
+        <v-card-subtitle class="d-flex px-5 pa-4">
             <div class="d-flex" v-if="item.term_type.name === `Термины научного мира`">
                 <v-img
                     v-for="icon in 3"
@@ -43,7 +43,7 @@
             </div>
         </v-card-text>
         <v-divider class="m-0 grey lighten-3"></v-divider>
-        <v-card-actions class="px-5 py-4">
+        <v-card-actions class="px-4 py-2">
             <div>
                 <v-btn icon>
                     <v-icon color="grey lighten-1">

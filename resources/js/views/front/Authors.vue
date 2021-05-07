@@ -35,11 +35,17 @@
             ></v-progress-circular>
         </v-col>
         <v-row v-else>
-            <ul class="list-inline py-1 list-col-4">
-                <li v-for="(author ,i) in filteredList" :key="i" class="mb-2">
-                    <a :href="`/authors/`+author.slug" class="authors-link text-decoration-none">{{ author.name }}</a>
-                </li>
-            </ul>
+            <v-col cols="6" v-for="(authors, i) in filteredAuthors" :key="i">
+                <v-card rounded="lg" class="px-8 py-5" flat>
+                    <v-card-text
+                        class="pa-1"
+                        v-for="(author ,i) in authors"
+                        :key="i"
+                    >
+                        <list-of-author :item="author"></list-of-author>
+                    </v-card-text>
+                </v-card>
+            </v-col>
         </v-row>
         <scroller></scroller>
     </v-col>
@@ -47,15 +53,20 @@
 
 <script>
 import Scroller from "../../components/Scroller";
+import ListOfAuthor from "../../components/ListOfChildren/ListOfAuthor";
 
 export default {
-    components: {Scroller},
+    components: {
+        Scroller,
+        ListOfAuthor
+    },
     name: "Authors",
     data() {
         return {
             search: "",
             authors: [],
-            loading: false
+            loading: false,
+            cols: 2
         };
     },
     methods: {
@@ -77,12 +88,34 @@ export default {
         this.getAuthors();
     },
     computed: {
-        filteredList() {
-            return this.authors.filter(author => {
-                return author.name.toLowerCase().includes(this.search.toLowerCase())
-            })
-        }
-    }
+        orderAuthors() {
+            let allAuthors = this.authors.reduce((r, e) => {
+                let group = e.name[0];
+                if (!r[group]) r[group] = {group, children: [e]}
+                else r[group].children.push(e);
+                return r;
+            }, {})
+            return Object.values(allAuthors);
+        },
+        columns() {
+            let columns = [];
+            let mid = Math.ceil(this.orderAuthors.length / this.cols);
+            for (let col = 0; col < this.cols; col++) {
+                columns.push(this.orderAuthors.slice(col * mid, col * mid + mid));
+            }
+            return columns;
+        },
+        filteredAuthors() {
+            return this.columns.map(authors => {
+                return authors.map(author => {
+                    const children = author.children.filter(child => {
+                        return child.name.toLowerCase().includes(this.search.toLowerCase()) || this.search.includes(child.name)
+                    });
+                    return {...author, children}
+                })
+            });
+        },
+    },
 };
 </script>
 

@@ -47,7 +47,7 @@
 
         <v-divider class="m-0 grey lighten-3"></v-divider>
 
-        <v-card-actions class="px-4 py-3">
+        <v-card-actions class="px-4 py-2">
             <div>
                 <v-btn icon>
                     <v-icon color="grey lighten-1"> mdi-heart</v-icon>

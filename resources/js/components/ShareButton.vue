@@ -8,9 +8,9 @@
                 <Twitter :url="`${appUrl}/` + postLink.id" class="share-button--circle" btnText/>
                 <viber :url="`${appUrl}/` + postLink.id" class="share-button--circle" btnText/>
                 <WhatsApp :url="`${appUrl}/` + postLink.id" class="share-button--circle" btnText/>
-                <Telegram :url="`${appUrl}/` + postLink.id" class="share-button--circle" btnText/>
             </div>
         </v-expand-transition>
+        <Telegram :url="`${appUrl}/` + postLink.id" class="share-button--circle" btnText/>
         <v-btn icon color="grey lighten-1" class="ma-1" @click="expand = !expand">
             <v-icon>mdi-share-variant</v-icon>
         </v-btn>
@@ -42,9 +42,9 @@ export default {
         return {
             postLink: this.post,
             expand: false,
-            appUrl: process.env.MIX_APP_URL
+            appUrl: process.env.MIX_APP_URL,
         }
-    },
+    }
 }
 </script>
 
@@ -57,7 +57,13 @@ export default {
 .share-button--circle[data-v-519b00aa],
 .share-button--circle[data-v-71655f98] {
     padding: 0;
-    min-width: 34px;
-    min-height: 34px;
+    min-width: 27px;
+    min-height: 27px;
 }
+
+.share-button__icon[data-v-7db37067] {
+    height: 15px;
+    width: 15px !important;
+}
+
 </style>

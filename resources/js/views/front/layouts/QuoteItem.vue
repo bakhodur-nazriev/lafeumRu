@@ -1,6 +1,6 @@
 <template>
     <v-card flat rounded="lg" class="mb-8">
-        <v-card-subtitle class="d-flex px-6 py-4">
+        <v-card-subtitle class="d-flex px-6 py-3">
             <v-spacer></v-spacer>
             <a class="grey--text text-decoration-none" :href="item.post.id">
                 #{{ item.post.id }}
@@ -34,7 +34,7 @@
             </div>
         </v-card-text>
         <v-divider class="m-0 grey lighten-3"></v-divider>
-        <v-card-actions class="px-4 py-3">
+        <v-card-actions class="px-4 py-2">
             <div>
                 <v-btn icon>
                     <v-icon color="grey lighten-1"> mdi-heart</v-icon>

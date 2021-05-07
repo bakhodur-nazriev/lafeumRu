@@ -1,6 +1,6 @@
 <template>
     <v-col xl="7" lg="9">
-        <h5 class="text-uppercase font-weight-regular py-4">Области знаний</h5>
+        <h5 class="text-uppercase font-weight-regular py-4 ">Области знаний</h5>
         <p class="grey--text">В этой рубрике термины и комментарии специалистов классифицированы
             <br/>более развернуто по группам и направлениям.
         </p>
@@ -47,18 +47,21 @@
                 v-for="(knowledgeArea, i) in filteredList"
             >
                 <v-card-title class="d-flex">
-                    <div class="text-start w-100 mb-4">
+                    <div class="text-start w-100">
                         <h2 class="display-1 font-weight-medium">
                             {{ knowledgeArea.name }}
                         </h2>
                     </div>
                     <v-col cols="12" class="list-col-4 px-0">
                         <v-card-text
-                            :key="i"
-                            class="pa-0 pb-2"
+                            class="pa-0 mb-2"
                             v-for="(knowledge, i) in knowledgeArea.children"
+                            :key="i"
                         >
-                            <a :href="`/knowledge/` + knowledge.slug">{{ knowledge.name }}</a>
+                            <a
+                                :href="`/knowledge/` + knowledge.slug"
+                                class="knowledge-children-link"
+                            >{{ knowledge.name }}</a>
                         </v-card-text>
                     </v-col>
                 </v-card-title>
@@ -147,5 +150,14 @@ export default {
     border-radius: 16px !important;
     display: flex;
     justify-content: start;
+}
+
+.knowledge-children-link {
+    text-decoration: none;
+    word-break: break-word;
+}
+
+.knowledge-children-link:hover {
+    color: #676767;
 }
 </style>

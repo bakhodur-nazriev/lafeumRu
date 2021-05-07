@@ -1,23 +1,23 @@
 <template>
     <div>
-        <h1 class="vocabulary-letter text-decoration-none pt-4 pb-2">{{ term.group }}</h1>
+        <h1 class="vocabulary-letter text-decoration-none pt-4 pb-2">{{ item.group }}</h1>
         <div>
             <div :class="{'truncate-to-seven-line': isActive}">
                 <a
-                    v-for="(child ,i) in term.children"
+                    v-for="(child ,i) in item.children"
                     :key="i"
-                    class="vocabulary-words text-decoration-none d-block"
-                    :href="child.post.id"
+                    class="vocabulary-words text-decoration-none d-block fit"
+                    :href="'/authors/' + child.slug"
                     target="_blank">
                     {{ child.name }}
                 </a>
                 <br/>
             </div>
-            <div v-if="term.children.length >= 17" class="text-right load-more-vocabulary">
+            <div v-if="item.children.length >= 17" class="text-right load-more-vocabulary">
                 <v-btn
                     text
                     color="primary"
-                    @click="toggleVocabulary()"
+                    @click="toggleAuthor()"
                     class="font-italic"
                 >
                     еще.
@@ -31,15 +31,15 @@
 
 <script>
 export default {
-    name: "VocabularyChildren",
-    props: ["term"],
+    name: "ListOfChildren",
+    props: ["item"],
     data() {
         return {
             isActive: true
         }
     },
     methods: {
-        toggleVocabulary() {
+        toggleAuthor() {
             this.isActive = !this.isActive;
         }
     }
@@ -65,6 +65,7 @@ export default {
 
 .vocabulary-words {
     color: #494949;
+    width: fit-content;
 }
 
 .vocabulary-words:hover {

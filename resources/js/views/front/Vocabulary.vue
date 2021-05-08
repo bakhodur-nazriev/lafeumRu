@@ -18,7 +18,7 @@
                     height="48"
                     hide-details
                     v-model="search"
-                    placeholder="Область знаний"
+                    placeholder="Введите область знаний"
                     background-color="transparent"
                     class="rounded-lg rounded-tr-0 rounded-br-0 search-filed"
                 >

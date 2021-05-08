@@ -13,15 +13,14 @@
                 </a>
                 <br/>
             </div>
-            <div v-if="item.children.length >= 17" class="text-right load-more-vocabulary">
+            <div v-if="item.children.length >= 17" class="text-right mt-4">
                 <v-btn
                     text
-                    color="primary"
+                    small
                     @click="toggleVocabulary()"
-                    class="font-italic"
+                    class="pa-0 toggle-button"
                 >
-                    еще.
-                    <v-icon small>mdi-arrow-right</v-icon>
+                    <v-icon small>mdi-chevron-right</v-icon>
                 </v-btn>
             </div>
         </div>
@@ -47,8 +46,9 @@ export default {
 </script>
 
 <style scoped>
-.v-btn {
-    text-transform: lowercase;
+.toggle-button {
+    min-width: 30px !important;
+    border: 2px solid #494949;
 }
 
 .truncate-to-seven-line {

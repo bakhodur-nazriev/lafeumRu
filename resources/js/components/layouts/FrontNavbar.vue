@@ -20,9 +20,9 @@
                         </div>
                     </div>
 
-                    <div class="d-flex align-items-center" v-if="!user">
+<!--                    <div class="d-flex align-items-center">
                         <v-btn
-                            color="white primary--text"
+                            color="white primary&#45;&#45;text"
                             class="text-capitalize rounded-lg text-decoration-none primary"
                             elevation="0"
                             width="88"
@@ -31,7 +31,7 @@
                             вход
                         </v-btn>
                     </div>
-                    <div class="d-flex align-items-center" v-else>
+                    <div class="d-flex align-items-center">
                         <v-avatar>
                             <img :src="user.avatar">
                         </v-avatar>
@@ -53,15 +53,17 @@
                                     :key="profileLink.href"
                                 >
                                     <v-list-item-title class=" px-3 py-5">
-                                        <v-icon color="grey lighten-1" class="mr-6">{{ profileLink.icon }}</v-icon>
-                                        <a class="navbar-profile-links" :href="profileLink.href">{{
-                                                profileLink.title
-                                            }}</a>
+                                        <v-icon color="grey lighten-1" class="mr-6">
+                                            {{ profileLink.icon }}
+                                        </v-icon>
+                                        <a class="navbar-profile-links" :href="profileLink.href">\
+                                            {{ profileLink.title }}
+                                        </a>
                                     </v-list-item-title>
                                 </v-list-item>
                             </v-list>
                         </v-menu>
-                    </div>
+                    </div>-->
                 </v-col>
             </v-row>
         </v-container>

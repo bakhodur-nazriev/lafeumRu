@@ -4,7 +4,7 @@
         <p class="grey--text">В этой рубрике термины и комментарии специалистов классифицированы
             <br/>более развернуто по группам и направлениям.
         </p>
-        <v-col cols="7" class="d-flex align-center pl-0 mb-11">
+        <v-col cols="7" class="d-flex align-center pl-0 mb-8">
             <div class="form-search rounded-lg w-100">
                 <div class="form-search-text-side">
                     <v-text-field
@@ -13,8 +13,8 @@
                         height="48"
                         hide-details
                         v-model="search"
-                        placeholder="Область знаний"
                         background-color="transparent"
+                        placeholder="Введите область знаний"
                         class="rounded-lg rounded-tr-0 rounded-br-0 search-field"
                     >
                     </v-text-field>
@@ -48,7 +48,7 @@
             >
                 <v-card-title class="d-flex">
                     <div class="text-start w-100">
-                        <h2 class="display-1 font-weight-medium">
+                        <h2 class="" style="font-size: 24px">
                             {{ knowledgeArea.name }}
                         </h2>
                     </div>

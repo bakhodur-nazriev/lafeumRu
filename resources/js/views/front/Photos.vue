@@ -24,6 +24,7 @@
                     >
                         <v-card-text class="d-flex justify-content-center align-items-center h-100">
                             <v-img max-width="268" height="180" class="d-flex" :src="photo.path"></v-img>
+                            <p></p>
                         </v-card-text>
                     </v-card>
                 </v-col>

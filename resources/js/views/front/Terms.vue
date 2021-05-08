@@ -59,7 +59,6 @@ export default {
                     this.terms = res.data;
                     this.pagination.current = res.data.current_page;
                     this.pagination.total = res.data.last_page;
-                    console.log(res.data);
                 })
                 .catch(err => {
                     this.loading = false;

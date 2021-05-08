@@ -41,6 +41,9 @@ export default {
             allCategories: this.categories,
         };
     },
+    created() {
+        console.log(this.allCategories)
+    },
     computed: {
         categoryType() {
             for (const category of this.allCategories) {

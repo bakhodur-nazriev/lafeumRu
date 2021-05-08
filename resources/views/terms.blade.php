@@ -8,6 +8,7 @@
 @endsection
 
 @section('content')
-    <left-side-bar :categories="{{ $categories }}"></left-side-bar>
+    @include('layouts.left-sidebar.leftSideBar', ['type' => 'App\Term'])
+
     <terms></terms>
 @endsection

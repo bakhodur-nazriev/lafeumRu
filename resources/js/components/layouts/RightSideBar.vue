@@ -1,6 +1,6 @@
 <template>
     <v-col xl="2" lg="3" md="4">
-        <h5 class="text-uppercase text-secondary font-weight-normal py-4">Рекоммендуемые</h5>
+        <h5 class="text-uppercase text-secondary font-weight-normal py-4">Рекомендуемые</h5>
         <v-card class="rounded-lg" flat>
             <!-- Quote Section -->
             <div class="pa-5 pb-0">

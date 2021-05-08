@@ -1,6 +1,10 @@
 <template>
     <v-col xl="5" lg="6">
-        <h5 class="text-uppercase font-weight-regular py-4 mx-4">Цитаты</h5>
+        <h5 class="text-uppercase font-weight-regular py-2 mb-0">Цитаты и Афоризмы</h5>
+        <p>
+            Лучшие цитаты, афоризмы и высказывания великих ученых и мыслителей, известных и успешных людей на тематику
+            сайта.
+        </p>
         <v-row align="center">
             <v-col cols="12" class="d-flex justify-center" v-if="loading">
                 <v-progress-circular

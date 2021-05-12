@@ -2,7 +2,7 @@
     <div>
         <h1 class="vocabulary-letter text-decoration-none pt-4 pb-2">{{ item.group }}</h1>
         <div>
-            <div :class="{'truncate-to-seven-line': isActive}">
+            <div :class="{'truncate-to-seventeen-line': isActive}">
                 <a
                     v-for="(child ,i) in item.children"
                     :key="i"
@@ -51,7 +51,7 @@ export default {
     border: 2px solid #494949;
 }
 
-.truncate-to-seven-line {
+.truncate-to-seventeen-line {
     padding: 0;
     overflow: hidden;
     display: -webkit-box;

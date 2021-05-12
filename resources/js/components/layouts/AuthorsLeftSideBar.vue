@@ -5,7 +5,7 @@
         <v-sheet rounded="lg" width="100%">
             <div class="d-flex align-center pa-5">
                 <v-icon>mdi-account-group-outline</v-icon>
-                <h5 class="ml-2 mb-0">{{ currentList }}</h5>
+                <!--                <h5 class="ml-2 mb-0">{{ currentList }}</h5>-->
                 <!--                <h5 class="ml-2 mb-0" v-esle>Авторы</h5>-->
             </div>
             <v-divider class="ma-0"></v-divider>
@@ -14,16 +14,21 @@
                     label="Введите имя автора"
                     v-model="search"
                     hide-details
-                    class="mb-1"
+                    class="mb-3"
                     outlined
                     dense
                 >
                 </v-text-field>
 
                 <!-- Authors -->
-                <div v-if="loading">
-                    <h5 class="text-uppercase font-weight-regular py-4">загурзка...</h5>
-                </div>
+                <v-col cols="12" class="d-flex justify-center" v-if="loading">
+                    <v-progress-circular
+                        width="5"
+                        size="48"
+                        indeterminate
+                        color="primary"
+                    ></v-progress-circular>
+                </v-col>
                 <div v-else>
                     <v-list-item
                         v-for="(author, i) in filteredList"
@@ -36,6 +41,18 @@
                             </v-list-item-subtitle>
                         </v-list-item-content>
                     </v-list-item>
+                    <v-col cols="12" class="d-flex justify-center mt-2 pb-0">
+                        <v-btn
+                            fab
+                            small
+                            rounded
+                            elevation="0"
+                            color="grey lighten-2"
+                            @click="loadMore"
+                        >
+                            <v-icon color="white">mdi-arrow-down</v-icon>
+                        </v-btn>
+                    </v-col>
                 </div>
             </div>
         </v-sheet>
@@ -44,46 +61,42 @@
 
 <script>
 export default {
-    props: ["authors", "current", "authorListTitle"],
     data() {
         return {
-            // authors: [],
+            authors: [],
             search: "",
             loading: false,
-            currentList: this.authorListTitle
+            current: 1
         }
     },
+    methods: {
+        getAuthors() {
+            this.loading = true;
+            axios
+                .get("/api/authors-left-sidebar?page" + this.current)
+                .then(res => {
+                    this.loading = false;
+                    this.authors = res.data.data;
+                    this.current = res.data.current_page;
+                    console.log(res.data);
+                })
+                .catch(err => {
+                    this.loading = false;
+                    console.log(err);
+                })
+        },
+        loadMore() {
 
-    created() {
-        console.log(this.listTitle);
+        }
     },
-    // methods: {
-    //     getAuthors() {
-    //         this.loading = true;
-    //         axios
-    //             .get("/api/authors")
-    //             .then(res => {
-    //                 this.loading = false;
-    //                 this.authors = res.data;
-    //                 console.log(res.data);
-    //             })
-    //             .catch(err => {
-    //                 this.loading = false;
-    //                 console.log(err);
-    //             })
-    //     }
-    // },
-    // mounted() {
-    //     this.getAuthors();
-    // },
+    mounted() {
+        this.getAuthors();
+    },
     computed: {
         filteredList() {
             return this.authors.filter(author => {
                 return author.name.toLowerCase().includes(this.search.toLowerCase())
             })
-        },
-        listTitle() {
-            return this.authorListTitle
         }
     }
 }

@@ -1,10 +1,10 @@
 <template>
     <v-col xl="5" lg="6">
         <div>
-            <h5 class="text-uppercase font-weight-regular py-4">
+            <h5 class="text-uppercase font-weight-regular py-4 mb-0">
                 {{ currentKnowledge.name }}
             </h5>
-            <p v-if="currentKnowledge.description">
+            <p v-if="currentKnowledge.description" class="mb-4">
                 {{ currentKnowledge.description }}
             </p>
         </div>

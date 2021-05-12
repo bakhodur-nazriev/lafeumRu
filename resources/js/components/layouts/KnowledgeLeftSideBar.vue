@@ -116,6 +116,7 @@ export default {
 }
 
 .knowledge-list-item-subtitle > a {
+    color: #04718c;
     line-height: 1.4;
 }
 

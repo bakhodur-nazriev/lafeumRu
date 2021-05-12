@@ -21,12 +21,7 @@
 export default {
     name: "Home",
     data() {
-        return {
-            uri: process.env.MIX_APP_URL
-        }
-    },
-    created() {
-        console.log(this.uri);
+        return {}
     }
 }
 </script>

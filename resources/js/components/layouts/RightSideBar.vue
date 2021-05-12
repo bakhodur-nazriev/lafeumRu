@@ -17,7 +17,9 @@
                     v-html="quote.body"
                 ></v-card-text>
                 <v-card-actions class="justify-content-end">
-                    <a href="/quotes" class="font-italic">еще.</a>
+                    <a href="/quotes" class="more-button">
+                        <v-icon color="black" small>mdi-chevron-right</v-icon>
+                    </a>
                 </v-card-actions>
             </div>
 
@@ -30,7 +32,9 @@
                     v-html="term.body"
                 ></v-card-text>
                 <v-card-actions class="justify-content-end">
-                    <a href="/terms" class="font-italic">еще.</a>
+                    <a href="/terms" class="more-button">
+                        <v-icon color="black" small>mdi-chevron-right</v-icon>
+                    </a>
                 </v-card-actions>
             </div>
 
@@ -47,7 +51,9 @@
                     {{ video.title }}
                 </v-card-title>
                 <v-card-actions class="justify-content-end">
-                    <a href="/videos" class="font-italic">еще.</a>
+                    <a href="/videos" class="more-button">
+                        <v-icon color="black" small>mdi-chevron-right</v-icon>
+                    </a>
                 </v-card-actions>
             </div>
 
@@ -69,7 +75,9 @@
                             ></v-img>
                         </v-card-text>
                         <v-card-actions class="justify-content-end">
-                            <a href="/photos" class="font-italic">еще.</a>
+                            <a href="/photos" class="more-button">
+                                <v-icon color="black" small>mdi-chevron-right</v-icon>
+                            </a>
                         </v-card-actions>
                     </div>
                 </template>
@@ -113,6 +121,13 @@ export default {
 <style scoped>
 .title-break-word {
     word-break: break-word;
+}
+
+.more-button {
+    text-decoration: none;
+    border: 2px solid #000;
+    display: flex;
+    border-radius: 4px;
 }
 
 .truncate-to-five-line {

@@ -133,19 +133,6 @@ export default {
     width: 80%;
 }
 
-.form-search-button-side {
-    width: 20%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    background-color: #1a718c;
-    border-bottom-right-radius: 5px;
-    border-top-right-radius: 5px;
-    position: relative;
-    bottom: 1px;
-}
-
 .knowledge-area-card {
     border-radius: 16px !important;
     display: flex;
@@ -155,6 +142,7 @@ export default {
 .knowledge-children-link {
     text-decoration: none;
     word-break: break-word;
+    color: #04718c;
 }
 
 .knowledge-children-link:hover {

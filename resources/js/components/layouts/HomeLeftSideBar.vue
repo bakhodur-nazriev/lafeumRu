@@ -17,9 +17,12 @@
                                 :key="i"
                                 class="font-weight-normal"
                             >
-                                <a :href="postLink.href" class="text-decoration-none">{{
-                                    postLink.label
-                                    }}</a>
+                                <a
+                                    :href="postLink.href"
+                                    class="text-decoration-none category-links"
+                                >
+                                    {{ postLink.label }}
+                                </a>
                             </div>
                         </v-expansion-panel-content>
                     </v-expansion-panel>
@@ -42,7 +45,7 @@
                             <div v-for="(subPostLink, i) in subCategory.post_links" :key="i">
                                 <a
                                     :href="subPostLink.href"
-                                    class="text-decoration-none"
+                                    class="text-decoration-none category-links"
                                 >
                                     {{ subPostLink.label }}
                                 </a>
@@ -73,19 +76,18 @@ export default {
 </script>
 
 <style scoped>
-
-
 button:focus {
     outline: none;
 }
 
-.sub-category-links {
-    color: #494949;
+.category-links {
+    color: #04718c;
     text-decoration: none;
+    font-weight: normal;
 }
 
-.sub-category-links:hover {
-    color: #04718c;
+.category-links:hover {
+    color: #494949;
 }
 
 .deep-expansion-panel {

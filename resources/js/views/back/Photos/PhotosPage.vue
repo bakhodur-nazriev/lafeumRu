@@ -45,63 +45,67 @@
     </v-main>
 </template>
 <script>
-    import IndexPageLayout from "../../../components/IndexPageLayout";
-    import PhotoCreateDialog from "./PhotoCreateDialog";
-    import PhotoEditDialog from "./PhotoEditDialog";
-    import PhotoShowDialog from "./PhotoShowDialog";
-    import PhotoDeleteDialog from "./PhotoDeleteDialog";
+import IndexPageLayout from "../../../components/IndexPageLayout";
+import PhotoCreateDialog from "./PhotoCreateDialog";
+import PhotoEditDialog from "./PhotoEditDialog";
+import PhotoShowDialog from "./PhotoShowDialog";
+import PhotoDeleteDialog from "./PhotoDeleteDialog";
 
-    export default {
-        components: {
-            IndexPageLayout,
-            PhotoCreateDialog,
-            PhotoEditDialog,
-            PhotoShowDialog,
-            PhotoDeleteDialog
+export default {
+    components: {
+        IndexPageLayout,
+        PhotoCreateDialog,
+        PhotoEditDialog,
+        PhotoShowDialog,
+        PhotoDeleteDialog
+    },
+    data() {
+        return {
+            addPhoto: false,
+            photoToShow: null,
+            photoToDelete: null,
+            photoToUpdate: null,
+            headers: [
+                {
+                    text: "Фото",
+                    width: "150px",
+                    value: "image",
+                    align: "center",
+                    sortable: false,
+                    class: "mine-table-headers"
+                },
+                {
+                    text: "Заголовок",
+                    value: "title"
+                },
+                {
+                    text: "Описание",
+                    value: "description"
+                },
+                {
+                    text: "Опубликовано",
+                    value: "publish_at",
+                    width: 160
+                }
+            ]
+        };
+    },
+    methods: {
+        photoCreated(newPhoto) {
+            this.addPhoto = false;
+            this.$refs.indexPage.loadItems();
         },
-        data() {
-            return {
-                addPhoto: false,
-                photoToShow: null,
-                photoToDelete: null,
-                photoToUpdate: null,
-                headers: [
-                    {
-                        text: "Фото",
-                        width: "150px",
-                        value: "image",
-                        align: "center",
-                        sortable: false,
-                        class: "mine-table-headers"
-                    },
-                    {
-                        text: "Описание",
-                        value: "description"
-                    },
-                    {
-                        text: "Опубликовано",
-                        value: "publish_at",
-                        width: 160
-                    }
-                ]
-            };
+        photoUpdated(updated) {
+            this.photoToUpdate = null;
+            this.$refs.indexPage.loadItems();
         },
-        methods: {
-            photoCreated(newPhoto) {
-                this.addPhoto = false;
-                this.$refs.indexPage.loadItems();
-            },
-            photoUpdated(updated) {
-                this.photoToUpdate = null;
-                this.$refs.indexPage.loadItems();
-            },
-            photoDeleted() {
-                this.photoToDelete = null;
-                this.$refs.indexPage.loadItems();
-            },
-            showPhoto(photo) {
-                this.photoToShow = photo;
-            },
-        }
-    };
+        photoDeleted() {
+            this.photoToDelete = null;
+            this.$refs.indexPage.loadItems();
+        },
+        showPhoto(photo) {
+            this.photoToShow = photo;
+        },
+    }
+};
 </script>

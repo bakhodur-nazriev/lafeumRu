@@ -26,8 +26,7 @@
 
 @section('content')
 
-    @include('layouts.left-sidebar.leftSidebar', ['type' => $category->type, 'active' => $category->id])
-{{--    @include('layouts.left-sidebar.leftSidebar', ['type' => $category->type])--}}
+    @include('layouts.left-sidebar.leftSidebar', ['type' => $category->type])
 
     <category :categoriables="{{ $category }}"></category>
 @endsection

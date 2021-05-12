@@ -25,6 +25,14 @@
                             />
                         </v-col>
                         <v-col cols="12 py-0">
+                            <v-text-field
+                                hide-details
+                                outlined
+                                label="Имя автора"
+                                v-model="newPhoto.title"
+                            />
+                        </v-col>
+                        <v-col cols="12 py-0">
                             <v-textarea
                                 outlined
                                 :rules="[rules.required]"
@@ -46,61 +54,61 @@
 </template>
 
 <script>
-    import rules from "../../../validation-rules";
-    import DatePicker from "../../../components/DatePicker";
+import rules from "../../../validation-rules";
+import DatePicker from "../../../components/DatePicker";
 
-    export default {
-        props: {value: Boolean},
-        components: {"date-picker": DatePicker},
-        data() {
+export default {
+    props: {value: Boolean},
+    components: {"date-picker": DatePicker},
+    data() {
+        return {
+            rules,
+            newPhoto: null,
+        }
+    },
+    beforeMount() {
+        this.newPhoto = this.getDefaultPhoto();
+    },
+    methods: {
+        getDefaultPhoto() {
             return {
-                rules,
-                newPhoto: null,
-            }
+                image: null,
+                description: "",
+                publish_at: ""
+            };
         },
-        beforeMount() {
+        resetNewPhoto() {
             this.newPhoto = this.getDefaultPhoto();
         },
-        methods: {
-            getDefaultPhoto() {
-                return {
-                    image: null,
-                    description: "",
-                    publish_at: ""
-                };
-            },
-            resetNewPhoto() {
-                this.newPhoto = this.getDefaultPhoto();
-            },
-            addPhoto(e) {
-                e.preventDefault();
+        addPhoto(e) {
+            e.preventDefault();
 
-                const validForm = this.$refs.createForm.validate();
+            const validForm = this.$refs.createForm.validate();
 
 
-                if (!validForm) return;
+            if (!validForm) return;
 
-                const formData = new FormData();
+            const formData = new FormData();
 
-                formData.append("image", this.newPhoto.image);
-                formData.append("publish_at", this.newPhoto.publish_at);
-                formData.append("description", this.newPhoto.description);
+            formData.append("image", this.newPhoto.image);
+            formData.append("publish_at", this.newPhoto.publish_at);
+            formData.append("description", this.newPhoto.description);
 
-                axios
-                    .post("/api/photos", formData, {
-                        headers: {
-                            "Content-Type": "multipart/form-data"
-                        }
-                    })
-                    .then(res => {
-                        this.resetNewPhoto();
-                        this.$emit('created', res.data);
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    });
-            },
-        }
+            axios
+                .post("/api/photos", formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data"
+                    }
+                })
+                .then(res => {
+                    this.resetNewPhoto();
+                    this.$emit('created', res.data);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        },
     }
+}
 </script>
 

@@ -35,7 +35,7 @@
             <p class="subtitle-1" v-html="item.body"></p>
             <div class="categories-block">
                 <a
-                    class="mx-1 grey--text text-decoration-none"
+                    class="mr-2 grey--text text-decoration-none"
                     v-for="(termCategories ,i) in item.categories"
                     :key="i"
                     :href="`/terms/` + termCategories.slug"

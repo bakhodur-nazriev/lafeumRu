@@ -95,7 +95,6 @@ export default {
                 else r[group].children.push(e);
                 return r;
             }, {})
-            console.log(allAuthors);
             return Object.values(allAuthors);
         },
         columns() {

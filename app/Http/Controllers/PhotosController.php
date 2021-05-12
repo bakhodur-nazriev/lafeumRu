@@ -21,7 +21,7 @@ class PhotosController extends Controller
 
     public function getPhotos()
     {
-        $photos = Photo::published('desc')->paginate(15);
+        $photos = Photo::published('desc')->paginate(16);
         return response()->json(collect($photos));
     }
 
@@ -35,6 +35,7 @@ class PhotosController extends Controller
     {
         $request->validate([
             'image' => 'required',
+            'title' => 'required',
             'description' => 'required'
         ]);
         $newPhotoData = $request->all();

@@ -46,9 +46,6 @@ export default {
             }
         }
     },
-    created() {
-        console.log(this.current);
-    },
     methods: {
         onPageChange() {
 

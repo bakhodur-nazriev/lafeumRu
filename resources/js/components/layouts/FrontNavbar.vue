@@ -23,47 +23,56 @@
 <!--                    <div class="d-flex align-items-center">
                         <v-btn
                             color="white primary&#45;&#45;text"
+                            @click="$refs.logout.submit()"
                             class="text-capitalize rounded-lg text-decoration-none primary"
                             elevation="0"
                             width="88"
-                            href="/login"
                         >
-                            вход
+                            выход
                         </v-btn>
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <v-avatar>
-                            <img :src="user.avatar">
-                        </v-avatar>
-                        <v-menu offset-y left min-width="240" rounded="lg" nudge-bottom="20">
-                            <template v-slot:activator="{ on }">
-                                <v-btn
-                                    icon
-                                    v-on="on"
-                                    color="white"
-                                >
-                                    <v-icon>
-                                        mdi-menu-down
-                                    </v-icon>
-                                </v-btn>
-                            </template>
-                            <v-list>
-                                <v-list-item
-                                    v-for="profileLink in profileLinks"
-                                    :key="profileLink.href"
-                                >
-                                    <v-list-item-title class=" px-3 py-5">
-                                        <v-icon color="grey lighten-1" class="mr-6">
-                                            {{ profileLink.icon }}
-                                        </v-icon>
-                                        <a class="navbar-profile-links" :href="profileLink.href">\
-                                            {{ profileLink.title }}
-                                        </a>
-                                    </v-list-item-title>
-                                </v-list-item>
-                            </v-list>
-                        </v-menu>
+
+                        <form
+                            ref="logout"
+                            action="/logout"
+                            method="POST"
+                            style="display: none;"
+                        >
+                            <input type="hidden" name="_token" :value="csrf"/>
+                        </form>
                     </div>-->
+                    <!--                    <div class="d-flex align-items-center">-->
+                    <!--                        <v-avatar>-->
+                    <!--                            <img :src="user.avatar">-->
+                    <!--                        </v-avatar>-->
+                    <!--                        <v-menu offset-y left min-width="240" rounded="lg" nudge-bottom="20">-->
+                    <!--                            <template v-slot:activator="{ on }">-->
+                    <!--                                <v-btn-->
+                    <!--                                    icon-->
+                    <!--                                    v-on="on"-->
+                    <!--                                    color="white"-->
+                    <!--                                >-->
+                    <!--                                    <v-icon>-->
+                    <!--                                        mdi-menu-down-->
+                    <!--                                    </v-icon>-->
+                    <!--                                </v-btn>-->
+                    <!--                            </template>-->
+                    <!--                            <v-list>-->
+                    <!--                                <v-list-item-->
+                    <!--                                    v-for="profileLink in profileLinks"-->
+                    <!--                                    :key="profileLink.href"-->
+                    <!--                                >-->
+                    <!--                                    <v-list-item-title class=" px-3 py-5">-->
+                    <!--                                        <v-icon color="grey lighten-1" class="mr-6">-->
+                    <!--                                            {{ profileLink.icon }}-->
+                    <!--                                        </v-icon>-->
+                    <!--                                        <a class="navbar-profile-links" :href="profileLink.href">-->
+                    <!--                                            {{ profileLink.title }}-->
+                    <!--                                        </a>-->
+                    <!--                                    </v-list-item-title>-->
+                    <!--                                </v-list-item>-->
+                    <!--                            </v-list>-->
+                    <!--                        </v-menu>-->
+                    <!--                    </div>-->
                 </v-col>
             </v-row>
         </v-container>
@@ -75,6 +84,7 @@ export default {
     name: "FrontNavbar",
     data() {
         return {
+            csrf: window.Laravel.csrf_token,
             user: window.Laravel.auth,
             profileLinks: [
                 {

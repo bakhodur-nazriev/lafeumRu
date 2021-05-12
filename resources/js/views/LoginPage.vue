@@ -10,10 +10,10 @@
             </div>
             <v-card-text class="pa-0">
                 <form ref="form" :action="appPath('login')" method="POST">
-                    <input type="hidden" name="_token" :value="csrf" />
+                    <input type="hidden" name="_token" :value="csrf"/>
                     <div class="input-container">
                         <label class="input-label" for="email">Ваш Email</label>
-                        <br />
+                        <br/>
                         <input
                             id="email"
                             type="email"
@@ -28,14 +28,12 @@
                         />
                         <div class="valid-feedback"></div>
                         <div class="invalid-feedback">
-                            <span v-if="!$v.email.required"
-                                >Это поле обязательное.
+                            <span v-if="!$v.email.required">Это поле обязательное.
                                 <button type="button" @click="clearEmail">
                                     <v-icon class="v-icon">mdi-close</v-icon>
                                 </button>
                             </span>
-                            <span v-if="!$v.email.email"
-                                >E-mail должен быть действительным.
+                            <span v-if="!$v.email.email">E-mail должен быть действительным.
                                 <button type="button" @click="clearEmail">
                                     <v-icon class="v-icon">mdi-close</v-icon>
                                 </button>
@@ -44,7 +42,7 @@
                     </div>
                     <div class="input-container">
                         <label class="input-label" for="password">Пароль</label>
-                        <br />
+                        <br/>
                         <input
                             class="input"
                             type="password"
@@ -59,17 +57,13 @@
                         />
                         <div class="valid-feedback"></div>
                         <div class="invalid-feedback">
-                            <span v-if="!$v.password.required"
-                                >Введите Ваш пароль.
+                            <span v-if="!$v.password.required">Введите Ваш пароль.
                                 <button type="button" @click="clearPassword">
                                     <v-icon class="v-icon">mdi-close</v-icon>
                                 </button>
                             </span>
-                            <span v-if="!$v.password.minLength"
-                                >Пароль должен содержать минимум
-                                {{
-                                    $v.password.$params.minLength.min
-                                }}
+                            <span v-if="!$v.password.minLength">Пароль должен содержать минимум
+                                {{ $v.password.$params.minLength.min }}
                                 символов.
                                 <button type="button" @click="clearPassword">
                                     <v-icon class="v-icon">mdi-close</v-icon>
@@ -95,17 +89,26 @@
                             <a href="#">Забыли пароль?</a>
                         </div>
                     </div>
-                    <button
-                        class="submit-btn"
-                        type="submit"
-                        @click.prevent="submit"
+                    <v-btn
+                        color="submit-btn"
+                        @click="$refs.login.submit()"
+                        class="text-capitalize rounded-lg text-decoration-none primary"
+                        elevation="0"
                     >
-                        Вход
-                    </button>
+                        вход
+                    </v-btn>
+
+                    <form
+                        ref="login"
+                        action="/login"
+                        method="POST"
+                        style="display: none;"
+                    >
+                        <input type="hidden" name="_token" :value="csrf"/>
+                    </form>
+
                     <div class="d-flex justify-content-center mt-5">
-                        <span class="grey--text lighten-1 mr-4"
-                            >У вас нет аккаунта ?</span
-                        >
+                        <span class="grey--text lighten-1 mr-4">У вас нет аккаунта ?</span>
                         <a href="/register">Регистрация</a>
                     </div>
                 </form>
@@ -116,7 +119,7 @@
 </template>
 
 <script>
-import { required, minLength, email } from "vuelidate/lib/validators";
+import {required, minLength, email} from "vuelidate/lib/validators";
 
 export default {
     data() {
@@ -124,10 +127,8 @@ export default {
             email: "",
             password: "",
             checked: false,
+            csrf: window.Laravel.csrf_token,
         };
-    },
-    created() {
-        console.log(this.r);
     },
     validations: {
         email: {
@@ -146,20 +147,20 @@ export default {
         clearPassword() {
             this.password = "";
         },
-        // login() {
-        //     this.$v.$touch()
-        //     if (this.$v.$invalid) {
-        //         console.log('Fail')
-        //     } else {
-        //         const user = {
-        //             email: this.email,
-        //             password: this.password,
-        //             remember: this.checked
-        //         }
+        login() {
+            this.$v.$touch()
+            if (this.$v.$invalid) {
+                console.log('Fail')
+            } else {
+                const user = {
+                    email: this.email,
+                    password: this.password,
+                    remember: this.checked
+                }
 
-        //         // console.log(user)
-        //     }
-        // }
+                // console.log(user)
+            }
+        },
         appPath(url) {
             window.laravel + url;
         },

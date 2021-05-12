@@ -8,6 +8,7 @@ import Vuelidate from "vuelidate"
 import "vuetify/dist/vuetify.min.css";
 import "@mdi/font/css/materialdesignicons.css";
 import frontApp from "./components/frontApp";
+import backApp from "./components/backApp";
 import router from "./router.js";
 import ru from 'vuetify/es5/locale/ru'
 import Embed from 'v-video-embed'
@@ -38,7 +39,7 @@ const vuetifyOptions = {
     }
 };
 
-window.Event = new(class {
+window.Event = new (class {
     constructor() {
         this.vue = new Vue();
     }
@@ -123,7 +124,8 @@ const app = new Vue({
     router,
     el: "#app",
     components: {
-        frontApp
+        frontApp,
+        backApp
     },
     vuetify: new Vuetify(vuetifyOptions)
 });

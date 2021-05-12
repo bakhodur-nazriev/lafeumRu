@@ -13,7 +13,7 @@ class Photo extends Model
     use Favoriteable;
     use PublishableTrait;
 
-    protected $fillable = ['path', 'description', 'publish_at', 'deleted_at'];
+    protected $fillable = ['path', 'title', 'description', 'publish_at', 'deleted_at'];
 
     public function dailyPosts()
     {

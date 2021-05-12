@@ -7,6 +7,7 @@ use App\AuthorGroup;
 use App\Quote;
 use App\Services\RedirectService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthorsController extends Controller
 {
@@ -30,6 +31,13 @@ class AuthorsController extends Controller
         $authors = $this->getPersonsList();
 
         return response()->json(collect($authors));
+    }
+
+    public function showLeftSidebar()
+    {
+        $authorsLeftSidebar = Author::orderBy('name')->paginate(30);
+
+        return response()->json(collect($authorsLeftSidebar));
     }
 
     public function show(Author $author)

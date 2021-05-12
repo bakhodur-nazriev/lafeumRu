@@ -1,5 +1,5 @@
 @extends('layouts.adminApp')
 
 @section('layout')
-    <app></app>
+    <back-app></back-app>
 @endsection

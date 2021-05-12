@@ -1,7 +1,7 @@
 <template>
     <v-col xl="5" lg="6">
         <h5 class="text-uppercase font-weight-regular py-2 mb-0">Цитаты и Афоризмы</h5>
-        <p>
+        <p class="mb-4">
             Лучшие цитаты, афоризмы и высказывания великих ученых и мыслителей, известных и успешных людей на тематику
             сайта.
         </p>
@@ -23,7 +23,7 @@
                 </quote-item>
             </v-col>
         </v-row>
-        <v-col cols="12" id="lol">
+        <v-col cols="12">
             <v-pagination
                 v-model="pagination.current"
                 :length="pagination.total"
@@ -53,7 +53,6 @@ export default {
                 current: 1,
                 total: 0,
             },
-            test: this.item,
         };
     },
     methods: {

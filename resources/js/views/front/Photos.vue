@@ -1,5 +1,5 @@
 <template>
-    <v-col xl="8" lg="12">
+    <v-col xl="9" lg="12">
         <h5 class="text-uppercase font-weight-regular py-4">фотографии</h5>
         <v-row align="center">
             <v-col cols="12" class="d-flex justify-center" v-if="loading">
@@ -12,21 +12,12 @@
             </v-col>
             <v-row align="center" v-else>
                 <v-col
-                    cols="4"
+                    cols="3"
                     v-for="(photo, i) in photos"
                     :key="i"
                 >
-                    <v-card
-                        flat
-                        width="367"
-                        height="264"
-                        rounded="lg"
-                    >
-                        <v-card-text class="d-flex justify-content-center align-items-center h-100">
-                            <v-img max-width="268" height="180" class="d-flex" :src="photo.path"></v-img>
-                            <p></p>
-                        </v-card-text>
-                    </v-card>
+                    <list-of-photo :item="photo"></list-of-photo>
+
                 </v-col>
             </v-row>
             <v-col cols="12">
@@ -44,9 +35,10 @@
 
 <script>
 import Scroller from "../../components/Scroller";
+import ListOfPhoto from "../../components/ListOfChildren/ListOfPhoto";
 
 export default {
-    components: {Scroller},
+    components: {ListOfPhoto, Scroller},
     data() {
         return {
             photos: {},
@@ -83,8 +75,5 @@ export default {
 };
 </script>
 
-<style scoped="scoped">
-.btn:active {
-    border: none;
-}
+<style scoped>
 </style>

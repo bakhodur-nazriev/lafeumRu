@@ -136,7 +136,7 @@ export default {
 .knowledge-area-card {
     border-radius: 16px !important;
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
 }
 
 .knowledge-children-link {

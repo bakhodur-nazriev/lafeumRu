@@ -15,6 +15,8 @@
                     v-model="search"
                     hide-details
                     class="mb-3"
+                    @click:clear="this.filteredList = !this.filteredList"
+                    clearable
                     outlined
                     dense
                 >
@@ -37,7 +39,12 @@
                     >
                         <v-list-item-content class="py-0">
                             <v-list-item-subtitle>
-                                <a class="author-links font-weight-medium" :href="author.slug">{{ author.name }}</a>
+                                <a
+                                    class="author-links font-weight-medium"
+                                    :href="author.slug"
+                                >
+                                    {{ author.name }}
+                                </a>
                             </v-list-item-subtitle>
                         </v-list-item-content>
                     </v-list-item>
@@ -66,19 +73,21 @@ export default {
             authors: [],
             search: "",
             loading: false,
-            current: 1
+            nextPageUrl: "",
         }
     },
     methods: {
         getAuthors() {
             this.loading = true;
+            const url = this.nextPageUrl ? this.nextPageUrl : "/api/authors-left-sidebar?page=" + 1;
             axios
-                .get("/api/authors-left-sidebar?page" + this.current)
+                .get(url)
                 .then(res => {
                     this.loading = false;
-                    this.authors = res.data.data;
-                    this.current = res.data.current_page;
-                    console.log(res.data);
+                    if (res.data.data.length) {
+                        this.authors.push(...res.data.data);
+                    }
+                    this.nextPageUrl = res.data.next_page_url;
                 })
                 .catch(err => {
                     this.loading = false;
@@ -86,7 +95,7 @@ export default {
                 })
         },
         loadMore() {
-
+            this.getAuthors();
         }
     },
     mounted() {
@@ -94,10 +103,16 @@ export default {
     },
     computed: {
         filteredList() {
-            return this.authors.filter(author => {
-                return author.name.toLowerCase().includes(this.search.toLowerCase())
-            })
-        }
+            if (this.search) {
+                return this.authors.filter(author => {
+                    if (author.name) {
+                        return author.name.toLowerCase().includes(this.search.toLowerCase());
+                    }
+                });
+            } else {
+                return this.authors;
+            }
+        },
     }
 }
 </script>

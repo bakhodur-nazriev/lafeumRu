@@ -15,7 +15,7 @@
                     v-model="search"
                     hide-details
                     class="mb-3"
-                    @click:clear="this.filteredList = !this.filteredList"
+                    @click:clear="clear()"
                     clearable
                     outlined
                     dense
@@ -96,21 +96,29 @@ export default {
         },
         loadMore() {
             this.getAuthors();
+        },
+        clear() {
+            this.filteredList = this.authors;
         }
     },
     mounted() {
         this.getAuthors();
     },
     computed: {
-        filteredList() {
-            if (this.search) {
-                return this.authors.filter(author => {
-                    if (author.name) {
-                        return author.name.toLowerCase().includes(this.search.toLowerCase());
-                    }
-                });
-            } else {
-                return this.authors;
+        filteredList: {
+            get() {
+                if (this.search) {
+                    return this.authors.filter(author => {
+                        if (author.name) {
+                            return author.name.toLowerCase().includes(this.search.toLowerCase());
+                        }
+                    });
+                } else {
+                    return this.authors;
+                }
+            },
+            set(v) {
+                this.authors = v;
             }
         },
     }

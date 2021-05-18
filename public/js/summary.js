@@ -26,10 +26,10 @@ function initSummaryCache() {
     let cacheResetedMsAgo = Date.now() - parseInt(cacheResetedAt);
     let cacheResetedMinutesAgo = new Date(cacheResetedMsAgo).getMinutes();
 
-    if(!cacheResetedAt || cacheResetedMinutesAgo > CACHE_MAX_LIFE){
+    if (!cacheResetedAt || cacheResetedMinutesAgo > CACHE_MAX_LIFE) {
         resetSummaryCache();
     }
-    
+
     caches.open('summaries').then((cache) => {
         summaryCache = cache;
     });
@@ -45,9 +45,9 @@ function setSummaryContent(content) {
 }
 
 function renderSummary(summary, elementToAttach) {
-    if(!summaryLink) return;
+    if (!summaryLink) return;
 
-    if(!summary) return;
+    if (!summary) return;
 
     setSummaryContent(summary);
 
@@ -65,7 +65,7 @@ function renderSummary(summary, elementToAttach) {
 }
 
 function hideSummary() {
-    if(popperInstance){
+    if (popperInstance) {
         popperInstance.destroy();
         popperInstance = null;
     }
@@ -90,8 +90,8 @@ function showTermSummary(link, anchor) {
     summaryCache
         .match(link)
         .then(r => {
-            if(r){
-               return r.json();
+            if (r) {
+                return r.json();
             } else {
                 return fetchAndCacheSummary(link, anchor);
             }
@@ -100,7 +100,7 @@ function showTermSummary(link, anchor) {
 }
 
 function getTermSummaryLink(anchor) {
-    if(anchor.host !== window.location.host) return;
+    if (anchor.host !== window.location.host) return;
 
     let termsPostId = parseInt(anchor.pathname.replace('/', ''));
 
@@ -118,7 +118,7 @@ function getWikipediaSummaryLink(anchor) {
 function getSummaryLink(anchor) {
     let summaryLinkType = supportedLinks.find(h => anchor.href.match(h.regex));
 
-    switch(summaryLinkType.name){
+    switch (summaryLinkType.name) {
         case 'terms':
             return getTermSummaryLink(anchor);
         case 'wikipedia':
@@ -129,18 +129,18 @@ function getSummaryLink(anchor) {
 function onMouseOverAnchor(e) {
     const anchor = e.path.find((el) => el.tagName === "A");
 
-    if(!anchor) return;
+    if (!anchor) return;
 
     let currentSummaryLink = getSummaryLink(anchor);
-    
-    if(!currentSummaryLink) return;
+
+    if (!currentSummaryLink) return;
 
     summaryLink = currentSummaryLink;
 
     // Show modal on delay of 200Ms
     setTimeout(() => {
 
-        if(summaryLink === currentSummaryLink){
+        if (summaryLink === currentSummaryLink) {
             showTermSummary(currentSummaryLink, anchor);
         }
 
@@ -152,17 +152,17 @@ function attachSummaryModals() {
 
         const ignoreAnchor = a.className.includes('ignore-summary');
 
-        if(ignoreAnchor) return;
+        if (ignoreAnchor) return;
 
         for (const supportedLink of supportedLinks) {
-            if(a.href.match(supportedLink.regex)){
+            if (a.href.match(supportedLink.regex)) {
                 a.addEventListener('mouseover', onMouseOverAnchor);
                 a.addEventListener('mouseout', hideSummary);
 
                 break;
             }
         }
-        
+
     });
 }
 

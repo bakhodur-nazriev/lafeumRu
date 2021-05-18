@@ -12,6 +12,8 @@
                     label="Введите область знаний"
                     v-model="search"
                     hide-details
+                    clearable
+                    @click:clear="clearKnowledge()"
                     class="mb-1"
                     outlined
                     dense
@@ -50,17 +52,6 @@
                     </v-list-item>
                 </v-col>
             </div>
-            <!-- <v-col cols="12" class="d-flex justify-center mt-2">
-                <v-btn
-                    fab
-                    small
-                    rounded
-                    elevation="0"
-                    color="grey lighten-2"
-                >
-                    <v-icon color="white">mdi-arrow-down</v-icon>
-                </v-btn>
-            </v-col> -->
         </v-sheet>
     </v-col>
 </template>
@@ -88,19 +79,31 @@ export default {
                     this.loading = false;
                     console.log(err);
                 })
+        },
+        clearKnowledge() {
+            this.filteredList = this.knowledgeAreas;
         }
     },
     mounted() {
         this.getKnowledgeArea();
     },
     computed: {
-        filteredList() {
-            return this.knowledgeAreas.map(knowledge => {
-                const children = knowledge.children.filter(child => {
-                    return child.name.toLowerCase().includes(this.search.toLowerCase()) || this.search.includes(child.name);
-                });
-                return {...knowledge, children}
-            })
+        filteredList: {
+            get() {
+                if (this.search) {
+                    return this.knowledgeAreas.map(knowledge => {
+                        const children = knowledge.children.filter(child => {
+                            return child.name.toLowerCase().includes(this.search.toLowerCase()) || this.search.includes(child.name);
+                        });
+                        return {...knowledge, children}
+                    })
+                } else {
+                    return this.knowledgeAreas;
+                }
+            },
+            set(v) {
+                this.knowledgeAreas = v;
+            }
         }
     }
 }

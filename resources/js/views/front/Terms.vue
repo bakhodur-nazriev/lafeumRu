@@ -22,7 +22,6 @@
         </v-row>
         <v-col cols="12">
             <v-pagination
-                class="ova"
                 v-model="pagination.current"
                 :length="pagination.total"
                 :total-visible="7"
@@ -42,7 +41,7 @@ export default {
     data() {
         return {
             loading: false,
-            terms: {},
+            terms: [],
             pagination: {
                 current: 1,
                 total: 0
@@ -66,6 +65,7 @@ export default {
                 })
         },
         onPageChange() {
+            window.scrollTo(0, 0);
             this.getTerms();
         }
     },

@@ -44,20 +44,20 @@
         </v-card-text>
         <v-divider class="m-0 grey lighten-3"></v-divider>
         <v-card-actions class="px-4 py-2">
-<!--            <div>
-                <v-btn icon>
-                    <v-icon color="grey lighten-1">
-                        mdi-heart
-                    </v-icon>
-                </v-btn>
-                <span>45</span>
-                <v-btn icon>
-                    <v-icon color="grey lighten-1">
-                        mdi-bookmark
-                    </v-icon>
-                </v-btn>
-                <span>45</span>
-            </div>-->
+            <!--<div>
+                            <v-btn icon>
+                                <v-icon color="grey lighten-1">
+                                    mdi-heart
+                                </v-icon>
+                            </v-btn>
+                            <span>45</span>
+                            <v-btn icon>
+                                <v-icon color="grey lighten-1">
+                                    mdi-bookmark
+                                </v-icon>
+                            </v-btn>
+                            <span>45</span>
+                        </div>-->
             <v-spacer></v-spacer>
             <share-button :post="item.post"></share-button>
         </v-card-actions>
@@ -75,7 +75,7 @@ export default {
         return {
             item: this.term
         }
-    }
+    },
 }
 </script>
 

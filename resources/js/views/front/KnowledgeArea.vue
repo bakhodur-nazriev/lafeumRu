@@ -4,15 +4,17 @@
         <p class="grey--text">В этой рубрике термины и комментарии специалистов классифицированы
             <br/>более развернуто по группам и направлениям.
         </p>
-        <v-col cols="7" class="d-flex align-center pl-0 mb-8">
+        <v-col cols="9" class="d-flex align-center pl-0 mb-8">
             <div class="form-search rounded-lg w-100">
                 <div class="form-search-text-side">
                     <v-text-field
                         solo
                         flat
+                        clearable
                         height="48"
                         hide-details
                         v-model="search"
+                        @click:clear="clearKnowledgeArea()"
                         background-color="transparent"
                         placeholder="Введите область знаний"
                         class="rounded-lg rounded-tr-0 rounded-br-0 search-field"
@@ -97,20 +99,32 @@ export default {
                     this.laoding = false;
                     console.log(err);
                 })
+        },
+        clearKnowledgeArea() {
+            // this.filteredList = this.knowledgeAreas;
         }
     },
     mounted() {
         this.getKnowledgeArea();
     },
     computed: {
-        filteredList() {
-            return this.knowledgeAreas.map(knowledge => {
-                const children = knowledge.children.filter(child => {
-                    return child.name.toLowerCase().includes(this.search.toLowerCase()) || this.search.includes(child.name);
-                });
-                return {...knowledge, children}
-            })
-        }
+        filteredList: {
+            get() {
+                if (this.search) {
+                    return this.knowledgeAreas.map(knowledge => {
+                        const children = knowledge.children.filter(child => {
+                            return child.name.toLowerCase().includes(this.search.toLowerCase()) || this.search.includes(child.name);
+                        });
+                        return {...knowledge, children}
+                    });
+                } else {
+                    return this.columns;
+                }
+            },
+            set(v) {
+                this.knowledgeAreas = v;
+            }
+        },
     }
 }
 </script>
@@ -129,9 +143,9 @@ export default {
     border-right: none;
 }
 
-.form-search-text-side {
-    width: 80%;
-}
+/*.form-search-text-side {*/
+/*    width: 80%;*/
+/*}*/
 
 .knowledge-area-card {
     border-radius: 16px !important;

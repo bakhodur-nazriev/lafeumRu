@@ -73,6 +73,7 @@ export default {
         },
         onPageChange() {
             this.getQuotes();
+            window.scrollTo(0, 0);
         },
     },
     mounted() {

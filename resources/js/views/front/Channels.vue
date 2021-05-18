@@ -7,9 +7,11 @@
                 <v-text-field
                     solo
                     flat
+                    clearable
                     height="48"
                     hide-details
                     v-model="search"
+                    @click:clear="clearChannel()"
                     background-color="transparent"
                     placeholder="Введите имя канала"
                     class="rounded-lg rounded-tr-0 rounded-br-0 search-field"
@@ -81,6 +83,9 @@ export default {
                     this.loading = false;
                     console.log(err);
                 })
+        },
+        clearChannel() {
+            this.filteredChannels = this.channels;
         }
     },
     mounted() {
@@ -104,15 +109,24 @@ export default {
             }
             return columns;
         },
-        filteredChannels() {
-            return this.columns.map(channels => {
-                return channels.map(channel => {
-                    const children = channel.children.filter(child => {
-                        return child.name.toLowerCase().includes(this.search.toLowerCase()) || this.search.includes(child.name)
+        filteredChannels: {
+            get() {
+                if (this.search) {
+                    return this.columns.map(channels => {
+                        return channels.map(channel => {
+                            const children = channel.children.filter(child => {
+                                return child.name.toLowerCase().includes(this.search.toLowerCase()) || this.search.includes(child.name)
+                            });
+                            return {...channel, children}
+                        })
                     });
-                    return {...channel, children}
-                })
-            });
+                } else {
+                    return this.channels;
+                }
+            },
+            set(v) {
+                this.columns = v;
+            }
         },
     }
 }

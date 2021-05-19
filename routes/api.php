@@ -130,6 +130,7 @@ Route::group(['middleware' => 'api'], function () {
     Route::get("/authors/poslovicy-i-pogovorki", "AuthorsController@showProverbs");
     Route::get("/authors/{author}", "AuthorsController@show");
     Route::get("/channels/{channel}", "ChannelsController@show");
+    Route::get("/channels-left-sidebar","ChannelsController@showLeftSidebar");
     Route::get("/knowledge/{knowledge}", "KnowledgesController@getShowKnowledgeArea");
     Route::get("/authors-left-sidebar", "AuthorsController@showLeftSidebar");
 

@@ -23,9 +23,16 @@ class ChannelsController extends Controller
 
     public function getChannels()
     {
-        $channels = Channel::orderBy('name', 'asc')->get();
+        $channels = Channel::orderBy('name')->get();
 
         return response()->json(collect($channels));
+    }
+
+    public function showLeftSidebar()
+    {
+        $channelsLeftSidebar = Channel::orderBy('name')->paginate(30);
+
+        return response()->json(collect($channelsLeftSidebar));
     }
 
     public function show(Channel $channel)

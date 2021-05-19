@@ -15,7 +15,7 @@
                     v-model="search"
                     hide-details
                     class="mb-3"
-                    @click:clear="clear()"
+                    @click:clear="clearAuthors()"
                     clearable
                     outlined
                     dense
@@ -97,7 +97,7 @@ export default {
         loadMore() {
             this.getAuthors();
         },
-        clear() {
+        clearAuthors() {
             this.filteredList = this.authors;
         }
     },

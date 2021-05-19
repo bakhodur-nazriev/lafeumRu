@@ -31,33 +31,35 @@
 
         <v-divider class="m-0 grey lighten-3"></v-divider>
 
-        <v-card-text class="p-4">
+        <v-card-text class="px-6 py-4">
             <p class="subtitle-1" v-html="item.body"></p>
-            <div class="categories-block">
+            <div class="categories-block mt-2">
                 <a
                     class="mr-2 grey--text text-decoration-none"
                     v-for="(termCategories ,i) in item.categories"
                     :key="i"
                     :href="`/terms/` + termCategories.slug"
-                >{{ termCategories.name }}</a>
+                >
+                    {{ termCategories.name }}
+                </a>
             </div>
         </v-card-text>
         <v-divider class="m-0 grey lighten-3"></v-divider>
         <v-card-actions class="px-4 py-2">
-            <!--<div>
-                            <v-btn icon>
-                                <v-icon color="grey lighten-1">
-                                    mdi-heart
-                                </v-icon>
-                            </v-btn>
-                            <span>45</span>
-                            <v-btn icon>
-                                <v-icon color="grey lighten-1">
-                                    mdi-bookmark
-                                </v-icon>
-                            </v-btn>
-                            <span>45</span>
-                        </div>-->
+            <!--            <div>-->
+            <!--                <v-btn icon>-->
+            <!--                    <v-icon color="grey lighten-1">-->
+            <!--                        mdi-heart-->
+            <!--                    </v-icon>-->
+            <!--                </v-btn>-->
+            <!--                <span>45</span>-->
+            <!--                <v-btn icon>-->
+            <!--                    <v-icon color="grey lighten-1">-->
+            <!--                        mdi-bookmark-->
+            <!--                    </v-icon>-->
+            <!--                </v-btn>-->
+            <!--                <span>45</span>-->
+            <!--            </div>-->
             <v-spacer></v-spacer>
             <share-button :post="item.post"></share-button>
         </v-card-actions>
@@ -80,5 +82,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

@@ -15,11 +15,13 @@
                 <v-text-field
                     solo
                     flat
+                    clearable
                     height="48"
                     hide-details
+                    @click:clear="clearVocabulary()"
                     v-model="search"
-                    placeholder="Введите область знаний"
                     background-color="transparent"
+                    placeholder="Введите область знаний"
                     class="rounded-lg rounded-tr-0 rounded-br-0 search-filed"
                 >
                 </v-text-field>
@@ -99,6 +101,9 @@ export default {
                     console.log(err)
                 })
         },
+        clearVocabulary() {
+            this.filteredVocabulary = this.terms
+        }
     },
     mounted() {
         this.getVocabulary();
@@ -121,15 +126,24 @@ export default {
             }
             return columns;
         },
-        filteredVocabulary() {
-            return this.columns.map(terms => {
-                return terms.map(term => {
-                    const children = term.children.filter(child => {
-                        return child.name.toLowerCase().includes(this.search.toLowerCase()) || this.search.includes(child.name)
+        filteredVocabulary: {
+            get() {
+                if (this.search) {
+                    return this.columns.map(terms => {
+                        return terms.map(term => {
+                            const children = term.children.filter(child => {
+                                return child.name.toLowerCase().includes(this.search.toLowerCase()) || this.search.includes(child.name)
+                            });
+                            return {...term, children}
+                        })
                     });
-                    return {...term, children}
-                })
-            });
+                } else {
+                    return this.columns;
+                }
+            },
+            set(v) {
+                this.terms = v;
+            }
         },
     },
 };

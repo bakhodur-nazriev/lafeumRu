@@ -11,6 +11,7 @@
                     height="48"
                     hide-details
                     v-model="search"
+                    @click:clear="clearAuthors()"
                     background-color="transparent"
                     placeholder="Введите имя автора"
                     class="rounded-lg rounded-tr-0 rounded-br-0 search-field"
@@ -82,6 +83,9 @@ export default {
                     this.loading = false;
                     console.log(err);
                 })
+        },
+        clearAuthors() {
+            this.filteredAuthors = this.authors;
         }
     },
     mounted() {
@@ -105,15 +109,24 @@ export default {
             }
             return columns;
         },
-        filteredAuthors() {
-            return this.columns.map(authors => {
-                return authors.map(author => {
-                    const children = author.children.filter(child => {
-                        return child.name.toLowerCase().includes(this.search.toLowerCase()) || this.search.includes(child.name)
+        filteredAuthors: {
+            get() {
+                if (this.search) {
+                    return this.columns.map(authors => {
+                        return authors.map(author => {
+                            const children = author.children.filter(child => {
+                                return child.name.toLowerCase().includes(this.search.toLowerCase()) || this.search.includes(child.name)
+                            });
+                            return {...author, children}
+                        })
                     });
-                    return {...author, children}
-                })
-            });
+                } else {
+                    return this.columns;
+                }
+            },
+            set(v) {
+                this.authors = v;
+            }
         },
     },
 };

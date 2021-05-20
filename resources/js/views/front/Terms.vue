@@ -10,28 +10,15 @@
                     color="primary"
                 ></v-progress-circular>
             </v-col>
-            <!--            <v-col-->
-            <!--                v-else-->
-            <!--                class="py-0"-->
-            <!--                cols="12"-->
-            <!--                v-for="(term, i) in terms.data"-->
-            <!--                :key="i"-->
-            <!--            >-->
-            <!--                <term-item :term="term"></term-item>-->
-            <!--            </v-col>-->
-            <div class="text-center d-flex align-center justify-space-around">
-                <v-tooltip bottom>
-                    <template v-slot:activator="{ on, attrs }">
-                        <span
-                            v-bind="attrs"
-                            v-on="on"
-                        >
-                            This text has a tooltip
-                        </span>
-                    </template>
-                    <span>Tooltip</span>
-                </v-tooltip>
-            </div>
+            <v-col
+                v-else
+                cols="12"
+                class="py-0"
+                v-for="(term, i) in terms.data"
+                :key="i"
+            >
+                <term-item :term="term"></term-item>
+            </v-col>
         </v-row>
         <v-col cols="12">
             <v-pagination
@@ -84,7 +71,7 @@ export default {
     },
     mounted() {
         this.getTerms();
-    }
+    },
 }
 </script>
 

@@ -41,9 +41,13 @@ class TermsController extends Controller
 
     public function indexVocabulary()
     {
-        $categories = Category::where('type', 'App\Term')->get()->toTree()->unique('name');
+        $terms = Term::with('post')
+            ->where('show_in_vocabulary', true)
+            ->orderBy('name')
+            ->published()
+            ->get();
 
-        return view("/vocabulary", compact("categories"));
+        return view("/vocabulary", compact(["terms"]));
     }
 
     public function getIndexVocabulary()

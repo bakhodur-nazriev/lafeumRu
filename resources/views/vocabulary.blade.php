@@ -1,4 +1,5 @@
 @extends("layouts.default")
+
 @section('meta-tags')
     @include('layouts.meta-tags', [
         'title' => isset($category) ? $category->name . ' - словарь': 'Словарь',
@@ -7,11 +8,11 @@
 @endsection
 
 @section("content")
-    @include('layouts.left-sidebar.leftSidebar', [
-        'type' => 'App\Term',
-        'linkPrefix' => 'vocabulary',
-        'active' => isset($category) ? $category->id : null
-   ])
+    {{--    @include('layouts.left-sidebar.leftSidebar', [--}}
+    {{--        'type' => 'App\Term',--}}
+    {{--        'linkPrefix' => 'vocabulary',--}}
+    {{--        'active' => isset($category) ? $category->id : null--}}
+    {{--   ])--}}
 
     <vocabulary></vocabulary>
 @endsection

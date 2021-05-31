@@ -126,13 +126,13 @@ Route::group(['middleware' => 'api'], function () {
     Route::get("/vocabulary/{categorySlug}", "CategoriesController@getShowVocabulary");
 
     /* Shows routes */
-    Route::get("/authors/filmy-i-serialy", "AuthorsController@showMovies");
-    Route::get("/authors/poslovicy-i-pogovorki", "AuthorsController@showProverbs");
-    Route::get("/authors/{author}", "AuthorsController@show");
+    Route::get("/authors/filmy-i-serialy", "AuthorsController@getShowMovies");
+    Route::get("/authors/poslovicy-i-pogovorki", "AuthorsController@getShowProverbs");
+    Route::get("/authors/{author}", "AuthorsController@getShowAuthor");
+
     Route::get("/channels/{channel}", "ChannelsController@show");
-    Route::get("/channels-left-sidebar","ChannelsController@showLeftSidebar");
+    Route::get("/channels-left-sidebar", "ChannelsController@showLeftSidebar");
     Route::get("/knowledge/{knowledge}", "KnowledgesController@getShowKnowledgeArea");
-    Route::get("/authors-left-sidebar", "AuthorsController@showLeftSidebar");
 
     Route::get("/quotes/{categorySlug}", "CategoriesController@showQuotes");
     Route::get("/terms/{categorySlug}", "CategoriesController@showTerms");

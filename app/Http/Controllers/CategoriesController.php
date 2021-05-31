@@ -56,8 +56,7 @@ class CategoriesController extends Controller
 
     public function showTerms($categorySlug)
     {
-        $category = $this->getCategory(
-            Term::class,
+        $category = $this->getCategory(Term::class,
             $categorySlug,
             function ($categoriesQuery) {
                 return $categoriesQuery->orderBy('term_type_id', 'asc');
@@ -65,6 +64,18 @@ class CategoriesController extends Controller
         );
 
         return view('shows.category', compact('category'));
+    }
+
+    public function getShowTerms($categorySlug)
+    {
+        $category = $this->getCategory(Term::class,
+            $categorySlug,
+            function ($categoriesQuery) {
+                return $categoriesQuery->orderBy('term_type_id', 'asc');
+            }
+        );
+
+        return response()->json(collect($category));
     }
 
     public function showVideos($categorySlug)
@@ -140,7 +151,7 @@ class CategoriesController extends Controller
 
         $category->categoriables = $categoriablesQuery
             ->published('desc')
-            ->paginate(5);
+            ->paginate(20);
 
         return $category;
     }

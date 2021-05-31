@@ -29,13 +29,7 @@
 
 <v-app id="app">
     <front-navbar></front-navbar>
-    <v-main class="grey lighten-3">
-        <v-container>
-            <v-row class="justify-center">
-                @yield('layout')
-            </v-row>
-        </v-container>
-    </v-main>
+    <v-main class="grey lighten-3">@yield('layout')</v-main>
     <front-footer></front-footer>
 </v-app>
 

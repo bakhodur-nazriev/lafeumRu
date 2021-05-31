@@ -9,7 +9,5 @@
 
 @section('content')
     <authors-left-sidebar></authors-left-sidebar>
-    <author-show
-        :current="{{ $currentAuthor }}"
-    ></author-show>
+    <author-show></author-show>
 @endsection

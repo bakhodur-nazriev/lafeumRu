@@ -6,7 +6,7 @@
         </p>
         <v-col cols="9" class="d-flex align-center pl-0 mb-8">
             <div class="form-search rounded-lg w-100">
-                <div class="form-search-text-side">
+                <div class="form-search-text-side w-75">
                     <v-text-field
                         solo
                         flat
@@ -101,7 +101,7 @@ export default {
                 })
         },
         clearKnowledgeArea() {
-            // this.filteredList = this.knowledgeAreas;
+            this.filteredList = this.knowledgeAreas;
         }
     },
     mounted() {
@@ -118,7 +118,7 @@ export default {
                         return {...knowledge, children}
                     });
                 } else {
-                    return this.columns;
+                    return this.knowledgeAreas;
                 }
             },
             set(v) {

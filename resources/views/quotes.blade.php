@@ -8,7 +8,7 @@
 @endsection
 
 @section('content')
-    @include('layouts.left-sidebar.leftSideBar', ['type' => 'App\Quote'])
+    @include('layouts.left-sidebar.leftSideBar')
 
     <quotes></quotes>
 @endsection

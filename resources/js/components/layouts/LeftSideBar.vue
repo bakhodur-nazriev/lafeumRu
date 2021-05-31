@@ -9,7 +9,7 @@
                     <v-list-item-title class="mb-3">
                         <a
                             class="font-weight-bold subtitle-1 category-links"
-                            :href="`/${categoryType}/` +category.slug"
+                            :href="`${categoryType}` + category.slug"
                         >
                             {{ category.name }}
                         </a>
@@ -20,7 +20,7 @@
                         :key="i"
                     >
                         <a
-                            :href="`/${categoryType}/` + subCategory.slug"
+                            :href="`${categoryType}` + subCategory.slug"
                             class="subtitle-1 category-links"
                         >
                             {{ subCategory.name }}
@@ -39,24 +39,24 @@ export default {
     data() {
         return {
             allCategories: this.categories,
+            vocabularyUrl: '/vocabulary'
         };
     },
+
     computed: {
         categoryType() {
             for (const category of this.allCategories) {
-                switch (category.type) {
-                    case "App\\Quote":
-                        return "quotes";
-                        break;
-                    case "App\\Term":
-                        return "terms";
-                        break;
-                    case "App\\Video":
-                        return "videos";
-                        break;
+                if (window.location.pathname == this.vocabularyUrl) {
+                    return '/vocabulary/';
+                } else if (category.type == 'App\\Quote') {
+                    return '/quotes/';
+                } else if (category.type == 'App\\Term') {
+                    return '/terms/';
+                } else if (category.type == 'App\\Video') {
+                    return '/videos/';
                 }
             }
-        },
+        }
     },
 };
 </script>

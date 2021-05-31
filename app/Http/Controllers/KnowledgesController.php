@@ -41,10 +41,30 @@ class KnowledgesController extends Controller
             ])
             ->orderBy('term_type_id', 'asc')
             ->published('desc')
-            ->paginate(30);
+            ->paginate(20);
 
 
         return view('shows.knowledge', compact(['currentKnowledgeArea', 'knowledgeAreas']));
+    }
+
+    public function getShowKnowledgeArea(Knowledge $knowledge)
+    {
+        $knowledgeAreas = Knowledge::get()->toTree();
+
+        $currentKnowledgeArea = $knowledge;
+        $currentKnowledgeArea->terms = $knowledge
+            ->terms()
+            ->with([
+                "categories",
+                "termType",
+                "post"
+            ])
+            ->orderBy('term_type_id', 'asc')
+            ->published('desc')
+            ->paginate(20);
+
+
+        return response()->json(collect($currentKnowledgeArea, $knowledgeAreas));
     }
 
     public function get(Request $request)

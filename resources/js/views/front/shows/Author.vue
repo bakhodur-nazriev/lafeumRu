@@ -1,27 +1,35 @@
 <template>
     <v-col xl="5">
-        <div class="d-flex mb-5 mt-3">
-            <v-avatar class="mr-7 mb-7" size="100" v-if="current.photo">
-                <img :src="current.photo"/>
+        <div class="d-flex mb-5 mt-2">
+            <v-avatar class="mr-7" size="100" v-if="currentAuthor.photo">
+                <img :src="currentAuthor.photo"/>
             </v-avatar>
             <div>
-                <h3 class="blue--text">{{ current.name }}</h3>
-                <h5 class="author-biography" v-html="current.biography"></h5>
+                <h3 class="blue--text">{{ currentAuthor.name }}</h3>
+                <h5 class="author-biography" v-html="currentAuthor.biography"></h5>
             </div>
         </div>
 
-
-        <quote-item
-            v-for="(quote ,i) in current.quotes.data"
-            :key="i"
-            :quote="quote"
-        >
-        </quote-item>
-
+        <v-col cols="12" class="d-flex justify-center" v-if="loading">
+            <v-progress-circular
+                width="5"
+                size="48"
+                indeterminate
+                color="primary"
+            ></v-progress-circular>
+        </v-col>
+        <v-col v-else class="pa-0">
+            <quote-item
+                v-for="(quote ,i) in currentAuthorQuotes"
+                :key="i"
+                :quote="quote"
+            >
+            </quote-item>
+        </v-col>
         <v-col cols="12">
             <v-pagination
-                v-model="current.quotes.current_page"
-                :length="current.quotes.last_page"
+                v-model="pagination.currentPage"
+                :length="pagination.totalPage"
                 :total-visible="7"
                 @input="onPageChange"
             ></v-pagination>
@@ -35,22 +43,45 @@ import QuoteItem from "../layouts/QuoteItem";
 export default {
     name: "Author",
     components: {QuoteItem},
-    props: ["current", "authorListTitle", "authors"],
     data() {
         return {
-            title: this.authorListTitle,
             loading: false,
+            windowUrl: window.location.pathname,
+            currentAuthorQuotes: [],
+            currentAuthor: [],
             pagination: {
-                current: 1,
-                total: 0
+                currentPage: 1,
+                totalPage: 0
             }
         }
     },
     methods: {
+        getAuthor() {
+            this.loading = true;
+            axios
+                .get(`/api${this.windowUrl}?page=` + this.pagination.currentPage)
+                .then((res) => {
+                    this.loading = false;
+                    this.currentAuthorQuotes = res.data[2].quotes.data;
+                    this.pagination.currentPage = res.data[2].quotes.current_page;
+                    this.pagination.totalPage = res.data[2].quotes.last_page;
+                    this.currentAuthor = res.data[2];
+                    console.log(res.data[2].quotes);
+                })
+                .catch((err) => {
+                    this.loading = false;
+                    console.log(err);
+                })
+        },
         onPageChange() {
-
-        }
-    }
+            console.log(this.getAuthor());
+            this.getAuthor();
+            window.scrollTo(0, 0);
+        },
+    },
+    mounted() {
+        this.getAuthor();
+    },
 };
 </script>
 

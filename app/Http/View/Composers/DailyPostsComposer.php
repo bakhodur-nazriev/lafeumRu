@@ -15,7 +15,10 @@ class DailyPostsComposer
 {
     public function compose(View $view)
     {
-        $dailyPosts = DailyPost::where('date', Carbon::parse()->format('Y-m-d'))->with('quote.author')->first();
+        $dailyPosts = DailyPost::where('date', Carbon::parse()
+            ->format('Y-m-d'))
+            ->with('quote.author')
+            ->first();
 
         if(!$dailyPosts) {
             $dailyPosts = $this->createDailyPosts();

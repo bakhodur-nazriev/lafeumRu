@@ -8,11 +8,7 @@
 @endsection
 
 @section("content")
-    {{--    @include('layouts.left-sidebar.leftSidebar', [--}}
-    {{--        'type' => 'App\Term',--}}
-    {{--        'linkPrefix' => 'vocabulary',--}}
-    {{--        'active' => isset($category) ? $category->id : null--}}
-    {{--   ])--}}
+    @include('layouts.left-sidebar.leftSidebar')
 
     <vocabulary></vocabulary>
 @endsection

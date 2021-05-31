@@ -1,12 +1,12 @@
 <template>
-    <v-col lg="3" xl="2">
+    <v-col xl="2" lg="3">
         <h5 class="text-uppercase text-secondary font-weight-normal py-4">поиск по имени</h5>
 
         <v-sheet rounded="lg" width="100%">
             <div class="d-flex align-center pa-5">
                 <v-icon>mdi-account-group-outline</v-icon>
-                <!--                <h5 class="ml-2 mb-0">{{ currentList }}</h5>-->
-                <!--                <h5 class="ml-2 mb-0" v-esle>Авторы</h5>-->
+                <h5 class="ml-2 mb-0" v-if="listTitle">{{ listTitle }}</h5>
+                <h5 class="ml-2 mb-0" v-else>Авторы</h5>
             </div>
             <v-divider class="ma-0"></v-divider>
             <div class="pa-6">
@@ -48,12 +48,16 @@
                             </v-list-item-subtitle>
                         </v-list-item-content>
                     </v-list-item>
-                    <v-col cols="12" class="d-flex justify-center mt-2 pb-0">
+                    <v-col
+                        cols="12"
+                        class="d-flex justify-center mt-2 pb-0"
+                    >
                         <v-btn
                             fab
                             small
                             rounded
                             elevation="0"
+                            :disabled="isDisabled"
                             color="grey lighten-2"
                             @click="loadMore"
                         >
@@ -71,6 +75,8 @@ export default {
     data() {
         return {
             authors: [],
+            isDisabled: false,
+            listTitle: "",
             search: "",
             loading: false,
             nextPageUrl: "",
@@ -79,15 +85,21 @@ export default {
     methods: {
         getAuthors() {
             this.loading = true;
-            const url = this.nextPageUrl ? this.nextPageUrl : "/api/authors-left-sidebar?page=" + 1;
+            const url = this.nextPageUrl ? this.nextPageUrl : `/api${window.location.pathname}`;
             axios
                 .get(url)
-                .then(res => {
+                .then((res) => {
                     this.loading = false;
-                    if (res.data.data.length) {
-                        this.authors.push(...res.data.data);
+                    this.listTitle = res.data[1].group_name;
+                    if (res.data[0].data.length) {
+                        this.authors.push(...res.data[0].data);
                     }
-                    this.nextPageUrl = res.data.next_page_url;
+
+                    if (res.data[0].to == res.data[0].total) {
+                        this.isDisabled = true;
+                    }
+
+                    this.nextPageUrl = res.data[0].next_page_url;
                 })
                 .catch(err => {
                     this.loading = false;

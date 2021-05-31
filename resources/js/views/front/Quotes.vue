@@ -2,8 +2,8 @@
     <v-col xl="5" lg="6">
         <h5 class="text-uppercase font-weight-regular py-2 mb-0">Цитаты и Афоризмы</h5>
         <p class="mb-4">
-            Лучшие цитаты, афоризмы и высказывания великих ученых и мыслителей, известных и успешных людей на тематику
-            сайта.
+            Лучшие цитаты, афоризмы и высказывания великих ученых и мыслителей,
+            и успешных людей на тематику сайта.
         </p>
         <v-row align="center">
             <v-col cols="12" class="d-flex justify-center" v-if="loading">
@@ -16,7 +16,7 @@
             </v-col>
             <v-col v-else class="py-0">
                 <quote-item
-                    v-for="(quote, i) in quotes.data"
+                    v-for="(quote, i) in quotes"
                     :key="i"
                     :quote="quote"
                 >
@@ -40,14 +40,13 @@ import QuoteItem from "./layouts/QuoteItem";
 import Scroller from "../../components/Scroller";
 
 export default {
-    props: ["categories", "item"],
     components: {
         QuoteItem,
         Scroller
     },
     data() {
         return {
-            quotes: {},
+            quotes: [],
             loading: false,
             pagination: {
                 current: 1,
@@ -62,7 +61,7 @@ export default {
                 .get("/api/quotes?page=" + this.pagination.current)
                 .then((res) => {
                     this.loading = false;
-                    this.quotes = res.data;
+                    this.quotes = res.data.data;
                     this.pagination.current = res.data.current_page;
                     this.pagination.total = res.data.last_page;
                 })

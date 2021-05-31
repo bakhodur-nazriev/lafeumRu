@@ -66,12 +66,6 @@
                 <share-button :post="item.post"></share-button>
             </v-card-actions>
         </v-card>
-
-        <v-card v-if="showToolTip" ref="toolTip">
-            <v-card-text>
-                {{ summaryModal }}
-            </v-card-text>
-        </v-card>
     </div>
 </template>
 

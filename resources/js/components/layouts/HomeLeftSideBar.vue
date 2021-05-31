@@ -72,6 +72,9 @@ export default {
             count: [0, 1, 2, 3],
         };
     },
+    updated() {
+        // document.querySelector('.v-expansion-panel-content__wrap').style.paddingBottom = '0px';
+    }
 };
 </script>
 

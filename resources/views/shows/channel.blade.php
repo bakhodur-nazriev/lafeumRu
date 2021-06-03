@@ -1,4 +1,4 @@
-@extends("layouts.default")
+@extends('layouts.default')
 
 @section('meta-tags')
     @include('layouts.meta-tags', [
@@ -7,7 +7,7 @@
     ])
 @endsection
 
-@section("content")
+@section('content')
     <channels-left-sidebar></channels-left-sidebar>
-    <channel-show :channel="{{ $channel }}" :channels="{{ $channels }}"></channel-show>
+    <channel-show></channel-show>
 @endsection

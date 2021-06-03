@@ -2,14 +2,13 @@
     <v-col xl="5">
         <div class="d-flex mb-5 mt-2">
             <v-avatar class="mr-7" size="100" v-if="currentAuthor.photo">
-                <img :src="currentAuthor.photo"/>
+                <img :src="currentAuthor.photo" :alt="currentAuthor.name"/>
             </v-avatar>
             <div>
                 <h3 class="blue--text">{{ currentAuthor.name }}</h3>
                 <h5 class="author-biography" v-html="currentAuthor.biography"></h5>
             </div>
         </div>
-
         <v-col cols="12" class="d-flex justify-center" v-if="loading">
             <v-progress-circular
                 width="5"
@@ -18,13 +17,12 @@
                 color="primary"
             ></v-progress-circular>
         </v-col>
-        <v-col v-else class="pa-0">
+        <v-col v-else class="px-0">
             <quote-item
                 v-for="(quote ,i) in currentAuthorQuotes"
                 :key="i"
                 :quote="quote"
-            >
-            </quote-item>
+            ></quote-item>
         </v-col>
         <v-col cols="12">
             <v-pagination
@@ -66,7 +64,7 @@ export default {
                     this.pagination.currentPage = res.data[2].quotes.current_page;
                     this.pagination.totalPage = res.data[2].quotes.last_page;
                     this.currentAuthor = res.data[2];
-                    console.log(res.data[2].quotes);
+                    console.log(res.data[2].quotes.data);
                 })
                 .catch((err) => {
                     this.loading = false;
@@ -74,7 +72,6 @@ export default {
                 })
         },
         onPageChange() {
-            console.log(this.getAuthor());
             this.getAuthor();
             window.scrollTo(0, 0);
         },

@@ -55,25 +55,19 @@
                 </v-expansion-panels>
             </div>
         </v-sheet>
-        <scroller></scroller>
     </v-col>
 </template>
 
 <script>
-import Scroller from "../Scroller";
 
 export default {
     name: "LeftSideBar",
-    components: {Scroller},
     props: ["categories"],
     data() {
         return {
             allCategories: this.categories,
             count: [0, 1, 2, 3],
         };
-    },
-    updated() {
-        // document.querySelector('.v-expansion-panel-content__wrap').style.paddingBottom = '0px';
     }
 };
 </script>

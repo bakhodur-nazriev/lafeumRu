@@ -80,12 +80,13 @@ export default {
             search: "",
             loading: false,
             nextPageUrl: "",
+            windowUrl: window.location.pathname
         }
     },
     methods: {
         getAuthors() {
             this.loading = true;
-            const url = this.nextPageUrl ? this.nextPageUrl : `/api${window.location.pathname}`;
+            const url = this.nextPageUrl ? this.nextPageUrl : `/api${this.windowUrl}`;
             axios
                 .get(url)
                 .then((res) => {

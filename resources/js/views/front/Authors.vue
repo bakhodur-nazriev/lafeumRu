@@ -2,7 +2,7 @@
     <v-col xl="7" lg="9">
         <h5 class="text-uppercase font-weight-regular py-4">Авторы</h5>
         <p class="grey--text">Авторы. Полный список всех авторов по алфавиту, а также есть возможность поиска.</p>
-        <v-col cols="7" class="d-flex align-items-center pl-0 mb-9">
+        <v-col cols="7" class="d-flex align-items-center pl-0 mb-6">
             <div class="form-search rounded-lg w-100">
                 <v-text-field
                     solo
@@ -48,17 +48,14 @@
                 </v-card>
             </v-col>
         </v-row>
-        <scroller></scroller>
     </v-col>
 </template>
 
 <script>
-import Scroller from "../../components/Scroller";
 import ListOfAuthor from "../../components/ListOfChildren/ListOfAuthor";
 
 export default {
     components: {
-        Scroller,
         ListOfAuthor
     },
     name: "Authors",

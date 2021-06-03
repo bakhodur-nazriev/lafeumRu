@@ -16,7 +16,7 @@
                 <v-btn
                     text
                     small
-                    @click="toggleAuthor()"
+                    @click="toggleChannel()"
                     class="pa-0 toggle-button"
                 >
 
@@ -38,7 +38,7 @@ export default {
         }
     },
     methods: {
-        toggleAuthor() {
+        toggleChannel() {
             this.isActive = !this.isActive;
         }
     }

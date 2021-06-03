@@ -29,18 +29,24 @@
 
 <v-app id="app">
     <front-navbar></front-navbar>
-    <v-main class="grey lighten-3">@yield('layout')</v-main>
+    <v-main class="grey lighten-3 py-0">
+        @yield('layout')
+    </v-main>
     <front-footer></front-footer>
+
+    <scroller-component></scroller-component>
 </v-app>
 
 
 <script>
-    window.Laravel = {!! json_encode([
-        'csrf_token'   => csrf_token(),
-        'asset_path'   => asset(''),
-        'auth'         => Auth::user(),
-        'avatars_path' => asset('img/avatars')
-    ]); !!}
+    window.Laravel = {!!
+        json_encode([
+            'csrf_token'   => csrf_token(),
+            'asset_path'   => asset(''),
+            'auth'         => Auth::user(),
+            'avatars_path' => asset('img/avatars')
+        ])
+    !!}
 </script>
 <script src="{{ mix('js/app.js') }}"></script>
 </body>

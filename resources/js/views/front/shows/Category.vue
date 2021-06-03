@@ -1,10 +1,24 @@
 <template>
-    <v-col xl="8" lg="6">
+    <v-col xl="5" lg="6">
         <h5 class="text-uppercase font-weight-regular py-4">
             {{ category.name }}
         </h5>
-        <p>{{ category.description }}</p>
-        <div v-for="(item, i) in category.categoriables.data" :key="i">
+        <p class="mb-4">{{ category.description }}</p>
+
+        <v-col cols="12" class="d-flex justify-center" v-if="loading">
+            <v-progress-circular
+                width="5"
+                size="48"
+                indeterminate
+                color="primary"
+            ></v-progress-circular>
+        </v-col>
+        <v-col
+            v-else
+            class="pa-0"
+            v-for="(item, i) in categoriables"
+            :key="i"
+        >
             <quote-item
                 v-if="category.type == 'App\\Quote'"
                 :quote="item"
@@ -17,16 +31,15 @@
                 v-if="category.type == 'App\\Video'"
                 :video="item"
             ></video-item>
-        </div>
+        </v-col>
         <v-col cols="12">
             <v-pagination
-                v-model="pagination.current"
-                :length="pagination.total"
+                v-model="pagination.currentPage"
+                :length="pagination.totalPage"
                 :total-visible="7"
                 @input="onPageChange"
             ></v-pagination>
         </v-col>
-        <scroller></scroller>
     </v-col>
 </template>
 
@@ -34,24 +47,23 @@
 import QuoteItem from "../layouts/QuoteItem.vue";
 import TermItem from "../layouts/TermItem.vue";
 import VideoItem from "../layouts/VideoItem.vue";
-import Scroller from "../../../components/Scroller";
 
 export default {
     components: {
-        Scroller,
         QuoteItem,
         TermItem,
         VideoItem,
     },
-    props: ["category"],
     name: "Category",
     data() {
         return {
-            // category: [],
+            category: [],
+            categoriables: [],
+            windowUrl: window.location.pathname,
             loading: false,
             pagination: {
-                current: 1,
-                total: 0
+                currentPage: 1,
+                totalPage: 0
             }
         };
     },
@@ -59,11 +71,13 @@ export default {
         getCategory() {
             this.loading = true;
             axios
-                .get("/api/terms/" + this.category.slug)
+                .get(`/api${this.windowUrl}/`)
                 .then((res) => {
                     this.loading = false;
-                    // this.category = res.data;
-                    console.log();
+                    this.category = res.data;
+                    this.categoriables = res.data.categoriables.data;
+                    this.pagination.currentPage = res.data.categoriables.current_page;
+                    this.pagination.totalPage = res.data.categoriables.last_page;
                 })
                 .catch((err) => {
                     this.loading = false;
@@ -71,16 +85,13 @@ export default {
                 })
         },
         onPageChange() {
-            window.scrollTo(0, 0);
             this.getCategory();
+            window.scrollTo(0, 0);
         }
     },
     mounted() {
         this.getCategory();
-    },
-    created() {
-        console.log(this.category.slug);
-    },
+    }
 };
 </script>
 

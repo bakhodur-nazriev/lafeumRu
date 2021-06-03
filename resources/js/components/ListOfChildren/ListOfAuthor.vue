@@ -6,9 +6,10 @@
                 <a
                     v-for="(child ,i) in item.children"
                     :key="i"
-                    class="vocabulary-words text-decoration-none d-block fit"
                     :href="'/authors/' + child.slug"
-                    target="_blank">
+                    class="vocabulary-words text-decoration-none d-block fit"
+                    target="_blank"
+                >
                     {{ child.name }}
                 </a>
             </div>

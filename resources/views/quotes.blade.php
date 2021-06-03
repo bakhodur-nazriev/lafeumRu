@@ -9,6 +9,5 @@
 
 @section('content')
     @include('layouts.left-sidebar.leftSideBar')
-
     <quotes></quotes>
 @endsection

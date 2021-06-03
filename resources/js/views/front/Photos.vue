@@ -29,19 +29,17 @@
                 ></v-pagination>
             </v-col>
         </v-row>
-        <scroller></scroller>
     </v-col>
 </template>
 
 <script>
-import Scroller from "../../components/Scroller";
 import ListOfPhoto from "../../components/ListOfChildren/ListOfPhoto";
 
 export default {
-    components: {ListOfPhoto, Scroller},
+    components: {ListOfPhoto},
     data() {
         return {
-            photos: {},
+            photos: [],
             loading: false,
             pagination: {
                 current: 1,

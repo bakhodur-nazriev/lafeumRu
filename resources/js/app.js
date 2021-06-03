@@ -74,6 +74,7 @@ Vue.use(VueScrollTo, {
     y: true
 })
 
+/* Views */
 Vue.component("default", require("./views/front/Default").default);
 Vue.component("home", require("./views/front/Home").default);
 Vue.component("quotes", require("./views/front/Quotes").default);
@@ -119,6 +120,9 @@ Vue.component("knowledge-area-left-sidebar", require("./components/layouts/Knowl
 
 /* Right Side Bar */
 Vue.component("right-side-bar", require("./components/layouts/RightSideBar").default);
+
+/* Supporting components */
+Vue.component("scroller-component", require("./components/Scroller").default);
 
 const app = new Vue({
     router,

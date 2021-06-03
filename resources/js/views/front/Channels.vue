@@ -48,20 +48,15 @@
                 </v-card>
             </v-col>
         </div>
-        <scroller></scroller>
     </v-col>
 </template>
 
 <script>
-import Scroller from "../../components/Scroller";
 import ListOfChannel from "../../components/ListOfChildren/ListOfChannel";
 
 export default {
     name: "Channels",
-    components: {
-        Scroller,
-        ListOfChannel
-    },
+    components: {ListOfChannel},
     data() {
         return {
             channels: [],

@@ -52,6 +52,7 @@
                             small
                             rounded
                             elevation="0"
+                            :disabled="isDisabled"
                             color="grey lighten-2"
                             @click="loadMore()"
                         >
@@ -70,6 +71,8 @@ export default {
     data() {
         return {
             channels: [],
+            isDisabled: false,
+            windowUrl: window.location.pathname,
             loading: false,
             search: "",
             nextPageUrl: ""
@@ -78,15 +81,21 @@ export default {
     methods: {
         getChannels() {
             this.loading = true;
-            const url = this.nextPageUrl ? this.nextPageUrl : "/api/channels-left-sidebar?page=" + 1;
+            const url = this.nextPageUrl ? this.nextPageUrl : `/api${this.windowUrl}?page=` + 1;
             axios
                 .get(url)
-                .then(res => {
+                .then((res) => {
+                    console.log(res.data);
                     this.loading = false;
-                    if (res.data.data.length) {
-                        this.channels.push(...res.data.data);
+                    if (res.data[1].data.length) {
+                        this.channels.push(...res.data[1].data);
                     }
-                    this.nextPageUrl = res.data.next_page_url;
+
+                    if (res.data[1].to == res.data[1].total) {
+                        this.isDisabled = true;
+                    }
+
+                    this.nextPageUrl = res.data[1].next_page_url;
                 })
                 .catch(err => {
                     this.loading = false;

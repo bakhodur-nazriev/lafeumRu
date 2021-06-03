@@ -11,6 +11,7 @@
 @if($data['description'])
     <meta name="description" content="{{$data['description']}}">
     <meta property="og:description" content="{{$data['description']}}">
+
     <meta name="twitter:description" content="{{$data['description']}}">
 @endif
 

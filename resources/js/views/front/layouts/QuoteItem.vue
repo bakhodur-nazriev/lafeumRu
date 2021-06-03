@@ -1,5 +1,5 @@
 <template>
-    <v-card flat rounded="lg" class="mb-8">
+    <v-card flat rounded="lg" class="mb-6">
         <v-card-subtitle class="d-flex px-6 py-3">
             <v-spacer></v-spacer>
             <a class="grey--text text-decoration-none" :href="item.post.id">
@@ -35,16 +35,16 @@
         </v-card-text>
         <v-divider class="m-0 grey lighten-3"></v-divider>
         <v-card-actions class="px-4 py-2">
-            <!--            <div>
-                            <v-btn icon>
-                                <v-icon color="grey lighten-1"> mdi-heart</v-icon>
-                            </v-btn>
-                            <span>45</span>
-                            <v-btn icon>
-                                <v-icon color="grey lighten-1"> mdi-bookmark</v-icon>
-                            </v-btn>
-                            <span>45</span>
-                        </div>-->
+            <!--            <div>-->
+            <!--                <v-btn icon>-->
+            <!--                    <v-icon color="grey lighten-1"> mdi-heart</v-icon>-->
+            <!--                </v-btn>-->
+            <!--                <span>45</span>-->
+            <!--                <v-btn icon>-->
+            <!--                    <v-icon color="grey lighten-1"> mdi-bookmark</v-icon>-->
+            <!--                </v-btn>-->
+            <!--                <span>45</span>-->
+            <!--            </div>-->
             <v-spacer></v-spacer>
             <share-button :post="item.post"></share-button>
         </v-card-actions>
@@ -56,17 +56,12 @@ import ShareButton from "../../../components/ShareButton";
 
 export default {
     props: ["quote"],
-    components: {
-        ShareButton
-    },
+    components: {ShareButton},
     data() {
         return {
             item: this.quote,
         };
-    },
-    // created() {
-    //     console.log(this.quote);
-    // }
+    }
 };
 </script>
 

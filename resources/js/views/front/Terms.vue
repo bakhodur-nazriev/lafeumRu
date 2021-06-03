@@ -28,16 +28,13 @@
                 @input="onPageChange"
             ></v-pagination>
         </v-col>
-        <scroller></scroller>
     </v-col>
 </template>
 
 <script>
-import Scroller from "../../components/Scroller";
 
 export default {
     name: "Terms",
-    components: {Scroller},
     data() {
         return {
             loading: false,

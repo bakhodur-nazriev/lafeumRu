@@ -1,81 +1,78 @@
 <template>
     <v-app-bar
-        app
         flat
         height="84"
         class="primary"
     >
-        <v-container class="py-0 h-100">
-            <v-row justify="center" class="align-content-center h-100">
-                <v-col lg="12" xl="9" class="d-flex justify-content-between py-0 h-100">
-                    <div class="d-flex align-items-center">
-                        <div
-                            v-for="link in links"
-                            :key="link.href"
-                        >
-                            <a :href="link.href" class="navbar-links mx-4">
-                                <span v-if="link.name">{{ link.name }}</span>
-                                <v-img v-else width="71" class="mr-5" src="/img/lafeum-ru-home.png"></v-img>
-                            </a>
-                        </div>
+        <v-row justify="center" class="align-content-center h-100">
+            <v-col lg="12" xl="9" class="d-flex justify-content-between px-12 py-0 h-100">
+                <div class="d-flex align-items-center">
+                    <div
+                        v-for="link in links"
+                        :key="link.href"
+                    >
+                        <a :href="link.href" class="navbar-links mx-4">
+                            <span v-if="link.name">{{ link.name }}</span>
+                            <v-img v-else width="71" class="mr-5" src="/img/lafeum-ru-home.png"></v-img>
+                        </a>
                     </div>
+                </div>
 
-                    <!--                    <div class="d-flex align-items-center">
-                                            <v-btn
-                                                color="white primary&#45;&#45;text"
-                                                @click="$refs.logout.submit()"
-                                                class="text-capitalize rounded-lg text-decoration-none primary"
-                                                elevation="0"
-                                                width="88"
-                                            >
-                                                выход
-                                            </v-btn>
+                <!--                    <div class="d-flex align-items-center">
+                                        <v-btn
+                                            color="white primary&#45;&#45;text"
+                                            @click="$refs.logout.submit()"
+                                            class="text-capitalize rounded-lg text-decoration-none primary"
+                                            elevation="0"
+                                            width="88"
+                                        >
+                                            выход
+                                        </v-btn>
 
-                                            <form
-                                                ref="logout"
-                                                action="/logout"
-                                                method="POST"
-                                                style="display: none;"
-                                            >
-                                                <input type="hidden" name="_token" :value="csrf"/>
-                                            </form>
-                                        </div>-->
-                    <!--                    <div class="d-flex align-items-center">
-                                            <v-avatar>
-                                                <img :src="user.avatar">
-                                            </v-avatar>
-                                            <v-menu offset-y left min-width="240" rounded="lg" nudge-bottom="20">
-                                                <template v-slot:activator="{ on }">
-                                                    <v-btn
-                                                        icon
-                                                        v-on="on"
-                                                        color="white"
-                                                    >
-                                                        <v-icon>
-                                                            mdi-menu-down
+                                        <form
+                                            ref="logout"
+                                            action="/logout"
+                                            method="POST"
+                                            style="display: none;"
+                                        >
+                                            <input type="hidden" name="_token" :value="csrf"/>
+                                        </form>
+                                    </div>-->
+                <!--                    <div class="d-flex align-items-center">
+                                        <v-avatar>
+                                            <img :src="user.avatar">
+                                        </v-avatar>
+                                        <v-menu offset-y left min-width="240" rounded="lg" nudge-bottom="20">
+                                            <template v-slot:activator="{ on }">
+                                                <v-btn
+                                                    icon
+                                                    v-on="on"
+                                                    color="white"
+                                                >
+                                                    <v-icon>
+                                                        mdi-menu-down
+                                                    </v-icon>
+                                                </v-btn>
+                                            </template>
+                                            <v-list>
+                                                <v-list-item
+                                                    v-for="profileLink in profileLinks"
+                                                    :key="profileLink.href"
+                                                >
+                                                    <v-list-item-title class=" px-3 py-5">
+                                                        <v-icon color="grey lighten-1" class="mr-6">
+                                                            {{ profileLink.icon }}
                                                         </v-icon>
-                                                    </v-btn>
-                                                </template>
-                                                <v-list>
-                                                    <v-list-item
-                                                        v-for="profileLink in profileLinks"
-                                                        :key="profileLink.href"
-                                                    >
-                                                        <v-list-item-title class=" px-3 py-5">
-                                                            <v-icon color="grey lighten-1" class="mr-6">
-                                                                {{ profileLink.icon }}
-                                                            </v-icon>
-                                                            <a class="navbar-profile-links" :href="profileLink.href">
-                                                                {{ profileLink.title }}
-                                                            </a>
-                                                        </v-list-item-title>
-                                                    </v-list-item>
-                                                </v-list>
-                                            </v-menu>
-                                        </div>-->
-                </v-col>
-            </v-row>
-        </v-container>
+                                                        <a class="navbar-profile-links" :href="profileLink.href">
+                                                            {{ profileLink.title }}
+                                                        </a>
+                                                    </v-list-item-title>
+                                                </v-list-item>
+                                            </v-list>
+                                        </v-menu>
+                                    </div>-->
+            </v-col>
+        </v-row>
     </v-app-bar>
 </template>
 

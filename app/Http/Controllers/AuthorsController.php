@@ -67,19 +67,17 @@ class AuthorsController extends Controller
 
             case AuthorGroup::MOVIES_GROUP_NAME:
                 $authorListTitle = ['group_name' => AuthorGroup::MOVIES_GROUP_NAME];
-                $authors = Author::movies()->orderBy('name', 'asc')->paginate(20);
+                $authors = Author::movies()->orderBy('name')->paginate(30);
                 break;
 
             case AuthorGroup::PROVERBS_GROUP_NAME:
                 $authorListTitle = ['group_name' => AuthorGroup::PROVERBS_GROUP_NAME];
-                $authors = Author::proverbs()->orderBy('name', 'asc')->paginate(20);
+                $authors = Author::proverbs()->orderBy('name')->paginate(30);
                 break;
 
             default:
                 $authorListTitle = ['group_name' => 'Авторы'];
-                $authors = Author::persons()
-                    ->orderBy('name', 'asc')
-                    ->paginate(20);
+                $authors = Author::persons()->orderBy('name')->paginate(30);
                 break;
         }
 
@@ -89,14 +87,15 @@ class AuthorsController extends Controller
             ->quotes()
             ->published('desc')
             ->with('categories', 'post', 'author')
-            ->paginate(2);
+            ->paginate(20);
 
         return response()->json(collect([$authors, $authorListTitle, $currentAuthor]));
     }
 
     public function getShowMovies()
     {
-        $authors = Author::movies()->orderBy('name')->paginate(20);
+        $authors = Author::movies()->orderBy('name')->paginate(30);
+
         $authorListTitle = ["group_name" => AuthorGroup::MOVIES_GROUP_NAME];
 
         $currentAuthor = new Author([
@@ -104,9 +103,13 @@ class AuthorsController extends Controller
             "biography" => "Фильмы и Сериалы. Здесь собраны лучшие высказывания и цитаты из фильмов и сериалов всех времен."
         ]);
 
-        $movieIds = $authors->pluck('id');
+        $movieIds = Author::movies()->orderBy('name')->get()->pluck('id');
 
-        $currentAuthor->quotes = Quote::with('categories:id,name,slug', 'post:id,postable_id', 'author:id,name,slug')
+        $currentAuthor->quotes = Quote::with(
+            'categories:id,name,slug',
+            'post:id,postable_id',
+            'author:id,name,slug'
+        )
             ->orderBy('id', 'desc')
             ->whereIn('author_id', $movieIds)
             ->paginate(20);
@@ -116,7 +119,7 @@ class AuthorsController extends Controller
 
     public function getShowProverbs()
     {
-        $authors = Author::proverbs()->orderBy('name')->paginate(20);
+        $authors = Author::proverbs()->orderBy('name')->paginate(30);
         $authorListTitle = ["group_name" => AuthorGroup::PROVERBS_GROUP_NAME];
 
         $currentAuthor = new Author([
@@ -124,12 +127,12 @@ class AuthorsController extends Controller
             "biography" => "Пословицы и поговорки. Коллекция пословиц и поговорок народов мира. В них собраны плоды опытности народов и здравый смысл."
         ]);
 
-        $proverbIds = $authors->pluck('id');
+        $proverbIds = Author::proverbs()->orderBy('name')->get()->pluck('id');
 
         $currentAuthor->quotes = Quote::with('categories', 'post', 'author')
             ->orderBy('id', 'desc')
             ->whereIn('author_id', $proverbIds)
-            ->paginate(2);
+            ->paginate(20);
 
         return response()->json(collect([$authors, $authorListTitle, $currentAuthor]));
     }

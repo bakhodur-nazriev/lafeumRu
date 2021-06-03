@@ -28,23 +28,27 @@ class ChannelsController extends Controller
         return response()->json(collect($channels));
     }
 
-    public function showLeftSidebar()
-    {
-        $channelsLeftSidebar = Channel::orderBy('name')->paginate(30);
-
-        return response()->json(collect($channelsLeftSidebar));
-    }
-
     public function show(Channel $channel)
     {
-        $channels = Channel::all();
+        $channel->videos = $channel
+            ->videos()
+            ->published('desc')
+            ->get();
+
+        return view('shows.channel', compact(['channel']));
+    }
+
+    public function getShowChannels(Channel $channel)
+    {
+        $channels = Channel::orderBy('name')->paginate(30);
+
         $channel->videos = $channel
             ->videos()
             ->published('desc')
             ->with('categories', 'channel', 'post')
-            ->paginate(30);
+            ->paginate(20);
 
-        return view('shows.channel', compact(['channel', 'channels']));
+        return response()->json(collect([$channel, $channels]));
     }
 
     public function get(Request $request)

@@ -8,7 +8,7 @@
                 color="primary"
             ></v-progress-circular>
         </v-col>
-        <v-col cols="12" v-else>
+        <v-col cols="12" v-else class="pa-0">
             <h5 class="text-uppercase font-weight-regular py-2 mb-0">
                 {{ currentKnowledge.name }}
             </h5>
@@ -16,11 +16,11 @@
                 {{ currentKnowledge.description }}
             </p>
         </v-col>
-        <v-col cols="12">
+        <v-col cols="12" class="pa-0">
             <term-item
-                v-for="(know, i) in knowledgeArea"
+                v-for="(knowledge, i) in knowledgeArea"
                 :key="i"
-                :term="know"
+                :term="knowledge"
             ></term-item>
         </v-col>
 
@@ -41,11 +41,11 @@ import TermItem from "../layouts/TermItem.vue";
 export default {
     components: {TermItem},
     name: "KnowledgeArea",
-    props: ['currentKnowledgeArea'],
     data() {
         return {
-            currentKnowledge: [],
+            windowUrl: window.location.pathname,
             loading: false,
+            currentKnowledge: [],
             knowledgeArea: [],
             pagination: {
                 current: 1,
@@ -57,7 +57,7 @@ export default {
         getKnowledgeArea() {
             this.loading = true;
             axios
-                .get('/api/knowledge/' + this.currentKnowledgeArea.slug + '?page=' + this.pagination.current)
+                .get(`/api${this.windowUrl}?page=` + this.pagination.current)
                 .then((res) => {
                     this.loading = false;
                     this.currentKnowledge = res.data;

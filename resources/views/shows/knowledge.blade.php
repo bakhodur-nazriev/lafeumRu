@@ -9,7 +9,5 @@
 
 @section('content')
     <knowledge-area-left-sidebar></knowledge-area-left-sidebar>
-    <knowledge
-        :current-knowledge-area="{{ $currentKnowledgeArea }}"
-    ></knowledge>
+    <knowledge></knowledge>
 @endsection

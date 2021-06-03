@@ -71,19 +71,14 @@
                 </v-card>
             </v-col>
         </v-row>
-        <scroller></scroller>
     </v-col>
 </template>
 
 <script>
-import Scroller from "../../components/Scroller";
 import ListOfVocabulary from "../../components/ListOfChildren/ListOfVocabulary";
 
 export default {
-    components: {
-        Scroller,
-        ListOfVocabulary
-    },
+    components: {ListOfVocabulary},
     data() {
         return {
             search: "",

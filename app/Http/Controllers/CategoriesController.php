@@ -54,6 +54,13 @@ class CategoriesController extends Controller
         return view('shows.category', compact('category'));
     }
 
+    public function getShowQuotes($categorySlug)
+    {
+        $category = $this->getCategory(Quote::class, $categorySlug);
+
+        return response()->json(collect($category));
+    }
+
     public function showTerms($categorySlug)
     {
         $category = $this->getCategory(Term::class,
@@ -85,6 +92,13 @@ class CategoriesController extends Controller
         return view('shows.category', compact('category'));
     }
 
+    public function getShowVideos($categorySlug)
+    {
+        $category = $this->getCategory(Video::class, $categorySlug);
+
+        return response()->json(collect($category));
+    }
+
     public function showVocabulary($categorySlug)
     {
         $category = Category::where('type', Term::class)
@@ -96,6 +110,19 @@ class CategoriesController extends Controller
             ->get();
 
         return view('vocabulary', compact(['category', 'terms']));
+    }
+
+    public function getShowVocabulary($categorySlug)
+    {
+        $category = Category::where('type', Term::class)
+            ->where('slug', $categorySlug)
+            ->first();
+
+        $terms = $this->getCategoriablesQuery(Term::class, $category)
+            ->vocabulary()
+            ->get();
+
+        return response()->json(collect([$category, $terms]));
     }
 
     public function store(Request $request)

@@ -14,7 +14,7 @@
                     color="primary"
                 ></v-progress-circular>
             </v-col>
-            <v-col v-else class="py-0">
+            <v-col v-else>
                 <quote-item
                     v-for="(quote, i) in quotes"
                     :key="i"
@@ -31,19 +31,14 @@
                 @input="onPageChange"
             ></v-pagination>
         </v-col>
-        <scroller></scroller>
     </v-col>
 </template>
 
 <script>
 import QuoteItem from "./layouts/QuoteItem";
-import Scroller from "../../components/Scroller";
 
 export default {
-    components: {
-        QuoteItem,
-        Scroller
-    },
+    components: {QuoteItem},
     data() {
         return {
             quotes: [],

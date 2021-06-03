@@ -2,24 +2,76 @@
     <v-col xl="5">
         <h5 class="text-uppercase font-weight-regular py-4">Каналы</h5>
         <div class="mb-5">
-            <h3 class="blue--text">{{ channel.name }}</h3>
-            <h5 class="channel-description">{{ channel.description }}</h5>
+            <h3 class="blue--text">{{ currentChannel.name }}</h3>
+            <h5 class="channel-description">{{ currentChannel.description }}</h5>
         </div>
 
-        <video-item
-            v-for="(video, i) in channel.videos.data"
-            :key="i"
-            :video="video"
-        ></video-item>
+        <v-col cols="12" class="d-flex justify-center" v-if="loading">
+            <v-progress-circular
+                width="5"
+                size="48"
+                indeterminate
+                color="primary"
+            ></v-progress-circular>
+        </v-col>
+        <v-col v-else class="pa-0">
+            <video-item
+                v-for="(video, i) in videosChannel"
+                :key="i"
+                :video="video"
+            ></video-item>
+        </v-col>
+        <v-col cols="12">
+            <v-pagination
+                v-model="pagination.currentPage"
+                :length="pagination.totalPage"
+                :total-visible="7"
+                @input="onPageChange"
+            ></v-pagination>
+        </v-col>
     </v-col>
 </template>
 
 <script>
 export default {
     name: "Channel",
-    props: ["channel"],
     data() {
-        return {}
+        return {
+            videosChannel: [],
+            currentChannel: [],
+            loading: false,
+            windowUrl: window.location.pathname,
+            pagination: {
+                currentPage: 1,
+                totalPage: 0
+            }
+        }
+    },
+    methods: {
+        getChannels() {
+            this.loading = true;
+            axios
+                .get(`/api${this.windowUrl}?page=` + this.pagination.currentPage)
+                .then((res) => {
+                    console.log(res.data);
+                    this.loading = false;
+                    this.currentChannel = res.data[0];
+                    this.videosChannel = res.data[0].videos.data;
+                    this.pagination.currentPage = res.data[0].videos.current_page;
+                    this.pagination.totalPage = res.data[0].videos.last_page;
+                })
+                .catch((err) => {
+                    this.loading = false;
+                    console.log(err);
+                })
+        },
+        onPageChange() {
+            this.getChannels();
+            window.scrollTo(0, 0);
+        }
+    },
+    mounted() {
+        this.getChannels();
     }
 }
 </script>

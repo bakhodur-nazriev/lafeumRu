@@ -23,7 +23,6 @@
 {{--@endsection--}}
 
 @section('content')
-{{--    @include('layouts.left-sidebar.leftSidebar', ['type' => $category->type, 'active' => $category->id])--}}
-
+    @include('layouts.left-sidebar.leftSideBar')
     <category></category>
 @endsection

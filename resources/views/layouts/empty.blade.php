@@ -1,5 +1,9 @@
 @extends('layouts.frontApp')
 
 @section('layout')
-    @yield('content')
+    <v-container>
+        <v-row justify="center">
+            @yield('content')
+        </v-row>
+    </v-container>
 @endsection

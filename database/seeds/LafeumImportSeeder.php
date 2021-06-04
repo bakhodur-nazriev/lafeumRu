@@ -106,6 +106,7 @@ class LafeumImportSeeder extends Seeder
         foreach ($reversedPhotos as $photo) {
             $preparedPhotos[] = [
                 'path' => '/img/photos/' . $photo['file'],
+                'title' => $photo['title'],
                 'description' => $photo['description']
             ];
         }

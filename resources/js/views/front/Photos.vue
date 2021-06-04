@@ -17,7 +17,6 @@
                     :key="i"
                 >
                     <list-of-photo :item="photo"></list-of-photo>
-
                 </v-col>
             </v-row>
             <v-col cols="12">

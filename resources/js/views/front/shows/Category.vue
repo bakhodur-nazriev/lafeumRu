@@ -1,6 +1,6 @@
 <template>
     <v-col xl="5" lg="6">
-        <h5 class="text-uppercase font-weight-regular py-4">
+        <h5 class="text-uppercase font-weight-regular py-4 mb-0">
             {{ category.name }}
         </h5>
         <p class="mb-4">{{ category.description }}</p>
@@ -31,6 +31,10 @@
                 v-if="category.type == 'App\\Video'"
                 :video="item"
             ></video-item>
+<!--            <vocabulary-->
+            <!--                v-if="category.type == 'App\\Video'"-->
+            <!--                :video="item"-->
+            <!--            ></vocabulary>-->
         </v-col>
         <v-col cols="12">
             <v-pagination
@@ -71,10 +75,11 @@ export default {
         getCategory() {
             this.loading = true;
             axios
-                .get(`/api${this.windowUrl}/`)
+                .get(`/api${this.windowUrl}?page=` + this.pagination.currentPage)
                 .then((res) => {
                     this.loading = false;
                     this.category = res.data;
+                    console.log(res.data);
                     this.categoriables = res.data.categoriables.data;
                     this.pagination.currentPage = res.data.categoriables.current_page;
                     this.pagination.totalPage = res.data.categoriables.last_page;

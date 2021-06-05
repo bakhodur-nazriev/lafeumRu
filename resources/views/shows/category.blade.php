@@ -23,6 +23,6 @@
 {{--@endsection--}}
 
 @section('content')
-    @include('layouts.left-sidebar.leftSideBar')
+    {{--    @include('layouts.left-sidebar.leftSideBar')--}}
     <category></category>
 @endsection

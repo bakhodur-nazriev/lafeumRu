@@ -2,7 +2,7 @@
     <v-card flat rounded="lg" class="mb-6">
         <v-card-subtitle class="d-flex px-6 py-3">
             <v-spacer></v-spacer>
-            <a class="grey--text text-decoration-none" :href="item.post.id">
+            <a class="grey--text text-decoration-none" :href="'/' + item.post.id">
                 #{{ item.post.id }}
             </a>
         </v-card-subtitle>
@@ -27,7 +27,7 @@
                     class="mr-2 grey--text text-decoration-none"
                     v-for="(category, i) in item.categories"
                     :key="i"
-                    :href="`/quotes/` + category.slug"
+                    :href="'/quotes/' + category.slug"
                 >
                     {{ category.name }}
                 </a>
@@ -61,7 +61,7 @@ export default {
         return {
             item: this.quote,
         };
-    }
+    },
 };
 </script>
 

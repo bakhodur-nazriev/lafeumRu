@@ -14,7 +14,7 @@
                 v-else
                 cols="12"
                 class="py-0"
-                v-for="(term, i) in terms.data"
+                v-for="(term, i) in terms"
                 :key="i"
             >
                 <term-item :term="term"></term-item>
@@ -52,7 +52,7 @@ export default {
                 .get("/api/terms?page=" + this.pagination.current)
                 .then(res => {
                     this.loading = false;
-                    this.terms = res.data;
+                    this.terms = res.data.data;
                     this.pagination.current = res.data.current_page;
                     this.pagination.total = res.data.last_page;
                 })

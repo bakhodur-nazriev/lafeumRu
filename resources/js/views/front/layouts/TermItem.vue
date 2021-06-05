@@ -25,7 +25,7 @@
 
                 <a
                     class="grey--text text-decoration-none"
-                    :href="item.post.id"
+                    :href="'/' + item.post.id"
                 >
                     #{{ item.post.id }}
                 </a>

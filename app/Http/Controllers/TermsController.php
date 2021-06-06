@@ -22,7 +22,7 @@ class TermsController extends Controller
     {
         $categories = Category::term()->get()->toTree()->unique('name');
 
-        return view("/terms", compact("categories"));
+        return view('/terms', compact('categories'));
     }
 
     public function getTerms()
@@ -43,6 +43,7 @@ class TermsController extends Controller
     {
         $categories = Category::term()->get()->toTree()->unique('name');
 
+//        return response()->json($categories);
         return view("/vocabulary", compact('categories'));
     }
 

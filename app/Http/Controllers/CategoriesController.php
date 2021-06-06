@@ -49,28 +49,28 @@ class CategoriesController extends Controller
 
     public function showQuotes($categorySlug)
     {
-        $category = $this->getCategory(Quote::class, $categorySlug);
+        $categories = $this->getCategory(Quote::class, $categorySlug);
 
-        return view('shows.category', compact('category'));
+        return view('shows.category', compact('categories'));
     }
 
     public function getShowQuotes($categorySlug)
     {
-        $category = $this->getCategory(Quote::class, $categorySlug);
+        $categories = $this->getCategory(Quote::class, $categorySlug);
 
-        return response()->json(collect($category));
+        return response()->json(collect($categories));
     }
 
     public function showTerms($categorySlug)
     {
-        $category = $this->getCategory(Term::class,
+        $categories = $this->getCategory(Term::class,
             $categorySlug,
             function ($categoriesQuery) {
                 return $categoriesQuery->orderBy('term_type_id', 'asc');
             }
         );
 
-        return view('shows.category', compact('category'));
+        return view('shows.category', compact('categories'));
     }
 
     public function getShowTerms($categorySlug)
@@ -87,9 +87,9 @@ class CategoriesController extends Controller
 
     public function showVideos($categorySlug)
     {
-        $category = $this->getCategory(Video::class, $categorySlug);
+        $categories = $this->getCategory(Video::class, $categorySlug);
 
-        return view('shows.category', compact('category'));
+        return view('shows.category', compact('categories'));
     }
 
     public function getShowVideos($categorySlug)

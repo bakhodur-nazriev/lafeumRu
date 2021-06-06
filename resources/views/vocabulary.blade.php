@@ -8,7 +8,10 @@
 @endsection
 
 @section("content")
-    @include('layouts.left-sidebar.leftSidebar')
+    @include('layouts.left-sidebar.leftSideBar', [
+        'type' => 'App\Term',
+        'linkPrefix' => 'vocabulary',
+    ])
 
     <vocabulary></vocabulary>
 @endsection

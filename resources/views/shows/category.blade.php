@@ -24,5 +24,6 @@
 
 @section('content')
     {{--    @include('layouts.left-sidebar.leftSideBar')--}}
+    <left-side-bar></left-side-bar>
     <category></category>
 @endsection

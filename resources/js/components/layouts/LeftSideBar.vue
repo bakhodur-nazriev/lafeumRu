@@ -4,7 +4,7 @@
         <v-sheet class="pa-2" rounded="lg" width="100%">
             <!-- Category -->
 
-            <v-list-item v-for="(category, i) in allCategories" :key="i">
+            <v-list-item v-for="(category, i) in categories" :key="i">
                 <v-list-item-content two-line>
                     <v-list-item-title class="mb-3">
                         <a
@@ -35,28 +35,38 @@
 <script>
 export default {
     name: "LeftSideBar",
-    props: ["categories"],
+    // props: ["categories"],
     data() {
         return {
             allCategories: this.categories,
-            vocabularyUrl: '/vocabulary'
+            vocabularyUrl: '/vocabulary',
+            categories: [],
+            categoryType: '',
         };
     },
 
-    computed: {
-        categoryType() {
-            for (const category of this.allCategories) {
-                if (window.location.pathname == this.vocabularyUrl) {
-                    return '/vocabulary/';
-                } else if (category.type == 'App\\Quote') {
-                    return '/quotes/';
-                } else if (category.type == 'App\\Term') {
-                    return '/terms/';
-                } else if (category.type == 'App\\Video') {
-                    return '/videos/';
-                }
-            }
+    methods: {
+        getCategory() {
+            axios
+                .get(`/api${window.location.pathname}`)
+                .then((res) => {
+                    console.log(res.data.type);
+                    this.categories = res.data.categoriables.data;
+                    if (res.data.type === 'App\\Quote') {
+                        this.categoryType = '/quotes/';
+                    } else if (res.data.type === 'App\\Term') {
+                        this.categoryType = '/terms/';
+                    } else if (res.data.type === 'App\\Video') {
+                        this.categoryType = '/videos/';
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
         }
+    },
+    mounted() {
+        this.getCategory();
     },
 };
 </script>

@@ -34,40 +34,29 @@
 
 <script>
 export default {
-    name: "LeftSideBar",
-    // props: ["categories"],
+    name: 'LeftSideBar',
+    props: ['categories'],
     data() {
-        return {
-            allCategories: this.categories,
-            vocabularyUrl: '/vocabulary',
-            categories: [],
-            categoryType: '',
-        };
+        return {}
     },
-
-    methods: {
-        getCategory() {
-            axios
-                .get(`/api${window.location.pathname}`)
-                .then((res) => {
-                    console.log(res.data.type);
-                    this.categories = res.data.categoriables.data;
-                    if (res.data.type === 'App\\Quote') {
-                        this.categoryType = '/quotes/';
-                    } else if (res.data.type === 'App\\Term') {
-                        this.categoryType = '/terms/';
-                    } else if (res.data.type === 'App\\Video') {
-                        this.categoryType = '/videos/';
-                    }
-                })
-                .catch((err) => {
-                    console.log(err);
-                })
+    // created() {
+    //     console.log(this.categories);
+    // },
+    computed: {
+        categoryType() {
+            for (const category of this.categories) {
+                if (window.location.pathname == '/vocabulary') {
+                    return '/vocabulary/';
+                } else if (category.type == 'App\\Quote') {
+                    return '/quotes/';
+                } else if (category.type == 'App\\Term') {
+                    return '/terms/';
+                } else if (category.type == 'App\\Video') {
+                    return '/videos/';
+                }
+            }
         }
-    },
-    mounted() {
-        this.getCategory();
-    },
+    }
 };
 </script>
 

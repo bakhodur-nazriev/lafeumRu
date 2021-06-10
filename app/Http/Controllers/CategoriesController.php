@@ -49,7 +49,9 @@ class CategoriesController extends Controller
 
     public function showQuotes($categorySlug)
     {
-        $categories = $this->getCategory(Quote::class, $categorySlug);
+//        $categories = $this->getCategory(Quote::class, $categorySlug);
+
+        $categories = Category::quote()->get()->toTree()->unique('name');
 
         return view('shows.category', compact('categories'));
     }
@@ -63,12 +65,12 @@ class CategoriesController extends Controller
 
     public function showTerms($categorySlug)
     {
-        $categories = $this->getCategory(Term::class,
-            $categorySlug,
-            function ($categoriesQuery) {
-                return $categoriesQuery->orderBy('term_type_id', 'asc');
-            }
-        );
+//        $categories = $this->getCategory(Term::class, $categorySlug,
+//            function ($categoriesQuery) {
+//                return $categoriesQuery->orderBy('term_type_id', 'asc');
+//            }
+//        );
+        $categories = Category::term()->get()->toTree()->unique('name');
 
         return view('shows.category', compact('categories'));
     }
@@ -87,7 +89,9 @@ class CategoriesController extends Controller
 
     public function showVideos($categorySlug)
     {
-        $categories = $this->getCategory(Video::class, $categorySlug);
+//        $categories = $this->getCategory(Video::class, $categorySlug);
+
+        $categories = Category::where('type', 'App\Video')->get()->toTree()->unique('name');
 
         return view('shows.category', compact('categories'));
     }
@@ -101,15 +105,11 @@ class CategoriesController extends Controller
 
     public function showVocabulary($categorySlug)
     {
-        $category = Category::where('type', Term::class)
+        $categories = Category::where('type', Term::class)
             ->where('slug', $categorySlug)
             ->first();
 
-        $terms = $this->getCategoriablesQuery(Term::class, $category)
-            ->vocabulary()
-            ->get();
-
-        return view('vocabulary', compact(['category', 'terms']));
+        return view('vocabulary', compact(['categories']));
     }
 
     public function getShowVocabulary($categorySlug)

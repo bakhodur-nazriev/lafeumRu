@@ -1,10 +1,10 @@
 <template>
     <v-col xl="5" lg="6" class="px-5">
-        <!--        <div v-if="category">-->
-        <!--            <h3 class="secondary">{{ category.name }}</h3>-->
-        <!--            <p>{{ category.description }}</p>-->
-        <!--        </div>-->
-        <div>
+        <div v-if="category.length != ''">
+            <h3 class="secondary">{{ category[0].name }}</h3>
+            <p>{{ category[0].description }}</p>
+        </div>
+        <div v-else>
             <h5 class="text-uppercase font-weight-regular py-4">Словарь «ЛАФЕЮМ»</h5>
             <p class="grey--text">
                 На сегодня содержит более одной тысячи основных терминов, соответствующих
@@ -83,19 +83,26 @@ export default {
         return {
             search: "",
             terms: [],
+            category: [],
             loading: false,
             page: 0,
-            cols: 2
+            cols: 2,
         };
     },
     methods: {
         getVocabulary() {
             this.loading = true;
+            let url = `/api${window.location.pathname}` ? `/api${window.location.pathname}` : '/api/vocabulary';
+
             axios
-                .get("/api/vocabulary")
-                .then(res => {
+                .get(url)
+                .then((res) => {
+                    console.log(res.data[0]);
                     this.loading = false;
                     this.terms = res.data;
+                    if (res.data[0].length) {
+                        this.category = res.data[0];
+                    }
                 })
                 .catch(err => {
                     this.loading = false;

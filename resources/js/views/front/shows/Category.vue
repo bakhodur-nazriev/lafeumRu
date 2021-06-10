@@ -20,8 +20,7 @@
             <quote-item
                 v-if="category.type == 'App\\Quote'"
                 :quote="item"
-            >
-            </quote-item>
+            ></quote-item>
             <term-item
                 v-if="category.type == 'App\\Term'"
                 :term="item"
@@ -30,10 +29,6 @@
                 v-if="category.type == 'App\\Video'"
                 :video="item"
             ></video-item>
-            <!-- <vocabulary-->
-            <!--     v-if="category.type == 'App\\Video'"-->
-            <!--     :video="item"-->
-            <!-- ></vocabulary>-->
         </v-col>
         <v-col cols="12">
             <v-pagination
@@ -52,12 +47,12 @@ import TermItem from "../layouts/TermItem.vue";
 import VideoItem from "../layouts/VideoItem.vue";
 
 export default {
+    name: "Category",
     components: {
         QuoteItem,
         TermItem,
         VideoItem,
     },
-    name: "Category",
     data() {
         return {
             category: [],

@@ -1,8 +1,8 @@
 <template>
     <v-col xl="5" lg="6" class="px-5">
-        <div v-if="category.length != ''">
-            <h3 class="secondary">{{ category[0].name }}</h3>
-            <p>{{ category[0].description }}</p>
+        <div v-if="category.slug">
+            <h3>{{ category.name }}</h3>
+            <p>{{ category.description }}</p>
         </div>
         <div v-else>
             <h5 class="text-uppercase font-weight-regular py-4">Словарь «ЛАФЕЮМ»</h5>
@@ -97,12 +97,14 @@ export default {
             axios
                 .get(url)
                 .then((res) => {
-                    console.log(res.data[0]);
                     this.loading = false;
                     this.terms = res.data;
-                    if (res.data[0].length) {
+
+                    if (res.data[0].slug) {
                         this.category = res.data[0];
+                        this.terms = res.data[1];
                     }
+                    console.log(res.data);
                 })
                 .catch(err => {
                     this.loading = false;

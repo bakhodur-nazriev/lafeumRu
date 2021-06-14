@@ -9,7 +9,7 @@
             ></v-progress-circular>
         </v-col>
         <v-col cols="12" v-else class="pa-0">
-            <h5 class="text-uppercase font-weight-regular py-2 mb-0">
+            <h5 class="text-uppercase font-weight-regular pt-4 pb-2 mb-0">
                 {{ currentKnowledge.name }}
             </h5>
             <p v-if="currentKnowledge.description" class="mb-4">

@@ -49,7 +49,7 @@ class CategoriesController extends Controller
 
     public function showQuotes($categorySlug)
     {
-//        $categories = $this->getCategory(Quote::class, $categorySlug);
+        //$categories = $this->getCategory(Quote::class, $categorySlug);
 
         $categories = Category::quote()->get()->toTree()->unique('name');
 
@@ -105,11 +105,13 @@ class CategoriesController extends Controller
 
     public function showVocabulary($categorySlug)
     {
-        $categories = Category::where('type', Term::class)
+        $category = Category::where('type', Term::class)
             ->where('slug', $categorySlug)
             ->first();
 
-        return view('vocabulary', compact(['categories']));
+        $categories = Category::term()->get()->toTree()->unique('name');
+
+        return view('vocabulary', compact('category', 'categories'));
     }
 
     public function getShowVocabulary($categorySlug)

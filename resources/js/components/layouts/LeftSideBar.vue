@@ -39,13 +39,10 @@ export default {
     data() {
         return {}
     },
-    // created() {
-    //     console.log(this.categories);
-    // },
     computed: {
         categoryType() {
             for (const category of this.categories) {
-                if (window.location.pathname == '/vocabulary') {
+                if (category.slug) {
                     return '/vocabulary/';
                 } else if (category.type == 'App\\Quote') {
                     return '/quotes/';

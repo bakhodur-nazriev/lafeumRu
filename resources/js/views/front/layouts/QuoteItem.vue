@@ -11,7 +11,7 @@
 
         <v-card-text class="px-6 py-3">
             <p class="subtitle-1">{{ item.body }}</p>
-            <div class="mb-2">
+            <div class="my-2">
                 <a
                     class="d-flex align-items-center text-decoration-none author-show-link"
                     :href="`/authors/` + item.author.slug"

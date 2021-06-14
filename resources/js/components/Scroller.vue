@@ -1,7 +1,7 @@
 <template>
-    <v-col class="scrollBlock" v-if="scroll > 280">
+    <v-col class="scrollBlock" v-if="scroll > 320">
         <v-btn class="my-1" small fab color="primary" v-scroll-to="'header'">
-            <v-icon>mdi-arrow-up</v-icon>
+            <v-icon color="white">mdi-arrow-up</v-icon>
         </v-btn>
         <v-btn class="my-1" small fab color="primary" v-scroll-to="'footer'">
             <v-icon>mdi-arrow-down</v-icon>

@@ -1,6 +1,6 @@
 <template>
     <v-col xl="5" lg="6">
-        <h5 class="text-uppercase font-weight-regular py-2 mb-0">Цитаты и Афоризмы</h5>
+        <h5 class="text-uppercase font-weight-regular pt-4 pb-2 mb-0">Цитаты и Афоризмы</h5>
         <p class="mb-4">
             Лучшие цитаты, афоризмы и высказывания великих ученых и мыслителей,
             и успешных людей на тематику сайта.

@@ -3,7 +3,7 @@
         padless
         color="primary"
     >
-        <v-row>
+        <v-row class="ma-0">
             <v-col cols="12">
                 <v-card-text class="d-flex flex-column align-center">
                     <div class="mb-3">
@@ -30,7 +30,7 @@
                     <v-divider class="footer-divider grey lighten-5 my-0 mr-9 ml-8"></v-divider>
                 </v-col>
             </v-row>
-            
+
             <v-col cols="12">
                 <v-card-text class="d-flex justify-content-around align-items-center">
                     <span class="text-white">© 2017 - {{

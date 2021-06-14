@@ -1,6 +1,6 @@
 <template>
     <v-col xl="9" lg="12">
-        <h5 class="text-uppercase font-weight-regular py-4">фотографии</h5>
+        <h5 class="text-uppercase font-weight-regular py-4 px-0">фотографии</h5>
         <v-row align="center">
             <v-col cols="12" class="d-flex justify-center" v-if="loading">
                 <v-progress-circular
@@ -10,6 +10,7 @@
                     color="primary"
                 ></v-progress-circular>
             </v-col>
+
             <v-row align="center" v-else>
                 <v-col
                     cols="3"
@@ -18,6 +19,8 @@
                 >
                     <list-of-photo :item="photo"></list-of-photo>
                 </v-col>
+
+
             </v-row>
             <v-col cols="12">
                 <v-pagination

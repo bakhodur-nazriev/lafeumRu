@@ -1,24 +1,26 @@
-// import {req} from "vuelidate/lib/validators/common";
+import {req} from "vuelidate/lib/validators/common";
 
 require("./constants");
 
 import Vue from "vue";
 import Vuetify from "vuetify";
 import Vuelidate from "vuelidate"
-import "vuetify/dist/vuetify.min.css";
 import "@mdi/font/css/materialdesignicons.css";
+import "vuetify/dist/vuetify.min.css";
 import frontApp from "./components/frontApp";
 import backApp from "./components/backApp";
 import router from "./router.js";
 import ru from 'vuetify/es5/locale/ru'
-import Embed from 'v-video-embed'
 import VueScrollTo from 'vue-scrollto'
+
+
+// import {req} from "vuelidate/lib/validators/common";
 
 require("./bootstrap");
 window.Vue = require("vue");
 
 const vuetifyOptions = {
-    icons: {
+    icon: {
         iconfont: "mdi"
     },
     theme: {
@@ -56,7 +58,6 @@ window.Event = new (class {
 Vue.use("draggable");
 Vue.use(Vuetify);
 Vue.use(Vuelidate);
-Vue.use(Embed);
 Vue.use(VueScrollTo)
 
 // You can also pass in the default options
@@ -65,6 +66,7 @@ Vue.use(VueScrollTo, {
     duration: 500,
     easing: "ease",
     offset: 0,
+    width: 14,
     force: true,
     cancelable: true,
     onStart: false,

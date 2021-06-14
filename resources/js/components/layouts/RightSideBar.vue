@@ -18,8 +18,9 @@
                 ></v-card-text>
                 <v-card-actions class="justify-content-end">
                     <a href="/quotes" class="more-button">
-                        <v-icon color="black" small>mdi-chevron-right</v-icon>
+                        <v-icon small>mdi-chevron-right</v-icon>
                     </a>
+                    <v-icon small>mdi-</v-icon>
                 </v-card-actions>
             </div>
 
@@ -42,12 +43,14 @@
             <div class="pa-5 pb-0">
                 <v-card-title class="subtitle-2 font-weight-bold pa-0">Видео дня</v-card-title>
                 <v-divider></v-divider>
-                <v-card-text class="pa-0 mb-3">
-                    <video-embed :src="video.embeded_link"></video-embed>
+                <v-card-text class="pa-0 mb-2">
+                    <v-col class="text-right pa-0">
+                        <img class="img-thumbnail" :src="video.thumbnail"/>
+                        <span class="video-duration-block">{{ video.duration + ':00' }}</span>
+                    </v-col>
+                    <!--                    <iframe :src="video.embeded_link"></iframe>-->
                 </v-card-text>
-                <v-card-title
-                    class="subtitle-2 font-weight-medium pa-0 title-break-word"
-                >
+                <v-card-title class="subtitle-2 font-weight-medium pa-0 title-break-word">
                     {{ video.title }}
                 </v-card-title>
                 <v-card-actions class="justify-content-end">
@@ -136,5 +139,17 @@ export default {
     display: -webkit-box;
     -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
+}
+
+.video-duration-block {
+    font-size: 12px;
+    background-color: black;
+    color: white;
+    border-radius: 10%;
+    padding: 0 5px;
+    font-weight: 600;
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
 }
 </style>

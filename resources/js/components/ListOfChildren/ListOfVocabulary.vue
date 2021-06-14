@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <h1 class="vocabulary-letter text-decoration-none pt-4 pb-2">{{ item.group }}</h1>
+    <div class="mb-2">
+        <h1 class="vocabulary-letter text-decoration-none mb-0">{{ item.group }}</h1>
         <div>
             <div :class="{'truncate-to-seventeen-line': isActive}">
                 <a
@@ -11,7 +11,6 @@
                     target="_blank">
                     {{ child.name }}
                 </a>
-                <br/>
             </div>
             <div v-if="item.children.length >= 17" class="text-right mt-4">
                 <v-btn

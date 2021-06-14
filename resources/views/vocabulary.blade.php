@@ -8,6 +8,6 @@
 {{--@endsection--}}
 
 @section("content")
-    @include('layouts.left-sidebar.leftSideBar', ['type' => 'App\Term'])
+    @include('layouts.left-sidebar.leftSideBar')
     <vocabulary></vocabulary>
 @endsection

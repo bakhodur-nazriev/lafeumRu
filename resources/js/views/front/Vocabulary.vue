@@ -1,11 +1,11 @@
 <template>
     <v-col xl="5" lg="6" class="px-5">
         <div v-if="category.slug">
-            <h3>{{ category.name }}</h3>
+            <h3 class="pt-4 pb-2">{{ category.name }}</h3>
             <p>{{ category.description }}</p>
         </div>
         <div v-else>
-            <h5 class="text-uppercase font-weight-regular py-4">Словарь «ЛАФЕЮМ»</h5>
+            <h5 class="text-uppercase font-weight-regular pt-4 pb-2">Словарь «ЛАФЕЮМ»</h5>
             <p class="grey--text">
                 На сегодня содержит более одной тысячи основных терминов, соответствующих
                 тематике сайта. Для удобства термины дополнительно разбиты на темы.
@@ -48,7 +48,7 @@
             </h5>
         </v-col>
 
-        <h5 class="text-uppercase font-weight-regular ml-1">все слова</h5>
+        <h5 class="text-uppercase font-weight-regular ml-1 mb-4">все слова</h5>
         <v-col cols="12" class="d-flex justify-center" v-if="loading">
             <v-progress-circular
                 width="5"
@@ -104,7 +104,6 @@ export default {
                         this.category = res.data[0];
                         this.terms = res.data[1];
                     }
-                    console.log(res.data);
                 })
                 .catch(err => {
                     this.loading = false;

@@ -1,6 +1,6 @@
 <template>
     <v-col xl="7" lg="9">
-        <h5 class="text-uppercase font-weight-regular py-4 ">Области знаний</h5>
+        <h5 class="text-uppercase font-weight-regular pt-4 pb-2">Области знаний</h5>
         <p class="grey--text">В этой рубрике термины и комментарии специалистов классифицированы
             <br/>более развернуто по группам и направлениям.
         </p>

@@ -1,6 +1,6 @@
 <template>
     <v-col xl="5" lg="6">
-        <h5 class="text-uppercase font-weight-regular py-4 mx-4 mb-0">Видео</h5>
+        <h5 class="text-uppercase font-weight-regular py-4 mx-4 mb-2">Видео</h5>
         <v-col cols="12" v-if="loading" class="d-flex justify-center">
             <v-progress-circular
                 width="5"
@@ -9,7 +9,7 @@
                 color="primary"
             ></v-progress-circular>
         </v-col>
-        <v-col cols="12" v-else>
+        <v-col cols="12" v-else class="pa-0">
             <video-item
                 v-for="(video,i) in videos.data"
                 :key="i"
@@ -44,7 +44,7 @@ export default {
     name: "Videos",
     data() {
         return {
-            videos: {},
+            videos: [],
             loading: false,
             pagination: {
                 current: 1,
@@ -57,7 +57,8 @@ export default {
             this.loading = true;
             axios
                 .get("/api/videos?page=" + this.pagination.current)
-                .then(res => {
+                .then((res) => {
+                    console.log(res.data);
                     this.loading = false;
                     this.videos = res.data;
                     this.pagination.current = res.data.current_page;

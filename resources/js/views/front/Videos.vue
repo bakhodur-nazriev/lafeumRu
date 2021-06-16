@@ -35,6 +35,43 @@
                 @input="onPageChange"
             ></v-pagination>
         </v-col>
+
+
+        <!--        <v-dialog-->
+        <!--            v-model="dialog"-->
+        <!--            width="700"-->
+        <!--        >-->
+        <!--            <template v-slot:activator="{ on, attrs }">-->
+        <!--                <v-btn-->
+        <!--                    color="primary lighten-2"-->
+        <!--                    dark-->
+        <!--                    v-bind="attrs"-->
+        <!--                    v-on="on"-->
+        <!--                >-->
+        <!--                    Click Me-->
+        <!--                </v-btn>-->
+        <!--            </template>-->
+
+        <!--            <v-card>-->
+        <!--                <v-card-title class="text-h6 grey lighten-2 d-flex justify-content-between">-->
+        <!--                    <span>{{ video.title }}</span>-->
+        <!--                    <v-btn icon @click="dialog = false">-->
+        <!--                        <v-icon>mdi-close</v-icon>-->
+        <!--                    </v-btn>-->
+        <!--                </v-card-title>-->
+
+        <!--                <v-card-text>-->
+        <!--                    <iframe-->
+        <!--                        class="video-iframe h-100 w-100"-->
+        <!--                        :src="video.embeded_link + `?enablejsapi=1`"-->
+        <!--                        frameborder="0"-->
+        <!--                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"-->
+        <!--                        allowfullscreen=""-->
+        <!--                    ></iframe>-->
+        <!--                </v-card-text>-->
+        <!--            </v-card>-->
+        <!--        </v-dialog>-->
+
     </v-col>
 </template>
 
@@ -58,7 +95,6 @@ export default {
             axios
                 .get("/api/videos?page=" + this.pagination.current)
                 .then((res) => {
-                    console.log(res.data);
                     this.loading = false;
                     this.videos = res.data;
                     this.pagination.current = res.data.current_page;
@@ -81,7 +117,4 @@ export default {
 </script>
 
 <style scoped>
-.title-color {
-    color: #000;
-}
 </style>

@@ -2,7 +2,7 @@
 
 @section('content')
     <login></login>
-{{--    <div class="row justify-content-center">--}}
+    {{--    <div class="row justify-content-center">--}}
     {{--        <div class="col-md-6 my-3">--}}
     {{--            <h4 class="title-pages">логин</h4>--}}
     {{--        </div>--}}
@@ -36,8 +36,8 @@
     {{--                        >--}}
     {{--                        @error('email')--}}
     {{--                        <span class="invalid-feedback" role="alert">--}}
-    {{--            <strong>{{ $message }}</strong>--}}
-    {{--                        </span>--}}
+    {{--                <strong>{{ $message }}</strong>--}}
+    {{--                            </span>--}}
     {{--                        @enderror--}}
     {{--                    </div>--}}
     {{--                </div>--}}
@@ -60,8 +60,8 @@
     {{--                        >--}}
     {{--                        @error('password')--}}
     {{--                        <span class="invalid-feedback" role="alert">--}}
-    {{--            <strong>{{ $message }}</strong>--}}
-    {{--                        </span>--}}
+    {{--                <strong>{{ $message }}</strong>--}}
+    {{--                            </span>--}}
     {{--                        @enderror--}}
     {{--                    </div>--}}
     {{--                </div>--}}

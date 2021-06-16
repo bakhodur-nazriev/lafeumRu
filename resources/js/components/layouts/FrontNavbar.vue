@@ -5,7 +5,7 @@
         class="primary"
     >
         <v-row justify="center" class="align-content-center h-100">
-            <v-col lg="9" xl="9" class="d-flex justify-content-between py-0 h-100">
+            <v-col lg="9" xl="8" class="d-flex justify-content-between py-0 h-100 px-0">
                 <div class="d-flex align-items-center">
                     <div
                         v-for="link in links"

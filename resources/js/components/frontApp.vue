@@ -1,7 +1,12 @@
 <template>
-    <v-app>
+    <v-app class="grey lighten-3">
         <navbar/>
-        <h1>Just Test</h1>
+
+
+        <v-main class="mx-4 my-2">
+            <router-view/>
+        </v-main>
+
     </v-app>
 </template>
 
@@ -10,7 +15,10 @@ import navbar from "./layouts/FrontNavbar";
 
 export default {
     components: {navbar},
-    name: "frontApp"
+    name: "frontApp",
+    data() {
+        return {}
+    }
 }
 
 </script>

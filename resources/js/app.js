@@ -130,8 +130,8 @@ const app = new Vue({
     router,
     el: "#app",
     components: {
-        frontApp,
-        backApp
+        backApp,
+        frontApp
     },
     vuetify: new Vuetify(vuetifyOptions)
 });

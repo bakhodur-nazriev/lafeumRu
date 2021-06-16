@@ -40,28 +40,57 @@
             </div>
 
             <!-- Video section -->
-            <div class="pa-5 pb-0">
-                <v-card-title class="subtitle-2 font-weight-bold pa-0">Видео дня</v-card-title>
-                <v-divider></v-divider>
-                <v-card-text class="pa-0 mb-2">
-                    <v-col class="text-right pa-0">
-                        <img class="img-thumbnail" :src="video.thumbnail"/>
-                        <span class="video-duration-block">{{ video.duration + ':00' }}</span>
-                    </v-col>
-                    <!--                    <iframe :src="video.embeded_link"></iframe>-->
-                </v-card-text>
-                <v-card-title class="subtitle-2 font-weight-medium pa-0 title-break-word">
-                    {{ video.title }}
-                </v-card-title>
-                <v-card-actions class="justify-content-end">
-                    <a href="/videos" class="more-button">
-                        <v-icon color="black" small>mdi-chevron-right</v-icon>
-                    </a>
-                </v-card-actions>
-            </div>
+            <v-dialog v-model="dialogVideo" width="900">
+                <template v-slot:activator="{ on, attrs }">
+                    <div class="pa-5 pb-0">
+                        <v-card-title class="subtitle-2 font-weight-bold pa-0">Видео дня</v-card-title>
+                        <v-divider></v-divider>
+                        <v-card-text
+                            v-on="on"
+                            v-bind="attrs"
+                            class="pa-0 mb-2"
+                        >
+                            <v-col class="text-right pa-0">
+                                <img class="img-thumbnail" :src="video.thumbnail"/>
+                                <span class="video-duration-block">{{ video.duration + ':00' }}</span>
+                            </v-col>
+                        </v-card-text>
+                        <v-card-title class="subtitle-2 font-weight-medium pa-0 title-break-word">
+                            {{ video.title }}
+                        </v-card-title>
+                        <v-card-actions class="justify-content-end">
+                            <a href="/videos" class="more-button">
+                                <v-icon color="black" small>mdi-chevron-right</v-icon>
+                            </a>
+                        </v-card-actions>
+                    </div>
+                </template>
+                <v-card>
+                    <v-card-title class="title grey lighten-2 py-3 px-4">
+                        <span>{{ video.title }}</span>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                            icon
+                            @click="dialogVideo = false"
+                        >
+                            <v-icon>mdi-close</v-icon>
+                        </v-btn>
+                    </v-card-title>
+
+                    <v-card-text class="pa-6 pb-5">
+                        <iframe
+                            class="video-iframe"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen=""
+                            :src="video.embeded_link"
+                        ></iframe>
+                    </v-card-text>
+                </v-card>
+            </v-dialog>
 
             <!-- Photo Section -->
-            <v-dialog v-model="dialog" width="1000">
+            <v-dialog v-model="dialogPhoto" width="1000">
                 <template v-slot:activator="{ on, attrs }">
                     <div class="pa-5">
                         <v-card-title class="subtitle-2 font-weight-bold pa-0">Фотография дня</v-card-title>
@@ -89,7 +118,7 @@
                         <v-spacer></v-spacer>
                         <v-btn
                             icon
-                            @click="dialog = false"
+                            @click="dialogPhoto = false"
                         >
                             <v-icon>mdi-close</v-icon>
                         </v-btn>
@@ -115,13 +144,19 @@ export default {
             term: this.dailyPosts.term,
             video: this.dailyPosts.video,
             photo: this.dailyPosts.photo,
-            dialog: false
+            dialogVideo: false,
+            dialogPhoto: false
         }
     }
 }
 </script>
 
 <style scoped>
+.video-iframe {
+    width: 100%;
+    height: 50vh;
+}
+
 .title-break-word {
     word-break: break-word;
 }
@@ -151,5 +186,9 @@ export default {
     position: absolute;
     right: 8px;
     bottom: 8px;
+}
+
+.img-thumbnail {
+    width: 100%;
 }
 </style>

@@ -84,7 +84,7 @@
 
             <v-card-text>
                 <iframe
-                    class="video-iframe"
+                    class="video-iframe pt-5"
                     frameborder="0"
                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen=""
@@ -112,6 +112,11 @@ export default {
 </script>
 
 <style scoped>
+.video-iframe {
+    width: 100%;
+    height: 50vh;
+}
+
 .video-duration-block {
     font-size: 12px;
     background-color: black;

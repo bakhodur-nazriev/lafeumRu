@@ -66,15 +66,13 @@
                     </div>
                 </template>
                 <v-card>
-                    <v-card-title class="title grey lighten-2 py-3 px-4">
-                        <span>{{ video.title }}</span>
-                        <v-spacer></v-spacer>
-                        <v-btn
-                            icon
-                            @click="dialogVideo = false"
-                        >
-                            <v-icon>mdi-close</v-icon>
-                        </v-btn>
+                    <v-card-title class="grey lighten-2 py-3 px-4 ">
+                        <div class="d-flex align-center justify-content-between w-100">
+                            <span class="subtitle-1 font-weight-medium">{{ video.title }}</span>
+                            <v-btn icon @click="dialogVideo = false">
+                                <v-icon>mdi-close</v-icon>
+                            </v-btn>
+                        </div>
                     </v-card-title>
 
                     <v-card-text class="pa-6 pb-5">
@@ -124,10 +122,12 @@
                         </v-btn>
                     </v-card-title>
 
-                    <v-img
-                        :src="photo.path"
-                        :alt="photo.description"
-                    ></v-img>
+                    <v-card-text class="pt-5">
+                        <v-img
+                            :src="photo.path"
+                            :alt="photo.description"
+                        ></v-img>
+                    </v-card-text>
                 </v-card>
             </v-dialog>
         </v-card>

@@ -11,7 +11,6 @@ import frontApp from "./components/frontApp";
 import backApp from "./components/backApp";
 import router from "./router.js";
 import ru from 'vuetify/es5/locale/ru'
-import VueScrollTo from 'vue-scrollto'
 
 
 // import {req} from "vuelidate/lib/validators/common";
@@ -58,23 +57,6 @@ window.Event = new (class {
 Vue.use("draggable");
 Vue.use(Vuetify);
 Vue.use(Vuelidate);
-Vue.use(VueScrollTo)
-
-// You can also pass in the default options
-Vue.use(VueScrollTo, {
-    container: "body",
-    duration: 500,
-    easing: "ease",
-    offset: 0,
-    width: 14,
-    force: true,
-    cancelable: true,
-    onStart: false,
-    onDone: false,
-    onCancel: false,
-    x: false,
-    y: true
-})
 
 /* Views */
 Vue.component("default", require("./views/front/Default").default);

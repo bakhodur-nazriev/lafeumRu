@@ -1,21 +1,56 @@
 <template>
-    <v-card
-        flat
-        rounded="lg"
-        max-width="315"
-        min-height="370"
-        class="d-flex flex-column justify-content-between pa-3"
+    <v-dialog
+        v-model="photoDialog"
+        width="900"
     >
-        <v-card-text class="photo-content">
-            <v-img min-height="175" max-height="175" class="d-flex" :src="photo.path"></v-img>
-            <div class="text-left w-100">
-                <v-card-title class="photo-title px-0 mb-1">{{ photo.title }}</v-card-title>
-                <v-card-subtitle class="px-0 pb-0 truncate-to-four-line">
-                    {{ photo.description }}
-                </v-card-subtitle>
-            </div>
-        </v-card-text>
-    </v-card>
+        <template v-slot:activator="{ on, attrs }">
+            <v-card
+                flat
+                rounded="lg"
+                max-width="315"
+                min-height="370"
+                class="d-flex flex-column justify-content-between pa-3"
+            >
+                <v-card-text class="photo-content" v-bind="attrs"
+                             v-on="on">
+                    <v-img
+                        min-height="175"
+                        max-height="175"
+                        class="d-flex"
+                        :src="photo.path"
+                    ></v-img>
+                    <div class="text-left w-100">
+                        <v-card-title class="photo-title px-0 mb-1">{{ photo.title }}</v-card-title>
+                        <v-card-subtitle class="px-0 pb-0 truncate-to-four-line">
+                            {{ photo.description }}
+                        </v-card-subtitle>
+                    </div>
+                </v-card-text>
+            </v-card>
+        </template>
+
+        <v-card>
+            <v-card-title class="title grey lighten-2 py-3 px-4">
+                <v-spacer></v-spacer>
+                <v-btn icon @click="photoDialog = false">
+                    <v-icon>mdi-close</v-icon>
+                </v-btn>
+            </v-card-title>
+
+            <v-card-text class="pt-5">
+                <v-img
+                    class="d-flex"
+                    :src="photo.path"
+                ></v-img>
+                <div class="text-left w-100">
+                    <v-card-title class="photo-title px-0 mb-1">{{ photo.title }}</v-card-title>
+                    <v-card-subtitle class="px-0 pb-0 truncate-to-four-line">
+                        {{ photo.description }}
+                    </v-card-subtitle>
+                </div>
+            </v-card-text>
+        </v-card>
+    </v-dialog>
 </template>
 
 <script>
@@ -24,7 +59,7 @@ export default {
     props: ["item"],
     data() {
         return {
-            dialog: false,
+            photoDialog: false,
             photo: this.item
         }
     }

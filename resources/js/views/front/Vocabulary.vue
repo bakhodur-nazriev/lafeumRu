@@ -62,9 +62,9 @@
             <v-col cols="6" v-for="(vocabulary, i) in filteredVocabulary" :key="i">
                 <v-card rounded="lg" class="px-8 py-5" flat>
                     <v-card-text
-                        class="pa-1"
                         v-for="(term ,i) in vocabulary"
                         :key="i"
+                        class="pa-1"
                     >
                         <list-of-vocabulary :item="term"></list-of-vocabulary>
                     </v-card-text>
@@ -105,7 +105,7 @@ export default {
                         this.terms = res.data[1];
                     }
                 })
-                .catch(err => {
+                .catch((err) => {
                     this.loading = false;
                     console.log(err)
                 })

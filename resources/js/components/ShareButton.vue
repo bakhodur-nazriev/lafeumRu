@@ -45,7 +45,10 @@ export default {
             appUrl: process.env.MIX_APP_URL,
         }
     },
-    mounted() {
+    created() {
+        console.log(process.env.MIX_APP_URL);
+    },
+    updated() {
         document.querySelector('.share-button__icon[data-v-7db37067]').setAttribute('width', '16');
         document.querySelector('.share-button__icon[data-v-8d0542ae]').setAttribute('width', '16');
         document.querySelector('.share-button__icon[data-v-cbff2028]').setAttribute('width', '16');

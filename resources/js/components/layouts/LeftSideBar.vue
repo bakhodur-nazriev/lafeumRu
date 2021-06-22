@@ -41,8 +41,10 @@ export default {
     },
     computed: {
         categoryType() {
+            let linkPrefix = window.location.pathname;
+
             for (const category of this.categories) {
-                if (category.slug) {
+                if (linkPrefix.includes('/vocabulary')) {
                     return '/vocabulary/';
                 } else if (category.type == 'App\\Quote') {
                     return '/quotes/';

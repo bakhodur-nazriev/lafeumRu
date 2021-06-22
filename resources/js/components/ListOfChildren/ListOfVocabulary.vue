@@ -3,14 +3,26 @@
         <h1 class="vocabulary-letter text-decoration-none mb-0">{{ item.group }}</h1>
         <div>
             <div :class="{'truncate-to-seventeen-line': isActive}">
-                <a
+                <v-hover
+                    v-slot="{ hover }"
                     v-for="(child ,i) in item.children"
                     :key="i"
-                    class="vocabulary-words text-decoration-none d-block"
-                    :href="child.post.id"
-                    target="_blank">
-                    {{ child.name }}
-                </a>
+                >
+                    <a
+                        :href="'/' + child.post.id"
+                        target="_blank"
+                        class="vocabulary-words text-decoration-none d-block"
+                    >
+                        <span>{{ child.name }}</span>
+                        <v-card
+                            elevation="18"
+                            class="vocabulary-body rounded-lg pa-3"
+                            v-show="hover"
+                        >
+                            <div v-html="child.body" style="overflow: hidden; max-height: 175px;"></div>
+                        </v-card>
+                    </a>
+                </v-hover>
             </div>
             <div v-if="item.children.length >= 17" class="text-right mt-4">
                 <v-btn
@@ -23,6 +35,7 @@
                 </v-btn>
             </div>
         </div>
+
     </div>
 
 </template>
@@ -33,7 +46,8 @@ export default {
     props: ["item"],
     data() {
         return {
-            isActive: true
+            isActive: true,
+            showTerm: false
         }
     },
     methods: {
@@ -45,6 +59,13 @@ export default {
 </script>
 
 <style scoped>
+.vocabulary-body {
+    position: absolute;
+    background-color: #fff;
+    margin-top: 3px;
+    z-index: 1000;
+}
+
 .toggle-button {
     min-width: 30px !important;
     border: 2px solid #494949;

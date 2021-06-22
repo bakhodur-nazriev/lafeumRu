@@ -105,13 +105,9 @@ class CategoriesController extends Controller
 
     public function showVocabulary($categorySlug)
     {
-        $category = Category::where('type', Term::class)
-            ->where('slug', $categorySlug)
-            ->first();
-
         $categories = Category::term()->get()->toTree()->unique('name');
 
-        return view('vocabulary', compact('category', 'categories'));
+        return view('vocabulary', compact('categories'));
     }
 
     public function getShowVocabulary($categorySlug)

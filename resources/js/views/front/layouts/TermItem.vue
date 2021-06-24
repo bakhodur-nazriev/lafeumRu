@@ -36,11 +36,10 @@
             <p class="subtitle-1" v-html="item.body" ref="termBody"></p>
             <v-card
                 elevation="18"
-                class="rounded-lg"
-                style="position: absolute; z-index: 10;"
+                class="term-modal-card rounded-lg pa-4"
                 v-show="showTermOfModal"
             >
-                <v-card-text v-html="termOfModal.extract_html"></v-card-text>
+                <v-card-text class="term-modal-card-text pa-0" v-html="termOfModal.extract_html"></v-card-text>
             </v-card>
             <div class="categories-block mt-2">
                 <a
@@ -91,15 +90,17 @@ export default {
         }
     },
     mounted() {
+        let lol = new RegExp('/[/0-9/]*$/');
         let links = Array
             .from(this.$refs.termBody.querySelectorAll('a'))
-            .filter(el => !el.getAttribute('href').includes('https://'));
+            .filter(el => !el.getAttribute('href').includes(lol));
 
         if (links.length) {
             links.forEach((link, index) => {
                 if (index) {
+                    console.log(index, link);
                     link.onmouseover = async (e) => {
-                        let url = '/api/summary' + `${e.target.getAttribute('href')}`;
+                        let url = '/api/summary/' + `${e.target.getAttribute('href')}`;
                         let res = await axios.get(url);
                         if (res) {
                             this.termOfModal = res.data;
@@ -108,7 +109,7 @@ export default {
                         }
                     };
                     link.onmouseout = () => {
-                        this.showTermOfModal = false;
+                        this.showTermOfModal = true;
                     };
                 }
             })
@@ -118,4 +119,14 @@ export default {
 </script>
 
 <style scoped>
+.term-modal-card-text {
+    overflow: hidden;
+    max-height: 29vh;
+    font-size: 15px;
+}
+
+.term-modal-card {
+    position: absolute;
+    z-index: 10;
+}
 </style>

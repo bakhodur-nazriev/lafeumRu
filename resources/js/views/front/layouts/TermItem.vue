@@ -90,10 +90,10 @@ export default {
         }
     },
     mounted() {
-        let lol = new RegExp('/[/0-9/]*$/');
+        let href = new RegExp('\\/(\\d+\\/)$');
         let links = Array
             .from(this.$refs.termBody.querySelectorAll('a'))
-            .filter(el => !el.getAttribute('href').includes(lol));
+            .filter(el => href.test(el.getAttribute('href')));
 
         if (links.length) {
             links.forEach((link, index) => {
@@ -104,7 +104,7 @@ export default {
                         let res = await axios.get(url);
                         if (res) {
                             this.termOfModal = res.data;
-                            this.showTermOfModal = true;
+                            this.showTermOfModal = false;
                             console.log(res);
                         }
                     };

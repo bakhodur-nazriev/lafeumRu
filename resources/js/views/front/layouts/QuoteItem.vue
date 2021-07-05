@@ -10,7 +10,7 @@
         <v-divider class="m-0 grey lighten-3"></v-divider>
 
         <v-card-text class="px-6 py-3">
-            <p class="subtitle-1">{{ item.body }}</p>
+            <p class="subtitle-1" v-html="item.body"></p>
             <div class="my-2">
                 <a
                     class="d-flex align-items-center text-decoration-none author-show-link"

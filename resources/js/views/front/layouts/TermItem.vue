@@ -32,8 +32,7 @@
 
         <v-divider class="m-0 grey lighten-3"></v-divider>
 
-        <v-card-text class="px-6 py-4" ref="termItem">
-            <p class="subtitle-1" v-html="item.body" ref="termBody"></p>
+        <v-card-text class="px-6 py-4 d-block" ref="termItem">
             <v-card
                 elevation="18"
                 class="term-modal-card rounded-lg pa-4"
@@ -41,6 +40,7 @@
             >
                 <v-card-text class="term-modal-card-text pa-0" v-html="termOfModal.extract_html"></v-card-text>
             </v-card>
+            <div class="subtitle-1" v-html="item.body" ref="termBody"></div>
             <div class="categories-block mt-2">
                 <a
                     class="mr-2 grey--text text-decoration-none"
@@ -97,19 +97,19 @@ export default {
 
         if (links.length) {
             links.forEach((link, index) => {
-                if (index) {
-                    console.log(index, link);
+                if (link) {
                     link.onmouseover = async (e) => {
+                        console.log(index, link);
                         let url = '/api/summary/' + `${e.target.getAttribute('href')}`;
                         let res = await axios.get(url);
                         if (res) {
                             this.termOfModal = res.data;
-                            this.showTermOfModal = false;
+                            this.showTermOfModal = true;
                             console.log(res);
                         }
                     };
                     link.onmouseout = () => {
-                        this.showTermOfModal = true;
+                        this.showTermOfModal = false;
                     };
                 }
             })
@@ -127,6 +127,8 @@ export default {
 
 .term-modal-card {
     position: absolute;
+    left: 25px;
+    right: 25px;
     z-index: 10;
 }
 </style>

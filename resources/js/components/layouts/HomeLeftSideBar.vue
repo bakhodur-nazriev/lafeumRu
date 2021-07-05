@@ -2,18 +2,18 @@
     <v-col lg="3" xl="2">
         <h5 class="text-uppercase text-secondary font-weight-normal py-4">темы</h5>
         <v-sheet class="pa-2" rounded="lg" height="96%" width="100%">
-            <div v-for="(c, i) in count" :key="i">
+            <div v-for="(category, i) in allCategories" :key="i">
                 <!-- Category -->
                 <v-expansion-panels flat>
                     <v-expansion-panel>
                         <v-expansion-panel-header
                             class="font-weight-bold deep-expansion-panel-header"
                         >
-                            {{ allCategories[c].name }}
+                            {{ category.name }}
                         </v-expansion-panel-header>
                         <v-expansion-panel-content>
                             <div
-                                v-for="(postLink, i) in allCategories[c].post_links"
+                                v-for="(postLink, i) in category.post_links"
                                 :key="i"
                                 class="font-weight-normal"
                             >
@@ -32,7 +32,7 @@
                 <v-expansion-panels flat>
                     <v-expansion-panel
                         class="deep-expansion-panel"
-                        v-for="(subCategory, i) in allCategories[c].children"
+                        v-for="(subCategory, i) in category.children"
                         :key="i"
                     >
                         <v-expansion-panel-header
@@ -66,7 +66,6 @@ export default {
     data() {
         return {
             allCategories: this.categories,
-            count: [0, 1, 2, 3],
         };
     }
 };

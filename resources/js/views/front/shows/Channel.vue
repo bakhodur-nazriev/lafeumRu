@@ -3,7 +3,7 @@
         <h5 class="text-uppercase font-weight-regular py-4">Каналы</h5>
         <div class="mb-5">
             <h3 class="blue--text">{{ currentChannel.name }}</h3>
-            <h5 class="channel-description">{{ currentChannel.description }}</h5>
+            <h5 class="channel-description" v-html="currentChannel.description"></h5>
         </div>
 
         <v-col cols="12" class="d-flex justify-center" v-if="loading">

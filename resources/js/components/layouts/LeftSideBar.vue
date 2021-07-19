@@ -8,7 +8,7 @@
                 <v-list-item-content two-line>
                     <v-list-item-title class="mb-3">
                         <a
-                            class="font-weight-bold subtitle-1 category-links"
+                            class="font-weight-bold category-links"
                             :href="`${categoryType}` + category.slug"
                         >
                             {{ category.name }}
@@ -18,10 +18,11 @@
                     <v-list-item-subtitle
                         v-for="(subCategory, i) in category.children"
                         :key="i"
+                        class="mb-3"
                     >
                         <a
                             :href="`${categoryType}` + subCategory.slug"
-                            class="subtitle-1 category-links"
+                            class="category-links"
                         >
                             {{ subCategory.name }}
                         </a>
@@ -65,7 +66,9 @@ button:focus {
 }
 
 .category-links {
-    color: #676767;
+    color: #000;
+    padding: 0 7px;
+    font-size: 15px;
 }
 
 .category-links:hover {

@@ -1,6 +1,6 @@
 <template>
     <div class="mb-2">
-        <h1 class="vocabulary-letter text-decoration-none mb-0">{{ item.group }}</h1>
+        <h3 class="vocabulary-letter text-decoration-none mb-0">{{ item.group }}</h3>
         <div>
             <div :class="{'truncate-to-seventeen-line': isActive}">
                 <v-hover

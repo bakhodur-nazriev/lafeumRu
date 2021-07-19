@@ -45,30 +45,19 @@ export default {
             appUrl: process.env.MIX_APP_URL,
         }
     },
-    updated() {
-        document.querySelector('.share-button__icon[data-v-7db37067]').setAttribute('width', '16');
-        document.querySelector('.share-button__icon[data-v-8d0542ae]').setAttribute('width', '16');
-        document.querySelector('.share-button__icon[data-v-cbff2028]').setAttribute('width', '16');
-        document.querySelector('.share-button__icon[data-v-32004731]').setAttribute('width', '16');
-        document.querySelector('.share-button__icon[data-v-79361461]').setAttribute('width', '16');
-        document.querySelector('.share-button__icon[data-v-519b00aa]').setAttribute('width', '16');
-        document.querySelector('.share-button__icon[data-v-71655f98]').setAttribute('width', '16');
+    mounted() {
+        document.querySelectorAll('svg').forEach(elem =>
+            elem.setAttribute("width", '15')
+        );
+
+        document.querySelectorAll('.share-button').forEach(elem => {
+            elem.style.padding = "0"
+            elem.style.minWidth = "30px"
+            elem.style.minHeight = "30px"
+            elem.style.margin = "2px"
+        });
     },
 }
 </script>
 
-<style scoped>
-.share-button--circle[data-v-7db37067],
-.share-button--circle[data-v-8d0542ae],
-.share-button--circle[data-v-cbff2028],
-.share-button--circle[data-v-32004731],
-.share-button--circle[data-v-79361461],
-.share-button--circle[data-v-519b00aa],
-.share-button--circle[data-v-71655f98] {
-    margin: 1px;
-    padding: 0;
-    min-width: 28px;
-    min-height: 28px;
-}
-
-</style>
+<style scoped></style>

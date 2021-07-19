@@ -1,6 +1,6 @@
 <template>
-    <div class="mb-2">
-        <h3 class="vocabulary-letter text-decoration-none mb-0">{{ item.group }}</h3>
+    <div class="mb-0">
+        <h4 class="vocabulary-letter text-decoration-none mb-0 font-weight-bold">{{ item.group }}</h4>
         <div>
             <div :class="{'truncate-to-seventeen-line': isActive}">
                 <v-hover
@@ -24,7 +24,7 @@
                     </a>
                 </v-hover>
             </div>
-            <div v-if="item.children.length >= 17" class="text-right mt-4">
+            <div v-if="item.children.length >= 17" class="text-right mb-3">
                 <v-btn
                     text
                     small
@@ -81,6 +81,7 @@ export default {
 
 .vocabulary-letter {
     color: #494949;
+    font-size: 20px;
 }
 
 .vocabulary-words {

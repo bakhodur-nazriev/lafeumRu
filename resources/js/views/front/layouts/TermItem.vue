@@ -33,7 +33,23 @@
         <v-divider class="m-0 grey lighten-3"></v-divider>
 
         <v-card-text class="px-6 py-4 d-block" ref="termItem">
-            <div class="subtitle-1" v-html="item.body" ref="termBody"></div>
+            <v-col
+                :class="{'truncate-to-fifteen-line': isActive}"
+                class="subtitle-1 pa-0"
+                v-html="item.body" ref="termBody"
+            ></v-col>
+            <v-row class="text-right button-read-more">
+                <v-spacer></v-spacer>
+                <v-btn
+                    text
+                    class="ma-0 text-none"
+                    color="primary"
+                    plain
+                    @click="toggleVocabulary()"
+                >
+                    Читать дальше...
+                </v-btn>
+            </v-row>
             <v-card
                 elevation="18"
                 class="term-modal-card rounded-lg pa-4"
@@ -86,10 +102,27 @@ export default {
         return {
             item: this.term,
             termOfModal: "",
-            showTermOfModal: false
+            showTermOfModal: false,
+            isActive: true,
         }
     },
+    methods: {
+        toggleVocabulary() {
+            this.isActive = !this.isActive;
+        }
+    },
+
     mounted() {
+        document.querySelectorAll('.truncate-to-fifteen-line').forEach(el => {
+            if (el.textContent >= 250) {
+                document.querySelectorAll('.truncate-to-fifteen-line').forEach(btnEl => {
+                    btnEl.style.display = "none";
+                });
+            }
+            // if (el.style.height <= 10) {
+            // }
+        });
+
         let href = new RegExp('\\/(\\d+\\/)$');
         let links = Array
             .from(this.$refs.termBody.querySelectorAll('a'))
@@ -99,7 +132,6 @@ export default {
             links.forEach((link, index) => {
                 if (link) {
                     link.onmouseover = async (e) => {
-                        // console.log(link);
                         let url = '/api/summary' + `${e.target.getAttribute('href')}`;
                         let res = await axios.get(url);
                         if (res) {
@@ -118,6 +150,14 @@ export default {
 </script>
 
 <style scoped>
+.truncate-to-fifteen-line {
+    padding: 0;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 15;
+    -webkit-box-orient: vertical;
+}
+
 .term-modal-card-text {
     overflow: hidden;
     max-height: 29vh;

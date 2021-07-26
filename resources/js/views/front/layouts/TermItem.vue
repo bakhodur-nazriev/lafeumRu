@@ -32,7 +32,7 @@
 
         <v-divider class="m-0 grey lighten-3"></v-divider>
 
-        <v-card-text class="px-6 py-4 d-block" ref="termItem">
+        <v-card-text class="px-6 py-4 d-block main-content-body" ref="termItem">
             <v-col
                 :class="{'truncate-to-fifteen-line': isActive}"
                 class="subtitle-1 pa-0"
@@ -40,15 +40,14 @@
             ></v-col>
             <v-row class="text-right button-read-more">
                 <v-spacer></v-spacer>
-                <v-btn
-                    text
-                    class="ma-0 text-none"
-                    color="primary"
-                    plain
-                    @click="toggleVocabulary()"
-                >
-                    Читать дальше...
-                </v-btn>
+                <v-col>
+                    <a
+                        @click="toggleVocabulary()"
+                        class="text-primary text-decoration-none"
+                    >
+                        Читать дальше...
+                    </a>
+                </v-col>
             </v-row>
             <v-card
                 elevation="18"
@@ -57,7 +56,7 @@
             >
                 <v-card-text class="term-modal-card-text pa-0" v-html="termOfModal.extract_html"></v-card-text>
             </v-card>
-            <div class="categories-block mt-2">
+            <v-col class="categories-block mt-2 pa-0">
                 <a
                     class="mr-2 grey--text text-decoration-none"
                     v-for="(termCategories ,i) in item.categories"
@@ -67,7 +66,7 @@
                 >
                     {{ termCategories.name }}
                 </a>
-            </div>
+            </v-col>
         </v-card-text>
         <v-divider class="m-0 grey lighten-3"></v-divider>
         <v-card-actions class="px-4 py-2">
@@ -113,14 +112,10 @@ export default {
     },
 
     mounted() {
-        document.querySelectorAll('.truncate-to-fifteen-line').forEach(el => {
-            if (el.textContent >= 250) {
-                document.querySelectorAll('.truncate-to-fifteen-line').forEach(btnEl => {
-                    btnEl.style.display = "none";
-                });
+        document.querySelectorAll('.main-content-body').forEach(el => {
+            if (el.textContent.length < 1170) {
+                el.querySelector('.button-read-more').style.display = "none";
             }
-            // if (el.style.height <= 10) {
-            // }
         });
 
         let href = new RegExp('\\/(\\d+\\/)$');

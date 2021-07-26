@@ -9,8 +9,23 @@
 
         <v-divider class="m-0 grey lighten-3"></v-divider>
 
-        <v-card-text class="px-6 py-3">
-            <p class="subtitle-1" v-html="item.body"></p>
+        <v-card-text class="px-6 py-3 main-content-body">
+            <v-col
+                :class="{'truncate-to-fifteen-line': isActive}"
+                class="subtitle-1 pa-0"
+                v-html="item.body"
+            ></v-col>
+            <v-row class="text-right button-read-more">
+                <v-spacer></v-spacer>
+                <v-col>
+                    <a
+                        @click="toggleVocabulary()"
+                        class="text-primary text-decoration-none"
+                    >
+                        Читать дальше...
+                    </a>
+                </v-col>
+            </v-row>
             <div class="my-2">
                 <a
                     class="d-flex align-items-center text-decoration-none author-show-link"
@@ -60,8 +75,25 @@ export default {
     data() {
         return {
             item: this.quote,
+            isActive: true
         };
     },
+    created() {
+        console.log(this.quote);
+    },
+
+    methods: {
+        toggleVocabulary() {
+            this.isActive = !this.isActive;
+        }
+    },
+    mounted() {
+        document.querySelectorAll('.main-content-body').forEach(el => {
+            if (el.textContent.length < 1310) {
+                el.querySelector('.button-read-more').style.display = "none";
+            }
+        })
+    }
 };
 </script>
 
@@ -73,5 +105,13 @@ export default {
 
 .author-show-link:hover {
     color: #04718c;
+}
+
+.truncate-to-fifteen-line {
+    padding: 0;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 15;
+    -webkit-box-orient: vertical;
 }
 </style>

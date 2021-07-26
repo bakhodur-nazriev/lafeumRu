@@ -1,5 +1,7 @@
+.idea
 .vscode
 /node_modules
+/public/img/icons*
 /public/js/app.js
 /public/css/app.css
 /public/hot

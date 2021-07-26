@@ -64,7 +64,7 @@
                     <v-card-text
                         v-for="(term ,i) in vocabulary"
                         :key="i"
-                        class="pa-1"
+                        class="pa-1 pb-0"
                     >
                         <list-of-vocabulary :item="term"></list-of-vocabulary>
                     </v-card-text>

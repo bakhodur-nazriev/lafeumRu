@@ -17,12 +17,22 @@
             ></v-col>
             <v-row class="text-right button-read-more">
                 <v-spacer></v-spacer>
-                <v-col>
+                <v-col v-if="isActive == true">
                     <a
                         @click="toggleVocabulary()"
                         class="text-primary text-decoration-none"
                     >
                         Читать дальше...
+                        <v-icon small color="primary">mdi-chevron-down</v-icon>
+                    </a>
+                </v-col>
+                <v-col v-else>
+                    <a
+                        @click="toggleVocabulary()"
+                        class="text-primary text-decoration-none"
+                    >
+                        Скрыть
+                        <v-icon small color="primary">mdi-chevron-up</v-icon>
                     </a>
                 </v-col>
             </v-row>
@@ -78,9 +88,6 @@ export default {
             isActive: true
         };
     },
-    created() {
-        console.log(this.quote);
-    },
 
     methods: {
         toggleVocabulary() {
@@ -89,10 +96,12 @@ export default {
     },
     mounted() {
         document.querySelectorAll('.main-content-body').forEach(el => {
-            if (el.textContent.length < 1310) {
+            if (el.querySelector('.truncate-to-fifteen-line').textContent.replace(/\s/g, "").length <= 920) {
                 el.querySelector('.button-read-more').style.display = "none";
+            } else {
+                el.querySelector('.button-read-more').style.display = "block";
             }
-        })
+        });
     }
 };
 </script>

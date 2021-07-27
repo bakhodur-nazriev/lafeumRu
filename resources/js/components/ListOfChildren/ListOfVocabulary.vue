@@ -28,10 +28,20 @@
                 <v-btn
                     text
                     small
+                    v-if="isActive == true"
                     @click="toggleVocabulary()"
                     class="pa-0 toggle-button"
                 >
-                    <v-icon small>mdi-chevron-right</v-icon>
+                    <v-icon small>mdi-chevron-down</v-icon>
+                </v-btn>
+                <v-btn
+                    text
+                    small
+                    v-else
+                    @click="toggleVocabulary()"
+                    class="pa-0 toggle-button"
+                >
+                    <v-icon small>mdi-chevron-up</v-icon>
                 </v-btn>
             </div>
         </div>

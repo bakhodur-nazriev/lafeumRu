@@ -1,6 +1,15 @@
 <template>
     <v-card flat rounded="lg" class="mb-6">
-        <v-card-subtitle class="d-flex px-6 py-3">
+        <v-card-subtitle class="d-flex pl-4 pr-6 py-3 align-center">
+            <a
+                class="d-flex align-items-center text-decoration-none author-show-link"
+                :href="`/authors/` + item.author.slug"
+            >
+                <v-icon color="grey lighten-1">mdi-account</v-icon>
+                <h5 class="mb-0 ml-1 subtitle-1">
+                    {{ item.author.name }}
+                </h5>
+            </a>
             <v-spacer></v-spacer>
             <a class="grey--text text-decoration-none" :href="'/' + item.post.id">
                 #{{ item.post.id }}
@@ -12,41 +21,30 @@
         <v-card-text class="px-6 py-3 main-content-body">
             <v-col
                 :class="{'truncate-to-fifteen-line': isActive}"
-                class="subtitle-1 pa-0"
+                class="text-lg-justify subtitle-1 pa-0 mb-2"
                 v-html="item.body"
             ></v-col>
             <v-row class="text-right button-read-more">
                 <v-spacer></v-spacer>
                 <v-col v-if="isActive == true">
-                    <a
+                    <span
                         @click="toggleVocabulary()"
-                        class="text-primary text-decoration-none"
+                        class="read-more-btn"
                     >
                         Читать дальше...
-                        <v-icon small color="primary">mdi-chevron-down</v-icon>
-                    </a>
+                        <v-icon small color="grey">mdi-chevron-down</v-icon>
+                    </span>
                 </v-col>
                 <v-col v-else>
-                    <a
+                    <span
                         @click="toggleVocabulary()"
-                        class="text-primary text-decoration-none"
+                        class="read-more-btn"
                     >
                         Скрыть
-                        <v-icon small color="primary">mdi-chevron-up</v-icon>
-                    </a>
+                        <v-icon small color="grey">mdi-chevron-up</v-icon>
+                    </span>
                 </v-col>
             </v-row>
-            <div class="my-2">
-                <a
-                    class="d-flex align-items-center text-decoration-none author-show-link"
-                    :href="`/authors/` + item.author.slug"
-                >
-                    <v-icon color="grey lighten-1">mdi-account</v-icon>
-                    <h5 class="mb-0 ml-1 subtitle-1">
-                        {{ item.author.name }}
-                    </h5>
-                </a>
-            </div>
             <div class="categories-block">
                 <a
                     class="mr-2 grey--text text-decoration-none"
@@ -107,6 +105,16 @@ export default {
 </script>
 
 <style scoped>
+.read-more-btn {
+    font-size: 13px;
+    color: grey;
+}
+
+.read-more-btn:hover {
+    color: #04718c;
+    cursor: pointer;
+}
+
 .author-show-link {
     width: fit-content;
     color: #000;

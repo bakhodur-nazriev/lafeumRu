@@ -26,7 +26,6 @@ class UsersController extends Controller
         return User::with("role")->get();
     }
 
-
     public function update(User $user, Request $request)
     {
         $updatedUserData = $request->only(["name", "email", "country", "age", "gender", "hobby"]);

@@ -47,14 +47,14 @@ export default {
     },
     mounted() {
         document.querySelectorAll('svg').forEach(elem =>
-            elem.setAttribute("width", '15')
+            elem.setAttribute("width", '14')
         );
 
         document.querySelectorAll('.share-button').forEach(elem => {
-            elem.style.padding = "0"
-            elem.style.minWidth = "30px"
-            elem.style.minHeight = "30px"
-            elem.style.margin = "2px"
+            elem.style.padding = "0px"
+            elem.style.minWidth = "25px"
+            elem.style.minHeight = "25px"
+            elem.style.margin = "1px"
         });
     },
 }

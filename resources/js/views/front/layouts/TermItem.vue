@@ -35,28 +35,28 @@
         <v-card-text class="px-6 py-4 d-block main-content-body" ref="termItem">
             <v-col
                 :class="{'truncate-to-fifteen-line': isActive}"
-                class="subtitle-1 pa-0"
+                class="subtitle-1 pa-0 text-lg-justify"
                 v-html="item.body" ref="termBody"
             ></v-col>
             <v-row class="text-right button-read-more">
                 <v-spacer></v-spacer>
                 <v-col v-if="isActive == true">
-                    <a
+                    <span
                         @click="toggleVocabulary()"
-                        class="text-primary text-decoration-none"
+                        class="read-more-btn"
                     >
                         Читать далее...
-                        <v-icon small color="primary">mdi-chevron-down</v-icon>
-                    </a>
+                        <v-icon small color="grey">mdi-chevron-down</v-icon>
+                    </span>
                 </v-col>
                 <v-col v-else>
-                    <a
+                    <span
                         @click="toggleVocabulary()"
-                        class="text-primary text-decoration-none"
+                        class="read-more-btn"
                     >
                         Скрыть
-                        <v-icon small color="primary">mdi-chevron-up</v-icon>
-                    </a>
+                        <v-icon small color="grey">mdi-chevron-up</v-icon>
+                    </span>
                 </v-col>
             </v-row>
             <v-card
@@ -129,7 +129,7 @@ export default {
             }
         });
 
-        let href = new RegExp('\\/(\\d+\\/)$');
+        let href = new RegExp('\\/(\\d+)');
         let links = Array
             .from(this.$refs.termBody.querySelectorAll('a'))
             .filter(el => href.test(el.getAttribute('href')));
@@ -137,15 +137,15 @@ export default {
         if (links.length) {
             links.forEach((link, index) => {
                 if (link) {
-                    link.onmouseover = async (e) => {
-                        let url = '/api/summary' + `${e.target.getAttribute('href')}`;
+                    link.onmouseenter = async (e) => {
+                        let url = '/api/summary' + `${e.target.getAttribute('href').match(href)}`;
                         let res = await axios.get(url);
                         if (res) {
                             this.termOfModal = res.data;
                             this.showTermOfModal = true;
                         }
                     };
-                    link.onmouseout = () => {
+                    link.onmouseleave = () => {
                         this.showTermOfModal = false;
                     };
                 }
@@ -157,6 +157,16 @@ export default {
 </script>
 
 <style scoped>
+.read-more-btn {
+    font-size: 13px;
+    color: grey;
+}
+
+.read-more-btn:hover {
+    color: #04718c;
+    cursor: pointer;
+}
+
 .truncate-to-fifteen-line {
     padding: 0;
     overflow: hidden;

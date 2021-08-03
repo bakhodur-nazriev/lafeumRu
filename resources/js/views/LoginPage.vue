@@ -9,7 +9,7 @@
                 Добро пожаловать, мы ждали Вас !
             </div>
             <v-card-text class="pa-0">
-                <form ref="form" :action="appPath('login')" method="POST">
+                <v-form ref="form" :action="appPath('login')" method="POST">
                     <input type="hidden" name="_token" :value="csrf"/>
                     <div class="input-container">
                         <label class="input-label" for="email">Ваш Email</label>
@@ -91,30 +91,20 @@
                     </div>
                     <v-btn
                         color="submit-btn"
-                        @click="$refs.login.submit()"
+                        @click.prevent="submit"
                         class="text-capitalize rounded-lg text-decoration-none primary"
                         elevation="0"
                     >
                         вход
                     </v-btn>
 
-                    <form
-                        ref="login"
-                        action="/login"
-                        method="POST"
-                        style="display: none;"
-                    >
-                        <input type="hidden" name="_token" :value="csrf"/>
-                    </form>
-
-                    <div class="d-flex justify-content-center mt-5">
+                    <v-col class="d-flex justify-content-center mt-5">
                         <span class="grey--text lighten-1 mr-4">У вас нет аккаунта ?</span>
                         <a href="/register">Регистрация</a>
-                    </div>
-                </form>
+                    </v-col>
+                </v-form>
             </v-card-text>
         </v-card>
-        <div class="space"></div>
     </v-col>
 </template>
 
@@ -157,8 +147,6 @@ export default {
                     password: this.password,
                     remember: this.checked
                 }
-
-                // console.log(user)
             }
         },
         appPath(url) {

@@ -5,19 +5,18 @@
         class="primary"
     >
         <v-row justify="center" class="align-content-center h-100">
-            <v-col lg="9" xl="8" class="d-flex justify-content-between py-0 h-100 px-0">
+            <v-col xl="9" lg="10" md="10" class="d-flex justify-content-between py-0 h-100 px-0">
                 <div class="d-flex align-items-center">
                     <div
                         v-for="link in links"
                         :key="link.href"
                     >
-                        <a :href="link.href" class="navbar-links mx-4">
+                        <a :href="link.href" class="navbar-links mx-3">
                             <span v-if="link.name">{{ link.name }}</span>
                             <v-img v-else width="71" class="mr-5" src="/img/lafeum-ru-home.png"></v-img>
                         </a>
                     </div>
                 </div>
-
                 <!--                    <div class="d-flex align-items-center">
                                         <v-btn
                                             color="white primary&#45;&#45;text"

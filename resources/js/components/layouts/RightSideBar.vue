@@ -1,5 +1,5 @@
 <template>
-    <v-col xl="2" lg="3" md="4">
+    <v-col xl="2" lg="3" md="3">
         <h5 class="text-uppercase text-secondary font-weight-normal py-4">Рекомендуемые</h5>
         <v-card class="rounded-lg" flat>
             <!-- Quote Section -->

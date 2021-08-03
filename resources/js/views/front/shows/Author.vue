@@ -6,7 +6,7 @@
             </v-avatar>
             <div>
                 <h3 class="blue--text">{{ currentAuthor.name }}</h3>
-                <h5 class="author-biography" v-html="currentAuthor.biography"></h5>
+                <h5 class="author-biography text-lg-justify" v-html="currentAuthor.biography"></h5>
             </div>
         </div>
         <v-col cols="12" class="d-flex justify-center" v-if="loading">

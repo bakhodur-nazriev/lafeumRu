@@ -1,5 +1,5 @@
 <template>
-    <v-col xl="9" lg="12">
+    <v-col xl="10" lg="12">
         <h5 class="text-uppercase font-weight-regular py-4 px-0">фотографии</h5>
         <v-row align="center">
             <v-col cols="12" class="d-flex justify-center" v-if="loading">
@@ -13,7 +13,8 @@
 
             <v-row align="center" v-else>
                 <v-col
-                    cols="3"
+                    lg="3"
+                    md="4"
                     v-for="(photo, i) in photos"
                     :key="i"
                 >

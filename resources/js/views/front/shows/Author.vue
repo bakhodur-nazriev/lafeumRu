@@ -1,12 +1,12 @@
 <template>
-    <v-col xl="5">
-        <div class="d-flex mb-5 mt-2">
+    <v-col xl="5" class="author-show-main-block">
+        <div class="d-flex my-2">
             <v-avatar class="mr-7" size="100" v-if="currentAuthor.photo">
                 <img :src="currentAuthor.photo" :alt="currentAuthor.name"/>
             </v-avatar>
             <div>
                 <h3 class="blue--text">{{ currentAuthor.name }}</h3>
-                <h5 class="author-biography text-lg-justify" v-html="currentAuthor.biography"></h5>
+                <h5 class="author-biography text-lg-justify mb-0" v-html="currentAuthor.biography"></h5>
             </div>
         </div>
         <v-col cols="12" class="d-flex justify-center" v-if="loading">
@@ -83,6 +83,13 @@ export default {
 </script>
 
 <style scoped>
+@media (min-width: 1904px) {
+    .author-show-main-block {
+        flex: 0 0 45%;
+        max-width: 45%;
+    }
+}
+
 .author-biography {
     font-weight: 400;
     font-size: 16px;

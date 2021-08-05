@@ -57,16 +57,16 @@
                 <v-divider class="m-0 grey lighten-3"></v-divider>
 
                 <v-card-actions class="px-4 py-2">
-                    <div>
-                        <v-btn icon>
-                            <v-icon color="grey lighten-1"> mdi-heart</v-icon>
-                        </v-btn>
-                        <span>45</span>
-                        <v-btn icon>
-                            <v-icon color="grey lighten-1"> mdi-bookmark</v-icon>
-                        </v-btn>
-                        <span>45</span>
-                    </div>
+                    <!--                    <div>-->
+                    <!--                        <v-btn icon>-->
+                    <!--                            <v-icon color="grey lighten-1"> mdi-heart</v-icon>-->
+                    <!--                        </v-btn>-->
+                    <!--                        <span>45</span>-->
+                    <!--                        <v-btn icon>-->
+                    <!--                            <v-icon color="grey lighten-1"> mdi-bookmark</v-icon>-->
+                    <!--                        </v-btn>-->
+                    <!--                        <span>45</span>-->
+                    <!--                    </div>-->
                     <v-spacer></v-spacer>
                     <share-button :post="item.post"></share-button>
                 </v-card-actions>
@@ -75,11 +75,13 @@
 
         <v-card>
             <v-card-title class="title grey lighten-2 py-3 px-4">
-                <span>{{ video.title }}</span>
-                <v-spacer></v-spacer>
-                <v-btn icon @click="videoDialog = false">
-                    <v-icon>mdi-close</v-icon>
-                </v-btn>
+                <v-col class="d-flex pa-0 align-center">
+                    <span class="mr-2">{{ video.title }}</span>
+                    <v-spacer></v-spacer>
+                    <v-btn icon @click="videoDialog = false">
+                        <v-icon>mdi-close</v-icon>
+                    </v-btn>
+                </v-col>
             </v-card-title>
 
             <v-card-text>

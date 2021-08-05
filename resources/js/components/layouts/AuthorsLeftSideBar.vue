@@ -1,15 +1,15 @@
 <template>
-    <v-col xl="2" lg="3">
+    <v-col xl="2" lg="3" class="fill-height authors-main-left-block">
         <h5 class="text-uppercase text-secondary font-weight-normal py-4">поиск по имени</h5>
 
         <v-sheet rounded="lg" width="100%">
-            <div class="d-flex align-center pa-5">
+            <div class="d-flex align-center pa-3">
                 <v-icon>mdi-account-group-outline</v-icon>
                 <h5 class="ml-2 mb-0" v-if="listTitle">{{ listTitle }}</h5>
                 <h5 class="ml-2 mb-0" v-else>Авторы</h5>
             </div>
             <v-divider class="ma-0"></v-divider>
-            <div class="pa-6">
+            <div class="pa-4">
                 <v-text-field
                     label="Введите имя автора"
                     v-model="search"
@@ -139,6 +139,15 @@ export default {
 </script>
 
 <style scoped>
+
+@media (min-width: 1904px) {
+    .authors-main-left-block {
+        flex: 0 0 14.5%;
+        max-width: 14.5%;
+    }
+
+}
+
 .authors-list {
     min-height: 28px;
     padding: 0;

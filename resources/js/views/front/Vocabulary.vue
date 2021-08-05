@@ -1,5 +1,5 @@
 <template>
-    <v-col xl="5" lg="6" class="px-5">
+    <v-col xl="5" lg="6" class="px-5 vocabulary-main-block">
         <div v-if="category.slug">
             <h3 class="pt-4 pb-2">{{ category.name }}</h3>
             <p>{{ category.description }}</p>
@@ -59,7 +59,12 @@
         </v-col>
 
         <v-row justify="center" v-else>
-            <v-col cols="6" v-for="(vocabulary, i) in filteredVocabulary" :key="i">
+            <v-col
+                cols="6"
+                v-for="(vocabulary, i) in filteredVocabulary"
+                :key="i"
+                class="fill-height"
+            >
                 <v-card rounded="lg" class="px-8 py-5" flat>
                     <v-card-text
                         v-for="(term ,i) in vocabulary"
@@ -159,6 +164,12 @@ export default {
 </script>
 
 <style scoped>
+@media (min-width: 1904px) {
+    .vocabulary-main-block {
+        flex: 0 0 45%;
+        max-width: 45%;
+    }
+}
 
 .form-search {
     display: flex;

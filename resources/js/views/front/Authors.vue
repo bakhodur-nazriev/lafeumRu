@@ -36,11 +36,16 @@
             ></v-progress-circular>
         </v-col>
         <v-row v-else>
-            <v-col cols="6" v-for="(authors, i) in filteredAuthors" :key="i">
-                <v-card rounded="lg" class="px-8 py-5" flat>
+            <v-col
+                cols="4"
+                :key="i"
+                v-for="(authors, i) in filteredAuthors"
+                class="fill-height"
+            >
+                <v-card rounded="lg" class="px-6 py-4" flat>
                     <v-card-text
-                        class="pa-1"
                         v-for="(author ,i) in authors"
+                        class="pa-1"
                         :key="i"
                     >
                         <list-of-author :item="author"></list-of-author>
@@ -64,7 +69,7 @@ export default {
             search: "",
             authors: [],
             loading: false,
-            cols: 2
+            cols: 3
         };
     },
     methods: {
@@ -130,19 +135,18 @@ export default {
 </script>
 
 <style scoped>
+/*.authors-link:hover {*/
+/*    color: #212529;*/
+/*}*/
 
-.authors-link:hover {
-    color: #212529;
-}
+/*.list-inline {*/
+/*    padding-left: 15px;*/
+/*    list-style: none;*/
+/*}*/
 
-.list-inline {
-    padding-left: 15px;
-    list-style: none;
-}
-
-.list-col-4 {
-    column-count: 3;
-}
+/*.list-col-4 {*/
+/*    column-count: 3;*/
+/*}*/
 
 .form-search {
     display: flex;

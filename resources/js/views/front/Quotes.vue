@@ -1,7 +1,7 @@
 <template>
-    <v-col xl="5" lg="6">
+    <v-col xl="5" lg="6" class="quotes-main-block">
         <h5 class="text-uppercase font-weight-regular pt-4 pb-2 mb-0">Цитаты и Афоризмы</h5>
-        <p class="mb-4">
+        <p class="mb-2">
             Лучшие цитаты, афоризмы и высказывания великих ученых и мыслителей,
             и успешных людей на тематику сайта.
         </p>
@@ -76,7 +76,14 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+@media (min-width: 1904px) {
+    .quotes-main-block {
+        flex: 0 0 45% !important;
+        max-width: 45% !important;
+    }
+}
+
 .categories-block a:hover {
     color: #04718c !important;
 }

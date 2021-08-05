@@ -1,5 +1,5 @@
 <template>
-    <v-col xl="6" lg="7" md="6">
+    <v-col xl="5" lg="5" md="6" class="terms-main-block ">
         <h5 class="text-uppercase font-weight-regular pt-4 pb-2 mb-4">Термины</h5>
         <v-row align="center">
             <v-col cols="12" class="d-flex justify-center" v-if="loading">
@@ -73,5 +73,10 @@ export default {
 </script>
 
 <style scoped>
-
+@media (min-width: 1904px) {
+    .terms-main-block {
+        flex: 0 0 45%;
+        max-width: 45%;
+    }
+}
 </style>

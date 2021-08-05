@@ -1,5 +1,5 @@
 <template>
-    <v-col xl="5" lg="6">
+    <v-col xl="5" lg="6" class="main-videos-block">
         <h5 class="text-uppercase font-weight-regular py-4 mx-4 mb-2">Видео</h5>
         <v-col cols="12" v-if="loading" class="d-flex justify-center">
             <v-progress-circular
@@ -12,7 +12,7 @@
         <v-col cols="12" v-else class="pa-0">
             <video-item
                 v-for="(video, i) in videos.data"
-                :key="'asda'+i"
+                :key="i"
                 :video="video"
             />
         </v-col>
@@ -29,7 +29,6 @@
 </template>
 
 <script>
-
 export default {
     name: "Videos",
     data() {
@@ -71,4 +70,10 @@ export default {
 </script>
 
 <style scoped>
+@media (min-width: 1904px) {
+    .main-videos-block {
+        flex: 0 0 45%;
+        max-width: 45%;
+    }
+}
 </style>

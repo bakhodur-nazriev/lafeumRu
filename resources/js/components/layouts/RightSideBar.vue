@@ -1,5 +1,5 @@
 <template>
-    <v-col xl="2" lg="3" md="3">
+    <v-col xl="3" lg="3" md="3" class="right-main-block fill-height">
         <h5 class="text-uppercase text-secondary font-weight-normal py-4">Рекомендуемые</h5>
         <v-card class="rounded-lg" flat>
             <!-- Quote Section -->
@@ -152,6 +152,12 @@ export default {
 </script>
 
 <style scoped>
+@media (min-width: 1904px) {
+    .right-main-block {
+        max-width: 22% !important;
+    }
+}
+
 .video-iframe {
     width: 100%;
     height: 50vh;

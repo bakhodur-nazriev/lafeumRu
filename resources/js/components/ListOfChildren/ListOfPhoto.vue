@@ -7,12 +7,15 @@
             <v-card
                 flat
                 rounded="lg"
-                max-width="315"
+                max-width="310"
                 min-height="370"
                 class="d-flex flex-column justify-content-between pa-3"
             >
-                <v-card-text class="photo-content" v-bind="attrs"
-                             v-on="on">
+                <v-card-text
+                    class="photo-content"
+                    v-bind="attrs"
+                    v-on="on"
+                >
                     <v-img
                         min-height="175"
                         max-height="175"
@@ -20,8 +23,10 @@
                         :src="photo.path"
                     ></v-img>
                     <div class="text-left w-100">
-                        <v-card-title class="photo-title px-0 mb-1">{{ photo.title }}</v-card-title>
-                        <v-card-subtitle class="px-0 pb-0 truncate-to-four-line">
+                        <v-card-title class="photo-title truncate-to-one-line mt-2">
+                            {{photo.title}}
+                        </v-card-title>
+                        <v-card-subtitle class="px-0 pb-0 mt-1 truncate-to-four-line">
                             {{ photo.description }}
                         </v-card-subtitle>
                     </div>
@@ -72,6 +77,14 @@ export default {
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+}
+
+.truncate-to-one-line {
+    padding: 0;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
 }
 

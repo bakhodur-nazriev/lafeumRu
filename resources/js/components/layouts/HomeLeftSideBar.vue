@@ -1,5 +1,5 @@
 <template>
-    <v-col lg="3" xl="2">
+    <v-col xl="2" lg="3" md="3" class="fill-height">
         <h5 class="text-uppercase text-secondary font-weight-normal py-4">темы</h5>
         <v-sheet class="pa-2" rounded="lg" height="96%" width="100%">
             <div v-for="(category, i) in allCategories" :key="i">
@@ -11,7 +11,7 @@
                         >
                             {{ category.name }}
                         </v-expansion-panel-header>
-                        <v-expansion-panel-content>
+                        <v-expansion-panel-content ref="contentLinks">
                             <div
                                 v-for="(postLink, i) in category.post_links"
                                 :key="i"
@@ -90,6 +90,10 @@ button:focus {
     margin: 0;
 }
 
+.v-expansion-panel-header {
+    padding: 9px 14px !important;
+}
+
 .v-expansion-panel--active > .v-expansion-panel-header {
     min-height: 30px;
 }
@@ -98,7 +102,9 @@ button:focus {
     margin-top: 0px;
 }
 
-.v-expansion-panel-header .deep-sub-expansion-panel-header .v-expansion-panel-header--active {
+.v-expansion-panel-header
+.deep-sub-expansion-panel-header
+.v-expansion-panel-header--active {
     min-height: 30px;
 }
 

@@ -40,17 +40,16 @@
                 color="primary"
             ></v-progress-circular>
         </v-col>
-        <v-col v-else class="pl-0">
+        <v-col v-else class="px-0">
             <v-card
                 flat
                 :key="i"
-                width="99%"
-                class="knowledge-area-card mb-9 pa-7"
+                class="knowledge-area-card mb-6 pa-6"
                 v-for="(knowledgeArea, i) in filteredList"
             >
                 <v-card-title class="d-flex">
                     <div class="text-start w-100">
-                        <h2 class="" style="font-size: 24px">
+                        <h2 class="mb-0" style="font-size: 24px">
                             {{ knowledgeArea.name }}
                         </h2>
                     </div>

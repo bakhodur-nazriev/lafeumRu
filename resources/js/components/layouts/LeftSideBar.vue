@@ -1,10 +1,14 @@
 <template>
-    <v-col xl="2" lg="2" md="3">
+    <v-col xl="2" lg="3" md="3" class="left-main-block fill-height">
         <h5 class="text-uppercase text-secondary font-weight-normal py-4">темы</h5>
-        <v-sheet class="pa-2" rounded="lg" width="100%">
+        <v-sheet class="pa-2" rounded="lg">
             <!-- Category -->
 
-            <v-list-item v-for="(category, i) in categories" :key="i">
+            <v-list-item
+                v-for="(category, i) in categories"
+                class="px-1"
+                :key="i"
+            >
                 <v-list-item-content two-line>
                     <v-list-item-title class="mb-3">
                         <a
@@ -61,6 +65,12 @@ export default {
 </script>
 
 <style scoped>
+@media (min-width: 1904px) {
+    .left-main-block {
+        max-width: 14.5%;
+    }
+}
+
 button:focus {
     outline: none;
 }

@@ -36,11 +36,16 @@
             ></v-progress-circular>
         </v-col>
         <div class="row" v-else>
-            <v-col cols="6" v-for="(channels, i) in filteredChannels" :key="i">
-                <v-card rounded="lg" class="px-8 py-5" flat>
+            <v-col
+                cols="4"
+                class="fill-height"
+                v-for="(channels, i) in filteredChannels"
+                :key="i"
+            >
+                <v-card rounded="lg" class="px-6 py-4" flat>
                     <v-card-text
-                        class="pa-1"
                         v-for="(channel ,i) in channels"
+                        class="pa-1"
                         :key="i"
                     >
                         <list-of-channel :item="channel"></list-of-channel>
@@ -62,7 +67,7 @@ export default {
             channels: [],
             loading: false,
             search: "",
-            cols: 2
+            cols: 3
         }
     },
     methods: {

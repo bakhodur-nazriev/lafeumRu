@@ -5,18 +5,17 @@
     >
         <template v-slot:activator="{ on, attrs }">
             <v-card flat rounded="lg" class="mb-6">
-                <v-card-subtitle class="d-flex pb-0">
+                <v-card-subtitle class="d-md-flex pb-0">
                     <v-col
-                        cols="6"
-                        class="text-right pb-0"
+                        class="text-right pb-0 col-md-6 col-12"
                         v-bind="attrs"
                         v-on="on"
                     >
-                        <img class="img-thumbnail" :src="video.thumbnail"/>
+                        <img class="img-thumbnail" :src="video.thumbnail" :alt="video.title"/>
                         <span class="video-duration-block">{{ video.duration + ':00' }}</span>
                     </v-col>
 
-                    <v-col cols="6" class="pb-0">
+                    <v-col class="pb-0 col-md-6 col-12">
                         <h5
                             class="font-weight-regular title-videos ma-0"
                             v-bind="attrs"
@@ -31,7 +30,7 @@
                             :href="`/channels/` + video.channel.slug"
                             class="channels-links"
                         >
-                            <v-icon size="34" class="mr-1">mdi-youtube</v-icon>
+                            <v-icon size="30" class="mr-1" color="red">mdi-youtube</v-icon>
                             <span>{{ video.channel.name }}</span>
                         </a>
                     </div>
@@ -57,16 +56,6 @@
                 <v-divider class="m-0 grey lighten-3"></v-divider>
 
                 <v-card-actions class="px-4 py-2">
-                    <!--                    <div>-->
-                    <!--                        <v-btn icon>-->
-                    <!--                            <v-icon color="grey lighten-1"> mdi-heart</v-icon>-->
-                    <!--                        </v-btn>-->
-                    <!--                        <span>45</span>-->
-                    <!--                        <v-btn icon>-->
-                    <!--                            <v-icon color="grey lighten-1"> mdi-bookmark</v-icon>-->
-                    <!--                        </v-btn>-->
-                    <!--                        <span>45</span>-->
-                    <!--                    </div>-->
                     <v-spacer></v-spacer>
                     <share-button :post="item.post"></share-button>
                 </v-card-actions>
@@ -151,6 +140,6 @@ export default {
     line-height: normal;
     width: fit-content;
     text-decoration: none;
-    font-size: 20px;
+    font-size: 18px;
 }
 </style>

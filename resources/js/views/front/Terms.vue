@@ -1,6 +1,8 @@
 <template>
     <v-col xl="5" lg="5" md="6" class="terms-main-block ">
-        <h5 class="text-uppercase font-weight-regular pt-4 pb-2 mb-4">Термины</h5>
+        <div class="py-4">
+            <h5 class="text-uppercase font-weight-regular">Термины</h5>
+        </div>
         <v-row align="center">
             <v-col cols="12" class="d-flex justify-center" v-if="loading">
                 <v-progress-circular
@@ -11,11 +13,11 @@
                 ></v-progress-circular>
             </v-col>
             <v-col
-                v-else
-                cols="12"
-                class="py-0"
                 v-for="(term, i) in terms"
                 :key="i"
+                class="py-0"
+                cols="12"
+                v-else
             >
                 <term-item :term="term"></term-item>
             </v-col>

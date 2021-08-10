@@ -2,8 +2,8 @@
     <v-col xl="7" lg="9">
         <h5 class="text-uppercase font-weight-regular py-4 pb-2">Авторы</h5>
         <p class="grey--text">Авторы. Полный список всех авторов по алфавиту, а также есть возможность поиска.</p>
-        <v-col cols="7" class="d-flex align-items-center pl-0 mb-6">
-            <div class="form-search rounded-lg w-100">
+        <v-col sm="12" md="7" class="d-flex align-items-center pl-0 mb-6">
+            <v-col class="d-flex rounded-lg pa-0">
                 <v-text-field
                     solo
                     flat
@@ -25,7 +25,7 @@
                 >
                     Поиск
                 </v-btn>
-            </div>
+            </v-col>
         </v-col>
         <v-col cols="12" class="d-flex justify-center" v-if="loading">
             <v-progress-circular
@@ -37,10 +37,9 @@
         </v-col>
         <v-row v-else>
             <v-col
-                cols="4"
                 :key="i"
                 v-for="(authors, i) in filteredAuthors"
-                class="fill-height"
+                class="fill-height col-md-4 col-12"
             >
                 <v-card rounded="lg" class="px-6 py-4" flat>
                     <v-card-text
@@ -135,23 +134,6 @@ export default {
 </script>
 
 <style scoped>
-/*.authors-link:hover {*/
-/*    color: #212529;*/
-/*}*/
-
-/*.list-inline {*/
-/*    padding-left: 15px;*/
-/*    list-style: none;*/
-/*}*/
-
-/*.list-col-4 {*/
-/*    column-count: 3;*/
-/*}*/
-
-.form-search {
-    display: flex;
-}
-
 .search-field {
     border: 2px solid #9B9B9B;
     border-right: none;

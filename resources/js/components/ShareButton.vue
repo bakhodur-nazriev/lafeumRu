@@ -46,18 +46,21 @@ export default {
         }
     },
     mounted() {
-        document.querySelectorAll('svg').forEach(elem =>
-            elem.setAttribute("width", '14')
-        );
-
-        document.querySelectorAll('.share-button').forEach(elem => {
-            elem.style.padding = "0px"
-            elem.style.minWidth = "25px"
-            elem.style.minHeight = "25px"
-            elem.style.margin = "1px"
+        document.querySelectorAll('.share-button').forEach(el => {
+            el.style.padding = "0px"
+            el.style.minWidth = "25px"
+            el.style.minHeight = "25px"
+            el.style.margin = "1px"
         });
+
+        document.querySelectorAll(".share-button__icon").forEach(el => {
+            el.style.maxWidth = "14px"
+            el.style.maxHeight = "14px"
+        })
     },
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>

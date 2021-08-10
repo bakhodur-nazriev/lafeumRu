@@ -1,5 +1,5 @@
 <template>
-    <v-col xl="2" lg="3" md="3" class="left-main-block fill-height">
+    <v-col xl="2" lg="3" md="3" class="left-main-block fill-height hidden-xs-only">
         <h5 class="text-uppercase text-secondary font-weight-normal py-4">темы</h5>
         <v-sheet class="pa-2" rounded="lg">
             <!-- Category -->

@@ -4,23 +4,21 @@
         <p class="grey--text">В этой рубрике термины и комментарии специалистов классифицированы
             <br/>более развернуто по группам и направлениям.
         </p>
-        <v-col cols="9" class="d-flex align-center pl-0 mb-8">
-            <div class="form-search rounded-lg w-100">
-                <div class="form-search-text-side w-75">
-                    <v-text-field
-                        solo
-                        flat
-                        clearable
-                        height="48"
-                        hide-details
-                        v-model="search"
-                        @click:clear="clearKnowledgeArea()"
-                        background-color="transparent"
-                        placeholder="Введите область знаний"
-                        class="rounded-lg rounded-tr-0 rounded-br-0 search-field"
-                    >
-                    </v-text-field>
-                </div>
+        <v-col sm="12" md="7" class="d-flex align-center pl-0 mb-7">
+            <v-col class="d-flex rounded-lg pa-0">
+                <v-text-field
+                    solo
+                    flat
+                    clearable
+                    height="48"
+                    hide-details
+                    v-model="search"
+                    @click:clear="clearKnowledgeArea()"
+                    background-color="transparent"
+                    placeholder="Введите область знаний"
+                    class="rounded-lg rounded-tr-0 rounded-br-0 search-field"
+                >
+                </v-text-field>
                 <v-btn
                     text
                     depressed
@@ -30,7 +28,7 @@
                 >
                     Поиск
                 </v-btn>
-            </div>
+            </v-col>
         </v-col>
         <v-col cols="12" class="d-flex justify-center" v-if="loading">
             <v-progress-circular
@@ -129,19 +127,16 @@ export default {
 .list-col-4 {
     column-count: 3;
 }
-
-.form-search {
-    display: flex;
+@media (max-width: 600px) {
+    .list-col-4 {
+        column-count: 1;
+    }
 }
 
 .search-field {
     border: 2px solid #9B9B9B;
     border-right: none;
 }
-
-/*.form-search-text-side {*/
-/*    width: 80%;*/
-/*}*/
 
 .knowledge-area-card {
     border-radius: 16px !important;

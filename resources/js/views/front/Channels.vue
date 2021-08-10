@@ -2,8 +2,8 @@
     <v-col xl="7" lg="9">
         <h5 class="text-uppercase font-weight-regular pt-4 pb-2">Каналы</h5>
         <p class="grey--text">Каналы. Полный список всех авторов по алфавиту, а также есть возможность поиска.</p>
-        <v-col cols="7" class="d-flex align-items-center pl-0 mb-9">
-            <div class="form-search rounded-lg w-100">
+        <v-col sm="12" md="7" class="d-flex align-items-center px-0 mb-5">
+            <v-col class="d-flex rounded-lg pa-0">
                 <v-text-field
                     solo
                     flat
@@ -25,7 +25,7 @@
                 >
                     Поиск
                 </v-btn>
-            </div>
+            </v-col>
         </v-col>
         <v-col cols="12" class="d-flex justify-center" v-if="loading">
             <v-progress-circular
@@ -37,8 +37,7 @@
         </v-col>
         <div class="row" v-else>
             <v-col
-                cols="4"
-                class="fill-height"
+                class="fill-height col-md-4 col-12"
                 v-for="(channels, i) in filteredChannels"
                 :key="i"
             >
@@ -133,23 +132,6 @@ export default {
 </script>
 
 <style scoped>
-.list-inline {
-    padding-left: 15px;
-    list-style: none;
-}
-
-.list-col-4 {
-    column-count: 3;
-}
-
-.channels-links {
-    line-height: 2;
-}
-
-.form-search {
-    display: flex;
-}
-
 .search-field {
     border: 2px solid #9B9B9B;
     border-right: none;

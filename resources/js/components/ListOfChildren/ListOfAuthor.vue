@@ -13,7 +13,7 @@
                     {{ child.name }}
                 </a>
             </div>
-            <div v-if="item.children.length >= 17 && isActive == true" class="text-left mt-4">
+            <div v-if="item.children.length >= 17 && isActive == true" class="text-right mt-4">
                 <v-btn
                     text
                     small

@@ -60,10 +60,9 @@
 
         <v-row justify="center" v-else>
             <v-col
-                cols="6"
                 v-for="(vocabulary, i) in filteredVocabulary"
                 :key="i"
-                class="fill-height"
+                class="fill-height col-md-6 col-12"
             >
                 <v-card rounded="lg" class="px-8 py-5" flat>
                     <v-card-text

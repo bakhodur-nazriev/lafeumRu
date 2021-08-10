@@ -58,7 +58,7 @@ export default {
 
 <style scoped>
 .scrollBlock {
-    width: 4.3%;
+    width: 65px;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -67,4 +67,12 @@ export default {
     right: 110px;
     z-index: 10;
 }
+
+@media (max-width: 600px) {
+    .scrollBlock {
+        bottom: 10px;
+        right: 10px;
+    }
+}
+
 </style>

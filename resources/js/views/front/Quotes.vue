@@ -1,10 +1,12 @@
 <template>
     <v-col xl="5" lg="6" class="quotes-main-block">
-        <h5 class="text-uppercase font-weight-regular pt-4 pb-2 mb-0">Цитаты и Афоризмы</h5>
-        <p class="mb-2">
-            Лучшие цитаты, афоризмы и высказывания великих ученых и мыслителей,
-            и успешных людей на тематику сайта.
-        </p>
+        <v-col class="px-1">
+            <h5 class="text-uppercase font-weight-regular pb-3 mb-0">Цитаты и Афоризмы</h5>
+            <p>
+                Лучшие цитаты, афоризмы и высказывания великих ученых и мыслителей,
+                и успешных людей на тематику сайта.
+            </p>
+        </v-col>
         <v-row align="center">
             <v-col cols="12" class="d-flex justify-center" v-if="loading">
                 <v-progress-circular
@@ -17,8 +19,8 @@
             <v-col v-else>
                 <quote-item
                     v-for="(quote, i) in quotes"
-                    :key="i"
                     :quote="quote"
+                    :key="i"
                 >
                 </quote-item>
             </v-col>

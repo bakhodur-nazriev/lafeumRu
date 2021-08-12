@@ -1,10 +1,10 @@
 <template>
     <v-col xl="5">
-        <h5 class="text-uppercase font-weight-regular py-4">Каналы</h5>
-        <div class="mb-5">
+        <h5 class="text-uppercase font-weight-regular py-2 mb-0">Каналы</h5>
+        <v-col class="pa-1">
             <h3 class="blue--text">{{ currentChannel.name }}</h3>
             <h5 class="channel-description" v-html="currentChannel.description"></h5>
-        </div>
+        </v-col>
 
         <v-col cols="12" class="d-flex justify-center" v-if="loading">
             <v-progress-circular

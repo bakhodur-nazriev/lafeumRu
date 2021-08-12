@@ -1,5 +1,5 @@
 <template>
-    <v-col xl="2" lg="3" class="fill-height authors-main-left-block">
+    <v-col xl="2" lg="3" class="fill-height authors-main-left-block hidden-xs-only">
         <h5 class="text-uppercase text-secondary font-weight-normal py-4">поиск по имени</h5>
 
         <v-sheet rounded="lg" width="100%">

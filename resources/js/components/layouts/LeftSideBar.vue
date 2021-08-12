@@ -1,39 +1,83 @@
 <template>
-    <v-col xl="2" lg="3" md="3" class="left-main-block fill-height hidden-xs-only">
-        <h5 class="text-uppercase text-secondary font-weight-normal py-4">темы</h5>
-        <v-sheet class="pa-2" rounded="lg">
-            <!-- Category -->
+    <v-col xl="2" lg="3" md="2" class="pb-0 left-main-block pa-sm-0 col-12">
 
-            <v-list-item
-                v-for="(category, i) in categories"
-                class="px-1"
-                :key="i"
-            >
-                <v-list-item-content two-line>
-                    <v-list-item-title class="mb-3">
-                        <a
-                            class="font-weight-bold category-links"
-                            :href="`${categoryType}` + category.slug"
+        <v-col class="hidden-sm-and-up pa-0">
+            <v-expansion-panels flat>
+                <v-expansion-panel>
+                    <v-expansion-panel-header>
+                        Темы
+                    </v-expansion-panel-header>
+                    <v-expansion-panel-content>
+                        <v-list-item
+                            v-for="(category, i) in categories"
+                            class="px-0"
+                            :key="i"
                         >
-                            {{ category.name }}
-                        </a>
-                    </v-list-item-title>
+                            <v-list-item-content two-line>
+                                <v-list-item-title class="mb-3">
+                                    <a
+                                        :href="`${categoryType}` + category.slug"
+                                        class="font-weight-bold category-links px-1"
+                                    >
+                                        {{ category.name }}
+                                    </a>
+                                </v-list-item-title>
 
-                    <v-list-item-subtitle
-                        v-for="(subCategory, i) in category.children"
-                        :key="i"
-                        class="mb-3"
-                    >
-                        <a
-                            :href="`${categoryType}` + subCategory.slug"
-                            class="category-links"
+                                <v-list-item-subtitle
+                                    v-for="(subCategory, i) in category.children"
+                                    :key="i"
+                                    class="mb-3"
+                                >
+                                    <a
+                                        :href="`${categoryType}` + subCategory.slug"
+                                        class="category-links px-1"
+                                    >
+                                        {{ subCategory.name }}
+                                    </a>
+                                </v-list-item-subtitle>
+                            </v-list-item-content>
+                        </v-list-item>
+                    </v-expansion-panel-content>
+                </v-expansion-panel>
+            </v-expansion-panels>
+        </v-col>
+
+        <v-col class=" fill-height hidden-xs-only">
+            <h5 class="text-uppercase text-secondary font-weight-normal py-4">темы</h5>
+            <v-sheet class="pa-2" rounded="lg">
+                <!-- Category -->
+
+                <v-list-item
+                    v-for="(category, i) in categories"
+                    class="px-1"
+                    :key="i"
+                >
+                    <v-list-item-content two-line>
+                        <v-list-item-title class="mb-3">
+                            <a
+                                class="font-weight-bold category-links"
+                                :href="`${categoryType}` + category.slug"
+                            >
+                                {{ category.name }}
+                            </a>
+                        </v-list-item-title>
+
+                        <v-list-item-subtitle
+                            v-for="(subCategory, i) in category.children"
+                            :key="i"
+                            class="mb-3"
                         >
-                            {{ subCategory.name }}
-                        </a>
-                    </v-list-item-subtitle>
-                </v-list-item-content>
-            </v-list-item>
-        </v-sheet>
+                            <a
+                                :href="`${categoryType}` + subCategory.slug"
+                                class="category-links"
+                            >
+                                {{ subCategory.name }}
+                            </a>
+                        </v-list-item-subtitle>
+                    </v-list-item-content>
+                </v-list-item>
+            </v-sheet>
+        </v-col>
     </v-col>
 </template>
 

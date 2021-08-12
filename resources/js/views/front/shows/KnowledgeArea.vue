@@ -8,8 +8,8 @@
                 color="primary"
             ></v-progress-circular>
         </v-col>
-        <v-col cols="12" v-else class="pa-0">
-            <h5 class="text-uppercase font-weight-regular pt-4 pb-2 mb-0">
+        <v-col v-else cols="12" class="pa-1">
+            <h5 class="text-uppercase font-weight-regular pt-md-3 pb-2 mb-0">
                 {{ currentKnowledge.name }}
             </h5>
             <p v-if="currentKnowledge.description" class="mb-4">

@@ -7,9 +7,8 @@
             <v-card
                 flat
                 rounded="lg"
-                max-width="310"
                 min-height="370"
-                class="d-flex flex-column justify-content-between pa-3"
+                class="pa-3"
             >
                 <v-card-text
                     class="photo-content"
@@ -24,7 +23,7 @@
                     ></v-img>
                     <div class="text-left w-100">
                         <v-card-title class="photo-title truncate-to-one-line mt-2">
-                            {{photo.title}}
+                            {{ photo.title }}
                         </v-card-title>
                         <v-card-subtitle class="px-0 pb-0 mt-1 truncate-to-four-line">
                             {{ photo.description }}

@@ -4,8 +4,8 @@
             <h3 class="pt-4 pb-2">{{ category.name }}</h3>
             <p>{{ category.description }}</p>
         </div>
-        <div v-else>
-            <h5 class="text-uppercase font-weight-regular pt-4 pb-2">Словарь «ЛАФЕЮМ»</h5>
+        <v-col v-else class="pa-0">
+            <h5 class="text-uppercase font-weight-regular py-2">Словарь «ЛАФЕЮМ»</h5>
             <p class="grey--text">
                 На сегодня содержит более одной тысячи основных терминов, соответствующих
                 тематике сайта. Для удобства термины дополнительно разбиты на темы.
@@ -14,9 +14,9 @@
                 мере обновления на основном источнике здесь они будут равным образом
                 обновляться.
             </p>
-        </div>
+        </v-col>
 
-        <v-col cols="12" class="d-flex align-items-center pl-0">
+        <v-col cols="12" class="d-flex align-items-center px-0">
             <div class="form-search rounded-lg w-100">
                 <v-text-field
                     solo
@@ -41,14 +41,14 @@
                 </v-btn>
             </div>
         </v-col>
-        <v-col cols="12" class="mb-3">
+        <v-col cols="12" class="mb-3 pa-0">
             <h5 class="subtitle-1">
                 Примеры информативных поисковых запросов: «нау», «логия», «ика», «изм»,
                 «фило», «само», «чело», «соц», «пси», «эво» и т.п.
             </h5>
         </v-col>
 
-        <h5 class="text-uppercase font-weight-regular ml-1 mb-4">все слова</h5>
+        <h5 class="text-uppercase font-weight-regular mb-4">все слова</h5>
         <v-col cols="12" class="d-flex justify-center" v-if="loading">
             <v-progress-circular
                 width="5"

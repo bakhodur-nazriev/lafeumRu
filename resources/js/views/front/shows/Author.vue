@@ -1,12 +1,15 @@
 <template>
     <v-col xl="5" class="author-show-main-block">
         <div class="d-flex my-2">
-            <v-avatar class="mr-7" size="100" v-if="currentAuthor.photo">
-                <img :src="currentAuthor.photo" :alt="currentAuthor.name"/>
-            </v-avatar>
             <div>
+                <v-avatar style="float:left;" class="mr-7" size="100" v-if="currentAuthor.photo">
+                    <img :src="currentAuthor.photo" :alt="currentAuthor.name"/>
+                </v-avatar>
                 <h3 class="blue--text">{{ currentAuthor.name }}</h3>
-                <h5 class="author-biography text-lg-justify mb-0" v-html="currentAuthor.biography"></h5>
+                <h5
+                    class="author-biography text-lg-justify mb-0"
+                    v-html="currentAuthor.biography"
+                ></h5>
             </div>
         </div>
         <v-col cols="12" class="d-flex justify-center" v-if="loading">

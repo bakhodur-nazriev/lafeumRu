@@ -1,21 +1,30 @@
 <template>
-    <div class="">
+    <div>
         <v-app-bar
             color="primary accent-4"
-            prominent
             height="84"
+            prominent
             dark
         >
-            <v-app-bar-nav-icon
-                @click.stop="drawer = !drawer"
-                class="hidden-sm-and-up pt-6 pl-3"
-            ></v-app-bar-nav-icon>
+            <v-row align="center" class="h-100 hidden-sm-and-up">
+                <v-col class="d-flex justify-center pa-0 col-2">
+                    <v-app-bar-nav-icon
+                        @click.stop="drawer = !drawer"
+                        class=""
+                    ></v-app-bar-nav-icon>
+                </v-col>
+                <v-col class="d-flex justify-center col-8 pa-0">
+                    <a class="text-white subtitle-1 pr-2 text-decoration-none font-weight-medium" href="/">Главная</a>
+                    <a class="text-white subtitle-1 pl-2 text-decoration-none font-weight-medium" href="/knowledge">Область
+                        знаний</a>
+                </v-col>
+            </v-row>
 
             <v-row justify="center" class="align-content-center h-100 hidden-xs-only">
                 <v-col xl="9" lg="10" md="10" class="d-flex justify-content-between py-0 h-100 px-0">
                     <div class="d-flex align-items-center">
                         <div
-                            v-for="item in items"
+                            v-for="item in navItems"
                             :key="item.href"
                         >
                             <a :href="item.href" class="navbar-links mx-3">
@@ -45,7 +54,13 @@
                         :href="item.href"
                         class="mb-0"
                     >
-                        <v-list-item-title>{{ item.title }}</v-list-item-title>
+                        <v-list-item-icon>
+                            <v-icon>{{ item.icon }}</v-icon>
+                        </v-list-item-icon>
+
+                        <v-list-item-content>
+                            <v-list-item-title>{{ item.title }}</v-list-item-title>
+                        </v-list-item-content>
                     </v-list-item>
                 </v-list-item-group>
             </v-list>
@@ -82,7 +97,7 @@ export default {
                     icon: "mdi-logout"
                 },
             ],
-            items: [
+            navItems: [
                 {
                     imageUrl: "/img/lafeum-ru-home.png",
                     href: "/",
@@ -124,38 +139,47 @@ export default {
                 {
                     title: "Главная",
                     href: "/",
+                    icon: "mdi-home"
                 },
                 {
                     title: "Области Знаний",
                     href: "/knowledge",
+                    icon: "mdi-bookshelf"
                 },
                 {
                     title: "Словарь",
-                    href: "/vocabulary"
+                    href: "/vocabulary",
+                    icon: "mdi-alphabet-cyrillic"
                 },
                 {
                     title: "Цитаты",
-                    href: "/quotes"
+                    href: "/quotes",
+                    icon: "mdi-format-quote-close"
                 },
                 {
                     title: "Авторы",
-                    href: "/authors"
+                    href: "/authors",
+                    icon: "mdi-account-supervisor"
                 },
                 {
                     title: "Видео",
-                    href: "/videos"
+                    href: "/videos",
+                    icon: "mdi-youtube"
                 },
                 {
                     title: "Каналы",
-                    href: "/channels"
+                    href: "/channels",
+                    icon: "mdi-animation-play"
                 },
                 {
                     title: "Термины",
-                    href: "/terms"
+                    href: "/terms",
+                    icon: "mdi-file-document"
                 },
                 {
                     title: "Фотографии",
-                    href: "/photos"
+                    href: "/photos",
+                    icon: "mdi-camera"
                 },
             ],
             drawer: false,

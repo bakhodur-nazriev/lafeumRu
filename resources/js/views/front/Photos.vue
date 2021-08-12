@@ -1,6 +1,6 @@
 <template>
     <v-col xl="10" lg="12">
-        <h5 class="text-uppercase font-weight-regular py-4 px-0">фотографии</h5>
+        <h5 class="text-uppercase font-weight-regular py-4 px-0 mb-0">фотографии</h5>
         <v-row align="center">
             <v-col cols="12" class="d-flex justify-center" v-if="loading">
                 <v-progress-circular
@@ -11,18 +11,16 @@
                 ></v-progress-circular>
             </v-col>
 
-            <v-row align="center" v-else>
-                <v-col
-                    lg="3"
-                    md="4"
-                    v-for="(photo, i) in photos"
-                    :key="i"
-                >
-                    <list-of-photo :item="photo"></list-of-photo>
-                </v-col>
 
+            <v-col
+                v-else
+                class="d-flex justify-center col-md-3"
+                v-for="(photo, i) in photos"
+                :key="i"
+            >
+                <list-of-photo :item="photo"></list-of-photo>
+            </v-col>
 
-            </v-row>
             <v-col cols="12">
                 <v-pagination
                     v-model="pagination.current"

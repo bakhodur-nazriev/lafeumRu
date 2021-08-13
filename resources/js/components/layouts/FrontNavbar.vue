@@ -21,7 +21,7 @@
             </v-row>
 
             <v-row justify="center" class="align-content-center h-100 hidden-xs-only">
-                <v-col xl="9" lg="10" md="10" class="d-flex justify-content-between py-0 h-100 px-0">
+                <v-col xl="9" lg="8" class="d-flex justify-content-between py-0 h-100 px-0">
                     <div class="d-flex align-items-center">
                         <div
                             v-for="item in navItems"

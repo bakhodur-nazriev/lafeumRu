@@ -1,5 +1,5 @@
 <template>
-    <v-col xl="2" lg="3" md="3" class="right-main-block col-12">
+    <v-col xl="2" lg="3" class="right-main-block col-12">
 
         <v-col class="hidden-sm-and-up pa-0">
             <v-expansion-panels flat>
@@ -301,6 +301,12 @@ export default {
 @media (max-width: 600px) {
     .right-main-block {
         order: -1;
+    }
+}
+
+@media (max-width: 1904px) {
+    .right-main-block {
+        min-width: 27% !important;
     }
 }
 

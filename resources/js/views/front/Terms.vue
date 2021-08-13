@@ -75,6 +75,13 @@ export default {
 </script>
 
 <style scoped>
+@media (max-width: 1904px) {
+    .terms-main-block {
+        flex: 0 0 53%;
+        max-width: 53%;
+    }
+}
+
 @media (min-width: 1904px) {
     .terms-main-block {
         flex: 0 0 45%;

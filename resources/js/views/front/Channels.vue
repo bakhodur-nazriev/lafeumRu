@@ -1,5 +1,5 @@
 <template>
-    <v-col xl="7" lg="9">
+    <v-col xl="7" lg="8">
         <h5 class="text-uppercase font-weight-regular pt-4 pb-2">Каналы</h5>
         <p class="grey--text">Каналы. Полный список всех авторов по алфавиту, а также есть возможность поиска.</p>
         <v-col sm="12" md="7" class="d-flex align-items-center px-0 mb-5">

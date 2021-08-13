@@ -1,5 +1,5 @@
 <template>
-    <v-col xl="5" lg="6" md="6">
+    <v-col xl="5" lg="6" class="home-main-block">
         <div class="d-flex flex-column align-items-center text-center">
             <v-col class="col-12 mt-md-10 mb-md-5 d-flex justify-center">
                 <v-img
@@ -28,3 +28,19 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+@media (min-width: 1264px) and (max-width: 1904px) {
+    .home-main-block {
+        flex: 0 0 48% !important;
+        max-width: 48% !important;
+    }
+}
+
+@media (min-width: 1904px) {
+    .home-main-block {
+        flex: 0 0 45% !important;
+        max-width: 45% !important;
+    }
+}
+</style>

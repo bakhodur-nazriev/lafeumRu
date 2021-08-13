@@ -70,6 +70,13 @@ export default {
 </script>
 
 <style scoped>
+@media (min-width: 1264px) and (max-width: 1904px) {
+    .main-videos-block {
+        flex: 0 0 53%;
+        max-width: 53%;
+    }
+}
+
 @media (min-width: 1904px) {
     .main-videos-block {
         flex: 0 0 45%;

@@ -79,6 +79,13 @@ export default {
 </script>
 
 <style scoped>
+@media (min-width: 1264px) and (max-width: 1904px) {
+    .quotes-main-block {
+        flex: 0 0 53% !important;
+        max-width: 53% !important;
+    }
+}
+
 @media (min-width: 1904px) {
     .quotes-main-block {
         flex: 0 0 45% !important;

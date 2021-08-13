@@ -109,6 +109,12 @@ export default {
 </script>
 
 <style scoped>
+@media (min-width: 1264px) and (max-width: 1904px) {
+    .left-main-block {
+        max-width: 20%;
+    }
+}
+
 @media (min-width: 1904px) {
     .left-main-block {
         max-width: 14.5%;

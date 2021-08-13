@@ -1,5 +1,5 @@
 <template>
-    <v-col xl="5" lg="6">
+    <v-col xl="5" lg="6" class="knowledge-show-main-block">
         <v-col cols="12" class="d-flex justify-center" v-if="loading">
             <v-progress-circular
                 width="5"
@@ -82,4 +82,17 @@ export default {
 </script>
 
 <style scoped>
+@media (min-width: 1264px) and (max-width: 1904px) {
+    .knowledge-show-main-block {
+        flex: 0 0 53% !important;
+        max-width: 53% !important;
+    }
+}
+
+@media (min-width: 1904px) {
+    .knowledge-show-main-block {
+        flex: 0 0 45% !important;
+        max-width: 45% !important;
+    }
+}
 </style>

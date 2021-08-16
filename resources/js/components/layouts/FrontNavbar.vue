@@ -5,8 +5,9 @@
             height="84"
             prominent
             dark
+            flat
         >
-            <v-row class="hidden-sm-and-up h-100 mt-0">
+            <v-row class="hidden-sm-and-up h-100">
                 <v-col class="pa-0 d-flex align-items-center">
                     <v-col class="d-flex justify-center pa-0 col-2">
                         <v-app-bar-nav-icon
@@ -26,7 +27,7 @@
                 </v-col>
             </v-row>
 
-            <v-row justify="center" class="align-content-center h-100 hidden-xs-only">
+            <v-row justify="center" class="align-content-center h-100 hidden-xs-only mt-0">
                 <v-col xl="9" lg="8" class="d-flex justify-content-between py-0 h-100 px-0">
                     <div class="d-flex align-items-center">
                         <div

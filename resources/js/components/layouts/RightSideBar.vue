@@ -1,5 +1,5 @@
 <template>
-    <v-col xl="2" lg="3" class="right-main-block col-12">
+    <v-col xl="2" lg="3" class="fill-height right-main-block col-12">
 
         <v-col class="hidden-sm-and-up pa-0">
             <v-expansion-panels flat>
@@ -143,7 +143,7 @@
         </v-col>
 
         <v-col class="fill-height hidden-xs-only pa-0">
-            <h5 class="text-uppercase text-secondary font-weight-normal py-4">Рекомендуемые</h5>
+            <h5 class="text-uppercase text-secondary font-weight-normal py-4 mb-0">Рекомендуемые</h5>
             <v-card class="rounded-lg" flat>
                 <!-- Quote Section -->
                 <div class="pa-5 pb-0">

@@ -4,7 +4,7 @@
         <v-col class="hidden-sm-and-up pa-0">
             <v-expansion-panels flat>
                 <v-expansion-panel>
-                    <v-expansion-panel-header class="py-4">
+                    <v-expansion-panel-header class="deep-small-expansion-panel-header">
                         Темы
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
@@ -65,8 +65,8 @@
             </v-expansion-panels>
         </v-col>
 
-        <v-col class="fill-height hidden-xs-only">
-            <h5 class="text-uppercase text-secondary font-weight-normal py-4">темы</h5>
+        <v-col class="fill-height hidden-xs-only py-0">
+            <h5 class="text-uppercase text-secondary font-weight-normal py-4 mb-0">темы</h5>
             <v-sheet class="pa-2" rounded="lg" height="96%" width="100%">
                 <div v-for="(category, i) in allCategories" :key="i">
                     <!-- Category -->
@@ -196,5 +196,9 @@ button:focus {
 
 .deep-expansion-panel-header {
     min-height: 30px;
+}
+
+.deep-small-expansion-panel-header {
+    padding: 16px 24px !important;
 }
 </style>

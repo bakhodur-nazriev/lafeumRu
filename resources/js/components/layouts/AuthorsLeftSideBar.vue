@@ -1,72 +1,143 @@
 <template>
-    <v-col xl="2" lg="3" class="fill-height authors-main-left-block hidden-xs-only">
-        <h5 class="text-uppercase text-secondary font-weight-normal py-4">поиск по имени</h5>
+    <v-col xl="2" lg="3" class="fill-height pb-0 authors-main-left-block pa-sm-0 col-12">
+        <v-col class="hidden-sm-and-up pa-0">
+            <v-expansion-panels flat>
+                <v-expansion-panel>
+                    <v-expansion-panel-header>
+                        Авторы
+                    </v-expansion-panel-header>
+                    <v-expansion-panel-content>
+                        <div class="py-4 px-0">
+                            <v-text-field
+                                label="Введите имя автора"
+                                v-model="search"
+                                hide-details
+                                class="mb-3"
+                                @click:clear="clearAuthors()"
+                                clearable
+                                outlined
+                                dense
+                            >
+                            </v-text-field>
 
-        <v-sheet rounded="lg" width="100%">
-            <div class="d-flex align-center pa-3">
-                <v-icon>mdi-account-group-outline</v-icon>
-                <h5 class="ml-2 mb-0" v-if="listTitle">{{ listTitle }}</h5>
-                <h5 class="ml-2 mb-0" v-else>Авторы</h5>
-            </div>
-            <v-divider class="ma-0"></v-divider>
-            <div class="pa-4">
-                <v-text-field
-                    label="Введите имя автора"
-                    v-model="search"
-                    hide-details
-                    class="mb-3"
-                    @click:clear="clearAuthors()"
-                    clearable
-                    outlined
-                    dense
-                >
-                </v-text-field>
-
-                <!-- Authors -->
-                <v-col cols="12" class="d-flex justify-center" v-if="loading">
-                    <v-progress-circular
-                        width="5"
-                        size="48"
-                        indeterminate
-                        color="primary"
-                    ></v-progress-circular>
-                </v-col>
-                <div v-else>
-                    <v-list-item
-                        v-for="(author, i) in filteredList"
-                        :key="i"
-                        class="authors-list pl-1"
-                    >
-                        <v-list-item-content class="py-0">
-                            <v-list-item-subtitle>
-                                <a
-                                    class="author-links font-weight-medium"
-                                    :href="author.slug"
+                            <!-- Authors -->
+                            <v-col cols="12" class="d-flex justify-center" v-if="loading">
+                                <v-progress-circular
+                                    width="5"
+                                    size="48"
+                                    indeterminate
+                                    color="primary"
+                                ></v-progress-circular>
+                            </v-col>
+                            <div v-else>
+                                <v-list-item
+                                    v-for="(author, i) in filteredList"
+                                    :key="i"
+                                    class="authors-list pl-1"
                                 >
-                                    {{ author.name }}
-                                </a>
-                            </v-list-item-subtitle>
-                        </v-list-item-content>
-                    </v-list-item>
-                    <v-col
-                        cols="12"
-                        class="d-flex justify-center mt-2 pb-0"
-                    >
-                        <v-btn
-                            fab
-                            small
-                            rounded
-                            elevation="0"
-                            :disabled="isDisabled"
-                            color="grey lighten-2"
-                            @click="loadMore"
-                        >
-                            <v-icon color="white">mdi-arrow-down</v-icon>
-                        </v-btn>
-                    </v-col>
+                                    <v-list-item-content class="py-0">
+                                        <v-list-item-subtitle>
+                                            <a
+                                                class="author-links font-weight-medium"
+                                                :href="author.slug"
+                                            >
+                                                {{ author.name }}
+                                            </a>
+                                        </v-list-item-subtitle>
+                                    </v-list-item-content>
+                                </v-list-item>
+                                <v-col
+                                    cols="12"
+                                    class="d-flex justify-center mt-2 pb-0"
+                                >
+                                    <v-btn
+                                        fab
+                                        small
+                                        rounded
+                                        elevation="0"
+                                        :disabled="isDisabled"
+                                        color="grey lighten-2"
+                                        @click="loadMore"
+                                    >
+                                        <v-icon color="white">mdi-arrow-down</v-icon>
+                                    </v-btn>
+                                </v-col>
+                            </div>
+                        </div>
+                    </v-expansion-panel-content>
+                </v-expansion-panel>
+            </v-expansion-panels>
+        </v-col>
+
+        <v-col class="fill-height hidden-xs-only py-0">
+            <h5 class="text-uppercase text-secondary font-weight-normal py-4">поиск по имени</h5>
+
+            <v-sheet rounded="lg" width="100%">
+                <div class="d-flex align-center pa-3">
+                    <v-icon>mdi-account-group-outline</v-icon>
+                    <h5 class="ml-2 mb-0" v-if="listTitle">{{ listTitle }}</h5>
+                    <h5 class="ml-2 mb-0" v-else>Авторы</h5>
                 </div>
-            </div>
-        </v-sheet>
+                <v-divider class="ma-0"></v-divider>
+                <div class="pa-4">
+                    <v-text-field
+                        label="Введите имя автора"
+                        v-model="search"
+                        hide-details
+                        class="mb-3"
+                        @click:clear="clearAuthors()"
+                        clearable
+                        outlined
+                        dense
+                    >
+                    </v-text-field>
+
+                    <!-- Authors -->
+                    <v-col cols="12" class="d-flex justify-center" v-if="loading">
+                        <v-progress-circular
+                            width="5"
+                            size="48"
+                            indeterminate
+                            color="primary"
+                        ></v-progress-circular>
+                    </v-col>
+                    <div v-else>
+                        <v-list-item
+                            v-for="(author, i) in filteredList"
+                            :key="i"
+                            class="authors-list pl-1"
+                        >
+                            <v-list-item-content class="py-0">
+                                <v-list-item-subtitle>
+                                    <a
+                                        class="author-links font-weight-medium"
+                                        :href="author.slug"
+                                    >
+                                        {{ author.name }}
+                                    </a>
+                                </v-list-item-subtitle>
+                            </v-list-item-content>
+                        </v-list-item>
+                        <v-col
+                            cols="12"
+                            class="d-flex justify-center mt-2 pb-0"
+                        >
+                            <v-btn
+                                fab
+                                small
+                                rounded
+                                elevation="0"
+                                :disabled="isDisabled"
+                                color="grey lighten-2"
+                                @click="loadMore"
+                            >
+                                <v-icon color="white">mdi-arrow-down</v-icon>
+                            </v-btn>
+                        </v-col>
+                    </div>
+                </div>
+            </v-sheet>
+        </v-col>
     </v-col>
 </template>
 

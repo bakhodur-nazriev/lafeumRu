@@ -6,17 +6,23 @@
             prominent
             dark
         >
-            <v-row align="center" class="h-100 hidden-sm-and-up">
-                <v-col class="d-flex justify-center pa-0 col-2">
-                    <v-app-bar-nav-icon
-                        @click.stop="drawer = !drawer"
-                        class=""
-                    ></v-app-bar-nav-icon>
-                </v-col>
-                <v-col class="d-flex justify-center col-8 pa-0">
-                    <a class="text-white subtitle-1 pr-2 text-decoration-none font-weight-medium" href="/">Главная</a>
-                    <a class="text-white subtitle-1 pl-2 text-decoration-none font-weight-medium" href="/knowledge">Область
-                        знаний</a>
+            <v-row class="hidden-sm-and-up h-100 mt-0">
+                <v-col class="pa-0 d-flex align-items-center">
+                    <v-col class="d-flex justify-center pa-0 col-2">
+                        <v-app-bar-nav-icon
+                            @click.stop="drawer = !drawer"
+                            class=""
+                        ></v-app-bar-nav-icon>
+                    </v-col>
+                    <v-col class="d-flex justify-center col-8 pa-0">
+                        <a
+                            class="text-white subtitle-1 pr-2 text-decoration-none font-weight-medium"
+                            :href="navItems[0].href">Главная</a>
+                        <a
+                            class="text-white subtitle-1 pl-2 text-decoration-none font-weight-medium"
+                            :href="navItems[1].href">Область
+                            знаний</a>
+                    </v-col>
                 </v-col>
             </v-row>
 

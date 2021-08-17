@@ -57,6 +57,27 @@ export default {
 </script>
 
 <style scoped>
+@media (max-width: 600px) {
+    .scrollBlock {
+        bottom: 10px;
+        right: 10px;
+    }
+}
+
+@media (min-width: 600px) and (max-width: 960px) {
+    .scrollBlock {
+        bottom: 10px;
+        right: 10px;
+    }
+}
+
+@media (min-width: 960px) and (max-width: 1264px) {
+    .scrollBlock {
+        bottom: 10px;
+        right: 10px;
+    }
+}
+
 .scrollBlock {
     width: 65px;
     display: flex;
@@ -64,15 +85,7 @@ export default {
     align-items: flex-end;
     position: fixed;
     bottom: 20px;
-    right: 110px;
     z-index: 10;
-}
-
-@media (max-width: 600px) {
-    .scrollBlock {
-        bottom: 10px;
-        right: 10px;
-    }
 }
 
 </style>

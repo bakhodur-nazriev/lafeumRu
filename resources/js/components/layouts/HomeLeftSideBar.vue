@@ -1,7 +1,7 @@
 <template>
-    <v-col xl="2" lg="3" md="3" class="pb-0 left-home-main-block col-12 fill-height">
+    <v-col xl="2" lg="3" md="3" sm="6" class="pb-0 left-home-main-block col-12 fill-height">
 
-        <v-col class="hidden-sm-and-up pa-0">
+        <v-col class="hidden-md-and-up pa-0">
             <v-expansion-panels flat>
                 <v-expansion-panel>
                     <v-expansion-panel-header class="deep-small-expansion-panel-header">
@@ -65,7 +65,7 @@
             </v-expansion-panels>
         </v-col>
 
-        <v-col class="fill-height hidden-xs-only py-0">
+        <v-col class="fill-height hidden-sm-only py-0">
             <h5 class="text-uppercase text-secondary font-weight-normal py-4 mb-0">темы</h5>
             <v-sheet class="pa-2" rounded="lg" height="96%" width="100%">
                 <div v-for="(category, i) in allCategories" :key="i">

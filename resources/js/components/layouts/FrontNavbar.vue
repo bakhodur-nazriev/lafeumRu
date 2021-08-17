@@ -7,13 +7,10 @@
             dark
             flat
         >
-            <v-row class="hidden-sm-and-up h-100">
-                <v-col class="pa-0 d-flex align-items-center">
+            <v-row class="hidden-sm-and-up h-100 ma-0">
+                <v-col class="pa-0 d-flex align-center">
                     <v-col class="d-flex justify-center pa-0 col-2">
-                        <v-app-bar-nav-icon
-                            @click.stop="drawer = !drawer"
-                            class=""
-                        ></v-app-bar-nav-icon>
+                        <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
                     </v-col>
                     <v-col class="d-flex justify-center col-8 pa-0">
                         <a
@@ -27,8 +24,8 @@
                 </v-col>
             </v-row>
 
-            <v-row justify="center" class="align-content-center h-100 hidden-xs-only mt-0">
-                <v-col xl="9" lg="8" class="d-flex justify-content-between py-0 h-100 px-0">
+            <v-row justify="center" class="align-content-center h-100 hidden-xs-only ma-0">
+                <v-col xl="9" lg="8" class="d-flex justify-content-between col-auto py-0 h-100 px-0">
                     <div class="d-flex align-items-center">
                         <div
                             v-for="item in navItems"
@@ -59,16 +56,23 @@
                         v-for="item in smallNavItems"
                         :key="item.href"
                         :href="item.href"
-                        class="mb-0"
+                        class="mb-0 text-decoration-none"
                     >
                         <v-list-item-icon>
                             <v-icon>{{ item.icon }}</v-icon>
                         </v-list-item-icon>
-
                         <v-list-item-content>
                             <v-list-item-title>{{ item.title }}</v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
+                    <v-col class="pa-0 small-nav-close-btn">
+                        <v-btn
+                            icon
+                            @click.stop="drawer = !drawer"
+                        >
+                            <v-icon>{{ smallNavBtnClose }}</v-icon>
+                        </v-btn>
+                    </v-col>
                 </v-list-item-group>
             </v-list>
         </v-navigation-drawer>
@@ -146,7 +150,7 @@ export default {
                 {
                     title: "Главная",
                     href: "/",
-                    icon: "mdi-home"
+                    icon: "mdi-home",
                 },
                 {
                     title: "Области Знаний",
@@ -189,6 +193,7 @@ export default {
                     icon: "mdi-camera"
                 },
             ],
+            smallNavBtnClose: "mdi-close",
             drawer: false,
             group: null,
         }
@@ -215,6 +220,13 @@ export default {
 
 button:focus {
     outline: none;
+}
+
+.small-nav-close-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: auto;
 }
 
 </style>

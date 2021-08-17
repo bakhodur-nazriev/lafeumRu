@@ -1,7 +1,7 @@
 <template>
-    <v-col xl="2" lg="3" class="fill-height right-main-block col-12">
+    <v-col xl="2" lg="3" md="5" sm="6" class="fill-height right-main-block col-12">
 
-        <v-col class="hidden-sm-and-up pa-0">
+        <v-col class="hidden-md-and-up pa-0">
             <v-expansion-panels flat>
                 <v-expansion-panel>
                     <v-expansion-panel-header>
@@ -142,7 +142,7 @@
             </v-expansion-panels>
         </v-col>
 
-        <v-col class="fill-height hidden-xs-only pa-0">
+        <v-col class="fill-height hidden-sm-only pa-0">
             <h5 class="text-uppercase text-secondary font-weight-normal py-4 mb-0">Рекомендуемые</h5>
             <v-card class="rounded-lg" flat>
                 <!-- Quote Section -->

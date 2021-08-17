@@ -78,6 +78,12 @@ export default {
     }
 }
 
+@media (min-width: 1264px) {
+    .scrollBlock {
+        right: 140px;
+    }
+}
+
 .scrollBlock {
     width: 65px;
     display: flex;

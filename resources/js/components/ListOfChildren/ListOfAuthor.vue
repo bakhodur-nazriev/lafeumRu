@@ -1,6 +1,6 @@
 <template>
     <v-col class="pa-0">
-        <h1 class="author-letter text-decoration-none mb-0 pt-2">{{ item.group }}</h1>
+        <h4 class="authors-letter text-decoration-none pt-2">{{ item.group }}</h4>
         <v-col class="pa-0">
             <div :class="{'truncate-to-seventeen-line': isActive}">
                 <a
@@ -13,20 +13,20 @@
                     {{ child.name }}
                 </a>
             </div>
-            <div v-if="item.children.length >= 17 && isActive == true" class="text-right mt-4">
+            <div v-if="item.children.length >= 17" class="mt-4 text-right">
                 <v-btn
                     text
                     small
-                    class="pa-0 toggle-button"
+                    v-if="isActive == true"
                     @click="toggleAuthor()"
+                    class="pa-0 toggle-button"
                 >
                     <v-icon small>mdi-chevron-down</v-icon>
                 </v-btn>
-            </div>
-            <div v-if="isActive == false" class="text-left mt-4">
                 <v-btn
                     text
                     small
+                    v-else
                     class="pa-0 toggle-button"
                     @click="toggleAuthor()"
                 >
@@ -58,7 +58,10 @@ export default {
 <style scoped>
 .toggle-button {
     min-width: 30px !important;
-    border: 2px solid #494949;
+}
+
+.toggle-button > span > i {
+    font-size: 22px !important;
 }
 
 .truncate-to-seventeen-line {
@@ -80,5 +83,10 @@ export default {
 
 .author-words:hover {
     color: #1a718c;
+}
+
+.authors-letter {
+    color: #494949;
+    font-size: 20px;
 }
 </style>

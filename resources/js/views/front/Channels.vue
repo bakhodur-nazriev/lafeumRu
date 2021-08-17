@@ -13,7 +13,7 @@
                     v-model="search"
                     @click:clear="clearChannel()"
                     background-color="transparent"
-                    placeholder="Введите имя канала"
+                    placeholder="Введите название канала"
                     class="rounded-lg rounded-tr-0 rounded-br-0 search-field"
                 >
                 </v-text-field>

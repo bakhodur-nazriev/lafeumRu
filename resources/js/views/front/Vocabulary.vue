@@ -27,7 +27,7 @@
                     @click:clear="clearVocabulary()"
                     v-model="search"
                     background-color="transparent"
-                    placeholder="Введите область знаний"
+                    placeholder="Введите термин"
                     class="rounded-lg rounded-tr-0 rounded-br-0 search-filed"
                 >
                 </v-text-field>

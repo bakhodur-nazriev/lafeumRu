@@ -18,10 +18,10 @@
                     {{ link.name }}
                 </a>
             </v-col>
-            <v-col class="col-11 col-md-7 d-flex justify-center">
+            <v-col class="col-lg-6 col-12 d-flex justify-center">
                 <v-divider class="footer-divider grey lighten-5 my-0"></v-divider>
             </v-col>
-            <v-col class="text-white col-12 col-md-6 d-flex justify-center pb-0">
+            <v-col class="text-white col-12 d-flex justify-center pb-0">
                 © 2017 - {{ new Date().getFullYear() }} — Lafeum. Все права защищены.
             </v-col>
             <v-col class="col-12 col-md-6 d-flex justify-center py-6">

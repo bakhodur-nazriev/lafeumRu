@@ -1,7 +1,7 @@
 <template>
-    <v-col xl="2" lg="3" md="5" sm="6" class="fill-height right-main-block col-12">
+    <v-col xl="2" lg="3" md="5" sm="6" class="fill-height right-main-block col-12 py-0">
 
-        <v-col class="hidden-md-and-up pa-0">
+        <v-col class="hidden-sm-and-up pa-0">
             <v-expansion-panels flat>
                 <v-expansion-panel>
                     <v-expansion-panel-header>
@@ -25,7 +25,7 @@
                             ></v-card-text>
                             <v-card-actions class="justify-content-end">
                                 <a href="/quotes" class="more-button">
-                                    <v-icon small>mdi-chevron-right</v-icon>
+                                    <v-icon small color="black">mdi-chevron-down</v-icon>
                                 </a>
                                 <v-icon small>mdi-</v-icon>
                             </v-card-actions>
@@ -41,7 +41,7 @@
                             ></v-card-text>
                             <v-card-actions class="justify-content-end">
                                 <a href="/terms" class="more-button">
-                                    <v-icon color="black" small>mdi-chevron-right</v-icon>
+                                    <v-icon color="black" small>mdi-chevron-down</v-icon>
                                 </a>
                             </v-card-actions>
                         </div>
@@ -67,7 +67,7 @@
                                     </v-card-title>
                                     <v-card-actions class="justify-content-end">
                                         <a href="/videos" class="more-button">
-                                            <v-icon color="black" small>mdi-chevron-right</v-icon>
+                                            <v-icon color="black" small>mdi-chevron-down</v-icon>
                                         </a>
                                     </v-card-actions>
                                 </div>
@@ -113,7 +113,7 @@
                                     </v-card-text>
                                     <v-card-actions class="justify-content-end">
                                         <a href="/photos" class="more-button">
-                                            <v-icon color="black" small>mdi-chevron-right</v-icon>
+                                            <v-icon color="black" small>mdi-chevron-down</v-icon>
                                         </a>
                                     </v-card-actions>
                                 </div>
@@ -142,7 +142,8 @@
             </v-expansion-panels>
         </v-col>
 
-        <v-col class="fill-height hidden-sm-only pa-0">
+        <v-col class="fill-height hidden-xs-only pa-0
+">
             <h5 class="text-uppercase text-secondary font-weight-normal py-4 mb-0">Рекомендуемые</h5>
             <v-card class="rounded-lg" flat>
                 <!-- Quote Section -->
@@ -157,12 +158,12 @@
                         Цитата дня
                     </v-card-title>
                     <v-card-text
-                        class="truncate-to-five-line title-break-word"
+                        class="truncate-to-five-line title-break-word text-justify"
                         v-html="quote.body"
                     ></v-card-text>
                     <v-card-actions class="justify-content-end">
                         <a href="/quotes" class="more-button">
-                            <v-icon small>mdi-chevron-right</v-icon>
+                            <v-icon small color="black">mdi-chevron-down</v-icon>
                         </a>
                         <v-icon small>mdi-</v-icon>
                     </v-card-actions>
@@ -173,12 +174,12 @@
                     <v-card-title class="subtitle-2 font-weight-bold pa-0">Термин дня</v-card-title>
                     <v-divider></v-divider>
                     <v-card-text
-                        class="truncate-to-five-line title-break-word"
+                        class="truncate-to-five-line title-break-word text-justify"
                         v-html="term.body"
                     ></v-card-text>
                     <v-card-actions class="justify-content-end">
                         <a href="/terms" class="more-button">
-                            <v-icon color="black" small>mdi-chevron-right</v-icon>
+                            <v-icon color="black" small>mdi-chevron-down</v-icon>
                         </a>
                     </v-card-actions>
                 </div>
@@ -204,7 +205,7 @@
                             </v-card-title>
                             <v-card-actions class="justify-content-end">
                                 <a href="/videos" class="more-button">
-                                    <v-icon color="black" small>mdi-chevron-right</v-icon>
+                                    <v-icon color="black" small>mdi-chevron-down</v-icon>
                                 </a>
                             </v-card-actions>
                         </div>
@@ -250,7 +251,7 @@
                             </v-card-text>
                             <v-card-actions class="justify-content-end">
                                 <a href="/photos" class="more-button">
-                                    <v-icon color="black" small>mdi-chevron-right</v-icon>
+                                    <v-icon color="black" small>mdi-chevron-down</v-icon>
                                 </a>
                             </v-card-actions>
                         </div>
@@ -327,9 +328,12 @@ export default {
 
 .more-button {
     text-decoration: none;
-    border: 2px solid #000;
     display: flex;
-    border-radius: 4px;
+    font-weight: bold;
+}
+
+.more-button > i {
+    font-size: 20px !important;
 }
 
 .truncate-to-five-line {

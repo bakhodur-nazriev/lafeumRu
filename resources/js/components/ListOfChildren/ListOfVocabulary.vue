@@ -78,7 +78,10 @@ export default {
 
 .toggle-button {
     min-width: 30px !important;
-    border: 2px solid #494949;
+}
+
+.toggle-button > span > i {
+    font-size: 22px !important;
 }
 
 .truncate-to-seventeen-line {

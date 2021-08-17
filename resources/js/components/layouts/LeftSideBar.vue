@@ -1,5 +1,5 @@
 <template>
-    <v-col xl="2" lg="3" md="2" class="fill-height pb-0 left-main-block pa-sm-0 col-12">
+    <v-col xl="2" lg="3" md="2" class="fill-height pb-0 left-main-block pa-0 col-12">
 
         <v-col class="hidden-sm-and-up pa-0">
             <v-expansion-panels flat>
@@ -43,7 +43,7 @@
         </v-col>
 
         <v-col class="fill-height hidden-xs-only py-0">
-            <h5 class="text-uppercase text-secondary font-weight-normal py-4 ">темы</h5>
+            <h5 class="text-uppercase text-secondary font-weight-normal py-4 mb-0">темы</h5>
 
             <v-sheet class="pa-2" rounded="lg">
                 <!-- Category -->

@@ -1,6 +1,6 @@
 <template>
     <v-col class="pa-0">
-        <h1 class="vocabulary-letter text-decoration-none mb-0 pt-2">{{ item.group }}</h1>
+        <h1 class="channels-letter text-decoration-none mb-0 pt-2">{{ item.group }}</h1>
         <v-col class="pa-0">
             <div :class="{'truncate-to-seventeen-line': isActive}">
                 <a
@@ -13,18 +13,18 @@
                     {{ child.name }}
                 </a>
             </div>
-            <div v-if="item.children.length >= 17 && isActive == true" class="text-left mt-4">
+            <div v-if="item.children.length >= 17" class="text-right mt-4">
                 <v-btn
                     text
                     small
                     class="pa-0 toggle-button"
+                    v-if="isActive == true"
                     @click="toggleChannel()"
                 >
                     <v-icon small>mdi-chevron-down</v-icon>
                 </v-btn>
-            </div>
-            <div v-if="isActive == false" class="text-left mt-4">
                 <v-btn
+                    v-else
                     text
                     small
                     class="pa-0 toggle-button"
@@ -57,7 +57,10 @@ export default {
 <style scoped>
 .toggle-button {
     min-width: 30px !important;
-    border: 2px solid #494949;
+}
+
+.toggle-button > span > i {
+    font-size: 22px !important;
 }
 
 .truncate-to-seventeen-line {
@@ -68,8 +71,9 @@ export default {
     -webkit-box-orient: vertical;
 }
 
-.vocabulary-letter {
+.channels-letter {
     color: #494949;
+    font-size: 20px;
 }
 
 .vocabulary-words {

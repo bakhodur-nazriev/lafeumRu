@@ -1,5 +1,5 @@
 <template>
-    <v-col xl="2" lg="3" md="5" sm="6" class="fill-height right-main-block col-12 py-0">
+    <v-col xl="2" lg="3" md="5" sm="6" class="fill-height right-main-block col-12">
 
         <v-col class="hidden-sm-and-up pa-0">
             <v-expansion-panels flat>

@@ -1,5 +1,5 @@
 <template>
-    <v-col xl="2" lg="3" class="pb-0 left-side-channel-block pa-sm-0 col-12">
+    <v-col xl="2" lg="3" class="left-side-channel-block col-12 px-md-0">
         <v-col class="hidden-sm-and-up pa-0">
             <v-expansion-panels flat>
                 <v-expansion-panel>
@@ -64,8 +64,8 @@
                 </v-expansion-panel>
             </v-expansion-panels>
         </v-col>
-        <v-col class="hidden-xs-only">
-            <h5 class="text-uppercase text-secondary font-weight-normal py-4">поиск по каналам</h5>
+        <v-col class="hidden-xs-only py-0">
+            <h5 class="text-uppercase text-secondary font-weight-normal py-4 mb-0">поиск по каналам</h5>
 
             <v-sheet rounded="lg" width="100%">
                 <div class="d-flex align-center pa-5">
@@ -73,7 +73,7 @@
                     <h5 class="ml-2 mb-0">Каналы</h5>
                 </div>
                 <v-divider class="ma-0"></v-divider>
-                <div class="pa-6">
+                <div class="pa-5">
                     <v-text-field
                         @click:clear="clearChannels()"
                         label="Введите имя канала"
@@ -206,6 +206,7 @@ export default {
 
 @media (min-width: 1904px) {
     .left-side-channel-block {
+        flex: 0 0 14.5%;
         max-width: 14.5%;
     }
 }

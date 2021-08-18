@@ -1,5 +1,5 @@
 <template>
-    <v-col xl="2" lg="3" class="fill-height pb-0 authors-main-left-block pa-sm-0 col-12">
+    <v-col xl="2" lg="3" class="fill-height authors-main-left-block col-12 px-md-0">
         <v-col class="hidden-sm-and-up pa-0">
             <v-expansion-panels flat>
                 <v-expansion-panel>
@@ -70,7 +70,7 @@
         </v-col>
 
         <v-col class="fill-height hidden-xs-only py-0">
-            <h5 class="text-uppercase text-secondary font-weight-normal py-4">поиск по имени</h5>
+            <h5 class="text-uppercase text-secondary font-weight-normal py-4 mb-0">поиск по имени</h5>
 
             <v-sheet rounded="lg" width="100%">
                 <div class="d-flex align-center pa-3">
@@ -79,7 +79,7 @@
                     <h5 class="ml-2 mb-0" v-else>Авторы</h5>
                 </div>
                 <v-divider class="ma-0"></v-divider>
-                <div class="pa-4">
+                <div class="pa-5">
                     <v-text-field
                         label="Введите имя автора"
                         v-model="search"
@@ -210,13 +210,11 @@ export default {
 </script>
 
 <style scoped>
-
 @media (min-width: 1904px) {
     .authors-main-left-block {
         flex: 0 0 14.5%;
         max-width: 14.5%;
     }
-
 }
 
 .authors-list {

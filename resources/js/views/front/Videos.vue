@@ -1,6 +1,6 @@
 <template>
     <v-col xl="5" lg="6" class="main-videos-block">
-        <h5 class="text-uppercase font-weight-regular pb-4 pt-1 mb-2">Видео</h5>
+        <h5 class="text-uppercase font-weight-regular py-4 mb-0">Видео</h5>
         <v-col cols="12" v-if="loading" class="d-flex justify-center">
             <v-progress-circular
                 width="5"

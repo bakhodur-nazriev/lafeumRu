@@ -67,7 +67,6 @@ export default {
                     this.pagination.currentPage = res.data[2].quotes.current_page;
                     this.pagination.totalPage = res.data[2].quotes.last_page;
                     this.currentAuthor = res.data[2];
-                    console.log(res.data[2].quotes.data);
                 })
                 .catch((err) => {
                     this.loading = false;

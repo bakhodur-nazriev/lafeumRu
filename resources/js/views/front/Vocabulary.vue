@@ -1,12 +1,12 @@
 <template>
-    <v-col xl="5" lg="6" class="px-5 vocabulary-main-block">
+    <v-col xl="5" lg="6" class="px-4 vocabulary-main-block">
         <div v-if="category.slug">
             <h3 class="pt-4 pb-2">{{ category.name }}</h3>
             <p>{{ category.description }}</p>
         </div>
         <v-col v-else class="pa-0">
             <h5 class="text-uppercase font-weight-regular py-2">Словарь «ЛАФЕЮМ»</h5>
-            <p class="grey--text">
+            <p class="grey--text text-justify">
                 На сегодня содержит более одной тысячи основных терминов, соответствующих
                 тематике сайта. Для удобства термины дополнительно разбиты на темы.
                 Большинство терминов взяты из Википедии с указанием ссылки на источник. В
@@ -24,8 +24,8 @@
                     clearable
                     height="48"
                     hide-details
-                    @click:clear="clearVocabulary()"
                     v-model="search"
+                    @click:clear="clearVocabulary()"
                     background-color="transparent"
                     placeholder="Введите термин"
                     class="rounded-lg rounded-tr-0 rounded-br-0 search-filed"
@@ -64,7 +64,7 @@
                 :key="i"
                 class="fill-height col-md-6 col-12"
             >
-                <v-card rounded="lg" class="px-8 py-5" flat>
+                <v-card rounded="lg" class="px-7 py-5" flat>
                     <v-card-text
                         v-for="(term ,i) in vocabulary"
                         :key="i"

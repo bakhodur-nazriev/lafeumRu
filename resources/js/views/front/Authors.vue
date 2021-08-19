@@ -79,6 +79,7 @@ export default {
                 .then(res => {
                     this.loading = false;
                     this.authors = res.data;
+                    console.log(res.data);
                 })
                 .catch(err => {
                     this.loading = false;
@@ -100,7 +101,9 @@ export default {
                 else r[group].children.push(e);
                 return r;
             }, {})
-            return Object.values(allAuthors);
+            let letters = Object.values(allAuthors);
+
+            return letters.sort((a, b) => (a.group > b.group) ? 1 : -1);
         },
         columns() {
             let columns = [];

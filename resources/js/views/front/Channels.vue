@@ -93,7 +93,7 @@ export default {
     computed: {
         orderChannels() {
             let allChannels = this.channels.reduce((r, e) => {
-                let group = e.name[0];
+                let group = e.name[0].toUpperCase();
                 if (!r[group]) r[group] = {group, children: [e]}
                 else r[group].children.push(e);
                 return r;

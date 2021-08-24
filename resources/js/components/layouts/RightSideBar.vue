@@ -1,6 +1,5 @@
 <template>
     <v-col xl="2" lg="3" md="5" sm="6" class="fill-height right-main-block col-12">
-
         <v-col class="hidden-sm-and-up pa-0">
             <v-expansion-panels flat>
                 <v-expansion-panel>
@@ -15,12 +14,13 @@
                                 <v-icon>mdi-dots-horizontal</v-icon>
                             </v-card-title>
                             <v-divider></v-divider>
-                            <v-card-title class="subtitle-2 font-weight-medium pa-0 mb-1">{{ quote.author.name }}<br/>
-                                Категория:
-                                Цитата дня
+                            <v-card-title
+                                class="subtitle-2 font-weight-medium pa-0 mb-1 d-flex flex-column justify-start">
+                                <a :href="'authors/' + quote.author.slug" class="w-100">{{ quote.author.name }}</a>
+                                <p class="w-100">Категория: Цитата дня</p>
                             </v-card-title>
                             <v-card-text
-                                class="truncate-to-five-line title-break-word"
+                                class="truncate-to-five-line title-break-word text-justify"
                                 v-html="quote.body"
                             ></v-card-text>
                             <v-card-actions class="justify-content-end">
@@ -36,7 +36,7 @@
                             <v-card-title class="subtitle-2 font-weight-bold pa-0">Термин дня</v-card-title>
                             <v-divider></v-divider>
                             <v-card-text
-                                class="truncate-to-five-line title-break-word"
+                                class="truncate-to-five-line title-break-word text-justify"
                                 v-html="term.body"
                             ></v-card-text>
                             <v-card-actions class="justify-content-end">
@@ -142,8 +142,7 @@
             </v-expansion-panels>
         </v-col>
 
-        <v-col class="fill-height hidden-xs-only pa-0
-">
+        <v-col class="fill-height hidden-xs-only pa-0">
             <h5 class="text-uppercase text-secondary font-weight-normal py-4 mb-0">Рекомендуемые</h5>
             <v-card class="rounded-lg" flat>
                 <!-- Quote Section -->
@@ -153,9 +152,9 @@
                         <v-icon>mdi-dots-horizontal</v-icon>
                     </v-card-title>
                     <v-divider></v-divider>
-                    <v-card-title class="subtitle-2 font-weight-medium pa-0 mb-1">{{ quote.author.name }}<br/>
-                        Категория:
-                        Цитата дня
+                    <v-card-title class="subtitle-2 font-weight-medium pa-0 mb-1 d-flex flex-column justify-start">
+                        <a :href="'authors/' + quote.author.slug" class="w-100">{{ quote.author.name }}</a>
+                        <p class="w-100">Категория: Цитата дня</p>
                     </v-card-title>
                     <v-card-text
                         class="truncate-to-five-line title-break-word text-justify"
@@ -277,7 +276,6 @@
                 </v-dialog>
             </v-card>
         </v-col>
-
     </v-col>
 </template>
 
@@ -294,7 +292,7 @@ export default {
             dialogVideo: false,
             dialogPhoto: false
         }
-    }
+    },
 }
 </script>
 
@@ -302,6 +300,7 @@ export default {
 @media (max-width: 600px) {
     .right-main-block {
         order: -1;
+        padding-top: 84px;
     }
 }
 

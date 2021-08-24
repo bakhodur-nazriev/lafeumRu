@@ -207,6 +207,13 @@ export default {
 </script>
 
 <style scoped>
+@media (max-width: 600px) {
+    .v-app-bar {
+        position: fixed;
+        z-index: 2;
+    }
+}
+
 .navbar-links {
     font-size: 14px;
     font-weight: 500;

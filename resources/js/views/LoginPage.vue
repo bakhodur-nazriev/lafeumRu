@@ -71,24 +71,24 @@
                             </span>
                         </div>
                     </div>
-                    <div class="grid-container">
-                        <div>
-                            <label class="checkbox-label" for="checkbox">
-                                <input
-                                    v-model="checked"
-                                    class="checkbox"
-                                    type="checkbox"
-                                    name="checkbox"
-                                    id="checkbox"
-                                />
-                                <span class="checkmark"></span>
-                                Запомнить меня
-                            </label>
-                        </div>
-                        <div class="grid-container-item">
-                            <a href="#">Забыли пароль?</a>
-                        </div>
-                    </div>
+                    <!--                    <div class="grid-container">-->
+                    <!--                        <div>-->
+                    <!--                            <label class="checkbox-label" for="checkbox">-->
+                    <!--                                <input-->
+                    <!--                                    v-model="checked"-->
+                    <!--                                    class="checkbox"-->
+                    <!--                                    type="checkbox"-->
+                    <!--                                    name="checkbox"-->
+                    <!--                                    id="checkbox"-->
+                    <!--                                />-->
+                    <!--                                <span class="checkmark"></span>-->
+                    <!--                                Запомнить меня-->
+                    <!--                            </label>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="grid-container-item">-->
+                    <!--                            <a href="#">Забыли пароль?</a>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
                     <v-btn
                         color="submit-btn"
                         @click.prevent="submit"
@@ -98,10 +98,10 @@
                         вход
                     </v-btn>
 
-                    <v-col class="d-flex justify-content-center mt-5">
-                        <span class="grey--text lighten-1 mr-4">У вас нет аккаунта ?</span>
-                        <a href="/register">Регистрация</a>
-                    </v-col>
+                    <!--    <v-col class="d-flex justify-content-center mt-5">-->
+                    <!--        <span class="grey&#45;&#45;text lighten-1 mr-4">У вас нет аккаунта ?</span>-->
+                    <!--        <a href="/register">Регистрация</a>-->
+                    <!--    </v-col>-->
                 </v-form>
             </v-card-text>
         </v-card>

@@ -8,7 +8,11 @@
             </p>
         </v-col>
         <v-row align="center">
-            <v-col cols="12" class="d-flex justify-center" v-if="loading">
+            <v-col
+                cols="12"
+                class="d-flex justify-center"
+                v-if="loading"
+            >
                 <v-progress-circular
                     width="5"
                     size="48"
@@ -79,20 +83,6 @@ export default {
 </script>
 
 <style scoped>
-@media (min-width: 1264px) and (max-width: 1904px) {
-    .quotes-main-block {
-        flex: 0 0 53% !important;
-        max-width: 53% !important;
-    }
-}
-
-@media (min-width: 1904px) {
-    .quotes-main-block {
-        flex: 0 0 45% !important;
-        max-width: 45% !important;
-    }
-}
-
 .categories-block a:hover {
     color: #04718c !important;
 }

@@ -5,42 +5,45 @@
         class="mb-6"
         ref="termItem"
     >
-        <v-card-subtitle class="d-flex px-5 pa-4">
+        <v-card-subtitle class="d-flex align-items-center px-3 py-2">
             <div class="d-flex" v-if="item.term_type.name === `Термины научного мира`">
                 <v-img
                     v-for="icon in 3"
                     :key="icon"
+                    width="18"
+                    height="18"
                     src="/img/icons/atom.svg"
-                    width="20"
-                    class="mr-1"
                 >
                 </v-img>
             </div>
             <div v-else>
                 <span>{{ item.term_type.name }}</span>
             </div>
-
             <v-spacer></v-spacer>
-
             <a
-                class="grey--text text-decoration-none"
+                class="grey--text darken-4 terms-slug"
                 :href="'/' + item.post.id"
             >
                 #{{ item.post.id }}
             </a>
         </v-card-subtitle>
 
-        <v-divider class="m-0 grey lighten-3"></v-divider>
+        <v-divider class="ma-0 grey lighten-3"></v-divider>
 
-        <v-card-text class="px-6 py-4 d-block main-content-body" ref="termItem">
+        <v-card-text
+            class="d-block main-content-body px-4 py-1"
+            ref="termItem"
+        >
             <v-col
                 :class="{'truncate-to-fifteen-line': isActive}"
-                class="subtitle-1 pa-0 text-lg-justify"
-                v-html="item.body" ref="termBody"
-            ></v-col>
+                class="subtitle-2 pa-0 text-lg-justify"
+                ref="termBody"
+            >
+                <span v-html="item.body"></span>
+            </v-col>
             <v-row class="text-right button-read-more">
                 <v-spacer></v-spacer>
-                <v-col v-if="isActive == true">
+                <v-col class="py-0" v-if="isActive == true">
                     <span
                         @click="toggleVocabulary()"
                         class="read-more-btn"
@@ -49,7 +52,7 @@
                         <v-icon small color="grey">mdi-chevron-down</v-icon>
                     </span>
                 </v-col>
-                <v-col v-else>
+                <v-col class="py-0" v-else>
                     <span
                         @click="toggleVocabulary()"
                         class="read-more-btn"
@@ -66,12 +69,12 @@
             >
                 <v-card-text class="term-modal-card-text pa-0" v-html="termOfModal.extract_html"></v-card-text>
             </v-card>
-            <v-col class="categories-block mt-2 pa-0">
+            <v-col class="categories-block my-2 pa-0">
                 <a
-                    class="mr-2 grey--text text-decoration-none"
+                    class="mr-2 grey--text darken-4 text-decoration-none"
                     v-for="(termCategories ,i) in item.categories"
                     :key="i"
-                    :href="`/terms/` + termCategories.slug"
+                    :href="'terms/' + termCategories.slug"
 
                 >
                     {{ termCategories.name }}
@@ -79,21 +82,17 @@
             </v-col>
         </v-card-text>
         <v-divider class="m-0 grey lighten-3"></v-divider>
-        <v-card-actions class="px-4 py-2">
-            <!--            <div>-->
-            <!--                <v-btn icon>-->
-            <!--                    <v-icon color="grey lighten-1">-->
-            <!--                        mdi-heart-->
-            <!--                    </v-icon>-->
-            <!--                </v-btn>-->
-            <!--                <span>45</span>-->
-            <!--                <v-btn icon>-->
-            <!--                    <v-icon color="grey lighten-1">-->
-            <!--                        mdi-bookmark-->
-            <!--                    </v-icon>-->
-            <!--                </v-btn>-->
-            <!--                <span>45</span>-->
-            <!--            </div>-->
+        <v-card-actions class="px-2 py-0">
+            <div>
+                <v-btn icon>
+                    <v-icon color="grey lighten-1">mdi-heart</v-icon>
+                </v-btn>
+                <span>45</span>
+                <v-btn icon>
+                    <v-icon color="grey lighten-1">mdi-bookmark</v-icon>
+                </v-btn>
+                <span>45</span>
+            </div>
             <v-spacer></v-spacer>
             <share-button :post="item.post"></share-button>
         </v-card-actions>
@@ -152,7 +151,6 @@ export default {
             })
         }
     }
-    ,
 }
 </script>
 
@@ -186,5 +184,14 @@ export default {
     left: 25px;
     right: 25px;
     z-index: 10;
+}
+
+.categories-block > a {
+    font-weight: 500;
+}
+
+.terms-slug:hover {
+    text-decoration: none;
+    color: #04718c !important;
 }
 </style>

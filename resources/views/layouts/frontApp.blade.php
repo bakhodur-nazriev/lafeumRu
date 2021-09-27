@@ -18,10 +18,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-@yield('meta-tags', View::make('layouts.meta-tags'))
-
-<!-- Scripts -->
-    {{--    <script src="{{ asset('js/app.js') }}" defer></script>--}}
+    @yield('meta-tags', View::make('layouts.meta-tags'))
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>

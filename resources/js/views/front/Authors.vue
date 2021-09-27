@@ -1,14 +1,15 @@
 <template>
     <v-col xl="7" lg="8">
         <h5 class="text-uppercase font-weight-regular py-4 pb-2">Авторы</h5>
-        <p class="grey--text">Авторы. Полный список всех авторов по алфавиту, а также есть возможность поиска.</p>
-        <v-col sm="12" md="7" class="d-flex align-items-center pl-0 mb-6">
+        <p>Авторы. Полный список всех авторов по алфавиту, а также есть возможность поиска.</p>
+        <v-col sm="12" md="6" class="d-flex align-items-center pl-0 mb-3">
             <v-col class="d-flex rounded-lg pa-0">
                 <v-text-field
                     solo
                     flat
+                    dense
                     clearable
-                    height="48"
+                    height="41"
                     hide-details
                     v-model="search"
                     @click:clear="clearAuthors()"
@@ -19,7 +20,7 @@
                 </v-text-field>
                 <v-btn
                     depressed
-                    height="52"
+                    height="45"
                     color="primary"
                     class="text-capitalize rounded-0 rounded-br-lg rounded-tr-lg"
                 >
@@ -79,7 +80,6 @@ export default {
                 .then(res => {
                     this.loading = false;
                     this.authors = res.data;
-                    console.log(res.data);
                 })
                 .catch(err => {
                     this.loading = false;

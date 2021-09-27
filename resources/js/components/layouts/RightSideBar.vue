@@ -1,5 +1,11 @@
 <template>
-    <v-col xl="2" lg="3" md="5" sm="6" class="fill-height right-main-block col-12">
+    <v-col
+        xl="2"
+        lg="3"
+        md="5"
+        sm="6"
+        class="fill-height right-main-block col-12"
+    >
         <v-col class="hidden-sm-and-up pa-0">
             <v-expansion-panels flat>
                 <v-expansion-panel>
@@ -17,13 +23,12 @@
                             <v-card-title
                                 class="subtitle-2 font-weight-medium pa-0 mb-1 d-flex flex-column justify-start">
                                 <a :href="'authors/' + quote.author.slug" class="w-100">{{ quote.author.name }}</a>
-                                <p class="w-100">Категория: Цитата дня</p>
                             </v-card-title>
                             <v-card-text
-                                class="truncate-to-five-line title-break-word text-justify"
+                                class="truncate-to-seven-line title-break-word text-justify"
                                 v-html="quote.body"
                             ></v-card-text>
-                            <v-card-actions class="justify-content-end">
+                            <v-card-actions class="justify-content-end py-0">
                                 <a href="/quotes" class="more-button">
                                     <v-icon small color="black">mdi-chevron-down</v-icon>
                                 </a>
@@ -36,10 +41,10 @@
                             <v-card-title class="subtitle-2 font-weight-bold pa-0">Термин дня</v-card-title>
                             <v-divider></v-divider>
                             <v-card-text
-                                class="truncate-to-five-line title-break-word text-justify"
+                                class="truncate-to-seven-line title-break-word text-justify"
                                 v-html="term.body"
                             ></v-card-text>
-                            <v-card-actions class="justify-content-end">
+                            <v-card-actions class="justify-content-end py-0">
                                 <a href="/terms" class="more-button">
                                     <v-icon color="black" small>mdi-chevron-down</v-icon>
                                 </a>
@@ -65,7 +70,7 @@
                                     <v-card-title class="subtitle-2 font-weight-medium pa-0 title-break-word">
                                         {{ video.title }}
                                     </v-card-title>
-                                    <v-card-actions class="justify-content-end">
+                                    <v-card-actions class="justify-content-endpy-0">
                                         <a href="/videos" class="more-button">
                                             <v-icon color="black" small>mdi-chevron-down</v-icon>
                                         </a>
@@ -111,7 +116,7 @@
                                             max-height="150"
                                         ></v-img>
                                     </v-card-text>
-                                    <v-card-actions class="justify-content-end">
+                                    <v-card-actions class="justify-content-end py-0">
                                         <a href="/photos" class="more-button">
                                             <v-icon color="black" small>mdi-chevron-down</v-icon>
                                         </a>
@@ -143,24 +148,39 @@
         </v-col>
 
         <v-col class="fill-height hidden-xs-only pa-0">
-            <h5 class="text-uppercase text-secondary font-weight-normal py-4 mb-0">Рекомендуемые</h5>
+            <h5 class="text-uppercase font-weight-normal py-4 mb-0">Рекомендуемые</h5>
             <v-card class="rounded-lg" flat>
+
                 <!-- Quote Section -->
-                <div class="pa-5 pb-0">
-                    <v-card-title class="subtitle-2 font-weight-bold pa-0">Цитата дня
+                <div class="pt-4 px-4 pb-0">
+                    <v-card-title class="subtitle-2 font-weight-bold pa-0">
+                        Цитата дня
                         <v-spacer></v-spacer>
                         <v-icon>mdi-dots-horizontal</v-icon>
                     </v-card-title>
-                    <v-divider></v-divider>
-                    <v-card-title class="subtitle-2 font-weight-medium pa-0 mb-1 d-flex flex-column justify-start">
-                        <a :href="'authors/' + quote.author.slug" class="w-100">{{ quote.author.name }}</a>
-                        <p class="w-100">Категория: Цитата дня</p>
+                    <v-divider class="my-2"></v-divider>
+                    <v-card-title class="subtitle-2 pa-0 mb-1 d-flex justify-space-between">
+                        <v-col class="pa-0">
+                            <a
+
+                                class="primary--text daily-authors-author text-break"
+                                target="_blank"
+                            >
+                                {{ quote.author.name }}
+                            </a>
+                        </v-col>
+                        <v-avatar>
+                            <img
+                                :src="quote.author.photo"
+                                :alt="quote.author.name"
+                            >
+                        </v-avatar>
                     </v-card-title>
                     <v-card-text
-                        class="truncate-to-five-line title-break-word text-justify"
+                        class="truncate-to-seven-line title-break-word text-justify"
                         v-html="quote.body"
                     ></v-card-text>
-                    <v-card-actions class="justify-content-end">
+                    <v-card-actions class="justify-content-end pr-0 pb-0">
                         <a href="/quotes" class="more-button">
                             <v-icon small color="black">mdi-chevron-down</v-icon>
                         </a>
@@ -168,15 +188,15 @@
                     </v-card-actions>
                 </div>
 
-                <!-- Term Section -->
-                <div class="pa-5 pb-0">
+                <!--Term Section-->
+                <div class="px-4 py-0">
                     <v-card-title class="subtitle-2 font-weight-bold pa-0">Термин дня</v-card-title>
-                    <v-divider></v-divider>
+                    <v-divider class="my-2"></v-divider>
                     <v-card-text
-                        class="truncate-to-five-line title-break-word text-justify"
+                        class="truncate-to-seven-line title-break-word text-justify"
                         v-html="term.body"
                     ></v-card-text>
-                    <v-card-actions class="justify-content-end">
+                    <v-card-actions class="justify-content-end pr-0 pb-0">
                         <a href="/terms" class="more-button">
                             <v-icon color="black" small>mdi-chevron-down</v-icon>
                         </a>
@@ -186,9 +206,9 @@
                 <!-- Video section -->
                 <v-dialog v-model="dialogVideo" width="900">
                     <template v-slot:activator="{ on, attrs }">
-                        <div class="pa-5 pb-0">
+                        <div class="px-4 py-0">
                             <v-card-title class="subtitle-2 font-weight-bold pa-0">Видео дня</v-card-title>
-                            <v-divider></v-divider>
+                            <v-divider class="mt-2 mb-3"></v-divider>
                             <v-card-text
                                 v-on="on"
                                 v-bind="attrs"
@@ -202,7 +222,7 @@
                             <v-card-title class="subtitle-2 font-weight-medium pa-0 title-break-word">
                                 {{ video.title }}
                             </v-card-title>
-                            <v-card-actions class="justify-content-end">
+                            <v-card-actions class="justify-content-end pr-0 pb-0">
                                 <a href="/videos" class="more-button">
                                     <v-icon color="black" small>mdi-chevron-down</v-icon>
                                 </a>
@@ -234,9 +254,9 @@
                 <!-- Photo Section -->
                 <v-dialog v-model="dialogPhoto" width="1000">
                     <template v-slot:activator="{ on, attrs }">
-                        <div class="pa-5">
+                        <div class="px-4 py-0">
                             <v-card-title class="subtitle-2 font-weight-bold pa-0">Фотография дня</v-card-title>
-                            <v-divider></v-divider>
+                            <v-divider class="mt-2 mb-4"></v-divider>
                             <v-card-text
                                 class="pa-0"
                                 v-on="on"
@@ -248,7 +268,7 @@
                                     max-height="150"
                                 ></v-img>
                             </v-card-text>
-                            <v-card-actions class="justify-content-end">
+                            <v-card-actions class="justify-content-end pr-0 pb-0">
                                 <a href="/photos" class="more-button">
                                     <v-icon color="black" small>mdi-chevron-down</v-icon>
                                 </a>
@@ -293,6 +313,18 @@ export default {
             dialogPhoto: false
         }
     },
+    computed: {
+        termBody() {
+            // let termBody = this.term.body;
+            // let parser = new DOMParser();
+            // let doc = parser.parseFromString(termBody, 'text/html');
+            //
+            // let tagLink = document.getElementsByTagName("a").innerHTML = ;
+            //
+            // console.log(tagLink);
+            // return tagLink;
+        }
+    }
 }
 </script>
 
@@ -304,16 +336,9 @@ export default {
     }
 }
 
-@media (max-width: 1904px) {
-    .right-main-block {
-        min-width: 27% !important;
-    }
-}
-
-@media (min-width: 1904px) {
-    .right-main-block {
-        min-width: 22% !important;
-    }
+.daily-authors-author {
+    text-decoration: none;
+    font-weight: 600;
 }
 
 .video-iframe {
@@ -335,12 +360,20 @@ export default {
     font-size: 20px !important;
 }
 
-.truncate-to-five-line {
+.truncate-to-seven-line {
     padding: 0;
     overflow: hidden;
     display: -webkit-box;
-    -webkit-line-clamp: 5;
+    -webkit-line-clamp: 7;
     -webkit-box-orient: vertical;
+}
+
+v-card__text > a {
+    color: #04718c !important;
+
+}
+
+.truncate-to-seven-line > a {
 }
 
 .video-duration-block {

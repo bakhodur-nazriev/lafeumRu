@@ -1,19 +1,19 @@
 <template>
     <v-col class="pa-0">
-        <h4 class="authors-letter text-decoration-none pt-2">{{ item.group }}</h4>
+        <h4 class="authors-letter text-decoration-none">{{ item.group }}</h4>
         <v-col class="pa-0">
             <div :class="{'truncate-to-seventeen-line': isActive}">
                 <a
                     v-for="(child ,i) in item.children"
                     :key="i"
-                    :href="'/authors/' + child.slug"
+                    :href="'authors/' + child.slug"
                     class="author-words text-decoration-none d-block fit"
                     target="_blank"
                 >
                     {{ child.name }}
                 </a>
             </div>
-            <div v-if="item.children.length >= 17" class="mt-4 text-right">
+            <div v-if="item.children.length >= 17" class="text-right">
                 <v-btn
                     text
                     small
@@ -70,10 +70,6 @@ export default {
     display: -webkit-box;
     -webkit-line-clamp: 17;
     -webkit-box-orient: vertical;
-}
-
-.author-letter {
-    color: #494949;
 }
 
 .author-words {

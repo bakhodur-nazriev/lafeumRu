@@ -55,7 +55,7 @@
 
                 <v-divider class="m-0 grey lighten-3"></v-divider>
 
-                <v-card-actions class="px-4 py-2">
+                <v-card-actions style="padding: 2px 4px 3px 4px;">
                     <v-spacer></v-spacer>
                     <share-button :post="item.post"></share-button>
                 </v-card-actions>

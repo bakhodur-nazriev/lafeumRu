@@ -70,7 +70,7 @@
         </v-col>
 
         <v-col class="fill-height hidden-xs-only py-0">
-            <h5 class="text-uppercase text-secondary font-weight-normal py-4 mb-0">поиск по имени</h5>
+            <h5 class="text-uppercase font-weight-normal py-4">поиск по имени</h5>
 
             <v-sheet rounded="lg" width="100%">
                 <div class="d-flex align-center pa-3">
@@ -120,14 +120,14 @@
                         </v-list-item>
                         <v-col
                             cols="12"
-                            class="d-flex justify-center mt-2 pb-0"
+                            class="d-flex justify-center pb-0"
+                            v-if="!isDisabled"
                         >
                             <v-btn
                                 fab
                                 small
                                 rounded
                                 elevation="0"
-                                :disabled="isDisabled"
                                 color="grey lighten-2"
                                 @click="loadMore"
                             >
@@ -150,28 +150,21 @@ export default {
             listTitle: "",
             search: "",
             loading: false,
-            nextPageUrl: "",
-            windowUrl: window.location.pathname
+            authorsQuantity: 25
         }
     },
     methods: {
         getAuthors() {
             this.loading = true;
-            const url = this.nextPageUrl ? this.nextPageUrl : `/api${this.windowUrl}`;
             axios
-                .get(url)
+                .get("/api/authors")
                 .then((res) => {
                     this.loading = false;
-                    this.listTitle = res.data[1].group_name;
-                    if (res.data[0].data.length) {
-                        this.authors.push(...res.data[0].data);
-                    }
+                    this.authors = res.data;
 
-                    if (res.data[0].to == res.data[0].total) {
+                    if (this.filteredList.length == res.data.length) {
                         this.isDisabled = true;
                     }
-
-                    this.nextPageUrl = res.data[0].next_page_url;
                 })
                 .catch(err => {
                     this.loading = false;
@@ -179,7 +172,7 @@ export default {
                 })
         },
         loadMore() {
-            this.getAuthors();
+            this.authorsQuantity += 25;
         },
         clearAuthors() {
             this.filteredList = this.authors;
@@ -192,33 +185,39 @@ export default {
         filteredList: {
             get() {
                 if (this.search) {
-                    return this.authors.filter(author => {
+                    let allFilteredAuthors = this.authors.filter(author => {
                         if (author.name) {
                             return author.name.toLowerCase().includes(this.search.toLowerCase());
                         }
                     });
+                    let certainFilteredAuthors = allFilteredAuthors.filter((a, i) => i < this.authorsQuantity);
+                    if (certainFilteredAuthors.length == allFilteredAuthors.length) {
+                        this.isDisabled = true;
+                    } else {
+                        this.isDisabled = false;
+                    }
+                    return certainFilteredAuthors;
                 } else {
-                    return this.authors;
+                    this.isDisabled = false;
+                    return this.authors.filter((a, i) => i < this.authorsQuantity);
                 }
             },
             set(v) {
                 this.authors = v;
             }
         },
+    },
+    watch: {
+        search() {
+            this.authorsQuantity = 25;
+        }
     }
 }
 </script>
 
 <style scoped>
-@media (min-width: 1904px) {
-    .authors-main-left-block {
-        flex: 0 0 14.5%;
-        max-width: 14.5%;
-    }
-}
-
 .authors-list {
-    min-height: 28px;
+    min-height: 24px;
     padding: 0;
 }
 

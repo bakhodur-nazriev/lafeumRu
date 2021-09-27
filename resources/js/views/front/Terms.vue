@@ -1,7 +1,7 @@
 <template>
-    <v-col xl="5" lg="5" md="6" class="terms-main-block ">
+    <v-col xl="5" lg="5" md="3" class="terms-main-block">
         <div class="py-4">
-            <h5 class="text-uppercase font-weight-regular">Термины</h5>
+            <h5 class="text-uppercase font-weight-regular mb-0">Термины</h5>
         </div>
         <v-row align="center">
             <v-col cols="12" class="d-flex justify-center" v-if="loading">
@@ -75,17 +75,17 @@ export default {
 </script>
 
 <style scoped>
-@media (min-width: 1264px) and (max-width: 1904px) {
-    .terms-main-block {
-        flex: 0 0 53%;
-        max-width: 53%;
-    }
-}
+/*@media (min-width: 1264px) and (max-width: 1904px) {*/
+/*    .terms-main-block {*/
+/*        flex: 0 0 53%;*/
+/*        max-width: 53%;*/
+/*    }*/
+/*}*/
 
-@media (min-width: 1904px) {
-    .terms-main-block {
-        flex: 0 0 45%;
-        max-width: 45%;
-    }
-}
+/*@media (min-width: 1904px) {*/
+/*    .terms-main-block {*/
+/*        flex: 0 0 45%;*/
+/*        max-width: 45%;*/
+/*    }*/
+/*}*/
 </style>

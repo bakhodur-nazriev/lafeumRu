@@ -1,6 +1,10 @@
 <template>
-    <v-col xl="2" lg="3" class="pa-0 left-side-knowledge-block col-12">
-        <v-col class="hidden-sm-and-up ">
+    <v-col xl="2"
+           lg="3"
+           md="3"
+           class="left-side-knowledge-block"
+    >
+        <v-col class="hidden-sm-and-up">
             <v-expansion-panels flat>
                 <v-expansion-panel>
                     <v-expansion-panel-header>
@@ -9,14 +13,14 @@
                     <v-expansion-panel-content>
                         <div>
                             <v-text-field
+                                dense
+                                outlined
+                                clearable
+                                class="mb-1"
+                                hide-details
                                 label="Введите область знаний"
                                 v-model="search"
-                                hide-details
-                                clearable
                                 @click:clear="clearKnowledge()"
-                                class="mb-1"
-                                outlined
-                                dense
                             >
                             </v-text-field>
 
@@ -57,24 +61,24 @@
             </v-expansion-panels>
         </v-col>
 
-        <v-col class="hidden-xs-only">
-            <h5 class="text-uppercase text-secondary font-weight-normal py-4">Область знаний</h5>
+        <v-col class="hidden-xs-only pa-0">
+            <h5 class="text-uppercase font-weight-normal py-4">Область знаний</h5>
 
             <v-sheet rounded="lg" width="100%">
-                <div class="d-flex align-center pa-5">
+                <div class="d-flex align-center px-2 py-3">
                     <h5 class="ml-2 mb-0">Область знаний</h5>
                 </div>
                 <v-divider class="ma-0"></v-divider>
-                <div class="pa-6">
+                <v-col class="pa-4">
                     <v-text-field
-                        label="Введите область знаний"
-                        v-model="search"
-                        hide-details
-                        clearable
-                        @click:clear="clearKnowledge()"
-                        class="mb-1"
-                        outlined
                         dense
+                        outlined
+                        clearable
+                        class="mb-0"
+                        hide-details
+                        v-model="search"
+                        label="Введите область знаний"
+                        @click:clear="clearKnowledge()"
                     >
                     </v-text-field>
 
@@ -92,7 +96,6 @@
                             <span class="title px-0">
                                 {{ knowledgeArea.name }}
                             </span>
-                                <v-divider class="my-2"></v-divider>
                                 <v-list-item-content
                                     v-for="(child ,i) in knowledgeArea.children"
                                     :key="i"
@@ -109,7 +112,7 @@
                             </v-list-item-title>
                         </v-list-item>
                     </v-col>
-                </div>
+                </v-col>
             </v-sheet>
         </v-col>
     </v-col>
@@ -169,33 +172,18 @@ export default {
 </script>
 
 <style scoped>
-@media (min-width: 1264px) and (max-width: 1904px) {
-    .left-side-knowledge-block {
-        max-width: 20%;
-    }
-}
-
-@media (min-width: 1904px) {
-    .left-side-knowledge-block {
-        max-width: 14.5%;
-    }
-}
-
-.knowledge-list-item-title {
-    white-space: initial;
-}
-
+.knowledge-list-item-title,
 .knowledge-list-item-subtitle {
     white-space: initial;
 }
 
 .knowledge-list-item-subtitle > a {
-    color: #04718c;
+    color: #000;
     line-height: 1.4;
 }
 
 .knowledge-list-item-subtitle > a:hover {
-    color: #00000099;
+    color: #04718c;
 }
 
 </style>

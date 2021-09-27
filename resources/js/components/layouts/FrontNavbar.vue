@@ -1,11 +1,11 @@
 <template>
     <div>
         <v-app-bar
-            color="primary accent-4"
-            height="84"
-            prominent
             dark
             flat
+            prominent
+            height="85"
+            color="primary accent-4"
         >
             <v-row class="hidden-sm-and-up h-100 ma-0">
                 <v-col class="pa-0 d-flex align-center">
@@ -14,29 +14,105 @@
                     </v-col>
                     <v-col class="d-flex justify-center col-8 pa-0">
                         <a
-                            class="text-white subtitle-1 pr-2 text-decoration-none font-weight-medium"
-                            :href="navItems[0].href">Главная</a>
+                            class="text-white subtitle-1 pr-2 text-decoration-none font-weight-medium text-uppercase"
+                            :href="navItems[0].href"
+                        >
+                            Главная
+                        </a>
                         <a
-                            class="text-white subtitle-1 pl-2 text-decoration-none font-weight-medium"
-                            :href="navItems[1].href">Область
-                            знаний</a>
+                            class="text-white subtitle-1 pl-2 text-decoration-none font-weight-medium text-uppercase"
+                            :href="navItems[1].href"
+                        >
+                            Цитаты
+                        </a>
                     </v-col>
                 </v-col>
             </v-row>
 
-            <v-row justify="center" class="align-content-center h-100 hidden-xs-only ma-0">
-                <v-col xl="9" lg="8" class="d-flex justify-content-between col-auto py-0 h-100 px-0">
-                    <div class="d-flex align-items-center">
-                        <div
-                            v-for="item in navItems"
-                            :key="item.href"
+            <v-row class="hidden-xs-only ma-0">
+                <v-col cols="12" class="d-flex pa-0">
+                    <v-col class="d-flex justify-content-center py-0">
+                        <v-col
+                            xl="9"
+                            lg="10"
+                            class="d-flex justify-content-center align-items-center py-3 px-xl-8 "
+                            style="min-height: 75px;"
                         >
-                            <a :href="item.href" class="navbar-links mx-3">
-                                <span v-if="item.title">{{ item.title }}</span>
-                                <v-img v-else width="71" class="mr-5" :src="item.imageUrl"></v-img>
-                            </a>
-                        </div>
-                    </div>
+                            <div
+                                class="d-flex align-items-center h-100 pa-0 mx-3"
+                                v-for="(item, i) in navItems"
+                                :key="i"
+                            >
+                                <a
+                                    class="navbar-links text-uppercase"
+                                    :href="item.href"
+                                >
+                                    <v-img
+                                        v-if="item.imageUrl"
+                                        max-width="72"
+                                        :src="item.imageUrl"
+                                    >
+                                    </v-img>
+                                    <span v-else>{{ item.title }}</span>
+                                </a>
+                            </div>
+
+                            <v-col class="d-flex align-items-center pa-0" v-if="!user">
+                                <v-btn
+                                    color="white primary--text"
+                                    @click="$refs.logout.submit()"
+                                    class="text-capitalize rounded-lg text-decoration-none primary"
+                                    elevation="0"
+                                    width="88"
+                                >
+                                    выход
+                                </v-btn>
+
+                                <form
+                                    ref="logout"
+                                    action="/logout"
+                                    method="POST"
+                                    style="display: none;"
+                                >
+                                    <input type="hidden" name="_token" :value="csrf"/>
+                                </form>
+                            </v-col>
+                            <v-col class="d-flex align-items-center justify-content-end pa-0" v-else>
+                                <v-avatar>
+                                    <img :src="user.avatar" :alt="user.name">
+                                </v-avatar>
+                                <v-menu offset-y left min-width="200" rounded="lg" nudge-bottom="20">
+                                    <template v-slot:activator="{ on }">
+                                        <v-btn
+                                            icon
+                                            small
+                                            v-on="on"
+                                            color="white"
+                                        >
+                                            <v-icon>mdi-menu-down</v-icon>
+                                        </v-btn>
+                                    </template>
+                                    <v-list dense>
+                                        <v-list-item
+                                            v-for="profileLink in profileLinks"
+                                            :key="profileLink.href"
+                                            :href="profileLink.href"
+                                            class="text-decoration-none font-weight-regular"
+                                        >
+                                            <v-list-item-icon class="mr-2">
+                                                <v-icon v-text="profileLink.icon"></v-icon>
+                                            </v-list-item-icon>
+                                            <v-list-item-content>
+                                                <v-list-item-title class="pa-1 primary--text">
+                                                    {{ profileLink.title }}
+                                                </v-list-item-title>
+                                            </v-list-item-content>
+                                        </v-list-item>
+                                    </v-list>
+                                </v-menu>
+                            </v-col>
+                        </v-col>
+                    </v-col>
                 </v-col>
             </v-row>
         </v-app-bar>
@@ -44,7 +120,7 @@
         <v-navigation-drawer
             v-model="drawer"
             temporary
-            absolute
+            fixed
             left
         >
             <v-list nav dense>
@@ -99,7 +175,7 @@ export default {
                 },
                 {
                     title: "Настройки",
-                    href: "",
+                    href: "/",
                     icon: "mdi-tune"
                 },
                 {
@@ -218,6 +294,11 @@ export default {
     font-size: 14px;
     font-weight: 500;
     color: #fff;
+}
+
+.navbar-profile-links {
+    text-decoration: none;
+    font-weight: 500;
 }
 
 .navbar-links:hover {

@@ -1,16 +1,17 @@
 <template>
     <v-col xl="7" lg="8">
         <h5 class="text-uppercase font-weight-regular py-2">Области знаний</h5>
-        <p class="grey--text">В этой рубрике термины и комментарии специалистов классифицированы
+        <p>В этой рубрике термины и комментарии специалистов классифицированы
             <br/>более развернуто по группам и направлениям.
         </p>
-        <v-col sm="12" md="7" class="d-flex align-center pl-0 mb-7">
+        <v-col sm="12" md="6" class="d-flex align-center pl-0 mb-4">
             <v-col class="d-flex rounded-lg pa-0">
                 <v-text-field
                     solo
                     flat
+                    dense
                     clearable
-                    height="48"
+                    height="40"
                     hide-details
                     v-model="search"
                     @click:clear="clearKnowledgeArea()"
@@ -22,7 +23,7 @@
                 <v-btn
                     text
                     depressed
-                    height="52"
+                    height="44"
                     color="white"
                     class="text-capitalize rounded-0 primary rounded-br-lg rounded-tr-lg"
                 >
@@ -42,10 +43,10 @@
             <v-card
                 flat
                 :key="i"
-                class="knowledge-area-card mb-6 pa-6"
+                class="knowledge-area-card mb-6 pa-3"
                 v-for="(knowledgeArea, i) in filteredList"
             >
-                <v-card-title class="d-flex">
+                <v-card-title class="d-flex py-3">
                     <div class="text-start w-100">
                         <h2 class="mb-0" style="font-size: 24px">
                             {{ knowledgeArea.name }}
@@ -53,7 +54,7 @@
                     </div>
                     <v-col cols="12" class="list-col-4 px-0">
                         <v-card-text
-                            class="pa-0 mb-2"
+                            class="pa-0 mb-1"
                             v-for="(knowledge, i) in knowledgeArea.children"
                             :key="i"
                         >

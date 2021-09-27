@@ -5,8 +5,8 @@
             <p>{{ category.description }}</p>
         </div>
         <v-col v-else class="pa-0">
-            <h5 class="text-uppercase font-weight-regular py-2">Словарь «ЛАФЕЮМ»</h5>
-            <p class="grey--text text-justify">
+            <h5 class="text-uppercase font-weight-regular pt-3 pb-2">Словарь «ЛАФЕЮМ»</h5>
+            <p class="text-justify">
                 На сегодня содержит более одной тысячи основных терминов, соответствующих
                 тематике сайта. Для удобства термины дополнительно разбиты на темы.
                 Большинство терминов взяты из Википедии с указанием ссылки на источник. В
@@ -21,19 +21,20 @@
                 <v-text-field
                     solo
                     flat
+                    dense
                     clearable
-                    height="48"
+                    height="41"
                     hide-details
                     v-model="search"
-                    @click:clear="clearVocabulary()"
-                    background-color="transparent"
                     placeholder="Введите термин"
+                    background-color="transparent"
+                    @click:clear="clearVocabulary()"
                     class="rounded-lg rounded-tr-0 rounded-br-0 search-filed"
                 >
                 </v-text-field>
                 <v-btn
                     depressed
-                    height="52"
+                    height="45"
                     color="primary"
                     class="text-capitalize rounded-0 rounded-br-lg rounded-tr-lg"
                 >
@@ -163,13 +164,6 @@ export default {
 </script>
 
 <style scoped>
-@media (min-width: 1904px) {
-    .vocabulary-main-block {
-        flex: 0 0 45%;
-        max-width: 45%;
-    }
-}
-
 .form-search {
     display: flex;
 }

@@ -1,29 +1,33 @@
 <template>
     <v-card flat rounded="lg" class="mb-6">
-        <v-card-subtitle class="d-flex pl-4 pr-6 py-3 align-center">
+        <v-card-subtitle class="d-flex px-2 py-1 align-center">
             <a
-                class="d-flex align-items-center text-decoration-none author-show-link"
-                :href="`/authors/` + item.author.slug"
+                class="author-show-link primary--text"
+                :href="`authors/` + item.author.slug"
+                target="_blank"
             >
-                <v-icon color="grey lighten-1">mdi-account</v-icon>
-                <h5 class="mb-0 ml-1 subtitle-1">
-                    {{ item.author.name }}
-                </h5>
+                <v-icon color="grey dark" size="26">mdi-account</v-icon>
+                <span class="ml-1">{{ item.author.name }}</span>
             </a>
             <v-spacer></v-spacer>
-            <a class="grey--text text-decoration-none" :href="'/' + item.post.id">
+            <a
+                class="grey--text quote-id"
+                :href="'/' + item.post.id"
+                target="_blank"
+            >
                 #{{ item.post.id }}
             </a>
         </v-card-subtitle>
 
         <v-divider class="m-0 grey lighten-3"></v-divider>
 
-        <v-card-text class="px-6 py-3 main-content-body">
+        <v-card-text class="px-3 py-2 main-quotes-body">
             <v-col
                 :class="{'truncate-to-fifteen-line': isActive}"
-                class="text-lg-justify subtitle-1 pa-0 mb-2"
-                v-html="item.body"
-            ></v-col>
+                class="text-justify mb-1 pa-0 quote-body"
+            >
+                <span class="font-weight-regular quote-body" v-html="item.body"></span>
+            </v-col>
             <v-row class="text-right button-read-more">
                 <v-spacer></v-spacer>
                 <v-col v-if="isActive == true">
@@ -45,19 +49,20 @@
                     </span>
                 </v-col>
             </v-row>
-            <div class="categories-block">
+            <v-col class="categories-block pa-0">
                 <a
-                    class="mr-2 grey--text text-decoration-none"
+                    class="mr-2 font-weight-light"
                     v-for="(category, i) in item.categories"
                     :key="i"
-                    :href="'/quotes/' + category.slug"
+                    :href="'quotes/' + category.slug"
+                    target="_blank"
                 >
                     {{ category.name }}
                 </a>
-            </div>
+            </v-col>
         </v-card-text>
         <v-divider class="m-0 grey lighten-3"></v-divider>
-        <v-card-actions class="px-4 py-2">
+        <v-card-actions style="padding: 2px 4px 3px 4px;">
             <v-spacer></v-spacer>
             <share-button :post="item.post"></share-button>
         </v-card-actions>
@@ -76,14 +81,13 @@ export default {
             isActive: true
         };
     },
-
     methods: {
         toggleVocabulary() {
             this.isActive = !this.isActive;
         }
     },
     mounted() {
-        document.querySelectorAll('.main-content-body').forEach(el => {
+        document.querySelectorAll('.main-quotes-body').forEach(el => {
             if (el.querySelector('.truncate-to-fifteen-line').textContent.replace(/\s/g, "").length <= 920) {
                 el.querySelector('.button-read-more').style.display = "none";
             } else {
@@ -94,7 +98,32 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
+.quote-id {
+    text-decoration: none !important;
+}
+
+.quote-id:hover {
+    color: #04718c !important;
+}
+
+.categories-block > a {
+    text-decoration: none;
+    color: #424242 !important;
+    caret-color: #424242 !important;
+    font-size: 13px;
+}
+
+.categories-block > a:hover {
+    color: #04718c !important;
+}
+
+.quote-body {
+    line-height: 1.5;
+    font-size: 14px !important;
+    color: #000;
+}
+
 .read-more-btn {
     font-size: 13px;
     color: grey;
@@ -106,16 +135,20 @@ export default {
 }
 
 .author-show-link {
+    display: flex;
+    align-items: center;
     width: fit-content;
-    color: #000;
+    font-weight: 500;
 }
 
 .author-show-link:hover {
-    color: #04718c;
+    text-decoration: none;
 }
 
 .truncate-to-fifteen-line {
     padding: 0;
+    line-height: 1.5;
+    font-size: 14px !important;
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 15;

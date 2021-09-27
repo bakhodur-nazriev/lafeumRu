@@ -1,13 +1,13 @@
 <template>
     <v-col cols="8">
-        <h5 class="text-uppercase font-weight-regular py-4">логин</h5>
+        <!--<h5 class="text-uppercase font-weight-regular py-4">логин</h5>-->
         <v-card elevation="0" max-width="566" class="card rounded-lg mx-auto">
             <v-card-title class="pa-0">
                 <h2 class="mb-4 display-1 font-weight-medium">Вход</h2>
             </v-card-title>
-            <div class="card-subtitle pa-0 mt-0 mb-10">
-                Добро пожаловать, мы ждали Вас !
-            </div>
+<!--            <div class="card-subtitle pa-0 mt-0 mb-10">-->
+            <!--                Добро пожаловать, мы ждали Вас !-->
+            <!--            </div>-->
             <v-card-text class="pa-0">
                 <v-form ref="form" :action="appPath('login')" method="POST">
                     <input type="hidden" name="_token" :value="csrf"/>
@@ -166,7 +166,7 @@ export default {
 <style scoped>
 .card {
     margin-bottom: 40px;
-    padding: 66px 90px 117px 99px;
+    padding: 66px 90px 100px 99px;
     background-color: #f5f5f5 !important;
     border: none;
 }

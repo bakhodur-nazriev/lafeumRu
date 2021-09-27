@@ -1,14 +1,15 @@
 <template>
     <v-col xl="7" lg="8">
         <h5 class="text-uppercase font-weight-regular pt-4 pb-2">Каналы</h5>
-        <p class="grey--text">Каналы. Полный список всех авторов по алфавиту, а также есть возможность поиска.</p>
-        <v-col sm="12" md="7" class="d-flex align-items-center px-0 mb-5">
+        <p>Каналы. Полный список всех авторов по алфавиту, а также есть возможность поиска.</p>
+        <v-col sm="12" md="6" class="d-flex align-items-center px-0 mb-3">
             <v-col class="d-flex rounded-lg pa-0">
                 <v-text-field
                     solo
                     flat
+                    dense
                     clearable
-                    height="48"
+                    height="41"
                     hide-details
                     v-model="search"
                     @click:clear="clearChannel()"
@@ -19,7 +20,7 @@
                 </v-text-field>
                 <v-btn
                     depressed
-                    height="52"
+                    height="45"
                     color="primary"
                     class="text-capitalize rounded-0 rounded-br-lg rounded-tr-lg"
                 >

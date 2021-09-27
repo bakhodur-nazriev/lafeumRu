@@ -11,7 +11,12 @@
                 <Telegram :url="`${appUrl}/` + postLink.id" class="share-button--circle" btnText/>
             </div>
         </v-expand-transition>
-        <v-btn icon color="grey lighten-1" @click="expand = !expand">
+        <v-btn
+            icon
+            small
+            color="grey lighten-1"
+            @click="expand = !expand"
+        >
             <v-icon>mdi-share-variant</v-icon>
         </v-btn>
     </div>

@@ -1,73 +1,76 @@
-<template>    
-    <v-col cols="8">
-        <h5 class="text-uppercase font-weight-regular py-4">вход</h5>
-        <v-card 
-            elevation="0" 
-            max-width="566" 
+<template>
+    <v-col cols=9>
+        <h5 class="text-uppercase font-weight-regular py-2">Регистрация</h5>
+        <v-card
+            elevation="0"
+            max-width="500"
             class="card rounded-lg mx-auto"
         >
             <v-card-title class="pa-0">
-                <h2 class="mb-4 display-1 font-weight-medium">Регистрация</h2>
+                <h2 class="display-1 font-weight-medium">Регистрация</h2>
             </v-card-title>
-            <div class="card-subtitle pa-0 mt-0 mb-10">
-                <span class="grey--text">У Bас есть аккаунт ?</span>
-            </div>
             <v-card-text class="pa-0">
-                <form @submit.prevent="submitForm">
-                    <div class="input-container">
-                        <label class="input-label" for="name">Имя, Фамилия</label> <br>
-                        <input class="input" type="text" name="name" id="name" placeholder="Abuamr Gafurov" 
-                            v-model.trim="$v.name.$model" 
-                            :class="{ 'is-invalid':$v.name.$error, 'is-valid':!$v.name.$invalid }"
+                <form ref="form" method="POST" :action="appPath('register')">
+                    <input type="hidden" name="_token" :value="csrf"/>
+                    <v-col class="px-0">
+                        <v-text-field
+                            clearable
+                            type="text"
+                            name="name"
+                            v-model="name"
+                            label="Имя, Фамилия"
+                            :rules="[rules.required, rules.min]"
+                        />
+                    </v-col>
+                    <v-col class="px-0">
+                        <v-text-field
+                            clearable
+                            type="email"
+                            name="email"
+                            v-model="email"
+                            label="Введите Ваш E-mail"
+                            :rules="[rules.required, rules.email]"
+                        />
+                    </v-col>
+                    <v-col class="px-0">
+                        <v-text-field
+                            type="password"
+                            name="password"
+                            v-model="password"
+                            label="Введите Ваш пароль"
+                            :rules="[rules.required, rules.min]"
+                            :type="showPassword ? 'text' : 'password'"
+                            @click:append="showPassword = !showPassword"
+                            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                        />
+                    </v-col>
+                    <v-col class="px-0">
+                        <v-text-field
+                            type="password"
+                            name="password"
+                            v-model="confirmPassword"
+                            label="Подтверждение пароля"
+                            :type="showPasswordConfirm ? 'text' : 'password'"
+                            :rules="[rules.required, rules.min, rules.passwordMatch]"
+                            @click:append="showPasswordConfirm = !showPasswordConfirm"
+                            :append-icon="showPasswordConfirm ? 'mdi-eye' : 'mdi-eye-off'"
+                        />
+                    </v-col>
+                    <v-col class="px-0">
+                        <v-btn
+                            height="48"
+                            width="100%"
+                            elevation="0"
+                            @click="submit"
+                            class="primary rounded-lg text-capitalize font-weight-medium"
                         >
-                        <div class="valid-feedback"></div>
-                        <div class="invalid-feedback">
-                            <span v-if="!$v.name.required">Это поле обязательное. <button type="button" @click="clearName"><v-icon class="v-icon">mdi-close</v-icon></button></span>
-                            <span v-if="!$v.name.minLength">Это поле должен содержать минимум {{ $v.name.$params.minLength.min }} букв. <button type="button" @click="clearName"><v-icon class="v-icon">mdi-close</v-icon></button></span>
-                            <span v-if="!$v.name.maxLength">Это поле не может содержать более {{ $v.name.$params.maxLength.max }} букв. <button type="button" @click="clearName"><v-icon class="v-icon">mdi-close</v-icon></button></span>
-                        </div>
-                    </div>
-                    <div class="input-container">
-                        <label class="input-label" for="email">Ваш Email</label> <br>
-                        <input class="input" type="email" name="email" id="email" placeholder="Введите Ваше E-mail"
-                            v-model.trim="$v.email.$model" 
-                            :class="{ 'is-invalid':$v.email.$error, 'is-valid':!$v.email.$invalid }"    
-                        >
-                        <div class="valid-feedback"></div>
-                        <div class="invalid-feedback">
-                            <span v-if="!$v.email.required">Это поле обязательное. <button type="button" @click="clearEmail"><v-icon class="v-icon">mdi-close</v-icon></button></span>
-                            <span v-if="!$v.email.email">E-mail должен быть действительным. <button type="button" @click="clearEmail"><v-icon class="v-icon">mdi-close</v-icon></button></span>
-                        </div>
-                    </div>
-                    <div class="input-container">
-                        <label class="input-label" for="password">Пароль</label> <br>
-                        <input class="input" type="password" name="password" id="password" placeholder="Введите Ваш пароль"
-                            v-model.trim="$v.password.$model" 
-                            :class="{ 'is-invalid':$v.password.$error, 'is-valid':!$v.password.$invalid }"
-                        >
-                        <div class="valid-feedback"></div>
-                        <div class="invalid-feedback">
-                            <span v-if="!$v.password.required">Введите Ваш пароль. <button type="button" @click="clearPassword"><v-icon class="v-icon">mdi-close</v-icon></button></span>
-                            <span v-if="!$v.password.minLength">Пароль должен содержать минимум {{ $v.password.$params.minLength.min }} символов. <button type="button" @click="clearPassword"><v-icon class="v-icon">mdi-close</v-icon></button></span>
-                        </div>
-                    </div>
-                    <div class="input-container">
-                        <label class="input-label" for="confirmPassword">Подтверждение пароля</label> <br>
-                        <input class="input" type="password" name="confirmPassword" id="confirmPassword" placeholder="Ваш пароль" 
-                            v-model.trim="$v.confirmPassword.$model" 
-                            :class="{ 'is-invalid':$v.confirmPassword.$error, 'is-valid': (password != '') ? !$v.confirmPassword.$invalid : '' }"
-                        >
-                        <div class="valid-feedback"></div>
-                        <div class="invalid-feedback">
-                            <span v-if="!$v.confirmPassword.required">Подтвердите Ваш пароль.<button type="button" @click="clearConfirmPassword"><v-icon class="v-icon">mdi-close</v-icon></button></span>
-                            <span v-if="!$v.confirmPassword.sameAsPassword">Пароли не совпадают. <button type="button" @click="clearConfirmPassword"><v-icon class="v-icon">mdi-close</v-icon></button></span>
-                        </div>
-                    </div>
-                    <button class="submit-btn" type="submit">Регистрация</button>
-                    <div class="d-flex justify-content-center mt-5">
-                        <span class="grey--text lighten-1 mr-4">Есть аккаунт ?</span>
-                        <a href="/login">Вход</a>
-                    </div>
+                            Регистрация
+                        </v-btn>
+                    </v-col>
+                    <v-col class="d-flex justify-content-center mt-5 pa-0">
+                        <span class="grey--text font-weight-medium lighten-1 mr-4">Есть аккаунт ?</span>
+                        <a class="text-decoration-none primary--text font-weight-medium" href="/login">Вход</a>
+                    </v-col>
                 </form>
             </v-card-text>
         </v-card>
@@ -75,166 +78,50 @@
 </template>
 
 <script>
-import {
-  required,
-  minLength,
-  maxLength,
-  email,
-  sameAs,
-} from "vuelidate/lib/validators";
 export default {
-  name: "RegisterPage",
-  data() {
-    return {
-      name: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-    };
-  },
-  validations: {
-    name: {
-      required,
-      minLength: minLength(5),
-      maxLength: maxLength(30),
+    name: "RegisterPage",
+    data() {
+        return {
+            csrf: window.Laravel.csrf_token,
+            name: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+            showPassword: false,
+            showPasswordConfirm: false,
+            rules: {
+                required: value => !!value || 'Это поле обязательное.',
+                counter: value => value.length <= 20 || 'Максимум 20 символов',
+                min: v => v.length >= 3 || 'Минимум 3 символов',
+                passwordMatch: () => (this.password === this.confirmPassword) || 'Введенный вами пароль не совпадает',
+                email: value => {
+                    const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                    return pattern.test(value) || 'E-mail должен быть действительным.'
+                },
+            },
+        }
     },
-    email: {
-      required,
-      email,
+    methods: {
+        appPath(url) {
+            window.laravel + url;
+        },
+        submit(e) {
+            e.preventDefault();
+            const validData = this.$refs.form.validate();
+
+            if (validData) {
+                this.$refs.form.submit();
+            }
+        },
     },
-    password: {
-      required,
-      minLength: minLength(8),
-    },
-    confirmPassword: {
-      required,
-      sameAsPassword: sameAs("password"),
-    },
-  },
-  methods: {
-    clearName() {
-      this.name = "";
-    },
-    clearEmail() {
-      this.email = "";
-    },
-    clearPassword() {
-      this.password = "";
-    },
-    clearConfirmPassword() {
-      this.confirmPassword = "";
-    },
-    submitForm() {
-      this.$v.$touch();
-      if (this.$v.$invalid) {
-        console.log("Fail");
-      } else {
-        console.log("Success");
-      }
-    },
-  },
 };
 </script>
 
 
 <style scoped>
 .card {
-  margin-bottom: 40px;
-  padding: 66px 90px 96px 99px;
-  background-color: #f5f5f5 !important;
-  border: none;
-}
-.card-subtitle a {
-  font-weight: 300;
-  font-size: 16px;
-  line-height: 110%;
-  color: rgba(40, 44, 64, 0.7);
-}
-.input-container {
-  position: relative;
-  margin-bottom: 18px;
-}
-.input-label {
-  font-size: 12px;
-  font-weight: 500;
-  color: #82869a;
-  line-height: 110%;
-}
-.input {
-  color: rgba(55, 60, 86, 1);
-  line-height: 110%;
-  font-weight: 500;
-  display: block;
-  width: 100%;
-  border-bottom: 2px solid rgb(199 199 199 / 50%);
-  padding: 9px 0;
-}
-.input:focus {
-  outline: none;
-}
-.input::placeholder {
-  color: rgba(130, 134, 154, 0.5);
-  line-height: 110%;
-  font-size: 14px;
-  font-weight: 400;
-}
-.submit-btn {
-  display: block;
-  background-color: rgba(4, 113, 140, 1);
-  border-radius: 8px;
-  width: 100%;
-  color: white;
-  height: 55px;
-  box-shadow: 0 12px 40px rgb(0 0 0 / 20%);
-  margin-top: 40px;
-  letter-spacing: 1px;
-}
-.submit-btn:focus {
-  outline: none;
-}
-.submit-btn:active {
-  opacity: 0.5;
-}
-.valid-feedback {
-  position: absolute;
-  top: 51px;
-  left: 0px;
-  border-bottom: 2px solid;
-}
-.valid-feedback::after {
-  content: "";
-  position: absolute;
-  right: 7px;
-  top: -30px;
-  width: 6px;
-  height: 14px;
-  border: solid rgb(0 195 17);
-  border-width: 0px 2px 2px 0;
-  transform: rotate(45deg);
-}
-.invalid-feedback {
-  position: absolute;
-  top: 51px;
-  left: 0px;
-  border-top: 2px solid;
-}
-.invalid-feedback button {
-  position: absolute;
-  top: -35px;
-  right: 0px;
-}
-button:focus {
-  outline: none;
-}
-.v-icon {
-  color: inherit !important;
-}
-@media screen and (max-width: 599px) {
-  .card {
-    padding: 40px;
-  }
-  h2 {
-    font-size: 30px;
-  }
+    margin-bottom: 40px;
+    padding: 50px 70px;
+    background-color: #f7f7f7 !important;
 }
 </style>

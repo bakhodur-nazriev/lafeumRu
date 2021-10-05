@@ -22,81 +22,88 @@
             </div>
             <div>
                 <v-card
+                    width="500"
                     elevation="0"
-                    width="566"
                     class="card rounded-lg mx-auto"
                 >
                     <v-card-title class="pa-0">
-                        <h2 class="mb-4">Свяжитесь с нами</h2>
+                        <h2>Свяжитесь с нами</h2>
+                        <v-card-subtitle class="pa-0">
+                            Добро пожаловать, мы ждали Вас !
+                        </v-card-subtitle>
                     </v-card-title>
-                    <div class="card-subtitle pa-0 mt-0 mb-10">
-                        Добро пожаловать, мы ждали Вас !
-                    </div>
                     <v-card-text class="pa-0">
-                        <form @submit.prevent="submitForm">
-                            <div class="input-container">
-                                <label class="input-label" for="name">Ваше Имя</label> <br>
-                                <input class="input" type="text" name="name" id="name" placeholder="Введите Ваше имя"
-                                       v-model.trim="$v.name.$model"
-                                       :class="{ 'is-invalid':$v.name.$error, 'is-valid':!$v.name.$invalid }"
+                        <v-form ref="contactForm" method="POST" :action="appPath('contacts')">
+                            <input type="hidden" name="_token" :value="csrf"/>
+                            <v-col class="px-0 pb-0">
+                                <v-text-field
+                                    clearable
+                                    name="name"
+                                    label="Ваше имя"
+                                    v-model="form.user_name"
+                                    :rules="[rules.required, rules.min]"
+                                />
+                            </v-col>
+                            <v-col class="px-0 pb-0">
+                                <v-text-field
+                                    clearable
+                                    type="email"
+                                    name="email"
+                                    label="Ваше почта"
+                                    v-model="form.user_email"
+                                    :rules="[rules.required, rules.email]"
+                                />
+                            </v-col>
+                            <v-col class="px-0 pb-0">
+                                <v-text-field
+                                    clearable
+                                    name="topic"
+                                    label="Тема"
+                                    v-model="form.topic"
+                                    :rules="[rules.required, rules.min]"
+                                />
+                            </v-col>
+                            <v-col class="px-0 pb-0">
+                                <v-textarea
+                                    counter="500"
+                                    name="message"
+                                    label="Сообщение"
+                                    v-model="form.message"
+                                    :rules="[rules.required, rules.min, rules.counter]"
+                                ></v-textarea>
+                            </v-col>
+                            <v-col class="px-0">
+                                <v-btn
+                                    height="48"
+                                    width="100%"
+                                    type="submit"
+                                    elevation="0"
+                                    class="primary rounded-lg text-capitalize font-weight-medium"
+                                    @click.prevent="submitContact"
+
                                 >
-                                <div class="valid-feedback"></div>
-                                <div class="invalid-feedback">
-                                    <span v-if="!$v.name.required">Это поле обязательное. <button type="button"
-                                                                                                  @click="clearName"><v-icon
-                                        class="v-icon">mdi-close</v-icon></button></span>
-                                    <span v-if="!$v.name.minLength">Это поле должен содержать минимум {{
-                                            $v.name.$params.minLength.min
-                                        }} буквы. <button type="button" @click="clearName"><v-icon class="v-icon">mdi-close</v-icon></button></span>
-                                </div>
-                            </div>
-                            <div class="input-container">
-                                <label class="input-label" for="email">Ваша Почта</label> <br>
-                                <input class="input" type="email" name="email" id="email"
-                                       placeholder="Введите адрес электронной почты"
-                                       v-model.trim="$v.email.$model"
-                                       :class="{ 'is-invalid':$v.email.$error, 'is-valid':!$v.email.$invalid }"
+                                    Отправить
+                                </v-btn>
+                            </v-col>
+                            <v-col class="pa-0">
+                                <v-alert
+                                    dense
+                                    v-if="success"
+                                    type="success"
+                                    class="font-weight-medium rounded-lg mb-0"
                                 >
-                                <div class="valid-feedback"></div>
-                                <div class="invalid-feedback">
-                                    <span v-if="!$v.email.required">Это поле обязательное. <button type="button"
-                                                                                                   @click="clearEmail"><v-icon
-                                        class="v-icon">mdi-close</v-icon></button></span>
-                                    <span v-if="!$v.email.email">E-mail должен быть действительным. <button
-                                        type="button" @click="clearEmail"><v-icon
-                                        class="v-icon">mdi-close</v-icon></button></span>
-                                </div>
-                            </div>
-                            <div class="input-container">
-                                <label class="input-label" for="theme">Тема</label> <br>
-                                <input class="input" type="text" name="theme" id="theme" placeholder="Тема"
-                                       v-model.trim="$v.theme.$model"
-                                       :class="{ 'is-invalid':$v.theme.$error, 'is-valid':!$v.theme.$invalid }"
+                                    Спасибо! Ваше письмо успешно отправлено!
+                                </v-alert>
+                                <v-alert
+                                    dense
+                                    v-if="error"
+                                    type="error"
+                                    class="font-weight-medium rounded-lg mb-0"
                                 >
-                                <div class="valid-feedback"></div>
-                                <div class="invalid-feedback">
-                                    <span v-if="!$v.theme.required">Введите Вашу тему. <button type="button"
-                                                                                               @click="clearTheme"><v-icon
-                                        class="v-icon">mdi-close</v-icon></button></span>
-                                </div>
-                            </div>
-                            <div class="textarea-container">
-                                <label class="input-label" for="message">Сообщение</label> <br>
-                                <div class="green-border" v-if="!$v.message.$invalid"></div>
-                                <div class="red-border" v-if="$v.message.$error"></div>
-                                <textarea class="message" name="message" id="message" cols="30" rows="10"
-                                          v-model.trim="$v.message.$model"
-                                          :class="{ 'is-invalid':$v.message.$error, 'is-valid':!$v.message.$invalid }"
-                                ></textarea>
-                                <div class="invalid-feedback">
-                                    <button type="button" @click="clearMessage">
-                                        <v-icon class="v-icon">mdi-close</v-icon>
-                                    </button>
-                                    <span v-if="!$v.message.required">Это поле обязательное.</span>
-                                </div>
-                            </div>
-                            <button class="submit-btn" type="submit">Вход</button>
-                        </form>
+                                    Ошибка! Вероятно вы робот
+                                </v-alert>
+                            </v-col>
+                        </v-form>
                     </v-card-text>
                 </v-card>
             </div>
@@ -105,60 +112,71 @@
 </template>
 
 <script>
-import {required, minLength, email,} from 'vuelidate/lib/validators'
-
 export default {
-    name: 'Contacts',
+    name: "Contacts",
     data() {
         return {
-            name: '',
-            email: '',
-            theme: '',
-            message: ''
-        }
-    },
-    validations: {
-        name: {
-            required,
-            minLength: minLength(2)
-        },
-        email: {
-            required,
-            email
-        },
-        theme: {
-            required
-        },
-        message: {
-            required
+            csrf: window.Laravel.csrf_token,
+            errors: {},
+            success: false,
+            error: false,
+            form: {
+                user_name: "",
+                user_email: "",
+                topic: "",
+                message: "",
+            },
+            rules: {
+                required: value => !!value || 'Это поле обязательное.',
+                counter: value => value.length <= 500 || 'Максимум 500 символов',
+                min: v => v.length >= 3 || 'Минимум 3 символов',
+                email: value => {
+                    const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                    return pattern.test(value) || 'E-mail должен быть действительным.'
+                },
+            }
         }
     },
     methods: {
-        clearName() {
-            this.name = ''
-        },
-        clearEmail() {
-            this.email = ''
-        },
-        clearTheme() {
-            this.password = ''
-        },
-        clearMessage() {
-            this.message = ''
-        },
-        submitForm() {
-            this.$v.$touch()
-            if (this.$v.$invalid) {
-                console.log('Fail')
-            } else {
-                const user = {
-                    name: this.name,
-                    email: this.email,
-                    theme: this.theme,
-                    message: this.message
-                }
-                console.log(user)
+        submitContact() {
+            if (this.$refs.contactForm.validate()) {
+                axios
+                    .post('/api/send-contact', this.form)
+                    .then((res) => {
+                        this.clearForm();
+                        this.onSuccess(res.data.message);
+                        console.log(res);
+                    })
+                    .catch((err) => {
+                        if (err.response.status == 422) {
+                            this.setErrors(err.response.data.errors);
+                        } else {
+                            this.onFailure(err.response.data.message);
+                        }
+                    });
+
             }
+        },
+        onSuccess(message) {
+            this.success = true;
+        },
+        onFailure(message) {
+            this.error = true;
+        },
+        setErrors(errors) {
+            this.errors = errors;
+        },
+        clearForm() {
+            this.form.user_name = "";
+            this.form.user_email = "";
+            this.form.topic = "";
+            this.form.message = "";
+        },
+        hasError(fieldName) {
+            return (fieldName in this.errors)
+        },
+        appPath(url) {
+            window.laravel + url;
         }
     }
 }
@@ -182,143 +200,9 @@ export default {
 }
 
 .card {
-    margin-bottom: 40px;
-    padding: 66px 90px 78px 99px;
-    background-color: #f5f5f5 !important;
-    border: none;
-}
-
-.card-subtitle {
-    font-weight: 300;
-    font-size: 16px;
-    line-height: 110%;
-    color: rgba(40, 44, 64, 0.5);
-}
-
-.input-container {
-    position: relative;
-    margin-bottom: 18px;
-}
-
-.input-label {
-    font-size: 12px;
-    font-weight: 500;
-    color: #82869A;
-    line-height: 110%;
-}
-
-.input {
-    color: rgba(55, 60, 86, 1);
-    line-height: 110%;
-    font-weight: 500;
-    display: block;
-    width: 100%;
-    border-bottom: 2px solid rgb(199 199 199 / 50%);
-    padding: 9px 0;
-}
-
-.input:focus {
-    outline: none;
-}
-
-.input::placeholder {
-    color: rgba(130, 134, 154, 0.5);
-    line-height: 110%;
-    font-size: 14px;
-    font-weight: 400;
-}
-
-.message {
-    display: block;
-    width: 100%;
-    background-color: rgb(239 239 239);
-    border-radius: 8px;
-    margin-top: 8px;
-    resize: none;
-    max-height: 100px;
-    padding: 10px;
-}
-
-.message:focus {
-    outline: none;
-}
-
-.submit-btn {
-    display: block;
-    background-color: rgba(4, 113, 140, 1);
-    border-radius: 8px;
-    width: 100%;
-    color: white;
-    height: 55px;
-    box-shadow: 0 12px 40px rgb(0 0 0 / 20%);
-    margin-top: 45px;
-}
-
-.submit-btn:focus {
-    outline: none;
-}
-
-.submit-btn:active {
-    opacity: 0.5;
-}
-
-.valid-feedback {
-    position: absolute;
-    top: 51px;
-    left: 0px;
-    border-bottom: 2px solid;
-}
-
-.valid-feedback::after, .green-border::after {
-    content: "";
-    position: absolute;
-    right: 7px;
-    top: -30px;
-    width: 6px;
-    height: 14px;
-    border: solid rgb(0 195 17);
-    border-width: 0px 2px 2px 0;
-    transform: rotate(45deg);
-}
-
-.green-border::after {
-    top: 105px;
-}
-
-.invalid-feedback {
-    position: absolute;
-    top: 51px;
-    left: 0px;
-    border-top: 2px solid;
-}
-
-.invalid-feedback button {
-    position: absolute;
-    top: -35px;
-    right: 0px;
-}
-
-button:focus {
-    outline: none;
-}
-
-.v-icon {
-    color: inherit !important;
-}
-
-.textarea-container {
-    position: relative;
-}
-
-.textarea-container .invalid-feedback {
-    top: 125px;
-    border: none;
-    left: 0px;
-}
-
-.textarea-container .invalid-feedback span {
-    position: absolute;
-    top: 0px;
+    margin-bottom: 20px;
+    padding: 50px 70px;
+    background-color: #f7f7f7 !important;
 }
 
 .textarea-container button {
@@ -327,31 +211,7 @@ button:focus {
     right: 0px;
 }
 
-.red-border, .green-border {
-    margin-bottom: -110px;
-    margin-left: -2px;
-    height: 104px;
-    border-radius: 10px;
-    width: 101.5%;
-    border: 2px solid #e3342f !important;
-    background-color: rgb(239 239 239);
-}
-
-.green-border {
-    border: 2px solid rgb(0 195 17) !important;
-}
-
 textarea::-webkit-scrollbar {
     width: 0px;
-}
-
-@media screen and (max-width: 599px) {
-    .card {
-        padding: 40px;
-    }
-
-    h2 {
-        font-size: 30px;
-    }
 }
 </style>

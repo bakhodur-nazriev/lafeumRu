@@ -1,19 +1,13 @@
-import {req} from "vuelidate/lib/validators/common";
-
 require("./constants");
 
 import Vue from "vue";
 import Vuetify from "vuetify";
-import Vuelidate from "vuelidate"
 import "@mdi/font/css/materialdesignicons.css";
 import "vuetify/dist/vuetify.min.css";
 import frontApp from "./components/frontApp";
 import backApp from "./components/backApp";
 import router from "./router.js";
 import ru from 'vuetify/es5/locale/ru'
-
-
-// import {req} from "vuelidate/lib/validators/common";
 
 require("./bootstrap");
 window.Vue = require("vue");
@@ -56,7 +50,6 @@ window.Event = new (class {
 
 Vue.use("draggable");
 Vue.use(Vuetify);
-Vue.use(Vuelidate);
 
 /* Views */
 Vue.component("default", require("./views/front/Default").default);

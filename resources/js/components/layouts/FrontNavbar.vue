@@ -39,7 +39,7 @@
                             style="min-height: 75px;"
                         >
                             <div
-                                class="d-flex align-items-center h-100 pa-0 mx-3"
+                                class="d-flex align-items-end h-100 pa-0 mx-3"
                                 v-for="(item, i) in navItems"
                                 :key="i"
                             >
@@ -57,25 +57,27 @@
                                 </a>
                             </div>
 
-                            <v-col class="d-flex align-items-center pa-0" v-if="!user">
+                            <v-col class="d-flex align-items-center justify-content-end pa-0" v-if="!user">
                                 <v-btn
-                                    color="white primary--text"
-                                    @click="$refs.logout.submit()"
-                                    class="text-capitalize rounded-lg text-decoration-none primary"
-                                    elevation="0"
-                                    width="88"
+                                    text
+                                    dark
+                                    href="login"
+                                    elevation="1"
+                                    class="text-capitalize rounded-lg white primary--text font-weight-bold mx-2 text-decoration-none"
                                 >
-                                    выход
+                                    <span>Вход</span>
                                 </v-btn>
 
-                                <form
-                                    ref="logout"
-                                    action="/logout"
-                                    method="POST"
-                                    style="display: none;"
+                                <v-btn
+                                    text
+                                    dark
+                                    elevation="1"
+                                    href="register"
+                                    class="text-capitalize rounded-lg white primary--text font-weight-bold mx-2 text-decoration-none"
                                 >
-                                    <input type="hidden" name="_token" :value="csrf"/>
-                                </form>
+                                    <span>Регистрация</span>
+                                </v-btn>
+
                             </v-col>
                             <v-col class="d-flex align-items-center justify-content-end pa-0" v-else>
                                 <v-avatar>
@@ -105,6 +107,28 @@
                                             <v-list-item-content>
                                                 <v-list-item-title class="pa-1 primary--text">
                                                     {{ profileLink.title }}
+                                                </v-list-item-title>
+                                            </v-list-item-content>
+                                        </v-list-item>
+
+                                        <v-list-item
+                                            class="text-decoration-none font-weight-regular"
+                                            @click="$refs.logout.submit()"
+                                        >
+                                            <v-list-item-icon class="mr-2">
+                                                <v-icon>mdi-logout</v-icon>
+                                            </v-list-item-icon>
+                                            <v-list-item-content>
+                                                <v-list-item-title class="pa-1 primary--text">
+                                                    <span>Выход</span>
+                                                    <form
+                                                        ref="logout"
+                                                        action="/logout"
+                                                        method="POST"
+                                                        style="display: none;"
+                                                    >
+                                                        <input type="hidden" name="_token" :value="csrf"/>
+                                                    </form>
                                                 </v-list-item-title>
                                             </v-list-item-content>
                                         </v-list-item>
@@ -283,22 +307,11 @@ export default {
 </script>
 
 <style scoped>
-@media (max-width: 600px) {
-    .v-app-bar {
-        position: fixed;
-        z-index: 2;
-    }
-}
-
 .navbar-links {
     font-size: 14px;
     font-weight: 500;
     color: #fff;
-}
-
-.navbar-profile-links {
-    text-decoration: none;
-    font-weight: 500;
+    line-height: 1;
 }
 
 .navbar-links:hover {

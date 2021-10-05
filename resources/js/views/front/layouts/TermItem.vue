@@ -36,7 +36,7 @@
         >
             <v-col
                 :class="{'truncate-to-fifteen-line': isActive}"
-                class="subtitle-2 pa-0 text-lg-justify"
+                class="subtitle-2 pa-0 text-justify mb-3"
                 ref="termBody"
             >
                 <span v-html="item.body"></span>
@@ -64,10 +64,10 @@
             </v-row>
             <v-card
                 elevation="18"
-                class="term-modal-card rounded-lg pa-4"
+                class="term-modal-card rounded-lg text-justify"
                 v-show="showTermOfModal"
             >
-                <v-card-text class="term-modal-card-text pa-0" v-html="termOfModal.extract_html"></v-card-text>
+                <v-card-text class="term-modal-card-text" v-html="termOfModal.extract_html"></v-card-text>
             </v-card>
             <v-col class="categories-block my-2 pa-0">
                 <a
@@ -121,7 +121,7 @@ export default {
     },
     mounted() {
         document.querySelectorAll('.main-content-body').forEach(el => {
-            if (el.querySelector('.truncate-to-fifteen-line').textContent.replace(/\s/g, "").length <= 920) {
+            if (el.querySelector('.truncate-to-fifteen-line').textContent.replace(/\s/g, "").length <= 1140) {
                 el.querySelector('.button-read-more').style.display = "none";
             } else {
                 el.querySelector('.button-read-more').style.display = "block";
@@ -134,7 +134,7 @@ export default {
             .filter(el => href.test(el.getAttribute('href')));
 
         if (links.length) {
-            links.forEach((link, index) => {
+            links.forEach((link) => {
                 if (link) {
                     link.onmouseenter = async (e) => {
                         let url = '/api/summary' + `${e.target.getAttribute('href').match(href)}`;
@@ -144,7 +144,7 @@ export default {
                             this.showTermOfModal = true;
                         }
                     };
-                    link.onmouseleave = () => {
+                    link.onmouseout = () => {
                         this.showTermOfModal = false;
                     };
                 }
@@ -173,17 +173,20 @@ export default {
     -webkit-box-orient: vertical;
 }
 
-.term-modal-card-text {
-    overflow: hidden;
-    max-height: 29vh;
-    font-size: 15px;
-}
-
 .term-modal-card {
     position: absolute;
-    left: 25px;
-    right: 25px;
+    left: 15px;
+    right: 15px;
     z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.term-modal-card-text {
+    font-weight: 500;
+    overflow: hidden;
 }
 
 .categories-block > a {

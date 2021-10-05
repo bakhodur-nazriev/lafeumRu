@@ -135,3 +135,6 @@ Route::group(['middleware' => 'api'], function () {
 });
 
 Route::get("/summary/{id}", "PostsController@termSummary");
+
+Route::get("/contacts", "FeedbacksController@create")->name("contacts.create");
+Route::post("/send-contact", "FeedbacksController@store")->name("contacts.store");

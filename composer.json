@@ -15,7 +15,7 @@
         "fideloper/proxy": "^4.0",
         "kalnoy/nestedset": "^5.0",
         "laravel/framework": "^6.2",
-        "laravel/passport": "^8.4",
+        "laravel/passport": "^9.0",
         "laravel/tinker": "^1.0",
         "laravel/ui": "^1.1",
         "spatie/browsershot": "^3.36"

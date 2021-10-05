@@ -11,12 +11,12 @@
                 <span>На сайт</span>
                 <v-icon right>mdi-home-export-outline</v-icon>
             </v-btn>
-            <v-btn text dark color="grey" @click="$refs.logoutform.submit()">
+            <v-btn text dark color="grey" @click="$refs.logout.submit()">
                 <span>Выход</span>
                 <v-icon right>mdi-exit-to-app</v-icon>
             </v-btn>
             <form
-                ref="logoutform"
+                ref="logout"
                 action="/logout"
                 method="POST"
                 style="display: none;"

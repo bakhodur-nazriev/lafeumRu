@@ -70,22 +70,19 @@ export default {
     },
     mounted() {
         this.getTerms();
+
+        if (localStorage.currentPage) {
+            this.pagination = localStorage.currentPage;
+        }
     },
+
+    watch: {
+        page(newPage) {
+            localStorage.pagination = newPage;
+        }
+    }
 }
 </script>
 
 <style scoped>
-/*@media (min-width: 1264px) and (max-width: 1904px) {*/
-/*    .terms-main-block {*/
-/*        flex: 0 0 53%;*/
-/*        max-width: 53%;*/
-/*    }*/
-/*}*/
-
-/*@media (min-width: 1904px) {*/
-/*    .terms-main-block {*/
-/*        flex: 0 0 45%;*/
-/*        max-width: 45%;*/
-/*    }*/
-/*}*/
 </style>

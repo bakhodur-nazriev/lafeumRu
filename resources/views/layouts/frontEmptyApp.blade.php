@@ -22,11 +22,9 @@
 <body>
 
 <v-app id="app" class="overflow-hidden">
-    <front-navbar></front-navbar>
     <v-main class="grey lighten-3 py-0">
         @yield('layout')
     </v-main>
-    <front-footer></front-footer>
 
     <scroller-component></scroller-component>
 </v-app>

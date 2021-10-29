@@ -9,35 +9,37 @@
                 <v-row justify="center">
                     <v-col col="12">
                         <v-img
+                            height="100%"
                             class="rounded"
                             :src="photo.path"
                         />
                     </v-col>
                     <v-col cols="12">
                         <v-textarea
-                            v-model="photo.description"
                             outlined
                             readonly
+                            hide-details
+                            rows="3"
                             label="Описания"
-                            hide-details
+                            v-model="photo.description"
                         />
                     </v-col>
                     <v-col cols="12">
                         <v-text-field
-                            v-model="photo.created_at"
                             outlined
                             readonly
+                            hide-details
                             label="Дата добавления"
-                            hide-details
+                            v-model="photo.created_at"
                         />
                     </v-col>
                     <v-col cols="12">
                         <v-text-field
-                            v-model="photo.updated_at"
                             outlined
                             readonly
-                            label="Дата изменения"
                             hide-details
+                            label="Дата изменения"
+                            v-model="photo.updated_at"
                         />
                     </v-col>
                 </v-row>

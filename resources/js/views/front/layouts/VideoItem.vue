@@ -17,7 +17,7 @@
 
                     <v-col class="pb-0 col-md-6 col-12">
                         <h5
-                            class="font-weight-regular title-videos ma-0"
+                            class="font-weight-regular grey--text text--darken-3 title-videos ma-0"
                             v-bind="attrs"
                             v-on="on"
                         >{{ video.title }}</h5>
@@ -25,7 +25,7 @@
                 </v-card-subtitle>
 
                 <v-card-text class="px-7 py-3">
-                    <div>
+                    <v-col class="pa-0">
                         <a
                             :href="`/channels/` + video.channel.slug"
                             class="channels-links"
@@ -33,24 +33,24 @@
                             <v-icon size="30" class="mr-1" color="red">mdi-youtube</v-icon>
                             <span>{{ video.channel.name }}</span>
                         </a>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <div class="categories-block">
+                    </v-col>
+                    <v-col class="d-flex pa-0 justify-content-between">
+                        <v-col class="categories-block pa-0">
                             <a
-                                class="grey--text text-decoration-none ml-1"
+                                class="text-decoration-none ml-1"
                                 v-for="(category, i) in video.categories"
                                 :key="i"
                                 :href="`/videos/` + category.slug"
                             >
                                 {{ category.name }}
                             </a>
-                        </div>
-                        <div>
-                            <a class="grey--text text-decoration-none" :href="'/' + video.post.id">
+                        </v-col>
+                        <div class="videos-slug">
+                            <a class="grey--text text--darken-3 text-decoration-none" :href="'/' + video.post.id">
                                 #{{ video.post.id }}
                             </a>
                         </div>
-                    </div>
+                    </v-col>
                 </v-card-text>
 
                 <v-divider class="m-0 grey lighten-3"></v-divider>
@@ -106,6 +106,10 @@ export default {
 .video-iframe {
     width: 100%;
     height: 50vh;
+}
+
+.videos-slug>*:hover {
+    color: #04718c !important;
 }
 
 .video-duration-block {

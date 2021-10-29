@@ -2,8 +2,9 @@
     <v-col
         xl="2"
         lg="3"
-        md="3"
-        class="fill-height pb-0 left-main-block"
+        md="5"
+        sm="6"
+        class="fill-height col-12"
     >
         <!-- For small display -->
         <v-col class="hidden-sm-and-up pa-0">

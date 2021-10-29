@@ -9,7 +9,7 @@
         <v-col class="hidden-sm-and-up pa-0">
             <v-expansion-panels flat>
                 <v-expansion-panel>
-                    <v-expansion-panel-header>
+                    <v-expansion-panel-header class="text-uppercase font-weight-medium">
                         Рекомендуемые
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
@@ -332,7 +332,7 @@ export default {
 @media (max-width: 600px) {
     .right-main-block {
         order: -1;
-        padding-top: 84px;
+        padding-top: 15px;
     }
 }
 

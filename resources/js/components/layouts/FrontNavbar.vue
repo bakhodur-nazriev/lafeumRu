@@ -21,7 +21,7 @@
                         </a>
                         <a
                             class="text-white subtitle-1 pl-2 text-decoration-none font-weight-medium text-uppercase"
-                            :href="navItems[1].href"
+                            :href="navItems[3].href"
                         >
                             Цитаты
                         </a>
@@ -35,7 +35,7 @@
                         <v-col
                             xl="9"
                             lg="10"
-                            class="d-flex justify-content-center align-items-center py-3 px-xl-8 "
+                            class="d-flex justify-content-start align-items-center py-3 px-xl-8 "
                             style="min-height: 75px;"
                         >
                             <div
@@ -57,84 +57,83 @@
                                 </a>
                             </div>
 
-                            <v-col class="d-flex align-items-center justify-content-end pa-0" v-if="!user">
-                                <v-btn
-                                    text
-                                    dark
-                                    href="login"
-                                    elevation="1"
-                                    class="text-capitalize rounded-lg white primary--text font-weight-bold mx-2 text-decoration-none"
-                                >
-                                    <span>Вход</span>
-                                </v-btn>
+                            <!--                            <v-col class="d-flex align-items-center justify-content-end pa-0" v-if="!user">
+                                                            <v-btn
+                                                                text
+                                                                dark
+                                                                href="login"
+                                                                elevation="1"
+                                                                class="text-capitalize rounded-lg white primary&#45;&#45;text font-weight-bold mx-2 text-decoration-none"
+                                                            >
+                                                                <span>Вход</span>
+                                                            </v-btn>
 
-                                <v-btn
-                                    text
-                                    dark
-                                    elevation="1"
-                                    href="register"
-                                    class="text-capitalize rounded-lg white primary--text font-weight-bold mx-2 text-decoration-none"
-                                >
-                                    <span>Регистрация</span>
-                                </v-btn>
+                                                            <v-btn
+                                                                text
+                                                                dark
+                                                                elevation="1"
+                                                                href="register"
+                                                                class="text-capitalize rounded-lg white primary&#45;&#45;text font-weight-bold mx-2 text-decoration-none"
+                                                            >
+                                                                <span>Регистрация</span>
+                                                            </v-btn>
+                                                        </v-col>
+                                                        <v-col class="d-flex align-items-center justify-content-end pa-0" v-else>
+                                                            <v-avatar>
+                                                                <img :src="user.avatar" :alt="user.name">
+                                                            </v-avatar>
+                                                            <v-menu offset-y left min-width="200" rounded="lg" nudge-bottom="20">
+                                                                <template v-slot:activator="{ on }">
+                                                                    <v-btn
+                                                                        icon
+                                                                        small
+                                                                        v-on="on"
+                                                                        color="white"
+                                                                    >
+                                                                        <v-icon>mdi-menu-down</v-icon>
+                                                                    </v-btn>
+                                                                </template>
+                                                                <v-list dense>
+                                                                    <v-list-item
+                                                                        v-for="profileLink in profileLinks"
+                                                                        :key="profileLink.href"
+                                                                        :href="profileLink.href"
+                                                                        class="text-decoration-none font-weight-regular"
+                                                                    >
+                                                                        <v-list-item-icon class="mr-2">
+                                                                            <v-icon v-text="profileLink.icon"></v-icon>
+                                                                        </v-list-item-icon>
+                                                                        <v-list-item-content>
+                                                                            <v-list-item-title class="pa-1 primary&#45;&#45;text">
+                                                                                {{ profileLink.title }}
+                                                                            </v-list-item-title>
+                                                                        </v-list-item-content>
+                                                                    </v-list-item>
 
-                            </v-col>
-                            <v-col class="d-flex align-items-center justify-content-end pa-0" v-else>
-                                <v-avatar>
-                                    <img :src="user.avatar" :alt="user.name">
-                                </v-avatar>
-                                <v-menu offset-y left min-width="200" rounded="lg" nudge-bottom="20">
-                                    <template v-slot:activator="{ on }">
-                                        <v-btn
-                                            icon
-                                            small
-                                            v-on="on"
-                                            color="white"
-                                        >
-                                            <v-icon>mdi-menu-down</v-icon>
-                                        </v-btn>
-                                    </template>
-                                    <v-list dense>
-                                        <v-list-item
-                                            v-for="profileLink in profileLinks"
-                                            :key="profileLink.href"
-                                            :href="profileLink.href"
-                                            class="text-decoration-none font-weight-regular"
-                                        >
-                                            <v-list-item-icon class="mr-2">
-                                                <v-icon v-text="profileLink.icon"></v-icon>
-                                            </v-list-item-icon>
-                                            <v-list-item-content>
-                                                <v-list-item-title class="pa-1 primary--text">
-                                                    {{ profileLink.title }}
-                                                </v-list-item-title>
-                                            </v-list-item-content>
-                                        </v-list-item>
-
-                                        <v-list-item
-                                            class="text-decoration-none font-weight-regular"
-                                            @click="$refs.logout.submit()"
-                                        >
-                                            <v-list-item-icon class="mr-2">
-                                                <v-icon>mdi-logout</v-icon>
-                                            </v-list-item-icon>
-                                            <v-list-item-content>
-                                                <v-list-item-title class="pa-1 primary--text">
-                                                    <span>Выход</span>
-                                                    <form
-                                                        ref="logout"
-                                                        action="/logout"
-                                                        method="POST"
-                                                        style="display: none;"
-                                                    >
-                                                        <input type="hidden" name="_token" :value="csrf"/>
-                                                    </form>
-                                                </v-list-item-title>
-                                            </v-list-item-content>
-                                        </v-list-item>
-                                    </v-list>
-                                </v-menu>
-                            </v-col>
+                                                                    <v-list-item
+                                                                        class="text-decoration-none font-weight-regular"
+                                                                        @click="$refs.logout.submit()"
+                                                                    >
+                                                                        <v-list-item-icon class="mr-2">
+                                                                            <v-icon>mdi-logout</v-icon>
+                                                                        </v-list-item-icon>
+                                                                        <v-list-item-content>
+                                                                            <v-list-item-title class="pa-1 primary&#45;&#45;text">
+                                                                                <span>Выход</span>
+                                                                                <form
+                                                                                    ref="logout"
+                                                                                    action="/logout"
+                                                                                    method="POST"
+                                                                                    style="display: none;"
+                                                                                >
+                                                                                    <input type="hidden" name="_token" :value="csrf"/>
+                                                                                </form>
+                                                                            </v-list-item-title>
+                                                                        </v-list-item-content>
+                                                                    </v-list-item>
+                                                                </v-list>
+                                                            </v-menu>
+                                                        </v-col>-->
                         </v-col>
                     </v-col>
                 </v-col>

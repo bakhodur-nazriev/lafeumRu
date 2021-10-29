@@ -1,7 +1,7 @@
 <template>
     <v-col xl="7" lg="9">
         <h5 class="text-uppercase font-weight-regular py-4 mx-4">О сайте</h5>
-        <v-sheet rounded="lg" class="pa-7">
+        <v-sheet rounded="lg" class="pa-7 text-justify">
             <p>
                 Информированность о методах развития личности и совершенствования профессиональных знаний,
                 осведомленность в

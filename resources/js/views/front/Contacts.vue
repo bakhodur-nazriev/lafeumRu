@@ -1,28 +1,29 @@
 <template>
     <v-col xl="8" lg="12">
-        <h5 class="text-uppercase font-weight-regular py-4">Контакты</h5>
-        <div class="d-flex justify-content-between">
-            <div>
-                <h2 class="display-1 font-weight-medium">Контакты</h2>
-                <p class="contact-text mt-2 pr-4 mb-8">
+        <h5 class="text-uppercase font-weight-regular pt-4 pb-1 mb-0">Контакты</h5>
+        <v-row justify="center">
+            <v-col class="col-md-6 col-sm-12 text-justify">
+                <h2 class="display-1 font-weight-medium mb-0">Контакты</h2>
+                <p class="mt-2 mb-5">
                     Мы рады, что Вы посетили наш сайт и ознакомились с находящейся на нем информацией.
                     Вся информация находится в свободном доступе и предназначена только для частного пользования.
-                    Если Вы считаете, что Ваша работа была размещена на нашем сайте в нарушение Вашего авторского права,
+                    Если Вы считаете, что Ваша работа была размещена на нашем сайте в нарушение Вашего авторского
+                    права,
                     сообщите нам об этом, используя обратную связь.
                     Будем рады рассмотреть Ваши рекомендации по усовершенствованию сайта.
                 </p>
-                <div class="item mb-11">
-                    <h4 class="mb-3">Электронная почта</h4>
+                <div class="item mb-7">
+                    <h4 class="mb-0">Электронная почта</h4>
                     <a href="mailto:info@lafeum.org">info@lafeum.org</a>
                 </div>
                 <div class="item">
-                    <h4 class="mb-3">Адрес</h4>
+                    <h4 class="mb-0">Адрес</h4>
                     <a href="mailto:info@lafeum.org">info@lafeum.org</a>
                 </div>
-            </div>
-            <div>
+            </v-col>
+            <v-col class="col-md-6 col-sm-12">
                 <v-card
-                    width="500"
+                    width="450"
                     elevation="0"
                     class="card rounded-lg mx-auto"
                 >
@@ -33,9 +34,13 @@
                         </v-card-subtitle>
                     </v-card-title>
                     <v-card-text class="pa-0">
-                        <v-form ref="contactForm" method="POST" :action="appPath('contacts')">
+                        <v-form
+                            method="POST"
+                            ref="contactForm"
+                            :action="appPath('contacts')"
+                        >
                             <input type="hidden" name="_token" :value="csrf"/>
-                            <v-col class="px-0 pb-0">
+                            <v-col class="pa-0">
                                 <v-text-field
                                     clearable
                                     name="name"
@@ -44,7 +49,7 @@
                                     :rules="[rules.required, rules.min]"
                                 />
                             </v-col>
-                            <v-col class="px-0 pb-0">
+                            <v-col class="pa-0">
                                 <v-text-field
                                     clearable
                                     type="email"
@@ -54,7 +59,7 @@
                                     :rules="[rules.required, rules.email]"
                                 />
                             </v-col>
-                            <v-col class="px-0 pb-0">
+                            <v-col class="pa-0">
                                 <v-text-field
                                     clearable
                                     name="topic"
@@ -63,7 +68,7 @@
                                     :rules="[rules.required, rules.min]"
                                 />
                             </v-col>
-                            <v-col class="px-0 pb-0">
+                            <v-col class="pa-0">
                                 <v-textarea
                                     counter="500"
                                     name="message"
@@ -73,6 +78,23 @@
                                 ></v-textarea>
                             </v-col>
                             <v-col class="px-0">
+                                <vue-recaptcha
+                                    sitekey="6LeXjvscAAAAADXmSVnyWyomwBsX_NpDFjHXrA0O"
+                                    @verify="markRecaptchaAsVerified"
+                                    v-model="recaptchaVerified"
+                                ></vue-recaptcha>
+                                <v-col class="pb-0 px-0" v-if="recaptchaVerified">
+                                    <v-alert
+                                        dense
+                                        outlined
+                                        type="error"
+                                        class="mb-0 subtitle-1"
+                                    >
+                                        Пожалуйста, отметьте рекапчу
+                                    </v-alert>
+                                </v-col>
+                            </v-col>
+                            <v-col class="px-0">
                                 <v-btn
                                     height="48"
                                     width="100%"
@@ -80,7 +102,6 @@
                                     elevation="0"
                                     class="primary rounded-lg text-capitalize font-weight-medium"
                                     @click.prevent="submitContact"
-
                                 >
                                     Отправить
                                 </v-btn>
@@ -106,17 +127,22 @@
                         </v-form>
                     </v-card-text>
                 </v-card>
-            </div>
-        </div>
+            </v-col>
+        </v-row>
     </v-col>
 </template>
 
 <script>
+import VueRecaptcha from 'vue-recaptcha';
+
 export default {
     name: "Contacts",
+    components: {VueRecaptcha},
     data() {
         return {
             csrf: window.Laravel.csrf_token,
+            recaptchaVerified: false,
+            recaptchaMessage: '',
             errors: {},
             success: false,
             error: false,
@@ -140,41 +166,34 @@ export default {
     methods: {
         submitContact() {
             if (this.$refs.contactForm.validate()) {
-                axios
-                    .post('/api/send-contact', this.form)
-                    .then((res) => {
-                        this.clearForm();
-                        this.onSuccess(res.data.message);
-                        console.log(res);
-                    })
-                    .catch((err) => {
-                        if (err.response.status == 422) {
-                            this.setErrors(err.response.data.errors);
-                        } else {
-                            this.onFailure(err.response.data.message);
-                        }
-                    });
-
+                if (!this.recaptchaMessage) {
+                    this.recaptchaVerified = true;
+                } else {
+                    axios
+                        .post('/api/send-contact', this.form)
+                        .then((res) => {
+                            this.onSuccess(res.data.message);
+                            console.log(res);
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        });
+                }
             }
+        },
+
+        markRecaptchaAsVerified(response) {
+            this.recaptchaMessage = response;
         },
         onSuccess(message) {
             this.success = true;
-        },
-        onFailure(message) {
-            this.error = true;
-        },
-        setErrors(errors) {
-            this.errors = errors;
-        },
+        }
+        ,
         clearForm() {
-            this.form.user_name = "";
-            this.form.user_email = "";
-            this.form.topic = "";
-            this.form.message = "";
-        },
-        hasError(fieldName) {
-            return (fieldName in this.errors)
-        },
+            this.$refs.contactForm.reset();
+            this.$refs.contactForm.resetValidation();
+        }
+        ,
         appPath(url) {
             window.laravel + url;
         }
@@ -182,36 +201,24 @@ export default {
 }
 </script>
 <style scoped>
-.contact-text {
-    font-size: 14px;
-    line-height: 136%;
-    color: #676767;
-    max-width: 543px;
-}
-
 .item a {
     font-size: 18px;
-    line-height: 110%;
     color: #676767;
-}
-
-.item:last-child {
-    margin-bottom: 100px;
 }
 
 .card {
     margin-bottom: 20px;
-    padding: 50px 70px;
+    padding: 40px 50px;
     background-color: #f7f7f7 !important;
 }
 
 .textarea-container button {
     position: absolute;
     top: -104px;
-    right: 0px;
+    right: 0;
 }
 
 textarea::-webkit-scrollbar {
-    width: 0px;
+    width: 0;
 }
 </style>

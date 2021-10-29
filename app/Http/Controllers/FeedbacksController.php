@@ -36,7 +36,7 @@ class FeedbacksController extends Controller
             $client = new Client();
             $response = $client->post('https://www.google.com/recaptcha/api/siteverify', [
                 'form_params' => array(
-                    'secret' => '6LdvqeQZAAAAAK_WqRhGHDNW8wQJsud2YS4Ao09A',
+                    'secret' => '6LeXjvscAAAAAPm3_smOoiWBJXbbMGQz6KSYlobW',
                     'response' => $token
                 )
             ]);
@@ -51,7 +51,7 @@ class FeedbacksController extends Controller
             redirect('/contacts');
         }
 
-        Mail::to(env('CONTACT_EMAIL'))->send(new ContactMail($data));
+        Mail::to('bakhodur.nazriev@gmail.com')->send(new ContactMail($data));
     }
 
     public function destroy(Feedback $feedback)

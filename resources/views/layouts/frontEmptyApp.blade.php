@@ -25,8 +25,6 @@
     <v-main class="grey lighten-3 py-0">
         @yield('layout')
     </v-main>
-
-    <scroller-component></scroller-component>
 </v-app>
 
 

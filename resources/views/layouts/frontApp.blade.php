@@ -18,6 +18,9 @@
     @yield('meta-tags', View::make('layouts.meta-tags'))
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit" async
+            defer></script>
 </head>
 <body>
 

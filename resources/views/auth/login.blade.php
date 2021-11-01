@@ -1,4 +1,4 @@
-@extends('layouts.frontApp')
+@extends('layouts.frontEmptyApp')
 
 @section('layout')
     <v-container class="h-100 d-flex">

@@ -1,6 +1,5 @@
 <template>
     <v-col cols="8">
-        <h5 class="text-uppercase font-weight-regular py-4">логин</h5>
         <v-card
             elevation="0"
             max-width="500"

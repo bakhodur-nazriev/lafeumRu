@@ -35,11 +35,11 @@
                         <v-col
                             xl="9"
                             lg="10"
-                            class="d-flex justify-content-start align-items-center py-3 px-xl-8 "
+                            class="d-flex justify-content-center align-items-center pa-3"
                             style="min-height: 75px;"
                         >
                             <div
-                                class="d-flex align-items-end h-100 pa-0 mx-3"
+                                class="d-flex align-items-end h-100 pa-0 mx-2"
                                 v-for="(item, i) in navItems"
                                 :key="i"
                             >

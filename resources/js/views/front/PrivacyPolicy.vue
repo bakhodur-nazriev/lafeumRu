@@ -1,9 +1,9 @@
 <template>
     <v-col xl="7" lg="9">
-        <h5 class="text-uppercase font-weight-regular py-4 mx-4">Политика конфиденциальности</h5>
+        <h5 class="text-uppercase font-weight-regular py-4 mx-4 mb-0">Политика конфиденциальности</h5>
         <v-sheet rounded="lg" class="pa-7 text-justify">
             <p>
-                Пользователь, регистрируясь на интернет-сайте <a href="/" target="_blank">ru.lafeum.org</a> (далее -
+                Пользователь, регистрируясь на интернет-сайте <a href="/https://lafeum.ru/" target="_blank">lafeum.ru</a> (далее -
                 Сервис), принимает настоящее Согласие
                 на
                 обработку персональных данных (далее – Согласие) со следующими условиями:

@@ -150,7 +150,6 @@
         <v-col class="fill-height hidden-xs-only pa-0">
             <h5 class="text-uppercase font-weight-normal py-4 mb-0">Рекомендуемые</h5>
             <v-card class="rounded-lg" flat>
-
                 <!-- Quote Section -->
                 <div class="pt-4 px-4 pb-0">
                     <v-card-title class="subtitle-2 font-weight-bold pa-0">
@@ -161,19 +160,12 @@
                     <v-divider class="my-2"></v-divider>
                     <v-card-title class="subtitle-2 pa-0 mb-1 d-flex justify-space-between">
                         <v-col class="pa-0">
-                            <a
-
-                                class="primary--text daily-authors-author text-break"
-                                target="_blank"
-                            >
+                            <a class="primary--text daily-authors-author text-break" target="_blank">
                                 {{ quote.author.name }}
                             </a>
                         </v-col>
                         <v-avatar>
-                            <img
-                                :src="quote.author.photo"
-                                :alt="quote.author.name"
-                            >
+                            <img :src="quote.author.photo" :alt="quote.author.name">
                         </v-avatar>
                     </v-card-title>
                     <v-card-text
@@ -187,7 +179,6 @@
                         <v-icon small>mdi-</v-icon>
                     </v-card-actions>
                 </div>
-
                 <!--Term Section-->
                 <div class="px-4 py-0">
                     <v-card-title class="subtitle-2 font-weight-bold pa-0">Термин дня</v-card-title>
@@ -202,7 +193,6 @@
                         </a>
                     </v-card-actions>
                 </div>
-
                 <!-- Video section -->
                 <v-dialog v-model="dialogVideo" width="900">
                     <template v-slot:activator="{ on, attrs }">
@@ -241,6 +231,7 @@
 
                         <v-card-text class="pa-6 pb-5">
                             <iframe
+                                v-if="dialogVideo"
                                 class="video-iframe"
                                 frameborder="0"
                                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
@@ -250,18 +241,13 @@
                         </v-card-text>
                     </v-card>
                 </v-dialog>
-
                 <!-- Photo Section -->
                 <v-dialog v-model="dialogPhoto" width="1000">
                     <template v-slot:activator="{ on, attrs }">
                         <div class="px-4 py-0">
                             <v-card-title class="subtitle-2 font-weight-bold pa-0">Фотография дня</v-card-title>
                             <v-divider class="mt-2 mb-4"></v-divider>
-                            <v-card-text
-                                class="pa-0"
-                                v-on="on"
-                                v-bind="attrs"
-                            >
+                            <v-card-text class="pa-0" v-on="on" v-bind="attrs">
                                 <v-img
                                     :src="photo.path"
                                     :alt="photo.description"
@@ -278,19 +264,13 @@
                     <v-card>
                         <v-card-title class="headline grey lighten-2">
                             <v-spacer></v-spacer>
-                            <v-btn
-                                icon
-                                @click="dialogPhoto = false"
-                            >
+                            <v-btn icon @click="dialogPhoto = false">
                                 <v-icon>mdi-close</v-icon>
                             </v-btn>
                         </v-card-title>
 
                         <v-card-text class="pt-5">
-                            <v-img
-                                :src="photo.path"
-                                :alt="photo.description"
-                            ></v-img>
+                            <v-img :src="photo.path" :alt="photo.description"></v-img>
                         </v-card-text>
                     </v-card>
                 </v-dialog>
@@ -313,18 +293,6 @@ export default {
             dialogPhoto: false
         }
     },
-    computed: {
-        termBody() {
-            // let termBody = this.term.body;
-            // let parser = new DOMParser();
-            // let doc = parser.parseFromString(termBody, 'text/html');
-            //
-            // let tagLink = document.getElementsByTagName("a").innerHTML = ;
-            //
-            // console.log(tagLink);
-            // return tagLink;
-        }
-    }
 }
 </script>
 

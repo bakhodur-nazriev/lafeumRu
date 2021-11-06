@@ -75,6 +75,7 @@
 
             <v-card-text>
                 <iframe
+                    v-if="videoDialog"
                     class="video-iframe pt-5"
                     frameborder="0"
                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
@@ -99,6 +100,11 @@ export default {
             videoDialog: false
         };
     },
+    methods: {
+        closeModal() {
+
+        }
+    },
 };
 </script>
 
@@ -108,7 +114,7 @@ export default {
     height: 50vh;
 }
 
-.videos-slug>*:hover {
+.videos-slug > *:hover {
     color: #04718c !important;
 }
 

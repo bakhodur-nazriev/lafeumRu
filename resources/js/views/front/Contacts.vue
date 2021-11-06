@@ -12,13 +12,9 @@
                     сообщите нам об этом, используя обратную связь.
                     Будем рады рассмотреть Ваши рекомендации по усовершенствованию сайта.
                 </p>
-                <div class="item mb-7">
-                    <h4 class="mb-0">Электронная почта</h4>
-                    <a href="mailto:info@lafeum.org">info@lafeum.org</a>
-                </div>
                 <div class="item">
-                    <h4 class="mb-0">Адрес</h4>
-                    <a href="mailto:info@lafeum.org">info@lafeum.org</a>
+                    <h4 class="mb-0">Электронная почта</h4>
+                    <a href="mailto:info@lafeum.ru">info@lafeum.ru</a>
                 </div>
             </v-col>
             <v-col class="col-md-6 col-sm-12">
@@ -78,11 +74,11 @@
                                 ></v-textarea>
                             </v-col>
                             <v-col class="px-0">
-                                <vue-recaptcha
+                                <!-- <vue-recaptcha
                                     sitekey="6LeXjvscAAAAADXmSVnyWyomwBsX_NpDFjHXrA0O"
                                     @verify="markRecaptchaAsVerified"
                                     v-model="recaptchaVerified"
-                                ></vue-recaptcha>
+                                ></vue-recaptcha> -->
                                 <v-col class="pb-0 px-0" v-if="recaptchaVerified">
                                     <v-alert
                                         dense
@@ -107,6 +103,13 @@
                                 </v-btn>
                             </v-col>
                             <v-col class="pa-0">
+                                <v-progress-linear
+                                    v-if="isLoading"
+                                    color="primary accent-4"
+                                    indeterminate
+                                    rounded
+                                    height="6"
+                                ></v-progress-linear>
                                 <v-alert
                                     dense
                                     v-if="success"
@@ -143,9 +146,10 @@ export default {
             csrf: window.Laravel.csrf_token,
             recaptchaVerified: false,
             recaptchaMessage: '',
-            errors: {},
+            isLoading: false,
             success: false,
             error: false,
+            errors: {},
             form: {
                 user_name: "",
                 user_email: "",
@@ -165,20 +169,22 @@ export default {
     },
     methods: {
         submitContact() {
+            this.isLoading = true;
             if (this.$refs.contactForm.validate()) {
-                if (!this.recaptchaMessage) {
-                    this.recaptchaVerified = true;
-                } else {
+                // if (!this.recaptchaMessage) {
+                //     this.recaptchaVerified = true;
+                // } else {
                     axios
                         .post('/api/send-contact', this.form)
                         .then((res) => {
                             this.onSuccess(res.data.message);
-                            console.log(res);
+                            this.isLoading = false;
                         })
                         .catch((err) => {
                             console.log(err);
+                            this.isLoading = false;
                         });
-                }
+                // }
             }
         },
 
@@ -187,13 +193,11 @@ export default {
         },
         onSuccess(message) {
             this.success = true;
-        }
-        ,
+        },
         clearForm() {
             this.$refs.contactForm.reset();
             this.$refs.contactForm.resetValidation();
-        }
-        ,
+        },
         appPath(url) {
             window.laravel + url;
         }
@@ -204,6 +208,10 @@ export default {
 .item a {
     font-size: 18px;
     color: #676767;
+}
+
+.item a:hover {
+    color: #04718c;
 }
 
 .card {

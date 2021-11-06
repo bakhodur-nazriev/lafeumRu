@@ -1,6 +1,5 @@
 <template>
     <v-col cols=9>
-        <h5 class="text-uppercase font-weight-regular py-2">Регистрация</h5>
         <v-card
             elevation="0"
             max-width="500"

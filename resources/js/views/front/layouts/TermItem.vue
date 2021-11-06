@@ -31,12 +31,12 @@
         <v-divider class="ma-0 grey lighten-3"></v-divider>
 
         <v-card-text
-            class="d-block main-content-body px-4 py-1"
+            class="d-block main-content-body px-4 py-1 black--text"
             ref="termItem"
         >
             <v-col
                 :class="{'truncate-to-fifteen-line': isActive}"
-                class="subtitle-2 pa-0 text-justify mb-3"
+                class="subtitle-2 pa-0 text-justify mb-3 font-weight-normal"
                 ref="termBody"
             >
                 <span v-html="item.body"></span>
@@ -196,5 +196,9 @@ export default {
 .terms-slug:hover {
     text-decoration: none;
     color: #04718c !important;
+}
+
+.main-content-body > {
+    color: #000 !important;
 }
 </style>

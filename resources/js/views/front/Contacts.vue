@@ -74,11 +74,11 @@
                                 ></v-textarea>
                             </v-col>
                             <v-col class="px-0">
-                                <!-- <vue-recaptcha
+                                <vue-recaptcha
                                     sitekey="6LeXjvscAAAAADXmSVnyWyomwBsX_NpDFjHXrA0O"
                                     @verify="markRecaptchaAsVerified"
                                     v-model="recaptchaVerified"
-                                ></vue-recaptcha> -->
+                                ></vue-recaptcha>
                                 <v-col class="pb-0 px-0" v-if="recaptchaVerified">
                                     <v-alert
                                         dense
@@ -171,9 +171,9 @@ export default {
         submitContact() {
             this.isLoading = true;
             if (this.$refs.contactForm.validate()) {
-                // if (!this.recaptchaMessage) {
-                //     this.recaptchaVerified = true;
-                // } else {
+                if (!this.recaptchaMessage) {
+                    this.recaptchaVerified = true;
+                } else {
                     axios
                         .post('/api/send-contact', this.form)
                         .then((res) => {
@@ -184,10 +184,9 @@ export default {
                             console.log(err);
                             this.isLoading = false;
                         });
-                // }
+                }
             }
         },
-
         markRecaptchaAsVerified(response) {
             this.recaptchaMessage = response;
         },

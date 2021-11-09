@@ -51,7 +51,7 @@ class FeedbacksController extends Controller
             redirect('/contacts');
         }
 
-        Mail::to('bakhodur.nazriev@gmail.com')->send(new ContactMail($data));
+        Mail::to(env("CONTACT_EMAIL"))->send(new ContactMail($data));
     }
 
     public function destroy(Feedback $feedback)

@@ -53,7 +53,6 @@ export default {
             axios
                 .get(`/api${this.windowUrl}?page=` + this.pagination.currentPage)
                 .then((res) => {
-                    console.log(res.data);
                     this.loading = false;
                     this.currentChannel = res.data[0];
                     this.videosChannel = res.data[0].videos.data;

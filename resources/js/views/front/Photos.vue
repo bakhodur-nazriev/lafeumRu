@@ -13,10 +13,10 @@
 
 
             <v-col
-                v-else
                 class="d-flex justify-center col-md-3"
                 v-for="(photo, i) in photos"
                 :key="i"
+                v-else
             >
                 <list-of-photo :item="photo"></list-of-photo>
             </v-col>

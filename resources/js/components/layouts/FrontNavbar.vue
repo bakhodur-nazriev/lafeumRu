@@ -310,7 +310,7 @@ export default {
     font-size: 14px;
     font-weight: 500;
     color: #fff;
-    line-height: 1;
+    line-height: 0.7;
 }
 
 .navbar-links:hover {

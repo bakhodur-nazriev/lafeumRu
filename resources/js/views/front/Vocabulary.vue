@@ -1,5 +1,5 @@
 <template>
-    <v-col xl="5" lg="6" class="px-4 vocabulary-main-block">
+    <v-col xl="5" lg="6" class="px-4">
         <div v-if="category.slug">
             <h3 class="pt-4 pb-2">{{ category.name }}</h3>
             <p>{{ category.description }}</p>

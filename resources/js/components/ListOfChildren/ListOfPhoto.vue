@@ -6,29 +6,28 @@
         <template v-slot:activator="{ on, attrs }">
             <v-card
                 flat
-                rounded="lg"
-                min-height="370"
-                class="pa-3"
+                min-height="365"
+                max-height="360"
+                class="pa-0 rounded"
             >
                 <v-card-text
-                    class="photo-content"
+                    class="photo-content pa-0"
                     v-bind="attrs"
                     v-on="on"
                 >
                     <v-img
-                        min-height="175"
-                        max-height="175"
-                        class="d-flex"
+                        class="d-flex rounded-top"
                         :src="photo.path"
                     ></v-img>
-                    <div class="text-left w-100">
-                        <v-card-title class="photo-title truncate-to-one-line mt-2">
+
+                    <v-col class="pa-3">
+                        <v-card-title class="photo-title truncate-to-one-line mb-2" v-if="photo.title">
                             {{ photo.title }}
                         </v-card-title>
-                        <v-card-subtitle class="px-0 pb-0 mt-1 truncate-to-four-line">
+                        <v-card-subtitle class="truncate-to-five-line">
                             {{ photo.description }}
                         </v-card-subtitle>
-                    </div>
+                    </v-col>
                 </v-card-text>
             </v-card>
         </template>
@@ -42,16 +41,13 @@
             </v-card-title>
 
             <v-card-text class="pt-5">
-                <v-img
-                    class="d-flex"
-                    :src="photo.path"
-                ></v-img>
-                <div class="text-left w-100">
-                    <v-card-title class="photo-title px-0 mb-1">{{ photo.title }}</v-card-title>
-                    <v-card-subtitle class="px-0 pb-0 truncate-to-four-line">
+                <v-img class="d-flex" :src="photo.path"></v-img>
+                <v-col class="pa-0 text-left w-100">
+                    <v-card-title class="photo-title px-0 mb-1" v-if="photo.title">{{ photo.title }}</v-card-title>
+                    <v-card-subtitle class="px-0 pb-0 text-justify">
                         {{ photo.description }}
                     </v-card-subtitle>
-                </div>
+                </v-col>
             </v-card-text>
         </v-card>
     </v-dialog>
@@ -71,20 +67,24 @@ export default {
 </script>
 
 <style scoped>
-.truncate-to-four-line {
-    padding: 0;
+.truncate-to-five-line {
+    text-align: justify;
+    margin-top: 0;
+    font-size: 13px;
     overflow: hidden;
+    line-height: 1.4;
     display: -webkit-box;
-    -webkit-line-clamp: 4;
+    -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
+    padding: 0;
 }
 
 .truncate-to-one-line {
     padding: 0;
     overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
+    display: inherit;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .photo-content {
@@ -97,5 +97,6 @@ export default {
 .photo-title {
     line-height: normal;
     word-break: break-word;
+    text-align: justify;
 }
 </style>

@@ -22,7 +22,7 @@
                             <v-divider></v-divider>
                             <v-card-title
                                 class="subtitle-2 font-weight-medium pa-0 mb-1 d-flex flex-column justify-start">
-                                <a :href="'authors/' + quote.author.slug" class="w-100">{{ quote.author.name }}</a>
+                                <a :href="'/authors/' + quote.author.slug" class="w-100">{{ quote.author.name }}</a>
                             </v-card-title>
                             <v-card-text
                                 class="truncate-to-seven-line title-break-word text-justify"
@@ -160,7 +160,8 @@
                     <v-divider class="my-2"></v-divider>
                     <v-card-title class="subtitle-2 pa-0 mb-1 d-flex justify-space-between">
                         <v-col class="pa-0">
-                            <a class="primary--text daily-authors-author text-break" target="_blank">
+                            <a class="primary--text daily-authors-author text-break" target="_blank"
+                               :href="'/authors/'+quote.author.slug">
                                 {{ quote.author.name }}
                             </a>
                         </v-col>

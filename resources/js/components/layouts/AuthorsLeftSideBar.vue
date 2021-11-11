@@ -4,7 +4,8 @@
             <v-expansion-panels flat>
                 <v-expansion-panel>
                     <v-expansion-panel-header>
-                        Авторы
+                        <span class="text-uppercase font-weight-medium" v-if="listTitle">{{ listTitle }}</span>
+                        <span class="text-uppercase font-weight-medium" v-else>Авторы</span>
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
                         <div class="py-4 px-0">
@@ -38,7 +39,7 @@
                                     <v-list-item-content class="py-0">
                                         <v-list-item-subtitle>
                                             <a
-                                                class="author-links font-weight-medium"
+                                                class="author-links"
                                                 :href="author.slug"
                                             >
                                                 {{ author.name }}
@@ -71,21 +72,20 @@
 
         <v-col class="fill-height hidden-xs-only py-0">
             <h5 class="text-uppercase font-weight-normal py-4">поиск по имени</h5>
-
             <v-sheet rounded="lg" width="100%">
-                <div class="d-flex align-center pa-3">
+                <v-col class="d-flex align-center pa-3">
                     <v-icon>mdi-account-group-outline</v-icon>
                     <h5 class="ml-2 mb-0" v-if="listTitle">{{ listTitle }}</h5>
                     <h5 class="ml-2 mb-0" v-else>Авторы</h5>
-                </div>
+                </v-col>
                 <v-divider class="ma-0"></v-divider>
                 <div class="pa-5">
                     <v-text-field
+                        @click:clear="clearAuthors()"
                         label="Введите имя автора"
                         v-model="search"
                         hide-details
                         class="mb-3"
-                        @click:clear="clearAuthors()"
                         clearable
                         outlined
                         dense
@@ -110,7 +110,7 @@
                             <v-list-item-content class="py-0">
                                 <v-list-item-subtitle>
                                     <a
-                                        class="author-links font-weight-medium"
+                                        class="author-links"
                                         :href="author.slug"
                                     >
                                         {{ author.name }}
@@ -145,11 +145,11 @@
 export default {
     data() {
         return {
-            authors: [],
-            isDisabled: false,
-            listTitle: "",
             search: "",
+            authors: [],
+            listTitle: "",
             loading: false,
+            isDisabled: false,
             authorsQuantity: 25
         }
     },
@@ -223,7 +223,7 @@ export default {
 
 .author-links {
     text-decoration: none;
-    color: #676767;
+    color: #000;
 }
 
 .author-links:hover {

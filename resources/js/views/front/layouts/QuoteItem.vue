@@ -3,7 +3,7 @@
         <v-card-subtitle class="d-flex px-2 py-1 align-center">
             <a
                 class="author-show-link primary--text"
-                :href="`authors/` + item.author.slug"
+                :href="'/authors/' + item.author.slug"
                 target="_blank"
             >
                 <v-icon color="grey dark" size="26">mdi-account</v-icon>

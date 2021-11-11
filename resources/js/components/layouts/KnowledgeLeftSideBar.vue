@@ -65,11 +65,11 @@
             <h5 class="text-uppercase font-weight-normal py-4">Область знаний</h5>
 
             <v-sheet rounded="lg" width="100%">
-                <div class="d-flex align-center px-2 py-3">
+                <div class="d-flex align-center pa-3">
                     <h5 class="ml-2 mb-0">Область знаний</h5>
                 </div>
                 <v-divider class="ma-0"></v-divider>
-                <v-col class="pa-4">
+                <v-col class="pa-5">
                     <v-text-field
                         dense
                         outlined
@@ -92,7 +92,7 @@
                             :key="i"
                             class="px-1"
                         >
-                            <v-list-item-title class="knowledge-list-item-title mt-3">
+                            <v-list-item-title class="knowledge-list-item-title mt-2">
                             <span class="title px-0">
                                 {{ knowledgeArea.name }}
                             </span>

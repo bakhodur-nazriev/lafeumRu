@@ -1,5 +1,5 @@
 <template>
-    <v-col xl="5" class="author-show-main-block">
+    <v-col xl="5" lg="6">
         <div class="d-flex my-2">
             <div>
                 <v-avatar style="float:left;" class="mr-7" size="100" v-if="currentAuthor.photo">
@@ -85,13 +85,6 @@ export default {
 </script>
 
 <style scoped>
-@media (min-width: 1904px) {
-    .author-show-main-block {
-        flex: 0 0 45%;
-        max-width: 45%;
-    }
-}
-
 .author-biography {
     font-weight: 400;
     font-size: 16px;

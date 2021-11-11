@@ -1,5 +1,5 @@
 <template>
-    <v-col xl="5" lg="6" class="main-videos-block">
+    <v-col xl="5" lg="6">
         <h5 class="text-uppercase font-weight-regular py-4 mb-0">Видео</h5>
         <v-col cols="12" v-if="loading" class="d-flex justify-center">
             <v-progress-circular
@@ -70,17 +70,4 @@ export default {
 </script>
 
 <style scoped>
-@media (min-width: 1264px) and (max-width: 1904px) {
-    .main-videos-block {
-        flex: 0 0 53%;
-        max-width: 53%;
-    }
-}
-
-@media (min-width: 1904px) {
-    .main-videos-block {
-        flex: 0 0 45%;
-        max-width: 45%;
-    }
-}
 </style>

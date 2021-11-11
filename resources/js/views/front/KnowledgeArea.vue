@@ -47,11 +47,9 @@
                 v-for="(knowledgeArea, i) in filteredList"
             >
                 <v-card-title class="d-flex py-3">
-                    <div class="text-start w-100">
-                        <h2 class="mb-0" style="font-size: 24px">
-                            {{ knowledgeArea.name }}
-                        </h2>
-                    </div>
+                    <v-col class="pa-0 text-start w-100">
+                        <h5 class="mb-0 text-uppercase font-weight-regular">{{ knowledgeArea.name }}</h5>
+                    </v-col>
                     <v-col cols="12" class="list-col-4 px-0">
                         <v-card-text
                             class="pa-0 mb-1"

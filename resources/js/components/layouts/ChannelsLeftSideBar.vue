@@ -3,7 +3,7 @@
         <v-col class="hidden-sm-and-up pa-0">
             <v-expansion-panels flat>
                 <v-expansion-panel>
-                    <v-expansion-panel-header>
+                    <v-expansion-panel-header class="text-uppercase font-weight-medium">
                         Каналы
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
@@ -37,7 +37,7 @@
                                     <v-list-item-content class="py-0">
                                         <v-list-item-subtitle>
                                             <a
-                                                class="channels-links font-weight-medium"
+                                                class="channels-links"
                                                 :href="channel.slug"
                                             >
                                                 {{ channel.name }}
@@ -64,11 +64,11 @@
                 </v-expansion-panel>
             </v-expansion-panels>
         </v-col>
-        <v-col class="hidden-xs-only py-0">
-            <h5 class="text-uppercase text-secondary font-weight-normal py-4 mb-0">поиск по каналам</h5>
 
+        <v-col class="fill-height hidden-xs-only py-0">
+            <h5 class="text-uppercase font-weight-normal py-4 mb-0">поиск по каналам</h5>
             <v-sheet rounded="lg" width="100%">
-                <div class="d-flex align-center pa-5">
+                <div class="d-flex align-center pa-3">
                     <v-icon>mdi-account-group-outline</v-icon>
                     <h5 class="ml-2 mb-0">Каналы</h5>
                 </div>
@@ -86,6 +86,7 @@
                     >
                     </v-text-field>
 
+                    <!-- Channels -->
                     <v-col cols="12" class="d-flex justify-center" v-if="loading">
                         <v-progress-circular
                             width="5"
@@ -103,7 +104,7 @@
                             <v-list-item-content class="py-0">
                                 <v-list-item-subtitle>
                                     <a
-                                        class="channels-links font-weight-medium"
+                                        class="channels-links"
                                         :href="channel.slug"
                                     >
                                         {{ channel.name }}
@@ -136,32 +137,25 @@ export default {
     name: "ChannelsLeftSideBar",
     data() {
         return {
-            channels: [],
-            isDisabled: false,
-            windowUrl: window.location.pathname,
-            loading: false,
             search: "",
-            nextPageUrl: ""
+            channels: [],
+            loading: false,
+            isDisabled: false,
+            channelsQuantity: 25
         }
     },
     methods: {
         getChannels() {
             this.loading = true;
-            const url = this.nextPageUrl ? this.nextPageUrl : `/api${this.windowUrl}?page=` + 1;
             axios
-                .get(url)
+                .get("/api/channels")
                 .then((res) => {
-                    console.log(res.data);
                     this.loading = false;
-                    if (res.data[1].data.length) {
-                        this.channels.push(...res.data[1].data);
-                    }
+                    this.channels = res.data;
 
-                    if (res.data[1].to == res.data[1].total) {
+                    if (this.filteredList.length == res.data.length) {
                         this.isDisabled = true;
                     }
-
-                    this.nextPageUrl = res.data[1].next_page_url;
                 })
                 .catch(err => {
                     this.loading = false;
@@ -169,7 +163,7 @@ export default {
                 })
         },
         loadMore() {
-            this.getChannels();
+            this.channelsQuantity += 25;
         },
         clearChannels() {
             this.filteredList = this.channels;
@@ -182,42 +176,45 @@ export default {
         filteredList: {
             get() {
                 if (this.search) {
-                    return this.channels.filter(channel => {
-                        return channel.name.toLowerCase().includes(this.search.toLowerCase())
+                    let allFilteredChannels = this.channels.filter(channel => {
+                        if (channel.name) {
+                            return channel.name.toLowerCase().includes(this.search.toLowerCase());
+                        }
                     });
+
+                    let certainFilteredChannels = allFilteredChannels.filter((a, i) => i < this.channelsQuantity);
+                    if (certainFilteredChannels.length == allFilteredChannels.length) {
+                        this.isDisabled = true;
+                    } else {
+                        this.isDisabled = false;
+                    }
+                    return certainFilteredChannels;
                 } else {
-                    return this.channels;
+                    this.isDisabled = false;
+                    return this.channels.filter((a, i) => i < this.channelsQuantity);
                 }
             },
             set(v) {
                 this.channels = v;
             }
         }
+    },
+    watch: {
+        search() {
+            this.channelsQuantity = 25;
+        }
     }
 }
 </script>
 
 <style scoped>
-@media (min-width: 1264px) and (max-width: 1904px) {
-    .left-side-channel-block {
-        max-width: 20%;
-    }
-}
-
-@media (min-width: 1904px) {
-    .left-side-channel-block {
-        flex: 0 0 14.5%;
-        max-width: 14.5%;
-    }
-}
-
 .channels-links {
     text-decoration: none;
-    color: #676767;
+    color: #000;
 }
 
 .channels-list {
-    min-height: 28px;
+    min-height: 24px;
     padding: 0;
 }
 

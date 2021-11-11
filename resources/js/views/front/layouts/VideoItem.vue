@@ -17,7 +17,7 @@
 
                     <v-col class="pb-0 col-md-6 col-12">
                         <h5
-                            class="font-weight-regular grey--text text--darken-3 title-videos ma-0"
+                            class="grey--text text--darken-3 title-videos text-justify ma-0"
                             v-bind="attrs"
                             v-on="on"
                         >{{ video.title }}</h5>
@@ -37,10 +37,10 @@
                     <v-col class="d-flex pa-0 justify-content-between">
                         <v-col class="categories-block pa-0">
                             <a
-                                class="text-decoration-none ml-1"
                                 v-for="(category, i) in video.categories"
-                                :key="i"
                                 :href="`/videos/` + category.slug"
+                                class="text-decoration-none ml-1"
+                                :key="i"
                             >
                                 {{ category.name }}
                             </a>
@@ -100,11 +100,6 @@ export default {
             videoDialog: false
         };
     },
-    methods: {
-        closeModal() {
-
-        }
-    },
 };
 </script>
 
@@ -140,7 +135,7 @@ export default {
 }
 
 .title-videos {
-    line-height: normal;
+    line-height: 1.3;
 }
 
 .channels-links {

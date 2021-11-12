@@ -6,8 +6,8 @@
         <template v-slot:activator="{ on, attrs }">
             <v-card
                 flat
-                min-height="365"
-                max-height="360"
+                min-height="354"
+                max-height="354"
                 class="pa-0 rounded"
             >
                 <v-card-text
@@ -15,13 +15,12 @@
                     v-bind="attrs"
                     v-on="on"
                 >
-                    <v-img
-                        class="d-flex rounded-top"
-                        :src="photo.path"
-                    ></v-img>
+                    <v-col class="pb-2">
+                        <v-img :src="photo.path" class="rounded"></v-img>
+                    </v-col>
 
-                    <v-col class="pa-3">
-                        <v-card-title class="photo-title truncate-to-one-line mb-2" v-if="photo.title">
+                    <v-col class="pa-3 pt-0">
+                        <v-card-title class="photo-title truncate-to-one-line mb-1" v-if="photo.title">
                             {{ photo.title }}
                         </v-card-title>
                         <v-card-subtitle class="truncate-to-five-line">

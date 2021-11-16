@@ -14,6 +14,14 @@
                         />
                     </v-col>
                     <v-col cols="12 py-0">
+                        <v-text-field
+                            dense
+                            outlined
+                            label="Заголовок"
+                            v-model="photoToUpdate.title"
+                        />
+                    </v-col>
+                    <v-col cols="12 py-0">
                         <v-textarea
                             outlined
                             label="Описание"
@@ -38,49 +46,49 @@
 </template>
 
 <script>
-    import DatePicker from "../../../components/DatePicker";
-    import rules from "../../../validation-rules";
+import DatePicker from "../../../components/DatePicker";
+import rules from "../../../validation-rules";
 
-    export default {
-        components: {
-            "date-picker": DatePicker
-        },
-        props: {
-            value: Object
-        },
-        data() {
-            return {
-                rules,
-                modalDate: "",
-                isSendingData: false
-            }
-        },
-        methods: {
-            updatePhoto() {
-                this.isSendingData = true;
-                axios
-                    .put("/api/photos/" + this.photoToUpdate.id, this.photoToUpdate)
-                    .then(res => {
-                        this.isSendingData = false;
-                        this.$emit('updated', res.data);
-                    })
-                    .catch(err => {
-                        this.isSendingData = false;
-                        console.log(err);
-                    });
-            }
-        },
-        computed: {
-            photoToUpdate: {
-                get() {
-                    return this.value;
-                },
-                set(v) {
-                    if (!v) {
-                        this.$emit('input', null);
-                    }
+export default {
+    components: {
+        "date-picker": DatePicker
+    },
+    props: {
+        value: Object
+    },
+    data() {
+        return {
+            rules,
+            modalDate: "",
+            isSendingData: false
+        }
+    },
+    methods: {
+        updatePhoto() {
+            this.isSendingData = true;
+            axios
+                .put("/api/photos/" + this.photoToUpdate.id, this.photoToUpdate)
+                .then(res => {
+                    this.isSendingData = false;
+                    this.$emit('updated', res.data);
+                })
+                .catch(err => {
+                    this.isSendingData = false;
+                    console.log(err);
+                });
+        }
+    },
+    computed: {
+        photoToUpdate: {
+            get() {
+                return this.value;
+            },
+            set(v) {
+                if (!v) {
+                    this.$emit('input', null);
                 }
             }
         }
     }
+}
 </script>

@@ -6,43 +6,40 @@
             </v-card-title>
             <v-container>
                 <v-row justify="center">
-                    <v-col cols="12">
+                    <v-col cols="12" class="py-0">
                         <v-text-field
-                            label="Добавить имя области знаний"
-                            v-model="newKnowledge.name"
-                            hide-details
+                            dense
                             outlined
                             name="name"
-                        >
-                        </v-text-field>
-                    </v-col>
-                    <v-col cols="12">
-                        <wysiwyg-editor
-                            label="Добавить описание области знания"
-                            v-model="newKnowledge.description"
+                            hide-details
+                            v-model="newKnowledge.name"
+                            label="Добавить имя области знаний"
                         />
                     </v-col>
-                    <v-col cols="12">
+                    <v-col cols="12" class="py-0">
+                        <wysiwyg-editor
+                            v-model="newKnowledge.description"
+                            label="Добавить описание области знания"
+                        />
+                    </v-col>
+                    <v-col cols="12" class="py-0">
                         <v-autocomplete
+                            dense
+                            outlined
+                            multiple
+                            item-value="id"
+                            item-text="name"
+                            :items="knowledgeAreas"
                             label="Связанные области знаний"
                             v-model="newKnowledge.linked_knowledge"
-                            :items="knowledgeAreas"
-                            item-text="name"
-                            item-value="id"
-                            multiple
-                            outlined
                         />
                     </v-col>
                 </v-row>
             </v-container>
             <v-card-actions>
-                <v-spacer />
-                <v-btn dark color="green" @click="addKnowledgeArea()"
-                    >Сохранить</v-btn
-                >
-                <v-btn dark color="error" @click="$emit('input', false)"
-                    >Отмена</v-btn
-                >
+                <v-spacer/>
+                <v-btn dark color="primary" @click="addKnowledgeArea()">Сохранить</v-btn>
+                <v-btn dark color="primary" @click="$emit('input', false)">Отмена</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
@@ -56,13 +53,13 @@ export default {
         value: Boolean,
         knowledgeAreas: Array
     },
-    components: { WysiwygEditor },
-    data(){
+    components: {WysiwygEditor},
+    data() {
         return {
             newKnowledge: null
         }
     },
-    beforeMount(){
+    beforeMount() {
         this.newKnowledge = this.getDefaultKnowledge();
     },
     methods: {

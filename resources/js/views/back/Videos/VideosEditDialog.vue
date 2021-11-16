@@ -6,16 +6,19 @@
             </v-card-title>
             <v-container>
                 <v-row justify="center">
-                    <v-col cols="12 py-0">
+                    <v-col cols="12" class="py-0">
                         <v-textarea
+                            dense
+                            rows="3"
                             outlined
                             :rules="[rules.required]"
                             v-model="videoToUpdate.title"
                             label="Изменить названия видео"
                         />
                     </v-col>
-                    <v-col cols="12 py-0">
+                    <v-col cols="12" class="py-0">
                         <v-autocomplete
+                            dense
                             outlined
                             item-value="id"
                             item-text="name"
@@ -25,24 +28,27 @@
                             v-model="videoToUpdate.channel_id"
                         />
                     </v-col>
-                    <v-col cols="12 py-0">
+                    <v-col cols="12" class="py-0">
                         <v-text-field
+                            dense
                             outlined
                             :rules="[rules.required]"
                             v-model="videoToUpdate.link"
                             label="Изменить ссылку видео"
                         />
                     </v-col>
-                    <v-col cols="12 py-0">
+                    <v-col cols="12" class="py-0">
                         <v-text-field
+                            dense
                             outlined
                             :rules="[rules.required]"
                             v-model="videoToUpdate.duration"
                             label="Изменить продолжителность видео в минутах"
                         />
                     </v-col>
-                    <v-col cols="12 py-0">
+                    <v-col cols="12" class="py-0">
                         <v-autocomplete
+                            dense
                             outlined
                             multiple
                             item-value="id"
@@ -53,7 +59,7 @@
                             v-model="videoToUpdate.categories"
                         />
                     </v-col>
-                    <v-col cols="12 py-0">
+                    <v-col cols="12" class="py-0">
                         <date-picker
                             with-time
                             label="Дата публикации"
@@ -63,7 +69,7 @@
                     </v-col>
                 </v-row>
             </v-container>
-            <v-card-actions class="p-3">
+            <v-card-actions class="pa-3">
                 <v-spacer/>
                 <v-btn dark color="primary" @click="updateVideo()">Сохранить</v-btn>
                 <v-btn dark color="primary" @click="$emit('input', null)">Отмена</v-btn>

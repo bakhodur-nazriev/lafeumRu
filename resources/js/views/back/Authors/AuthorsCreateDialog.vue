@@ -6,36 +6,36 @@
             </v-card-title>
             <v-container>
                 <v-row justify="center">
-                    <v-col cols="12">
+                    <v-col cols="12" class="py-0">
                         <v-text-field
-                            hide-details
+                            dense
                             outlined
                             label="Имя автора"
                             v-model="newAuthor.name"
                         />
                     </v-col>
-                    <v-col cols="12 py-0">
+                    <v-col cols="12" class="py-0">
                         <v-select
+                            dense
                             outlined
-                            label="Группа авторов"
-                            hide-details
                             :items="groups"
-                            item-text="name"
                             item-value="id"
+                            item-text="name"
+                            label="Группа авторов"
                             v-model="newAuthor.author_group_id"
                         />
                     </v-col>
-                    <v-col cols="12">
+                    <v-col cols="12" class="py-0">
                         <v-file-input
-                            hide-details
+                            dense
                             outlined
+                            prepend-icon=""
                             label="Выберите фото"
                             v-model="newAuthor.photo"
-                            prepend-icon=""
                             prepend-inner-icon="mdi-camera"
                         />
                     </v-col>
-                    <v-col cols="12">
+                    <v-col cols="12" class="py-0">
                         <wysiwyg-editor
                             label="Биография автора"
                             v-model="newAuthor.biography"
@@ -45,8 +45,8 @@
             </v-container>
             <v-card-actions>
                 <v-spacer />
-                <v-btn dark color="green" @click="addAuthor()">Сохранить</v-btn>
-                <v-btn dark color="error" @click="$emit('input', null)">Отмена</v-btn>
+                <v-btn dark color="primary" @click="addAuthor()">Сохранить</v-btn>
+                <v-btn dark color="primary" @click="$emit('input', null)">Отмена</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>

@@ -8,13 +8,11 @@
                 <v-container>
                     <v-row justify="center">
                         <v-col cols="12 py-0">
-                            <v-file-input
+                            <v-text-field
+                                dense
                                 outlined
-                                prepend-icon=""
-                                label="Выберите фото"
-                                :rules="[rules.required]"
-                                v-model="newPhoto.image"
-                                prepend-inner-icon="mdi-camera"
+                                label="Заголовок"
+                                v-model="newPhoto.title"
                             />
                         </v-col>
                         <v-col cols="12 py-0">
@@ -25,11 +23,14 @@
                             />
                         </v-col>
                         <v-col cols="12 py-0">
-                            <v-text-field
-                                hide-details
+                            <v-file-input
+                                dense
                                 outlined
-                                label="Имя автора"
-                                v-model="newPhoto.title"
+                                prepend-icon=""
+                                label="Выберите фото"
+                                :rules="[rules.required]"
+                                v-model="newPhoto.image"
+                                prepend-inner-icon="mdi-camera"
                             />
                         </v-col>
                         <v-col cols="12 py-0">

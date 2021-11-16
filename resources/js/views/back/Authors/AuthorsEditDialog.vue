@@ -6,36 +6,37 @@
             </v-card-title>
             <v-container>
                 <v-row justify="center">
-                    <v-col cols="12 py-0">
+                    <v-col cols="12" class="py-0">
                         <v-text-field
+                            dense
                             outlined
                             label="Изменить имя автора"
                             v-model="authorToUpdate.name"
-                        >
-                        </v-text-field>
+                        />
                     </v-col>
-                    <v-col cols="12 py-0">
+                    <v-col cols="12" class="py-0">
                         <v-select
+                            dense
                             outlined
-                            label="Группа авторов"
+                            item-value="id"
                             :items="groups"
                             item-text="name"
-                            item-value="id"
+                            label="Группа авторов"
                             v-model="authorToUpdate.author_group_id"
                         />
                     </v-col>
-                    <v-col cols="12 py-0">
+                    <v-col cols="12" class="py-0">
                         <v-file-input
+                            dense
                             outlined
                             name="photo"
                             prepend-icon=""
                             label="Изменить фото"
                             prepend-inner-icon="mdi-camera"
                             v-model="authorToUpdate.photo"
-                        >
-                        </v-file-input>
+                        />
                     </v-col>
-                    <v-col cols="12 py-0">
+                    <v-col cols="12" class="py-0">
                         <wysiwyg-editor
                             label="Изменить биографию здесь"
                             v-model="authorToUpdate.biography"
@@ -45,8 +46,8 @@
             </v-container>
             <v-card-actions>
                 <v-spacer/>
-                <v-btn dark color="green" @click="updateAuthor()">Сохранить</v-btn>
-                <v-btn dark color="error" @click="$emit('input', null)">Отмена</v-btn>
+                <v-btn dark color="primary" @click="updateAuthor()">Сохранить</v-btn>
+                <v-btn dark color="primary" @click="$emit('input', null)">Отмена</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
@@ -60,7 +61,7 @@ export default {
         value: Object,
         groups: Array
     },
-    components: { WysiwygEditor },
+    components: {WysiwygEditor},
     methods: {
         updateAuthor() {
             const formData = new FormData();

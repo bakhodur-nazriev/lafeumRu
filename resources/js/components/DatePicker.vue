@@ -8,6 +8,7 @@
     >
         <template v-slot:activator="{ on }">
             <v-text-field
+                dense
                 readonly
                 outlined
                 v-on="on"

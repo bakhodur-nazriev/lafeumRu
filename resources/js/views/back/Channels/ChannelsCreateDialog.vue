@@ -6,27 +6,26 @@
             </v-card-title>
             <v-container>
                 <v-row justify="center">
-                    <v-col cols="12">
+                    <v-col cols="12" class="py-0">
                         <v-text-field
-                            label="Добавить назавние канала"
-                            v-model="newChannel.name"
-                            hide-details
+                            dense
                             outlined
-                        >
-                        </v-text-field>
+                            v-model="newChannel.name"
+                            label="Добавить назавние канала"
+                        />
                     </v-col>
-                    <v-col cols="12">
+                    <v-col cols="12" class="py-0">
                         <wysiwyg-editor
-                            label="Добавить описание к каналу"
                             v-model="newChannel.description"
+                            label="Добавить описание к каналу"
                         />
                     </v-col>
                 </v-row>
             </v-container>
             <v-card-actions>
                 <v-spacer/>
-                <v-btn dark color="green" @click="addChannel()">Сохранить</v-btn>
-                <v-btn dark color="error" @click="$emit('input', false)">Отмена</v-btn>
+                <v-btn dark color="primary" @click="addChannel()">Сохранить</v-btn>
+                <v-btn dark color="primary" @click="$emit('input', false)">Отмена</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
@@ -39,7 +38,7 @@ export default {
     props: {
         value: Boolean
     },
-    components: { WysiwygEditor },
+    components: {WysiwygEditor},
     data() {
         return {
             newChannel: null

@@ -6,31 +6,26 @@
             </v-card-title>
             <v-container>
                 <v-row justify="center">
-                    <v-col cols="12">
+                    <v-col cols="12" class="py-0">
                         <v-text-field
-                            v-model="channelToUpdate.name"
-                            label="Изменить имя канала"
-                            hide-details
+                            dense
                             outlined
-                        >
-                        </v-text-field>
+                            label="Изменить имя канала"
+                            v-model="channelToUpdate.name"
+                        />
                     </v-col>
-                    <v-col cols="12">
+                    <v-col cols="12" class="py-0">
                         <wysiwyg-editor
-                            v-model="channelToUpdate.description"
                             label="Изменить описание канала"
+                            v-model="channelToUpdate.description"
                         />
                     </v-col>
                 </v-row>
             </v-container>
             <v-card-actions>
-                <v-spacer />
-                <v-btn dark color="green" @click="updateChannel()"
-                    >Сохранить</v-btn
-                >
-                <v-btn dark color="error" @click="$emit('input', null)"
-                    >Отмена</v-btn
-                >
+                <v-spacer/>
+                <v-btn dark color="primary" @click="updateChannel()">Сохранить</v-btn>
+                <v-btn dark color="primary" @click="$emit('input', null)">Отмена</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
@@ -43,7 +38,7 @@ export default {
     props: {
         value: Object
     },
-    components: { WysiwygEditor },
+    components: {WysiwygEditor},
     methods: {
         updateChannel() {
             axios

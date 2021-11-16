@@ -10,42 +10,39 @@
             </v-card-title>
             <v-container>
                 <v-row justify="center">
-                    <v-col cols="12">
+                    <v-col cols="12" class="py-0">
                         <v-text-field
-                            hide-details
+                            dense
                             outlined
+                            hide-details
                             v-model="knowledgeAreaToUpdate.name"
                             label="Изменить области знаний здесь"
-                        >
-                        </v-text-field>
+                        />
                     </v-col>
-                    <v-col cols="12">
+                    <v-col cols="12" class="py-0">
                         <wysiwyg-editor
                             v-model="knowledgeAreaToUpdate.description"
                             label="Изменить описание области знания"
                         />
                     </v-col>
-                    <v-col cols="12">
+                    <v-col cols="12" class="py-0">
                         <v-autocomplete
+                            dense
+                            outlined
+                            multiple
+                            item-value="id"
+                            item-text="name"
+                            :items="knowledgeAreas"
                             label="Связанные области знаний"
                             v-model="knowledgeAreaToUpdate.linked_knowledge"
-                            :items="knowledgeAreas"
-                            item-text="name"
-                            item-value="id"
-                            multiple
-                            outlined
                         />
                     </v-col>
                 </v-row>
             </v-container>
             <v-card-actions>
-                <v-spacer />
-                <v-btn dark color="green" @click="updateKnowledgeArea()"
-                    >Сохранить</v-btn
-                >
-                <v-btn dark color="error" @click="$emit('input', null)"
-                    >Отмена</v-btn
-                >
+                <v-spacer/>
+                <v-btn dark color="primary" @click="updateKnowledgeArea()">Сохранить</v-btn>
+                <v-btn dark color="primary" @click="$emit('input', null)">Отмена</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
@@ -59,7 +56,7 @@ export default {
         value: Object,
         knowledgeAreas: Array
     },
-    components: { WysiwygEditor },
+    components: {WysiwygEditor},
     methods: {
         updateKnowledgeArea() {
             const url = "/api/knowledge-areas/" + this.knowledgeAreaToUpdate.slug;
@@ -75,11 +72,11 @@ export default {
     },
     computed: {
         knowledgeAreaToUpdate: {
-            get(){
+            get() {
                 return this.value;
             },
-            set(v){
-                if(!v){
+            set(v) {
+                if (!v) {
                     this.$emit('input', null);
                 }
             }

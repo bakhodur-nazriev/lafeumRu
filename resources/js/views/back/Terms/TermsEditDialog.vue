@@ -6,16 +6,18 @@
             </v-card-title>
             <v-container>
                 <v-row justify="center">
-                    <v-col cols="12 py-0">
+                    <v-col cols="12" class="py-0">
                         <v-text-field
+                            dense
                             outlined
                             :rules="[rules.required]"
                             v-model="termToUpdate.name"
                             label="Изменить название термина"
                         />
                     </v-col>
-                    <v-col cols="12 py-0">
+                    <v-col cols="12" class="py-0">
                         <v-autocomplete
+                            dense
                             outlined
                             multiple
                             item-value="id"
@@ -26,8 +28,9 @@
                             v-model="termToUpdate.knowledge"
                         />
                     </v-col>
-                    <v-col cols="12 py-0">
+                    <v-col cols="12" class="py-0">
                         <v-autocomplete
+                            dense
                             outlined
                             multiple
                             item-value="id"
@@ -38,8 +41,9 @@
                             v-model="termToUpdate.categories"
                         />
                     </v-col>
-                    <v-col cols="12 py-0">
+                    <v-col cols="12" class="py-0">
                         <v-select
+                            dense
                             outlined
                             label="Тип"
                             item-value="id"
@@ -48,7 +52,7 @@
                             v-model="termToUpdate.term_type_id"
                         />
                     </v-col>
-                    <v-col cols="12 py-0">
+                    <v-col cols="12" class="py-0">
                         <date-picker
                             with-time
                             label="Дата публикации"
@@ -56,23 +60,23 @@
                             v-model="termToUpdate.publish_at"
                         />
                     </v-col>
-                    <v-col cols="12 py-0">
+                    <v-col cols="12" class="py-0">
                         <v-checkbox
                             class="mt-0"
-                            v-model="termToUpdate.show_in_vocabulary"
                             label="Показать в словаре"
+                            v-model="termToUpdate.show_in_vocabulary"
                         />
                     </v-col>
-                    <v-col cols="12 py-0">
+                    <v-col cols="12" class="py-0">
                         <wysiwyg-editor
+                            label="Изменить термин"
                             :rules="[rules.required]"
                             v-model="termToUpdate.body"
-                            label="Изменить термин"
                         />
                     </v-col>
                 </v-row>
             </v-container>
-            <v-card-actions class="p-3">
+            <v-card-actions class="pa-3">
                 <v-spacer/>
                 <v-btn dark color="primary" @click="updateTerm()">Сохранить</v-btn>
                 <v-btn dark color="primary" @click="termToUpdate = false">Отмена</v-btn>

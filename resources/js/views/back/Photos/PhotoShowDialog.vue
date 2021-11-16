@@ -1,13 +1,13 @@
 <template>
     <!-- Show Item Dialog -->
-    <v-dialog v-model="showDialog" width="700">
+    <v-dialog v-model="showDialog" width="800">
         <v-card v-if="showDialog">
             <v-card-title class="primary white--text pa-4">
                 Фото
             </v-card-title>
             <v-container>
                 <v-row justify="center">
-                    <v-col col="12">
+                    <v-col col="12" class="pt-0">
                         <v-img
                             height="100%"
                             class="rounded"
@@ -15,31 +15,33 @@
                         />
                     </v-col>
                     <v-col cols="12">
-                        <v-textarea
+                        <v-text-field
+                            dense
                             outlined
                             readonly
                             hide-details
-                            rows="3"
-                            label="Описания"
-                            v-model="photo.description"
+                            label="Заголовок"
+                            v-model="photo.title"
                         />
                     </v-col>
                     <v-col cols="12">
                         <v-text-field
-                            outlined
-                            readonly
-                            hide-details
-                            label="Дата добавления"
-                            v-model="photo.created_at"
-                        />
-                    </v-col>
-                    <v-col cols="12">
-                        <v-text-field
+                            dense
                             outlined
                             readonly
                             hide-details
                             label="Дата изменения"
                             v-model="photo.updated_at"
+                        />
+                    </v-col>
+                    <v-col cols="12">
+                        <v-textarea
+                            outlined
+                            readonly
+                            hide-details
+                            rows="4"
+                            label="Описания"
+                            v-model="photo.description"
                         />
                     </v-col>
                 </v-row>

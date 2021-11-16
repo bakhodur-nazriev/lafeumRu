@@ -7,8 +7,9 @@
                 </v-card-title>
                 <v-container>
                     <v-row justify="center">
-                        <v-col cols="12 py-0">
+                        <v-col cols="12" class="py-0">
                             <v-autocomplete
+                                dense
                                 outlined
                                 label="Автор"
                                 item-value="id"
@@ -18,15 +19,17 @@
                                 v-model="newQuote.author_id"
                             />
                         </v-col>
-                        <v-col cols="12" md="py-0">
+                        <v-col cols="12" class="py-0">
                             <v-textarea
+                                dense
                                 outlined
-                                v-model="newQuote.authors_thoughts"
                                 label="Мысли автора"
+                                v-model="newQuote.authors_thoughts"
                             />
                         </v-col>
-                        <v-col cols="12 py-0">
+                        <v-col cols="12" class="py-0">
                             <v-autocomplete
+                                dense
                                 outlined
                                 multiple
                                 item-value="id"
@@ -37,14 +40,14 @@
                                 v-model="newQuote.categories"
                             />
                         </v-col>
-                        <v-col cols="12 py-0">
+                        <v-col cols="12" class="py-0">
                             <date-picker
                                 with-time
                                 label="Дата публикации"
                                 v-model="newQuote.publish_at"
                             />
                         </v-col>
-                        <v-col cols="12 py-0">
+                        <v-col cols="12" class="py-0">
                             <wysiwyg-editor
                                 v-model="newQuote.body"
                                 label="Введите цитату здесь"
@@ -53,7 +56,7 @@
                         </v-col>
                     </v-row>
                 </v-container>
-                <v-card-actions class="p-3">
+                <v-card-actions class="pa-3">
                     <v-spacer/>
                     <v-btn dark color="primary" type="submit">Сохранить</v-btn>
                     <v-btn dark color="primary" type="button" @click="$emit('input', false)">

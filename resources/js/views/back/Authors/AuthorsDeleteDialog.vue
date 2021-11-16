@@ -5,8 +5,8 @@
                 Вы действительно хотите отрпавить автора в корзину ?
             </v-card-title>
             <v-card-actions class="justify-center">
-                <v-btn dark color="green" @click="$emit('input', null)">Нет</v-btn>
-                <v-btn dark color="red" @click="deleteAuthor()">Да</v-btn>
+                <v-btn dark color="primary" @click="$emit('input', null)">Нет</v-btn>
+                <v-btn dark color="primary" @click="deleteAuthor()">Да</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>

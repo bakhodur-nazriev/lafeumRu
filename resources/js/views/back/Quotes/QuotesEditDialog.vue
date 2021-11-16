@@ -6,8 +6,9 @@
             </v-card-title>
             <v-container>
                 <v-row justify="center">
-                    <v-col cols="12 py-0">
+                    <v-col cols="12" class="py-0">
                         <v-select
+                            dense
                             outlined
                             label="Авторы"
                             item-value="id"
@@ -17,15 +18,17 @@
                             v-model="quoteToUpdate.author_id"
                         />
                     </v-col>
-                    <v-col>
+                    <v-col class="py-0">
                         <v-textarea
+                            dense
                             outlined
                             label="Мысли автора"
                             v-model="quoteToUpdate.authors_thoughts"
                         />
                     </v-col>
-                    <v-col cols="12 py-0">
+                    <v-col cols="12" class="py-0">
                         <v-autocomplete
+                            dense
                             outlined
                             multiple
                             item-value="id"
@@ -36,14 +39,14 @@
                             v-model="quoteToUpdate.categories"
                         />
                     </v-col>
-                    <v-col cols="12 py-0">
+                    <v-col cols="12" class="py-0">
                         <date-picker
                             with-time
                             label="Дата публикации"
                             v-model="quoteToUpdate.publish_at"
                         />
                     </v-col>
-                    <v-col cols="12 py-0">
+                    <v-col cols="12" class="py-0">
                         <wysiwyg-editor
                             outlined
                             label="Изменить цитату"
@@ -53,7 +56,7 @@
                     </v-col>
                 </v-row>
             </v-container>
-            <v-card-actions class="p-3">
+            <v-card-actions class="pa-3">
                 <v-spacer/>
                 <v-btn dark color="primary" @click="updateQuote()">Сохранить</v-btn>
                 <v-btn dark color="primary" @click="quoteToUpdate = false">Отмена</v-btn>

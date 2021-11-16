@@ -7,16 +7,19 @@
                 </v-card-title>
                 <v-container>
                     <v-row justify="center">
-                        <v-col cols="12 py-0">
-                            <v-text-field
+                        <v-col cols="12" class="py-0">
+                            <v-textarea
+                                dense
+                                rows="3"
                                 outlined
                                 label="Введите название"
-                                v-model="newVideo.title"
                                 :rules="[rules.required]"
+                                v-model="newVideo.title"
                             />
                         </v-col>
-                        <v-col cols="12 py-0">
+                        <v-col cols="12" class="py-0">
                             <v-autocomplete
+                                dense
                                 outlined
                                 item-value="id"
                                 item-text="name"
@@ -26,8 +29,9 @@
                                 v-model="newVideo.channel_id"
                             />
                         </v-col>
-                        <v-col cols="12 py-0">
+                        <v-col cols="12" class="py-0">
                             <v-autocomplete
+                                dense
                                 outlined
                                 multiple
                                 item-value="id"
@@ -38,16 +42,18 @@
                                 v-model="newVideo.categories"
                             />
                         </v-col>
-                        <v-col cols="12 py-0">
+                        <v-col cols="12" class="py-0">
                             <v-text-field
+                                dense
                                 outlined
                                 label="Добавьте ссылку"
                                 v-model="newVideo.link"
                                 :rules="[rules.required]"
                             />
                         </v-col>
-                        <v-col cols="12 py-0">
+                        <v-col cols="12" class="py-0">
                             <v-text-field
+                                dense
                                 outlined
                                 type="number"
                                 :rules="[rules.required]"
@@ -55,7 +61,7 @@
                                 label="Добавьте продолжительность (в мин.)"
                             />
                         </v-col>
-                        <v-col cols="12 py-0">
+                        <v-col cols="12" class="py-0">
                             <date-picker
                                 with-time
                                 label="Дата публикации"
@@ -77,60 +83,60 @@
 </template>
 
 <script>
-    import rules from "../../../validation-rules";
-    import DatePicker from "../../../components/DatePicker";
+import rules from "../../../validation-rules";
+import DatePicker from "../../../components/DatePicker";
 
-    export default {
-        components: {
-            "date-picker": DatePicker
-        },
-        props: {
-            value: Boolean,
-            channels: Array,
-            categories: Array,
-        },
-        data() {
+export default {
+    components: {
+        "date-picker": DatePicker
+    },
+    props: {
+        value: Boolean,
+        channels: Array,
+        categories: Array,
+    },
+    data() {
+        return {
+            rules,
+            newVideo: null,
+            modalDate: false
+        };
+    },
+    beforeMount() {
+        this.newVideo = this.getDefaultVideo();
+    },
+    methods: {
+        getDefaultVideo() {
             return {
-                rules,
-                newVideo: null,
-                modalDate: false
+                link: "",
+                title: "",
+                duration: "",
+                categories: [],
+                channel_id: null,
+                publish_at: ""
             };
         },
-        beforeMount() {
+        resetNewVideoForm() {
             this.newVideo = this.getDefaultVideo();
+            this.$refs.createForm.reset();
         },
-        methods: {
-            getDefaultVideo() {
-                return {
-                    link: "",
-                    title: "",
-                    duration: "",
-                    categories: [],
-                    channel_id: null,
-                    publish_at: ""
-                };
-            },
-            resetNewVideoForm() {
-                this.newVideo = this.getDefaultVideo();
-                this.$refs.createForm.reset();
-            },
-            addVideo(e) {
-                e.preventDefault();
+        addVideo(e) {
+            e.preventDefault();
 
-                const validForm = this.$refs.createForm.validate();
+            const validForm = this.$refs.createForm.validate();
 
-                if (!validForm) return;
+            if (!validForm) return;
 
-                axios
-                    .post("/api/videos", this.newVideo)
-                    .then(res => {
-                        this.resetNewVideoForm();
-                        this.$emit("created", res.data);
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    });
-            }
+            axios
+                .post("/api/videos", this.newVideo)
+                .then(res => {
+                    this.resetNewVideoForm();
+                    this.$emit("created", res.data);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
         }
-    };
+    }
+};
 </script>

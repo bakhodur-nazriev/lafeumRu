@@ -5,8 +5,8 @@
                 Вы действительно хотите отправить канал в корзину ?
             </v-card-title>
             <v-card-actions class="justify-center">
-                <v-btn dark color="green" @click="$emit('input', null)">Нет</v-btn>
-                <v-btn dark color="red" @click="deleteChannel()">Да</v-btn>
+                <v-btn dark color="primary" @click="$emit('input', null)">Нет</v-btn>
+                <v-btn dark color="primary" @click="deleteChannel()">Да</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>

@@ -69,7 +69,7 @@ export default {
         getCategory() {
             this.loading = true;
             axios
-                .get(`/api${this.windowUrl}?page=` + this.pagination.currentPage)
+                .get(`/api/front${this.windowUrl}?page=` + this.pagination.currentPage)
                 .then((res) => {
                     this.loading = false;
                     this.category = res.data;

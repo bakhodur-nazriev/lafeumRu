@@ -3,7 +3,7 @@
 {{--@section('meta-tags')--}}
 {{--    @include('layouts.meta-tags', [--}}
 {{--        'title' => isset($categories) ? $categories->name . ' - словарь': 'Словарь',--}}
-{{--        'description' => isset($categories) ? $categories->description: ''--}}
+{{--        'description' =>  ''--}}
 {{--    ])--}}
 {{--@endsection--}}
 

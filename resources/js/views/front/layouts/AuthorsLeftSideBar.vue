@@ -1,25 +1,27 @@
 <template>
-    <v-col xl="2" lg="3" class="left-side-channel-block col-12 px-md-0">
+    <v-col xl="2" lg="3" class="fill-height authors-main-left-block col-12 px-md-0">
         <v-col class="hidden-sm-and-up pa-0">
             <v-expansion-panels flat>
                 <v-expansion-panel>
-                    <v-expansion-panel-header class="text-uppercase font-weight-medium">
-                        Каналы
+                    <v-expansion-panel-header>
+                        <span class="text-uppercase font-weight-medium" v-if="listTitle">{{ listTitle }}</span>
+                        <span class="text-uppercase font-weight-medium" v-else>Авторы</span>
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
-                        <div>
+                        <div class="py-4 px-0">
                             <v-text-field
-                                @click:clear="clearChannels()"
-                                label="Введите имя канала"
+                                label="Введите имя автора"
                                 v-model="search"
                                 hide-details
                                 class="mb-3"
+                                @click:clear="clearAuthors()"
                                 clearable
                                 outlined
                                 dense
                             >
                             </v-text-field>
 
+                            <!-- Authors -->
                             <v-col cols="12" class="d-flex justify-center" v-if="loading">
                                 <v-progress-circular
                                     width="5"
@@ -30,22 +32,25 @@
                             </v-col>
                             <div v-else>
                                 <v-list-item
-                                    v-for="(channel, i) in filteredList"
+                                    v-for="(author, i) in filteredList"
                                     :key="i"
-                                    class="channels-list pl-1"
+                                    class="authors-list pl-1"
                                 >
                                     <v-list-item-content class="py-0">
                                         <v-list-item-subtitle>
                                             <a
-                                                class="channels-links"
-                                                :href="channel.slug"
+                                                class="author-links"
+                                                :href="author.slug"
                                             >
-                                                {{ channel.name }}
+                                                {{ author.name }}
                                             </a>
                                         </v-list-item-subtitle>
                                     </v-list-item-content>
                                 </v-list-item>
-                                <v-col cols="12" class="d-flex justify-center mt-2 pb-0">
+                                <v-col
+                                    cols="12"
+                                    class="d-flex justify-center mt-2 pb-0"
+                                >
                                     <v-btn
                                         fab
                                         small
@@ -53,7 +58,7 @@
                                         elevation="0"
                                         :disabled="isDisabled"
                                         color="grey lighten-2"
-                                        @click="loadMore()"
+                                        @click="loadMore"
                                     >
                                         <v-icon color="white">mdi-arrow-down</v-icon>
                                     </v-btn>
@@ -66,17 +71,18 @@
         </v-col>
 
         <v-col class="fill-height hidden-xs-only py-0">
-            <h5 class="text-uppercase font-weight-normal py-4 mb-0">поиск по каналам</h5>
+            <h5 class="text-uppercase font-weight-normal py-4">поиск по имени</h5>
             <v-sheet rounded="lg" width="100%">
-                <div class="d-flex align-center pa-3">
+                <v-col class="d-flex align-center pa-3">
                     <v-icon>mdi-account-group-outline</v-icon>
-                    <h5 class="ml-2 mb-0">Каналы</h5>
-                </div>
+                    <h5 class="ml-2 mb-0" v-if="listTitle">{{ listTitle }}</h5>
+                    <h5 class="ml-2 mb-0" v-else>Авторы</h5>
+                </v-col>
                 <v-divider class="ma-0"></v-divider>
                 <div class="pa-5">
                     <v-text-field
-                        @click:clear="clearChannels()"
-                        label="Введите имя канала"
+                        @click:clear="clearAuthors()"
+                        label="Введите имя автора"
                         v-model="search"
                         hide-details
                         class="mb-3"
@@ -86,7 +92,7 @@
                     >
                     </v-text-field>
 
-                    <!-- Channels -->
+                    <!-- Authors -->
                     <v-col cols="12" class="d-flex justify-center" v-if="loading">
                         <v-progress-circular
                             width="5"
@@ -97,30 +103,33 @@
                     </v-col>
                     <div v-else>
                         <v-list-item
-                            v-for="(channel, i) in filteredList"
+                            v-for="(author, i) in filteredList"
                             :key="i"
-                            class="channels-list pl-1"
+                            class="authors-list pl-1"
                         >
                             <v-list-item-content class="py-0">
                                 <v-list-item-subtitle>
                                     <a
-                                        class="channels-links"
-                                        :href="channel.slug"
+                                        class="author-links"
+                                        :href="author.slug"
                                     >
-                                        {{ channel.name }}
+                                        {{ author.name }}
                                     </a>
                                 </v-list-item-subtitle>
                             </v-list-item-content>
                         </v-list-item>
-                        <v-col cols="12" class="d-flex justify-center mt-2 pb-0">
+                        <v-col
+                            cols="12"
+                            class="d-flex justify-center pb-0"
+                            v-if="!isDisabled"
+                        >
                             <v-btn
                                 fab
                                 small
                                 rounded
                                 elevation="0"
-                                :disabled="isDisabled"
                                 color="grey lighten-2"
-                                @click="loadMore()"
+                                @click="loadMore"
                             >
                                 <v-icon color="white">mdi-arrow-down</v-icon>
                             </v-btn>
@@ -134,24 +143,24 @@
 
 <script>
 export default {
-    name: "ChannelsLeftSideBar",
     data() {
         return {
             search: "",
-            channels: [],
+            authors: [],
+            listTitle: "",
             loading: false,
             isDisabled: false,
-            channelsQuantity: 25
+            authorsQuantity: 25
         }
     },
     methods: {
-        getChannels() {
+        getAuthors() {
             this.loading = true;
             axios
-                .get("/api/channels")
+                .get("/api/front/authors")
                 .then((res) => {
                     this.loading = false;
-                    this.channels = res.data;
+                    this.authors = res.data;
 
                     if (this.filteredList.length == res.data.length) {
                         this.isDisabled = true;
@@ -163,62 +172,61 @@ export default {
                 })
         },
         loadMore() {
-            this.channelsQuantity += 25;
+            this.authorsQuantity += 25;
         },
-        clearChannels() {
-            this.filteredList = this.channels;
-        },
+        clearAuthors() {
+            this.filteredList = this.authors;
+        }
     },
     mounted() {
-        this.getChannels();
+        this.getAuthors();
     },
     computed: {
         filteredList: {
             get() {
                 if (this.search) {
-                    let allFilteredChannels = this.channels.filter(channel => {
-                        if (channel.name) {
-                            return channel.name.toLowerCase().includes(this.search.toLowerCase());
+                    let allFilteredAuthors = this.authors.filter(author => {
+                        if (author.name) {
+                            return author.name.toLowerCase().includes(this.search.toLowerCase());
                         }
                     });
-
-                    let certainFilteredChannels = allFilteredChannels.filter((a, i) => i < this.channelsQuantity);
-                    if (certainFilteredChannels.length == allFilteredChannels.length) {
+                    let certainFilteredAuthors = allFilteredAuthors.filter((a, i) => i < this.authorsQuantity);
+                    if (certainFilteredAuthors.length == allFilteredAuthors.length) {
                         this.isDisabled = true;
                     } else {
                         this.isDisabled = false;
                     }
-                    return certainFilteredChannels;
+                    return certainFilteredAuthors;
                 } else {
                     this.isDisabled = false;
-                    return this.channels.filter((a, i) => i < this.channelsQuantity);
+                    return this.authors.filter((a, i) => i < this.authorsQuantity);
                 }
             },
             set(v) {
-                this.channels = v;
+                this.authors = v;
             }
-        }
+        },
     },
     watch: {
         search() {
-            this.channelsQuantity = 25;
+            this.authorsQuantity = 25;
         }
     }
 }
 </script>
 
 <style scoped>
-.channels-links {
-    text-decoration: none;
-    color: #000;
-}
-
-.channels-list {
+.authors-list {
     min-height: 24px;
     padding: 0;
 }
 
-.channels-links:hover {
+.author-links {
+    text-decoration: none;
+    color: #000;
+}
+
+.author-links:hover {
     color: #04718c;
 }
 </style>

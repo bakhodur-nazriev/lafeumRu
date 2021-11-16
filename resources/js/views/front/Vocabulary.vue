@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import ListOfVocabulary from "../../components/ListOfChildren/ListOfVocabulary";
+import ListOfVocabulary from "./ListOfChildren/ListOfVocabulary";
 
 export default {
     components: {ListOfVocabulary},
@@ -97,7 +97,7 @@ export default {
     methods: {
         getVocabulary() {
             this.loading = true;
-            let url = `/api${window.location.pathname}` ? `/api${window.location.pathname}` : '/api/vocabulary';
+            let url = `/api/front${window.location.pathname}` ? `/api/front${window.location.pathname}` : '/api/front/vocabulary';
 
             axios
                 .get(url)

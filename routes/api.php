@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 
 /* Back Routes */
-
 Route::group(['middleware' => 'auth:api'], function () {
 
     /* Users */
@@ -109,7 +108,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 });
 
 /* Front Routes */
-Route::group(['middleware' => 'api'], function () {
+Route::group(['prefix' => 'front'], function () {
     Route::get("/quotes", "QuotesController@getQuotes");
     Route::get("/terms", "TermsController@getTerms");
     Route::get("/videos", "VideosController@getVideos");

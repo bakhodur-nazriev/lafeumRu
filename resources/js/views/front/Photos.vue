@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import ListOfPhoto from "../../components/ListOfChildren/ListOfPhoto";
+import ListOfPhoto from "./ListOfChildren/ListOfPhoto";
 
 export default {
     components: {ListOfPhoto},
@@ -52,7 +52,7 @@ export default {
         getAllPhotos() {
             this.loading = true;
             axios
-                .get("/api/photos?page=" + this.pagination.current)
+                .get("/api/front/photos?page=" + this.pagination.current)
                 .then(res => {
                     this.loading = false;
                     this.photos = res.data.data;

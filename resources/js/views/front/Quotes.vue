@@ -59,7 +59,7 @@ export default {
         getQuotes() {
             this.loading = true;
             axios
-                .get("/api/quotes?page=" + this.pagination.current)
+                .get("/api/front/quotes?page=" + this.pagination.current)
                 .then((res) => {
                     this.loading = false;
                     this.quotes = res.data.data;

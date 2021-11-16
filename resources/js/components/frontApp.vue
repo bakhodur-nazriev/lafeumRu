@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import navbar from "./layouts/FrontNavbar";
+import navbar from "../views/front/layouts/FrontNavbar";
 
 export default {
     components: {navbar},

@@ -57,7 +57,7 @@ export default {
         getKnowledgeArea() {
             this.loading = true;
             axios
-                .get(`/api${this.windowUrl}?page=` + this.pagination.current)
+                .get(`/api/front${this.windowUrl}?page=` + this.pagination.current)
                 .then((res) => {
                     this.loading = false;
                     this.currentKnowledge = res.data;

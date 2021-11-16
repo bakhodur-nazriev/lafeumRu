@@ -46,7 +46,7 @@ export default {
         getVideos() {
             this.loading = true;
             axios
-                .get("/api/videos?page=" + this.pagination.current)
+                .get("/api/front/videos?page=" + this.pagination.current)
                 .then((res) => {
                     this.loading = false;
                     this.videos = res.data;

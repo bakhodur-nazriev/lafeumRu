@@ -132,7 +132,7 @@ export default {
         getKnowledgeArea() {
             this.laoding = true;
             axios
-                .get("/api/knowledge")
+                .get("/api/front/knowledge")
                 .then(res => {
                     this.loading = false;
                     this.knowledgeAreas = res.data;

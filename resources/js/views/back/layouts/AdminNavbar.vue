@@ -84,7 +84,7 @@
 </template>
 
 <script>
-    import {sidebarRoutes} from "../../routes";
+    import {sidebarRoutes} from "../../../routes";
 
     export default {
         data() {

@@ -51,7 +51,7 @@ export default {
         getChannels() {
             this.loading = true;
             axios
-                .get(`/api${this.windowUrl}?page=` + this.pagination.currentPage)
+                .get(`/api/front${this.windowUrl}?page=` + this.pagination.currentPage)
                 .then((res) => {
                     this.loading = false;
                     this.currentChannel = res.data[0];

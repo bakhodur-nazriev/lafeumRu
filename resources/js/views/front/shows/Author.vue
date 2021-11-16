@@ -60,7 +60,7 @@ export default {
         getAuthor() {
             this.loading = true;
             axios
-                .get(`/api${this.windowUrl}?page=` + this.pagination.currentPage)
+                .get(`/api/front${this.windowUrl}?page=` + this.pagination.currentPage)
                 .then((res) => {
                     this.loading = false;
                     this.currentAuthorQuotes = res.data[2].quotes.data;

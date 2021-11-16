@@ -51,7 +51,7 @@ export default {
         getTerms() {
             this.loading = true;
             axios
-                .get("/api/terms?page=" + this.pagination.current)
+                .get("/api/front/terms?page=" + this.pagination.current)
                 .then(res => {
                     this.loading = false;
                     this.terms = res.data.data;

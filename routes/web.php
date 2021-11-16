@@ -4,14 +4,15 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-//Route::group(["middleware" => "auth"], function () {
-Route::get("/profile", "ProfileController@show")->name("profile");
-Route::put("/profile/{profile}", "ProfileController@update");
+Route::group(["middleware" => "auth"], function () {
+    Route::get("/profile", "ProfileController@show")->name("profile");
+    Route::put("/profile/{profile}", "ProfileController@update");
 
-Route::get("/dashboard{any}", "AppController@dashboard")->where("any", ".*")->name("dashboard");
-Route::get("/dashboard", "AppController@dashboard")->name("dashboard");
-Route::get("/favorites", "AppController@favorites")->name("favorites");
-Route::put("/toggle-favourite", "FavoriteController@toggle");
+    Route::get("/dashboard{any}", "AppController@dashboard")->where("any", ".*")->name("dashboard");
+    Route::get("/dashboard", "AppController@dashboard")->name("dashboard");
+    Route::get("/favorites", "AppController@favorites")->name("favorites");
+    Route::put("/toggle-favourite", "FavoriteController@toggle");
+});
 
 Route::get("/", "AppController@index")->name("home");
 Route::get("/quotes", "QuotesController@index")->name("quotes");
@@ -43,4 +44,3 @@ Route::post("/contacts", "FeedbacksController@store")->name("contacts.store");
 Route::get("/terms/links-search", "TermsController@linksSearch")->name("terms.search");
 /* Should be on bottom */
 Route::get("/{post}", "PostsController@show")->name('post');
-//});

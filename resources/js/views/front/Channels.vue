@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import ListOfChannel from "../../components/ListOfChildren/ListOfChannel";
+import ListOfChannel from "./ListOfChildren/ListOfChannel";
 
 export default {
     name: "Channels",
@@ -74,7 +74,7 @@ export default {
         getChannels() {
             this.loading = true;
             axios
-                .get("/api/channels")
+                .get("/api/front/channels")
                 .then(res => {
                     this.loading = false;
                     this.channels = res.data;

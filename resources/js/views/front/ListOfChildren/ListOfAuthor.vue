@@ -6,7 +6,7 @@
                 <a
                     v-for="(child ,i) in item.children"
                     :key="i"
-                    :href="'authors/' + child.slug"
+                    :href="'/authors/' + child.slug"
                     class="author-words text-decoration-none d-block fit"
                     target="_blank"
                 >

@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import ListOfAuthor from "../../components/ListOfChildren/ListOfAuthor";
+import ListOfAuthor from "./ListOfChildren/ListOfAuthor";
 
 export default {
     components: {
@@ -76,7 +76,7 @@ export default {
         getAuthors() {
             this.loading = true;
             axios
-                .get("/api/authors")
+                .get("/api/front/authors")
                 .then(res => {
                     this.loading = false;
                     this.authors = res.data;

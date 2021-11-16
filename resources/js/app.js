@@ -62,8 +62,8 @@ Vue.component("authors", require("./views/front/Authors").default);
 Vue.component("knowledge-area", require("./views/front/KnowledgeArea").default);
 Vue.component("vocabulary", require("./views/front/Vocabulary").default);
 Vue.component("channels", require("./views/front/Channels").default);
-Vue.component("front-navbar", require("./components/layouts/FrontNavbar").default);
-Vue.component("front-footer", require("./components/layouts/FrontFooter").default);
+Vue.component("front-navbar", require("./views/front/layouts/FrontNavbar").default);
+Vue.component("front-footer", require("./views/front/layouts/FrontFooter").default);
 Vue.component("privacy-policy", require("./views/front/PrivacyPolicy").default);
 Vue.component("terms-of-use", require("./views/front/TermsOfUse").default);
 Vue.component("about-us", require("./views/front/AboutUs").default);
@@ -89,14 +89,14 @@ Vue.component("video-item", require("./views/front/layouts/VideoItem").default);
 Vue.component("photo-item", require("./views/front/layouts/PhotoItem").default);
 
 /* Left Side Bar */
-Vue.component("left-side-bar", require("./components/layouts/LeftSideBar").default);
-Vue.component("home-left-sidebar", require("./components/layouts/HomeLeftSideBar").default);
-Vue.component("authors-left-sidebar", require("./components/layouts/AuthorsLeftSideBar").default);
-Vue.component("channels-left-sidebar", require("./components/layouts/ChannelsLeftSideBar").default);
-Vue.component("knowledge-area-left-sidebar", require("./components/layouts/KnowledgeLeftSideBar").default);
+Vue.component("left-side-bar", require("./views/front/layouts/LeftSideBar").default);
+Vue.component("home-left-sidebar", require("./views/front/layouts/HomeLeftSideBar").default);
+Vue.component("authors-left-sidebar", require("./views/front/layouts/AuthorsLeftSideBar").default);
+Vue.component("channels-left-sidebar", require("./views/front/layouts/ChannelsLeftSideBar").default);
+Vue.component("knowledge-area-left-sidebar", require("./views/front/layouts/KnowledgeLeftSideBar").default);
 
 /* Right Side Bar */
-Vue.component("right-side-bar", require("./components/layouts/RightSideBar").default);
+Vue.component("right-side-bar", require("./views/front/layouts/RightSideBar").default);
 
 /* Supporting components */
 Vue.component("scroller-component", require("./components/Scroller").default);

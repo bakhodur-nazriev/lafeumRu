@@ -74,7 +74,7 @@
                     class="mr-2 grey--text darken-4 text-decoration-none"
                     v-for="(termCategories ,i) in item.categories"
                     :key="i"
-                    :href="'terms/' + termCategories.slug"
+                    :href="'/terms/' + termCategories.slug"
 
                 >
                     {{ termCategories.name }}
@@ -150,7 +150,7 @@ export default {
                 }
             })
         }
-    }
+    },
 }
 </script>
 

@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import navbar from "./layouts/AdminNavbar";
+import navbar from "../views/back/layouts/AdminNavbar";
 
 export default {
     props: ["users"],

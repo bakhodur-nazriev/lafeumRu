@@ -2,7 +2,8 @@
 
 @section('meta-tags')
     @include('layouts.meta-tags', [
-        'title' => "Контакты.",
+        'title' => 'Контакты',
+        'description' => 'Мы рады, что Вы посетили наш сайт и ознакомились с находящейся на нем информацией.'
     ])
 @endsection
 

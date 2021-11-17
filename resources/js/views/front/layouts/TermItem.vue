@@ -23,6 +23,7 @@
             <a
                 class="grey--text darken-4 terms-slug"
                 :href="'/' + item.post.id"
+                target="_blank"
             >
                 #{{ item.post.id }}
             </a>
@@ -75,7 +76,7 @@
                     v-for="(termCategories ,i) in item.categories"
                     :key="i"
                     :href="'/terms/' + termCategories.slug"
-
+                    target="_blank"
                 >
                     {{ termCategories.name }}
                 </a>

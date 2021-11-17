@@ -12,9 +12,8 @@
             <h5 class="text-uppercase font-weight-regular pt-md-3 pb-2 mb-0">
                 {{ currentKnowledge.name }}
             </h5>
-            <p v-if="currentKnowledge.description" class="mb-4">
-                {{ currentKnowledge.description }}
-            </p>
+            <p
+                v-if="currentKnowledge.description" class="mb-4" v-html="currentKnowledge.description"></p>
         </v-col>
         <v-col cols="12" class="pa-0">
             <term-item

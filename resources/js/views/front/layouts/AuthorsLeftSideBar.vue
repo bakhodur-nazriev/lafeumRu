@@ -41,6 +41,7 @@
                                             <a
                                                 class="author-links"
                                                 :href="author.slug"
+                                                target="_blank"
                                             >
                                                 {{ author.name }}
                                             </a>
@@ -112,6 +113,7 @@
                                     <a
                                         class="author-links"
                                         :href="author.slug"
+                                        target="_blank"
                                     >
                                         {{ author.name }}
                                     </a>

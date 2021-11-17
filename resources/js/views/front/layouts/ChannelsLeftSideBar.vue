@@ -39,6 +39,7 @@
                                             <a
                                                 class="channels-links"
                                                 :href="channel.slug"
+                                                target="_blank"
                                             >
                                                 {{ channel.name }}
                                             </a>
@@ -106,6 +107,7 @@
                                     <a
                                         class="channels-links"
                                         :href="channel.slug"
+                                        target="_blank"
                                     >
                                         {{ channel.name }}
                                     </a>

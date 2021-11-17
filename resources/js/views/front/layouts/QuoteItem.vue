@@ -54,7 +54,7 @@
                     class="mr-2 font-weight-light"
                     v-for="(category, i) in item.categories"
                     :key="i"
-                    :href="'quotes/' + category.slug"
+                    :href="'/quotes/' + category.slug"
                     target="_blank"
                 >
                     {{ category.name }}

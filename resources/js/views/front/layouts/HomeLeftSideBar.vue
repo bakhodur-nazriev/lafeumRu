@@ -10,7 +10,9 @@
         <v-col class="hidden-sm-and-up pa-0">
             <v-expansion-panels flat>
                 <v-expansion-panel>
-                    <v-expansion-panel-header class="small-title-expansion-header text-uppercase font-weight-medium">
+                    <v-expansion-panel-header
+                        class="small-title-expansion-header"
+                    >
                         Темы
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
@@ -19,6 +21,7 @@
                             <v-expansion-panels flat>
                                 <v-expansion-panel>
                                     <v-expansion-panel-header
+                                        expand-icon=""
                                         class="font-weight-bold small-expansion-header"
                                     >
                                         {{ category.name }}
@@ -32,6 +35,7 @@
                                             <a
                                                 :href="postLink.href"
                                                 class="text-decoration-none category-links"
+                                                target="_blank"
                                             >
                                                 {{ postLink.label }}
                                             </a>
@@ -56,6 +60,7 @@
                                     <v-expansion-panel-content class="small-sub-expansion-content">
                                         <div v-for="(subPostLink, i) in subCategory.post_links" :key="i">
                                             <a
+                                                target="_blank"
                                                 :href="subPostLink.href"
                                                 class="text-decoration-none category-links"
                                             >
@@ -98,6 +103,7 @@
                                     class="font-weight-normal pa-0"
                                 >
                                     <a
+                                        target="_blank"
                                         :href="postLink.href"
                                         class="text-decoration-none category-links"
                                     >
@@ -172,7 +178,10 @@ button:focus {
 }
 
 .small-title-expansion-header {
+    text-transform: uppercase;
+    font-weight: 500;
     padding: 16px 24px !important;
+
 }
 
 .v-expansion-panel--active + .v-expansion-panel, .v-expansion-panel--active:not(:first-child) {

@@ -29,6 +29,7 @@
                         <a
                             :href="`/channels/` + video.channel.slug"
                             class="channels-links"
+                            target="_blank"
                         >
                             <v-icon size="30" class="mr-1" color="red">mdi-youtube</v-icon>
                             <span>{{ video.channel.name }}</span>
@@ -41,12 +42,17 @@
                                 :href="`/videos/` + category.slug"
                                 class="text-decoration-none ml-1"
                                 :key="i"
+                                target="_blank"
                             >
                                 {{ category.name }}
                             </a>
                         </v-col>
                         <div class="videos-slug">
-                            <a class="grey--text text--darken-3 text-decoration-none" :href="'/' + video.post.id">
+                            <a
+                                class="grey--text text--darken-3 text-decoration-none"
+                                :href="'/' + video.post.id"
+                                target="_blank"
+                            >
                                 #{{ video.post.id }}
                             </a>
                         </div>

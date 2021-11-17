@@ -4,10 +4,10 @@
            md="3"
            class="left-side-knowledge-block"
     >
-        <v-col class="hidden-sm-and-up">
+        <v-col class="hidden-sm-and-up pa-0">
             <v-expansion-panels flat>
                 <v-expansion-panel>
-                    <v-expansion-panel-header>
+                    <v-expansion-panel-header class="text-uppercase font-weight-medium">
                         Область знаний
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
@@ -35,10 +35,9 @@
                                     class="px-1"
                                 >
                                     <v-list-item-title class="knowledge-list-item-title mt-3">
-                                        <span class="title px-0">
+                                        <span class="text-uppercase font-weight-medium px-0">
                                             {{ knowledgeArea.name }}
                                         </span>
-                                        <v-divider class="my-2"></v-divider>
                                         <v-list-item-content
                                             v-for="(child ,i) in knowledgeArea.children"
                                             :key="i"
@@ -47,7 +46,9 @@
                                             <v-list-item-subtitle class="knowledge-list-item-subtitle">
                                                 <a
                                                     :href="`/knowledge/` + child.slug"
-                                                    class="text-decoration-none">
+                                                    class="text-decoration-none"
+                                                    target="_blank"
+                                                >
                                                     {{ child.name }}
                                                 </a>
                                             </v-list-item-subtitle>
@@ -92,10 +93,10 @@
                             :key="i"
                             class="px-1"
                         >
-                            <v-list-item-title class="knowledge-list-item-title mt-2">
-                            <span class="title px-0">
-                                {{ knowledgeArea.name }}
-                            </span>
+                            <v-list-item-title class="knowledge-list-item-title">
+                                <span class="text-uppercase font-weight-medium px-0">
+                                    {{ knowledgeArea.name }}
+                                </span>
                                 <v-list-item-content
                                     v-for="(child ,i) in knowledgeArea.children"
                                     :key="i"
@@ -104,7 +105,9 @@
                                     <v-list-item-subtitle class="knowledge-list-item-subtitle">
                                         <a
                                             :href="`/knowledge/` + child.slug"
-                                            class="text-decoration-none">
+                                            class="text-decoration-none"
+                                            target="_blank"
+                                        >
                                             {{ child.name }}
                                         </a>
                                     </v-list-item-subtitle>
@@ -172,6 +175,11 @@ export default {
 </script>
 
 <style scoped>
+.knowledge-list-item-title{
+    font-size: 18px;
+    margin-top: 10px;
+}
+
 .knowledge-list-item-title,
 .knowledge-list-item-subtitle {
     white-space: initial;

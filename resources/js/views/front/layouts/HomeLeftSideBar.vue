@@ -7,12 +7,10 @@
         class="fill-height col-12"
     >
 
-        <v-col class="hidden-sm-and-up pa-0">
+        <v-col class="hidden-sm-and-up py-0">
             <v-expansion-panels flat>
                 <v-expansion-panel>
-                    <v-expansion-panel-header
-                        class="small-title-expansion-header"
-                    >
+                    <v-expansion-panel-header class="small-title-expansion-header">
                         Темы
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
@@ -134,6 +132,7 @@
                                     class="pa-0"
                                 >
                                     <a
+                                        target="_blank"
                                         :href="subPostLink.href"
                                         class="text-decoration-none category-links"
                                     >

@@ -16,7 +16,7 @@
                     v-on="on"
                 >
                     <v-col class="pb-2">
-                        <v-img :src="photo.path" class="rounded"></v-img>
+                        <v-img height="205" :src="photo.path" class="rounded"></v-img>
                     </v-col>
 
                     <v-col class="pa-3 pt-0">

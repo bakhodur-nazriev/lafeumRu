@@ -7,7 +7,7 @@ use App\Quote;
 use App\Services\RedirectService;
 use App\Term;
 use App\Video;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -49,14 +49,14 @@ class CategoriesController extends Controller
 
     public function showQuotes($categorySlug)
     {
-        //$categories = $this->getCategory(Quote::class, $categorySlug);
+        $category = $this->getCategory(Quote::class, $categorySlug);
 
         $categories = Category::quote()->get()->toTree()->unique('name');
 
-        return view('shows.category', compact('categories'));
+        return view('shows.category', compact('category', 'categories'));
     }
 
-    public function getShowQuotes($categorySlug)
+    public function getShowQuotes($categorySlug): JsonResponse
     {
         $categories = $this->getCategory(Quote::class, $categorySlug);
 
@@ -65,17 +65,19 @@ class CategoriesController extends Controller
 
     public function showTerms($categorySlug)
     {
-//        $categories = $this->getCategory(Term::class, $categorySlug,
-//            function ($categoriesQuery) {
-//                return $categoriesQuery->orderBy('term_type_id', 'asc');
-//            }
-//        );
+        $category = $this->getCategory(Term::class,
+            $categorySlug,
+            function ($categoriesQuery) {
+                return $categoriesQuery->orderBy('term_type_id', 'asc');
+            }
+        );
+
         $categories = Category::term()->get()->toTree()->unique('name');
 
-        return view('shows.category', compact('categories'));
+        return view('shows.category', compact('category', 'categories'));
     }
 
-    public function getShowTerms($categorySlug)
+    public function getShowTerms($categorySlug): JsonResponse
     {
         $category = $this->getCategory(Term::class,
             $categorySlug,
@@ -89,14 +91,14 @@ class CategoriesController extends Controller
 
     public function showVideos($categorySlug)
     {
-//        $categories = $this->getCategory(Video::class, $categorySlug);
+        $category = $this->getCategory(Video::class, $categorySlug);
 
         $categories = Category::where('type', 'App\Video')->get()->toTree()->unique('name');
 
-        return view('shows.category', compact('categories'));
+        return view('shows.category', compact('category', 'categories'));
     }
 
-    public function getShowVideos($categorySlug)
+    public function getShowVideos($categorySlug): JsonResponse
     {
         $category = $this->getCategory(Video::class, $categorySlug);
 
@@ -105,12 +107,16 @@ class CategoriesController extends Controller
 
     public function showVocabulary($categorySlug)
     {
+        $category = Category::where('type', Term::class)
+            ->where('slug', $categorySlug)
+            ->first();
+
         $categories = Category::term()->get()->toTree()->unique('name');
 
-        return view('vocabulary', compact('categories'));
+        return view('vocabulary', compact('category', 'categories'));
     }
 
-    public function getShowVocabulary($categorySlug)
+    public function getShowVocabulary($categorySlug): JsonResponse
     {
         $category = Category::where('type', Term::class)
             ->where('slug', $categorySlug)

@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Services\RedirectService;
 use App\Category;
 use App\Term;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class TermsController extends Controller
 {
@@ -25,7 +25,7 @@ class TermsController extends Controller
         return view('/terms', compact(['categories']));
     }
 
-    public function getTerms()
+    public function getTerms(): JsonResponse
     {
         $terms = Term::with([
             "categories",

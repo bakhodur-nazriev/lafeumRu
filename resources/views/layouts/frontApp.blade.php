@@ -19,15 +19,22 @@
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    <script src="https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit" async
-            defer></script>
+    <script
+            src="https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit"
+            async
+            defer
+    ></script>
 </head>
 <body>
 
 <v-app id="app" class="overflow-hidden">
     <front-navbar></front-navbar>
     <v-main class="grey lighten-3 py-0">
-        @yield('layout')
+        <v-container>
+            <v-row justify="center">
+                @yield('layout')
+            </v-row>
+        </v-container>
     </v-main>
     <front-footer></front-footer>
 

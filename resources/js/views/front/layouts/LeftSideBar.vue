@@ -109,11 +109,11 @@ export default {
             for (const category of this.categories) {
                 if (linkPrefix.includes('/vocabulary')) {
                     return '/vocabulary/';
-                } else if (category.type == 'App\\Quote') {
+                } else if (category.type === 'App\\Quote') {
                     return '/quotes/';
-                } else if (category.type == 'App\\Term') {
+                } else if (category.type === 'App\\Term') {
                     return '/terms/';
-                } else if (category.type == 'App\\Video') {
+                } else if (category.type === 'App\\Video') {
                     return '/videos/';
                 }
             }

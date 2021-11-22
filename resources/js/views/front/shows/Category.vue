@@ -18,15 +18,15 @@
             class="pa-0"
         >
             <quote-item
-                v-if="category.type == 'App\\Quote'"
+                v-if="category.type === 'App\\Quote'"
                 :quote="item"
             ></quote-item>
             <term-item
-                v-if="category.type == 'App\\Term'"
+                v-if="category.type === 'App\\Term'"
                 :term="item"
             ></term-item>
             <video-item
-                v-if="category.type == 'App\\Video'"
+                v-if="category.type === 'App\\Video'"
                 :video="item"
             ></video-item>
         </v-col>

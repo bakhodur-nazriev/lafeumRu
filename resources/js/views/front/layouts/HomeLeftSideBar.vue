@@ -7,7 +7,7 @@
         class="fill-height col-12"
     >
 
-        <v-col class="hidden-sm-and-up py-0">
+        <v-col class="hidden-sm-and-up pa-0">
             <v-expansion-panels flat>
                 <v-expansion-panel>
                     <v-expansion-panel-header class="small-title-expansion-header">
@@ -190,7 +190,7 @@ button:focus {
 .small-expansion-header,
 .small-sub-expansion-header {
     padding: 0 !important;
-    min-height: 25px !important;
+    min-height: 26px !important;
 }
 
 .small-expansion-content >>> .v-expansion-panel-content__wrap,
@@ -200,13 +200,14 @@ button:focus {
 
 .big-expansion-header,
 .big-sub-expansion-header {
-    padding: 0 14px;
+    padding: 0 16px;
     min-height: 25px;
+    line-height: 26px;
 }
 
 .big-expansion-content >>> .v-expansion-panel-content__wrap,
 .big-sub-expansion-content >>> .v-expansion-panel-content__wrap {
-    padding: 0 14px;
+    padding: 0 16px;
 }
 
 </style>

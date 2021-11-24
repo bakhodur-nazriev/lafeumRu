@@ -6,8 +6,8 @@ use App\Category;
 use App\DailyPost;
 use App\Quote;
 use App\Services\RedirectService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class QuotesController extends Controller
 {
@@ -26,21 +26,16 @@ class QuotesController extends Controller
         return view("/quotes", compact('categories'));
     }
 
-    public function getDailyQuote(): \Illuminate\Http\JsonResponse
+    public function getDailyQuote(): JsonResponse
     {
-        $dailyQuote = DailyPost::orderBy('date', 'desc')
-            ->with('quote.author')
-            ->first();
+        $dailyQuotes = DailyPost::with('quote.author')
+            ->orderBy('date', 'desc')
+            ->first(['id', 'date', 'quote_id']);
 
-//        $dailyQuote = DB::table('daily_posts')
-//            ->orderBy('date', 'desc')
-//            ->leftJoin('quotes', 'quotes.id', '=', 'daily_posts.quote_id')
-//            ->first();
-
-        return response()->json(collect($dailyQuote));
+        return response()->json(collect($dailyQuotes));
     }
 
-    public function getQuotes(): \Illuminate\Http\JsonResponse
+    public function getQuotes(): JsonResponse
     {
         $quotes = Quote::with([
             'author:id,name,slug',

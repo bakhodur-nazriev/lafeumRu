@@ -29,10 +29,14 @@
                                 v-html="quote.body"
                             ></v-card-text>
                             <v-card-actions class="justify-content-end py-0">
-                                <a href="/quotes" class="more-button">
-                                    <v-icon small color="black">mdi-chevron-down</v-icon>
-                                </a>
-                                <v-icon small>mdi-</v-icon>
+                                <v-btn
+                                    icon
+                                    href="/quotes"
+                                    target="_blank"
+                                    class="text-decoration-none"
+                                >
+                                    <v-icon color="black" small>mdi-chevron-down</v-icon>
+                                </v-btn>
                             </v-card-actions>
                         </div>
 
@@ -45,14 +49,19 @@
                                 v-html="term.body"
                             ></v-card-text>
                             <v-card-actions class="justify-content-end py-0">
-                                <a href="/terms" class="more-button">
+                                <v-btn
+                                    icon
+                                    href="/terms"
+                                    target="_blank"
+                                    class="text-decoration-none"
+                                >
                                     <v-icon color="black" small>mdi-chevron-down</v-icon>
-                                </a>
+                                </v-btn>
                             </v-card-actions>
                         </div>
 
                         <!-- Video section -->
-                        <v-dialog v-model="dialogVideo" width="900">
+                        <v-dialog v-model="smallVideoDialog" width="900">
                             <template v-slot:activator="{ on, attrs }">
                                 <div class="pa-0">
                                     <v-card-title class="subtitle-2 font-weight-bold pa-0">Видео дня</v-card-title>
@@ -70,18 +79,23 @@
                                     <v-card-title class="subtitle-2 font-weight-medium pa-0 title-break-word">
                                         {{ video.title }}
                                     </v-card-title>
-                                    <v-card-actions class="justify-content-endpy-0">
-                                        <a href="/videos" class="more-button">
+                                    <v-card-actions class="justify-content-end py-0">
+                                        <v-btn
+                                            icon
+                                            href="/videos"
+                                            target="_blank"
+                                            class="text-decoration-none"
+                                        >
                                             <v-icon color="black" small>mdi-chevron-down</v-icon>
-                                        </a>
+                                        </v-btn>
                                     </v-card-actions>
                                 </div>
                             </template>
                             <v-card>
-                                <v-card-title class="grey lighten-2 py-3 px-4 ">
+                                <v-card-title class="grey lighten-2 py-3 px-4">
                                     <div class="d-flex align-center justify-content-between w-100">
                                         <span class="subtitle-1 font-weight-medium">{{ video.title }}</span>
-                                        <v-btn icon @click="dialogVideo = false">
+                                        <v-btn icon @click="smallVideoDialog = false">
                                             <v-icon>mdi-close</v-icon>
                                         </v-btn>
                                     </div>
@@ -89,6 +103,7 @@
 
                                 <v-card-text class="pa-6 pb-5">
                                     <iframe
+                                        v-if="smallVideoDialog"
                                         class="video-iframe"
                                         frameborder="0"
                                         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
@@ -100,7 +115,7 @@
                         </v-dialog>
 
                         <!-- Photo Section -->
-                        <v-dialog v-model="dialogPhoto" width="1000">
+                        <v-dialog v-model="smallPhotoDialog" width="1000">
                             <template v-slot:activator="{ on, attrs }">
                                 <div class="pa-0">
                                     <v-card-title class="subtitle-2 font-weight-bold pa-0">Фотография дня</v-card-title>
@@ -113,13 +128,22 @@
                                         <v-img
                                             :src="photo.path"
                                             :alt="photo.description"
-                                            max-height="150"
                                         ></v-img>
+                                        <v-card-subtitle
+                                            class="text--primary truncate-to-seven-line text-justify pa-0 pt-3"
+                                        >
+                                            {{ photo.description }}
+                                        </v-card-subtitle>
                                     </v-card-text>
                                     <v-card-actions class="justify-content-end py-0">
-                                        <a href="/photos" class="more-button">
+                                        <v-btn
+                                            icon
+                                            href="/photos"
+                                            target="_blank"
+                                            class="text-decoration-none"
+                                        >
                                             <v-icon color="black" small>mdi-chevron-down</v-icon>
-                                        </a>
+                                        </v-btn>
                                     </v-card-actions>
                                 </div>
                             </template>
@@ -128,7 +152,7 @@
                                     <v-spacer></v-spacer>
                                     <v-btn
                                         icon
-                                        @click="dialogPhoto = false"
+                                        @click="smallPhotoDialog = false"
                                     >
                                         <v-icon>mdi-close</v-icon>
                                     </v-btn>
@@ -160,8 +184,11 @@
                     <v-divider class="my-2"></v-divider>
                     <v-card-title class="subtitle-2 pa-0 mb-1 d-flex justify-space-between">
                         <v-col class="pa-0">
-                            <a class="primary--text daily-authors-author text-break" target="_blank"
-                               :href="'/authors/'+quote.author.slug">
+                            <a
+                                class="primary--text daily-authors-author text-break"
+                                target="_blank"
+                                :href="'/authors/'+quote.author.slug"
+                            >
                                 {{ quote.author.name }}
                             </a>
                         </v-col>
@@ -174,12 +201,18 @@
                         v-html="quote.body"
                     ></v-card-text>
                     <v-card-actions class="justify-content-end pr-0 pb-0">
-                        <a href="/quotes" class="more-button">
-                            <v-icon small color="black">mdi-chevron-down</v-icon>
-                        </a>
+                        <v-btn
+                            icon
+                            href="/quotes"
+                            target="_blank"
+                            class="text-decoration-none"
+                        >
+                            <v-icon color="black" small>mdi-chevron-down</v-icon>
+                        </v-btn>
                         <v-icon small>mdi-</v-icon>
                     </v-card-actions>
                 </div>
+
                 <!--Term Section-->
                 <div class="px-4 py-0">
                     <v-card-title class="subtitle-2 font-weight-bold pa-0">Термин дня</v-card-title>
@@ -189,13 +222,19 @@
                         v-html="term.body"
                     ></v-card-text>
                     <v-card-actions class="justify-content-end pr-0 pb-0">
-                        <a href="/terms" class="more-button">
+                        <v-btn
+                            icon
+                            href="/terms"
+                            target="_blank"
+                            class="text-decoration-none"
+                        >
                             <v-icon color="black" small>mdi-chevron-down</v-icon>
-                        </a>
+                        </v-btn>
                     </v-card-actions>
                 </div>
+
                 <!-- Video section -->
-                <v-dialog v-model="dialogVideo" width="900">
+                <v-dialog v-model="bigVideoDialog" width="900">
                     <template v-slot:activator="{ on, attrs }">
                         <div class="px-4 py-0">
                             <v-card-title class="subtitle-2 font-weight-bold pa-0">Видео дня</v-card-title>
@@ -210,13 +249,18 @@
                                     <span class="video-duration-block">{{ video.duration + ':00' }}</span>
                                 </v-col>
                             </v-card-text>
-                            <v-card-title class="subtitle-2 font-weight-medium pa-0 title-break-word">
+                            <v-card-title class="subtitle-2 pa-0 title-break-word text-justify">
                                 {{ video.title }}
                             </v-card-title>
                             <v-card-actions class="justify-content-end pr-0 pb-0">
-                                <a href="/videos" class="more-button">
+                                <v-btn
+                                    icon
+                                    href="/videos"
+                                    target="_blank"
+                                    class="text-decoration-none"
+                                >
                                     <v-icon color="black" small>mdi-chevron-down</v-icon>
-                                </a>
+                                </v-btn>
                             </v-card-actions>
                         </div>
                     </template>
@@ -224,7 +268,7 @@
                         <v-card-title class="grey lighten-2 py-3 px-4 ">
                             <div class="d-flex align-center justify-content-between w-100">
                                 <span class="subtitle-1 font-weight-medium">{{ video.title }}</span>
-                                <v-btn icon @click="dialogVideo = false">
+                                <v-btn icon @click="bigVideoDialog = false">
                                     <v-icon>mdi-close</v-icon>
                                 </v-btn>
                             </div>
@@ -232,7 +276,7 @@
 
                         <v-card-text class="pa-6 pb-5">
                             <iframe
-                                v-if="dialogVideo"
+                                v-if="bigVideoDialog"
                                 class="video-iframe"
                                 frameborder="0"
                                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
@@ -242,8 +286,9 @@
                         </v-card-text>
                     </v-card>
                 </v-dialog>
+
                 <!-- Photo Section -->
-                <v-dialog v-model="dialogPhoto" width="1000">
+                <v-dialog v-model="bigPhotoDialog" width="1000">
                     <template v-slot:activator="{ on, attrs }">
                         <div class="px-4 py-0">
                             <v-card-title class="subtitle-2 font-weight-bold pa-0">Фотография дня</v-card-title>
@@ -254,18 +299,28 @@
                                     :alt="photo.description"
                                     max-height="150"
                                 ></v-img>
+                                <v-card-subtitle
+                                    class="text--primary truncate-to-seven-line text-justify pa-0 pt-3"
+                                >
+                                    {{ photo.description }}
+                                </v-card-subtitle>
                             </v-card-text>
-                            <v-card-actions class="justify-content-end pr-0 pb-0">
-                                <a href="/photos" class="more-button">
+                            <v-card-actions class="justify-content-end pa-0">
+                                <v-btn
+                                    icon
+                                    href="/photos"
+                                    target="_blank"
+                                    class="text-decoration-none"
+                                >
                                     <v-icon color="black" small>mdi-chevron-down</v-icon>
-                                </a>
+                                </v-btn>
                             </v-card-actions>
                         </div>
                     </template>
                     <v-card>
                         <v-card-title class="headline grey lighten-2">
                             <v-spacer></v-spacer>
-                            <v-btn icon @click="dialogPhoto = false">
+                            <v-btn icon @click="bigPhotoDialog = false">
                                 <v-icon>mdi-close</v-icon>
                             </v-btn>
                         </v-card-title>
@@ -290,8 +345,10 @@ export default {
             term: this.dailyPosts.term,
             video: this.dailyPosts.video,
             photo: this.dailyPosts.photo,
-            dialogVideo: false,
-            dialogPhoto: false
+            bigVideoDialog: false,
+            smallVideoDialog: false,
+            bigPhotoDialog: false,
+            smallPhotoDialog: false,
         }
     },
 }
@@ -319,16 +376,6 @@ export default {
     word-break: break-word;
 }
 
-.more-button {
-    text-decoration: none;
-    display: flex;
-    font-weight: bold;
-}
-
-.more-button > i {
-    font-size: 20px !important;
-}
-
 .truncate-to-seven-line {
     padding: 0;
     overflow: hidden;
@@ -339,10 +386,6 @@ export default {
 
 v-card__text > a {
     color: #04718c !important;
-
-}
-
-.truncate-to-seven-line > a {
 }
 
 .video-duration-block {

@@ -16,15 +16,15 @@
                     <v-expansion-panel-content>
                         <v-list-item
                             v-for="(category, i) in categories"
-                            class="px-0"
                             :key="i"
+                            class="px-0"
                         >
-                            <v-list-item-content two-line>
+                            <v-list-item-content two-line class="pa-0">
                                 <v-list-item-title class="mb-3">
                                     <a
                                         target="_blank"
                                         :href="`${categoryType}` + category.slug"
-                                        class="category-links px-1"
+                                        class="title-links px-1"
                                     >
                                         {{ category.name }}
                                     </a>
@@ -37,7 +37,7 @@
                                 >
                                     <a
                                         target="_blank"
-                                        class="category-links px-1"
+                                        class="subtitle-links px-1"
                                         :href="`${categoryType}` + subCategory.slug"
                                     >
                                         {{ subCategory.name }}
@@ -59,16 +59,16 @@
                 class="mx-auto"
             >
                 <v-list-item>
-                    <v-list-item-content class="px-2">
+                    <v-list-item-content class="px-2 py-4">
                         <v-list-item-title
                             v-for="(category, i) in categories"
                             :key="i"
-                            class="my-2"
+                            class="mt-1"
                         >
                             <a
                                 target="_blank"
                                 :href="`${categoryType}` + category.slug"
-                                class="title-links "
+                                class="title-links"
                             >
                                 {{ category.name }}
                             </a>
@@ -126,7 +126,7 @@ export default {
 .title-links {
     text-decoration: none;
     font-size: 15px;
-    font-weight: 600;
+    font-weight: 700;
     color: #000;
 }
 
@@ -144,16 +144,5 @@ export default {
 
 button:focus {
     outline: none;
-}
-
-.category-links {
-    color: #000;
-    padding: 0 7px;
-    font-size: 15px;
-}
-
-.category-links:hover {
-    text-decoration: none;
-    color: #04718c;
 }
 </style>

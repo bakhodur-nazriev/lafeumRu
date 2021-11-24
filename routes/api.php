@@ -73,7 +73,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     /* Favourites */
     Route::get("/favourites", "FavoriteController@index");
 
-    /* User-Feedbacks */
+    /* Users-Feedbacks */
     Route::get("/feedbacks", "FeedbacksController@get");
 
     /* Quotes Trashed */

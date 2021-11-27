@@ -43,10 +43,10 @@
                     </v-col>
                 </v-row>
             </v-container>
-            <v-card-actions>
-                <v-spacer />
-                <v-btn dark color="primary" @click="addAuthor()">Сохранить</v-btn>
-                <v-btn dark color="primary" @click="$emit('input', null)">Отмена</v-btn>
+            <v-card-actions class="pa-3">
+                <v-spacer/>
+                <v-btn color="primary" @click="addAuthor()">Сохранить</v-btn>
+                <v-btn color="primary" @click="$emit('input', null)">Отмена</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
@@ -60,7 +60,7 @@ export default {
         value: Boolean,
         groups: Array
     },
-    components: { WysiwygEditor },
+    components: {WysiwygEditor},
     data() {
         return {
             newAuthor: null
@@ -81,7 +81,7 @@ export default {
         addAuthor() {
             const formData = new FormData();
 
-            const { name, biography, photo, author_group_id } = this.newAuthor;
+            const {name, biography, photo, author_group_id} = this.newAuthor;
 
             formData.append("name", name);
             formData.append("biography", biography);

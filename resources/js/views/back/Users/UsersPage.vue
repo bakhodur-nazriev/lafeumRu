@@ -2,28 +2,27 @@
     <v-main class="pa-0">
         <v-container>
             <v-row justify="center">
-                <v-col md="6">
+                <v-col md="5">
                     <v-text-field
                         solo
                         class="mb-3"
                         hide-details
                         label="Поиск"
-                        append-icon="mdi-magnify"
                         v-model="search"
-                    >
-                    </v-text-field>
+                        append-icon="mdi-magnify"
+                    />
                 </v-col>
             </v-row>
             <v-data-table
                 :headers="headers"
-                :items="filteredUsers"
-                hide-default-footer
                 class="elevation-1"
+                hide-default-footer
+                :items="filteredUsers"
                 :loading="usersLoading"
             >
                 <template v-slot:item.avatar="{ item }">
                     <v-avatar class="my-1">
-                        <img :src="item.avatar" />
+                        <img :src="item.avatar"/>
                     </v-avatar>
                 </template>
                 <template v-slot:item.action="{ item }">
@@ -57,46 +56,45 @@
                 </v-card-title>
                 <v-card-text class="pb-0 px-4">
                     <v-text-field
-                        v-model="userToUpdate.name"
-                        label="Имя пользователя"
+                        dense
                         outlined
+                        label="Имя пользователя"
+                        v-model="userToUpdate.name"
                     />
                     <v-text-field
-                        v-model="userToUpdate.email"
-                        label="Email пользователя"
+                        dense
                         outlined
+                        label="Email пользователя"
+                        v-model="userToUpdate.email"
                     />
                     <v-select
-                        v-model="userToUpdate.role_id"
-                        :items="roles"
-                        item-text="name"
-                        item-value="id"
-                        label="Роль пользователя"
+                        dense
                         outlined
+                        item-value="id"
+                        item-text="name"
+                        :items="roles"
+                        label="Роль пользователя"
+                        v-model="userToUpdate.role_id"
                     />
                 </v-card-text>
-                <v-card-actions>
+                <v-card-actions class="pa-4 pt-0">
                     <v-spacer/>
-                    <v-btn dark color="green" @click="updateUser()">Сохранить</v-btn>
-                    <v-btn dark color="error" @click="userToUpdate = null">Отмена</v-btn>
+                    <v-btn color="primary" @click="updateUser()">Сохранить</v-btn>
+                    <v-btn color="primary" @click="userToUpdate = null">Отмена</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
         <v-dialog v-model="showDeleteDialog" width="430">
             <v-card v-if="showDeleteDialog" class="pa-2">
-                <v-card-title class="font-weight-regular regular headline text-center pa-2">
+                <v-card-title class="font-weight-medium regular headline text-center pa-2">
                     Вы действительно хотите удалить пользователя
                     {{ userToDelete.name }} ?
                 </v-card-title>
                 <v-card-actions class="justify-center">
-                    <v-btn
-                        dark
-                        color="green darken-1"
-                        @click="userToDelete = null"
-                    >
+                    <v-btn color="primary" @click="userToDelete = null">
                         Нет
                     </v-btn>
-                    <v-btn color="red darken-1" dark @click="deleteUser()">Да</v-btn>
+                    <v-btn color="primary" @click="deleteUser()">Да</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>

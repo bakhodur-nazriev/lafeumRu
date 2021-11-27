@@ -44,10 +44,10 @@
                     </v-col>
                 </v-row>
             </v-container>
-            <v-card-actions>
+            <v-card-actions class="pa-3">
                 <v-spacer/>
-                <v-btn dark color="primary" @click="updateAuthor()">Сохранить</v-btn>
-                <v-btn dark color="primary" @click="$emit('input', null)">Отмена</v-btn>
+                <v-btn color="primary" @click="updateAuthor()">Сохранить</v-btn>
+                <v-btn color="primary" @click="$emit('input', null)">Отмена</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>

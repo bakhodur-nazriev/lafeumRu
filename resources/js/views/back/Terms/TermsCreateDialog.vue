@@ -79,10 +79,8 @@
                 </v-container>
                 <v-card-actions class="pa-3">
                     <v-spacer/>
-                    <v-btn dark color="primary" type="submit">Сохранить</v-btn>
-                    <v-btn dark color="primary" type="button" @click="$emit('input', false)">
-                        Отмена
-                    </v-btn>
+                    <v-btn color="primary" type="submit">Сохранить</v-btn>
+                    <v-btn color="primary" type="button" @click="$emit('input', false)">Отмена</v-btn>
                 </v-card-actions>
             </v-form>
         </v-card>
@@ -90,62 +88,62 @@
 </template>
 
 <script>
-    import rules from "../../../validation-rules";
-    import DatePicker from "../../../components/DatePicker";
-    import WysiwygEditor from "../../../components/WysiwygEditor";
+import rules from "../../../validation-rules";
+import DatePicker from "../../../components/DatePicker";
+import WysiwygEditor from "../../../components/WysiwygEditor";
 
-    export default {
-        props: {
-            value: Boolean,
-            categories: Array,
-            knowledgeAreas: Array,
-            termTypes: Array
-        },
-        components: {
-            "date-picker": DatePicker,
-            "wysiwyg-editor": WysiwygEditor
-        },
-        data() {
+export default {
+    props: {
+        value: Boolean,
+        categories: Array,
+        knowledgeAreas: Array,
+        termTypes: Array
+    },
+    components: {
+        "date-picker": DatePicker,
+        "wysiwyg-editor": WysiwygEditor
+    },
+    data() {
+        return {
+            rules,
+            newTerm: null,
+        };
+    },
+    beforeMount() {
+        this.newTerm = this.getDefaultTerm();
+    },
+    methods: {
+        getDefaultTerm() {
             return {
-                rules,
-                newTerm: null,
+                name: "",
+                body: "",
+                categories: [],
+                knowledgeAreas: [],
+                term_type_id: null,
+                publish_at: ''
             };
         },
-        beforeMount() {
+        resetNewTerm() {
             this.newTerm = this.getDefaultTerm();
+            this.$refs.createForm.reset();
         },
-        methods: {
-            getDefaultTerm() {
-                return {
-                    name: "",
-                    body: "",
-                    categories: [],
-                    knowledgeAreas: [],
-                    term_type_id: null,
-                    publish_at: ''
-                };
-            },
-            resetNewTerm() {
-                this.newTerm = this.getDefaultTerm();
-                this.$refs.createForm.reset();
-            },
-            addTerm(e) {
-                e.preventDefault();
+        addTerm(e) {
+            e.preventDefault();
 
-                const validForm = this.$refs.createForm.validate();
+            const validForm = this.$refs.createForm.validate();
 
-                if (!validForm) return;
+            if (!validForm) return;
 
-                axios
-                    .post("/api/terms", this.newTerm)
-                    .then(res => {
-                        this.resetNewTerm();
-                        this.$emit("created", res.data);
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    });
-            }
+            axios
+                .post("/api/terms", this.newTerm)
+                .then(res => {
+                    this.resetNewTerm();
+                    this.$emit("created", res.data);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
         }
-    };
+    }
+};
 </script>

@@ -32,7 +32,7 @@
                 <v-spacer></v-spacer>
                 <v-col v-if="isActive == true">
                     <span
-                        @click="toggleVocabulary()"
+                        @click="readMore()"
                         class="read-more-btn"
                     >
                         Читать дальше...
@@ -41,7 +41,7 @@
                 </v-col>
                 <v-col v-else>
                     <span
-                        @click="toggleVocabulary()"
+                        @click="readMore()"
                         class="read-more-btn"
                     >
                         Скрыть
@@ -62,7 +62,24 @@
             </v-col>
         </v-card-text>
         <v-divider class="m-0 grey lighten-3"></v-divider>
-        <v-card-actions style="padding: 2px 4px 3px 4px;">
+        <v-card-actions class="pa-0 px-1">
+            <v-col class="pa-0">
+                <v-btn
+                    icon
+                    small
+                    @click="likeQuote()"
+                >
+                    <v-icon size="20" :color="isLiked ? 'red' : 'grey lighten-1'">mdi-heart</v-icon>
+                </v-btn>
+                <span>{{ isLiked ? 1 : 0 }}</span>
+                <v-btn
+                    icon
+                    small
+                    @click="addToFavourite()"
+                >
+                    <v-icon size="20" :color="isFavourited ? 'grey lighten-1' : 'primary'">mdi-bookmark</v-icon>
+                </v-btn>
+            </v-col>
             <v-spacer></v-spacer>
             <share-button :post="item.post"></share-button>
         </v-card-actions>
@@ -78,14 +95,48 @@ export default {
     data() {
         return {
             item: this.quote,
-            isActive: true
+            isActive: true,
+            isLiked: false,
+            isFavourited: true,
         };
     },
     methods: {
-        toggleVocabulary() {
+        readMore() {
             this.isActive = !this.isActive;
+        },
+        likeQuote() {
+            this.isLiked = !this.isLiked;
+        },
+        addToFavourite() {
+            this.isFavourited = !this.isFavourited;
+        },
+        toggleLike() {
+            if (this.isLiked) {
+                this.unlikePhoto()
+            } else {
+                this.likePhoto()
+            }
+        },
+        likePhoto() {
+            this.submitted = true;
+
+            axios.post('/likes', {'photo': this.photo}, function (res) {
+                this.liked = true;
+                this.submitted = false;
+                this.text = 'Unlike';
+            });
+        },
+        unlikePhoto() {
+            this.submitted = true;
+
+            axios.delete('/likes/' + this.photo, function (res) {
+                this.liked = false;
+                this.submitted = false;
+                this.text = 'Like';
+            });
         }
     },
+
     mounted() {
         document.querySelectorAll('.main-quotes-body').forEach(el => {
             if (el.querySelector('.truncate-to-fifteen-line').textContent.replace(/\s/g, "").length <= 920) {

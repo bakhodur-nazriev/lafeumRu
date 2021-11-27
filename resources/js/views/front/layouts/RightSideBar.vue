@@ -129,12 +129,12 @@
                                             :src="photo.path"
                                             :alt="photo.description"
                                         ></v-img>
-                                        <v-card-subtitle
-                                            class="text--primary truncate-to-seven-line text-justify pa-0 pt-3"
-                                        >
-                                            {{ photo.description }}
-                                        </v-card-subtitle>
                                     </v-card-text>
+                                    <v-card-subtitle
+                                        class="text--primary truncate-to-seven-line text-justify pa-0 pt-3"
+                                    >
+                                        {{ photo.description }}
+                                    </v-card-subtitle>
                                     <v-card-actions class="justify-content-end py-0">
                                         <v-btn
                                             icon
@@ -299,12 +299,10 @@
                                     :alt="photo.description"
                                     max-height="150"
                                 ></v-img>
-                                <v-card-subtitle
-                                    class="text--primary truncate-to-seven-line text-justify pa-0 pt-3"
-                                >
-                                    {{ photo.description }}
-                                </v-card-subtitle>
                             </v-card-text>
+                            <v-card-subtitle class="text--primary truncate-to-seven-line text-justify pa-0 pt-3">
+                                {{ photo.description }}
+                            </v-card-subtitle>
                             <v-card-actions class="justify-content-end pa-0">
                                 <v-btn
                                     icon

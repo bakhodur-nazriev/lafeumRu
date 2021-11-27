@@ -58,8 +58,8 @@
                 </v-container>
                 <v-card-actions class="pa-3">
                     <v-spacer/>
-                    <v-btn dark color="primary" type="submit">Сохранить</v-btn>
-                    <v-btn dark color="primary" type="button" @click="$emit('input', false)">
+                    <v-btn color="primary" type="submit">Сохранить</v-btn>
+                    <v-btn color="primary" type="button" @click="$emit('input', false)">
                         Отмена
                     </v-btn>
                 </v-card-actions>

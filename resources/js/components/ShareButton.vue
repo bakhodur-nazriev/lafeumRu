@@ -14,10 +14,9 @@
         <v-btn
             icon
             small
-            color="grey lighten-1"
             @click="expand = !expand"
         >
-            <v-icon>mdi-share-variant</v-icon>
+            <v-icon color="grey lighten-1" size="20">mdi-share-variant</v-icon>
         </v-btn>
     </div>
 </template>

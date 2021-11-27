@@ -33,8 +33,8 @@
             </v-container>
             <v-card-actions class="p-3">
                 <v-spacer/>
-                <v-btn dark color="primary" @click="updatePhoto()">Сохранить</v-btn>
-                <v-btn dark color="primary" @click="photoToUpdate = false">Отмена</v-btn>
+                <v-btn color="primary" @click="updatePhoto()">Сохранить</v-btn>
+                <v-btn color="primary" @click="photoToUpdate = false">Отмена</v-btn>
             </v-card-actions>
         </v-card>
         <v-card v-else>

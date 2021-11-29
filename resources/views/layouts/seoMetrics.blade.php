@@ -23,3 +23,16 @@
 
     gtag('config', 'UA-123986695-64');
 </script>
+<!-- Global site tag (gtag.js) - Google Ads: 805423241 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-805423241"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'AW-805423241');
+</script>
+<!-- Event snippet for Визиты conversion page -->
+<script>
+    gtag('event', 'conversion', {'send_to': 'AW-805423241/sup6CLeg-4sBEImRh4AD'});
+</script>

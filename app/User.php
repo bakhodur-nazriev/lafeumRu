@@ -2,10 +2,10 @@
 
 namespace App;
 
+use App\Models\Like;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use ChristianKuri\LaravelFavorite\Traits\Favoriteability;
 
 class User extends Authenticatable /*implements MustVerifyEmail*/
@@ -18,7 +18,14 @@ class User extends Authenticatable /*implements MustVerifyEmail*/
      * @var array
      */
     protected $fillable = [
-        "name", "email", "password", "avatar", "country", "age", "gender", "hobby"
+        "name",
+        "email",
+        "password",
+        "avatar",
+        "country",
+        "age",
+        "gender",
+        "hobby"
     ];
 
     /* public function favorite()
@@ -63,5 +70,10 @@ class User extends Authenticatable /*implements MustVerifyEmail*/
     public function hasRole($role)
     {
         return $this->role->name === $role;
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
     }
 }

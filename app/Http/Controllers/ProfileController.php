@@ -3,16 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
     const USERS_AVATARS_PATH = "/img/avatars/";
 
-    public function show()
+    public function index()
     {
-        return view("profile.profile");
+        return view("/profile");
     }
 
     public function update($id)

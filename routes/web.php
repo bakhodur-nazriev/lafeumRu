@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::group(["middleware" => "auth"], function () {
-    Route::get("/profile", "ProfileController@show")->name("profile");
+    Route::get("/profile", "ProfileController@index")->name("profile");
     Route::put("/profile/{profile}", "ProfileController@update");
 
     Route::get("/dashboard{any}", "AppController@dashboard")->where("any", ".*")->name("dashboard");

@@ -106,7 +106,8 @@
                                 </div>
                             </v-col>
                             <v-col cols="12">
-                                <label class="w-100 grey--text text-start font-weight-regular mb-2">Адрес E-mail*</label>
+                                <label class="w-100 grey--text text-start font-weight-regular mb-2">Адрес
+                                    E-mail*</label>
                                 <div class="d-flex">
                                     <v-text-field
                                         dense
@@ -153,183 +154,183 @@
                                 </div>
                             </v-col>
 
-                            <!--                        <v-row align="center">
-                                                        <v-col md="6">
-                                                            <label class="w-100 text-start font-weight-bold">Имя</label>
-                                                            <div class="d-flex">
-                                                                <v-text-field
-                                                                    disabled
-                                                                    hide-details
-                                                                    class="mb-4 pt-0"
-                                                                    :label="user.name"
-                                                                ></v-text-field>
-                                                                <v-tooltip top>
-                                                                    <template v-slot:activator="{ on }">
-                                                                        <v-btn
-                                                                            icon
-                                                                            text
-                                                                            v-on="on"
-                                                                            color="primary"
-                                                                            @click="updatingName = true"
-                                                                        >
-                                                                            <v-icon>mdi-pencil</v-icon>
-                                                                        </v-btn>
-                                                                    </template>
-                                                                    <span>Изменить имя</span>
-                                                                </v-tooltip>
-                                                            </div>
-                                                        </v-col>
-                                                        <v-col md="6">
-                                                            <label class="w-100 text-start font-weight-bold">Email</label>
-                                                            <div class="d-flex">
-                                                                <v-text-field
-                                                                    disabled
-                                                                    hide-details
-                                                                    class="mb-4 pt-0"
-                                                                    :label="user.email"
-                                                                ></v-text-field>
-                                                                <v-tooltip top>
-                                                                    <template v-slot:activator="{ on }">
-                                                                        <v-btn
-                                                                            icon
-                                                                            text
-                                                                            v-on="on"
-                                                                            color="primary"
-                                                                            @click="updatingEmail = true"
-                                                                        >
-                                                                            <v-icon>mdi-pencil</v-icon>
-                                                                        </v-btn>
-                                                                    </template>
-                                                                    <span>Изменить email</span>
-                                                                </v-tooltip>
-                                                            </div>
-                                                        </v-col>
-                                                        <v-col md="6">
-                                                            <label class="w-100 text-start font-weight-bold">Пароль</label>
-                                                            <div class="d-flex">
-                                                                <v-text-field
-                                                                    disabled
-                                                                    hide-details
-                                                                    class="mb-4 pt-0"
-                                                                    :label="user.password"
-                                                                ></v-text-field>
-                                                                <v-tooltip top>
-                                                                    <template v-slot:activator="{ on }">
-                                                                        <v-btn
-                                                                            icon
-                                                                            text
-                                                                            v-on="on"
-                                                                            color="primary"
-                                                                            @click="updatingPassword = true"
-                                                                        >
-                                                                            <v-icon>mdi-pencil</v-icon>
-                                                                        </v-btn>
-                                                                    </template>
-                                                                    <span>Изменить пароль</span>
-                                                                </v-tooltip>
-                                                            </div>
-                                                        </v-col>
-                                                        <v-col md="6">
-                                                            <label class="w-100 text-start font-weight-bold">Страна</label>
-                                                            <div class="d-flex">
-                                                                <v-text-field
-                                                                    disabled
-                                                                    hide-details
-                                                                    class="mb-4 pt-0"
-                                                                    :label="user.country"
-                                                                ></v-text-field>
-                                                                <v-tooltip top>
-                                                                    <template v-slot:activator="{ on }">
-                                                                        <v-btn
-                                                                            icon
-                                                                            text
-                                                                            v-on="on"
-                                                                            color="primary"
-                                                                            @click="updatingCountry = true"
-                                                                        >
-                                                                            <v-icon>mdi-pencil</v-icon>
-                                                                        </v-btn>
-                                                                    </template>
-                                                                    <span>Изменить страну</span>
-                                                                </v-tooltip>
-                                                            </div>
-                                                        </v-col>
-                                                        <v-col md="6">
-                                                            <label class="w-100 text-start font-weight-bold">Возраст</label>
-                                                            <div class="d-flex">
-                                                                <v-text-field
-                                                                    disabled
-                                                                    hide-details
-                                                                    class="mb-4 pt-0"
-                                                                    :label="user.age"
-                                                                ></v-text-field>
-                                                                <v-tooltip top>
-                                                                    <template v-slot:activator="{ on }">
-                                                                        <v-btn
-                                                                            icon
-                                                                            text
-                                                                            v-on="on"
-                                                                            color="primary"
-                                                                            @click="updatingAge = true"
-                                                                        >
-                                                                            <v-icon>mdi-pencil</v-icon>
-                                                                        </v-btn>
-                                                                    </template>
-                                                                    <span>Изменить возрасть</span>
-                                                                </v-tooltip>
-                                                            </div>
-                                                        </v-col>
-                                                        <v-col md="6">
-                                                            <label class="w-100 text-start font-weight-bold">Пол</label>
-                                                            <div class="d-flex">
-                                                                <v-text-field
-                                                                    disabled
-                                                                    hide-details
-                                                                    class="mb-4 pt-0"
-                                                                    :label="user.gender"
-                                                                ></v-text-field>
-                                                                <v-tooltip top>
-                                                                    <template v-slot:activator="{ on }">
-                                                                        <v-btn
-                                                                            icon
-                                                                            text
-                                                                            v-on="on"
-                                                                            color="primary"
-                                                                            @click="updatingGender = true"
-                                                                        >
-                                                                            <v-icon>mdi-pencil</v-icon>
-                                                                        </v-btn>
-                                                                    </template>
-                                                                    <span>Изменить пол</span>
-                                                                </v-tooltip>
-                                                            </div>
-                                                        </v-col>
-                                                        <v-col md="12">
-                                                            <label class="w-100 text-start font-weight-bold">Хобби</label>
-                                                            <div class="d-flex">
-                                                                <v-textarea
-                                                                    disabled
-                                                                    hide-details
-                                                                    class="mb-4 pt-0"
-                                                                    :value="user.hobby"
-                                                                />
-                                                                <v-tooltip top>
-                                                                    <template v-slot:activator="{ on }">
-                                                                        <v-btn
-                                                                            icon
-                                                                            text
-                                                                            v-on="on"
-                                                                            color="primary"
-                                                                            @click="updatingHobby = true"
-                                                                        >
-                                                                            <v-icon>mdi-pencil</v-icon>
-                                                                        </v-btn>
-                                                                    </template>
-                                                                    <span>Изменить хобби</span>
-                                                                </v-tooltip>
-                                                            </div>
-                                                        </v-col>
-                                                    </v-row>-->
+                            <!--                            <v-row align="center">
+                                                            <v-col md="6">
+                                                                <label class="w-100 text-start font-weight-bold">Имя</label>
+                                                                <div class="d-flex">
+                                                                    <v-text-field
+                                                                        disabled
+                                                                        hide-details
+                                                                        class="mb-4 pt-0"
+                                                                        :label="user.name"
+                                                                    ></v-text-field>
+                                                                    <v-tooltip top>
+                                                                        <template v-slot:activator="{ on }">
+                                                                            <v-btn
+                                                                                icon
+                                                                                text
+                                                                                v-on="on"
+                                                                                color="primary"
+                                                                                @click="updatingName = true"
+                                                                            >
+                                                                                <v-icon>mdi-pencil</v-icon>
+                                                                            </v-btn>
+                                                                        </template>
+                                                                        <span>Изменить имя</span>
+                                                                    </v-tooltip>
+                                                                </div>
+                                                            </v-col>
+                                                            <v-col md="6">
+                                                                <label class="w-100 text-start font-weight-bold">Email</label>
+                                                                <div class="d-flex">
+                                                                    <v-text-field
+                                                                        disabled
+                                                                        hide-details
+                                                                        class="mb-4 pt-0"
+                                                                        :label="user.email"
+                                                                    ></v-text-field>
+                                                                    <v-tooltip top>
+                                                                        <template v-slot:activator="{ on }">
+                                                                            <v-btn
+                                                                                icon
+                                                                                text
+                                                                                v-on="on"
+                                                                                color="primary"
+                                                                                @click="updatingEmail = true"
+                                                                            >
+                                                                                <v-icon>mdi-pencil</v-icon>
+                                                                            </v-btn>
+                                                                        </template>
+                                                                        <span>Изменить email</span>
+                                                                    </v-tooltip>
+                                                                </div>
+                                                            </v-col>
+                                                            <v-col md="6">
+                                                                <label class="w-100 text-start font-weight-bold">Пароль</label>
+                                                                <div class="d-flex">
+                                                                    <v-text-field
+                                                                        disabled
+                                                                        hide-details
+                                                                        class="mb-4 pt-0"
+                                                                        :label="user.password"
+                                                                    ></v-text-field>
+                                                                    <v-tooltip top>
+                                                                        <template v-slot:activator="{ on }">
+                                                                            <v-btn
+                                                                                icon
+                                                                                text
+                                                                                v-on="on"
+                                                                                color="primary"
+                                                                                @click="updatingPassword = true"
+                                                                            >
+                                                                                <v-icon>mdi-pencil</v-icon>
+                                                                            </v-btn>
+                                                                        </template>
+                                                                        <span>Изменить пароль</span>
+                                                                    </v-tooltip>
+                                                                </div>
+                                                            </v-col>
+                                                            <v-col md="6">
+                                                                <label class="w-100 text-start font-weight-bold">Страна</label>
+                                                                <div class="d-flex">
+                                                                    <v-text-field
+                                                                        disabled
+                                                                        hide-details
+                                                                        class="mb-4 pt-0"
+                                                                        :label="user.country"
+                                                                    ></v-text-field>
+                                                                    <v-tooltip top>
+                                                                        <template v-slot:activator="{ on }">
+                                                                            <v-btn
+                                                                                icon
+                                                                                text
+                                                                                v-on="on"
+                                                                                color="primary"
+                                                                                @click="updatingCountry = true"
+                                                                            >
+                                                                                <v-icon>mdi-pencil</v-icon>
+                                                                            </v-btn>
+                                                                        </template>
+                                                                        <span>Изменить страну</span>
+                                                                    </v-tooltip>
+                                                                </div>
+                                                            </v-col>
+                                                            <v-col md="6">
+                                                                <label class="w-100 text-start font-weight-bold">Возраст</label>
+                                                                <div class="d-flex">
+                                                                    <v-text-field
+                                                                        disabled
+                                                                        hide-details
+                                                                        class="mb-4 pt-0"
+                                                                        :label="user.age"
+                                                                    ></v-text-field>
+                                                                    <v-tooltip top>
+                                                                        <template v-slot:activator="{ on }">
+                                                                            <v-btn
+                                                                                icon
+                                                                                text
+                                                                                v-on="on"
+                                                                                color="primary"
+                                                                                @click="updatingAge = true"
+                                                                            >
+                                                                                <v-icon>mdi-pencil</v-icon>
+                                                                            </v-btn>
+                                                                        </template>
+                                                                        <span>Изменить возрасть</span>
+                                                                    </v-tooltip>
+                                                                </div>
+                                                            </v-col>
+                                                            <v-col md="6">
+                                                                <label class="w-100 text-start font-weight-bold">Пол</label>
+                                                                <div class="d-flex">
+                                                                    <v-text-field
+                                                                        disabled
+                                                                        hide-details
+                                                                        class="mb-4 pt-0"
+                                                                        :label="user.gender"
+                                                                    ></v-text-field>
+                                                                    <v-tooltip top>
+                                                                        <template v-slot:activator="{ on }">
+                                                                            <v-btn
+                                                                                icon
+                                                                                text
+                                                                                v-on="on"
+                                                                                color="primary"
+                                                                                @click="updatingGender = true"
+                                                                            >
+                                                                                <v-icon>mdi-pencil</v-icon>
+                                                                            </v-btn>
+                                                                        </template>
+                                                                        <span>Изменить пол</span>
+                                                                    </v-tooltip>
+                                                                </div>
+                                                            </v-col>
+                                                            <v-col md="12">
+                                                                <label class="w-100 text-start font-weight-bold">Хобби</label>
+                                                                <div class="d-flex">
+                                                                    <v-textarea
+                                                                        disabled
+                                                                        hide-details
+                                                                        class="mb-4 pt-0"
+                                                                        :value="user.hobby"
+                                                                    />
+                                                                    <v-tooltip top>
+                                                                        <template v-slot:activator="{ on }">
+                                                                            <v-btn
+                                                                                icon
+                                                                                text
+                                                                                v-on="on"
+                                                                                color="primary"
+                                                                                @click="updatingHobby = true"
+                                                                            >
+                                                                                <v-icon>mdi-pencil</v-icon>
+                                                                            </v-btn>
+                                                                        </template>
+                                                                        <span>Изменить хобби</span>
+                                                                    </v-tooltip>
+                                                                </div>
+                                                            </v-col>
+                                                        </v-row>-->
                         </v-sheet>
                     </v-form>
 
@@ -371,8 +372,8 @@
                     <v-container v-if="updatingPassword">
                         <v-text-field
                             outlined
-                            hide-details
                             class="mb-4"
+                            hide-details
                             label="Новый пароль"
                             v-model="profileToUpdate.password"
                             @click:append="showPass = !showPass"

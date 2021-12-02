@@ -1,7 +1,7 @@
 <title>{{$data['title']}}</title>
 
 @if (App::environment('production'))
-    @includeIf('seoMetrics')
+    @includeIf('layouts.seoMetrics')
 @else
     <meta name="robots" content="none"/>
     <meta name="googlebot" content="noindex, nofollow"/>

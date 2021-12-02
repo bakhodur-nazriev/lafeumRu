@@ -67,6 +67,7 @@ Vue.component("front-footer", require("./views/front/layouts/FrontFooter").defau
 Vue.component("privacy-policy", require("./views/front/PrivacyPolicy").default);
 Vue.component("terms-of-use", require("./views/front/TermsOfUse").default);
 Vue.component("about-us", require("./views/front/AboutUs").default);
+Vue.component("profile", require("./views/front/Profile").default);
 
 /* Shows */
 Vue.component("category", require("./views/front/shows/Category").default);

@@ -2,9 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
-/* Back Routes */
+/* BackEnd Routes */
 Route::group(['middleware' => 'auth:api'], function () {
-
     /* Users */
     Route::get("/users", "UsersController@index");
     Route::get("/users/{user}", "UsersController@show");
@@ -105,9 +104,13 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get("/channels-trashed", "ChannelsController@getTrashed");
     Route::put("/channel-trashed/{channel}", "ChannelsController@restored");
     Route::delete("/channel-trashed/{channel}", "ChannelsController@forceDeleted");
+
+    /* Like and Unlike Routes */
+    Route::post('like', 'LikeController@likePost')->name('like');
+    Route::delete('like', 'LikeController@unlikePost')->name('unlike');
 });
 
-/* Front Routes */
+/* FrontEnd Routes */
 Route::group(['prefix' => 'front'], function () {
     Route::get("/quotes", "QuotesController@getQuotes");
     Route::get("/terms", "TermsController@getTerms");

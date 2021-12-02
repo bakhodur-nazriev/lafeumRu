@@ -64,9 +64,6 @@ export default {
         toggleVocabulary() {
             this.isActive = !this.isActive;
         }
-    },
-    created() {
-        console.log(this.item);
     }
 }
 </script>

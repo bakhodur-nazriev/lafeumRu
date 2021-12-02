@@ -15,7 +15,7 @@
                         <span class="video-duration-block">{{ video.duration + ':00' }}</span>
                     </v-col>
 
-                    <v-col class="pa-3 py-0 videos-title">
+                    <v-col class="pa-3 py-0 videos-title flex-fill">
                         <h5
                             v-bind="attrs"
                             v-on="on"

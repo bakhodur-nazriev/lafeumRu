@@ -19,10 +19,20 @@
                                 <v-spacer></v-spacer>
                                 <v-icon>mdi-dots-horizontal</v-icon>
                             </v-card-title>
-                            <v-divider></v-divider>
-                            <v-card-title
-                                class="subtitle-2 font-weight-medium pa-0 mb-1 d-flex flex-column justify-start">
-                                <a :href="'/authors/' + quote.author.slug" class="w-100">{{ quote.author.name }}</a>
+                            <v-divider class="my-2"></v-divider>
+                            <v-card-title class="subtitle-2 pa-0 mb-1 d-flex justify-space-between">
+                                <v-col class="pa-0">
+                                    <a
+                                        class="primary--text daily-authors-author text-break"
+                                        target="_blank"
+                                        :href="'/authors/'+quote.author.slug"
+                                    >
+                                        {{ quote.author.name }}
+                                    </a>
+                                </v-col>
+                                <v-avatar>
+                                    <img :src="quote.author.photo" :alt="quote.author.name">
+                                </v-avatar>
                             </v-card-title>
                             <v-card-text
                                 class="truncate-to-seven-line title-break-word text-justify"

@@ -24,7 +24,7 @@
         <v-card-text class="px-3 py-2 main-quotes-body">
             <v-col
                 :class="{'truncate-to-fifteen-line': isActive}"
-                class="text-justify mb-1 pa-0 quote-body"
+                class="mb-1 pa-0 quote-body"
             >
                 <span class="font-weight-regular quote-body" v-html="item.body"></span>
             </v-col>

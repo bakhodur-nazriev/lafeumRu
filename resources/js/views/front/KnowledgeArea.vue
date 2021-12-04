@@ -57,6 +57,7 @@
                             :key="i"
                         >
                             <a
+                                target="_blank"
                                 :href="`/knowledge/` + knowledge.slug"
                                 class="knowledge-children-link"
                             >{{ knowledge.name }}</a>

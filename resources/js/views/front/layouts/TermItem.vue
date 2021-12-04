@@ -37,7 +37,7 @@
         >
             <v-col
                 :class="{'truncate-to-fifteen-line': isActive}"
-                class="subtitle-2 pa-0 text-justify mb-3 font-weight-normal"
+                class="subtitle-2 pa-0 mb-3 font-weight-normal"
                 ref="termBody"
             >
                 <span v-html="item.body"></span>
@@ -65,7 +65,7 @@
             </v-row>
             <v-card
                 elevation="18"
-                class="term-modal-card rounded-lg text-justify"
+                class="term-modal-card rounded-lg"
                 v-show="showTermOfModal"
             >
                 <v-card-text class="term-modal-card-text" v-html="termOfModal.extract_html"></v-card-text>

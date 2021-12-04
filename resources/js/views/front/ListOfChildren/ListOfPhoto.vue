@@ -43,7 +43,7 @@
                 <v-img class="d-flex" :src="photo.path"></v-img>
                 <v-col class="pa-0 text-left w-100">
                     <v-card-title class="photo-title px-0 mb-1" v-if="photo.title">{{ photo.title }}</v-card-title>
-                    <v-card-subtitle class="px-0 pb-0 text-justify">
+                    <v-card-subtitle class="px-0 pb-0">
                         {{ photo.description }}
                     </v-card-subtitle>
                 </v-col>
@@ -67,7 +67,6 @@ export default {
 
 <style scoped>
 .truncate-to-five-line {
-    text-align: justify;
     margin-top: 0;
     font-size: 13px;
     overflow: hidden;

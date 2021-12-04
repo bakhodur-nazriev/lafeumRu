@@ -5,7 +5,7 @@
     >
         <template v-slot:activator="{ on, attrs }">
             <v-card flat rounded="lg" class="mb-6">
-                <v-card-text class="pa-4 pb-2 d-flex flex-wrap">
+                <v-card-text class="pa-4 pb-2 d-flex flex-wrap flex-lg-nowrap">
                     <v-col
                         class="border rounded-lg pa-1"
                         v-bind="attrs"

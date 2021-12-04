@@ -35,7 +35,7 @@
                                 </v-avatar>
                             </v-card-title>
                             <v-card-text
-                                class="truncate-to-seven-line title-break-word text-justify"
+                                class="truncate-to-seven-line title-break-word"
                                 v-html="quote.body"
                             ></v-card-text>
                             <v-card-actions class="justify-content-end py-0">
@@ -55,7 +55,7 @@
                             <v-card-title class="subtitle-2 font-weight-bold pa-0">Термин дня</v-card-title>
                             <v-divider></v-divider>
                             <v-card-text
-                                class="truncate-to-seven-line title-break-word text-justify"
+                                class="truncate-to-seven-line title-break-word"
                                 v-html="term.body"
                             ></v-card-text>
                             <v-card-actions class="justify-content-end py-0">
@@ -141,7 +141,7 @@
                                         ></v-img>
                                     </v-card-text>
                                     <v-card-subtitle
-                                        class="text--primary truncate-to-seven-line text-justify pa-0 pt-3"
+                                        class="text--primary truncate-to-seven-line pa-0 pt-3"
                                     >
                                         {{ photo.description }}
                                     </v-card-subtitle>
@@ -207,7 +207,7 @@
                         </v-avatar>
                     </v-card-title>
                     <v-card-text
-                        class="truncate-to-seven-line title-break-word text-justify"
+                        class="truncate-to-seven-line title-break-word"
                         v-html="quote.body"
                     ></v-card-text>
                     <v-card-actions class="justify-content-end pr-0 pb-0">
@@ -228,7 +228,7 @@
                     <v-card-title class="subtitle-2 font-weight-bold pa-0">Термин дня</v-card-title>
                     <v-divider class="my-2"></v-divider>
                     <v-card-text
-                        class="truncate-to-seven-line title-break-word text-justify"
+                        class="truncate-to-seven-line title-break-word"
                         v-html="term.body"
                     ></v-card-text>
                     <v-card-actions class="justify-content-end pr-0 pb-0">
@@ -259,7 +259,7 @@
                                     <span class="video-duration-block">{{ video.duration + ':00' }}</span>
                                 </v-col>
                             </v-card-text>
-                            <v-card-title class="subtitle-2 pa-0 title-break-word text-justify">
+                            <v-card-title class="subtitle-2 pa-0 title-break-word">
                                 {{ video.title }}
                             </v-card-title>
                             <v-card-actions class="justify-content-end pr-0 pb-0">
@@ -310,7 +310,7 @@
                                     max-height="150"
                                 ></v-img>
                             </v-card-text>
-                            <v-card-subtitle class="text--primary truncate-to-seven-line text-justify pa-0 pt-3">
+                            <v-card-subtitle class="text--primary truncate-to-seven-line pa-0 pt-3">
                                 {{ photo.description }}
                             </v-card-subtitle>
                             <v-card-actions class="justify-content-end pa-0">

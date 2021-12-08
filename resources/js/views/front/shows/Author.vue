@@ -5,7 +5,7 @@
                 <v-avatar style="float:left;" class="mr-7" size="100" v-if="currentAuthor.photo">
                     <img :src="currentAuthor.photo" :alt="currentAuthor.name"/>
                 </v-avatar>
-                <h3 class="blue--text">{{ currentAuthor.name }}</h3>
+                <h4 class="primary--text">{{ currentAuthor.name }}</h4>
                 <h5
                     class="author-biography text-lg-justify mb-0"
                     v-html="currentAuthor.biography"

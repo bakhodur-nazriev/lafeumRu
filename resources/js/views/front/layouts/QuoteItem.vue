@@ -11,7 +11,7 @@
             </a>
             <v-spacer></v-spacer>
             <a
-                class="grey--text quote-id"
+                class="quote-id grey--text text-decoration-none"
                 :href="'/' + item.post.id"
                 target="_blank"
             >
@@ -51,7 +51,7 @@
             </v-row>
             <v-col class="categories-block pa-0">
                 <a
-                    class="mr-2 font-weight-light"
+                    class="mr-2 font-italic"
                     v-for="(category, i) in item.categories"
                     :key="i"
                     :href="'/quotes/' + category.slug"
@@ -122,7 +122,8 @@ export default {
 
     mounted() {
         document.querySelectorAll('.main-quotes-body').forEach(el => {
-            if (el.querySelector('.truncate-to-fifteen-line').textContent.replace(/\s/g, "").length <= 920) {
+            console.log(el.querySelector('.truncate-to-fifteen-line').clientHeight);
+            if (el.querySelector('.truncate-to-fifteen-line').clientHeight < 315) {
                 el.querySelector('.button-read-more').style.display = "none";
             } else {
                 el.querySelector('.button-read-more').style.display = "block";
@@ -132,19 +133,15 @@ export default {
 };
 </script>
 
-<style>
-.quote-id {
-    text-decoration: none !important;
-}
-
+<style scoped>
 .quote-id:hover {
     color: #04718c !important;
 }
 
 .categories-block > a {
     text-decoration: none;
-    color: #424242 !important;
-    caret-color: #424242 !important;
+    color: #646464 !important;
+    caret-color: #646464 !important;
     font-size: 13px;
 }
 
@@ -160,7 +157,7 @@ export default {
 
 .read-more-btn {
     font-size: 13px;
-    color: grey;
+    color: #646464;
 }
 
 .read-more-btn:hover {

@@ -21,7 +21,7 @@
             </div>
             <v-spacer></v-spacer>
             <a
-                class="grey--text darken-4 terms-slug"
+                class="term-id grey--text text-decoration-none"
                 :href="'/' + item.post.id"
                 target="_blank"
             >
@@ -72,7 +72,7 @@
             </v-card>
             <v-col class="categories-block my-2 pa-0">
                 <a
-                    class="mr-2 grey--text darken-4 text-decoration-none"
+                    class="mr-2 font-italic"
                     v-for="(termCategories ,i) in item.categories"
                     :key="i"
                     :href="'/terms/' + termCategories.slug"
@@ -122,7 +122,7 @@ export default {
     },
     mounted() {
         document.querySelectorAll('.main-content-body').forEach(el => {
-            if (el.querySelector('.truncate-to-fifteen-line').textContent.replace(/\s/g, "").length <= 1140) {
+            if (el.querySelector('.truncate-to-fifteen-line').clientHeight < 330) {
                 el.querySelector('.button-read-more').style.display = "none";
             } else {
                 el.querySelector('.button-read-more').style.display = "block";
@@ -156,9 +156,25 @@ export default {
 </script>
 
 <style scoped>
+.term-id:hover {
+    color: #04718c !important;
+}
+
+.categories-block > a {
+    font-weight: 500;
+    text-decoration: none;
+    color: #646464 !important;
+    caret-color: #646464 !important;
+    font-size: 13px;
+}
+
+.categories-block > a:hover {
+    color: #04718c !important;
+}
+
 .read-more-btn {
     font-size: 13px;
-    color: grey;
+    color: #646464;
 }
 
 .read-more-btn:hover {
@@ -188,15 +204,6 @@ export default {
 .term-modal-card-text {
     font-weight: 500;
     overflow: hidden;
-}
-
-.categories-block > a {
-    font-weight: 500;
-}
-
-.terms-slug:hover {
-    text-decoration: none;
-    color: #04718c !important;
 }
 
 .main-content-body > {

@@ -39,16 +39,16 @@
                             <a
                                 v-for="(category, i) in video.categories"
                                 :href="`/videos/` + category.slug"
-                                class="text-decoration-none ml-1"
+                                class="mr-2 font-italic"
                                 :key="i"
                                 target="_blank"
                             >
                                 {{ category.name }}
                             </a>
                         </v-col>
-                        <v-col class="videos-slug pa-0 text-end">
+                        <v-col class="pa-0 text-end">
                             <a
-                                class="grey--text text--darken-3 text-decoration-none"
+                                class="videos-id grey--text text-decoration-none"
                                 :href="'/' + video.post.id"
                                 target="_blank"
                             >
@@ -113,12 +113,23 @@ export default {
     }
 }
 
+.categories-block > a {
+    text-decoration: none;
+    color: #646464 !important;
+    caret-color: #646464 !important;
+    font-size: 13px;
+}
+
+.categories-block > a:hover {
+    color: #04718c !important;
+}
+
 .video-iframe {
     width: 100%;
     height: 50vh;
 }
 
-.videos-slug > *:hover {
+.videos-id:hover {
     color: #04718c !important;
 }
 

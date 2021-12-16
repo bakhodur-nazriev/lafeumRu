@@ -7,7 +7,7 @@ import "vuetify/dist/vuetify.min.css";
 import frontApp from "./components/frontApp";
 import backApp from "./components/backApp";
 import router from "./router.js";
-import ru from 'vuetify/es5/locale/ru'
+import ru from 'vuetify/es5/locale/ru';
 
 require("./bootstrap");
 window.Vue = require("vue");

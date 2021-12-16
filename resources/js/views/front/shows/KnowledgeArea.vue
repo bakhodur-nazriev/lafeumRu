@@ -1,5 +1,5 @@
 <template>
-    <v-col xl="5" lg="6" class="knowledge-show-main-block">
+    <v-col xl="5" lg="6" class="knowledge-show-main-block" order="3" order-lg="2">
         <v-col cols="12" class="d-flex justify-center" v-if="loading">
             <v-progress-circular
                 width="5"

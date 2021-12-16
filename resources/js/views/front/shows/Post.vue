@@ -1,5 +1,5 @@
 <template>
-    <v-col xl="6" lg="8" class="pt-5">
+    <v-col xl="6" lg="8" class="pt-5" order="3" order-lg="2">
         <quote-item
             v-if="post.post['postable_type'] === 'App\\Quote'"
             :quote="post"

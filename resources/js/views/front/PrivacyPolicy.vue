@@ -1,7 +1,7 @@
 <template>
     <v-col xl="7" lg="9">
         <h5 class="text-uppercase font-weight-regular py-4 mx-4 mb-0">Политика конфиденциальности</h5>
-        <v-sheet rounded="lg" class="pa-7 text-justify">
+        <v-sheet rounded="lg" class="pa-7">
             <p>
                 Пользователь, регистрируясь на интернет-сайте <a href="/" target="_blank">lafeum.ru</a> (далее -
                 Сервис), принимает настоящее Согласие

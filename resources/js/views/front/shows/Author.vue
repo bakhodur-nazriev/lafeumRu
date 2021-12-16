@@ -1,5 +1,5 @@
 <template>
-    <v-col xl="5" lg="6">
+    <v-col xl="5" lg="6" order="3" order-lg="2">
         <div class="d-flex my-2">
             <div>
                 <v-avatar style="float:left;" class="mr-7" size="100" v-if="currentAuthor.photo">

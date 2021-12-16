@@ -2,7 +2,7 @@
     <v-col xl="8" lg="12">
         <h5 class="text-uppercase font-weight-regular pt-4 pb-1 mb-0">Контакты</h5>
         <v-row justify="center">
-            <v-col class="col-md-6 col-sm-12 text-justify">
+            <v-col class="col-md-6 col-sm-12">
                 <h2 class="display-1 font-weight-medium mb-0">Контакты</h2>
                 <p class="mt-2 mb-5">
                     Мы рады, что Вы посетили наш сайт и ознакомились с находящейся на нем информацией.

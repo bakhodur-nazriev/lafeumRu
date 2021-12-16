@@ -1,5 +1,5 @@
 <template>
-    <v-col xl="7" lg="8">
+    <v-col xl="7" lg="8" order="3" order-lg="2">
         <h5 class="text-uppercase font-weight-regular py-2">Области знаний</h5>
         <p>В этой рубрике термины и комментарии специалистов классифицированы
             <br/>более развернуто по группам и направлениям.

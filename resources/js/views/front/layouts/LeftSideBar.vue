@@ -5,6 +5,7 @@
         md="5"
         sm="6"
         class="fill-height col-12"
+        order="1"
     >
         <!-- For small display -->
         <v-col class="hidden-sm-and-up pa-0">

@@ -21,34 +21,23 @@
 
         <v-divider class="m-0 grey lighten-3"></v-divider>
 
-        <v-card-text class="px-3 py-2 main-quotes-body">
-            <v-col
-                :class="{'truncate-to-fifteen-line': isActive}"
-                class="mb-1 pa-0 quote-body"
-            >
-                <span class="font-weight-regular quote-body" v-html="item.body"></span>
+        <v-card-text class="px-3 py-2">
+            <v-col class="pa-0 quote-body">
+                <p
+                    class="font-italic grey--text text--darken-3 d-flex caption mb-2"
+                    v-if="item.authors_thoughts"
+                >
+                    <span v-html="item.authors_thoughts"></span>
+                </p>
+                <vue-read-more-smooth :lines="15">
+                    <span class="font-weight-regular quote-body" v-html="item.body"></span>
+                    <template v-slot:more="value">
+                        <div class="button-read-more">
+                            {{ value.open ? "Скрыть" : "Читать далее..." }}
+                        </div>
+                    </template>
+                </vue-read-more-smooth>
             </v-col>
-            <v-row class="text-right button-read-more">
-                <v-spacer></v-spacer>
-                <v-col v-if="isActive == true">
-                    <span
-                        @click="readMore()"
-                        class="read-more-btn"
-                    >
-                        Читать дальше...
-                        <v-icon small color="grey">mdi-chevron-down</v-icon>
-                    </span>
-                </v-col>
-                <v-col v-else>
-                    <span
-                        @click="readMore()"
-                        class="read-more-btn"
-                    >
-                        Скрыть
-                        <v-icon small color="grey">mdi-chevron-up</v-icon>
-                    </span>
-                </v-col>
-            </v-row>
             <v-col class="categories-block pa-0">
                 <a
                     class="mr-2 font-italic"
@@ -71,10 +60,11 @@
 
 <script>
 import ShareButton from "../../../components/ShareButton";
+import VueReadMoreSmooth from "vue-read-more-smooth";
 
 export default {
     props: ["quote"],
-    components: {ShareButton},
+    components: {ShareButton, VueReadMoreSmooth},
     data() {
         return {
             item: this.quote,
@@ -119,17 +109,6 @@ export default {
             });
         }
     },
-
-    mounted() {
-        document.querySelectorAll('.main-quotes-body').forEach(el => {
-            console.log(el.querySelector('.truncate-to-fifteen-line').clientHeight);
-            if (el.querySelector('.truncate-to-fifteen-line').clientHeight < 315) {
-                el.querySelector('.button-read-more').style.display = "none";
-            } else {
-                el.querySelector('.button-read-more').style.display = "block";
-            }
-        });
-    }
 };
 </script>
 
@@ -145,6 +124,16 @@ export default {
     font-size: 13px;
 }
 
+.button-read-more {
+    display: flex;
+    justify-content: end;
+    font-size: 12px;
+    font-style: italic;
+    cursor: pointer;
+    color: #646464 !important;
+    padding-right: 5px;
+}
+
 .categories-block > a:hover {
     color: #04718c !important;
 }
@@ -153,16 +142,6 @@ export default {
     line-height: 1.5;
     font-size: 14px !important;
     color: #000;
-}
-
-.read-more-btn {
-    font-size: 13px;
-    color: #646464;
-}
-
-.read-more-btn:hover {
-    color: #04718c;
-    cursor: pointer;
 }
 
 .author-show-link {
@@ -174,15 +153,5 @@ export default {
 
 .author-show-link:hover {
     text-decoration: none;
-}
-
-.truncate-to-fifteen-line {
-    padding: 0;
-    line-height: 1.5;
-    font-size: 14px !important;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 15;
-    -webkit-box-orient: vertical;
 }
 </style>

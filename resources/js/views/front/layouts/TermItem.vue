@@ -36,33 +36,18 @@
             ref="termItem"
         >
             <v-col
-                :class="{'truncate-to-fifteen-line': isActive}"
-                class="subtitle-2 pa-0 mb-3 font-weight-normal"
+                class="subtitle-2 pa-0 font-weight-light"
                 ref="termBody"
             >
-                <span v-html="item.body"></span>
+                <vue-read-more-smooth :lines="15">
+                    <span class="font-weight-regular quote-body" v-html="item.body"></span>
+                    <template v-slot:more="value">
+                        <div class="button-read-more">
+                            {{ value.open ? "Скрыть" : "Читать далее..." }}
+                        </div>
+                    </template>
+                </vue-read-more-smooth>
             </v-col>
-            <v-row class="text-right button-read-more">
-                <v-spacer></v-spacer>
-                <v-col class="py-0" v-if="isActive == true">
-                    <span
-                        @click="toggleVocabulary()"
-                        class="read-more-btn"
-                    >
-                        Читать далее...
-                        <v-icon small color="grey">mdi-chevron-down</v-icon>
-                    </span>
-                </v-col>
-                <v-col class="py-0" v-else>
-                    <span
-                        @click="toggleVocabulary()"
-                        class="read-more-btn"
-                    >
-                        Скрыть
-                        <v-icon small color="grey">mdi-chevron-up</v-icon>
-                    </span>
-                </v-col>
-            </v-row>
             <v-card
                 elevation="18"
                 class="term-modal-card rounded-lg"
@@ -84,7 +69,7 @@
         </v-card-text>
         <v-divider class="m-0 grey lighten-3"></v-divider>
         <v-card-actions class="px-2 py-0">
-            <!--            <div>
+            <!--<div>
                             <v-btn icon>
                                 <v-icon color="grey lighten-1">mdi-heart</v-icon>
                             </v-btn>
@@ -102,33 +87,20 @@
 
 <script>
 import ShareButton from "../../../components/ShareButton";
+import VueReadMoreSmooth from "vue-read-more-smooth";
 
 export default {
     props: ["term"],
-    components: {ShareButton},
+    components: {ShareButton, VueReadMoreSmooth},
     name: "TermItem",
     data() {
         return {
             item: this.term,
             termOfModal: "",
             showTermOfModal: false,
-            isActive: true,
-        }
-    },
-    methods: {
-        toggleVocabulary() {
-            this.isActive = !this.isActive;
         }
     },
     mounted() {
-        document.querySelectorAll('.main-content-body').forEach(el => {
-            if (el.querySelector('.truncate-to-fifteen-line').clientHeight < 330) {
-                el.querySelector('.button-read-more').style.display = "none";
-            } else {
-                el.querySelector('.button-read-more').style.display = "block";
-            }
-        });
-
         let href = new RegExp('\\/(\\d+)');
         let links = Array
             .from(this.$refs.termBody.querySelectorAll('a'))
@@ -172,24 +144,6 @@ export default {
     color: #04718c !important;
 }
 
-.read-more-btn {
-    font-size: 13px;
-    color: #646464;
-}
-
-.read-more-btn:hover {
-    color: #04718c;
-    cursor: pointer;
-}
-
-.truncate-to-fifteen-line {
-    padding: 0;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 15;
-    -webkit-box-orient: vertical;
-}
-
 .term-modal-card {
     position: absolute;
     left: 15px;
@@ -200,7 +154,6 @@ export default {
     align-items: center;
 }
 
-
 .term-modal-card-text {
     font-weight: 500;
     overflow: hidden;
@@ -208,5 +161,15 @@ export default {
 
 .main-content-body > {
     color: #000 !important;
+}
+
+.button-read-more {
+    display: flex;
+    justify-content: end;
+    font-size: 12px;
+    font-style: italic;
+    cursor: pointer;
+    color: #646464 !important;
+    padding-right: 5px;
 }
 </style>

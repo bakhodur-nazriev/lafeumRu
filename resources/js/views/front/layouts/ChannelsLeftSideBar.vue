@@ -9,14 +9,14 @@
                     <v-expansion-panel-content>
                         <div>
                             <v-text-field
-                                @click:clear="clearChannels()"
-                                label="Введите имя канала"
-                                v-model="search"
-                                hide-details
-                                class="mb-3"
-                                clearable
-                                outlined
                                 dense
+                                outlined
+                                clearable
+                                class="mb-3"
+                                hide-details
+                                v-model="search"
+                                label="Введите имя канала"
+                                @click:clear="clearChannels()"
                             >
                             </v-text-field>
 
@@ -29,36 +29,30 @@
                                 ></v-progress-circular>
                             </v-col>
                             <div v-else>
-                                <v-list-item
-                                    v-for="(channel, i) in filteredList"
-                                    :key="i"
-                                    class="channels-list pl-1"
+                                <v-card
+                                    elevation="0"
+                                    max-height="1000"
+                                    class="overflow-y-auto"
+                                    v-scroll.self="onScroll"
                                 >
-                                    <v-list-item-content class="py-0">
-                                        <v-list-item-subtitle>
-                                            <a
-                                                class="channels-links"
-                                                :href="channel.slug"
-                                                target="_blank"
-                                            >
-                                                {{ channel.name }}
-                                            </a>
-                                        </v-list-item-subtitle>
-                                    </v-list-item-content>
-                                </v-list-item>
-                                <v-col cols="12" class="d-flex justify-center mt-2 pb-0">
-                                    <v-btn
-                                        fab
-                                        small
-                                        rounded
-                                        elevation="0"
-                                        :disabled="isDisabled"
-                                        color="grey lighten-2"
-                                        @click="loadMore()"
+                                    <v-list-item
+                                        v-for="(channel, i) in filteredList"
+                                        :key="i"
+                                        class="channels-list pl-1"
                                     >
-                                        <v-icon color="white">mdi-arrow-down</v-icon>
-                                    </v-btn>
-                                </v-col>
+                                        <v-list-item-content class="py-0">
+                                            <v-list-item-subtitle>
+                                                <a
+                                                    class="channels-links"
+                                                    :href="channel.slug"
+                                                    target="_blank"
+                                                >
+                                                    {{ channel.name }}
+                                                </a>
+                                            </v-list-item-subtitle>
+                                        </v-list-item-content>
+                                    </v-list-item>
+                                </v-card>
                             </div>
                         </div>
                     </v-expansion-panel-content>
@@ -76,14 +70,14 @@
                 <v-divider class="ma-0"></v-divider>
                 <div class="pa-5">
                     <v-text-field
-                        @click:clear="clearChannels()"
-                        label="Введите имя канала"
-                        v-model="search"
-                        hide-details
-                        class="mb-3"
-                        clearable
-                        outlined
                         dense
+                        outlined
+                        clearable
+                        class="mb-3"
+                        hide-details
+                        v-model="search"
+                        label="Введите имя канала"
+                        @click:clear="clearChannels()"
                     >
                     </v-text-field>
 
@@ -96,38 +90,32 @@
                             color="primary"
                         ></v-progress-circular>
                     </v-col>
-                    <div v-else>
-                        <v-list-item
-                            v-for="(channel, i) in filteredList"
-                            :key="i"
-                            class="channels-list pl-1"
+                    <v-col class="pa-0" v-else>
+                        <v-card
+                            elevation="0"
+                            max-height="1000"
+                            class="overflow-y-auto"
+                            v-scroll.self="onScroll"
                         >
-                            <v-list-item-content class="py-0">
-                                <v-list-item-subtitle>
-                                    <a
-                                        class="channels-links"
-                                        :href="channel.slug"
-                                        target="_blank"
-                                    >
-                                        {{ channel.name }}
-                                    </a>
-                                </v-list-item-subtitle>
-                            </v-list-item-content>
-                        </v-list-item>
-                        <v-col cols="12" class="d-flex justify-center mt-2 pb-0">
-                            <v-btn
-                                fab
-                                small
-                                rounded
-                                elevation="0"
-                                :disabled="isDisabled"
-                                color="grey lighten-2"
-                                @click="loadMore()"
+                            <v-list-item
+                                v-for="(channel, i) in filteredList"
+                                :key="i"
+                                class="channels-list pl-1"
                             >
-                                <v-icon color="white">mdi-arrow-down</v-icon>
-                            </v-btn>
-                        </v-col>
-                    </div>
+                                <v-list-item-content class="py-0">
+                                    <v-list-item-subtitle>
+                                        <a
+                                            class="channels-links"
+                                            :href="channel.slug"
+                                            target="_blank"
+                                        >
+                                            {{ channel.name }}
+                                        </a>
+                                    </v-list-item-subtitle>
+                                </v-list-item-content>
+                            </v-list-item>
+                        </v-card>
+                    </v-col>
                 </div>
             </v-sheet>
         </v-col>
@@ -142,8 +130,8 @@ export default {
             search: "",
             channels: [],
             loading: false,
+            scrollInvoked: 0,
             isDisabled: false,
-            channelsQuantity: 25
         }
     },
     methods: {
@@ -154,18 +142,14 @@ export default {
                 .then((res) => {
                     this.loading = false;
                     this.channels = res.data;
-
-                    if (this.filteredList.length == res.data.length) {
-                        this.isDisabled = true;
-                    }
                 })
                 .catch(err => {
                     this.loading = false;
                     console.log(err);
                 })
         },
-        loadMore() {
-            this.channelsQuantity += 25;
+        onScroll() {
+            this.scrollInvoked++;
         },
         clearChannels() {
             this.filteredList = this.channels;
@@ -178,22 +162,13 @@ export default {
         filteredList: {
             get() {
                 if (this.search) {
-                    let allFilteredChannels = this.channels.filter(channel => {
+                    return this.channels.filter(channel => {
                         if (channel.name) {
                             return channel.name.toLowerCase().includes(this.search.toLowerCase());
                         }
                     });
-
-                    let certainFilteredChannels = allFilteredChannels.filter((a, i) => i < this.channelsQuantity);
-                    if (certainFilteredChannels.length == allFilteredChannels.length) {
-                        this.isDisabled = true;
-                    } else {
-                        this.isDisabled = false;
-                    }
-                    return certainFilteredChannels;
                 } else {
-                    this.isDisabled = false;
-                    return this.channels.filter((a, i) => i < this.channelsQuantity);
+                    return this.channels;
                 }
             },
             set(v) {
@@ -201,11 +176,6 @@ export default {
             }
         }
     },
-    watch: {
-        search() {
-            this.channelsQuantity = 25;
-        }
-    }
 }
 </script>
 

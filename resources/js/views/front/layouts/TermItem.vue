@@ -165,7 +165,7 @@ export default {
 
 .button-read-more {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     font-size: 12px;
     font-style: italic;
     cursor: pointer;

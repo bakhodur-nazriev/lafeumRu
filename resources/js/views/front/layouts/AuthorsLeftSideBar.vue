@@ -10,14 +10,14 @@
                     <v-expansion-panel-content>
                         <div class="py-4 px-0">
                             <v-text-field
-                                label="Введите имя автора"
-                                v-model="search"
-                                hide-details
-                                class="mb-3"
-                                @click:clear="clearAuthors()"
-                                clearable
-                                outlined
                                 dense
+                                outlined
+                                clearable
+                                class="mb-3"
+                                hide-details
+                                v-model="search"
+                                label="Введите имя автора"
+                                @click:clear="clearAuthors()"
                             >
                             </v-text-field>
 
@@ -31,39 +31,30 @@
                                 ></v-progress-circular>
                             </v-col>
                             <div v-else>
-                                <v-list-item
-                                    v-for="(author, i) in filteredList"
-                                    :key="i"
-                                    class="authors-list pl-1"
+                                <v-card
+                                    elevation="0"
+                                    max-height="1000"
+                                    class="overflow-y-auto"
+                                    v-scroll.self="onScroll"
                                 >
-                                    <v-list-item-content class="py-0">
-                                        <v-list-item-subtitle>
-                                            <a
-                                                class="author-links"
-                                                :href="author.slug"
-                                                target="_blank"
-                                            >
-                                                {{ author.name }}
-                                            </a>
-                                        </v-list-item-subtitle>
-                                    </v-list-item-content>
-                                </v-list-item>
-                                <v-col
-                                    cols="12"
-                                    class="d-flex justify-center mt-2 pb-0"
-                                >
-                                    <v-btn
-                                        fab
-                                        small
-                                        rounded
-                                        elevation="0"
-                                        :disabled="isDisabled"
-                                        color="grey lighten-2"
-                                        @click="loadMore"
+                                    <v-list-item
+                                        v-for="(author, i) in filteredList"
+                                        :key="i"
+                                        class="authors-list pl-1"
                                     >
-                                        <v-icon color="white">mdi-arrow-down</v-icon>
-                                    </v-btn>
-                                </v-col>
+                                        <v-list-item-content class="py-0">
+                                            <v-list-item-subtitle>
+                                                <a
+                                                    class="author-links"
+                                                    :href="author.slug"
+                                                    target="_blank"
+                                                >
+                                                    {{ author.name }}
+                                                </a>
+                                            </v-list-item-subtitle>
+                                        </v-list-item-content>
+                                    </v-list-item>
+                                </v-card>
                             </div>
                         </div>
                     </v-expansion-panel-content>
@@ -73,7 +64,10 @@
 
         <v-col class="fill-height hidden-xs-only py-0">
             <h5 class="text-uppercase font-weight-normal py-4">поиск по имени</h5>
-            <v-sheet rounded="lg" width="100%">
+            <v-sheet
+                rounded="lg"
+                width="100%"
+            >
                 <v-col class="d-flex align-center pa-3">
                     <v-icon>mdi-account-group-outline</v-icon>
                     <h5 class="ml-2 mb-0" v-if="listTitle">{{ listTitle }}</h5>
@@ -102,41 +96,32 @@
                             color="primary"
                         ></v-progress-circular>
                     </v-col>
-                    <div v-else>
-                        <v-list-item
-                            v-for="(author, i) in filteredList"
-                            :key="i"
-                            class="authors-list pl-1"
+                    <v-col class="pa-0" v-else>
+                        <v-card
+                            elevation="0"
+                            max-height="1000"
+                            class="overflow-y-auto"
+                            v-scroll.self="onScroll"
                         >
-                            <v-list-item-content class="py-0">
-                                <v-list-item-subtitle>
-                                    <a
-                                        class="author-links"
-                                        :href="author.slug"
-                                        target="_blank"
-                                    >
-                                        {{ author.name }}
-                                    </a>
-                                </v-list-item-subtitle>
-                            </v-list-item-content>
-                        </v-list-item>
-                        <v-col
-                            cols="12"
-                            class="d-flex justify-center pb-0"
-                            v-if="!isDisabled"
-                        >
-                            <v-btn
-                                fab
-                                small
-                                rounded
-                                elevation="0"
-                                color="grey lighten-2"
-                                @click="loadMore"
+                            <v-list-item
+                                v-for="(author, i) in filteredList"
+                                :key="i"
+                                class="authors-list pl-1"
                             >
-                                <v-icon color="white">mdi-arrow-down</v-icon>
-                            </v-btn>
-                        </v-col>
-                    </div>
+                                <v-list-item-content class="py-0">
+                                    <v-list-item-subtitle>
+                                        <a
+                                            class="author-links"
+                                            :href="author.slug"
+                                            target="_blank"
+                                        >
+                                            {{ author.name }}
+                                        </a>
+                                    </v-list-item-subtitle>
+                                </v-list-item-content>
+                            </v-list-item>
+                        </v-card>
+                    </v-col>
                 </div>
             </v-sheet>
         </v-col>
@@ -151,8 +136,7 @@ export default {
             authors: [],
             listTitle: "",
             loading: false,
-            isDisabled: false,
-            authorsQuantity: 25
+            scrollInvoked: 0,
         }
     },
     methods: {
@@ -163,22 +147,18 @@ export default {
                 .then((res) => {
                     this.loading = false;
                     this.authors = res.data;
-
-                    if (this.filteredList.length == res.data.length) {
-                        this.isDisabled = true;
-                    }
                 })
                 .catch(err => {
                     this.loading = false;
                     console.log(err);
                 })
         },
-        loadMore() {
-            this.authorsQuantity += 25;
-        },
         clearAuthors() {
             this.filteredList = this.authors;
-        }
+        },
+        onScroll() {
+            this.scrollInvoked++;
+        },
     },
     mounted() {
         this.getAuthors();
@@ -187,21 +167,13 @@ export default {
         filteredList: {
             get() {
                 if (this.search) {
-                    let allFilteredAuthors = this.authors.filter(author => {
+                    return this.authors.filter(author => {
                         if (author.name) {
                             return author.name.toLowerCase().includes(this.search.toLowerCase());
                         }
                     });
-                    let certainFilteredAuthors = allFilteredAuthors.filter((a, i) => i < this.authorsQuantity);
-                    if (certainFilteredAuthors.length == allFilteredAuthors.length) {
-                        this.isDisabled = true;
-                    } else {
-                        this.isDisabled = false;
-                    }
-                    return certainFilteredAuthors;
                 } else {
-                    this.isDisabled = false;
-                    return this.authors.filter((a, i) => i < this.authorsQuantity);
+                    return this.authors;
                 }
             },
             set(v) {
@@ -209,11 +181,6 @@ export default {
             }
         },
     },
-    watch: {
-        search() {
-            this.authorsQuantity = 25;
-        }
-    }
 }
 </script>
 
@@ -230,5 +197,9 @@ export default {
 
 .author-links:hover {
     color: #04718c;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
 }
 </style>

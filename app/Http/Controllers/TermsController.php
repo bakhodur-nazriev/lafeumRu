@@ -32,7 +32,7 @@ class TermsController extends Controller
             "termType",
             "post"
         ])
-            ->orderBy("term_type_id", 'asc')
+            ->orderBy("term_type_id")
             ->published("desc")
             ->paginate(20);
 
@@ -46,9 +46,9 @@ class TermsController extends Controller
         return view("/vocabulary", compact('categories'));
     }
 
-    public function getIndexVocabulary()
+    public function getIndexVocabulary(): JsonResponse
     {
-        $terms = Term::with("post")
+        $terms = Term::with('post.postable:id,name,link')
             ->where("show_in_vocabulary", true)
             ->orderBy("name")
             ->published()
@@ -57,7 +57,7 @@ class TermsController extends Controller
         return response()->json(collect($terms));
     }
 
-    public function linksSearch(Request $request)
+    public function linksSearch(Request $request): array
     {
         $keyword = $request->key;
 

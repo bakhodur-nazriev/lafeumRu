@@ -1,6 +1,9 @@
 <template>
     <div class="mb-0">
-        <h4 class="vocabulary-letter text-decoration-none mb-0 font-weight-bold">{{ item.group }}</h4>
+        <h4
+            class="vocabulary-letter text-decoration-none mb-0 font-weight-bold"
+            v-if="vocabularyLetters === '/api/front/vocabulary'"
+        >{{ item.group }}</h4>
         <div>
             <div :class="{'truncate-to-seventeen-line': isActive}">
                 <v-hover
@@ -28,7 +31,7 @@
                 <v-btn
                     text
                     small
-                    v-if="isActive == true"
+                    v-if="isActive === true"
                     @click="toggleVocabulary()"
                     class="pa-0 toggle-button"
                 >
@@ -63,6 +66,11 @@ export default {
     methods: {
         toggleVocabulary() {
             this.isActive = !this.isActive;
+        }
+    },
+    computed: {
+        vocabularyLetters() {
+            return '/api/front' + window.location.pathname;
         }
     }
 }

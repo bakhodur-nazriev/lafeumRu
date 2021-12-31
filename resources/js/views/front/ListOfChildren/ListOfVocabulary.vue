@@ -1,54 +1,78 @@
 <template>
     <div class="mb-0">
-        <h4
-            class="vocabulary-letter text-decoration-none mb-0 font-weight-bold"
-            v-if="vocabularyLetters === '/api/front/vocabulary'"
-        >{{ item.group }}</h4>
-        <div>
-            <div :class="{'truncate-to-seventeen-line': isActive}">
-                <v-hover
-                    v-slot="{ hover }"
-                    v-for="(child ,i) in item.children"
-                    :key="i"
-                >
-                    <a
-                        :href="'/' + child.post.id"
-                        target="_blank"
-                        class="vocabulary-words text-decoration-none d-block"
+        <div v-if="vocabularyLetters == '/api/front/vocabulary'">
+            <h4 class="vocabulary-letter text-decoration-none mb-0 font-weight-bold">{{ item.group }}</h4>
+            <div>
+                <div :class="{'truncate-to-seventeen-line': isActive}">
+                    <v-hover
+                        v-slot="{ hover }"
+                        v-for="(child ,i) in item.children"
+                        :key="i"
                     >
-                        <span>{{ child.name }}</span>
-                        <v-card
-                            elevation="18"
-                            class="vocabulary-body rounded-lg pa-3"
-                            v-show="hover"
+                        <a
+                            :href="'/' + child.post.id"
+                            target="_blank"
+                            class="vocabulary-words text-decoration-none d-block"
                         >
-                            <div v-html="child.body" style="overflow: hidden; max-height: 175px;"></div>
-                        </v-card>
-                    </a>
-                </v-hover>
-            </div>
-            <div v-if="item.children.length >= 17" class="text-right mb-3">
-                <v-btn
-                    text
-                    small
-                    v-if="isActive === true"
-                    @click="toggleVocabulary()"
-                    class="pa-0 toggle-button"
+                            <span>{{ child.name }}</span>
+                            <v-card
+                                elevation="18"
+                                class="vocabulary-body rounded-lg pa-3"
+                                v-show="hover"
+                            >
+                                <div v-html="child.body" style="overflow: hidden; max-height: 175px;"></div>
+                            </v-card>
+                        </a>
+                    </v-hover>
+                </div>
+                <div
+                    v-if="item.children.length >= 17"
+                    class="text-right mb-3"
                 >
-                    <v-icon small>mdi-chevron-down</v-icon>
-                </v-btn>
-                <v-btn
-                    text
-                    small
-                    v-else
-                    @click="toggleVocabulary()"
-                    class="pa-0 toggle-button"
-                >
-                    <v-icon small>mdi-chevron-up</v-icon>
-                </v-btn>
+                    <v-btn
+                        text
+                        small
+                        v-if="isActive === true"
+                        @click="toggleVocabulary()"
+                        class="pa-0 toggle-button"
+                    >
+                        <v-icon small>mdi-chevron-down</v-icon>
+                    </v-btn>
+                    <v-btn
+                        text
+                        small
+                        v-else
+                        @click="toggleVocabulary()"
+                        class="pa-0 toggle-button"
+                    >
+                        <v-icon small>mdi-chevron-up</v-icon>
+                    </v-btn>
+                </div>
             </div>
         </div>
 
+        <div v-else>
+            <v-hover
+                v-for="(child ,i) in item.children"
+                :key="i"
+                v-slot="{ hover }"
+            >
+                <a
+                    :href="'/' + child.post.id"
+                    target="_blank"
+                    class="vocabulary-words text-decoration-none d-block"
+                >
+                    <span>{{ child.name }}</span>
+                    <v-card
+                        elevation="18"
+                        class="vocabulary-body rounded-lg pa-3"
+                        v-show="hover"
+                    >
+                        <div v-html="child.body" style="overflow: hidden; max-height: 175px;"></div>
+                    </v-card>
+                </a>
+            </v-hover>
+        </div>
     </div>
 
 </template>

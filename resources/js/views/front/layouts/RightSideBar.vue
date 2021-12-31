@@ -7,7 +7,7 @@
         class="fill-height right-main-block col-12"
         order="2"
     >
-        <v-col class="hidden-sm-and-up pa-0">
+        <v-col v-if="homeLink == '/'" class="hidden-sm-and-up pa-0">
             <v-expansion-panels flat>
                 <v-expansion-panel>
                     <v-expansion-panel-header class="text-uppercase font-weight-medium">
@@ -358,6 +358,7 @@ export default {
             smallVideoDialog: false,
             bigPhotoDialog: false,
             smallPhotoDialog: false,
+            homeLink: window.location.pathname
         }
     },
 }

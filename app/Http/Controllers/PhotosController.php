@@ -16,7 +16,8 @@ class PhotosController extends Controller
 
     public function index()
     {
-        return view("/photos");
+//        return view("/photos");
+        return redirect('/');
     }
 
     public function getPhotos()

@@ -53,7 +53,22 @@
 
         <!-- For Large display -->
         <v-col class="fill-height hidden-xs-only pa-0">
-            <h5 class="text-uppercase font-weight-normal py-4 mb-0">цитаты по темам</h5>
+            <h5
+                class="text-uppercase font-weight-normal py-4 mb-0"
+                v-if="categoryType == '/quotes/'"
+            >цитаты по темам</h5>
+            <h5
+                class="text-uppercase font-weight-normal py-4 mb-0"
+                v-if="categoryType == '/terms/'"
+            >термины по темам</h5>
+            <h5
+                class="text-uppercase font-weight-normal py-4 mb-0"
+                v-if="categoryType == '/videos/'"
+            >видео по темам</h5>
+            <h5
+                class="text-uppercase font-weight-normal py-4 mb-0"
+                v-if="categoryType == '/vocabulary/'"
+            >словарь по темам</h5>
             <v-card
                 rounded="lg"
                 elevation="0"
@@ -119,7 +134,7 @@ export default {
                 }
             }
         }
-    }
+    },
 };
 </script>
 

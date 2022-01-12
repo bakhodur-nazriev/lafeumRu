@@ -48,7 +48,15 @@
                         class="pa-1"
                         :key="i"
                     >
-                        <list-of-channel :item="channel"></list-of-channel>
+                        <a
+                            v-for="(child ,i) in channel.children"
+                            class="vocabulary-words text-decoration-none d-block"
+                            :key="i"
+                            :href="'/channels/' + child.slug"
+                            target="_blank"
+                        >
+                            {{ child.name }}
+                        </a>
                     </v-card-text>
                 </v-card>
             </v-col>
@@ -57,11 +65,9 @@
 </template>
 
 <script>
-import ListOfChannel from "./ListOfChildren/ListOfChannel";
 
 export default {
     name: "Channels",
-    components: {ListOfChannel},
     data() {
         return {
             channels: [],
@@ -136,5 +142,14 @@ export default {
 .search-field {
     border: 2px solid #9B9B9B;
     border-right: none;
+}
+
+.vocabulary-words {
+    color: #494949;
+    width: fit-content;
+}
+
+.vocabulary-words:hover {
+    color: #1a718c;
 }
 </style>

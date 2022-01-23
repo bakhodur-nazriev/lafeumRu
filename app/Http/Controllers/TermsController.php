@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Services\RedirectService;
 use App\Category;
 use App\Term;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TermsController extends Controller
 {
@@ -46,18 +48,19 @@ class TermsController extends Controller
         return view("/vocabulary", compact('categories'));
     }
 
-    public function getIndexVocabulary(): JsonResponse
+    public function getIndexVocabulary()
     {
-        $terms = Term::with('post.postable:id,name,link')
-            ->where("show_in_vocabulary", true)
-            ->orderBy("name")
-            ->published()
+        return DB::table('terms')
+            ->join('posts', 'posts.postable_id', '=', 'terms.id')
+            ->where('posts.postable_type', '=', 'App\\Term')
+            ->where('show_in_vocabulary', '=', true)
+            ->where('publish_at', '<=', Carbon::now())
+            ->where('deleted_at', '=', null)
+            ->orderBy('name', 'asc')
             ->get();
-
-        return response()->json(collect($terms));
     }
 
-    public function linksSearch(Request $request): array
+    public function linksSearch(Request $request)
     {
         $keyword = $request->key;
 

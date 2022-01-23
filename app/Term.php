@@ -53,9 +53,4 @@ class Term extends Model
             ->where('show_in_vocabulary', true)
             ->orderBy('name');
     }
-
-    /*public function getPublishAtAttribute($date)
-    {
-        return Carbon::parse($date)->format('d/m/Y H:i:s');
-    }*/
 }

@@ -5,7 +5,7 @@
             <p>{{ category.description }}</p>
         </div>
         <v-col v-else class="pa-0">
-            <h5 class="text-uppercase font-weight-regular pt-3 pb-2">Словарь «ЛАФЕЮМ»</h5>
+            <!--     <h5 class="text-uppercase font-weight-regular pt-3 pb-2">Словарь «ЛАФЕЮМ»</h5>-->
             <p>
                 На сегодня содержит более одной тысячи основных терминов, соответствующих
                 тематике сайта. Для удобства термины дополнительно разбиты на темы.

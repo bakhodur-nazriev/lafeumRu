@@ -12,7 +12,10 @@
             <v-expansion-panels flat>
                 <v-expansion-panel>
                     <v-expansion-panel-header class="text-uppercase font-weight-medium">
-                        цитаты по темам
+                        <span v-if="categoryType == '/quotes/'">цитаты по темам</span>
+                        <span v-if="categoryType == '/terms/'">термины по темам</span>
+                        <span v-if="categoryType == '/videos/'">видео по темам</span>
+                        <span v-if="categoryType == '/vocabulary/'">словарь по темам</span>
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
                         <v-list-item

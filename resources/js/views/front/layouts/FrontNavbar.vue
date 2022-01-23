@@ -157,10 +157,10 @@ export default {
                     title: "Термины",
                     href: "/terms"
                 },
-                // {
-                //     title: "Фотографии",
-                //     href: "/photos"
-                // },
+                {
+                    title: "Фотографии",
+                    href: "/photos"
+                },
             ],
             smallNavItems: [
                 {
@@ -203,11 +203,11 @@ export default {
                     href: "/terms",
                     icon: "mdi-file-document"
                 },
-                // {
-                //     title: "Фотографии",
-                //     href: "/photos",
-                //     icon: "mdi-camera"
-                // },
+                {
+                    title: "Фотографии",
+                    href: "/photos",
+                    icon: "mdi-camera"
+                },
             ],
             smallNavBtnClose: "mdi-close",
             drawer: false,

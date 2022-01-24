@@ -10,7 +10,7 @@
                         :key="i"
                     >
                         <a
-                            :href="'/' + child.post.id"
+                            :href="'/' + child.id"
                             target="_blank"
                             class="vocabulary-words text-decoration-none d-block"
                         >
@@ -58,7 +58,7 @@
                 v-slot="{ hover }"
             >
                 <a
-                    :href="'/' + child.post.id"
+                    :href="'/' + child.id"
                     target="_blank"
                     class="vocabulary-words text-decoration-none d-block"
                 >

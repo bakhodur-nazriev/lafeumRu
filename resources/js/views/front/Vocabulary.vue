@@ -42,14 +42,6 @@
                 </v-btn>
             </div>
         </v-col>
-        <!--        <v-col cols="12" class="mb-3 pa-0" v-if="!category.slug">-->
-        <!--            <h5 class="subtitle-1">-->
-        <!--                Примеры информативных поисковых запросов: «нау», «логия», «ика», «изм»,-->
-        <!--                «фило», «само», «чело», «соц», «пси», «эво» и т.п.-->
-        <!--            </h5>-->
-        <!--        </v-col>-->
-
-        <!--        <h5 class="text-uppercase font-weight-regular mb-4">все слова</h5>-->
         <v-col cols="12" class="d-flex justify-center" v-if="loading">
             <v-progress-circular
                 width="5"

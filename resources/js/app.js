@@ -8,6 +8,7 @@ import frontApp from "./components/frontApp";
 import backApp from "./components/backApp";
 import router from "./router.js";
 import ru from 'vuetify/es5/locale/ru';
+import InfiniteLoading from "vue-infinite-loading";
 
 require("./bootstrap");
 window.Vue = require("vue");
@@ -50,6 +51,7 @@ window.Event = new (class {
 
 Vue.use("draggable");
 Vue.use(Vuetify);
+Vue.use(InfiniteLoading, { /* options */});
 
 /* Views */
 Vue.component("default", require("./views/front/Default").default);

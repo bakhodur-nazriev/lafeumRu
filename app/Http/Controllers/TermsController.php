@@ -48,16 +48,18 @@ class TermsController extends Controller
         return view("/vocabulary", compact('categories'));
     }
 
-    public function getIndexVocabulary()
+    public function getIndexVocabulary(): JsonResponse
     {
-        return DB::table('terms')
+        $vocabulary = DB::table('terms')
             ->join('posts', 'posts.postable_id', '=', 'terms.id')
             ->where('posts.postable_type', '=', 'App\\Term')
             ->where('show_in_vocabulary', '=', true)
             ->where('publish_at', '<=', Carbon::now())
             ->where('deleted_at', '=', null)
-            ->orderBy('name', 'asc')
-            ->get();
+            ->orderBy('name')
+            ->paginate(20);
+
+        return response()->json($vocabulary);
     }
 
     public function linksSearch(Request $request)

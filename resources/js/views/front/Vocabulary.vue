@@ -6,12 +6,12 @@
     </div>
     <v-col v-else class="pa-0">
       <p>
-        На сегодня содержит более одной тысячи основных терминов, соответствующих
-        тематике сайта. Для удобства термины дополнительно разбиты на темы.
-        Большинство терминов взяты из Википедии с указанием ссылки на источник. В
-        большинстве понятий имеются другие взаимосвязанные термины и ссылки. По
-        мере обновления на основном источнике здесь они будут равным образом
-        обновляться.
+        На сегодня содержит более одной тысячи основных терминов,
+        соответствующих тематике сайта. Для удобства термины дополнительно
+        разбиты на темы. Большинство терминов взяты из Википедии с указанием
+        ссылки на источник. В большинстве понятий имеются другие взаимосвязанные
+        термины и ссылки. По мере обновления на основном источнике здесь они
+        будут равным образом обновляться.
       </p>
     </v-col>
 
@@ -43,42 +43,36 @@
     </v-col>
 
     <v-row justify="center">
-
       <v-col
           v-for="(vocabulary, i) in filteredVocabulary"
           :key="i"
           class="fill-height col-md-6 col-12"
       >
-        <v-lazy
-            v-model="isActive"
-            :options="{threshold: .1}"
-            min-height="200"
-            transition="fade-transition"
-        >
-          <v-card rounded="lg" class="px-7 py-5" flat>
-            <v-card-text
-                v-for="(term ,i) in vocabulary"
-                :key="i"
-                class="pa-1 pb-0"
-            >
-              <list-of-vocabulary :item="term"></list-of-vocabulary>
-            </v-card-text>
-          </v-card>
-        </v-lazy>
+        <v-card rounded="lg" class="px-7 py-5" flat>
+          <v-card-text
+              v-for="(term ,i) in vocabulary"
+              :key="i"
+              class="pa-1 pb-0"
+          >
+            <list-of-vocabulary :item="term"></list-of-vocabulary>
+          </v-card-text>
+        </v-card>
+        <infinite-loading @infinite="getVocabulary">
+          <span slot="no-more"></span>
+        </infinite-loading>
       </v-col>
-
     </v-row>
   </v-col>
 </template>
 
 <script>
 import ListOfVocabulary from "./ListOfChildren/ListOfVocabulary";
-import InfiniteLoading from 'vue-infinite-loading';
+import InfiniteLoading from "vue-infinite-loading";
 
 export default {
   components: {
     ListOfVocabulary,
-    InfiniteLoading
+    InfiniteLoading,
   },
   data() {
     return {
@@ -92,29 +86,28 @@ export default {
     };
   },
   methods: {
-    getVocabulary() {
-      this.loading = true;
+    getVocabulary($state) {
       let url = `/api/front${window.location.pathname}` ? `/api/front${window.location.pathname}` : '/api/front/vocabulary';
-
       axios
-          .get(url)
-          .then((res) => {
-            this.loading = false;
-            this.terms = res.data;
-
-            if (res.data[0].slug) {
-              this.category = res.data[0];
-              this.terms = res.data[1];
+          .get(url + "/?page=" + this.page, {
+            params: {
+              page: this.page
             }
           })
-          .catch((err) => {
-            this.loading = false;
-            console.log(err)
+          .then((res) => {
+            console.log(res.data.data)
+            if (res.data.data.length) {
+              this.page += 1;
+              this.terms.push(...res.data.data)
+              $state.loaded();
+            } else {
+              $state.complete();
+            }
           })
     },
     clearVocabulary() {
-      this.filteredVocabulary = this.terms
-    }
+      this.filteredVocabulary = this.terms;
+    },
   },
   mounted() {
     this.getVocabulary();
@@ -123,10 +116,10 @@ export default {
     orderVocabulary() {
       let allTerms = this.terms.reduce((r, e) => {
         let group = e.name[0];
-        if (!r[group]) r[group] = {group, children: [e]}
+        if (!r[group]) r[group] = {group, children: [e]};
         else r[group].children.push(e);
         return r;
-      }, {})
+      }, {});
       return Object.values(allTerms);
     },
     columns() {
@@ -140,13 +133,13 @@ export default {
     filteredVocabulary: {
       get() {
         if (this.search) {
-          return this.columns.map(terms => {
-            return terms.map(term => {
-              const children = term.children.filter(child => {
-                return child.name.toLowerCase().includes(this.search.toLowerCase()) || this.search.includes(child.name)
+          return this.columns.map((terms) => {
+            return terms.map((term) => {
+              const children = term.children.filter((child) => {
+                return (child.name.toLowerCase().includes(this.search.toLowerCase()) || this.search.includes(child.name));
               });
-              return {...term, children}
-            })
+              return {...term, children};
+            });
           });
         } else {
           return this.columns;
@@ -154,7 +147,7 @@ export default {
       },
       set(v) {
         this.terms = v;
-      }
+      },
     },
   },
 };
@@ -166,7 +159,7 @@ export default {
 }
 
 .search-filed {
-  border: 2px solid #9B9B9B;
+  border: 2px solid #9b9b9b;
   border-right: none;
 }
 </style>

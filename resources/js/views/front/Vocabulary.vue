@@ -57,10 +57,10 @@
             <list-of-vocabulary :item="term"></list-of-vocabulary>
           </v-card-text>
         </v-card>
-        <infinite-loading @infinite="getVocabulary">
-          <span slot="no-more"></span>
-        </infinite-loading>
       </v-col>
+      <infinite-loading @disance="1" @infinite="getVocabulary">
+        <span slot="no-more"></span>
+      </infinite-loading>
     </v-row>
   </v-col>
 </template>
@@ -89,13 +89,8 @@ export default {
     getVocabulary($state) {
       let url = `/api/front${window.location.pathname}` ? `/api/front${window.location.pathname}` : '/api/front/vocabulary';
       axios
-          .get(url + "/?page=" + this.page, {
-            params: {
-              page: this.page
-            }
-          })
+          .get(url + "?page=" + this.page)
           .then((res) => {
-            console.log(res.data.data)
             if (res.data.data.length) {
               this.page += 1;
               this.terms.push(...res.data.data)
@@ -104,6 +99,7 @@ export default {
               $state.complete();
             }
           })
+      this.page += 1;
     },
     clearVocabulary() {
       this.filteredVocabulary = this.terms;

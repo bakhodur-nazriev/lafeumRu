@@ -1,5 +1,5 @@
 <template>
-    <v-col cols=9>
+    <v-col col-md="8" col-sm="12">
         <v-card
             elevation="0"
             max-width="500"
@@ -122,5 +122,14 @@ export default {
     margin-bottom: 40px;
     padding: 50px 70px;
     background-color: #f7f7f7 !important;
+}
+
+@media screen and (max-width: 600px) {
+    .card {
+        margin-bottom: 40px;
+        padding: 30px 40px;
+        background-color: #f7f7f7 !important;
+        border: none;
+    }
 }
 </style>

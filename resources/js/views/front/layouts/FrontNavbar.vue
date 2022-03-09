@@ -56,6 +56,28 @@
                                     <span v-else>{{ item.title }}</span>
                                 </a>
                             </div>
+                            <v-spacer></v-spacer>
+                            <v-col class="d-flex pa-0" v-if="!user">
+                                <v-btn
+                                    text
+                                    dark
+                                    href="login"
+                                    elevation="1"
+                                    class="text-capitalize rounded-lg white primary--text font-weight-bold mx-2 text-decoration-none"
+                                >
+                                    <span>Вход</span>
+                                </v-btn>
+
+                                <v-btn
+                                    text
+                                    dark
+                                    elevation="1"
+                                    href="register"
+                                    class="text-capitalize rounded-lg white primary--text font-weight-bold mx-2 text-decoration-none"
+                                >
+                                    <span>Регистрация</span>
+                                </v-btn>
+                            </v-col>
                         </v-col>
                     </v-col>
                 </v-col>
@@ -208,6 +230,11 @@ export default {
                     href: "/photos",
                     icon: "mdi-camera"
                 },
+                {
+                    title: "Логин",
+                    href: "/login",
+                    icon: "mdi-login-variant"
+                }
             ],
             smallNavBtnClose: "mdi-close",
             drawer: false,

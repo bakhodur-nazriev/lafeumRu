@@ -3,8 +3,9 @@
         <v-app-bar
             dark
             flat
+
             prominent
-            height="85"
+            min-height="85"
             color="primary accent-4"
         >
             <v-row class="hidden-sm-and-up h-100 ma-0">
@@ -29,57 +30,49 @@
                 </v-col>
             </v-row>
 
-            <v-row class="hidden-xs-only ma-0">
-                <v-col cols="12" class="d-flex pa-0">
-                    <v-col class="d-flex justify-content-center py-0">
-                        <v-col
-                            xl="9"
-                            lg="10"
-                            class="d-flex justify-content-center align-items-center pa-3"
-                            style="min-height: 75px;"
+            <v-row align="center" justify="center" class="hidden-xs-only ma-0">
+                <v-col
+                    lg="10"
+                    class="d-lg-flex justify-content-between align-items-end d-md-block"
+                    style="max-width: 1340px"
+                >
+                    <div class="d-flex justify-content-center align-items-end h-100 mb-sm-3">
+                        <a
+                            v-for="(item, i) in navItems"
+                            :key="i"
+                            :href="item.href"
+                            class="navbar-links text-uppercase mx-2"
                         >
-                            <div
-                                class="d-flex align-items-end h-100 pa-0 mx-2"
-                                v-for="(item, i) in navItems"
-                                :key="i"
+                            <v-img
+                                v-if="item.imageUrl"
+                                max-width="72"
+                                :src="item.imageUrl"
                             >
-                                <a
-                                    class="navbar-links text-uppercase"
-                                    :href="item.href"
-                                >
-                                    <v-img
-                                        v-if="item.imageUrl"
-                                        max-width="72"
-                                        :src="item.imageUrl"
-                                    >
-                                    </v-img>
-                                    <span v-else>{{ item.title }}</span>
-                                </a>
-                            </div>
-                            <v-spacer></v-spacer>
-                            <v-col class="d-flex pa-0" v-if="!user">
-                                <v-btn
-                                    text
-                                    dark
-                                    href="login"
-                                    elevation="1"
-                                    class="text-capitalize rounded-lg white primary--text font-weight-bold mx-2 text-decoration-none"
-                                >
-                                    <span>Вход</span>
-                                </v-btn>
+                            </v-img>
+                            <span v-else>{{ item.title }}</span>
+                        </a>
+                    </div>
+                    <div class="d-flex justify-content-center pa-0" v-if="!user">
+                        <v-btn
+                            text
+                            dark
+                            href="login"
+                            elevation="1"
+                            class="text-capitalize rounded-lg white primary--text font-weight-bold mx-2 text-decoration-none"
+                        >
+                            <span>Вход</span>
+                        </v-btn>
 
-                                <v-btn
-                                    text
-                                    dark
-                                    elevation="1"
-                                    href="register"
-                                    class="text-capitalize rounded-lg white primary--text font-weight-bold mx-2 text-decoration-none"
-                                >
-                                    <span>Регистрация</span>
-                                </v-btn>
-                            </v-col>
-                        </v-col>
-                    </v-col>
+                        <v-btn
+                            text
+                            dark
+                            elevation="1"
+                            href="register"
+                            class="text-capitalize rounded-lg white primary--text font-weight-bold ml-2 text-decoration-none"
+                        >
+                            <span>Регистрация</span>
+                        </v-btn>
+                    </div>
                 </v-col>
             </v-row>
         </v-app-bar>

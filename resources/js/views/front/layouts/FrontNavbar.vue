@@ -3,10 +3,10 @@
         <v-app-bar
             dark
             flat
-
             prominent
-            min-height="85"
             color="primary accent-4"
+            class="main-navbar-block"
+            height="85"
         >
             <v-row class="hidden-sm-and-up h-100 ma-0">
                 <v-col class="pa-0 d-flex align-center">
@@ -33,7 +33,7 @@
             <v-row align="center" justify="center" class="hidden-xs-only ma-0">
                 <v-col
                     lg="10"
-                    class="d-lg-flex justify-content-between align-items-end d-md-block"
+                    class="d-lg-flex justify-content-between align-items-center d-md-block"
                     style="max-width: 1340px"
                 >
                     <div class="d-flex justify-content-center align-items-end h-100 mb-sm-3">
@@ -41,7 +41,7 @@
                             v-for="(item, i) in navItems"
                             :key="i"
                             :href="item.href"
-                            class="navbar-links text-uppercase mx-2"
+                            class="navbar-links mx-2"
                         >
                             <v-img
                                 v-if="item.imageUrl"
@@ -72,6 +72,37 @@
                         >
                             <span>Регистрация</span>
                         </v-btn>
+                    </div>
+
+                    <div class="d-flex align-items-center" v-else>
+                        <v-avatar>
+                            <img :src="user.avatar">
+                        </v-avatar>
+                        <v-menu offset-y left min-width="240" rounded="lg" nudge-bottom="20">
+                            <template v-slot:activator="{ on }">
+                                <v-btn small icon v-on="on" color="white">
+                                    <v-icon>mdi-menu-down</v-icon>
+                                </v-btn>
+                            </template>
+                            <v-list>
+                                <v-list-item
+                                    v-for="profileLink in profileLinks"
+                                    :key="profileLink.href"
+                                >
+                                    <v-list-item-title class="px-2 py-3">
+                                        <v-icon color="grey darken-1" class="mr-4">
+                                            {{ profileLink.icon }}
+                                        </v-icon>
+                                        <a
+                                            class="primary--text"
+                                            :href="profileLink.href"
+                                        >
+                                            {{ profileLink.title }}
+                                        </a>
+                                    </v-list-item-title>
+                                </v-list-item>
+                            </v-list>
+                        </v-menu>
                     </div>
                 </v-col>
             </v-row>
@@ -137,6 +168,11 @@ export default {
                     title: "Настройки",
                     href: "/",
                     icon: "mdi-tune"
+                },
+                {
+                    title: "Выход",
+                    href: "/logout",
+                    icon: "mdi-logout"
                 },
             ],
             navItems: [
@@ -243,11 +279,31 @@ export default {
 </script>
 
 <style scoped>
+
+@media (max-width: 1264px) {
+    .main-navbar-block {
+        height: 128px !important;
+    }
+}
+
+@media (min-width: 1264px) {
+    .main-navbar-block {
+        height: 85px !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .main-navbar-block {
+        height: 85px !important;
+    }
+}
+
 .navbar-links {
     font-size: 14px;
     font-weight: 500;
     color: #fff;
-    line-height: 0.7;
+    line-height: 1;
+    text-transform: uppercase;
 }
 
 .navbar-links:hover {

@@ -20,7 +20,7 @@
                         </v-list-item-avatar>
                         <v-list-item-content>
                             <v-list-item-title class="text-h6">{{ user.name }}</v-list-item-title>
-                            <v-list-item-subtitle>{{ user.email }}</v-list-item-subtitle>
+                            <v-list-item-subtitle>{{ userRole.name }}</v-list-item-subtitle>
                         </v-list-item-content>
                     </v-list-item>
                 </v-list>
@@ -60,15 +60,15 @@
                 </v-list>
             </v-card>
 
-            <!--<v-card
+            <v-card
                 flat
                 tile
-                width="900"
+                width="1030"
                 elevation="0"
                 class="mx-auto rounded-lg"
             >
                 <v-col cols="10">
-                    <h6 class="grey&#45;&#45;text font-weight-regular mb-4">Изменить фотографию профиля</h6>
+                    <h6 class="grey--text font-weight-regular mb-4">Изменить фотографию профиля</h6>
                     <v-avatar class="mr-5" size="100">
                         <img :src="user.avatar">
                     </v-avatar>
@@ -91,7 +91,7 @@
                     </v-btn>
                 </v-col>
                 <v-col cols="10">
-                    <label class="w-100 grey&#45;&#45;text text-start font-weight-regular mb-2">Имя
+                    <label class="w-100 grey--text text-start font-weight-regular mb-2">Имя
                         пользователя*</label>
                     <div class="d-flex">
                         <v-text-field
@@ -115,7 +115,7 @@
                     </div>
                 </v-col>
                 <v-col cols="10">
-                    <label class="w-100 grey&#45;&#45;text text-start font-weight-regular mb-2">Адрес E-mail*</label>
+                    <label class="w-100 grey--text text-start font-weight-regular mb-2">Адрес E-mail*</label>
                     <div class="d-flex">
                         <v-text-field
                             dense
@@ -138,7 +138,7 @@
                     </div>
                 </v-col>
                 <v-col cols="10">
-                    <label class="w-100 grey&#45;&#45;text text-start font-weight-regular mb-2">Пароль</label>
+                    <label class="w-100 grey--text text-start font-weight-regular mb-2">Пароль</label>
                     <div class="d-flex">
                         <v-text-field
                             filled
@@ -208,17 +208,17 @@
                         </v-card>
                     </v-tab-item>
                 </v-tabs-items>
-            </v-card>-->
+            </v-card>
         </v-row>
     </v-col>
 </template>
 
 <script>
 export default {
+    props: ['user', 'userRole'],
     name: "Profile",
     data() {
         return {
-            user: window.Laravel.auth,
             selectedItem: 0,
             role: '',
             tabs: null,
@@ -242,16 +242,8 @@ export default {
             ]
         }
     },
-    methods: {
-        loadRole() {
-            axios
-                .get("/api/roles")
-                .then()
-                .catch()
-        }
-    },
-    mounted() {
-        this.loadRole();
+    created() {
+        console.log(this.userRole)
     }
 }
 </script>

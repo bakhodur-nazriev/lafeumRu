@@ -52,6 +52,23 @@
         </v-card-text>
         <v-divider class="m-0 grey lighten-3"></v-divider>
         <v-card-actions class="pa-0 px-1">
+             <v-col class="pa-0">
+                <v-btn
+                    icon
+                    small
+                    @click="likeQuote()"
+                >
+                    <v-icon size="20" :color="isLiked ? 'red' : 'grey lighten-1'">mdi-heart</v-icon>
+                </v-btn>
+                <span>{{ isLiked ? 1 : 0 }}</span>
+                <v-btn
+                    icon
+                    small
+                    @click="addToFavourite()"
+                >
+                    <v-icon size="20" :color="isFavourited ? 'grey lighten-1' : 'primary'">mdi-bookmark</v-icon>
+                </v-btn>
+            </v-col>
             <v-spacer></v-spacer>
             <share-button :post="item.post"></share-button>
         </v-card-actions>

@@ -9,6 +9,10 @@
 // import Terms from "./views/front/Terms";
 // import Photos from "./views/front/Photos";
 
+/* Import Front Profile components */
+import EditProfile from "./views/front/layouts/profile/EditProfile";
+import FavouriteProfile from "./views/front/layouts/profile/FavouriteProfile";
+
 /* Import Back components */
 import QuotesPage from "./views/back/Quotes/QuotesPage";
 import QuotesTrashedPage from "./views/back/Trashes/QuotesTrashedPage";
@@ -256,53 +260,67 @@ let allSidebarRoutes = [
     }
 ];
 
-// let allFrontRoutes = [
-//     {
-//         imageUrl: "/img/lafeum-ru-home.png",
-//         path: "/",
-//         component: Home
-//     },
-//     {
-//         name: "Области Знаний",
-//         path: "/knowledge",
-//         component: KnowledgeArea
-//     },
-//     {
-//         name: "Словарь",
-//         path: "/vocabulary",
-//         component: Vocabulary
-//     },
-//     {
-//         name: "Цитаты",
-//         path: "/quotes",
-//         component: Quotes
-//     },
-//     {
-//         name: "Авторы",
-//         path: "/authors",
-//         component: Authors
-//     },
-//     {
-//         name: "Видео",
-//         path: "/videos",
-//         component: Videos
-//     },
-//     {
-//         name: "Каналы",
-//         path: "/channels",
-//         component: Channels
-//     },
-//     {
-//         name: "Термины",
-//         path: "/terms",
-//         component: Terms
-//     },
-//     {
-//         name: "Фотографии",
-//         path: "/photos",
-//         component: Photos
-//     },
-// ];
+let profileRoutes = [
+    {
+        path: "/profile/edit",
+        name: "/profile/edit",
+        component: EditProfile
+    },
+    {
+        path: "/profile/favourite",
+        name: "/profile/favourite",
+        component: FavouriteProfile
+    },
+
+];
+
+/* let allFrontRoutes = [
+     {
+         imageUrl: "/img/lafeum-ru-home.png",
+         path: "/",
+         component: Home
+     },
+     {
+         name: "Области Знаний",
+         path: "/knowledge",
+         component: KnowledgeArea
+     },
+     {
+         name: "Словарь",
+         path: "/vocabulary",
+         component: Vocabulary
+     },
+     {
+         name: "Цитаты",
+         path: "/quotes",
+         component: Quotes
+     },
+     {
+         name: "Авторы",
+         path: "/authors",
+         component: Authors
+     },
+     {
+         name: "Видео",
+         path: "/videos",
+         component: Videos
+     },
+     {
+         name: "Каналы",
+         path: "/channels",
+         component: Channels
+     },
+     {
+         name: "Термины",
+         path: "/terms",
+         component: Terms
+     },
+     {
+         name: "Фотографии",
+         path: "/photos",
+         component: Photos
+     },
+]; */
 
 function getAuthorizedRoutes(routes) {
     if (!Laravel.auth) {

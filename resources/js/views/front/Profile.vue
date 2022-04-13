@@ -180,6 +180,7 @@
                             fixed-tabs
                             v-model="tabs"
                             background-color="primary"
+                            class="rounded-tl-lg rounded-tr-lg"
                         >
                             <v-tabs-slider></v-tabs-slider>
                             <v-tab
@@ -197,7 +198,8 @@
                             <v-tab
                                 href="#mobile-tabs-5-3"
                                 class="text-decoration-none font-weight-medium"
-                            >видео
+                            >
+                                видео
                             </v-tab>
                         </v-tabs>
                     </v-toolbar>

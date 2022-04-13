@@ -90,13 +90,13 @@
                                     :key="profileLink.href"
                                 >
                                     <v-list-item-title class="px-2 py-3">
-                                        <v-icon color="grey darken-1" class="mr-4">
-                                            {{ profileLink.icon }}
-                                        </v-icon>
                                         <a
-                                            class="primary--text"
+                                            class="primary--text text-decoration-none"
                                             :href="profileLink.href"
                                         >
+                                            <v-icon color="grey darken-1" class="mr-4">
+                                                {{ profileLink.icon }}
+                                            </v-icon>
                                             {{ profileLink.title }}
                                         </a>
                                     </v-list-item-title>

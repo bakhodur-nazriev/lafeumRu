@@ -2,10 +2,14 @@
 
 namespace App;
 
+use App\Like;
+use App\Contracts\Likeable;
 use Illuminate\Database\Eloquent\Model;
 
-class Post extends Model
+class Post extends Model implements Likeable
 {
+    use Likes;
+    
     public $timestamps = false;
 
     protected $with = ['postable'];

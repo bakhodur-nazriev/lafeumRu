@@ -70,4 +70,14 @@ class User extends Authenticatable /*implements MustVerifyEmail*/
     {
         return $this->role->name === $role;
     }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    public function like()
+    {
+
+    }
 }

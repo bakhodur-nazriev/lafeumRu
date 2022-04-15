@@ -6,10 +6,8 @@ use App\Like;
 use App\Contracts\Likeable;
 use Illuminate\Database\Eloquent\Model;
 
-class Post extends Model implements Likeable
+class Post extends Model
 {
-    use Likes;
-    
     public $timestamps = false;
 
     protected $with = ['postable'];

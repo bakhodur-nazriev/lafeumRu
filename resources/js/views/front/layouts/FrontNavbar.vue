@@ -8,104 +8,110 @@
             class="main-navbar-block"
             height="85"
         >
-            <v-row class="hidden-sm-and-up h-100 ma-0">
-                <v-col class="pa-0 d-flex align-center">
-                    <v-col class="d-flex justify-center pa-0 col-2">
-                        <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-                    </v-col>
-                    <v-col class="d-flex justify-center col-8 pa-0">
-                        <a
-                            class="text-white subtitle-1 pr-2 text-decoration-none font-weight-medium text-uppercase"
-                            :href="navItems[0].href"
-                        >
-                            Главная
-                        </a>
-                        <a
-                            class="text-white subtitle-1 pl-2 text-decoration-none font-weight-medium text-uppercase"
-                            :href="navItems[3].href"
-                        >
-                            Цитаты
-                        </a>
-                    </v-col>
-                </v-col>
-            </v-row>
-
-            <v-row align="center" justify="center" class="hidden-xs-only ma-0">
-                <v-col
-                    lg="10"
-                    class="d-lg-flex justify-content-between align-items-center d-md-block"
-                    style="max-width: 1340px"
-                >
-                    <div class="d-flex justify-content-center align-items-end h-100 mb-sm-3">
-                        <a
-                            v-for="(item, i) in navItems"
-                            :key="i"
-                            :href="item.href"
-                            class="navbar-links mx-2"
-                        >
-                            <v-img
-                                v-if="item.imageUrl"
-                                max-width="72"
-                                :src="item.imageUrl"
+            <v-container class="h-100 d-flex align-center">
+                <v-row class="hidden-sm-and-up h-100 ma-0">
+                    <v-col class="pa-0 d-flex align-center">
+                        <v-col class="d-flex justify-center pa-0 col-2">
+                            <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+                        </v-col>
+                        <v-col class="d-flex justify-center col-8 pa-0">
+                            <a
+                                class="text-white subtitle-1 pr-2 text-decoration-none font-weight-medium text-uppercase"
+                                :href="navItems[0].href"
                             >
-                            </v-img>
-                            <span v-else>{{ item.title }}</span>
-                        </a>
-                    </div>
-                    <div class="d-flex justify-content-center pa-0" v-if="!user">
-                        <v-btn
-                            text
-                            dark
-                            href="login"
-                            elevation="1"
-                            class="text-capitalize rounded-lg white primary--text font-weight-bold mx-2 text-decoration-none"
-                        >
-                            <span>Вход</span>
-                        </v-btn>
+                                Главная
+                            </a>
+                            <a
+                                class="text-white subtitle-1 pl-2 text-decoration-none font-weight-medium text-uppercase"
+                                :href="navItems[3].href"
+                            >
+                                Цитаты
+                            </a>
+                        </v-col>
+                    </v-col>
+                </v-row>
 
-                        <v-btn
-                            text
-                            dark
-                            elevation="1"
-                            href="register"
-                            class="text-capitalize rounded-lg white primary--text font-weight-bold ml-2 text-decoration-none"
-                        >
-                            <span>Регистрация</span>
-                        </v-btn>
-                    </div>
-
-                    <div class="d-flex align-items-center" v-else>
-                        <v-avatar>
-                            <img :src="user.avatar">
-                        </v-avatar>
-                        <v-menu offset-y left min-width="240" rounded="lg" nudge-bottom="20">
-                            <template v-slot:activator="{ on }">
-                                <v-btn small icon v-on="on" color="white">
-                                    <v-icon>mdi-menu-down</v-icon>
-                                </v-btn>
-                            </template>
-                            <v-list>
-                                <v-list-item
-                                    v-for="profileLink in profileLinks"
-                                    :key="profileLink.href"
+                <v-row
+                    align="center"
+                    justify="center"
+                    class="hidden-xs-only ma-0"
+                >
+                    <v-col
+                        lg="12"
+                        style="max-width: 1340px"
+                        class="d-lg-flex justify-content-between align-items-end d-md-block"
+                    >
+                        <div class="d-flex justify-content-center align-items-end h-100">
+                            <a
+                                v-for="(item, i) in navItems"
+                                :key="i"
+                                :href="item.href"
+                                class="navbar-links mx-2"
+                            >
+                                <v-img
+                                    v-if="item.imageUrl"
+                                    max-width="72"
+                                    :src="item.imageUrl"
                                 >
-                                    <v-list-item-title class="px-2 py-3">
-                                        <a
-                                            class="primary--text text-decoration-none"
-                                            :href="profileLink.href"
-                                        >
-                                            <v-icon color="grey darken-1" class="mr-4">
-                                                {{ profileLink.icon }}
-                                            </v-icon>
-                                            {{ profileLink.title }}
-                                        </a>
-                                    </v-list-item-title>
-                                </v-list-item>
-                            </v-list>
-                        </v-menu>
-                    </div>
-                </v-col>
-            </v-row>
+                                </v-img>
+                                <span v-else>{{ item.title }}</span>
+                            </a>
+                        </div>
+                        <div class="d-flex justify-content-center pa-0" v-if="!user">
+                            <v-btn
+                                text
+                                dark
+                                href="login"
+                                elevation="1"
+                                class="text-capitalize rounded-lg white primary--text font-weight-bold mx-2 text-decoration-none"
+                            >
+                                <span>Вход</span>
+                            </v-btn>
+
+                            <v-btn
+                                text
+                                dark
+                                elevation="1"
+                                href="register"
+                                class="text-capitalize rounded-lg white primary--text font-weight-bold ml-2 text-decoration-none"
+                            >
+                                <span>Регистрация</span>
+                            </v-btn>
+                        </div>
+
+                        <div class="d-flex align-items-center" v-else>
+                            <v-avatar>
+                                <img :src="user.avatar">
+                            </v-avatar>
+                            <v-menu offset-y left min-width="240" rounded="lg" nudge-bottom="20">
+                                <template v-slot:activator="{ on }">
+                                    <v-btn small icon v-on="on" color="white">
+                                        <v-icon>mdi-menu-down</v-icon>
+                                    </v-btn>
+                                </template>
+                                <v-list>
+                                    <v-list-item
+                                        v-for="profileLink in profileLinks"
+                                        :key="profileLink.href"
+                                    >
+                                        <v-list-item-title class="px-2 py-3">
+                                            <a
+                                                class="primary--text text-decoration-none"
+                                                :href="profileLink.href"
+                                            >
+                                                <v-icon color="grey darken-1" class="mr-4">
+                                                    {{ profileLink.icon }}
+                                                </v-icon>
+                                                {{ profileLink.title }}
+                                            </a>
+                                        </v-list-item-title>
+                                    </v-list-item>
+                                </v-list>
+                            </v-menu>
+                        </div>
+                    </v-col>
+                </v-row>
+            </v-container>
         </v-app-bar>
 
         <v-navigation-drawer

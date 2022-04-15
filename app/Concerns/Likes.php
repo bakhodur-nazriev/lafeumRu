@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Concerns;
 
 use App\Like;
 use Illuminate\Database\Eloquent\Relations\MorphMany;

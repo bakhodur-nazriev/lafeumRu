@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Like extends Model
 {
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault();
     }
 
-    public function likeable()
+    public function likeable(): \Illuminate\Database\Eloquent\Relations\MorphTo
     {
         return $this->morphTo();
     }

@@ -7,7 +7,7 @@
                 </v-avatar>
                 <h4 class="primary--text">{{ currentAuthor.name }}</h4>
                 <h5
-                    class="author-biography text-lg-justify mb-0"
+                    class="author-biography mb-0"
                     v-html="currentAuthor.biography"
                 ></h5>
             </div>

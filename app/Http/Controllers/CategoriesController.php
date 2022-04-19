@@ -124,9 +124,9 @@ class CategoriesController extends Controller
 
         $terms = $this->getCategoriablesQuery(Term::class, $category)
             ->vocabulary()
-            ->get();
+            ->paginate(30);
 
-        return response()->json(collect([$category, $terms]));
+        return response()->json(collect($terms));
     }
 
     public function store(Request $request)

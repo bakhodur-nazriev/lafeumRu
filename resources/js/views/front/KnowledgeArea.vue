@@ -52,6 +52,7 @@
                     </v-col>
                     <v-col cols="12" class="list-col-4 px-0">
                         <v-card-text
+                          style="min-width: 300px"
                             class="pa-0 mb-1"
                             v-for="(knowledge, i) in knowledgeArea.children"
                             :key="i"

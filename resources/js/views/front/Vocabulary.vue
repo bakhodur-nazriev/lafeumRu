@@ -18,24 +18,24 @@
     <v-col cols="12" class="d-flex align-items-center px-0">
       <div class="form-search rounded-lg w-100">
         <v-text-field
-            solo
-            flat
-            dense
-            clearable
-            height="41"
-            hide-details
-            v-model="search"
-            placeholder="Введите термин"
-            background-color="transparent"
-            @click:clear="clearVocabulary()"
-            class="rounded-lg rounded-tr-0 rounded-br-0 search-filed"
+          solo
+          flat
+          dense
+          clearable
+          height="41"
+          hide-details
+          v-model="search"
+          placeholder="Введите термин"
+          background-color="transparent"
+          @click:clear="clearVocabulary()"
+          class="rounded-lg rounded-tr-0 rounded-br-0 search-filed"
         >
         </v-text-field>
         <v-btn
-            depressed
-            height="45"
-            color="primary"
-            class="text-capitalize rounded-0 rounded-br-lg rounded-tr-lg"
+          depressed
+          height="45"
+          color="primary"
+          class="text-capitalize rounded-0 rounded-br-lg rounded-tr-lg"
         >
           Поиск
         </v-btn>
@@ -44,15 +44,15 @@
 
     <v-row justify="center">
       <v-col
-          v-for="(vocabulary, i) in filteredVocabulary"
-          :key="i"
-          class="fill-height col-md-6 col-12"
+        v-for="(vocabulary, i) in filteredVocabulary"
+        :key="i"
+        class="fill-height col-md-6 col-12"
       >
         <v-card rounded="lg" class="px-7 py-5" flat>
           <v-card-text
-              v-for="(term ,i) in vocabulary"
-              :key="i"
-              class="pa-1 pb-0"
+            v-for="(term ,i) in vocabulary"
+            :key="i"
+            class="pa-1 pb-0"
           >
             <list-of-vocabulary :item="term"></list-of-vocabulary>
           </v-card-text>
@@ -89,16 +89,16 @@ export default {
     getVocabulary($state) {
       let url = `/api/front${window.location.pathname}` ? `/api/front${window.location.pathname}` : '/api/front/vocabulary';
       axios
-          .get(url + "?page=" + this.page)
-          .then((res) => {
-            if (res.data.data.length) {
-              this.page += 1;
-              this.terms.push(...res.data.data)
-              $state.loaded();
-            } else {
-              $state.complete();
-            }
-          })
+        .get(url + "?page=" + this.page)
+        .then((res) => {
+          if (res.data.data.length) {
+            this.page += 1;
+            this.terms.push(...res.data.data)
+            $state.loaded();
+          } else {
+            $state.complete();
+          }
+        })
       this.page += 1;
     },
     clearVocabulary() {

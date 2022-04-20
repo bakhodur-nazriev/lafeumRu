@@ -7,7 +7,7 @@
         :key="i"
       >
         <a
-          :href="'/' + child.id"
+          :href="'/' + `${path === '/vocabulary' ? child.id : child.post.id}`"
           target="_blank"
           class="vocabulary-words text-decoration-none d-block"
         >
@@ -31,7 +31,9 @@ export default {
   name: "ListOfChildren",
   props: ["item"],
   data() {
-    return {}
+    return {
+      path: `${window.location.pathname}`
+    }
   },
 }
 </script>

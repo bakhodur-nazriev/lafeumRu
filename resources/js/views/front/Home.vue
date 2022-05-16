@@ -1,5 +1,5 @@
 <template>
-    <v-col xl="5" lg="6" sm="12" class="home-main-block">
+    <v-col xl="5" lg="6" sm="12" class="home-main-block" order="3" order-lg="2">
         <v-col class="d-flex flex-column align-items-center text-center pa-0">
             <v-col class="col-12 mt-md-10 mb-md-5 d-flex justify-center">
                 <v-img
@@ -10,7 +10,7 @@
             <v-col>
                 <h3 class="mb-6 font-weight-medium">Научно–образовательный<br/>медиаресурс</h3>
                 <h4 class="mb-6 primary--text font-weight-regular">Приветствуем Вас на сайте ЛАФЕЮМ!</h4>
-                <p class="text-justify">
+                <p>
                     Информированность о методах развития личности и совершенствования профессиональных знаний,
                     осведомленность в вопросах бытия и научно-популярных тем вместе взятых, без сомнения, способствуют
                     повышению образованности и компетентности, расширению мировоззрения, развитию жизненных

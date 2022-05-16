@@ -1,7 +1,7 @@
 <template>
     <v-col xl="7" lg="9">
         <h5 class="text-uppercase font-weight-regular py-4 mx-4 mb-0">Пользовательское соглашение</h5>
-        <v-sheet rounded="lg" class="pa-7 text-justify">
+        <v-sheet rounded="lg" class="pa-7">
             <p>
                 Настоящее Пользовательское соглашение (далее — «Соглашение») представляет собой предложение пользователю
                 сети

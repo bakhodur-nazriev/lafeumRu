@@ -1,30 +1,29 @@
 <template>
     <v-dialog
         v-model="videoDialog"
-        width="900"
+        width="950"
     >
         <template v-slot:activator="{ on, attrs }">
             <v-card flat rounded="lg" class="mb-6">
-                <v-card-subtitle class="d-md-flex pb-0">
+                <v-card-text class="pa-4 pb-2 d-flex flex-wrap flex-lg-nowrap">
                     <v-col
-                        class="text-right pb-0 col-md-6 col-12"
+                        class="border rounded-lg pa-1"
                         v-bind="attrs"
                         v-on="on"
                     >
-                        <img class="img-thumbnail" :src="video.thumbnail" :alt="video.title"/>
+                        <v-img class="rounded" :src="video.thumbnail" :alt="video.title"></v-img>
                         <span class="video-duration-block">{{ video.duration + ':00' }}</span>
                     </v-col>
 
-                    <v-col class="pb-0 col-md-6 col-12">
+                    <v-col class="pa-3 py-0 videos-title flex-fill">
                         <h5
-                            class="grey--text text--darken-3 title-videos text-justify ma-0"
                             v-bind="attrs"
                             v-on="on"
                         >{{ video.title }}</h5>
                     </v-col>
-                </v-card-subtitle>
+                </v-card-text>
 
-                <v-card-text class="px-7 py-3">
+                <v-card-text class="px-4 py-3 pt-0">
                     <v-col class="pa-0">
                         <a
                             :href="`/channels/` + video.channel.slug"
@@ -40,28 +39,26 @@
                             <a
                                 v-for="(category, i) in video.categories"
                                 :href="`/videos/` + category.slug"
-                                class="text-decoration-none ml-1"
+                                class="mr-2 font-italic"
                                 :key="i"
                                 target="_blank"
                             >
                                 {{ category.name }}
                             </a>
                         </v-col>
-                        <div class="videos-slug">
+                        <v-col class="pa-0 text-end">
                             <a
-                                class="grey--text text--darken-3 text-decoration-none"
+                                class="videos-id grey--text text-decoration-none"
                                 :href="'/' + video.post.id"
                                 target="_blank"
                             >
                                 #{{ video.post.id }}
                             </a>
-                        </div>
+                        </v-col>
                     </v-col>
                 </v-card-text>
-
                 <v-divider class="m-0 grey lighten-3"></v-divider>
-
-                <v-card-actions style="padding: 2px 4px 3px 4px;">
+                <v-card-actions class="pa-0 px-1">
                     <v-spacer></v-spacer>
                     <share-button :post="item.post"></share-button>
                 </v-card-actions>
@@ -110,12 +107,29 @@ export default {
 </script>
 
 <style scoped>
+@media only screen and (max-width: 600px) {
+    .videos-title {
+        padding: 10px 0 !important;
+    }
+}
+
+.categories-block > a {
+    text-decoration: none;
+    color: #646464 !important;
+    caret-color: #646464 !important;
+    font-size: 13px;
+}
+
+.categories-block > a:hover {
+    color: #04718c !important;
+}
+
 .video-iframe {
     width: 100%;
     height: 50vh;
 }
 
-.videos-slug > *:hover {
+.videos-id:hover {
     color: #04718c !important;
 }
 
@@ -127,21 +141,15 @@ export default {
     padding: 0 5px;
     font-weight: 600;
     position: absolute;
-    right: 20px;
+    right: 10px;
     bottom: 8px;
 }
 
-.img-thumbnail {
-    width: 100%;
-    height: 200px;
-    padding: .25rem;
-    background-color: #f8fafc;
-    border: 1px solid #dee2e6;
-    border-radius: .25rem;
-}
-
-.title-videos {
+.videos-title > h5 {
+    font-size: 18px;
     line-height: 1.3;
+    color: #424242;
+    margin: 0;
 }
 
 .channels-links {

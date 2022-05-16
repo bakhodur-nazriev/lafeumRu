@@ -1,18 +1,17 @@
 <template>
-    <v-col xl="5" lg="6" class="px-4">
+    <v-col xl="5" lg="6" class="px-4" order="3" order-lg="2">
         <div v-if="category.slug">
             <h3 class="pt-4 pb-2">{{ category.name }}</h3>
             <p>{{ category.description }}</p>
         </div>
         <v-col v-else class="pa-0">
-            <h5 class="text-uppercase font-weight-regular pt-3 pb-2">Словарь «ЛАФЕЮМ»</h5>
-            <p class="text-justify">
-                На сегодня содержит более одной тысячи основных терминов, соответствующих
-                тематике сайта. Для удобства термины дополнительно разбиты на темы.
-                Большинство терминов взяты из Википедии с указанием ссылки на источник. В
-                большинстве понятий имеются другие взаимосвязанные термины и ссылки. По
-                мере обновления на основном источнике здесь они будут равным образом
-                обновляться.
+            <p>
+                На сегодня содержит более одной тысячи основных терминов,
+                соответствующих тематике сайта. Для удобства термины дополнительно
+                разбиты на темы. Большинство терминов взяты из Википедии с указанием
+                ссылки на источник. В большинстве понятий имеются другие взаимосвязанные
+                термины и ссылки. По мере обновления на основном источнике здесь они
+                будут равным образом обновляться.
             </p>
         </v-col>
 
@@ -42,24 +41,8 @@
                 </v-btn>
             </div>
         </v-col>
-        <v-col cols="12" class="mb-3 pa-0">
-            <h5 class="subtitle-1">
-                Примеры информативных поисковых запросов: «нау», «логия», «ика», «изм»,
-                «фило», «само», «чело», «соц», «пси», «эво» и т.п.
-            </h5>
-        </v-col>
 
-        <h5 class="text-uppercase font-weight-regular mb-4">все слова</h5>
-        <v-col cols="12" class="d-flex justify-center" v-if="loading">
-            <v-progress-circular
-                width="5"
-                size="48"
-                indeterminate
-                color="primary"
-            ></v-progress-circular>
-        </v-col>
-
-        <v-row justify="center" v-else>
+        <v-row justify="center">
             <v-col
                 v-for="(vocabulary, i) in filteredVocabulary"
                 :key="i"
@@ -81,16 +64,21 @@
 
 <script>
 import ListOfVocabulary from "./ListOfChildren/ListOfVocabulary";
+import InfiniteLoading from "vue-infinite-loading";
 
 export default {
-    components: {ListOfVocabulary},
+    components: {
+        ListOfVocabulary,
+        InfiniteLoading,
+    },
     data() {
         return {
+            isActive: false,
             search: "",
             terms: [],
             category: [],
             loading: false,
-            page: 0,
+            page: 1,
             cols: 2,
         };
     },
@@ -102,6 +90,7 @@ export default {
             axios
                 .get(url)
                 .then((res) => {
+                    console.log(res)
                     this.loading = false;
                     this.terms = res.data;
 
@@ -116,8 +105,8 @@ export default {
                 })
         },
         clearVocabulary() {
-            this.filteredVocabulary = this.terms
-        }
+            this.filteredVocabulary = this.terms;
+        },
     },
     mounted() {
         this.getVocabulary();
@@ -126,10 +115,10 @@ export default {
         orderVocabulary() {
             let allTerms = this.terms.reduce((r, e) => {
                 let group = e.name[0];
-                if (!r[group]) r[group] = {group, children: [e]}
+                if (!r[group]) r[group] = {group, children: [e]};
                 else r[group].children.push(e);
                 return r;
-            }, {})
+            }, {});
             return Object.values(allTerms);
         },
         columns() {
@@ -143,13 +132,13 @@ export default {
         filteredVocabulary: {
             get() {
                 if (this.search) {
-                    return this.columns.map(terms => {
-                        return terms.map(term => {
-                            const children = term.children.filter(child => {
-                                return child.name.toLowerCase().includes(this.search.toLowerCase()) || this.search.includes(child.name)
+                    return this.columns.map((terms) => {
+                        return terms.map((term) => {
+                            const children = term.children.filter((child) => {
+                                return (child.name.toLowerCase().includes(this.search.toLowerCase()) || this.search.includes(child.name));
                             });
-                            return {...term, children}
-                        })
+                            return {...term, children};
+                        });
                     });
                 } else {
                     return this.columns;
@@ -157,7 +146,7 @@ export default {
             },
             set(v) {
                 this.terms = v;
-            }
+            },
         },
     },
 };
@@ -169,7 +158,7 @@ export default {
 }
 
 .search-filed {
-    border: 2px solid #9B9B9B;
+    border: 2px solid #9b9b9b;
     border-right: none;
 }
 </style>

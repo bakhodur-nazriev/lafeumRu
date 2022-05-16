@@ -1,8 +1,8 @@
 <template>
-    <v-col xl="5" lg="5" md="3">
-        <div class="py-4">
+    <v-col xl="5" lg="5" md="3" order="3" order-lg="2">
+        <v-col class="pb-8">
             <h5 class="text-uppercase font-weight-regular mb-0">Термины</h5>
-        </div>
+        </v-col>
         <v-row align="center">
             <v-col cols="12" class="d-flex justify-center" v-if="loading">
                 <v-progress-circular

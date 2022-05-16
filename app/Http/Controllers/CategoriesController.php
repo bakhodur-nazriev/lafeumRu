@@ -13,222 +13,224 @@ use Illuminate\Support\Facades\DB;
 
 class CategoriesController extends Controller
 {
-    protected $redirectService;
+  protected $redirectService;
 
-    public function __construct(RedirectService $redirectService)
-    {
-        $this->authorizeResource(Category::class);
-        $this->redirectService = $redirectService;
+  public function __construct(RedirectService $redirectService)
+  {
+    $this->authorizeResource(Category::class);
+    $this->redirectService = $redirectService;
+  }
+
+  public function get(Request $request)
+  {
+    $categoriesQuery = Category::orderBy('_lft');
+
+    if ($request->has('type')) {
+      $categoriesQuery->where('type', $request->type);
     }
 
-    public function get(Request $request)
-    {
-        $categoriesQuery = Category::orderBy('_lft');
-
-        if ($request->has('type')) {
-            $categoriesQuery->where('type', $request->type);
-        }
-
-        if ($request->has('tree')) {
-            return $categoriesQuery->get()->toTree();
-        }
-
-        return $categoriesQuery->get();
+    if ($request->has('tree')) {
+      return $categoriesQuery->get()->toTree();
     }
 
-    public function updateTree(Request $request)
-    {
-        $request->validate([
-            'type' => 'required'
-        ]);
+    return $categoriesQuery->get();
+  }
 
-        Category::where('type', $request->type)->rebuildTree($request->categories, true);
+  public function updateTree(Request $request)
+  {
+    $request->validate([
+      'type' => 'required'
+    ]);
 
-        return $request->categories;
+    Category::where('type', $request->type)->rebuildTree($request->categories, true);
+
+    return $request->categories;
+  }
+
+  public function showQuotes($categorySlug)
+  {
+    $category = $this->getCategory(Quote::class, $categorySlug);
+
+    $categories = Category::quote()->get()->toTree()->unique('name');
+
+    return view('shows.category', compact('category', 'categories'));
+  }
+
+  public function getShowQuotes($categorySlug): JsonResponse
+  {
+    $categories = $this->getCategory(Quote::class, $categorySlug);
+
+    return response()->json(collect($categories));
+  }
+
+  public function showTerms($categorySlug)
+  {
+    $category = $this->getCategory(Term::class,
+      $categorySlug,
+      function ($categoriesQuery) {
+        return $categoriesQuery->orderBy('term_type_id', 'asc');
+      }
+    );
+
+    $categories = Category::term()->get()->toTree()->unique('name');
+
+    return view('shows.category', compact('category', 'categories'));
+  }
+
+  public function getShowTerms($categorySlug): JsonResponse
+  {
+    $category = $this->getCategory(Term::class,
+      $categorySlug,
+      function ($categoriesQuery) {
+        return $categoriesQuery->orderBy('term_type_id', 'asc');
+      }
+    );
+
+    return response()->json(collect($category));
+  }
+
+  public function showVideos($categorySlug)
+  {
+    $category = $this->getCategory(Video::class, $categorySlug);
+
+    $categories = Category::where('type', 'App\Video')->get()->toTree()->unique('name');
+
+    return view('shows.category', compact('category', 'categories'));
+  }
+
+  public function getShowVideos($categorySlug): JsonResponse
+  {
+    $category = $this->getCategory(Video::class, $categorySlug);
+
+    return response()->json(collect($category));
+  }
+
+  public function showVocabulary($categorySlug)
+  {
+    $category = Category::where('type', Term::class)
+      ->where('slug', $categorySlug)
+      ->first();
+
+    $categories = Category::term()->get()->toTree()->unique('name');
+
+    return view('vocabulary', compact('category', 'categories'));
+  }
+
+  public function getShowVocabulary($categorySlug): JsonResponse
+  {
+    $category = Category::where('type', Term::class)
+      ->where('slug', $categorySlug)
+      ->first();
+
+    $terms = $this->getCategoriablesQuery(Term::class, $category)
+      ->vocabulary()
+      ->where('show_in_vocabulary', '=', true)
+      ->paginate(30);
+
+
+    return response()->json(collect($terms));
+  }
+
+  public function store(Request $request)
+  {
+    $request->validate([
+      'name' => 'required',
+      'type' => 'required'
+    ]);
+
+    $newCategory = new Category(
+      $request->only(['name', 'description', 'type'])
+    );
+
+    $parent = Category::find($request->parentId);
+
+    $newCategory->save();
+
+    if ($parent) {
+      $newCategory->appendToNode($parent)->save();
     }
 
-    public function showQuotes($categorySlug)
-    {
-        $category = $this->getCategory(Quote::class, $categorySlug);
+    return $newCategory;
+  }
 
-        $categories = Category::quote()->get()->toTree()->unique('name');
+  public function update(Category $category, Request $request)
+  {
+    $category->update($request->all());
 
-        return view('shows.category', compact('category', 'categories'));
+    return $category;
+  }
+
+  public function destroy(Category $category)
+  {
+    $this->redirectService->registerModelRemoval($category);
+    $category->delete();
+  }
+
+  /**
+   * Helpers
+   */
+
+  private function getCategory($categoriable, $slug, callable $queries = null)
+  {
+    $category = Category::where('type', $categoriable)
+      ->where('slug', $slug)
+      ->first();
+
+    if (!$category) {
+      abort(404);
     }
 
-    public function getShowQuotes($categorySlug): JsonResponse
-    {
-        $categories = $this->getCategory(Quote::class, $categorySlug);
+    $categoriablesQuery = $this->getCategoriablesQuery($categoriable, $category);
 
-        return response()->json(collect($categories));
+    $category->categoriables = $categoriablesQuery
+      ->published('desc')
+      ->paginate(20);
+
+    return $category;
+  }
+
+  private function getCategoriablesQuery($model, $category)
+  {
+    $categoryIds[] = $category->id;
+
+    $categoriableIds = $this->getCategoriableIds($categoryIds, $model);
+
+    $categoriablesQuery = $model::whereIn('id', $categoriableIds);
+
+    if ($model == 'App\\Quote') {
+      return $categoriablesQuery->with([
+        'author:id,name,slug',
+        'categories:id,name,slug',
+        'post'
+      ]);
+    };
+
+    if ($model == 'App\\Term') {
+      return $categoriablesQuery->with([
+        'categories',
+        'termType',
+        'post'
+      ]);
+    };
+
+    if ($model == 'App\\Video') {
+      return $categoriablesQuery->with([
+        'channel',
+        'favorites',
+        'categories',
+        'post'
+      ]);
     }
+  }
 
-    public function showTerms($categorySlug)
-    {
-        $category = $this->getCategory(Term::class,
-            $categorySlug,
-            function ($categoriesQuery) {
-                return $categoriesQuery->orderBy('term_type_id', 'asc');
-            }
-        );
-
-        $categories = Category::term()->get()->toTree()->unique('name');
-
-        return view('shows.category', compact('category', 'categories'));
-    }
-
-    public function getShowTerms($categorySlug): JsonResponse
-    {
-        $category = $this->getCategory(Term::class,
-            $categorySlug,
-            function ($categoriesQuery) {
-                return $categoriesQuery->orderBy('term_type_id', 'asc');
-            }
-        );
-
-        return response()->json(collect($category));
-    }
-
-    public function showVideos($categorySlug)
-    {
-        $category = $this->getCategory(Video::class, $categorySlug);
-
-        $categories = Category::where('type', 'App\Video')->get()->toTree()->unique('name');
-
-        return view('shows.category', compact('category', 'categories'));
-    }
-
-    public function getShowVideos($categorySlug): JsonResponse
-    {
-        $category = $this->getCategory(Video::class, $categorySlug);
-
-        return response()->json(collect($category));
-    }
-
-    public function showVocabulary($categorySlug)
-    {
-        $category = Category::where('type', Term::class)
-            ->where('slug', $categorySlug)
-            ->first();
-
-        $categories = Category::term()->get()->toTree()->unique('name');
-
-        return view('vocabulary', compact('category', 'categories'));
-    }
-
-    public function getShowVocabulary($categorySlug): JsonResponse
-    {
-        $category = Category::where('type', Term::class)
-            ->where('slug', $categorySlug)
-            ->first();
-
-        $terms = $this->getCategoriablesQuery(Term::class, $category)
-            ->vocabulary()
-            ->get();
-
-        return response()->json(collect([$category, $terms]));
-    }
-
-    public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required',
-            'type' => 'required'
-        ]);
-
-        $newCategory = new Category(
-            $request->only(['name', 'description', 'type'])
-        );
-
-        $parent = Category::find($request->parentId);
-
-        $newCategory->save();
-
-        if ($parent) {
-            $newCategory->appendToNode($parent)->save();
-        }
-
-        return $newCategory;
-    }
-
-    public function update(Category $category, Request $request)
-    {
-        $category->update($request->all());
-
-        return $category;
-    }
-
-    public function destroy(Category $category)
-    {
-        $this->redirectService->registerModelRemoval($category);
-        $category->delete();
-    }
-
-    /**
-     * Helpers
-     */
-
-    private function getCategory($categoriable, $slug, callable $queries = null)
-    {
-        $category = Category::where('type', $categoriable)
-            ->where('slug', $slug)
-            ->first();
-
-        if (!$category) {
-            abort(404);
-        }
-
-        $categoriablesQuery = $this->getCategoriablesQuery($categoriable, $category);
-
-        $category->categoriables = $categoriablesQuery
-            ->published('desc')
-            ->paginate(20);
-
-        return $category;
-    }
-
-    private function getCategoriablesQuery($model, $category)
-    {
-        $categoryIds[] = $category->id;
-
-        $categoriableIds = $this->getCategoriableIds($categoryIds, $model);
-
-        $categoriablesQuery = $model::whereIn('id', $categoriableIds);
-
-        if ($model == 'App\\Quote') {
-            return $categoriablesQuery->with([
-                'author:id,name,slug',
-                'categories:id,name,slug',
-                'post'
-            ]);
-        };
-
-        if ($model == 'App\\Term') {
-            return $categoriablesQuery->with([
-                'categories',
-                'termType',
-                'post'
-            ]);
-        };
-
-        if ($model == 'App\\Video') {
-            return $categoriablesQuery->with([
-                'channel',
-                'favorites',
-                'categories',
-                'post'
-            ]);
-        }
-    }
-
-    private function getCategoriableIds($categoryIds, $categoriable)
-    {
-        return DB::table('categoriables')
-            ->where('categoriable_type', $categoriable)
-            ->whereIn('category_id', $categoryIds)
-            ->distinct('categoriable_id')
-            ->select('categoriable_id')
-            ->get()
-            ->pluck('categoriable_id');
-    }
+  private function getCategoriableIds($categoryIds, $categoriable)
+  {
+    return DB::table('categoriables')
+      ->where('categoriable_type', $categoriable)
+      ->whereIn('category_id', $categoryIds)
+      ->distinct('categoriable_id')
+      ->select('categoriable_id')
+      ->get()
+      ->pluck('categoriable_id');
+  }
 }

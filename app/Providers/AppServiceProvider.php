@@ -5,17 +5,13 @@ namespace App\Providers;
 use App\Author;
 use App\Category;
 use App\Channel;
-use App\Contracts\Likeable;
 use App\Http\View\Composers\CategoriesSidebar;
 use App\Http\View\Composers\CountItemsComposer;
 use App\Http\View\Composers\DailyPostsComposer;
 use App\Http\View\Composers\MetatagsComposer;
 use App\Knowledge;
 use App\Observers\SluggableObserver;
-use App\User;
 use ChristianKuri\LaravelFavorite\Models\Favorite;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Auth\Access\Response;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Passport\Passport;
@@ -67,18 +63,5 @@ class AppServiceProvider extends ServiceProvider
         Author::observe(SluggableObserver::class);
         Channel::observe(SluggableObserver::class);
         Knowledge::observe(SluggableObserver::class);
-
-        // user->can('like', $post)
-        Gate::define('like', function (User $user, Likeable $likeable) {
-            if (!$likeable->exists) {
-                return Response::deny("Cannot like an object that doesn't exists");
-            }
-
-            if (!$user->hasLiked($likeable)) {
-                return Response::deny("Cannot unlike without liking first");
-            }
-
-            return Response::allow();
-        });
     }
 }

@@ -5,13 +5,17 @@
         md="5"
         sm="6"
         class="fill-height col-12"
+        order="1"
     >
         <!-- For small display -->
         <v-col class="hidden-sm-and-up pa-0">
             <v-expansion-panels flat>
                 <v-expansion-panel>
                     <v-expansion-panel-header class="text-uppercase font-weight-medium">
-                        цитаты по темам
+                        <span v-if="categoryType == '/quotes/'">цитаты по темам</span>
+                        <span v-if="categoryType == '/terms/'">термины по темам</span>
+                        <span v-if="categoryType == '/videos/'">видео по темам</span>
+                        <span v-if="categoryType == '/vocabulary/'">словарь по темам</span>
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
                         <v-list-item
@@ -52,7 +56,22 @@
 
         <!-- For Large display -->
         <v-col class="fill-height hidden-xs-only pa-0">
-            <h5 class="text-uppercase font-weight-normal py-4 mb-0">цитаты по темам</h5>
+            <h5
+                class="text-uppercase font-weight-normal py-4 mb-0"
+                v-if="categoryType == '/quotes/'"
+            >цитаты по темам</h5>
+            <h5
+                class="text-uppercase font-weight-normal py-4 mb-0"
+                v-if="categoryType == '/terms/'"
+            >термины по темам</h5>
+            <h5
+                class="text-uppercase font-weight-normal py-4 mb-0"
+                v-if="categoryType == '/videos/'"
+            >видео по темам</h5>
+            <h5
+                class="text-uppercase font-weight-normal py-4 mb-0"
+                v-if="categoryType == '/vocabulary/'"
+            >словарь по темам</h5>
             <v-card
                 rounded="lg"
                 elevation="0"
@@ -118,7 +137,7 @@ export default {
                 }
             }
         }
-    }
+    },
 };
 </script>
 

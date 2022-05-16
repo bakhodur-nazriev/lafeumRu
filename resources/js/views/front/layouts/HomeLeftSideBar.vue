@@ -5,8 +5,8 @@
         md="5"
         sm="6"
         class="fill-height col-12"
+        order="1"
     >
-
         <v-col class="hidden-sm-and-up pa-0">
             <v-expansion-panels flat>
                 <v-expansion-panel>

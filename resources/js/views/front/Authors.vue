@@ -1,5 +1,5 @@
 <template>
-    <v-col xl="7" lg="8">
+    <v-col xl="7" lg="8" order="3" order-lg="2">
         <h5 class="text-uppercase font-weight-regular py-4 pb-2">Авторы</h5>
         <p>Полный список всех авторов по алфавиту, а также есть возможность поиска.</p>
         <v-col sm="12" md="6" class="d-flex align-items-center pl-0 mb-3">
@@ -48,7 +48,15 @@
                         class="pa-1"
                         :key="i"
                     >
-                        <list-of-author :item="author"></list-of-author>
+                        <a
+                            v-for="(child ,i) in author.children"
+                            :key="i"
+                            :href="'/authors/' + child.slug"
+                            class="author-words text-decoration-none d-block fit"
+                            target="_blank"
+                        >
+                            {{ child.name }}
+                        </a>
                     </v-card-text>
                 </v-card>
             </v-col>
@@ -57,12 +65,8 @@
 </template>
 
 <script>
-import ListOfAuthor from "./ListOfChildren/ListOfAuthor";
 
 export default {
-    components: {
-        ListOfAuthor
-    },
     name: "Authors",
     data() {
         return {
@@ -140,5 +144,14 @@ export default {
 .search-field {
     border: 2px solid #9B9B9B;
     border-right: none;
+}
+
+.author-words {
+    color: #494949;
+    width: fit-content;
+}
+
+.author-words:hover {
+    color: #1a718c;
 }
 </style>

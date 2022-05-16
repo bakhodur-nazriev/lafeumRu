@@ -1,5 +1,5 @@
 <template>
-    <v-col xl="5" lg="6">
+    <v-col xl="5" lg="6" order="3" order-lg="2">
         <h5 class="text-uppercase font-weight-regular py-4 mb-0">{{ category.name }}</h5>
         <p class="mb-4">{{ category.description }}</p>
 

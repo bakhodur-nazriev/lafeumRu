@@ -1,5 +1,5 @@
 <template>
-    <v-col xl="5">
+    <v-col xl="5" order="3" order-lg="2">
         <h5 class="text-uppercase font-weight-regular py-2 mb-0">Каналы</h5>
         <v-col class="pa-1">
             <h3 class="blue--text">{{ currentChannel.name }}</h3>

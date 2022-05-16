@@ -1,5 +1,5 @@
 <template>
-    <v-col xl="5" lg="6">
+    <v-col xl="5" lg="6" order="3" order-lg="2">
         <v-col class="px-1">
             <h5 class="text-uppercase font-weight-regular pb-3 mb-0">Цитаты и Афоризмы</h5>
             <p>

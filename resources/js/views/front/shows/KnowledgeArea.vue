@@ -1,5 +1,5 @@
 <template>
-    <v-col xl="5" lg="6" class="knowledge-show-main-block">
+    <v-col xl="5" lg="6" class="knowledge-show-main-block" order="3" order-lg="2">
         <v-col cols="12" class="d-flex justify-center" v-if="loading">
             <v-progress-circular
                 width="5"
@@ -12,8 +12,7 @@
             <h5 class="text-uppercase font-weight-regular pt-md-3 pb-2 mb-0">
                 {{ currentKnowledge.name }}
             </h5>
-            <p
-                v-if="currentKnowledge.description" class="mb-4" v-html="currentKnowledge.description"></p>
+            <p v-if="currentKnowledge.description" class="mb-4" v-html="currentKnowledge.description"></p>
         </v-col>
         <v-col cols="12" class="pa-0">
             <term-item

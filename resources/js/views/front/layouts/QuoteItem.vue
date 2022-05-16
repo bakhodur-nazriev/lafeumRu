@@ -11,7 +11,7 @@
             </a>
             <v-spacer></v-spacer>
             <a
-                class="grey--text quote-id"
+                class="quote-id grey--text text-decoration-none"
                 :href="'/' + item.post.id"
                 target="_blank"
             >
@@ -21,37 +21,26 @@
 
         <v-divider class="m-0 grey lighten-3"></v-divider>
 
-        <v-card-text class="px-3 py-2 main-quotes-body">
-            <v-col
-                :class="{'truncate-to-fifteen-line': isActive}"
-                class="text-justify mb-1 pa-0 quote-body"
-            >
-                <span class="font-weight-regular quote-body" v-html="item.body"></span>
+        <v-card-text class="px-3 py-2">
+            <v-col class="pa-0 quote-body">
+                <p
+                    class="font-italic grey--text text--darken-3 d-flex caption mb-2"
+                    v-if="item.authors_thoughts"
+                >
+                    <span v-html="item.authors_thoughts"></span>
+                </p>
+                <vue-read-more-smooth :lines="15">
+                    <span class="font-weight-regular quote-body" v-html="item.body"></span>
+                    <template v-slot:more="value">
+                        <div class="button-read-more">
+                            {{ value.open ? "Скрыть" : "Читать далее..." }}
+                        </div>
+                    </template>
+                </vue-read-more-smooth>
             </v-col>
-            <v-row class="text-right button-read-more">
-                <v-spacer></v-spacer>
-                <v-col v-if="isActive == true">
-                    <span
-                        @click="readMore()"
-                        class="read-more-btn"
-                    >
-                        Читать дальше...
-                        <v-icon small color="grey">mdi-chevron-down</v-icon>
-                    </span>
-                </v-col>
-                <v-col v-else>
-                    <span
-                        @click="readMore()"
-                        class="read-more-btn"
-                    >
-                        Скрыть
-                        <v-icon small color="grey">mdi-chevron-up</v-icon>
-                    </span>
-                </v-col>
-            </v-row>
             <v-col class="categories-block pa-0">
                 <a
-                    class="mr-2 font-weight-light"
+                    class="mr-2 font-italic"
                     v-for="(category, i) in item.categories"
                     :key="i"
                     :href="'/quotes/' + category.slug"
@@ -63,23 +52,6 @@
         </v-card-text>
         <v-divider class="m-0 grey lighten-3"></v-divider>
         <v-card-actions class="pa-0 px-1">
-            <v-col class="pa-0">
-                <v-btn
-                    icon
-                    small
-                    @click="likeQuote()"
-                >
-                    <v-icon size="20" :color="isLiked ? 'red' : 'grey lighten-1'">mdi-heart</v-icon>
-                </v-btn>
-                <span>{{ isLiked ? 1 : 0 }}</span>
-                <v-btn
-                    icon
-                    small
-                    @click="addToFavourite()"
-                >
-                    <v-icon size="20" :color="isFavourited ? 'grey lighten-1' : 'primary'">mdi-bookmark</v-icon>
-                </v-btn>
-            </v-col>
             <v-spacer></v-spacer>
             <share-button :post="item.post"></share-button>
         </v-card-actions>
@@ -88,10 +60,11 @@
 
 <script>
 import ShareButton from "../../../components/ShareButton";
+import VueReadMoreSmooth from "vue-read-more-smooth";
 
 export default {
     props: ["quote"],
-    components: {ShareButton},
+    components: {ShareButton, VueReadMoreSmooth},
     data() {
         return {
             item: this.quote,
@@ -136,33 +109,29 @@ export default {
             });
         }
     },
-
-    mounted() {
-        document.querySelectorAll('.main-quotes-body').forEach(el => {
-            if (el.querySelector('.truncate-to-fifteen-line').textContent.replace(/\s/g, "").length <= 920) {
-                el.querySelector('.button-read-more').style.display = "none";
-            } else {
-                el.querySelector('.button-read-more').style.display = "block";
-            }
-        });
-    }
 };
 </script>
 
-<style>
-.quote-id {
-    text-decoration: none !important;
-}
-
+<style scoped>
 .quote-id:hover {
     color: #04718c !important;
 }
 
 .categories-block > a {
     text-decoration: none;
-    color: #424242 !important;
-    caret-color: #424242 !important;
+    color: #646464 !important;
+    caret-color: #646464 !important;
     font-size: 13px;
+}
+
+.button-read-more {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 12px;
+    font-style: italic;
+    cursor: pointer;
+    color: #646464 !important;
+    padding-right: 5px;
 }
 
 .categories-block > a:hover {
@@ -175,16 +144,6 @@ export default {
     color: #000;
 }
 
-.read-more-btn {
-    font-size: 13px;
-    color: grey;
-}
-
-.read-more-btn:hover {
-    color: #04718c;
-    cursor: pointer;
-}
-
 .author-show-link {
     display: flex;
     align-items: center;
@@ -194,15 +153,5 @@ export default {
 
 .author-show-link:hover {
     text-decoration: none;
-}
-
-.truncate-to-fifteen-line {
-    padding: 0;
-    line-height: 1.5;
-    font-size: 14px !important;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 15;
-    -webkit-box-orient: vertical;
 }
 </style>

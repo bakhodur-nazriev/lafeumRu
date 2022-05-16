@@ -2,7 +2,7 @@
 
 @section('meta-tags')
     @include('layouts.meta-tags', [
-        'title' => $channel->name . ". Цитаты, афоризмы и высказывания.",
+        'title' => $channel->name . ". Цитаты, афоризмы и высказывания",
         'description' => $channel->description
     ])
 @endsection

@@ -52,7 +52,7 @@
                     <v-card-text
                         v-for="(term ,i) in vocabulary"
                         :key="i"
-                        class="pa-1 pb-0"
+                        class="pa-0"
                     >
                         <list-of-vocabulary :item="term"></list-of-vocabulary>
                     </v-card-text>
@@ -64,27 +64,23 @@
 
 <script>
 import ListOfVocabulary from "./ListOfChildren/ListOfVocabulary";
-import InfiniteLoading from "vue-infinite-loading";
 
 export default {
     components: {
         ListOfVocabulary,
-        InfiniteLoading,
     },
     data() {
         return {
-            isActive: false,
             search: "",
             terms: [],
             category: [],
-            loading: false,
-            page: 1,
-            cols: 2,
+            cols: 4,
+            path: `/api/front${window.location.pathname}`
         };
     },
     methods: {
-        getVocabulary($state) {
-            let url = `/api/front${window.location.pathname}` ? `/api/front${window.location.pathname}` : '/api/front/vocabulary';
+        getVocabulary() {
+            let url = this.path ? this.path : '/api/front/vocabulary';
             axios
                 .get(url)
                 .then((res) => {
@@ -109,8 +105,15 @@ export default {
             return Object.values(allTerms);
         },
         columns() {
+            const childrenVocabulary = [];
+            this.orderVocabulary.forEach((element) => {
+                element.children.forEach((childElement) => {
+                    childrenVocabulary.push(childElement)
+                });
+            });
+
             let columns = [];
-            let mid = Math.ceil(this.orderVocabulary.length / this.cols);
+            let mid = Math.ceil(childrenVocabulary.length / this.cols);
             for (let col = 0; col < this.cols; col++) {
                 columns.push(this.orderVocabulary.slice(col * mid, col * mid + mid));
             }

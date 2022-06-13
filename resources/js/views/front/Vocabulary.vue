@@ -83,25 +83,12 @@ export default {
         };
     },
     methods: {
-        getVocabulary() {
-            this.loading = true;
+        getVocabulary($state) {
             let url = `/api/front${window.location.pathname}` ? `/api/front${window.location.pathname}` : '/api/front/vocabulary';
-
             axios
                 .get(url)
                 .then((res) => {
-                    console.log(res)
-                    this.loading = false;
                     this.terms = res.data;
-
-                    if (res.data[0].slug) {
-                        this.category = res.data[0];
-                        this.terms = res.data[1];
-                    }
-                })
-                .catch((err) => {
-                    this.loading = false;
-                    console.log(err)
                 })
         },
         clearVocabulary() {

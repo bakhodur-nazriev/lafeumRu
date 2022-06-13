@@ -43,5 +43,4 @@ Route::group(["middleware" => "auth"], function () {
     Route::get("/terms/links-search", "TermsController@linksSearch")->name("terms.search");
     /* Should be on bottom */
     Route::get("/{post}", "PostsController@show")->name('post');
-
 });

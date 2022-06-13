@@ -74,7 +74,7 @@ export default {
             search: "",
             terms: [],
             category: [],
-            cols: 4,
+            cols: 2,
             path: `/api/front${window.location.pathname}`
         };
     },
@@ -89,6 +89,13 @@ export default {
         },
         clearVocabulary() {
             this.filteredVocabulary = this.terms;
+        },
+        splitArrayIntoChunksOfLen(arr, len) {
+            let chunks = [], i = 0, n = arr.length;
+            while (i < n) {
+                chunks.push(arr.slice(i, i += len));
+            }
+            return chunks;
         },
     },
     mounted() {
@@ -105,19 +112,8 @@ export default {
             return Object.values(allTerms);
         },
         columns() {
-            const childrenVocabulary = [];
-            this.orderVocabulary.forEach((element) => {
-                element.children.forEach((childElement) => {
-                    childrenVocabulary.push(childElement)
-                });
-            });
-
-            let columns = [];
-            let mid = Math.ceil(childrenVocabulary.length / this.cols);
-            for (let col = 0; col < this.cols; col++) {
-                columns.push(this.orderVocabulary.slice(col * mid, col * mid + mid));
-            }
-            return columns;
+            let mid = Math.ceil(this.terms.length / this.cols);
+            return this.splitArrayIntoChunksOfLen(this.terms, mid);
         },
         filteredVocabulary: {
             get() {

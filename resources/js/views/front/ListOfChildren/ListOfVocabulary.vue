@@ -1,55 +1,23 @@
 <template>
     <div class="mb-0">
-        <div v-if="path == '/vocabulary'">
-            <v-col class="subtitle-2 pa-0 font-weight-light">
-                <v-hover
-                    v-slot="{ hover }"
-                    v-for="(child ,i) in item.children"
-                    :key="i"
+        <v-col class="subtitle-2 pa-0 font-weight-light">
+            <v-hover v-slot="{ hover }">
+                <a
+                    :href="'/' + `${path === '/vocabulary' ? item.id : item.post.id}`"
+                    target="_blank"
+                    class="vocabulary-words text-decoration-none d-block"
                 >
-                    <a
-                        :href="'/' + `${path === '/vocabulary' ? child.id : child.post.id}`"
-                        target="_blank"
-                        class="vocabulary-words text-decoration-none d-block"
+                    <span>{{ item.name }}</span>
+                    <v-card
+                        v-show="hover"
+                        elevation="18"
+                        class="vocabulary-body rounded-lg pa-3"
                     >
-                        <span>{{ child.name }}</span>
-                        <v-card
-                            elevation="18"
-                            class="vocabulary-body rounded-lg pa-3"
-                            v-show="hover"
-                        >
-                            <div v-html="child.body" style="overflow: hidden; max-height: 195px;"></div>
-                        </v-card>
-                    </a>
-                </v-hover>
-            </v-col>
-        </div>
-
-        <div v-else>
-            <h4 class="vocabulary-letter text-decoration-none mb-0 font-weight-bold">{{ item.group }}</h4>
-            <v-col class="subtitle-2 pa-0 font-weight-light">
-                <v-hover
-                    v-slot="{ hover }"
-                    v-for="(child ,i) in item.children"
-                    :key="i"
-                >
-                    <a
-                        :href="'/' + `${path === '/vocabulary' ? child.id : child.post.id}`"
-                        target="_blank"
-                        class="vocabulary-words text-decoration-none d-block"
-                    >
-                        <span>{{ child.name }}</span>
-                        <v-card
-                            elevation="18"
-                            class="vocabulary-body rounded-lg pa-3"
-                            v-show="hover"
-                        >
-                            <div v-html="child.body" style="overflow: hidden; max-height: 195px;"></div>
-                        </v-card>
-                    </a>
-                </v-hover>
-            </v-col>
-        </div>
+                        <div v-html="item.body" style="overflow: hidden; max-height: 195px;"></div>
+                    </v-card>
+                </a>
+            </v-hover>
+        </v-col>
     </div>
 </template>
 

@@ -1,23 +1,19 @@
 <template>
     <div class="mb-0">
         <v-col class="subtitle-2 pa-0 font-weight-light">
-            <v-hover
-                v-slot="{ hover }"
-                v-for="(child ,i) in item.children"
-                :key="i"
-            >
+            <v-hover v-slot="{ hover }">
                 <a
-                    :href="'/' + `${path === '/vocabulary' ? child.id : child.post.id}`"
+                    :href="'/' + `${path === '/vocabulary' ? item.id : item.post.id}`"
                     target="_blank"
                     class="vocabulary-words text-decoration-none d-block"
                 >
-                    <span>{{ child.name }}</span>
+                    <span>{{ item.name }}</span>
                     <v-card
+                        v-show="hover"
                         elevation="18"
                         class="vocabulary-body rounded-lg pa-3"
-                        v-show="hover"
                     >
-                        <div v-html="child.body" style="overflow: hidden; max-height: 195px;"></div>
+                        <div v-html="item.body" style="overflow: hidden; max-height: 195px;"></div>
                     </v-card>
                 </a>
             </v-hover>

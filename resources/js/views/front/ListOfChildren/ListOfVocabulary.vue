@@ -46,6 +46,10 @@ export default {
     color: #494949;
     width: fit-content;
     font-weight: normal;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 100%;
+    white-space: nowrap;
 }
 
 .vocabulary-words:hover {

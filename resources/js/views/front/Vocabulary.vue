@@ -71,10 +71,11 @@ export default {
     },
     data() {
         return {
+            cols: 2,
             search: "",
             terms: [],
             category: [],
-            cols: 2,
+            widthOfWindow: window.innerWidth,
             path: `/api/front${window.location.pathname}`
         };
     },
@@ -90,30 +91,34 @@ export default {
         clearVocabulary() {
             this.filteredVocabulary = this.terms;
         },
-        splitArrayIntoChunksOfLen(arr, len) {
-            let chunks = [], i = 0, n = arr.length;
-            while (i < n) {
-                chunks.push(arr.slice(i, i += len));
-            }
-            return chunks;
-        },
     },
     mounted() {
         this.getVocabulary();
     },
     computed: {
-        orderVocabulary() {
-            let allTerms = this.terms.reduce((r, e) => {
-                let group = e.name[0];
-                if (!r[group]) r[group] = {group, children: [e]};
-                else r[group].children.push(e);
-                return r;
-            }, {});
-            return Object.values(allTerms);
-        },
         columns() {
+            let columns = [];
             let mid = Math.ceil(this.terms.length / this.cols);
-            return this.splitArrayIntoChunksOfLen(this.terms, mid);
+
+            if (this.widthOfWindow > 960) {
+                for (let col = 0; col < this.cols; col++) {
+                    columns.push(this.terms.slice(col * mid, col * mid + mid));
+                }
+
+                if (columns[0].length !== columns[1].length) {
+                    columns[1].push({
+                        id: columns[1].length + 1,
+                        name: "",
+                        post: {
+                            id: columns[1].length + 1,
+                        }
+                    });
+                }
+            } else {
+                columns.push(this.terms);
+            }
+
+            return columns;
         },
         filteredVocabulary: {
             get() {

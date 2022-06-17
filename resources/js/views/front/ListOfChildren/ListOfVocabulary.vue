@@ -49,6 +49,7 @@ export default {
     text-overflow: ellipsis;
     overflow: hidden;
     max-width: 100%;
+    min-height: 22px;
     white-space: nowrap;
 }
 

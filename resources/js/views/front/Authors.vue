@@ -2,7 +2,7 @@
     <v-col xl="7" lg="8" order="3" order-lg="2">
         <h5 class="text-uppercase font-weight-regular py-4 pb-2">Авторы</h5>
         <p>Полный список всех авторов по алфавиту, а также есть возможность поиска.</p>
-        <v-col sm="12" md="6" class="d-flex align-items-center pl-0 mb-3">
+        <v-col sm="12" md="7" class="d-flex align-items-center pl-0 mb-3">
             <v-col class="d-flex rounded-lg pa-0">
                 <v-text-field
                     solo
@@ -40,22 +40,20 @@
             <v-col
                 :key="i"
                 v-for="(authors, i) in filteredAuthors"
-                class="fill-height col-md-4 col-12"
+                class="fill-height col-lg-4 col-md-"
             >
                 <v-card rounded="lg" class="px-6 py-4" flat>
                     <v-card-text
                         v-for="(author ,i) in authors"
-                        class="pa-1"
+                        class="pa-0"
                         :key="i"
                     >
                         <a
-                            v-for="(child ,i) in author.children"
-                            :key="i"
-                            :href="'/authors/' + child.slug"
+                            :href="'/authors/' + author.slug"
                             class="author-words text-decoration-none d-block fit"
                             target="_blank"
                         >
-                            {{ child.name }}
+                            {{ author.name }}
                         </a>
                     </v-card-text>
                 </v-card>
@@ -73,7 +71,8 @@ export default {
             search: "",
             authors: [],
             loading: false,
-            cols: 3
+            cols: 3,
+            widthOfWindow: window.innerWidth
         };
     },
     methods: {
@@ -98,23 +97,18 @@ export default {
         this.getAuthors();
     },
     computed: {
-        orderAuthors() {
-            let allAuthors = this.authors.reduce((r, e) => {
-                let group = e.name[0];
-                if (!r[group]) r[group] = {group, children: [e]}
-                else r[group].children.push(e);
-                return r;
-            }, {})
-            let letters = Object.values(allAuthors);
-
-            return letters.sort((a, b) => (a.group > b.group) ? 1 : -1);
-        },
         columns() {
             let columns = [];
-            let mid = Math.ceil(this.orderAuthors.length / this.cols);
-            for (let col = 0; col < this.cols; col++) {
-                columns.push(this.orderAuthors.slice(col * mid, col * mid + mid));
+            let mid = Math.floor(this.authors.length / this.cols);
+
+            if (this.widthOfWindow > 960) {
+                for (let col = 0; col < this.cols; col++) {
+                    columns.push(this.authors.slice(col * mid, col * mid + mid));
+                }
+            } else {
+                columns.push(this.authors);
             }
+
             return columns;
         },
         filteredAuthors: {
@@ -149,6 +143,11 @@ export default {
 .author-words {
     color: #494949;
     width: fit-content;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 100%;
+    min-height: 22px;
+    white-space: nowrap;
 }
 
 .author-words:hover {

@@ -42,7 +42,15 @@
             </div>
         </v-col>
 
-        <v-row justify="center">
+        <v-col cols="12" class="d-flex justify-center" v-if="loading">
+            <v-progress-circular
+                width="5"
+                size="48"
+                indeterminate
+                color="primary"
+            ></v-progress-circular>
+        </v-col>
+        <v-row v-else justify="center">
             <v-col
                 v-for="(vocabulary, i) in filteredVocabulary"
                 :key="i"
@@ -73,6 +81,7 @@ export default {
         return {
             cols: 2,
             search: "",
+            loading: false,
             terms: [],
             category: [],
             widthOfWindow: window.innerWidth,
@@ -81,11 +90,17 @@ export default {
     },
     methods: {
         getVocabulary() {
+            this.loading = true;
             let url = this.path ? this.path : '/api/front/vocabulary';
             axios
                 .get(url)
                 .then((res) => {
+                    this.loading = false;
                     this.terms = res.data;
+                })
+                .catch(err => {
+                    this.loading = false;
+                    console.log(err);
                 })
         },
         clearVocabulary() {

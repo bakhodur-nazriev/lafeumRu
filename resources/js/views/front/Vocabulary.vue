@@ -138,12 +138,9 @@ export default {
         filteredVocabulary: {
             get() {
                 if (this.search) {
-                    return this.columns.map((terms) => {
-                        return terms.map((term) => {
-                            const children = term.children.filter((child) => {
-                                return (child.name.toLowerCase().includes(this.search.toLowerCase()) || this.search.includes(child.name));
-                            });
-                            return {...term, children};
+                    return this.columns.map(terms => {
+                        return terms.filter(term => {
+                            return term.name.toLowerCase().includes(this.search.toLowerCase());
                         });
                     });
                 } else {

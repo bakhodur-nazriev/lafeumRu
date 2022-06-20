@@ -38,8 +38,8 @@
         </v-col>
         <v-row v-else>
             <v-col
-                :key="i"
                 v-for="(authors, i) in filteredAuthors"
+                :key="i"
                 class="fill-height col-lg-4 col-md-"
             >
                 <v-card rounded="lg" class="px-6 py-4" flat>
@@ -115,11 +115,8 @@ export default {
             get() {
                 if (this.search) {
                     return this.columns.map(authors => {
-                        return authors.map(author => {
-                            const children = author.children.filter(child => {
-                                return child.name.toLowerCase().includes(this.search.toLowerCase()) || this.search.includes(child.name)
-                            });
-                            return {...author, children}
+                        return authors.filter(author => {
+                            return author.name.toLowerCase().includes(this.search.toLowerCase());
                         })
                     });
                 } else {

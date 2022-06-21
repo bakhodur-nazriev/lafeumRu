@@ -57,7 +57,7 @@ class TermsController extends Controller
             ->where('publish_at', '<=', Carbon::now())
             ->where('deleted_at', '=', null)
             ->orderBy('name')
-            ->get();
+            ->paginate(50);
 
         return response()->json($vocabulary);
     }

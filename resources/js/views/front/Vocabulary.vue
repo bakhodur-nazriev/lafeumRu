@@ -42,15 +42,7 @@
             </div>
         </v-col>
 
-        <v-col cols="12" class="d-flex justify-center" v-if="loading">
-            <v-progress-circular
-                width="5"
-                size="48"
-                indeterminate
-                color="primary"
-            ></v-progress-circular>
-        </v-col>
-        <v-row v-else justify="center">
+        <v-row justify="center">
             <v-col
                 v-for="(vocabulary, i) in filteredVocabulary"
                 :key="i"
@@ -66,22 +58,27 @@
                     </v-card-text>
                 </v-card>
             </v-col>
+            <infinite-loading @disance="1" @infinite="getVocabulary">
+                <span slot="no-results"></span>
+            </infinite-loading>
         </v-row>
     </v-col>
 </template>
 
 <script>
 import ListOfVocabulary from "./ListOfChildren/ListOfVocabulary";
+import InfiniteLoading from "vue-infinite-loading";
 
 export default {
     components: {
         ListOfVocabulary,
+        InfiniteLoading
     },
     data() {
         return {
             cols: 2,
+            page: 1,
             search: "",
-            loading: false,
             terms: [],
             category: [],
             widthOfWindow: window.innerWidth,
@@ -89,19 +86,24 @@ export default {
         };
     },
     methods: {
-        getVocabulary() {
-            this.loading = true;
+        getVocabulary($state) {
             let url = this.path ? this.path : '/api/front/vocabulary';
             axios
-                .get(url)
-                .then((res) => {
-                    this.loading = false;
-                    this.terms = res.data;
+                .get(url + "?page=" + this.page)
+                .then(res => {
+                    console.log(res.data);
+                    if (res.data.data.length || res.data.length) {
+                        this.page += 1;
+                        this.terms.push(...res.data.data);
+                        $state.loaded();
+                    } else {
+                        $state.complete();
+                    }
                 })
                 .catch(err => {
-                    this.loading = false;
                     console.log(err);
                 })
+            this.page += 1;
         },
         clearVocabulary() {
             this.filteredVocabulary = this.terms;

@@ -125,7 +125,7 @@ class CategoriesController extends Controller
         $terms = $this->getCategoriablesQuery(Term::class, $category)
             ->vocabulary()
             ->where('show_in_vocabulary', '=', true)
-            ->get();
+            ->paginate(50);
 
         return response()->json(collect($terms));
     }

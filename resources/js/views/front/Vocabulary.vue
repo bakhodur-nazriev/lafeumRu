@@ -52,7 +52,7 @@
                     <v-card-text
                         v-for="(term ,i) in vocabulary"
                         :key="i"
-                        class="pa-1 pb-0"
+                        class="pa-0"
                     >
                         <list-of-vocabulary :item="term"></list-of-vocabulary>
                     </v-card-text>
@@ -64,43 +64,31 @@
 
 <script>
 import ListOfVocabulary from "./ListOfChildren/ListOfVocabulary";
-import InfiniteLoading from "vue-infinite-loading";
 
 export default {
     components: {
         ListOfVocabulary,
-        InfiniteLoading,
     },
     data() {
         return {
-            isActive: false,
+            cols: 2,
+            page: 1,
             search: "",
             terms: [],
             category: [],
-            loading: false,
-            page: 1,
-            cols: 2,
+            widthOfWindow: window.innerWidth,
+            path: `/api/front${window.location.pathname}`
         };
     },
     methods: {
         getVocabulary() {
-            this.loading = true;
-            let url = `/api/front${window.location.pathname}` ? `/api/front${window.location.pathname}` : '/api/front/vocabulary';
-
+            let url = this.path ? this.path : '/api/front/vocabulary';
             axios
                 .get(url)
-                .then((res) => {
-                    console.log(res)
-                    this.loading = false;
+                .then(res => {
                     this.terms = res.data;
-
-                    if (res.data[0].slug) {
-                        this.category = res.data[0];
-                        this.terms = res.data[1];
-                    }
                 })
-                .catch((err) => {
-                    this.loading = false;
+                .catch(err => {
                     console.log(err)
                 })
         },
@@ -112,32 +100,33 @@ export default {
         this.getVocabulary();
     },
     computed: {
-        orderVocabulary() {
-            let allTerms = this.terms.reduce((r, e) => {
-                let group = e.name[0];
-                if (!r[group]) r[group] = {group, children: [e]};
-                else r[group].children.push(e);
-                return r;
-            }, {});
-            return Object.values(allTerms);
-        },
         columns() {
             let columns = [];
-            let mid = Math.ceil(this.orderVocabulary.length / this.cols);
-            for (let col = 0; col < this.cols; col++) {
-                columns.push(this.orderVocabulary.slice(col * mid, col * mid + mid));
+            let mid = Math.ceil(this.terms.length / this.cols);
+            if (this.widthOfWindow > 960) {
+                for (let col = 0; col < this.cols; col++) {
+                    columns.push(this.terms.slice(col * mid, col * mid + mid));
+                }
+                if (columns[0].length !== columns[1].length) {
+                    columns[1].push({
+                        id: columns[1].length + 1,
+                        name: "",
+                        post: {
+                            id: columns[1].length + 1,
+                        }
+                    });
+                }
+            } else {
+                columns.push(this.terms);
             }
             return columns;
         },
         filteredVocabulary: {
             get() {
                 if (this.search) {
-                    return this.columns.map((terms) => {
-                        return terms.map((term) => {
-                            const children = term.children.filter((child) => {
-                                return (child.name.toLowerCase().includes(this.search.toLowerCase()) || this.search.includes(child.name));
-                            });
-                            return {...term, children};
+                    return this.columns.map(terms => {
+                        return terms.filter(term => {
+                            return term.name.toLowerCase().includes(this.search.toLowerCase());
                         });
                     });
                 } else {

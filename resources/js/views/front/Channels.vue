@@ -45,18 +45,10 @@
                 <v-card rounded="lg" class="px-6 py-4" flat>
                     <v-card-text
                         v-for="(channel ,i) in channels"
-                        class="pa-1"
+                        class="pa-0"
                         :key="i"
                     >
-                        <a
-                            v-for="(child ,i) in channel.children"
-                            class="vocabulary-words text-decoration-none d-block"
-                            :key="i"
-                            :href="'/channels/' + child.slug"
-                            target="_blank"
-                        >
-                            {{ child.name }}
-                        </a>
+                        <list-of-channel :item="channel"></list-of-channel>
                     </v-card-text>
                 </v-card>
             </v-col>
@@ -65,15 +57,20 @@
 </template>
 
 <script>
+import ListOfChannel from "./ListOfChildren/ListOfChannel";
 
 export default {
     name: "Channels",
+    components: {
+        ListOfChannel
+    },
     data() {
         return {
+            cols: 3,
+            search: "",
             channels: [],
             loading: false,
-            search: "",
-            cols: 3
+            widthOfWindow: window.innerWidth
         }
     },
     methods: {
@@ -98,32 +95,26 @@ export default {
         this.getChannels();
     },
     computed: {
-        orderChannels() {
-            let allChannels = this.channels.reduce((r, e) => {
-                let group = e.name[0].toUpperCase();
-                if (!r[group]) r[group] = {group, children: [e]}
-                else r[group].children.push(e);
-                return r;
-            }, {})
-            return Object.values(allChannels);
-        },
         columns() {
             let columns = [];
-            let mid = Math.ceil(this.orderChannels.length / this.cols);
-            for (let col = 0; col < this.cols; col++) {
-                columns.push(this.orderChannels.slice(col * mid, col * mid + mid));
+            let mid = Math.floor(this.channels.length / this.cols);
+
+            if (this.widthOfWindow > 960) {
+                for (let col = 0; col < this.cols; col++) {
+                    columns.push(this.channels.slice(col * mid, col * mid + mid));
+                }
+            } else {
+                columns.push(this.channels);
             }
+
             return columns;
         },
         filteredChannels: {
             get() {
                 if (this.search) {
                     return this.columns.map(channels => {
-                        return channels.map(channel => {
-                            const children = channel.children.filter(child => {
-                                return child.name.toLowerCase().includes(this.search.toLowerCase()) || this.search.includes(child.name)
-                            });
-                            return {...channel, children}
+                        return channels.filter(channel => {
+                            return channel.name.toLowerCase().includes(this.search.toLowerCase())
                         })
                     });
                 } else {
@@ -142,14 +133,5 @@ export default {
 .search-field {
     border: 2px solid #9B9B9B;
     border-right: none;
-}
-
-.vocabulary-words {
-    color: #494949;
-    width: fit-content;
-}
-
-.vocabulary-words:hover {
-    color: #1a718c;
 }
 </style>

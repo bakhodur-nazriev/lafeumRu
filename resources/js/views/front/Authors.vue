@@ -42,21 +42,13 @@
                 v-for="(authors, i) in filteredAuthors"
                 class="fill-height col-md-4 col-12"
             >
-                <v-card rounded="lg" class="px-6 py-4" flat>
+                <v-card rounded="lg" class="px-7 py-5" flat>
                     <v-card-text
                         v-for="(author ,i) in authors"
-                        class="pa-1"
+                        class="pa-0"
                         :key="i"
                     >
-                        <a
-                            v-for="(child ,i) in author.children"
-                            :key="i"
-                            :href="'/authors/' + child.slug"
-                            class="author-words text-decoration-none d-block fit"
-                            target="_blank"
-                        >
-                            {{ child.name }}
-                        </a>
+                        <list-of-author :item="author"></list-of-author>
                     </v-card-text>
                 </v-card>
             </v-col>
@@ -65,15 +57,20 @@
 </template>
 
 <script>
+import listOfAuthor from "./ListOfChildren/ListOfAuthor";
 
 export default {
     name: "Authors",
+    components: {
+        listOfAuthor
+    },
     data() {
         return {
+            cols: 3,
             search: "",
             authors: [],
             loading: false,
-            cols: 3
+            widthOfWindow: window.innerWidth
         };
     },
     methods: {
@@ -98,34 +95,26 @@ export default {
         this.getAuthors();
     },
     computed: {
-        orderAuthors() {
-            let allAuthors = this.authors.reduce((r, e) => {
-                let group = e.name[0];
-                if (!r[group]) r[group] = {group, children: [e]}
-                else r[group].children.push(e);
-                return r;
-            }, {})
-            let letters = Object.values(allAuthors);
-
-            return letters.sort((a, b) => (a.group > b.group) ? 1 : -1);
-        },
         columns() {
             let columns = [];
-            let mid = Math.ceil(this.orderAuthors.length / this.cols);
-            for (let col = 0; col < this.cols; col++) {
-                columns.push(this.orderAuthors.slice(col * mid, col * mid + mid));
+            let mid = Math.floor(this.authors.length / this.cols);
+
+            if (this.widthOfWindow > 960) {
+                for (let col = 0; col < this.cols; col++) {
+                    columns.push(this.authors.slice(col * mid, col * mid + mid));
+                }
+            } else {
+                columns.push(this.authors);
             }
+
             return columns;
         },
         filteredAuthors: {
             get() {
                 if (this.search) {
                     return this.columns.map(authors => {
-                        return authors.map(author => {
-                            const children = author.children.filter(child => {
-                                return child.name.toLowerCase().includes(this.search.toLowerCase()) || this.search.includes(child.name)
-                            });
-                            return {...author, children}
+                        return authors.filter(author => {
+                            return author.name.toLowerCase().includes(this.search.toLowerCase());
                         })
                     });
                 } else {
@@ -144,14 +133,5 @@ export default {
 .search-field {
     border: 2px solid #9B9B9B;
     border-right: none;
-}
-
-.author-words {
-    color: #494949;
-    width: fit-content;
-}
-
-.author-words:hover {
-    color: #1a718c;
 }
 </style>

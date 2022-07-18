@@ -73,8 +73,8 @@ export default {
         return {
             cols: 2,
             page: 1,
-            search: "",
             terms: [],
+            search: "",
             category: [],
             widthOfWindow: window.innerWidth,
             path: `/api/front${window.location.pathname}`
@@ -86,10 +86,10 @@ export default {
             axios
                 .get(url)
                 .then(res => {
-                    this.terms = res.data;
+                    this.terms.push(...res.data.data);
                 })
                 .catch(err => {
-                    console.log(err)
+                    console.log(err);
                 })
         },
         clearVocabulary() {

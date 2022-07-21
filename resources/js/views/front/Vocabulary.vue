@@ -86,10 +86,16 @@ export default {
             axios
                 .get(url)
                 .then(res => {
-                    this.terms.push(...res.data.data);
+                    if (res.data.length) {
+                        this.terms = res.data;
+                    }
+
+                    if (res.data.data.length) {
+                        this.terms = res.data.data;
+                    }
                 })
-                .catch(err => {
-                    console.log(err);
+                .catch((err) => {
+                    console.log(err)
                 })
         },
         clearVocabulary() {

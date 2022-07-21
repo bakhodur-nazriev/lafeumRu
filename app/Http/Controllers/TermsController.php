@@ -62,7 +62,15 @@ class TermsController extends Controller
         return response()->json($vocabulary);
     }
 
-    public function linksSearch(Request $request)
+    public function vocabularySearch($vocabulary)
+    {
+        return Term::with('post')
+            ->published()
+            ->where('name', 'LIKE', '%' . $vocabulary . '%')
+            ->get();
+    }
+
+    public function linksSearch(Request $request): JsonResponse
     {
         $keyword = $request->key;
 

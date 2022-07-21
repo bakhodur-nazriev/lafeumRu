@@ -59,7 +59,8 @@
                 </v-card>
             </v-col>
             <infinite-loading @disance="1" @infinite="getVocabulary">
-                <span slot="no-results"></span>
+                <div slot="no-results"></div>
+                <div slot="no-more"></div>
             </infinite-loading>
         </v-row>
     </v-col>
@@ -78,8 +79,8 @@ export default {
         return {
             cols: 2,
             page: 1,
-            search: "",
             terms: [],
+            search: "",
             category: [],
             widthOfWindow: window.innerWidth,
             path: `/api/front${window.location.pathname}`
@@ -91,7 +92,6 @@ export default {
             axios
                 .get(url + "?page=" + this.page)
                 .then(res => {
-                    console.log(res.data);
                     if (res.data.data.length || res.data.length) {
                         this.page += 1;
                         this.terms.push(...res.data.data);
@@ -108,9 +108,32 @@ export default {
         clearVocabulary() {
             this.filteredVocabulary = this.terms;
         },
+        searchVocabulary(value) {
+            axios
+                .get("/api/search-vocabulary/" + value)
+                .then(res => {
+                    if (!this.search) {
+                        return this.columns.map(terms => {
+                            return terms.filter(term => {
+                                return term.name.toLowerCase().includes(this.search.toLowerCase());
+                            });
+                        });
+                    } else {
+                        this.terms = res.data;
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        },
     },
     mounted() {
         this.getVocabulary();
+    },
+    watch: {
+        search() {
+            this.searchVocabulary(this.search);
+        }
     },
     computed: {
         columns() {

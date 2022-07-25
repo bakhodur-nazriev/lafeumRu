@@ -57,17 +57,24 @@ class TermsController extends Controller
             ->where('publish_at', '<=', Carbon::now())
             ->where('deleted_at', '=', null)
             ->orderBy('name')
-            ->paginate(50);
+            ->paginate(40);
 
         return response()->json($vocabulary);
     }
 
-    public function vocabularySearch($vocabulary)
+    public function vocabularySearch(Request $request)
     {
-        return Term::with('post')
-            ->published()
-            ->where('name', 'LIKE', '%' . $vocabulary . '%')
+        $vocabulary = DB::table('terms')
+            ->join('posts', 'posts.postable_id', '=', 'terms.id')
+            ->where('posts.postable_type', '=', 'App\\Term')
+            ->where('show_in_vocabulary', '=', true)
+            ->where('publish_at', '<=', Carbon::now())
+            ->where('deleted_at', '=', null)
+            ->where('name', 'like', '%' . $request->keyword . '%')
+            ->orderBy('name')
             ->get();
+
+        return response()->json($vocabulary);
     }
 
     public function linksSearch(Request $request): JsonResponse

@@ -7,11 +7,12 @@
         <v-col v-else class="pa-0">
             <p>
                 На сегодня содержит более одной тысячи основных терминов,
-                соответствующих тематике сайта. Для удобства термины дополнительно
-                разбиты на темы. Большинство терминов взяты из Википедии с указанием
-                ссылки на источник. В большинстве понятий имеются другие взаимосвязанные
-                термины и ссылки. По мере обновления на основном источнике здесь они
-                будут равным образом обновляться.
+                соответствующих тематике сайта. Для удобства термины
+                дополнительно разбиты на темы. Большинство терминов взяты из
+                Википедии с указанием ссылки на источник. В большинстве понятий
+                имеются другие взаимосвязанные термины и ссылки. По мере
+                обновления на основном источнике здесь они будут равным образом
+                обновляться.
             </p>
         </v-col>
 
@@ -50,7 +51,7 @@
             >
                 <v-card rounded="lg" class="px-7 py-5" flat>
                     <v-card-text
-                        v-for="(term ,i) in vocabulary"
+                        v-for="(term, i) in vocabulary"
                         :key="i"
                         class="pa-0"
                     >
@@ -73,7 +74,7 @@ import InfiniteLoading from "vue-infinite-loading";
 export default {
     components: {
         ListOfVocabulary,
-        InfiniteLoading
+        InfiniteLoading,
     },
     data() {
         return {
@@ -83,15 +84,15 @@ export default {
             search: "",
             category: [],
             widthOfWindow: window.innerWidth,
-            path: `/api/front${window.location.pathname}`
+            path: `/api/front${window.location.pathname}`,
         };
     },
     methods: {
         getVocabulary($state) {
-            let url = this.path ? this.path : '/api/front/vocabulary';
+            let url = this.path ? this.path : "/api/front/vocabulary";
             axios
                 .get(url + "?page=" + this.page)
-                .then(res => {
+                .then((res) => {
                     if (res.data.data.length || res.data.length) {
                         this.page += 1;
                         this.terms.push(...res.data.data);
@@ -100,31 +101,24 @@ export default {
                         $state.complete();
                     }
                 })
-                .catch(err => {
+                .catch((err) => {
                     console.log(err);
-                })
+                });
             this.page += 1;
-        },
-        clearVocabulary() {
-            this.filteredVocabulary = this.terms;
         },
         searchVocabulary(value) {
             axios
                 .get("/api/search-vocabulary/" + value)
                 .then(res => {
-                    if (!this.search) {
-                        return this.columns.map(terms => {
-                            return terms.filter(term => {
-                                return term.name.toLowerCase().includes(this.search.toLowerCase());
-                            });
-                        });
-                    } else {
-                        this.terms = res.data;
-                    }
+                    this.filteredVocabulary = res.data;
+                    console.log(res.data);
                 })
-                .catch(err => {
+                .catch((err) => {
                     console.log(err);
                 });
+        },
+        clearVocabulary() {
+            this.filteredVocabulary = this.terms;
         },
     },
     mounted() {
@@ -133,7 +127,10 @@ export default {
     watch: {
         search() {
             this.searchVocabulary(this.search);
-        }
+        },
+        clearVocabulary() {
+            this.filteredVocabulary = this.terms;
+        },
     },
     computed: {
         columns() {
@@ -151,7 +148,7 @@ export default {
                         name: "",
                         post: {
                             id: columns[1].length + 1,
-                        }
+                        },
                     });
                 }
             } else {

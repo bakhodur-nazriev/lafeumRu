@@ -77,6 +77,7 @@ class TermsController extends Controller
         return response()->json($vocabulary);
     }
 
+
     public function linksSearch(Request $request): JsonResponse
     {
         $keyword = $request->key;

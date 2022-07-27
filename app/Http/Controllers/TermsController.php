@@ -70,8 +70,9 @@ class TermsController extends Controller
             ->where('show_in_vocabulary', '=', true)
             ->where('publish_at', '<=', Carbon::now())
             ->where('deleted_at', '=', null)
-            ->where('name', 'like', '%' . $request->keyword . '%')
+            ->where('name', 'like', '%' . $request->search . '%')
             ->orderBy('name')
+            ->limit(5)
             ->get();
 
         return response()->json($vocabulary);

@@ -108,7 +108,7 @@ export default {
         },
         searchVocabulary(value) {
             axios
-                .get("/api/search-vocabulary?" + value)
+                .get("/api/search-vocabulary?search=" + value)
                 .then(res => {
                     this.filteredVocabulary = res.data;
                     console.log(res.data);

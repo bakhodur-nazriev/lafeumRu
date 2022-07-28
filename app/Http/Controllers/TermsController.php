@@ -66,7 +66,7 @@ class TermsController extends Controller
         return response()->json($vocabulary);
     }
 
-    public function vocabularySearch(Request $request)
+    public function vocabularySearch(Request $request): JsonResponse
     {
         $vocabulary = DB::table('terms')
             ->join('posts', 'posts.postable_id', '=', 'terms.id')

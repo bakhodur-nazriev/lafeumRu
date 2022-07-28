@@ -110,7 +110,13 @@ export default {
             axios
                 .get("/api/search-vocabulary?search=" + value)
                 .then(res => {
-                    this.filteredVocabulary = res.data;
+                    setTimeout(() => {
+                        if (this.search != '') {
+                            this.terms = res.data.data;
+                        } else {
+                            this.getVocabulary();
+                        }
+                    }, 500);
                     console.log(res.data);
                 })
                 .catch((err) => {
@@ -127,9 +133,6 @@ export default {
     watch: {
         search() {
             this.searchVocabulary(this.search);
-        },
-        clearVocabulary() {
-            this.filteredVocabulary = this.terms;
         },
     },
     computed: {
@@ -165,6 +168,7 @@ export default {
                             return term.name.toLowerCase().includes(this.search.toLowerCase());
                         });
                     });
+
                 } else {
                     return this.columns;
                 }

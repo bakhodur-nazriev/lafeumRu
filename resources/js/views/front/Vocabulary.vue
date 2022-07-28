@@ -126,10 +126,9 @@ export default {
     },
     watch: {
         search() {
-            this.searchVocabulary(this.search);
-        },
-        clearVocabulary() {
-            this.filteredVocabulary = this.terms;
+            if (this.search.length > 0) {
+                this.searchVocabulary(this.search);
+            }
         },
     },
     computed: {

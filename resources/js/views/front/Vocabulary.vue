@@ -44,36 +44,35 @@
         </v-col>
 
         <v-row justify="center">
-            <v-col
-                v-for="(vocabulary, i) in filteredVocabulary"
-                :key="i"
-                class="fill-height col-md-6 col-12"
-            >
-                <v-card rounded="lg" class="px-7 py-5" flat>
-                    <v-card-text
-                        v-for="(term, i) in vocabulary"
-                        :key="i"
-                        class="pa-0"
-                    >
-                        <list-of-vocabulary :item="term"></list-of-vocabulary>
-                    </v-card-text>
-                </v-card>
-            </v-col>
-            <infinite-loading @disance="1" @infinite="getVocabulary">
-                <div slot="no-results"></div>
-                <div slot="no-more"></div>
-            </infinite-loading>
+            <all-vocabulary
+                :terms="filteredVocabulary"
+                v-if="search.length == 0"
+                class="d-flex"
+            ></all-vocabulary>
+
+            <search-vocabulary
+                :terms="filteredVocabulary"
+                v-if="search.length > 0"
+                class="d-flex"
+            ></search-vocabulary>
+
         </v-row>
+        <infinite-loading @disance="1" @infinite="getVocabulary">
+            <div slot="no-results"></div>
+            <div slot="no-more"></div>
+        </infinite-loading>
     </v-col>
 </template>
 
 <script>
-import ListOfVocabulary from "./ListOfChildren/ListOfVocabulary";
+import AllVocabulary from "./layouts/AllVocabulary";
+import SearchVocabulary from "./layouts/SearchVocabulary";
 import InfiniteLoading from "vue-infinite-loading";
 
 export default {
     components: {
-        ListOfVocabulary,
+        AllVocabulary,
+        SearchVocabulary,
         InfiniteLoading,
     },
     data() {
@@ -110,14 +109,11 @@ export default {
             axios
                 .get("/api/search-vocabulary?search=" + value)
                 .then(res => {
-                    setTimeout(() => {
-                        if (this.search != '') {
-                            this.terms = res.data.data;
-                        } else {
-                            this.getVocabulary();
-                        }
-                    }, 500);
-                    console.log(res.data);
+                    if (!this.search) {
+                        this.getVocabulary(this.page);
+                    } else {
+                        this.terms = res.data.data;
+                    }
                 })
                 .catch((err) => {
                     console.log(err);

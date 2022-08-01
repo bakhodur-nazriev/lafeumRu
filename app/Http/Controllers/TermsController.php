@@ -76,7 +76,7 @@ class TermsController extends Controller
             ->where('deleted_at', '=', null)
             ->where('name', 'like', '%' . $request->search . '%')
             ->orderBy('name')
-            ->paginate(5);
+            ->paginate(10);
 
 
         return response()->json($vocabulary);

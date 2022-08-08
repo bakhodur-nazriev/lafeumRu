@@ -43,24 +43,19 @@
             </div>
         </v-col>
 
-        <v-row justify="center">
-            <all-vocabulary
-                :terms="filteredVocabulary"
-                v-if="search.length == 0"
-                class="d-flex"
-            ></all-vocabulary>
 
-            <search-vocabulary
-                :terms="filteredVocabulary"
-                v-if="search.length > 0"
-                class="d-flex"
-            ></search-vocabulary>
+        <div v-if="isSearching">
+            <search-vocabulary @clicked="processingFinished"/>
+        </div>
 
-        </v-row>
-        <infinite-loading @disance="1" @infinite="getVocabulary">
-            <div slot="no-results"></div>
-            <div slot="no-more"></div>
-        </infinite-loading>
+        <!--        <div>
+                    <all-vocabulary @clicked="processingFinished"/>
+                    &lt;!&ndash;            <infinite-loading @disance="1" @infinite="getVocabulary">
+                                    <div slot="no-results"></div>
+                                    <div slot="no-more"></div>
+                                </infinite-loading>&ndash;&gt;
+                </div>-->
+
     </v-col>
 </template>
 
@@ -73,7 +68,7 @@ export default {
     components: {
         AllVocabulary,
         SearchVocabulary,
-        InfiniteLoading,
+        InfiniteLoading
     },
     data() {
         return {
@@ -82,7 +77,7 @@ export default {
             terms: [],
             search: "",
             category: [],
-            widthOfWindow: window.innerWidth,
+            isSearching: true,
             path: `/api/front${window.location.pathname}`,
         };
     },
@@ -91,11 +86,12 @@ export default {
             let url = this.path ? this.path : "/api/front/vocabulary";
             axios
                 .get(url + "?page=" + this.page)
-                .then((res) => {
+                .then(res => {
                     if (res.data.data.length || res.data.length) {
                         this.page += 1;
                         this.terms.push(...res.data.data);
                         $state.loaded();
+
                     } else {
                         $state.complete();
                     }
@@ -105,74 +101,16 @@ export default {
                 });
             this.page += 1;
         },
-        searchVocabulary(value) {
-            axios
-                .get("/api/search-vocabulary?search=" + value)
-                .then(res => {
-                    if (!this.search) {
-                        this.getVocabulary(this.page);
-                    } else {
-                        this.terms = res.data.data;
-                    }
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-        },
         clearVocabulary() {
             this.filteredVocabulary = this.terms;
         },
+        processingFinished(value) {
+            this.isSearching = value;
+            console.log(value);
+        }
     },
     mounted() {
         this.getVocabulary();
-    },
-    watch: {
-        search() {
-            this.searchVocabulary(this.search);
-        },
-    },
-    computed: {
-        columns() {
-            let columns = [];
-            let mid = Math.ceil(this.terms.length / this.cols);
-
-            if (this.widthOfWindow > 960) {
-                for (let col = 0; col < this.cols; col++) {
-                    columns.push(this.terms.slice(col * mid, col * mid + mid));
-                }
-
-                if (columns[0].length !== columns[1].length) {
-                    columns[1].push({
-                        id: columns[1].length + 1,
-                        name: "",
-                        post: {
-                            id: columns[1].length + 1,
-                        },
-                    });
-                }
-            } else {
-                columns.push(this.terms);
-            }
-
-            return columns;
-        },
-        filteredVocabulary: {
-            get() {
-                if (this.search) {
-                    return this.columns.map(terms => {
-                        return terms.filter(term => {
-                            return term.name.toLowerCase().includes(this.search.toLowerCase());
-                        });
-                    });
-
-                } else {
-                    return this.columns;
-                }
-            },
-            set(v) {
-                this.terms = v;
-            },
-        },
     },
 };
 </script>

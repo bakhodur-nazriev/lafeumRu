@@ -31,6 +31,7 @@ import InfiniteLoading from "vue-infinite-loading";
 export default {
     components: {ListOfVocabulary, InfiniteLoading},
     name: "allVocabulary",
+    props: ['filteredVocabulary'],
     data() {
         return {
             cols: 2,
@@ -48,6 +49,7 @@ export default {
                 .get(url + "?page=" + this.page)
                 .then(res => {
                     if (res.data.data.length || res.data.length) {
+                        this.$emit('processingFinished', false);
                         this.page += 1;
                         this.terms.push(...res.data.data);
                         $state.loaded();
@@ -61,60 +63,65 @@ export default {
                 });
             this.page += 1;
         },
-        clearVocabulary() {
-            this.filteredVocabulary = this.terms;
-        },
     },
     mounted() {
         this.getVocabulary();
-        this.$emit("processingFinished", "test");
     },
-    computed: {
-        columns() {
-            let columns = [];
-            let mid = Math.ceil(this.terms.length / this.cols);
 
-            if (this.widthOfWindow > 960) {
-                for (let col = 0; col < this.cols; col++) {
-                    columns.push(this.terms.slice(col * mid, col * mid + mid));
-                }
-
-                if (columns[0].length !== columns[1].length) {
-                    columns[1].push({
-                        id: columns[1].length + 1,
-                        name: "",
-                        post: {
-                            id: columns[1].length + 1,
-                        },
-                    });
-                }
-            } else {
-                columns.push(this.terms);
-            }
-
-            return columns;
-        },
-        filteredVocabulary: {
-            get() {
-                if (this.search) {
-                    return this.columns.map(terms => {
-                        return terms.filter(term => {
-                            return term.name.toLowerCase().includes(this.search.toLowerCase());
-                        });
-                    });
-
-                } else {
-                    return this.columns;
-                }
-            },
-            set(v) {
-                this.terms = v;
-            },
-        },
-    },
+    // computed: {
+    //     columns() {
+    //         let columns = [];
+    //         let mid = Math.ceil(this.terms.length / this.cols);
+    //
+    //         if (this.widthOfWindow > 960) {
+    //             for (let col = 0; col < this.cols; col++) {
+    //                 columns.push(this.terms.slice(col * mid, col * mid + mid));
+    //             }
+    //
+    //             if (columns[0].length !== columns[1].length) {
+    //                 columns[1].push({
+    //                     id: columns[1].length + 1,
+    //                     name: "",
+    //                     post: {
+    //                         id: columns[1].length + 1,
+    //                     },
+    //                 });
+    //             }
+    //         } else {
+    //             columns.push(this.terms);
+    //         }
+    //
+    //         return columns;
+    //     },
+    //     filteredVocabulary: {
+    //         get() {
+    //             if (this.search) {
+    //                 this.$emit("processingFinished", true);
+    //                 return this.columns.map(terms => {
+    //                     return terms.filter(term => {
+    //                         return term.name.toLowerCase().includes(this.search.toLowerCase());
+    //                     });
+    //                 });
+    //
+    //             } else {
+    //                 return this.columns;
+    //             }
+    //         },
+    //         set(v) {
+    //             this.terms = v;
+    //         },
+    //     },
+    // },
 }
 </script>
 
 <style scoped>
+.form-search {
+    display: flex;
+}
 
+.search-filed {
+    border: 2px solid #9b9b9b;
+    border-right: none;
+}
 </style>

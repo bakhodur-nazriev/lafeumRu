@@ -43,18 +43,19 @@
             </div>
         </v-col>
 
-
-        <div v-if="isSearching">
-            <search-vocabulary @clicked="processingFinished"/>
+        <div v-if="search">
+            <search-vocabulary
+                :filtered-vocabulary="filteredVocabulary"
+                @processingFinished="processingFinished"
+            />
         </div>
 
-        <!--        <div>
-                    <all-vocabulary @clicked="processingFinished"/>
-                    &lt;!&ndash;            <infinite-loading @disance="1" @infinite="getVocabulary">
-                                    <div slot="no-results"></div>
-                                    <div slot="no-more"></div>
-                                </infinite-loading>&ndash;&gt;
-                </div>-->
+        <div v-if="!search">
+            <all-vocabulary
+                :filtered-vocabulary="filteredVocabulary"
+                @processingFinished="processingFinished"
+            />
+        </div>
 
     </v-col>
 </template>
@@ -77,7 +78,7 @@ export default {
             terms: [],
             search: "",
             category: [],
-            isSearching: true,
+            isSearching: false,
             path: `/api/front${window.location.pathname}`,
         };
     },
@@ -104,6 +105,7 @@ export default {
         clearVocabulary() {
             this.filteredVocabulary = this.terms;
         },
+
         processingFinished(value) {
             this.isSearching = value;
             console.log(value);
@@ -112,6 +114,50 @@ export default {
     mounted() {
         this.getVocabulary();
     },
+    computed: {
+        columns() {
+            let columns = [];
+            let mid = Math.ceil(this.terms.length / this.cols);
+
+            if (this.widthOfWindow > 960) {
+                for (let col = 0; col < this.cols; col++) {
+                    columns.push(this.terms.slice(col * mid, col * mid + mid));
+                }
+
+                if (columns[0].length !== columns[1].length) {
+                    columns[1].push({
+                        id: columns[1].length + 1,
+                        name: "",
+                        post: {
+                            id: columns[1].length + 1,
+                        },
+                    });
+                }
+            } else {
+                columns.push(this.terms);
+            }
+
+            return columns;
+        },
+        filteredVocabulary: {
+            get() {
+                if (this.search) {
+                    this.$emit("processingFinished", true);
+                    return this.columns.map(terms => {
+                        return terms.filter(term => {
+                            return term.name.toLowerCase().includes(this.search.toLowerCase());
+                        });
+                    });
+
+                } else {
+                    return this.columns;
+                }
+            },
+            set(v) {
+                this.terms = v;
+            },
+        },
+    }
 };
 </script>
 

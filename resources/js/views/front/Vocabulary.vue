@@ -44,15 +44,19 @@
         </v-col>
 
         <div v-if="search">
+            <h5>Search</h5>
             <search-vocabulary
-                :filtered-vocabulary="filteredVocabulary"
+                :terms="filteredVocabulary"
+                :getVocabulary="getVocabulary"
                 @processingFinished="processingFinished"
             />
         </div>
 
         <div v-if="!search">
+            <h5>All vocabulary</h5>
             <all-vocabulary
-                :filtered-vocabulary="filteredVocabulary"
+                :terms="filteredVocabulary"
+                :getVocabulary="getVocabulary"
                 @processingFinished="processingFinished"
             />
         </div>
@@ -79,6 +83,7 @@ export default {
             search: "",
             category: [],
             isSearching: false,
+            widthOfWindow: window.innerWidth,
             path: `/api/front${window.location.pathname}`,
         };
     },
@@ -102,17 +107,35 @@ export default {
                 });
             this.page += 1;
         },
+
+        searchVocabulary(value) {
+            axios
+                .get("/api/search-vocabulary?search=" + value)
+                .then(res => {
+                    this.$emit('processingFinished', false);
+                    this.terms = res.data.data;
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        },
+
         clearVocabulary() {
             this.filteredVocabulary = this.terms;
         },
-
         processingFinished(value) {
             this.isSearching = value;
-            console.log(value);
         }
     },
     mounted() {
+        this.searchVocabulary();
         this.getVocabulary();
+        this.$emit('processingFinished', false);
+    },
+    watch: {
+        search() {
+            this.searchVocabulary(this.search);
+        },
     },
     computed: {
         columns() {
@@ -142,7 +165,6 @@ export default {
         filteredVocabulary: {
             get() {
                 if (this.search) {
-                    this.$emit("processingFinished", true);
                     return this.columns.map(terms => {
                         return terms.filter(term => {
                             return term.name.toLowerCase().includes(this.search.toLowerCase());
@@ -157,7 +179,7 @@ export default {
                 this.terms = v;
             },
         },
-    }
+    },
 };
 </script>
 

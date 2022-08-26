@@ -68,6 +68,10 @@ class TermsController extends Controller
 
     public function vocabularySearch(Request $request): JsonResponse
     {
+        if ($request->search == '' || !isset($request->search)) {
+            return $this->getIndexVocabulary($request);
+        }
+
         $vocabulary = DB::table('terms')
             ->join('posts', 'posts.postable_id', '=', 'terms.id')
             ->where('posts.postable_type', '=', 'App\\Term')

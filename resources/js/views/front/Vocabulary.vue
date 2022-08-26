@@ -43,24 +43,24 @@
             </div>
         </v-col>
 
-        <v-row justify="center">
-            <all-vocabulary
-                :terms="filteredVocabulary"
-                v-if="search.length == 0"
-                class="d-flex"
-            ></all-vocabulary>
-
+        <div v-if="search">
+            <h5>Search</h5>
             <search-vocabulary
                 :terms="filteredVocabulary"
-                v-if="search.length > 0"
-                class="d-flex"
-            ></search-vocabulary>
+                :getVocabulary="getVocabulary"
+                @processingFinished="processingFinished"
+            />
+        </div>
 
-        </v-row>
-        <infinite-loading @disance="1" @infinite="getVocabulary">
-            <div slot="no-results"></div>
-            <div slot="no-more"></div>
-        </infinite-loading>
+        <div v-if="!search">
+            <h5>All vocabulary</h5>
+            <all-vocabulary
+                :terms="filteredVocabulary"
+                :getVocabulary="getVocabulary"
+                @processingFinished="processingFinished"
+            />
+        </div>
+
     </v-col>
 </template>
 
@@ -73,7 +73,7 @@ export default {
     components: {
         AllVocabulary,
         SearchVocabulary,
-        InfiniteLoading,
+        InfiniteLoading
     },
     data() {
         return {
@@ -82,6 +82,7 @@ export default {
             terms: [],
             search: "",
             category: [],
+            isSearching: false,
             widthOfWindow: window.innerWidth,
             path: `/api/front${window.location.pathname}`,
         };
@@ -91,11 +92,12 @@ export default {
             let url = this.path ? this.path : "/api/front/vocabulary";
             axios
                 .get(url + "?page=" + this.page)
-                .then((res) => {
+                .then(res => {
                     if (res.data.data.length || res.data.length) {
                         this.page += 1;
                         this.terms.push(...res.data.data);
                         $state.loaded();
+
                     } else {
                         $state.complete();
                     }
@@ -105,26 +107,30 @@ export default {
                 });
             this.page += 1;
         },
+
         searchVocabulary(value) {
             axios
                 .get("/api/search-vocabulary?search=" + value)
                 .then(res => {
-                    if (!this.search) {
-                        this.getVocabulary(this.page);
-                    } else {
-                        this.terms = res.data.data;
-                    }
+                    this.$emit('processingFinished', false);
+                    this.terms = res.data.data;
                 })
                 .catch((err) => {
                     console.log(err);
                 });
         },
+
         clearVocabulary() {
             this.filteredVocabulary = this.terms;
         },
+        processingFinished(value) {
+            this.isSearching = value;
+        }
     },
     mounted() {
+        this.searchVocabulary();
         this.getVocabulary();
+        this.$emit('processingFinished', false);
     },
     watch: {
         search() {

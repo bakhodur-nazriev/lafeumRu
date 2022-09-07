@@ -3,7 +3,7 @@
         <v-col class="subtitle-2 pa-0 font-weight-light">
             <v-hover v-slot="{ hover }">
                 <a
-                    :href="'/' + `${path === '/vocabulary' ? item.id : item.post.id}`"
+                    href="#"
                     target="_blank"
                     class="vocabulary-words text-decoration-none d-block"
                 >
@@ -28,7 +28,7 @@ export default {
     props: ["item"],
     data() {
         return {
-            path: `${window.location.pathname}`
+            path: `/${window.location.pathname}`
         }
     },
 }

@@ -26,13 +26,14 @@ import ListOfVocabulary from "../ListOfChildren/ListOfVocabulary";
 export default {
     components: {ListOfVocabulary},
     name: "SearchVocabulary",
-    props: ["terms", "getVocabulary"],
+    props: ["terms"],
     data() {
         return {}
     },
     methods: {},
     mounted() {
-        this.$emit('processingFinished', false);
+        console.log(this.terms);
+        // this.$emit('processingFinished', false);
     },
 }
 </script>

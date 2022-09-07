@@ -4,7 +4,7 @@
             <h3 class="pt-4 pb-2">{{ category.name }}</h3>
             <p>{{ category.description }}</p>
         </div>
-        <v-col v-else class="pa-0">
+        <v-col v-else class="px-0 pb-0">
             <p>
                 На сегодня содержит более одной тысячи основных терминов,
                 соответствующих тематике сайта. Для удобства термины
@@ -42,38 +42,32 @@
                 </v-btn>
             </div>
         </v-col>
-
-        <div v-if="search">
-            <h5>Search</h5>
+        <div v-if="search !== ''">
+            <h4>From Search</h4>
             <search-vocabulary
                 :terms="filteredVocabulary"
-                :getVocabulary="getVocabulary"
                 @processingFinished="processingFinished"
             />
         </div>
-
-        <div v-if="!search">
-            <h5>All vocabulary</h5>
+        <div v-if="search === ''">
+            <h4>From All Vocabulary</h4>
             <all-vocabulary
                 :terms="filteredVocabulary"
                 :getVocabulary="getVocabulary"
                 @processingFinished="processingFinished"
             />
         </div>
-
     </v-col>
 </template>
 
 <script>
 import AllVocabulary from "./layouts/AllVocabulary";
 import SearchVocabulary from "./layouts/SearchVocabulary";
-import InfiniteLoading from "vue-infinite-loading";
 
 export default {
     components: {
         AllVocabulary,
         SearchVocabulary,
-        InfiniteLoading
     },
     data() {
         return {
@@ -84,12 +78,12 @@ export default {
             category: [],
             isSearching: false,
             widthOfWindow: window.innerWidth,
-            path: `/api/front${window.location.pathname}`,
+            fullPath: `/api/front${window.location.pathname}`,
         };
     },
     methods: {
         getVocabulary($state) {
-            let url = this.path ? this.path : "/api/front/vocabulary";
+            let url = this.fullPath ? this.fullPath : '/api/front/vocabulary';
             axios
                 .get(url + "?page=" + this.page)
                 .then(res => {
@@ -109,8 +103,9 @@ export default {
         },
 
         searchVocabulary(value) {
+            const url = '/api/search-vocabulary?search=' ? '/api/search-vocabulary?search=' : this.fullPath;
             axios
-                .get("/api/search-vocabulary?search=" + value)
+                .get(url + value)
                 .then(res => {
                     this.$emit('processingFinished', false);
                     this.terms = res.data.data;
@@ -123,14 +118,13 @@ export default {
         clearVocabulary() {
             this.filteredVocabulary = this.terms;
         },
+
         processingFinished(value) {
             this.isSearching = value;
-        }
+        },
     },
     mounted() {
-        this.searchVocabulary();
         this.getVocabulary();
-        this.$emit('processingFinished', false);
     },
     watch: {
         search() {
@@ -164,7 +158,7 @@ export default {
         },
         filteredVocabulary: {
             get() {
-                if (this.search) {
+                if (this.isSearching) {
                     return this.columns.map(terms => {
                         return terms.filter(term => {
                             return term.name.toLowerCase().includes(this.search.toLowerCase());

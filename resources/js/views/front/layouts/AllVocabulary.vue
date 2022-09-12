@@ -36,9 +36,6 @@ export default {
         return {}
     },
     methods: {},
-    mounted() {
-        this.$emit("processingFinished", false);
-    },
 }
 </script>
 

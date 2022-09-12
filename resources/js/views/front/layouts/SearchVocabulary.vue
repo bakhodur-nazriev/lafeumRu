@@ -26,7 +26,7 @@ import ListOfVocabulary from "../ListOfChildren/ListOfVocabulary";
 export default {
     components: {ListOfVocabulary},
     name: "SearchVocabulary",
-    props: ["terms", "getVocabulary"],
+    props: ["terms"],
     data() {
         return {}
     },

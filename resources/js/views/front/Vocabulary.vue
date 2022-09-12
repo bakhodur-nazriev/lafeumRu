@@ -4,7 +4,7 @@
             <h3 class="pt-4 pb-2">{{ category.name }}</h3>
             <p>{{ category.description }}</p>
         </div>
-        <v-col v-else class="pa-0">
+        <v-col v-else class="px-0 pb-0">
             <p>
                 На сегодня содержит более одной тысячи основных терминов,
                 соответствующих тематике сайта. Для удобства термины
@@ -43,20 +43,17 @@
             </div>
         </v-col>
 
-        <div v-if="search">
-            <h5>Search</h5>
-            <search-vocabulary
+        <div v-if="search === ''">
+            <all-vocabulary
                 :terms="filteredVocabulary"
                 :getVocabulary="getVocabulary"
                 @processingFinished="processingFinished"
             />
         </div>
 
-        <div v-if="!search">
-            <h5>All vocabulary</h5>
-            <all-vocabulary
+        <div v-if="search !== ''">
+            <search-vocabulary
                 :terms="filteredVocabulary"
-                :getVocabulary="getVocabulary"
                 @processingFinished="processingFinished"
             />
         </div>
@@ -67,29 +64,28 @@
 <script>
 import AllVocabulary from "./layouts/AllVocabulary";
 import SearchVocabulary from "./layouts/SearchVocabulary";
-import InfiniteLoading from "vue-infinite-loading";
 
 export default {
     components: {
         AllVocabulary,
         SearchVocabulary,
-        InfiniteLoading
     },
     data() {
         return {
             cols: 2,
             page: 1,
             terms: [],
+            searchedTerms: [],
             search: "",
             category: [],
             isSearching: false,
             widthOfWindow: window.innerWidth,
-            path: `/api/front${window.location.pathname}`,
+            fullPath: `/api/front${window.location.pathname}`,
         };
     },
     methods: {
         getVocabulary($state) {
-            let url = this.path ? this.path : "/api/front/vocabulary";
+            let url = this.fullPath ? this.fullPath : '/api/front/vocabulary';
             axios
                 .get(url + "?page=" + this.page)
                 .then(res => {
@@ -107,44 +103,45 @@ export default {
                 });
             this.page += 1;
         },
-
         searchVocabulary(value) {
             axios
-                .get("/api/search-vocabulary?search=" + value)
+                .get('/api/search-vocabulary?search=' + value)
                 .then(res => {
                     this.$emit('processingFinished', false);
-                    this.terms = res.data.data;
+                    this.searchedTerms = res.data.data;
                 })
                 .catch((err) => {
                     console.log(err);
                 });
         },
-
         clearVocabulary() {
             this.filteredVocabulary = this.terms;
         },
         processingFinished(value) {
             this.isSearching = value;
-        }
+        },
     },
     mounted() {
-        this.searchVocabulary();
         this.getVocabulary();
-        this.$emit('processingFinished', false);
     },
     watch: {
         search() {
+            if (this.search === '') {
+                this.getVocabulary();
+            }
+
             this.searchVocabulary(this.search);
         },
     },
     computed: {
         columns() {
             let columns = [];
-            let mid = Math.ceil(this.terms.length / this.cols);
+            let terms = !!this.search ? this.searchedTerms : this.terms;
+            let mid = Math.ceil(terms.length / this.cols);
 
             if (this.widthOfWindow > 960) {
                 for (let col = 0; col < this.cols; col++) {
-                    columns.push(this.terms.slice(col * mid, col * mid + mid));
+                    columns.push(terms.slice(col * mid, col * mid + mid));
                 }
 
                 if (columns[0].length !== columns[1].length) {
@@ -157,7 +154,7 @@ export default {
                     });
                 }
             } else {
-                columns.push(this.terms);
+                columns.push(terms);
             }
 
             return columns;
@@ -176,7 +173,11 @@ export default {
                 }
             },
             set(v) {
-                this.terms = v;
+                if (!!this.search) {
+                    this.searchedTerms = v;
+                } else {
+                    this.terms = v;
+                }
             },
         },
     },

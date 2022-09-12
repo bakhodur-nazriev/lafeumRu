@@ -122,10 +122,11 @@ class CategoriesController extends Controller
             ->where('slug', $categorySlug)
             ->first();
 
+
         $terms = $this->getCategoriablesQuery(Term::class, $category)
             ->vocabulary()
             ->where('show_in_vocabulary', '=', true)
-            ->paginate(50);
+            ->paginate(30);
 
         return response()->json(collect($terms));
     }

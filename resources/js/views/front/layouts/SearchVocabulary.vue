@@ -32,8 +32,7 @@ export default {
     },
     methods: {},
     mounted() {
-        console.log(this.terms);
-        // this.$emit('processingFinished', false);
+        this.$emit('processingFinished', false);
     },
 }
 </script>

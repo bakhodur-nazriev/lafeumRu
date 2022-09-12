@@ -42,21 +42,22 @@
                 </v-btn>
             </div>
         </v-col>
-        <div v-if="search !== ''">
-            <h4>From Search</h4>
-            <search-vocabulary
-                :terms="filteredVocabulary"
-                @processingFinished="processingFinished"
-            />
-        </div>
+
         <div v-if="search === ''">
-            <h4>From All Vocabulary</h4>
             <all-vocabulary
                 :terms="filteredVocabulary"
                 :getVocabulary="getVocabulary"
                 @processingFinished="processingFinished"
             />
         </div>
+
+        <div v-if="search !== ''">
+            <search-vocabulary
+                :terms="filteredVocabulary"
+                @processingFinished="processingFinished"
+            />
+        </div>
+
     </v-col>
 </template>
 
@@ -74,6 +75,7 @@ export default {
             cols: 2,
             page: 1,
             terms: [],
+            searchedTerms: [],
             search: "",
             category: [],
             isSearching: false,
@@ -101,24 +103,20 @@ export default {
                 });
             this.page += 1;
         },
-
         searchVocabulary(value) {
-            const url = '/api/search-vocabulary?search=' ? '/api/search-vocabulary?search=' : this.fullPath;
             axios
-                .get(url + value)
+                .get('/api/search-vocabulary?search=' + value)
                 .then(res => {
                     this.$emit('processingFinished', false);
-                    this.terms = res.data.data;
+                    this.searchedTerms = res.data.data;
                 })
                 .catch((err) => {
                     console.log(err);
                 });
         },
-
         clearVocabulary() {
             this.filteredVocabulary = this.terms;
         },
-
         processingFinished(value) {
             this.isSearching = value;
         },
@@ -128,17 +126,22 @@ export default {
     },
     watch: {
         search() {
+            if (this.search === '') {
+                this.getVocabulary();
+            }
+
             this.searchVocabulary(this.search);
         },
     },
     computed: {
         columns() {
             let columns = [];
-            let mid = Math.ceil(this.terms.length / this.cols);
+            let terms = !!this.search ? this.searchedTerms : this.terms;
+            let mid = Math.ceil(terms.length / this.cols);
 
             if (this.widthOfWindow > 960) {
                 for (let col = 0; col < this.cols; col++) {
-                    columns.push(this.terms.slice(col * mid, col * mid + mid));
+                    columns.push(terms.slice(col * mid, col * mid + mid));
                 }
 
                 if (columns[0].length !== columns[1].length) {
@@ -151,14 +154,14 @@ export default {
                     });
                 }
             } else {
-                columns.push(this.terms);
+                columns.push(terms);
             }
 
             return columns;
         },
         filteredVocabulary: {
             get() {
-                if (this.isSearching) {
+                if (this.search) {
                     return this.columns.map(terms => {
                         return terms.filter(term => {
                             return term.name.toLowerCase().includes(this.search.toLowerCase());
@@ -170,7 +173,11 @@ export default {
                 }
             },
             set(v) {
-                this.terms = v;
+                if (!!this.search) {
+                    this.searchedTerms = v;
+                } else {
+                    this.terms = v;
+                }
             },
         },
     },

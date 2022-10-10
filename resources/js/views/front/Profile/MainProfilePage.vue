@@ -2,14 +2,14 @@
     <v-container>
         <!-- Header -->
         <v-row justify="center" class="my-1">
-            <v-col class="px-1 col-lg-10 col-xl-10">
-                <h5 class="text-uppercase font-weight-regular mb-0">Профил</h5>
-            </v-col>
+            <div class="pa-3">
+                <h5 class="text-uppercase font-weight-regular mb-0">Личный кабинет</h5>
+            </div>
         </v-row>
 
-        <v-row class="mt-0 mb-3">
+        <v-row class="mt-0 mb-3" justify="center">
             <!-- SideBar -->
-            <v-col class="col-lg-3">
+            <div class="pa-3">
                 <v-card
                     tile
                     elevation="0"
@@ -76,33 +76,41 @@
                         </v-list-item-group>
                     </v-list>
                 </v-card>
-            </v-col>
+            </div>
 
             <!-- Profile -->
-            <profile :user-data="user"></profile>
+            <!--            <profile-->
+            <!--                :user-data="user"-->
+            <!--                v-if="selectedItem === 0"-->
+            <!--            ></profile>-->
+
+            <!-- Favourite -->
+            <favourite></favourite>
+
         </v-row>
     </v-container>
 </template>
 
 <script>
 import Profile from "./Profile";
+import Favourite from "./Favourite";
 
 export default {
-    components: {Profile},
+    components: {Profile, Favourite},
     name: "MainProfilePage",
     data() {
         return {
             csrf: window.Laravel.csrf_token,
             user: window.Laravel.auth,
-            selectedItem: 0,
+            selectedItem: 1,
             items: [
-                {text: "Профил", icon: "mdi-account-circle"},
-                {text: "Избранное", icon: "mdi-briefcase"},
-                {text: "Настроки", icon: "mdi-settings"},
-                {text: "Выход", icon: "mdi-logout"},
+                {id: 0, text: "Профил", icon: "mdi-account-circle"},
+                {id: 1, text: "Избранное", icon: "mdi-briefcase"},
+                {id: 2, text: "Настроки", icon: "mdi-settings"},
+                {id: 3, text: "Выход", icon: "mdi-logout"},
             ],
         }
-    }
+    },
 }
 </script>
 

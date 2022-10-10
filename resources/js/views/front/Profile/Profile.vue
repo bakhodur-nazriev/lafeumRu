@@ -1,5 +1,5 @@
 <template>
-    <v-col class="col-lg-9">
+    <div class="pa-3">
         <v-card
             tile
             width="800"
@@ -130,7 +130,7 @@
                 </div>
             </v-col>
         </v-card>
-    </v-col>
+    </div>
 </template>
 
 <script>

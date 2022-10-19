@@ -22,26 +22,6 @@
                             <v-list-item-avatar size="180" class="ma-0">
                                 <v-img class="bg-black" :src="user.avatar" :alt="user.name"></v-img>
                             </v-list-item-avatar>
-
-                            <v-tooltip top>
-                                <template v-slot:activator="{ on, attrs }">
-                                    <v-btn
-                                        fab
-                                        dark
-                                        x-small
-                                        color="primary"
-                                        class="position-absolute"
-                                        style="right: 37px; top: 137px;"
-                                        v-bind="attrs"
-                                        v-on="on"
-                                    >
-                                        <v-icon small dark>
-                                            mdi-camera
-                                        </v-icon>
-                                    </v-btn>
-                                </template>
-                                <span>Изменить аватарку</span>
-                            </v-tooltip>
                         </v-list-item>
 
                         <v-list-item>
@@ -79,13 +59,10 @@
             </div>
 
             <!-- Profile -->
-            <!--            <profile-->
-            <!--                :user-data="user"-->
-            <!--                v-if="selectedItem === 0"-->
-            <!--            ></profile>-->
+            <profile :user-data="user" v-if="selectedItem === 0"></profile>
 
             <!-- Favourite -->
-            <favourite></favourite>
+            <favourite v-if="selectedItem === 1"></favourite>
 
         </v-row>
     </v-container>

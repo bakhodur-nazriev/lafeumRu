@@ -6,6 +6,33 @@
             elevation="0"
             class="mx-auto rounded-lg pa-3"
         >
+            <v-col md="10" cols="12">
+
+                <p class="py-1 grey--text caption">Фотография пользователя</p>
+                <div class="d-flex align-center">
+
+                    <v-avatar size="180">
+                        <img
+                            :src="userData.avatar"
+                            :alt="userData.name"
+                        >
+                    </v-avatar>
+                    <v-btn
+                        depressed
+                        color="primary"
+                        class="text-capitalize rounded-lg mx-2"
+                    >
+                        Изменить аватарку
+                    </v-btn>
+                    <v-btn
+                        depressed
+                        color="primary"
+                        class="text-capitalize rounded-lg mx-2"
+                    >
+                        Удалить аватарку
+                    </v-btn>
+                </div>
+            </v-col>
             <v-col
                 md="10"
                 cols="12"

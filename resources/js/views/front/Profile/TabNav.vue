@@ -3,8 +3,8 @@
         <div class="d-flex primary rounded-lg mb-3 pa-1">
             <div v-for="tab in tabs" :key="tab" class="d-flex">
                 <a
-                    class="nav-link text-white"
-                    :class="{ active: tab === selected, 'green' : hasError }"
+                    class="nav-link text-white subtitle-1"
+                    :class="{ 'grey--text text--lighten-1' : tab !== selected }"
                     @click="setTab(tab)"
                 >
                     {{ tab }}

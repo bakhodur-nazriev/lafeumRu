@@ -11,7 +11,8 @@ use App\Http\View\Composers\DailyPostsComposer;
 use App\Http\View\Composers\MetatagsComposer;
 use App\Knowledge;
 use App\Observers\SluggableObserver;
-use ChristianKuri\LaravelFavorite\Models\Favorite;
+
+//use ChristianKuri\LaravelFavorite\Models\Favorite;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Passport\Passport;
@@ -45,19 +46,19 @@ class AppServiceProvider extends ServiceProvider
         View::composer('layouts.meta-tags', MetatagsComposer::class);
 
         /* Right Sidebar User Block View */
-        View::composer('layouts.right-sidebar.userBlock', function ($view) {
-            $quoteCount = Favorite::where('favoriteable_type', 'App\Quote')->count();
-            $termCount = Favorite::where('favoriteable_type', 'App\Term')->count();
-            $videoCount = Favorite::where('favoriteable_type', 'App\Video')->count();
-
-            $favouriteCount = [
-                'quote' => $quoteCount,
-                'term' => $termCount,
-                'video' => $videoCount
-            ];
-
-            $view->with('favouriteCount', $favouriteCount);
-        });
+//        View::composer('layouts.right-sidebar.userBlock', function ($view) {
+//            $quoteCount = Favorite::where('favoriteable_type', 'App\Quote')->count();
+//            $termCount = Favorite::where('favoriteable_type', 'App\Term')->count();
+//            $videoCount = Favorite::where('favoriteable_type', 'App\Video')->count();
+//
+//            $favouriteCount = [
+//                'quote' => $quoteCount,
+//                'term' => $termCount,
+//                'video' => $videoCount
+//            ];
+//
+//            $view->with('favouriteCount', $favouriteCount);
+//        });
 
         Category::observe(SluggableObserver::class);
         Author::observe(SluggableObserver::class);

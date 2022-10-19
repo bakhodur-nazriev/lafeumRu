@@ -5,11 +5,10 @@ namespace App;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use ChristianKuri\LaravelFavorite\Traits\Favoriteability;
 
 class User extends Authenticatable /*implements MustVerifyEmail*/
 {
-    use HasApiTokens, Notifiable, Favoriteability;
+    use HasApiTokens, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -27,11 +26,11 @@ class User extends Authenticatable /*implements MustVerifyEmail*/
         "hobby"
     ];
 
-    /* public function favorite()
-     {
-         $user = Auth::user();
-         $user->favorite(Quote::class);
-     }*/
+//    public function favorite()
+//    {
+//        $user = Auth::user();
+//        $user->favorite(Quote::class);
+//    }
 
     /**
      * The attributes that should be hidden for arrays.

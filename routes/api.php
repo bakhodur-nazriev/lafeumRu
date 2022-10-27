@@ -139,6 +139,7 @@ Route::group(['prefix' => 'front'], function () {
 Route::get("/summary/{id}", "PostsController@termSummary");
 Route::get("/contacts", "FeedbacksController@create")->name("contacts.create");
 Route::post("/send-contact", "FeedbacksController@store")->name("send-contact");
+Route::get("/search-vocabulary", "TermsController@vocabularySearch");
 
 /* Route DailyPost for PURP */
 Route::get("/daily-quote", "QuotesController@getDailyQuote");

@@ -6,8 +6,10 @@ use App\Category;
 use App\DailyPost;
 use App\Quote;
 use App\Services\RedirectService;
+use App\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Maize\Markable\Models\Like;
 
 class QuotesController extends Controller
 {
@@ -17,6 +19,17 @@ class QuotesController extends Controller
     {
         $this->authorizeResource(Quote::class);
         $this->redirectService = $redirectService;
+    }
+
+    public function likeUnlike()
+    {
+//        $quote = Quote::get();
+        $quote = Quote::whereHasLike(
+            User::first()
+        )->get();
+
+        return Like::count($quote);
+
     }
 
     public function index()

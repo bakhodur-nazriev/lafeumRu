@@ -134,6 +134,10 @@ Route::group(['prefix' => 'front'], function () {
 
     Route::get("/channels/{channel}", "ChannelsController@getShowChannels");
     Route::get("/knowledge/{knowledge}", "KnowledgesController@getShowKnowledgeArea");
+
+    Route::get("/like", "LikeController@likeUnlike");
+    Route::post("/add-like/{id}", "LikeController@addLike");
+    Route::delete("/remove-like/{id}", "LikeController@removeLike");
 });
 
 Route::get("/summary/{id}", "PostsController@termSummary");

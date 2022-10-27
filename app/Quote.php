@@ -6,6 +6,8 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Maize\Markable\Markable;
+use Maize\Markable\Models\Bookmark;
+use Maize\Markable\Models\Favorite;
 use Maize\Markable\Models\Like;
 
 class Quote extends Model
@@ -14,8 +16,12 @@ class Quote extends Model
     use SoftDeletes;
     use PublishableTrait;
 
-    protected static $marks = [Like::class];
     protected $fillable = ["body", "author_id", "publish_at", "deleted_at", "authors_thoughts"];
+    protected static $marks = [
+        Like::class,
+        Bookmark::class,
+        Favorite::class
+    ];
 
     public function author()
     {

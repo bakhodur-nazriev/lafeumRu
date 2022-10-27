@@ -48,8 +48,12 @@ class TermsController extends Controller
         return view("/vocabulary", compact('categories'));
     }
 
-    public function getIndexVocabulary(): JsonResponse
+    public function getIndexVocabulary(Request $request): JsonResponse
     {
+        if ($request->search != '' || isset($request->search)) {
+            return $this->vocabularySearch($request);
+        }
+
         $vocabulary = DB::table('terms')
             ->join('posts', 'posts.postable_id', '=', 'terms.id')
             ->where('posts.postable_type', '=', 'App\\Term')
@@ -57,7 +61,7 @@ class TermsController extends Controller
             ->where('publish_at', '<=', Carbon::now())
             ->where('deleted_at', '=', null)
             ->orderBy('name')
-            ->get();
+            ->paginate(40);
 
         return response()->json($vocabulary);
     }

@@ -10,7 +10,7 @@ use Maize\Markable\Models\Like;
 
 class LikeController extends Controller
 {
-    public function likeUnlike()
+    public function likePost()
     {
         $post = Quote::whereHasLike(auth()->user())->get();
 //        dd($post);
@@ -29,7 +29,7 @@ class LikeController extends Controller
 //        return response()->json();
     }
 
-    public function removeLike($id)
+    public function unlikePost($id)
     {
         $post = Post::find($id);
         $user = auth()->user();

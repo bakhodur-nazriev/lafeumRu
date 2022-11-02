@@ -8,6 +8,7 @@
                 flat
                 min-height="354"
                 max-height="354"
+                width="100%"
                 class="pa-0 rounded"
             >
                 <v-card-text
@@ -16,7 +17,15 @@
                     v-on="on"
                 >
                     <v-col class="pb-2">
-                        <v-img height="205" :src="photo.path" class="rounded"></v-img>
+
+                        <!--                        <v-img v-if="photo.path" height="205" :src="photo.path" class="rounded"></v-img>-->
+                        <v-sheet :color="`grey ${theme.isDark ? 'darken-2' : 'lighten-4'}`">
+                            <v-skeleton-loader
+                                class="mx-auto"
+                                max-width="300"
+                                type="card"
+                            ></v-skeleton-loader>
+                        </v-sheet>
                     </v-col>
 
                     <v-col class="pa-3 pt-0">
@@ -59,7 +68,10 @@ export default {
     data() {
         return {
             photoDialog: false,
-            photo: this.item
+            photo: this.item,
+            theme: {
+                default: {isDark: false},
+            },
         }
     }
 }
@@ -96,5 +108,9 @@ export default {
     line-height: normal;
     word-break: break-word;
     text-align: justify;
+}
+
+.just-test .v-skeleton-loader__card-heading {
+    display: none !important;
 }
 </style>

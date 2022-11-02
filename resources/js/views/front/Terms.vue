@@ -42,7 +42,7 @@ export default {
             loading: false,
             terms: [],
             pagination: {
-                current: 1,
+                current: Number(localStorage.getItem('current_page')),
                 total: 0
             }
         }
@@ -55,7 +55,8 @@ export default {
                 .then(res => {
                     this.loading = false;
                     this.terms = res.data.data;
-                    this.pagination.current = res.data.current_page;
+                    localStorage.setItem('current_page', res.data.current_page);
+                    this.pagination.current = Number(localStorage.getItem('current_page'));
                     this.pagination.total = res.data.last_page;
                 })
                 .catch(err => {

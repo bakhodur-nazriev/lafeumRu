@@ -32,7 +32,7 @@
                     depressed
                     target="_blank"
                     href="https://vk.com/club209177677"
-                    class="primary lighten-1 mx-2"
+                    class="primary lighten-1 mx-2 text-decoration-none"
                 >
                     <v-icon color="white">
                         mdi-vk
@@ -46,7 +46,7 @@
                     depressed
                     target="_blank"
                     href="https://t.me/lafeum_ru"
-                    class="primary lighten-1 mx-2"
+                    class="primary lighten-1 mx-2 text-decoration-none"
                 >
                     <v-icon color="white">
                         mdi-telegram
@@ -103,10 +103,5 @@ export default {
 .footer-divider {
     min-height: 1px;
 }
-
-.btn-link a {
-    text-decoration: none;
-}
-
 </style>
 

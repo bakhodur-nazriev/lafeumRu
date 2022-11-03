@@ -79,8 +79,6 @@ export default {
     },
     mounted() {
         this.getQuotes();
-
-        console.log(window.location.pathname);
     },
 };
 </script>

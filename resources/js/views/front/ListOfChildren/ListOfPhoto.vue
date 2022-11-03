@@ -16,25 +16,21 @@
                     v-bind="attrs"
                     v-on="on"
                 >
-                    <v-col class="pb-2">
-
-                        <!--                        <v-img v-if="photo.path" height="205" :src="photo.path" class="rounded"></v-img>-->
-                        <v-sheet :color="`grey ${theme.isDark ? 'darken-2' : 'lighten-4'}`">
-                            <v-skeleton-loader
-                                class="mx-auto"
-                                max-width="300"
-                                type="card"
-                            ></v-skeleton-loader>
-                        </v-sheet>
-                    </v-col>
-
-                    <v-col class="pa-3 pt-0">
+                    <v-col class="pb-2" v-if="photo.path && photo.title && photo.description">
+                        <v-img height="205" :src="photo.path" class="rounded"></v-img>
                         <v-card-title class="photo-title truncate-to-one-line mb-1" v-if="photo.title">
                             {{ photo.title }}
                         </v-card-title>
                         <v-card-subtitle class="truncate-to-five-line">
                             {{ photo.description }}
                         </v-card-subtitle>
+                    </v-col>
+                    <v-col v-else>
+                        <v-skeleton-loader
+                            class="mx-auto"
+                            max-width="300"
+                            type="card, list-item-three-line"
+                        ></v-skeleton-loader>
                     </v-col>
                 </v-card-text>
             </v-card>

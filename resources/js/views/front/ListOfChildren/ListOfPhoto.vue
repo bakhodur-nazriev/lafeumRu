@@ -18,6 +18,9 @@
                 >
                     <v-col class="pb-2">
                         <v-img height="205" :src="photo.path" class="rounded"></v-img>
+                    </v-col>
+
+                    <v-col class="pa-3 pt-0">
                         <v-card-title class="photo-title truncate-to-one-line mb-1" v-if="photo.title">
                             {{ photo.title }}
                         </v-card-title>

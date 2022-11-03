@@ -65,23 +65,13 @@ export default {
                 })
         },
         onPageChange() {
-            window.scrollTo(0, 0);
             this.getTerms();
+            window.scrollTo(0, 0);
         }
     },
     mounted() {
         this.getTerms();
-
-        if (localStorage.currentPage) {
-            this.pagination = localStorage.currentPage;
-        }
     },
-
-    watch: {
-        page(newPage) {
-            localStorage.pagination = newPage;
-        }
-    }
 }
 </script>
 

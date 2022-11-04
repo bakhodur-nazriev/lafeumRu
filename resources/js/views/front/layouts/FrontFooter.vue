@@ -30,43 +30,26 @@
                     icon
                     small
                     depressed
+                    target="_blank"
+                    href="https://vk.com/club209177677"
                     class="primary lighten-1 mx-2"
                 >
                     <v-icon color="white">
-                        mdi-instagram
+                        mdi-vk
                     </v-icon>
+
                 </v-btn>
                 <v-btn
                     fab
                     icon
                     small
                     depressed
+                    target="_blank"
+                    href="https://t.me/lafeum_ru"
                     class="primary lighten-1 mx-2"
                 >
                     <v-icon color="white">
-                        mdi-basketball
-                    </v-icon>
-                </v-btn>
-                <v-btn
-                    fab
-                    icon
-                    small
-                    depressed
-                    class="primary lighten-1 mx-2"
-                >
-                    <v-icon color="white">
-                        mdi-twitter
-                    </v-icon>
-                </v-btn>
-                <v-btn
-                    fab
-                    icon
-                    small
-                    depressed
-                    class="primary lighten-1 mx-2"
-                >
-                    <v-icon color="white">
-                        mdi-youtube
+                        mdi-telegram
                     </v-icon>
                 </v-btn>
             </v-col>
@@ -120,5 +103,10 @@ export default {
 .footer-divider {
     min-height: 1px;
 }
+
+.btn-link a {
+    text-decoration: none;
+}
+
 </style>
 

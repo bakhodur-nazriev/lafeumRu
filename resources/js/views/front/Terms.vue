@@ -1,5 +1,5 @@
 <template>
-    <v-col xl="5" lg="5" md="3" order="3" order-lg="2">
+    <v-col xl="5" lg="6" order="3" order-lg="2">
         <v-col class="pb-8">
             <h5 class="text-uppercase font-weight-regular mb-0">Термины</h5>
         </v-col>
@@ -42,7 +42,7 @@ export default {
             loading: false,
             terms: [],
             pagination: {
-                current: 1,
+                current: Number(sessionStorage.getItem('current_terms_page')),
                 total: 0
             }
         }
@@ -55,7 +55,8 @@ export default {
                 .then(res => {
                     this.loading = false;
                     this.terms = res.data.data;
-                    this.pagination.current = res.data.current_page;
+                    sessionStorage.setItem('current_terms_page', res.data.current_page);
+                    this.pagination.current = Number(sessionStorage.getItem('current_terms_page'));
                     this.pagination.total = res.data.last_page;
                 })
                 .catch(err => {

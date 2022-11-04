@@ -8,6 +8,7 @@
                 flat
                 min-height="354"
                 max-height="354"
+                width="100%"
                 class="pa-0 rounded"
             >
                 <v-card-text
@@ -15,17 +16,21 @@
                     v-bind="attrs"
                     v-on="on"
                 >
-                    <v-col class="pb-2">
+                    <v-col class="pb-2" v-if="photo.path && photo.title && photo.description">
                         <v-img height="205" :src="photo.path" class="rounded"></v-img>
-                    </v-col>
-
-                    <v-col class="pa-3 pt-0">
                         <v-card-title class="photo-title truncate-to-one-line mb-1" v-if="photo.title">
                             {{ photo.title }}
                         </v-card-title>
                         <v-card-subtitle class="truncate-to-five-line">
                             {{ photo.description }}
                         </v-card-subtitle>
+                    </v-col>
+                    <v-col v-else>
+                        <v-skeleton-loader
+                            class="mx-auto"
+                            max-width="300"
+                            type="card, list-item-three-line"
+                        ></v-skeleton-loader>
                     </v-col>
                 </v-card-text>
             </v-card>
@@ -59,7 +64,10 @@ export default {
     data() {
         return {
             photoDialog: false,
-            photo: this.item
+            photo: this.item,
+            theme: {
+                default: {isDark: false},
+            },
         }
     }
 }
@@ -96,5 +104,9 @@ export default {
     line-height: normal;
     word-break: break-word;
     text-align: justify;
+}
+
+.just-test .v-skeleton-loader__card-heading {
+    display: none !important;
 }
 </style>

@@ -50,7 +50,7 @@ export default {
             quotes: [],
             loading: false,
             pagination: {
-                current: 1,
+                current: Number(sessionStorage.getItem('current_quotes_page')),
                 total: 0,
             },
         };
@@ -63,7 +63,8 @@ export default {
                 .then((res) => {
                     this.loading = false;
                     this.quotes = res.data.data;
-                    this.pagination.current = res.data.current_page;
+                    sessionStorage.setItem('current_quotes_page', res.data.current_page);
+                    this.pagination.current = Number(sessionStorage.getItem('current_quotes_page'));
                     this.pagination.total = res.data.last_page;
                 })
                 .catch((err) => {
@@ -78,6 +79,8 @@ export default {
     },
     mounted() {
         this.getQuotes();
+
+        console.log(window.location.pathname);
     },
 };
 </script>

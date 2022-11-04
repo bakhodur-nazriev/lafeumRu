@@ -40,7 +40,7 @@
             <v-col
                 v-for="(authors, i) in filteredAuthors"
                 :key="i"
-                class="fill-height col-lg-4 col-md-"
+                class="fill-height col-lg-4 col-md-6"
             >
                 <v-card rounded="lg" class="px-6 py-4" flat>
                     <v-card-text

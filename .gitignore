@@ -8,7 +8,7 @@
 /public/storage
 /public/img/authors
 /public/img/avatars
-public/img/photos
+/public/img/photos/*
 /public/img/meta*
 /public/.htaccess
 /public/google0244cd168ef8f2be.html

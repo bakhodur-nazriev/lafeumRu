@@ -37,7 +37,7 @@ export default {
             videos: [],
             loading: false,
             pagination: {
-                current: 1,
+                current: Number(sessionStorage.getItem('current_videos_page')),
                 total: 0
             }
         }
@@ -50,7 +50,8 @@ export default {
                 .then((res) => {
                     this.loading = false;
                     this.videos = res.data;
-                    this.pagination.current = res.data.current_page;
+                    sessionStorage.setItem('current_videos_page', res.data.current_page);
+                    this.pagination.current = Number(sessionStorage.getItem('current_videos_page'));
                     this.pagination.total = res.data.last_page;
                 })
                 .catch(err => {

@@ -23,12 +23,6 @@ class QuotesController extends Controller
 
     public function likeUnlike()
     {
-//        $quote = Quote::get();
-        $quote = Quote::whereHasLike(
-            User::first()
-        )->get();
-
-        return Like::count($quote);
 
     }
 

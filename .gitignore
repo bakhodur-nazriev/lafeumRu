@@ -6,7 +6,7 @@
 /public/css/app.css
 /public/hot
 /public/storage
-/public/img/authors
+/public/img/authors/*
 /public/img/avatars
 /public/img/photos/*
 /public/img/meta*

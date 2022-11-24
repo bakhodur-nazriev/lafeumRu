@@ -3,7 +3,7 @@
         <v-col class="subtitle-2 pa-0 font-weight-light">
             <v-hover v-slot="{ hover }">
                 <a
-                    href="#"
+                    :href="'/' + item.id"
                     target="_blank"
                     class="vocabulary-words text-decoration-none d-block"
                 >
@@ -27,9 +27,7 @@ export default {
     name: "ListOfChildren",
     props: ["item"],
     data() {
-        return {
-            path: `/${window.location.pathname}`
-        }
+        return {}
     },
 }
 </script>

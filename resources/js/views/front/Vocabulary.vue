@@ -54,6 +54,7 @@
         <div v-if="search !== ''">
             <search-vocabulary
                 :terms="filteredVocabulary"
+                :getVocabulary="getVocabulary"
                 @processingFinished="processingFinished"
             />
         </div>

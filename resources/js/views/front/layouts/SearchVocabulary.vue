@@ -34,21 +34,13 @@
                 </v-card>
             </v-col>
         </v-row>
-        <infinite-loading @disance="1" @infinite="getVocabulary">
-            <div slot="no-results"></div>
-            <div slot="no-more"></div>
-        </infinite-loading>
     </div>
 </template>
 
 <script>
-
-import InfiniteLoading from "vue-infinite-loading";
-
 export default {
-    components: {InfiniteLoading},
     name: "SearchVocabulary",
-    props: ["terms", "getVocabulary"],
+    props: ["terms"],
     data() {
         return {}
     },

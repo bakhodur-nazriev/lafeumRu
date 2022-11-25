@@ -59,6 +59,12 @@
             />
         </div>
 
+        <div v-if="isLoading" class="d-flex justify-content-center">
+            <v-progress-circular
+                indeterminate
+                color="primary"
+            ></v-progress-circular>
+        </div>
     </v-col>
 </template>
 
@@ -76,28 +82,27 @@ export default {
             cols: 2,
             page: 1,
             terms: [],
-            searchedTerms: [],
             search: "",
+            searchedTerms: [],
             category: [],
+            isLoading: false,
             isSearching: false,
             widthOfWindow: window.innerWidth,
             fullPath: `/api/front${window.location.pathname}`,
         };
     },
     methods: {
-        getVocabulary($state) {
+        getVocabulary() {
             let url = this.fullPath ? this.fullPath : '/api/front/vocabulary';
+            this.isLoading = true;
             axios
                 .get(url + "?page=" + this.page)
                 .then(res => {
                     if (res.data.data.length || res.data.length) {
                         this.page += 1;
                         this.terms.push(...res.data.data);
-                        $state.loaded();
-
-                    } else {
-                        $state.complete();
                     }
+                    this.isLoading = false;
                 })
                 .catch((err) => {
                     console.log(err);
@@ -105,11 +110,13 @@ export default {
             this.page += 1;
         },
         searchVocabulary(value) {
+            this.isLoading = true;
             axios
                 .get('/api/search-vocabulary?search=' + value)
                 .then(res => {
                     this.$emit('processingFinished', false);
                     this.searchedTerms = res.data.data;
+                    this.isLoading = false;
                 })
                 .catch((err) => {
                     console.log(err);
@@ -121,9 +128,21 @@ export default {
         processingFinished(value) {
             this.isSearching = value;
         },
+        getNextVocabularyPage() {
+            window.onscroll = () => {
+                let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight;
+
+                if (bottomOfWindow === document.documentElement.offsetHeight) {
+                    this.getVocabulary();
+                }
+            }
+        }
+    },
+    beforeMount() {
+        this.getVocabulary();
     },
     mounted() {
-        this.getVocabulary();
+        this.getNextVocabularyPage();
     },
     watch: {
         search() {

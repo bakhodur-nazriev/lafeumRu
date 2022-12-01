@@ -59,7 +59,7 @@
             />
         </div>
 
-        <div v-if="isLoading" class="d-flex justify-content-center">
+        <div v-if="isLoading && page <= lastPage" class="d-flex justify-content-center">
             <v-progress-circular
                 indeterminate
                 color="primary"
@@ -81,6 +81,7 @@ export default {
         return {
             cols: 2,
             page: 1,
+            lastPage: 1,
             terms: [],
             search: "",
             searchedTerms: [],
@@ -99,8 +100,8 @@ export default {
                 .get(url + "?page=" + this.page)
                 .then(res => {
                     if (res.data.data.length || res.data.length) {
-                        this.page += 1;
                         this.terms.push(...res.data.data);
+                        this.lastPage = res.data.last_page;
                     }
                     this.isLoading = false;
                 })
@@ -129,21 +130,15 @@ export default {
         processingFinished(value) {
             this.isSearching = value;
         },
-        getNextVocabularyPage() {
-            window.onscroll = () => {
-                let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight;
-
-                if (bottomOfWindow === document.documentElement.offsetHeight) {
-                    this.getVocabulary();
-                }
+        handleScrolledToBottom() {
+            if (window.scrollY + window.innerHeight >= document.body.scrollHeight) {
+                this.getVocabulary();
             }
         }
     },
-    beforeMount() {
-        this.getVocabulary();
-    },
     mounted() {
-        this.getNextVocabularyPage();
+        this.getVocabulary();
+        window.addEventListener('scroll', this.handleScrolledToBottom);
     },
     watch: {
         search() {

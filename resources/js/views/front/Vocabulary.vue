@@ -136,6 +136,9 @@ export default {
         }
     },
     mounted() {
+        if (this.page === 1) {
+            this.getVocabulary();
+        }
         this.getVocabulary();
         window.addEventListener('scroll', this.handleScrolledToBottom);
     },

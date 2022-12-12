@@ -1,12 +1,5 @@
 <template>
     <v-container>
-        <!-- Header -->
-        <v-row justify="center" class="my-1">
-            <div class="pa-3">
-                <h5 class="text-uppercase font-weight-regular mb-0">Личный кабинет</h5>
-            </div>
-        </v-row>
-
         <v-row class="mt-0 mb-3" justify="center">
             <!-- SideBar -->
             <div class="pa-3">

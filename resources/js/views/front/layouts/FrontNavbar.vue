@@ -212,6 +212,69 @@
                                 <v-list-item-title>{{ item.title }}</v-list-item-title>
                             </v-list-item-content>
                         </v-list-item>
+                        <hr>
+                        <div v-if="!user" class="d-flex flex-column align-center">
+                            <v-list-item>
+                                <v-btn
+                                    href="login"
+                                    class="text-capitalize text-decoration-none"
+                                    style="height: 30px;"
+                                    color="primary"
+                                >
+                                    Вход
+                                </v-btn>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-btn
+                                    href="register"
+                                    class="text-capitalize text-decoration-none"
+                                    style="height: 30px;"
+                                    color="primary"
+                                >
+                                    Регистрация
+                                </v-btn>
+                            </v-list-item>
+                        </div>
+
+                        <div v-else>
+                            <v-list-item
+                                v-for="profileLink in profileLinks"
+                                :key="profileLink.href"
+                                :href="profileLink.href"
+                                class="text-decoration-none font-weight-regular"
+                            >
+                                <v-list-item-icon class="mr-2">
+                                    <v-icon v-text="profileLink.icon"></v-icon>
+                                </v-list-item-icon>
+                                <v-list-item-content>
+                                    <v-list-item-title class="pa-1">
+                                        {{ profileLink.title }}
+                                    </v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                            <v-list-item
+                                class="text-decoration-none font-weight-regular"
+                                @click="$refs.logout.submit()"
+                            >
+                                <v-list-item-icon class="mr-2">
+                                    <v-icon>mdi-logout</v-icon>
+                                </v-list-item-icon>
+                                <v-list-item-content>
+                                    <v-list-item-title class="pa-1">
+                                        <span>Выход</span>
+                                        <form
+                                            ref="logout"
+                                            action="/logout"
+                                            method="POST"
+                                            style="display: none;"
+                                        >
+                                            <input type="hidden" name="_token" :value="csrf"/>
+                                        </form>
+                                    </v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                        </div>
+
                         <v-col class="pa-0 small-nav-close-btn">
                             <v-btn
                                 icon
@@ -245,11 +308,11 @@ export default {
                     href: "profile-favorites",
                     icon: "mdi-briefcase"
                 },
-                {
-                    title: "Настройки",
-                    href: "/",
-                    icon: "mdi-settings"
-                },
+                // {
+                //     title: "Настройки",
+                //     href: "/",
+                //     icon: "mdi-settings"
+                // },
             ],
             navItems: [
                 {

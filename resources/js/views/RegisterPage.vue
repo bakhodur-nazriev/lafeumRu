@@ -1,5 +1,5 @@
 <template>
-    <v-col cols=9>
+    <v-col col-md="12" col-lg=9>
         <v-card
             elevation="0"
             max-width="500"
@@ -111,16 +111,20 @@ export default {
             if (validData) {
                 this.$refs.form.submit();
             }
-        },
+        }
     },
 };
 </script>
-
-
 <style scoped>
 .card {
     margin-bottom: 40px;
     padding: 50px 70px;
     background-color: #f7f7f7 !important;
+}
+
+@media (max-width: 767px) {
+    .card {
+        padding: 25px 30px;
+    }
 }
 </style>

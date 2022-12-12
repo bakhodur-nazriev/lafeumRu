@@ -1,5 +1,5 @@
 <template>
-    <v-col cols="8">
+    <v-col col-sm="12" col-lg="8">
         <v-card
             elevation="0"
             max-width="500"
@@ -91,12 +91,17 @@ export default {
 };
 </script>
 
-
 <style scoped>
 .card {
     margin-bottom: 40px;
     padding: 50px 70px;
     background-color: #f7f7f7 !important;
     border: none;
+}
+
+@media (max-width: 767px) {
+    .card {
+        padding: 25px 30px;
+    }
 }
 </style>

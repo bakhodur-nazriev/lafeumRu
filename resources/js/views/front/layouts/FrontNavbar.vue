@@ -212,7 +212,7 @@
                                 <v-list-item-title>{{ item.title }}</v-list-item-title>
                             </v-list-item-content>
                         </v-list-item>
-                        <hr>
+                        <v-divider></v-divider>
                         <div v-if="!user" class="d-flex flex-column align-center">
                             <v-list-item>
                                 <v-btn
@@ -299,7 +299,7 @@ export default {
             user: window.Laravel.auth,
             profileLinks: [
                 {
-                    title: "Мой Профил",
+                    title: "Мой Профиль",
                     href: "/profile",
                     icon: "mdi-account-circle"
                 },

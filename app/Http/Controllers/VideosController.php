@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Services\RedirectService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Video;
 
@@ -24,11 +25,10 @@ class VideosController extends Controller
         return view("/videos", compact("categories"));
     }
 
-    public function getVideos()
+    public function getVideos(): JsonResponse
     {
         $videos = Video::with([
             'channel',
-            'favorites',
             'categories',
             'post'
         ])

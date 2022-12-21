@@ -1,5 +1,5 @@
 <template>
-    <div class="pa-3">
+    <div class="pa-3 main-block">
         <v-card
             tile
             width="800"
@@ -80,20 +80,20 @@
                                 <v-btn icon>
                                     <v-icon color="grey lighten-1">mdi-bookmark</v-icon>
                                 </v-btn>
-                                <span>45</span>
                             </div>
                             <v-spacer></v-spacer>
-                            <!--                            <share-button :post="item.post"></share-button>-->
+                            <!--<share-button :post="item.post"></share-button>-->
                         </v-card-actions>
                     </v-card>
                 </Tab>
 
                 <Tab :is-selected="selected === 'Термины'">
                     <v-card
-                        flat
                         rounded="lg"
                         class="mb-6"
                         ref="termItem"
+                        v-for="i in 3"
+                        :key="i"
                     >
                         <v-card-subtitle class="d-flex align-items-center px-3 py-2">
                             <div class="d-flex">
@@ -159,7 +159,6 @@
                                 <v-btn icon>
                                     <v-icon color="grey lighten-1">mdi-bookmark</v-icon>
                                 </v-btn>
-                                <span>45</span>
                             </div>
                             <v-spacer></v-spacer>
                         </v-card-actions>
@@ -248,5 +247,11 @@ export default {
 
 .author-show-link:hover {
     text-decoration: none;
+}
+
+@media (max-width: 767px) {
+    .main-block {
+        max-width: 100%;
+    }
 }
 </style>

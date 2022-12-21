@@ -60,7 +60,6 @@
                 <v-btn icon>
                     <v-icon color="grey lighten-1">mdi-bookmark</v-icon>
                 </v-btn>
-                <span>45</span>
             </div>
             <v-spacer></v-spacer>
             <share-button :post="item.post"></share-button>

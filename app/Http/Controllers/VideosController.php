@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Services\RedirectService;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Video;
@@ -20,7 +21,10 @@ class VideosController extends Controller
 
     public function index()
     {
-        $categories = Category::where('type', 'App\Video')->get()->toTree()->unique('name');
+        $categories = Category::where('type', 'App\Video')
+            ->get()
+            ->toTree()
+            ->unique('name');
 
         return view("/videos", compact("categories"));
     }

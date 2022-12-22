@@ -8,13 +8,14 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable /*implements MustVerifyEmail*/
 {
-    use HasApiTokens, Notifiable;
+    use HasApiTokens, Notifiable, HasLikeableTrait;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
+
     protected $fillable = [
         "name",
         "email",
@@ -31,6 +32,13 @@ class User extends Authenticatable /*implements MustVerifyEmail*/
 //        $user = Auth::user();
 //        $user->favorite(Quote::class);
 //    }
+
+    public function favorite()
+    {
+        $user = Auth::user();
+
+        $quote = Quote::firstOrFail();
+    }
 
     /**
      * The attributes that should be hidden for arrays.

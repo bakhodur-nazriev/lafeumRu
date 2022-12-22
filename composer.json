@@ -19,7 +19,6 @@
         "laravel/passport": "^10.0",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.0",
-        "maize-tech/laravel-markable": "^1.0",
         "spatie/browsershot": "^3.36"
     },
     "require-dev": {

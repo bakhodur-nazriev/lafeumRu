@@ -27,7 +27,7 @@ class PostsController extends Controller
         }
 
         if ($post->postable_type == 'App\\Video') {
-            $post = Video::with('channel', 'favorites', 'categories', 'post')->find($post)->first();
+            $post = Video::with('channel', 'categories', 'post')->find($post)->first();
 
             return view('shows.post', compact('post', 'postMetatags'));
         }

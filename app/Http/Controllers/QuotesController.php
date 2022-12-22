@@ -6,10 +6,8 @@ use App\Category;
 use App\DailyPost;
 use App\Quote;
 use App\Services\RedirectService;
-use App\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Maize\Markable\Models\Like;
 
 class QuotesController extends Controller
 {
@@ -19,11 +17,6 @@ class QuotesController extends Controller
     {
         $this->authorizeResource(Quote::class);
         $this->redirectService = $redirectService;
-    }
-
-    public function likeUnlike()
-    {
-
     }
 
     public function index()
@@ -130,6 +123,45 @@ class QuotesController extends Controller
         if ($metaImage) {
             unlink(public_path($metaImage));
         }
+    }
+
+    public function favorites()
+    {
+        $quotes = Quote::whereHasFavorite(
+            auth()->user()
+        )->get();
+
+        return response()->json($quotes);
+    }
+
+    public function addFavorite($id)
+    {
+        $quote = Quote::find($id);
+        $user = auth()->user();
+        Favorite::add($quote, $user);
+        session()->flash('Success', 'Quote is added to favorite successfully');
+    }
+
+    public function removeFavorite($id)
+    {
+        $quote = Quote::find($id);
+        $user = auth()->user();
+        Favorite::remove($quote, $user);
+        session()->flash('Success', 'Quote is added to favorite successfully');
+    }
+
+    public function like(Request $request, Quote $quote)
+    {
+        auth()->user()->like($quote);
+
+        return response()->json(['message' => 'Success']);
+    }
+
+    public function unlike(Request $request, Quote $quote)
+    {
+        auth()->user()->unlike($quote);
+
+        return response()->json(['message' => 'Success']);
     }
 
     /**

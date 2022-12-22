@@ -6,7 +6,6 @@ use App\Post;
 use App\Quote;
 use App\User;
 use Illuminate\Http\Request;
-use Maize\Markable\Models\Like;
 
 class LikeController extends Controller
 {

@@ -216,7 +216,6 @@ class CategoriesController extends Controller
         if ($model == 'App\\Video') {
             return $categoriablesQuery->with([
                 'channel',
-                'favorites',
                 'categories',
                 'post'
             ]);

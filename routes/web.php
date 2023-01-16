@@ -10,9 +10,11 @@ Route::group(["middleware" => "auth"], function () {
 
     Route::get("/dashboard{any}", "AppController@dashboard")->where("any", ".*")->name("dashboard");
     Route::get("/dashboard", "AppController@dashboard")->name("dashboard");
-    Route::get("/favorites", "AppController@favorites")->name("favorites");
-    Route::put("/toggle-favourite", "FavoriteController@toggle");
+//    Route::get("/favorites", "AppController@favorites")->name("favorites");
+//    Route::post("/posts/{post}/favorites", "FavoritesController@store");
 });
+
+Route::post("quotes/{quote}/favorites", "FavoritesController@store");
 
 Route::get("/", "AppController@index")->name("home");
 Route::get("/quotes", "QuotesController@index")->name("quotes");
@@ -42,5 +44,6 @@ Route::get("/contacts", "FeedbacksController@create")->name("contacts.create");
 Route::post("/contacts", "FeedbacksController@store")->name("contacts.store");
 
 Route::get("/terms/links-search", "TermsController@linksSearch")->name("terms.search");
+
 /* Should be on bottom */
 Route::get("/{post}", "PostsController@show")->name('post');

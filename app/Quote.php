@@ -38,4 +38,18 @@ class Quote extends Model
     {
         return $this->hasMany(DailyPost::class);
     }
+
+    public function favorites()
+    {
+        return $this->morphMany(Favorite::class, 'favorited');
+    }
+
+    public function favorite($userId)
+    {
+        $attributes = ['user_id' => $userId];
+
+        if (!$this->favorites()->where($attributes)->exists()) {
+            return $this->favorites()->create($attributes);
+        }
+    }
 }

@@ -33,12 +33,12 @@ class User extends Authenticatable /*implements MustVerifyEmail*/
 //        $user->favorite(Quote::class);
 //    }
 
-    public function favorite()
-    {
-        $user = Auth::user();
-
-        $quote = Quote::firstOrFail();
-    }
+//    public function favorite()
+//    {
+//        $user = Auth::user();
+//
+//        $quote = Quote::firstOrFail();
+//    }
 
     /**
      * The attributes that should be hidden for arrays.

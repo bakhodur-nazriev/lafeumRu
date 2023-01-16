@@ -108,6 +108,9 @@ Route::group(['middleware' => 'auth:api'], function () {
     /* Like and Unlike Routes */
     Route::post('like', 'LikeController@likePost')->name('like');
     Route::delete('like', 'LikeController@unlikePost')->name('unlike');
+
+    Route::post("like", "QuotesController@like");
+    Route::post("unlike", "QuotesController@unlike");
 });
 
 /* FrontEnd Routes */
@@ -135,9 +138,7 @@ Route::group(['prefix' => 'front'], function () {
     Route::get("/channels/{channel}", "ChannelsController@getShowChannels");
     Route::get("/knowledge/{knowledge}", "KnowledgesController@getShowKnowledgeArea");
 
-    Route::get("/like", "LikeController@likeUnlike");
-    Route::post("/add-like/{id}", "LikeController@addLike");
-    Route::delete("/remove-like/{id}", "LikeController@removeLike");
+    /* Route::post("/quotes/{quote}/favorites", "FavoritesController@store"); */
 });
 
 Route::get("/summary/{id}", "PostsController@termSummary");

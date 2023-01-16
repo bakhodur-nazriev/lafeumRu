@@ -125,45 +125,6 @@ class QuotesController extends Controller
         }
     }
 
-    public function favorites()
-    {
-        $quotes = Quote::whereHasFavorite(
-            auth()->user()
-        )->get();
-
-        return response()->json($quotes);
-    }
-
-    public function addFavorite($id)
-    {
-        $quote = Quote::find($id);
-        $user = auth()->user();
-        Favorite::add($quote, $user);
-        session()->flash('Success', 'Quote is added to favorite successfully');
-    }
-
-    public function removeFavorite($id)
-    {
-        $quote = Quote::find($id);
-        $user = auth()->user();
-        Favorite::remove($quote, $user);
-        session()->flash('Success', 'Quote is added to favorite successfully');
-    }
-
-    public function like(Request $request, Quote $quote)
-    {
-        auth()->user()->like($quote);
-
-        return response()->json(['message' => 'Success']);
-    }
-
-    public function unlike(Request $request, Quote $quote)
-    {
-        auth()->user()->unlike($quote);
-
-        return response()->json(['message' => 'Success']);
-    }
-
     /**
      * Helpers
      *

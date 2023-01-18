@@ -51,4 +51,9 @@ class Term extends Model
             ->where('show_in_vocabulary', true)
             ->orderBy('name');
     }
+
+    public function favorites()
+    {
+        return $this->morphMany(Favorite::class, 'favorited');
+    }
 }

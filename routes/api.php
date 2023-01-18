@@ -70,7 +70,9 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::delete("/channels/{channel}", "ChannelsController@destroy");
 
     /* Favourites */
-    Route::get("/favourites", "FavoriteController@index");
+    Route::get("/quotes/{quote}favorites", "FavoriteController@store");
+    Route::get("/terms/{term}favorites", "FavoriteController@store");
+    Route::get("/videos/{video}favorites", "FavoriteController@store");
 
     /* Users-Feedbacks */
     Route::get("/feedbacks", "FeedbacksController@get");

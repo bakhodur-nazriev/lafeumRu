@@ -57,7 +57,8 @@
                     <v-icon color="grey lighten-1">mdi-heart</v-icon>
                 </v-btn>
                 <span>45</span>
-                <v-btn icon>
+
+                <v-btn @click="addToFavorite()" icon>
                     <v-icon color="grey lighten-1">mdi-bookmark</v-icon>
                 </v-btn>
             </div>
@@ -78,44 +79,22 @@ export default {
         return {
             item: this.quote,
             isActive: true,
-            isLiked: false,
-            isFavourited: true,
+            isFavorite: true,
         };
     },
     methods: {
         readMore() {
             this.isActive = !this.isActive;
         },
-        likeQuote() {
-            this.isLiked = !this.isLiked;
-        },
-        addToFavourite() {
-            this.isFavourited = !this.isFavourited;
-        },
-        toggleLike() {
-            if (this.isLiked) {
-                this.unlikePhoto()
-            } else {
-                this.likePhoto()
-            }
-        },
-        likePhoto() {
-            this.submitted = true;
-
-            axios.post('/likes', {'photo': this.photo}, function (res) {
-                this.liked = true;
-                this.submitted = false;
-                this.text = 'Unlike';
-            });
-        },
-        unlikePhoto() {
-            this.submitted = true;
-
-            axios.delete('/likes/' + this.photo, function (res) {
-                this.liked = false;
-                this.submitted = false;
-                this.text = 'Like';
-            });
+        addToFavorite(id) {
+            axios
+                .post('/api/quotes/' + id + '/favorites')
+                .then(res => {
+                    console.log(res);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
         }
     },
 };

@@ -40,6 +40,7 @@ class QuotesController extends Controller
         $quotes = Quote::with([
             'author:id,name,slug',
             'categories:id,name,slug',
+            'favorites',
             'post'
         ])
             ->published('desc')

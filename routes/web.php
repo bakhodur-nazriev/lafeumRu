@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use \Illuminate\Support\Facades\Auth;
+
 Auth::routes();
 
 Route::group(["middleware" => "auth"], function () {
@@ -14,7 +16,9 @@ Route::group(["middleware" => "auth"], function () {
 //    Route::post("/posts/{post}/favorites", "FavoritesController@store");
 });
 
-Route::post("quotes/{quote}/favorites", "FavoritesController@store");
+Route::get("/quotes/{quote}favorites", "FavoriteController@store");
+//Route::get("/quotes/favorites", "FavoritesController@get");
+//Route::delete('/quotes/{quote}/favorites', 'FavoritesController@delete');
 
 Route::get("/", "AppController@index")->name("home");
 Route::get("/quotes", "QuotesController@index")->name("quotes");

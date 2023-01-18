@@ -9,5 +9,13 @@
 @endsection
 
 @section('content')
-    <about-us></about-us>
+    <div>
+        <form method="post" action="/quotes/245/favorites">
+            {{ csrf_field() }}
+
+            <button type="submit" class="btn btn-primary">OK</button>
+        </form>
+    </div>
+
+    {{--        <about-us></about-us>--}}
 @endsection

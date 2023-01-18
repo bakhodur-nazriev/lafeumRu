@@ -17,4 +17,16 @@ class FavoritesController extends Controller
     {
         return $quote->favorite();
     }
+
+    public function delete($id)
+    {
+        Favorite::destroy($id);
+
+        return response()->json("success");
+    }
+
+    /*public function get()
+    {
+        return response()->json(Favorite::all());
+    }*/
 }

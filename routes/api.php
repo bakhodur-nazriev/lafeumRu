@@ -70,9 +70,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::delete("/channels/{channel}", "ChannelsController@destroy");
 
     /* Favourites */
-    Route::get("/quotes/{quote}favorites", "FavoriteController@store");
-    Route::get("/terms/{term}favorites", "FavoriteController@store");
-    Route::get("/videos/{video}favorites", "FavoriteController@store");
+    Route::post("/quotes/{quote}/favorites", "FavoritesController@store");
+    Route::delete("/quotes/{quote}/unfavorites", "FavoritesController@remove");
 
     /* Users-Feedbacks */
     Route::get("/feedbacks", "FeedbacksController@get");
@@ -106,13 +105,6 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get("/channels-trashed", "ChannelsController@getTrashed");
     Route::put("/channel-trashed/{channel}", "ChannelsController@restored");
     Route::delete("/channel-trashed/{channel}", "ChannelsController@forceDeleted");
-
-    /* Like and Unlike Routes */
-    Route::post('like', 'LikeController@likePost')->name('like');
-    Route::delete('like', 'LikeController@unlikePost')->name('unlike');
-
-    Route::post("like", "QuotesController@like");
-    Route::post("unlike", "QuotesController@unlike");
 });
 
 /* FrontEnd Routes */
@@ -139,8 +131,6 @@ Route::group(['prefix' => 'front'], function () {
 
     Route::get("/channels/{channel}", "ChannelsController@getShowChannels");
     Route::get("/knowledge/{knowledge}", "KnowledgesController@getShowKnowledgeArea");
-
-    /* Route::post("/quotes/{quote}/favorites", "FavoritesController@store"); */
 });
 
 Route::get("/summary/{id}", "PostsController@termSummary");

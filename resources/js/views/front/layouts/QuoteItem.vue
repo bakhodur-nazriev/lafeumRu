@@ -58,9 +58,14 @@
                 </v-btn>
                 <span>45</span>
 
-                <v-btn @click="addToFavorite()" icon>
+                <v-btn v-if="!isFavorite" @click="favorite()" icon>
                     <v-icon color="grey lighten-1">mdi-bookmark</v-icon>
                 </v-btn>
+
+                <v-btn v-if="isFavorite" @click="unFavorite()" icon>
+                    <v-icon color="primary lighten-1">mdi-bookmark</v-icon>
+                </v-btn>
+                {{ isFavorite }}
             </div>
             <v-spacer></v-spacer>
             <share-button :post="item.post"></share-button>
@@ -77,26 +82,58 @@ export default {
     components: {ShareButton, VueReadMoreSmooth},
     data() {
         return {
+            csrf: window.Laravel.csrf_token,
             item: this.quote,
             isActive: true,
-            isFavorite: true,
+            isFavorite: !!this.quote.favorites.length,
+            user: window.Laravel.auth,
         };
     },
     methods: {
         readMore() {
             this.isActive = !this.isActive;
         },
-        addToFavorite(id) {
-            axios
-                .post('/api/quotes/' + id + '/favorites')
-                .then(res => {
-                    console.log(res);
-                })
-                .catch(err => {
-                    console.log(err);
-                });
+        favorite() {
+            if (!this.user) {
+                window.location.href = '/login';
+            } else {
+                axios
+                    .post('/quotes/' + this.item.id + '/favorites')
+                    .then(res => {
+                        console.log(res);
+                        if (res.status === 200) {
+                            this.isFavorite = true;
+                        }
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+            }
+        },
+        unFavorite() {
+            if (!this.user) {
+                window.location.href = '/login';
+            } else {
+                axios
+                    .delete('/quotes/' + this.item.id + '/unfavorites')
+                    .then(res => {
+                        console.log(res);
+                        if (res.status === 200) {
+                            this.isFavorite = false;
+                        }
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+            }
+
         }
     },
+    watch: {
+        // isFavorite() {
+        //     this.isFavorite = !this.isFavorite;
+        // }
+    }
 };
 </script>
 

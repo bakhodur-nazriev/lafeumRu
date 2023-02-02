@@ -15,18 +15,15 @@ class FavoritesController extends Controller
 
     public function store(Quote $quote)
     {
-        return $quote->favorite();
+        $quote->favorite();
+
+        return back();
     }
 
-    public function delete($id)
+    public function remove(Quote $quote)
     {
-        Favorite::destroy($id);
+        $quote->unFavorite();
 
-        return response()->json("success");
+        return back();
     }
-
-    /*public function get()
-    {
-        return response()->json(Favorite::all());
-    }*/
 }

@@ -10,7 +10,6 @@ class Quote extends Model
 {
     use SoftDeletes;
     use PublishableTrait;
-    use HasLikesTrait;
 
     protected $fillable = ["body", "author_id", "publish_at", "deleted_at", "authors_thoughts"];
 
@@ -50,6 +49,15 @@ class Quote extends Model
 
         if (!$this->favorites()->where($attributes)->exists()) {
             return $this->favorites()->create($attributes);
+        }
+    }
+
+    public function unFavorite()
+    {
+        $attributes = ['user_id' => auth()->id()];
+
+        if ($this->favorites()->where($attributes)->exists()) {
+            return $this->favorites()->delete($attributes);
         }
     }
 }

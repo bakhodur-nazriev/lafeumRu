@@ -13,12 +13,9 @@ Route::group(["middleware" => "auth"], function () {
     Route::get("/dashboard{any}", "AppController@dashboard")->where("any", ".*")->name("dashboard");
     Route::get("/dashboard", "AppController@dashboard")->name("dashboard");
 //    Route::get("/favorites", "AppController@favorites")->name("favorites");
-//    Route::post("/posts/{post}/favorites", "FavoritesController@store");
+    Route::post("/quotes/{quote}/favorites", "FavoritesController@store");
+    Route::delete("/quotes/{quote}/unfavorites", "FavoritesController@remove");
 });
-
-Route::get("/quotes/{quote}favorites", "FavoriteController@store");
-//Route::get("/quotes/favorites", "FavoritesController@get");
-//Route::delete('/quotes/{quote}/favorites', 'FavoritesController@delete');
 
 Route::get("/", "AppController@index")->name("home");
 Route::get("/quotes", "QuotesController@index")->name("quotes");

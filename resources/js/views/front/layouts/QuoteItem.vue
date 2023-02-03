@@ -98,7 +98,7 @@ export default {
                 window.location.href = '/login';
             } else {
                 axios
-                    .post('/quotes/' + this.item.id + '/favorites')
+                    .post('/api/quotes/' + this.item.id + '/favorites')
                     .then(res => {
                         console.log(res);
                         if (res.status === 200) {
@@ -115,7 +115,7 @@ export default {
                 window.location.href = '/login';
             } else {
                 axios
-                    .delete('/quotes/' + this.item.id + '/unfavorites')
+                    .delete('/api/quotes/' + this.item.id + '/unfavorites')
                     .then(res => {
                         console.log(res);
                         if (res.status === 200) {
@@ -130,10 +130,13 @@ export default {
         }
     },
     watch: {
-        // isFavorite() {
-        //     this.isFavorite = !this.isFavorite;
+        // isFavorite(newVal, oldVal) {
+        //     console.log(`old value ${oldVal}, new value ${newVal}`);
         // }
-    }
+    },
+    // mounted() {
+    //     console.log(this.user);
+    // }
 };
 </script>
 

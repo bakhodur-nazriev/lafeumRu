@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Quote;
-use App\Favorite;
 use Illuminate\Http\Request;
 
-class FavoritesController extends Controller
+class LikesController extends Controller
 {
     public function __construct()
     {
@@ -15,15 +14,11 @@ class FavoritesController extends Controller
 
     public function store(Quote $quote)
     {
-        $quote->favorite();
 
-        return back();
     }
 
-    public function destroy(Quote $quote)
+    public function remove(Quote $quote)
     {
-        $quote->delete();
 
-        return back();
     }
 }

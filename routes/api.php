@@ -71,7 +71,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     /* Favourites */
     Route::post("/quotes/{quote}/favorites", "FavoritesController@store");
-    Route::delete("/quotes/{quote}/unfavorites", "FavoritesController@destroy");
+    Route::post("/quotes/{quote}/unfavorites", "FavoritesController@destroy");
 
     /* Users-Feedbacks */
     Route::get("/feedbacks", "FeedbacksController@get");

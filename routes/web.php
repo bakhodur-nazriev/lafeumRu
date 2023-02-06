@@ -12,9 +12,6 @@ Route::group(["middleware" => "auth"], function () {
 
     Route::get("/dashboard{any}", "AppController@dashboard")->where("any", ".*")->name("dashboard");
     Route::get("/dashboard", "AppController@dashboard")->name("dashboard");
-//    Route::get("/favorites", "AppController@favorites")->name("favorites");
-    Route::post("/quotes/{quote}/favorites", "FavoritesController@store");
-    Route::delete("/quotes/{quote}/unfavorites", "FavoritesController@remove");
 });
 
 Route::get("/", "AppController@index")->name("home");

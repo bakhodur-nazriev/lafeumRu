@@ -22,7 +22,7 @@ class FavoritesController extends Controller
 
     public function destroy(Quote $quote)
     {
-        $quote->delete();
+        $quote->unFavorite();
 
         return back();
     }

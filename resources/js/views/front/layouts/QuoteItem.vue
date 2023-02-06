@@ -115,11 +115,11 @@ export default {
                 window.location.href = '/login';
             } else {
                 axios
-                    .delete('/api/quotes/' + this.item.id + '/unfavorites')
+                    .post('/api/quotes/' + this.item.id + '/unfavorites')
                     .then(res => {
                         console.log(res);
                         if (res.status === 200) {
-                            this.isFavorite = false;
+                            this.isFavorite = true;
                         }
                     })
                     .catch(err => {
@@ -130,13 +130,11 @@ export default {
         }
     },
     watch: {
-        // isFavorite(newVal, oldVal) {
-        //     console.log(`old value ${oldVal}, new value ${newVal}`);
-        // }
+        isFavorite(newVal, oldVal) {
+            console.log('Old value:', oldVal);
+            console.log('New value:', newVal);
+        }
     },
-    // mounted() {
-    //     console.log(this.user);
-    // }
 };
 </script>
 

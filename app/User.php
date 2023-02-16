@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Support\Facades\Auth;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -27,17 +28,10 @@ class User extends Authenticatable /*implements MustVerifyEmail*/
         "hobby"
     ];
 
-//    public function favorite()
+//    public function favorites()
 //    {
 //        $user = Auth::user();
 //        $user->favorite(Quote::class);
-//    }
-
-//    public function favorite()
-//    {
-//        $user = Auth::user();
-//
-//        $quote = Quote::firstOrFail();
 //    }
 
     /**
@@ -59,6 +53,11 @@ class User extends Authenticatable /*implements MustVerifyEmail*/
      *
      * @var array
      */
+    public function favorites()
+    {
+        return $this->morphMany(Favorite::class, 'favorited');
+    }
+
     protected $casts = [
         "email_verified_at" => "datetime",
     ];

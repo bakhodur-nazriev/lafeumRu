@@ -58,12 +58,11 @@
                 </v-btn>
                 <span>45</span>
 
-                <v-btn v-if="!isFavorite" @click="favorite()" icon>
-                    <v-icon color="grey lighten-1">mdi-bookmark</v-icon>
-                </v-btn>
-
-                <v-btn v-if="isFavorite" @click="unFavorite()" icon>
-                    <v-icon color="primary lighten-1">mdi-bookmark</v-icon>
+                <v-btn @click="toggleFavorite()" icon>
+                    <v-icon
+                        :class="[test ? 'primary--text text--lighten-1' : 'grey--text text--lighten-1']">
+                        mdi-bookmark
+                    </v-icon>
                 </v-btn>
                 {{ isFavorite }}
             </div>
@@ -76,6 +75,7 @@
 <script>
 import ShareButton from "../../../components/ShareButton";
 import VueReadMoreSmooth from "vue-read-more-smooth";
+import {is} from "immutable";
 
 export default {
     props: ["quote"],
@@ -85,55 +85,70 @@ export default {
             csrf: window.Laravel.csrf_token,
             item: this.quote,
             isActive: true,
-            isFavorite: !!this.quote.favorites.length,
             user: window.Laravel.auth,
+            test: false
         };
+    },
+    computed: {
+        isFavorite: {
+            get() {
+                if (this.user) {
+                    return this.quote.favorites.some((value) => {
+                        return value.user_id === this.user.id
+                    });
+                }
+            },
+            set(val) {
+                console.log(val);
+                // if (!val){
+                //     return
+                // }
+                // this.test = val;
+            }
+        },
     },
     methods: {
         readMore() {
             this.isActive = !this.isActive;
         },
-        favorite() {
-            if (!this.user) {
-                window.location.href = '/login';
-            } else {
-                axios
-                    .post('/api/quotes/' + this.item.id + '/favorites')
-                    .then(res => {
-                        console.log(res);
-                        if (res.status === 200) {
-                            this.isFavorite = true;
-                        }
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    });
-            }
-        },
-        unFavorite() {
-            if (!this.user) {
-                window.location.href = '/login';
-            } else {
-                axios
-                    .post('/api/quotes/' + this.item.id + '/unfavorites')
-                    .then(res => {
-                        console.log(res);
-                        if (res.status === 200) {
-                            this.isFavorite = true;
-                        }
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    });
+        toggleFavorite() {
+            if (!this.isFavorite) {
+                if (this.user) {
+                    axios
+                        .post('/api/quotes/' + this.item.id + '/favorites')
+                        .then(res => {
+                            console.log(res);
+                            if (res.status === 200) {
+                                this.isFavorite = true;
+                            }
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        });
+
+                } else {
+                    window.location.href = '/login';
+                }
             }
 
-        }
-    },
-    watch: {
-        isFavorite(newVal, oldVal) {
-            console.log('Old value:', oldVal);
-            console.log('New value:', newVal);
-        }
+            if (this.isFavorite) {
+                if (this.user) {
+                    axios
+                        .post('/api/quotes/' + this.item.id + '/unfavorites')
+                        .then(res => {
+                            console.log(res);
+                            if (res.status === 200) {
+                                this.isFavorite = false;
+                            }
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        });
+                } else {
+                    window.location.href = '/login';
+                }
+            }
+        },
     },
 };
 </script>
@@ -181,3 +196,4 @@ export default {
     text-decoration: none;
 }
 </style>
+

@@ -34,11 +34,6 @@ class Video extends Model
         return $this->hasMany(DailyPost::class);
     }
 
-    /*public function getPublishAtAttribute($date)
-    {
-        return Carbon::parse($date)->format('d/m/Y H:i:s');
-    }*/
-
     public function host()
     {
         return $this->belongsTo(VideoHost::class, 'host_type_id');
@@ -120,5 +115,28 @@ class Video extends Model
         }
 
         return null;
+    }
+
+    public function favorites()
+    {
+        return $this->morphMany(Favorite::class, 'favorited');
+    }
+
+    public function favorite()
+    {
+        $attributes = ['user_id' => auth()->id()];
+
+        if (!$this->favorites()->where($attributes)->exists()) {
+            return $this->favorites()->create($attributes);
+        }
+    }
+
+    public function unFavorite()
+    {
+        $attributes = ['user_id' => auth()->id()];
+
+        if ($this->favorites()->where($attributes)->exists()) {
+            return $this->favorites()->delete($attributes);
+        }
     }
 }

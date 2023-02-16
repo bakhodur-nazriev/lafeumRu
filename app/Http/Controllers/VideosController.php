@@ -32,9 +32,10 @@ class VideosController extends Controller
     public function getVideos(): JsonResponse
     {
         $videos = Video::with([
-            'channel',
-            'categories',
-            'post'
+            "categories",
+            "favorites",
+            "channel",
+            "post"
         ])
             ->published('desc')
             ->has('channel')

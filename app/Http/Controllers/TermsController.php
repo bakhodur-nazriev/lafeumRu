@@ -31,6 +31,7 @@ class TermsController extends Controller
     {
         $terms = Term::with([
             "categories",
+            "favorites",
             "termType",
             "post"
         ])

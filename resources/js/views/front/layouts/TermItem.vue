@@ -74,8 +74,9 @@
                     <v-icon color="grey lighten-1">mdi-heart</v-icon>
                 </v-btn>
                 <span>45</span>
-                <v-btn icon>
-                    <v-icon color="grey lighten-1">mdi-bookmark</v-icon>
+
+                <v-btn @click="toggleFavorite()" icon>
+                    <v-icon :class="[isFavorite ? 'primary--text' : 'grey--text']">mdi-bookmark</v-icon>
                 </v-btn>
             </div>
             <v-spacer></v-spacer>
@@ -97,6 +98,8 @@ export default {
             item: this.term,
             termOfModal: "",
             showTermOfModal: false,
+            isFavorite: !!this.term.favorites.length,
+            user: window.Laravel.auth
         }
     },
     mounted() {
@@ -123,6 +126,46 @@ export default {
             })
         }
     },
+    methods: {
+        toggleFavorite() {
+            if (!this.isFavorite) {
+                if (this.user) {
+                    axios
+                        .post('/api/terms/' + this.item.id + '/favorites')
+                        .then(res => {
+                            console.log(res);
+                            if (res.status === 200) {
+                                this.isFavorite = true;
+                            }
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        });
+
+                } else {
+                    window.location.href = '/login';
+                }
+            }
+
+            if (this.isFavorite) {
+                if (this.user) {
+                    axios
+                        .post('/api/terms/' + this.item.id + '/unfavorites')
+                        .then(res => {
+                            console.log(res);
+                            if (res.status === 200) {
+                                this.isFavorite = false;
+                            }
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        });
+                } else {
+                    window.location.href = '/login';
+                }
+            }
+        }
+    }
 }
 </script>
 

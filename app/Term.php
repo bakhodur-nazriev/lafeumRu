@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -55,5 +54,23 @@ class Term extends Model
     public function favorites()
     {
         return $this->morphMany(Favorite::class, 'favorited');
+    }
+
+    public function favorite()
+    {
+        $attributes = ['user_id' => auth()->id()];
+
+        if (!$this->favorites()->where($attributes)->exists()) {
+            return $this->favorites()->create($attributes);
+        }
+    }
+
+    public function unFavorite()
+    {
+        $attributes = ['user_id' => auth()->id()];
+
+        if ($this->favorites()->where($attributes)->exists()) {
+            return $this->favorites()->delete($attributes);
+        }
     }
 }

@@ -12,79 +12,11 @@
                 @selected="setSelected"
             >
                 <Tab :is-selected="selected === 'Цитаты'">
-                    <v-card
-                        rounded="lg"
-                        class="mb-6"
-                        v-for="i in 3"
+                    <quote-item
+                        v-for="(quote, i) in quotes"
+                        :quote="quote"
                         :key="i"
-                    >
-                        <v-card-subtitle class="d-flex px-2 py-1 align-center">
-                            <a
-                                class="author-show-link primary&#45;&#45;text"
-                                href="#"
-                                target="_blank"
-                            >
-                                <v-icon color="grey dark" size="26">mdi-account</v-icon>
-                                <span class="ml-1">Bakhodur Nazriev</span>
-                            </a>
-                            <v-spacer></v-spacer>
-                            <a
-                                class="quote-id grey&#45;&#45;text text-decoration-none"
-                                href="#"
-                                target="_blank"
-                            >
-                                #4321
-                            </a>
-                        </v-card-subtitle>
-
-                        <v-divider class="m-0 grey lighten-3"></v-divider>
-
-                        <v-card-text class="px-3 py-2">
-                            <v-col class="pa-0 quote-body">
-                                <!--                                <p-->
-                                <!--                                    class="font-italic grey&#45;&#45;text text&#45;&#45;darken-3 d-flex caption mb-2"-->
-                                <!--                                    v-if="item.authors_thoughts"-->
-                                <!--                                >-->
-                                <!--                                    <span v-html="item.authors_thoughts"></span>-->
-                                <!--                                </p>-->
-                                <vue-read-more-smooth :lines="15">
-                                        <span class="font-weight-regular quote-body">
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab accusantium aliquid dicta dolor dolore doloribus dolorum ducimus et eum exercitationem, expedita ipsum iure laboriosam laudantium nam natus neque nisi nobis odio qui recusandae rem repellat sapiente sunt tempora, ut voluptas. Ad aut dolore illo nobis optio? Error ipsam reprehenderit ullam.
-                                        </span>
-                                    <template v-slot:more="value">
-                                        <div class="button-read-more">
-                                            {{ value.open ? "Скрыть" : "Читать далее..." }}
-                                        </div>
-                                    </template>
-                                </vue-read-more-smooth>
-                            </v-col>
-                            <v-col class="categories-block pa-0">
-                                <a class="mr-2 font-italic" href="#" target="_blank">
-                                    Достижения и Твёрдость
-                                </a>
-                                <a class="mr-2 font-italic" href="#" target="_blank">
-                                    Здоровый образ жизни
-                                </a>
-                                <a class="mr-2 font-italic" href="#" target="_blank">
-                                    Компетентность
-                                </a>
-                            </v-col>
-                        </v-card-text>
-                        <v-divider class="m-0 grey lighten-3"></v-divider>
-                        <v-card-actions class="pa-0 px-1">
-                            <div>
-                                <v-btn icon>
-                                    <v-icon color="grey lighten-1">mdi-heart</v-icon>
-                                </v-btn>
-                                <span>45</span>
-                                <v-btn icon>
-                                    <v-icon color="grey lighten-1">mdi-bookmark</v-icon>
-                                </v-btn>
-                            </div>
-                            <v-spacer></v-spacer>
-                            <!--<share-button :post="item.post"></share-button>-->
-                        </v-card-actions>
-                    </v-card>
+                    ></quote-item>
                 </Tab>
 
                 <Tab :is-selected="selected === 'Термины'">
@@ -195,14 +127,33 @@ export default {
     data() {
         return {
             selected: 'Цитаты',
-            activeLink: false
+            activeLink: false,
+            quotes: [],
+            terms: [],
+            videos: [],
+            user: window.Laravel.auth
         }
     },
     methods: {
+        getFavorites() {
+            axios
+                .get("/api/users/")
+                .then(res => {
+                    console.log(res.data);
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        },
         setSelected(tab) {
             this.selected = tab;
-        }
+        },
+    },
+    mounted() {
+        this.getFavorites();
     }
+
+    // We will take all posts and compare with userFavorited
 }
 </script>
 

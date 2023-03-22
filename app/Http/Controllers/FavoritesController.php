@@ -7,17 +7,19 @@ use App\Term;
 use App\Video;
 use App\Favorite;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class FavoritesController extends Controller
 {
-    public function get()
-    {
-        return Favorite::all();
-    }
-
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+    public function get()
+    {
+        $quotes = DB::table('')->get();
+        return Favorite::all();
     }
 
     public function storeQuote(Quote $quote)

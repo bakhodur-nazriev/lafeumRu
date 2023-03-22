@@ -14,13 +14,15 @@
                         </v-col>
                         <v-col class="d-flex justify-center col-8 pa-0">
                             <a
-                                class="text-white subtitle-1 pr-2 text-decoration-none font-weight-medium text-uppercase"
+                                class="subtitle-1 pr-2 font-weight-medium text-uppercase"
+                                :class="[currentUrl === navItems[0].href ? 'navbar-links-active' : 'navbar-links']"
                                 :href="navItems[0].href"
                             >
                                 Главная
                             </a>
                             <a
-                                class="text-white subtitle-1 pl-2 text-decoration-none font-weight-medium text-uppercase"
+                                class="subtitle-1 pl-2 font-weight-medium text-uppercase"
+                                :class="[currentUrl === navItems[3].href ? 'navbar-links-active' : 'navbar-links']"
                                 :href="navItems[3].href"
                             >
                                 Цитаты
@@ -48,25 +50,29 @@
 
                             <div class="d-flex align-center">
                                 <a
-                                    class="text-white body-1 text-decoration-none text-uppercase px-2"
+                                    class="body-1 text-uppercase px-2"
+                                    :class="[currentUrl === navItems[3].href ? 'navbar-links-active' : 'navbar-links']"
                                     :href="navItems[3].href"
                                 >
                                     {{ navItems[3].title }}
                                 </a>
                                 <a
-                                    class="text-white body-1 text-decoration-none text-uppercase px-2"
+                                    class="body-1 text-uppercase px-2"
+                                    :class="[currentUrl === navItems[2].href ? 'navbar-links-active' : 'navbar-links']"
                                     :href="navItems[2].href"
                                 >
                                     {{ navItems[2].title }}
                                 </a>
                                 <a
-                                    class="text-white body-1 text-decoration-none text-uppercase px-2"
+                                    class="body-1 text-uppercase px-2"
+                                    :class="[currentUrl === navItems[7].href ? 'navbar-links-active' : 'navbar-links']"
                                     :href="navItems[7].href"
                                 >
                                     {{ navItems[7].title }}
                                 </a>
                                 <a
-                                    class="text-white body-1 text-decoration-none text-uppercase px-2"
+                                    class="body-1 text-uppercase px-2"
+                                    :class="[currentUrl === navItems[5].href ? 'navbar-links-active' : 'navbar-links']"
                                     :href="navItems[5].href"
                                 >
                                     {{ navItems[5].title }}
@@ -89,7 +95,8 @@
                                     :key="i"
                                 >
                                     <a
-                                        class="navbar-links text-uppercase"
+                                        class="text-uppercase"
+                                        :class="[currentUrl === item.href ? 'navbar-links-active' : 'navbar-links']"
                                         :href="item.href"
                                     >
                                         <v-img
@@ -308,11 +315,6 @@ export default {
                     href: "profile-favorites",
                     icon: "mdi-briefcase"
                 },
-                // {
-                //     title: "Настройки",
-                //     href: "/",
-                //     icon: "mdi-settings"
-                // },
             ],
             navItems: [
                 {
@@ -402,6 +404,8 @@ export default {
             smallNavBtnClose: "mdi-close",
             drawer: false,
             group: null,
+            isActive: false,
+            currentUrl: window.location.pathname
         }
     },
     watch: {
@@ -423,7 +427,13 @@ export default {
     font-size: 14px;
     font-weight: 500;
     color: #fff;
-    line-height: 0.7;
+    line-height: 1;
+}
+
+.navbar-links-active {
+    text-decoration: none;
+    color: #A4C2FF;
+    line-height: 1;
 }
 
 .navbar-links:hover {

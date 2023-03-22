@@ -60,11 +60,10 @@
 
                 <v-btn @click="toggleFavorite()" icon>
                     <v-icon
-                        :class="[test ? 'primary--text text--lighten-1' : 'grey--text text--lighten-1']">
+                        :class="[isFavorite ? 'primary--text text--lighten-1' : 'grey--text text--lighten-1']">
                         mdi-bookmark
                     </v-icon>
                 </v-btn>
-                {{ isFavorite }}
             </div>
             <v-spacer></v-spacer>
             <share-button :post="item.post"></share-button>
@@ -86,24 +85,23 @@ export default {
             item: this.quote,
             isActive: true,
             user: window.Laravel.auth,
-            test: false
+            newFavorite: false
         };
+    },
+    mounted() {
+        this.newFavorite = this.quote.favorites.some((value) => {
+            return value.user_id === this.user.id
+        })
     },
     computed: {
         isFavorite: {
             get() {
                 if (this.user) {
-                    return this.quote.favorites.some((value) => {
-                        return value.user_id === this.user.id
-                    });
+                    return this.newFavorite;
                 }
             },
-            set(val) {
-                console.log(val);
-                // if (!val){
-                //     return
-                // }
-                // this.test = val;
+            set(newValue) {
+                this.newFavorite = newValue;
             }
         },
     },
@@ -117,7 +115,6 @@ export default {
                     axios
                         .post('/api/quotes/' + this.item.id + '/favorites')
                         .then(res => {
-                            console.log(res);
                             if (res.status === 200) {
                                 this.isFavorite = true;
                             }
@@ -136,7 +133,6 @@ export default {
                     axios
                         .post('/api/quotes/' + this.item.id + '/unfavorites')
                         .then(res => {
-                            console.log(res);
                             if (res.status === 200) {
                                 this.isFavorite = false;
                             }

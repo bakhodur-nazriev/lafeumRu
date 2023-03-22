@@ -66,7 +66,10 @@
                         <span>45</span>
 
                         <v-btn @click="toggleFavorite()" icon>
-                            <v-icon :class="[isFavorite ? 'primary--text' : 'grey--text']">mdi-bookmark</v-icon>
+                            <v-icon
+                                :class="[isFavorite ? 'primary--text text--lighten-1' : 'grey--text text--lighten-1']">
+                                mdi-bookmark
+                            </v-icon>
                         </v-btn>
                     </div>
                     <v-spacer></v-spacer>
@@ -111,9 +114,26 @@ export default {
         return {
             item: this.video,
             videoDialog: false,
-            isFavorite: !!this.video.favorites.length,
-            user: window.Laravel.auth
+            user: window.Laravel.auth,
+            newFavorite: false
         };
+    },
+    mounted() {
+        this.newFavorite = this.video.favorites.some((value) => {
+            return value.user_id === this.user.id
+        })
+    },
+    computed: {
+        isFavorite: {
+            get() {
+                if (this.user) {
+                    return this.newFavorite
+                }
+            },
+            set(newValue) {
+                this.newFavorite = newValue;
+            }
+        }
     },
     methods: {
         toggleFavorite() {
@@ -122,7 +142,6 @@ export default {
                     axios
                         .post('/api/videos/' + this.item.id + '/favorites')
                         .then(res => {
-                            console.log(res);
                             if (res.status === 200) {
                                 this.isFavorite = true;
                             }
@@ -141,7 +160,6 @@ export default {
                     axios
                         .post('/api/videos/' + this.item.id + '/unfavorites')
                         .then(res => {
-                            console.log(res);
                             if (res.status === 200) {
                                 this.isFavorite = false;
                             }
@@ -154,7 +172,7 @@ export default {
                 }
             }
         }
-    }
+    },
 };
 </script>
 

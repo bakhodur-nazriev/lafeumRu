@@ -48,7 +48,6 @@
                         <a
                             href="#"
                             class="text-subtitle-1 mr-6 grey--text text--darken-2 text-decoration-none"
-                            :class="{  }"
                         >
                             <v-icon :class="{ 'primary--text': true }">mdi-account</v-icon>
                             <span :class="{ 'primary--text': true }">Мой профиль</span>
@@ -57,7 +56,7 @@
                             href="#"
                             class="text-subtitle-1 primary--text text--darken-2 font-weight-normal text-decoration-none"
                         >
-                            <v-icon >mdi-bookmark</v-icon>
+                            <v-icon>mdi-bookmark</v-icon>
                             <span>Избранное</span>
                         </a>
                     </div>
@@ -69,7 +68,7 @@
                 <v-card
                     tile
                     elevation="0"
-                    max-width="256"
+                    width="270"
                     height="100%"
                     class="mx-auto rounded-lg"
                 >
@@ -117,10 +116,7 @@
             </div>
 
             <!-- Profile -->
-            <profile
-                :user-data="user"
-                v-if="selectedItem === 0"
-            ></profile>
+            <profile :user-data="user" v-if="selectedItem === 0"></profile>
 
             <!-- Favourite -->
             <favourite v-if="selectedItem === 1"></favourite>
@@ -130,7 +126,7 @@
 
 <script>
 import Profile from "./Profile";
-import Favourite from "./Favourite";
+import Favourite from "./Favorite.vue";
 
 export default {
     components: {Profile, Favourite},
@@ -139,7 +135,7 @@ export default {
         return {
             csrf: window.Laravel.csrf_token,
             user: window.Laravel.auth,
-            selectedItem: 0,
+            selectedItem: 1,
             items: [
                 {id: 0, text: "Профиль", icon: "mdi-account-circle"},
                 {id: 1, text: "Избранное", icon: "mdi-briefcase"},

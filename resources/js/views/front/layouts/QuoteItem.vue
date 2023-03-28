@@ -74,7 +74,6 @@
 <script>
 import ShareButton from "../../../components/ShareButton";
 import VueReadMoreSmooth from "vue-read-more-smooth";
-import {is} from "immutable";
 
 export default {
     props: ["quote"],

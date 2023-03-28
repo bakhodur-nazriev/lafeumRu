@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Favorite;
 use App\Role;
 use App\User;
+use App\Quote;
+use App\Category;
 use Gate;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
@@ -24,6 +28,28 @@ class UsersController extends Controller
     public function index()
     {
         return User::with("role")->get();
+    }
+
+    public function getById(int $id): JsonResponse
+    {
+        $favoritesPosts = Favorite::with(['quotes' => function ($q) {
+            $q->with([
+                'author:id,name,slug',
+                'categories:id,name,slug',
+                'post'
+            ]);
+        }])
+            ->where('user_id', '=', $id)
+            ->get();
+
+        $user = User::with("role")
+            ->whereId($id)
+            ->first();
+
+        return response()->json([
+            'user' => $user,
+            'favorites_posts' => $favoritesPosts,
+        ]);
     }
 
     public function update(User $user, Request $request)

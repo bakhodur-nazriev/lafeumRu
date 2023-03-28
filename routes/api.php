@@ -5,11 +5,13 @@ use Illuminate\Support\Facades\Route;
 /* BackEnd Routes */
 Route::group(['middleware' => 'auth:api'], function () {
     /* Users */
-    Route::get("/users", "UsersController@index");
-    Route::get("/users/{user}", "UsersController@show");
-    Route::put("/users/{user}", "UsersController@update");
-    Route::delete("/users/{user}", "UsersController@destroy");
-
+    Route::group(["prefix" => "users"], function () {
+        Route::get("/", "UsersController@index");
+        Route::get("/{id}", "UsersController@getById");
+        Route::get("/{user}", "UsersController@show");
+        Route::put("/{user}", "UsersController@update");
+        Route::delete("/{user}", "UsersController@destroy");
+    });
     /* Roles */
     Route::get("/roles", "RolesController@index");
 

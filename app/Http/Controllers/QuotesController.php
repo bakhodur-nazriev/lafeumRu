@@ -38,10 +38,10 @@ class QuotesController extends Controller
     public function getQuotes(): JsonResponse
     {
         $quotes = Quote::with([
-            'author:id,name,slug',
-            'categories:id,name,slug',
-            'favorites',
-            'post'
+            "author:id,name,slug",
+            "favorites",
+            "categories:id,name,slug",
+            "post"
         ])
             ->published('desc')
             ->has('author')

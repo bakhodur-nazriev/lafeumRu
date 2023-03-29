@@ -15,4 +15,14 @@ class Favorite extends Model
     {
         return $this->hasMany(Quote::class, 'id', 'favorited_id');
     }
+
+    public function terms()
+    {
+        return $this->hasMany(Term::class, 'id', 'favorited_id');
+    }
+
+    public function videos()
+    {
+        return $this->hasMany(Video::class, 'id', 'favorited_id');
+    }
 }

@@ -3,15 +3,30 @@
         <v-card tile width="800" elevation="0" class="mx-auto rounded-lg pa-3">
             <TabNav :tabs="['Цитаты', 'Термины', 'Видео']" :selected="selected" @selected="setSelected">
                 <Tab :is-selected="selected === 'Цитаты'">
-                    <quote-item v-for="(quote, i) in quotes" :quote="quote" :key="i"></quote-item>
+                    <quote-item
+                        v-for="(quote, i) in quotes"
+                        :quote="quote"
+                        :key="i"
+                        class="elevation-3"
+                    ></quote-item>
                 </Tab>
 
                 <Tab :is-selected="selected === 'Термины'">
-                    <term-item v-for="(term, i) in terms" :term="term" :key="i"></term-item>
+                    <term-item
+                        v-for="(term, i) in terms"
+                        :term="term"
+                        :key="i"
+                        class="elevation-3"
+                    ></term-item>
                 </Tab>
 
                 <Tab :is-selected="selected === 'Видео'">
-                    <video-item v-for="(video, i) in videos" :video="video" :key="i"></video-item>
+                    <video-item
+                        v-for="(video, i) in videos"
+                        :video="video"
+                        :key="i"
+                        class="elevation-3"
+                    ></video-item>
                 </Tab>
             </TabNav>
 
@@ -39,12 +54,12 @@ export default {
     },
     data() {
         return {
+            user: window.Laravel.auth,
             selected: 'Цитаты',
             activeLink: false,
             quotes: [],
             terms: [],
-            videos: [],
-            user: window.Laravel.auth
+            videos: []
         }
     },
     methods: {
@@ -52,23 +67,21 @@ export default {
             axios
                 .get("/api/users/" + this.user.id)
                 .then(res => {
-
-                    res.data.favorites_posts.forEach(el => {
-                        console.log(el);
-                        // if (el.favorited_type === 'Ap\\Quote') {
-                            // this.quotes = el.quotes;
-                        // }
-
-                        // if (el.favorited_type === 'Ap\\Term') {
-                            this.terms = el.terms;
-                        // }
-
-                        // if (el.favorited_type === 'Ap\\Video') {
-                        //     this.videos = el;
-                        // }
-                    });
-
-                    // console.log(this.quotes);
+                    res.data.favorited_quotes.forEach(el => {
+                        el.quotes.map((list) => {
+                            this.quotes.push(list);
+                        })
+                    })
+                    res.data.favorited_terms.forEach(el => {
+                        el.terms.map((list) => {
+                            this.terms.push(list);
+                        })
+                    })
+                    res.data.favorited_videos.forEach(el => {
+                        el.videos.map((list) => {
+                            this.videos.push(list);
+                        })
+                    })
                 })
                 .catch(err => {
                     console.log(err);
@@ -79,9 +92,10 @@ export default {
         },
     },
     mounted() {
-        this.getFavorites();
+        setTimeout(() => {
+            this.getFavorites();
+        }, 1000)
     }
-
 }
 </script>
 
@@ -90,7 +104,7 @@ export default {
     color: #04718c !important;
 }
 
-.categories-block>a {
+.categories-block > a {
     text-decoration: none;
     color: #646464 !important;
     caret-color: #646464 !important;
@@ -107,7 +121,7 @@ export default {
     padding-right: 5px;
 }
 
-.categories-block>a:hover {
+.categories-block > a:hover {
     color: #04718c !important;
 }
 

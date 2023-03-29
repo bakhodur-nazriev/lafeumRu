@@ -92,6 +92,9 @@ export default {
             return value.user_id === this.user.id
         })
     },
+    created() {
+        // console.log(this.quote);
+    },
     computed: {
         isFavorite: {
             get() {

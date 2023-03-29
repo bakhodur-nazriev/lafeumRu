@@ -16,10 +16,7 @@
                     </v-col>
 
                     <v-col class="pa-3 py-0 videos-title flex-fill">
-                        <h5
-                            v-bind="attrs"
-                            v-on="on"
-                        >{{ video.title }}</h5>
+                        <h5 v-bind="attrs" v-on="on">{{ video.title }}</h5>
                     </v-col>
                 </v-card-text>
 
@@ -173,6 +170,9 @@ export default {
             }
         }
     },
+    created() {
+        console.log(this.video);
+    }
 };
 </script>
 

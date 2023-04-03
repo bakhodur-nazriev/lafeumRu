@@ -1,32 +1,17 @@
 <template>
     <div class="pa-3 main-block">
         <v-card tile width="800" elevation="0" class="mx-auto rounded-lg pa-3">
-            <TabNav :tabs="['Цитаты', 'Термины', 'Видео']" :selected="selected" @selected="setSelected">
-                <Tab :is-selected="selected === 'Цитаты'">
-                    <quote-item
-                        v-for="(quote, i) in quotes"
-                        :quote="quote"
-                        :key="i"
-                        class="elevation-3"
-                    ></quote-item>
+            <TabNav :tabs="['Цитаты', 'Термины', 'Видео']" :selected="activeTab" @selected="switchTab">
+                <Tab :is-selected="activeTab === 'Цитаты'">
+                    <quote-item v-for="(quote, i) in quotes" :quote="quote" :key="i" class="elevation-3"></quote-item>
                 </Tab>
 
-                <Tab :is-selected="selected === 'Термины'">
-                    <term-item
-                        v-for="(term, i) in terms"
-                        :term="term"
-                        :key="i"
-                        class="elevation-3"
-                    ></term-item>
+                <Tab :is-selected="activeTab === 'Термины'">
+                    <term-item v-for="(term, i) in terms" :term="term" :key="i" class="elevation-3"></term-item>
                 </Tab>
 
-                <Tab :is-selected="selected === 'Видео'">
-                    <video-item
-                        v-for="(video, i) in videos"
-                        :video="video"
-                        :key="i"
-                        class="elevation-3"
-                    ></video-item>
+                <Tab :is-selected="activeTab === 'Видео'">
+                    <video-item v-for="(video, i) in videos" :video="video" :key="i" class="elevation-3"></video-item>
                 </Tab>
             </TabNav>
 
@@ -55,11 +40,11 @@ export default {
     data() {
         return {
             user: window.Laravel.auth,
-            selected: 'Цитаты',
             activeLink: false,
             quotes: [],
             terms: [],
-            videos: []
+            videos: [],
+            activeTab: sessionStorage.getItem('activeTab') || 'Цитаты'
         }
     },
     methods: {
@@ -87,15 +72,14 @@ export default {
                     console.log(err);
                 })
         },
-        setSelected(tab) {
-            this.selected = tab;
+        switchTab(tabName) {
+            this.activeTab = tabName;
+            sessionStorage.setItem('activeTab', tabName);
         },
     },
     mounted() {
-        setTimeout(() => {
-            this.getFavorites();
-        }, 1000)
-    }
+        this.getFavorites();
+    },
 }
 </script>
 
@@ -104,7 +88,7 @@ export default {
     color: #04718c !important;
 }
 
-.categories-block > a {
+.categories-block>a {
     text-decoration: none;
     color: #646464 !important;
     caret-color: #646464 !important;
@@ -121,7 +105,7 @@ export default {
     padding-right: 5px;
 }
 
-.categories-block > a:hover {
+.categories-block>a:hover {
     color: #04718c !important;
 }
 

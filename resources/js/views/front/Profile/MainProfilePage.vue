@@ -69,7 +69,6 @@
                     tile
                     elevation="0"
                     width="270"
-                    height="100%"
                     class="mx-auto rounded-lg"
                 >
                     <v-list>

@@ -182,9 +182,6 @@ export default {
             }
         }
     },
-    created() {
-        console.log(this.term);
-    }
 }
 </script>
 

@@ -30,53 +30,10 @@ class UsersController extends Controller
         return User::with("role")->get();
     }
 
-    /*public function getById(int $id): JsonResponse
-    {
-        $favoritesQuotes = Favorite::with(['quotes' => function ($q) {
-            $q->with(
-                'author:id,name,slug',
-                'categories:id,name,slug',
-                'post'
-            );
-        }])
-            ->where('user_id', '=', $id)
-            ->where('favorited_type', '=', 'App\\Quote')
-            ->get();
-
-        $favoritesTerms = Favorite::with(['terms' => function ($q) {
-            $q->with([
-                "categories",
-                "favorites",
-                "termType",
-                "post"
-            ]);
-        }])
-            ->where('user_id', '=', $id)
-            ->where('favorited_type', '=', 'App\\Term')
-            ->get();
-
-        $favoritesVideos = Favorite::with(['videos' => function ($q) {
-            $q->with([
-                "categories",
-                "channel",
-                "post"
-            ]);
-        }])
-            ->where('user_id', '=', $id)
-            ->where('favorited_type', '=', 'App\\Video')
-            ->get();
-
-        return response()->json([
-            'favorited_quotes' => $favoritesQuotes,
-            'favorited_terms' => $favoritesTerms,
-            'favorited_videos' => $favoritesVideos
-        ]);
-    }*/
-
     public function getById(int $id): JsonResponse
     {
         $favorites = [
-            'favorited_quotes' => Favorite::with(['quotes.author:id,name,slug', 'quotes.categories:id,name,slug', 'quotes.post'])
+            'favorited_quotes' => Favorite::with(['quotes.author:id,name,slug', 'quotes.categories:id,name,slug', 'quotes.favorites', 'quotes.post'])
                 ->where('user_id', '=', $id)
                 ->where('favorited_type', '=', 'App\Quote')
                 ->get(),
@@ -84,7 +41,7 @@ class UsersController extends Controller
                 ->where('user_id', '=', $id)
                 ->where('favorited_type', '=', 'App\Term')
                 ->get(),
-            'favorited_videos' => Favorite::with(['videos.categories', 'videos.channel', 'videos.post'])
+            'favorited_videos' => Favorite::with(['videos.categories', 'videos.channel', 'videos.favorites', 'videos.post'])
                 ->where('user_id', '=', $id)
                 ->where('favorited_type', '=', 'App\Video')
                 ->get(),

@@ -10,7 +10,7 @@ Route::group(["middleware" => "auth"], function () {
     Route::get("/profile", "ProfileController@index")->name("profile");
     Route::put("/profile/{profile}", "ProfileController@update");
 
-    Route::get("/dashboard{any}", "AppController@dashboard")->where("any", ".*")->name("dashboard");;
+    Route::get("/dashboard{any}", "AppController@dashboard")->where("any", ".*");
     Route::get("/dashboard", "AppController@dashboard")->name("dashboard");
 });
 

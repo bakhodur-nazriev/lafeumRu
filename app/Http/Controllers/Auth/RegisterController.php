@@ -30,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = "/dashboard";
+    protected $redirectTo = "/";
 
     /**
      * Create a new controller instance.
@@ -50,12 +50,18 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            "name" => ["required", "string", "max:255"],
-            "email" => ["required", "string", "email", "max:255", "unique:users"],
-            /*"country" => ["required", "string", "max:50"],*/
-            "password" => ["required", "min:5", "confirmed"],
-        ]);
+        return Validator::make($data,
+            [
+                "name" => ["required", "string", "max:255"],
+                "email" => ["required", "string", "email", "max:255", "unique:users"],
+                "password" => ["required", "min:5", "confirmed"],
+            ],
+            [
+                "name.required" => "Поле Имя и Фамилия обязательно",
+                "email.required" => "Поле электронной почты обязательно",
+                "email.unique" => "Электронная почта уже занята",
+                "password.required" => "Поле пароль обязательно",
+            ]);
     }
 
     /**
@@ -69,10 +75,6 @@ class RegisterController extends Controller
         $user = User::create([
             "name" => $data["name"],
             "email" => $data["email"],
-            /*"country" => $data["country"],
-            "gender" => $data["gender"],
-            "age" => $data["age"],
-            "hobby" => $data["hobby"],*/
             "password" => Hash::make($data["password"]),
             "role_id" => Role::where('name', Role::MEMBER_ROLE_NAME)->first()->id
         ]);

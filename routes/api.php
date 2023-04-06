@@ -83,6 +83,16 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::get('/favorites', 'FavoritesController@get');
 
+    /* Likes */
+    Route::post("/quotes/{quote}/likes", "LikesController@storeQuote");
+    Route::post("/quotes/{quote}/unlikes", "LikesController@destroyQuote");
+
+    Route::post("/terms/{term}/likes", "LikesController@storeTerm");
+    Route::post("/terms/{term}/unlikes", "LikesController@destroyTerm");
+
+    Route::post("/videos/{video}/likes", "LikesController@storeVideo");
+    Route::post("/videos/{video}/unlikes", "LikesController@destroyVideo");
+
     /* Users-Feedbacks */
     Route::get("/feedbacks", "FeedbacksController@get");
 

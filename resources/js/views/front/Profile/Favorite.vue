@@ -14,7 +14,6 @@
                     <video-item v-for="(video, i) in videos" :video="video" :key="i" class="elevation-3"></video-item>
                 </Tab>
             </TabNav>
-
         </v-card>
     </div>
 </template>

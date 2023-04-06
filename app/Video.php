@@ -4,7 +4,12 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Video extends Model
 {
@@ -14,27 +19,27 @@ class Video extends Model
     protected $fillable = ['title', 'channel_id', 'link', 'duration', 'publish_at', 'deleted_at'];
     protected $appends = ['link', 'embeded_link', 'thumbnail'];
 
-    public function channel()
+    public function channel(): BelongsTo
     {
         return $this->belongsTo(Channel::class);
     }
 
-    public function categories()
+    public function categories(): MorphToMany
     {
         return $this->morphToMany(Category::class, 'categoriable');
     }
 
-    public function post()
+    public function post(): MorphOne
     {
         return $this->morphOne(Post::class, 'postable');
     }
 
-    public function dailyPosts()
+    public function dailyPosts(): HasMany
     {
         return $this->hasMany(DailyPost::class);
     }
 
-    public function host()
+    public function host(): BelongsTo
     {
         return $this->belongsTo(VideoHost::class, 'host_type_id');
     }
@@ -117,9 +122,32 @@ class Video extends Model
         return null;
     }
 
-    public function favorites()
+    public function favorites(): MorphMany
     {
         return $this->morphMany(Favorite::class, 'favorited');
+    }
+
+    public function likes(): MorphMany
+    {
+        return $this->morphMany(Like::class, 'liked');
+    }
+
+    public function like()
+    {
+        $attributes = ['user_id' => auth()->id()];
+
+        if (!$this->likes()->where($attributes)->exists()) {
+            return $this->likes()->create($attributes);
+        }
+    }
+
+    public function unLike()
+    {
+        $attributes = ['user_id' => auth()->id()];
+
+        if ($this->likes()->where($attributes)->exists()) {
+            return $this->likes()->delete($attributes);
+        }
     }
 
     public function favorite()

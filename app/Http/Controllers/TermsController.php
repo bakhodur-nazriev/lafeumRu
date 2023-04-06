@@ -33,6 +33,7 @@ class TermsController extends Controller
             "categories",
             "favorites",
             "termType",
+            "likes",
             "post"
         ])
             ->orderBy("term_type_id")

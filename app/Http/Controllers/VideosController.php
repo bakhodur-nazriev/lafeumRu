@@ -34,6 +34,7 @@ class VideosController extends Controller
         $videos = Video::with([
             "categories",
             "favorites",
+            "likes",
             "channel",
             "post"
         ])

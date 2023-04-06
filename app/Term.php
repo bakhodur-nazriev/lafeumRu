@@ -3,7 +3,10 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class Term extends Model
 {
@@ -19,7 +22,7 @@ class Term extends Model
         'deleted_at'
     ];
 
-    public function categories()
+    public function categories(): MorphToMany
     {
         return $this->morphToMany(Category::class, 'categoriable');
     }
@@ -51,9 +54,32 @@ class Term extends Model
             ->orderBy('name');
     }
 
-    public function favorites()
+    public function favorites(): MorphMany
     {
         return $this->morphMany(Favorite::class, 'favorited');
+    }
+
+    public function likes(): MorphMany
+    {
+        return $this->morphMany(Like::class, 'liked');
+    }
+
+    public function like()
+    {
+        $attributes = ['user_id' => auth()->id()];
+
+        if (!$this->likes()->where($attributes)->exists()) {
+            return $this->likes()->create($attributes);
+        }
+    }
+
+    public function unLike()
+    {
+        $attributes = ['user_id' => auth()->id()];
+
+        if ($this->likes()->where($attributes)->exists()) {
+            return $this->likes()->delete($attributes);
+        }
     }
 
     public function favorite()

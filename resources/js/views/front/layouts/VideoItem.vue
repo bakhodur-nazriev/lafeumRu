@@ -24,13 +24,13 @@
                         <v-col class="d-flex pa-0 justify-content-between">
                             <v-col class="categories-block pa-0">
                                 <a v-for="(category, i) in video.categories" :href="`/videos/` + category.slug"
-                                    class="mr-2 font-italic" :key="i" target="_blank">
+                                   class="mr-2 font-italic" :key="i" target="_blank">
                                     {{ category.name }}
                                 </a>
                             </v-col>
                             <v-col class="pa-0 text-end">
                                 <a class="videos-id grey--text text-decoration-none" :href="'/' + video.post.id"
-                                    target="_blank">
+                                   target="_blank">
                                     #{{ video.post.id }}
                                 </a>
                             </v-col>
@@ -39,8 +39,11 @@
                     <v-divider class="m-0 grey lighten-3"></v-divider>
                     <v-card-actions class="pa-0 px-1">
                         <div>
-                            <v-btn icon>
-                                <v-icon color="grey lighten-1">mdi-heart</v-icon>
+                            <v-btn @click="toggleLike()" icon>
+                                <v-icon
+                                    :class="[isLiked ? 'red--text text--lighten-1' : 'grey--text text--lighten-1']">
+                                    mdi-heart
+                                </v-icon>
                             </v-btn>
                             <span>45</span>
 
@@ -69,9 +72,12 @@
                 </v-card-title>
 
                 <v-card-text>
-                    <iframe v-if="videoDialog" class="video-iframe pt-5" frameborder="0"
-                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""
-                        :src="video.embeded_link"></iframe>
+                    <iframe
+                        v-if="videoDialog" class="video-iframe pt-5" frameborder="0"
+                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen=""
+                        :src="video.embeded_link"
+                    ></iframe>
                 </v-card-text>
             </v-card>
         </v-dialog>
@@ -82,7 +88,7 @@
 import ShareButton from "../../../components/ShareButton";
 
 export default {
-    components: { ShareButton },
+    components: {ShareButton},
     props: ["video"],
     name: "VideoItem",
     data() {
@@ -90,13 +96,18 @@ export default {
             item: this.video,
             videoDialog: false,
             user: window.Laravel.auth,
-            newFavorite: false
+            newFavorite: false,
+            newLike: false
         };
     },
     mounted() {
-        this.newFavorite = this.video.favorites.some((value) => {
-            return value.user_id === this.user.id
-        })
+        this.newFavorite = this.video.favorites.some((like) => {
+            return like.user_id === this.user.id;
+        });
+
+        this.newLike = this.video.likes.some((like) => {
+            return like.user_id === this.user.id;
+        });
     },
     computed: {
         isFavorite: {
@@ -108,44 +119,54 @@ export default {
             set(newValue) {
                 this.newFavorite = newValue;
             }
+        },
+        isLiked: {
+            get() {
+                if (this.user) {
+                    return this.newLike
+                }
+            },
+            set(newValue) {
+                this.newLike = newValue;
+            }
         }
     },
     methods: {
         toggleFavorite() {
-            if (!this.isFavorite) {
-                if (this.user) {
-                    axios
-                        .post('/api/videos/' + this.item.id + '/favorites')
-                        .then(res => {
-                            if (res.status === 200) {
-                                this.isFavorite = true;
-                            }
-                        })
-                        .catch(err => {
-                            console.log(err);
-                        });
-
-                } else {
-                    window.location.href = '/login';
-                }
+            if (!this.user) {
+                window.location.href = '/login';
+                return;
             }
 
-            if (this.isFavorite) {
-                if (this.user) {
-                    axios
-                        .post('/api/videos/' + this.item.id + '/unfavorites')
-                        .then(res => {
-                            if (res.status === 200) {
-                                this.isFavorite = false;
-                            }
-                        })
-                        .catch(err => {
-                            console.log(err);
-                        });
-                } else {
-                    window.location.href = '/login';
-                }
+            const endpoint = this.isFavorite ? 'unfavorites' : 'favorites';
+
+            axios.post(`/api/videos/${this.item.id}/${endpoint}`)
+                .then(res => {
+                    if (res.status === 200) {
+                        this.isFavorite = !this.isFavorite;
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        },
+        toggleLike() {
+            if (!this.user) {
+                window.location.href = '/login';
+                return;
             }
+
+            const endpoint = this.isLiked ? 'unlikes' : 'likes';
+
+            axios.post(`/api/videos/${this.item.id}/${endpoint}`)
+                .then(res => {
+                    if (res.status === 200) {
+                        this.isLiked = !this.isLiked;
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                });
         }
     },
 };
@@ -158,14 +179,14 @@ export default {
     }
 }
 
-.categories-block>a {
+.categories-block > a {
     text-decoration: none;
     color: #646464 !important;
     caret-color: #646464 !important;
     font-size: 13px;
 }
 
-.categories-block>a:hover {
+.categories-block > a:hover {
     color: #04718c !important;
 }
 
@@ -190,7 +211,7 @@ export default {
     bottom: 8px;
 }
 
-.videos-title>h5 {
+.videos-title > h5 {
     font-size: 18px;
     line-height: 1.3;
     color: #424242;

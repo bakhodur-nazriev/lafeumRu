@@ -8,6 +8,7 @@ use App\Video;
 use App\Favorite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\RedirectResponse;
 
 class FavoritesController extends Controller
 {
@@ -16,51 +17,39 @@ class FavoritesController extends Controller
         $this->middleware('auth');
     }
 
-    public function get()
-    {
-        $quotes = DB::table('')->get();
-        return Favorite::all();
-    }
-
-    public function storeQuote(Quote $quote)
+    public function storeQuote(Quote $quote): RedirectResponse
     {
         $quote->favorite();
-
         return back();
     }
 
-    public function destroyQuote(Quote $quote)
+    public function destroyQuote(Quote $quote): RedirectResponse
     {
         $quote->unFavorite();
-
         return back();
     }
 
-    public function storeTerm(Term $term)
+    public function storeTerm(Term $term): RedirectResponse
     {
         $term->favorite();
-
         return back();
     }
 
-    public function destroyTerm(Term $term)
+    public function destroyTerm(Term $term): RedirectResponse
     {
         $term->unFavorite();
-
         return back();
     }
 
-    public function storeVideo(Video $video)
+    public function storeVideo(Video $video): RedirectResponse
     {
         $video->favorite();
-
         return back();
     }
 
-    public function destroyVideo(Video $video)
+    public function destroyVideo(Video $video): RedirectResponse
     {
         $video->unFavorite();
-
         return back();
     }
 }

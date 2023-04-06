@@ -43,6 +43,29 @@ class Quote extends Model
         return $this->morphMany(Favorite::class, 'favorited');
     }
 
+    public function likes()
+    {
+        return $this->morphMany(Like::class, 'liked');
+    }
+
+    public function like()
+    {
+        $attributes = ['user_id' => auth()->id()];
+
+        if (!$this->likes()->where($attributes)->exists()) {
+            return $this->likes()->create($attributes);
+        }
+    }
+
+    public function unLike()
+    {
+        $attributes = ['user_id' => auth()->id()];
+
+        if ($this->likes()->where($attributes)->exists()) {
+            return $this->likes()->create($attributes);
+        }
+    }
+
     public function favorite()
     {
         $attributes = ['user_id' => auth()->id()];

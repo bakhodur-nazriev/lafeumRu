@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\DailyPost;
+use App\Like;
 use App\Quote;
 use App\Services\RedirectService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class QuotesController extends Controller
 {
@@ -41,6 +43,7 @@ class QuotesController extends Controller
             "author:id,name,slug",
             "categories:id,name,slug",
             "favorites",
+            "likes",
             "post"
         ])
             ->published('desc')

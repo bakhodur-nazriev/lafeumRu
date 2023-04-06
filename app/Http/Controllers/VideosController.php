@@ -38,6 +38,7 @@ class VideosController extends Controller
             "channel",
             "post"
         ])
+            ->withCount('likes')
             ->published('desc')
             ->has('channel')
             ->paginate(20);

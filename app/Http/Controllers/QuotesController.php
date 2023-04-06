@@ -46,6 +46,7 @@ class QuotesController extends Controller
             "likes",
             "post"
         ])
+            ->withCount('likes')
             ->published('desc')
             ->has('author')
             ->paginate(20);

@@ -58,7 +58,7 @@
                         mdi-heart
                     </v-icon>
                 </v-btn>
-                <span>45</span>
+                <span>{{ likesCount }}</span>
 
                 <v-btn @click="toggleFavorite()" icon>
                     <v-icon
@@ -87,7 +87,8 @@ export default {
             isActive: true,
             user: window.Laravel.auth,
             newFavorite: false,
-            newLike: false
+            newLike: false,
+            likesCount: 0
         };
     },
     mounted() {
@@ -154,6 +155,7 @@ export default {
             axios.post(`/api/quotes/${this.item.id}/${endpoint}`)
                 .then(res => {
                     if (res.status === 200) {
+                        this.likesCount = res.data.likes_count;
                         this.isLiked = !this.isLiked;
                     }
                 })

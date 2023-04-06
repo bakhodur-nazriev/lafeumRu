@@ -36,6 +36,7 @@ class TermsController extends Controller
             "likes",
             "post"
         ])
+            ->withCount('likes')
             ->orderBy("term_type_id")
             ->published("desc")
             ->paginate(20);

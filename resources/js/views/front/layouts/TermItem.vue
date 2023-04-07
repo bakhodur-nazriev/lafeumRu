@@ -75,7 +75,7 @@
                         mdi-heart
                     </v-icon>
                 </v-btn>
-                <span>45</span>
+                <span v-if="likesCount > 0">{{ likesCount }}</span>
 
                 <v-btn @click="toggleFavorite()" icon>
                     <v-icon :class="[isFavorite ? 'primary--text text--lighten-1' : 'grey--text text--lighten-1']">
@@ -104,7 +104,8 @@ export default {
             showTermOfModal: false,
             user: window.Laravel.auth,
             newFavorite: false,
-            newLike: false
+            newLike: false,
+            likesCount: this.term.likes_count
         }
     },
     mounted() {
@@ -132,12 +133,12 @@ export default {
         }
 
         this.newFavorite = this.term.favorites.some((favorite) => {
-            return favorite.user_id === this.user.id;
+            return favorite?.user_id === this.user?.id;
         });
 
         this.newLike = this.term.likes.some((like) => {
-            return like.user_id === this.user.id;
-        })
+            return like?.user_id === this.user.id;
+        });
     },
     computed: {
         isFavorite: {
@@ -192,6 +193,7 @@ export default {
                 .then(res => {
                     if (res.status === 200) {
                         this.isLiked = !this.isLiked;
+                        this.likesCount += (endpoint === 'likes') ? 1 : (endpoint === 'unlikes') ? -1 : 0;
                     }
                 })
                 .catch(err => {

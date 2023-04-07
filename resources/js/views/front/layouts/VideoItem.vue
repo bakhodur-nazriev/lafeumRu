@@ -45,7 +45,7 @@
                                     mdi-heart
                                 </v-icon>
                             </v-btn>
-                            <span>45</span>
+                            <span v-if="likesCount > 0">{{ likesCount }}</span>
 
                             <v-btn @click="toggleFavorite()" icon>
                                 <v-icon
@@ -97,16 +97,17 @@ export default {
             videoDialog: false,
             user: window.Laravel.auth,
             newFavorite: false,
-            newLike: false
+            newLike: false,
+            likesCount: this.video.likes_count
         };
     },
     mounted() {
         this.newFavorite = this.video.favorites.some((like) => {
-            return like.user_id === this.user.id;
+            return like?.user_id === this.user?.id;
         });
 
         this.newLike = this.video.likes.some((like) => {
-            return like.user_id === this.user.id;
+            return like?.user_id === this.user?.id;
         });
     },
     computed: {
@@ -162,6 +163,7 @@ export default {
                 .then(res => {
                     if (res.status === 200) {
                         this.isLiked = !this.isLiked;
+                        this.likesCount += (endpoint === 'likes') ? 1 : (endpoint === 'unlikes') ? -1 : 0;
                     }
                 })
                 .catch(err => {

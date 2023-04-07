@@ -50,7 +50,9 @@
                 </a>
             </v-col>
         </v-card-text>
+
         <v-divider class="m-0 grey lighten-3"></v-divider>
+
         <v-card-actions class="pa-0 px-1">
             <div>
                 <v-btn @click="toggleLike()" icon>
@@ -58,7 +60,7 @@
                         mdi-heart
                     </v-icon>
                 </v-btn>
-                <span>{{ likesCount }}</span>
+                <span v-if="likesCount > 0">{{ likesCount }}</span>
 
                 <v-btn @click="toggleFavorite()" icon>
                     <v-icon
@@ -88,16 +90,16 @@ export default {
             user: window.Laravel.auth,
             newFavorite: false,
             newLike: false,
-            likesCount: 0
+            likesCount: this.quote.likes_count
         };
     },
     mounted() {
         this.newFavorite = this.quote.favorites.some((favorite) => {
-            return favorite.user_id === this.user.id
+            return favorite?.user_id === this.user?.id;
         });
 
         this.newLike = this.quote.likes.some((like) => {
-            return like.user_id === this.user.id;
+            return like?.user_id === this.user?.id;
         });
     },
     computed: {
@@ -155,8 +157,8 @@ export default {
             axios.post(`/api/quotes/${this.item.id}/${endpoint}`)
                 .then(res => {
                     if (res.status === 200) {
-                        this.likesCount = res.data.likes_count;
                         this.isLiked = !this.isLiked;
+                        this.likesCount += (endpoint === 'likes') ? 1 : (endpoint === 'unlikes') ? -1 : 0;
                     }
                 })
                 .catch(err => {

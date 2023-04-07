@@ -62,7 +62,7 @@ class Quote extends Model
         $attributes = ['user_id' => auth()->id()];
 
         if ($this->likes()->where($attributes)->exists()) {
-            return $this->likes()->create($attributes);
+            return $this->likes()->delete($attributes);
         }
     }
 

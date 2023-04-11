@@ -33,15 +33,35 @@ class UsersController extends Controller
     public function getById(int $id): JsonResponse
     {
         $favorites = [
-            'favorited_quotes' => Favorite::with(['quotes.author:id,name,slug', 'quotes.categories:id,name,slug', 'quotes.favorites', 'quotes.post'])
+            'favorited_quotes' => Favorite::with([
+                'quotes.author:id,name,slug',
+                'quotes.categories:id,name,slug',
+                'quotes.favorites',
+                'quotes.likes',
+                'quotes.post',
+            ])
                 ->where('user_id', '=', $id)
                 ->where('favorited_type', '=', 'App\Quote')
                 ->get(),
-            'favorited_terms' => Favorite::with(['terms.categories', 'terms.favorites', 'terms.termType', 'terms.post'])
+
+            'favorited_terms' => Favorite::with([
+                'terms.categories',
+                'terms.favorites',
+                'terms.termType',
+                'terms.likes',
+                'terms.post'
+            ])
                 ->where('user_id', '=', $id)
                 ->where('favorited_type', '=', 'App\Term')
                 ->get(),
-            'favorited_videos' => Favorite::with(['videos.categories', 'videos.channel', 'videos.favorites', 'videos.post'])
+
+            'favorited_videos' => Favorite::with([
+                'videos.categories',
+                'videos.channel',
+                'videos.favorites',
+                'videos.likes',
+                'videos.post'
+            ])
                 ->where('user_id', '=', $id)
                 ->where('favorited_type', '=', 'App\Video')
                 ->get(),

@@ -4,7 +4,12 @@ namespace App;
 
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Quote extends Model
 {
@@ -13,37 +18,37 @@ class Quote extends Model
 
     protected $fillable = ["body", "author_id", "publish_at", "deleted_at", "authors_thoughts"];
 
-    public function author()
+    public function author(): BelongsTo
     {
         return $this->belongsTo(Author::class);
     }
 
-    public function categories()
+    public function categories(): MorphToMany
     {
         return $this->morphToMany(Category::class, "categoriable");
     }
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function post()
+    public function post(): MorphOne
     {
         return $this->morphOne(Post::class, "postable");
     }
 
-    public function dailyPosts()
+    public function dailyPosts(): HasMany
     {
         return $this->hasMany(DailyPost::class);
     }
 
-    public function favorites()
+    public function favorites(): MorphMany
     {
         return $this->morphMany(Favorite::class, 'favorited');
     }
 
-    public function likes()
+    public function likes(): MorphMany
     {
         return $this->morphMany(Like::class, 'liked');
     }

@@ -234,7 +234,7 @@ let allSidebarRoutes = [
         name: "/dashboard/users",
         component: UsersPage
     },
-    {
+    /*{
         meta: {
             icon: "mdi-account-cog",
             title: "Профиль",
@@ -243,7 +243,7 @@ let allSidebarRoutes = [
         path: "/dashboard/profile",
         name: "/dashboard/profile",
         component: ProfilePage
-    },
+    },*/
     {
         meta: {
             icon: "mdi-comment-quote",

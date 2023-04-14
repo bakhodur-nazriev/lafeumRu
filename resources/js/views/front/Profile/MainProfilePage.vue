@@ -72,10 +72,13 @@
                     class="mx-auto rounded-lg"
                 >
                     <v-list>
-                        <v-list-item class="justify-content-center py-4">
-                            <v-list-item-avatar size="180" class="ma-0">
-                                <v-img class="bg-black" :src="user.avatar" :alt="user.name"></v-img>
-                            </v-list-item-avatar>
+                        <v-list-item class="justify-content-center pa-4 pb-0">
+                            <div class="bg-secondary pa-1 rounded-circle">
+                                <v-list-item-avatar size="180" class="ma-0">
+                                    <v-img :src="user.avatar" :alt="user.name"></v-img>
+                                </v-list-item-avatar>
+                            </div>
+
                         </v-list-item>
 
                         <v-list-item>
@@ -134,7 +137,8 @@ export default {
         return {
             csrf: window.Laravel.csrf_token,
             user: window.Laravel.auth,
-            selectedItem: 1,
+            selectedItem: 0,
+            file: null,
             items: [
                 {id: 0, text: "Профиль", icon: "mdi-account-circle"},
                 {id: 1, text: "Избранное", icon: "mdi-briefcase"},

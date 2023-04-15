@@ -15,6 +15,7 @@
                         v-model="name"
                         label="Имя, Фамилия"
                         :rules="[rules.required, rules.min]"
+                        @keyup.enter="registerUser"
                     />
                 </v-col>
                 <v-col class="px-0">
@@ -25,6 +26,7 @@
                         v-model="email"
                         label="Введите Ваш E-mail"
                         :rules="[rules.required, rules.email]"
+                        @keyup.enter="registerUser"
                     />
                 </v-col>
                 <v-col class="px-0">
@@ -37,6 +39,7 @@
                         :type="showPassword ? 'text' : 'password'"
                         @click:append="showPassword = !showPassword"
                         :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                        @keyup.enter="registerUser"
                     />
                 </v-col>
                 <v-col class="px-0">
@@ -49,6 +52,7 @@
                         :rules="[rules.required, rules.min, rules.passwordMatch]"
                         @click:append="showPasswordConfirm = !showPasswordConfirm"
                         :append-icon="showPasswordConfirm ? 'mdi-eye' : 'mdi-eye-off'"
+                        @keyup.enter="registerUser"
                     />
                 </v-col>
                 <v-col class="px-0">
@@ -58,11 +62,26 @@
                         elevation="0"
                         type="submit"
                         class="primary rounded-lg text-capitalize font-weight-medium"
+                        :disabled="!$refs.form"
                     >
                         Регистрация
                     </v-btn>
                 </v-col>
-                <v-alert :value="alert.show" type="error" class="rounded-lg m-0">{{ alert.message }}</v-alert>
+                <v-alert type="error" :value="alert.show" class="rounded-lg m-0">
+                    <p>{{ alert.name }}</p>
+                    <p>{{ alert.email }}</p>
+                    <p>{{ alert.password }}</p>
+                    <p>{{ alert.passwordConfirmation }}</p>
+                </v-alert>
+                <!--                <v-alert v-if="!alert.email" type="error" :value="alert.show" class="rounded-lg m-0">-->
+                <!--                    {{ alert.password }}-->
+                <!--                </v-alert>-->
+                <!--                <v-alert v-if="!alert.password" type="error" :value="alert.show" class="rounded-lg m-0">-->
+                <!--                    {{ alert.password }}-->
+                <!--                </v-alert>-->
+                <!--                <v-alert v-if="!alert.passwordConfirmation" type="error" :value="alert.show" class="rounded-lg m-0">-->
+                <!--                    {{ alert.passwordConfirmation }}-->
+                <!--                </v-alert>-->
             </v-form>
             <v-col class="d-flex justify-content-center mt-5 pa-0">
                 <span class="grey--text font-weight-medium lighten-1 mr-4">Есть аккаунт ?</span>
@@ -96,7 +115,10 @@ export default {
             },
             alert: {
                 show: false,
-                message: ''
+                name: '',
+                email: '',
+                password: '',
+                passwordConfirmation: ''
             }
         }
     },
@@ -111,12 +133,13 @@ export default {
                 });
 
                 console.log(response.data);
-                window.location.replace('/');
+                window.location.replace('/login');
             } catch (error) {
                 this.alert.show = true;
-                this.alert.message = error.response.data.errors.password[0];
-                this.alert.message = error.response.data.errors.email[0];
-                this.alert.message = error.response.data.errors.name[0];
+                this.alert.name = error.response.data.errors.name[0];
+                this.alert.email = error.response.data.errors.email[0];
+                this.alert.password = error.response.data.errors.password[0];
+                this.alert.passwordConfirmation = error.response.data.errors.password_confirmation[0];
             }
         }
     },

@@ -19,6 +19,7 @@
                             v-model="email"
                             label="Введите Ваш E-mail"
                             :rules="[rules.required, rules.email]"
+                            @keyup.enter="submit"
                         />
                     </v-col>
                     <v-col class="px-0">
@@ -33,6 +34,7 @@
                             :type="showPassword ? 'text' : 'password'"
                             @click:append="showPassword = !showPassword"
                             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                            @keyup.enter="submit"
                         />
                     </v-col>
                     <v-col class="px-0">

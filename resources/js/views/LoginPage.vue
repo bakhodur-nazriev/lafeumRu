@@ -9,7 +9,7 @@
                 <h2 class="mb-4 display-1 font-weight-medium">Вход</h2>
             </v-card-title>
             <v-card-text class="pa-0">
-                <v-form ref="form" method="POST" :action="appPath('login')">
+                <v-form ref="form" method="POST" :action="appPath('login')" @keyup.enter="submit">
                     <input type="hidden" name="_token" :value="csrf"/>
                     <v-col class="px-0">
                         <v-text-field
@@ -19,7 +19,6 @@
                             v-model="email"
                             label="Введите Ваш E-mail"
                             :rules="[rules.required, rules.email]"
-                            @keyup.enter="submit"
                         />
                     </v-col>
                     <v-col class="px-0">
@@ -34,7 +33,6 @@
                             :type="showPassword ? 'text' : 'password'"
                             @click:append="showPassword = !showPassword"
                             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                            @keyup.enter="submit"
                         />
                     </v-col>
                     <v-col class="px-0">

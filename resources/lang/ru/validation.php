@@ -1,11 +1,8 @@
 <?php
 
 return [
-    'required' => 'Поле Имя и Фамилия обязательно.',
-    'email' => 'The :attribute Ova ova.',
-//    "name.required" => "Поле Имя и Фамилия обязательно.",
-//    "email.required" => "Поле электронной почты обязательно.",
-//    "email.unique" => "Электронная почта уже занята.",
-//    "password.required" => "Поле пароль обязательно.",
-//    "password_confirmation.same" => "Ova ova.",
+    'required' => 'Поле :attribute обязательно для заполнения.',
+    'confirmed' => 'Поле :attribute должно совпадать с полем подтверждения.',
+    'unique' => ':Attribute уже занято.',
+    'same' => 'Поле :attribute должно совпадать с полем :other.'
 ];

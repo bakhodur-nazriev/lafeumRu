@@ -5,7 +5,7 @@
             max-width="500"
             class="card rounded-lg mx-auto"
         >
-            <v-form ref="form" @submit.prevent="registerUser">
+            <v-form ref="form" @submit.prevent="registerUser" @keyup.enter="registerUser">
                 <input type="hidden" name="_token" :value="csrf"/>
                 <v-col class="px-0">
                     <v-text-field
@@ -15,7 +15,6 @@
                         v-model="name"
                         label="Имя, Фамилия"
                         :rules="[rules.required, rules.min]"
-                        @keyup.enter="registerUser"
                     />
                 </v-col>
                 <v-col class="px-0">
@@ -26,7 +25,6 @@
                         v-model="email"
                         label="Введите Ваш E-mail"
                         :rules="[rules.required, rules.email]"
-                        @keyup.enter="registerUser"
                     />
                 </v-col>
                 <v-col class="px-0">
@@ -39,7 +37,6 @@
                         :type="showPassword ? 'text' : 'password'"
                         @click:append="showPassword = !showPassword"
                         :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                        @keyup.enter="registerUser"
                     />
                 </v-col>
                 <v-col class="px-0">
@@ -52,7 +49,6 @@
                         :rules="[rules.required, rules.min, rules.passwordMatch]"
                         @click:append="showPasswordConfirm = !showPasswordConfirm"
                         :append-icon="showPasswordConfirm ? 'mdi-eye' : 'mdi-eye-off'"
-                        @keyup.enter="registerUser"
                     />
                 </v-col>
                 <v-col class="px-0">
@@ -67,21 +63,14 @@
                         Регистрация
                     </v-btn>
                 </v-col>
-                <v-alert type="error" :value="alert.show" class="rounded-lg m-0">
-                    <p>{{ alert.name }}</p>
-                    <p>{{ alert.email }}</p>
-                    <p>{{ alert.password }}</p>
-                    <p>{{ alert.passwordConfirmation }}</p>
+                <v-alert type="error" :value="alert.show" class="rounded-lg m-0" v-if="alert.show">
+                    <ul>
+                        <li v-if="alert.name">{{ alert.name }}</li>
+                        <li v-if="alert.email">{{ alert.email }}</li>
+                        <li v-if="alert.password">{{ alert.password }}</li>
+                        <li v-if="alert.passwordConfirmation">{{ alert.passwordConfirmation }}</li>
+                    </ul>
                 </v-alert>
-                <!--                <v-alert v-if="!alert.email" type="error" :value="alert.show" class="rounded-lg m-0">-->
-                <!--                    {{ alert.password }}-->
-                <!--                </v-alert>-->
-                <!--                <v-alert v-if="!alert.password" type="error" :value="alert.show" class="rounded-lg m-0">-->
-                <!--                    {{ alert.password }}-->
-                <!--                </v-alert>-->
-                <!--                <v-alert v-if="!alert.passwordConfirmation" type="error" :value="alert.show" class="rounded-lg m-0">-->
-                <!--                    {{ alert.passwordConfirmation }}-->
-                <!--                </v-alert>-->
             </v-form>
             <v-col class="d-flex justify-content-center mt-5 pa-0">
                 <span class="grey--text font-weight-medium lighten-1 mr-4">Есть аккаунт ?</span>
@@ -135,12 +124,19 @@ export default {
                 console.log(response.data);
                 window.location.replace('/login');
             } catch (error) {
-                this.alert.show = true;
-                this.alert.name = error.response.data.errors.name[0];
-                this.alert.email = error.response.data.errors.email[0];
-                this.alert.password = error.response.data.errors.password[0];
-                this.alert.passwordConfirmation = error.response.data.errors.password_confirmation[0];
+                // Check if response contains validation errors
+                if (error.response && error.response.status === 422 && error.response.data && error.response.data.errors) {
+                    const errors = error.response.data.errors;
+                    this.updateAlert(errors);
+                }
             }
+        },
+        updateAlert(errors) {
+            this.alert.show = true;
+            this.alert.name = errors.name ? errors.name[0] : '';
+            this.alert.email = errors.email ? errors.email[0] : '';
+            this.alert.password = errors.password ? errors.password[0] : '';
+            this.alert.passwordConfirmation = errors.password_confirmation ? errors.password_confirmation[0] : '';
         }
     },
 };

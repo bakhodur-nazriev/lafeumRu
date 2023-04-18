@@ -5,6 +5,8 @@ namespace App\Providers;
 use App\Author;
 use App\Category;
 use App\Channel;
+use App\Doctrine\Types\EnumType;
+use Doctrine\DBAL\Types\Type;
 use App\Http\View\Composers\CategoriesSidebar;
 use App\Http\View\Composers\CountItemsComposer;
 use App\Http\View\Composers\DailyPostsComposer;
@@ -45,20 +47,8 @@ class AppServiceProvider extends ServiceProvider
         /* Meta tags */
         View::composer('layouts.meta-tags', MetatagsComposer::class);
 
-        /* Right Sidebar User Block View */
-//        View::composer('layouts.right-sidebar.userBlock', function ($view) {
-//            $quoteCount = Favorite::where('favoriteable_type', 'App\Quote')->count();
-//            $termCount = Favorite::where('favoriteable_type', 'App\Term')->count();
-//            $videoCount = Favorite::where('favoriteable_type', 'App\Video')->count();
-//
-//            $favouriteCount = [
-//                'quote' => $quoteCount,
-//                'term' => $termCount,
-//                'video' => $videoCount
-//            ];
-//
-//            $view->with('favouriteCount', $favouriteCount);
-//        });
+        /* Регистрация типа "enum" в Doctrine */
+        Type::addType('enum', EnumType::class);
 
         Category::observe(SluggableObserver::class);
         Author::observe(SluggableObserver::class);

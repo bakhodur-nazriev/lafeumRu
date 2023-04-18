@@ -55,7 +55,7 @@
                         hide-details
                         label="Пароль"
                         v-model="userData.password"
-                        :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                        :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                         background-color="grey lighten-2"
                     >
                     </v-text-field>
@@ -96,17 +96,13 @@
                         </div>
                     </div>
                 </v-col>
-                <v-col
-                    cols="12"
-                    sm="6"
-                >
+                <v-col cols="12" sm="6">
                     <v-select
                         flat
                         solo
                         chips
                         multiple
                         hide-details
-                        v-model="value"
                         :items="items"
                         label="Chips"
                         background-color="grey lighten-2"
@@ -123,12 +119,9 @@
 
             <!--  For Large Display  -->
             <v-row class="hidden-sm-and-down px-3">
-                <v-col
-                    md="8 pb-0"
-                    cols="12"
-                >
+                <v-col md="8 pb-0" cols="12">
                     <v-avatar size="80">
-                        <v-img :src="userData.avatar" :alt="userData.name"></v-img>
+                        <v-img :src="selectedPhoto" :alt="userData.name"></v-img>
                     </v-avatar>
 
                     <v-btn
@@ -138,7 +131,6 @@
                         :loading="isSelecting"
                         @click="handleFileImport"
                     >
-                        <v-icon class="mr-2">mdi-cloud-upload</v-icon>
                         Изменить фото
                     </v-btn>
 
@@ -148,19 +140,17 @@
                         ref="uploader"
                         @change="onFileChanged"
                     >
-
                     <v-btn
                         depressed
                         color="primary"
                         class="text-capitalize rounded-lg"
+                        @click="deletePhoto"
+                        v-if="selectedFile"
                     >
                         Удалить фото
                     </v-btn>
                 </v-col>
-                <v-col
-                    md="8"
-                    cols="12"
-                >
+                <v-col md="8" cols="12">
                     <div>
                         <p class="py-1 grey--text caption">Полное имя пользователя*</p>
                     </div>
@@ -178,10 +168,7 @@
                         ></v-text-field>
                     </v-col>
                 </v-col>
-                <v-col
-                    md="8"
-                    cols="12"
-                >
+                <v-col md="8" cols="12">
                     <div>
                         <p class="grey--text py-1 caption">Адрес E-mail</p>
                     </div>
@@ -198,10 +185,7 @@
                         ></v-text-field>
                     </div>
                 </v-col>
-                <v-col
-                    md="8"
-                    cols="12"
-                >
+                <v-col md="8" cols="12">
                     <div>
                         <p class="grey--text py-1 caption">Пароль</p>
                     </div>
@@ -219,13 +203,9 @@
 
                     </div>
                 </v-col>
-                <v-col
-                    md="8"
-                    cols="12"
-                    class="d-flex"
-                >
-                    <div class="mr-4">
-                        <p class="grey--text py-1 caption">Возрасть</p>
+                <v-col md="8" cols="12" class="d-flex justify-content-between">
+                    <div>
+                        <p class="grey--text py-1 caption">Возраст</p>
                         <div class="d-sm-block d-md-flex">
                             <v-text-field
                                 solo
@@ -240,7 +220,6 @@
                             ></v-text-field>
                         </div>
                     </div>
-
                     <div>
                         <p class="grey--text py-1 caption">Пол</p>
                         <div class="d-sm-block d-md-flex">
@@ -256,10 +235,7 @@
                         </div>
                     </div>
                 </v-col>
-                <v-col
-                    md="8"
-                    cols="12"
-                >
+                <v-col md="8" cols="12">
                     <div>
                         <p class="grey--text py-1 caption">Хобби</p>
                     </div>
@@ -267,32 +243,19 @@
                         <v-autocomplete
                             flat
                             solo
-                            chips
+                            dense
+                            multiple
                             hide-details
                             class="rounded-lg"
                             v-model="selected"
                             :items="['Плавание', 'Футбол', 'Рыбалка', 'Охота', 'Чтение', 'Паркур', 'Хакерство']"
                             background-color="grey lighten-2"
-                            multiple
                         ></v-autocomplete>
                     </div>
                 </v-col>
-                <v-col
-                    md="8"
-                    cols="12"
-                >
-                    <v-btn
-                        depressed
-                        color="primary"
-                        class="text-capitalize rounded-lg mr-2"
-                    >Сохранить
-                    </v-btn>
-                    <v-btn
-                        depressed
-                        color="primary"
-                        class="text-capitalize rounded-lg ml-2"
-                    >Отменить
-                    </v-btn>
+                <v-col md="8" cols="12">
+                    <v-btn depressed color="primary" class="text-capitalize rounded-lg mr-2">Сохранить</v-btn>
+                    <v-btn depressed color="primary" class="text-capitalize rounded-lg ml-2">Отменить</v-btn>
                 </v-col>
             </v-row>
         </v-card>
@@ -305,30 +268,34 @@ export default {
     name: "Profile",
     data() {
         return {
-            show1: false,
+            showPassword: false,
             items: ['Плавание', 'Футбол', 'Рыбалка', 'Охота', 'Чтение', 'Паркур', 'Хакерство'],
             isSelecting: false,
             selectedFile: null,
             selected: ['Плавание', 'Футбол']
         }
     },
+    computed: {
+        selectedPhoto() {
+            return this.selectedFile ? URL.createObjectURL(this.selectedFile) : this.userData.avatar;
+        }
+    },
     methods: {
         handleFileImport() {
             this.isSelecting = true;
 
-            // After obtaining the focus when closing the FilePicker, return the button state to normal
             window.addEventListener('focus', () => {
-                this.isSelecting = false
+                this.isSelecting = false;
             }, {once: true});
 
-            // Trigger click on the FileInput
             this.$refs.uploader.click();
         },
         onFileChanged(e) {
             this.selectedFile = e.target.files[0];
-
-            // Do whatever you need with the file, liek reading it with FileReader
         },
+        deletePhoto() {
+            this.selectedFile = null;
+        }
     }
 }
 </script>

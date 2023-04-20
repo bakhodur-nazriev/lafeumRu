@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
@@ -14,34 +15,40 @@ class ProfileController extends Controller
         return view("/profile");
     }
 
-    public function update($id)
+    public function update(User $user, Request $request)
     {
-        /*request()->validate([
-            "name" => "required",
-            "email" => "required",
-            "avatar" => "required",
-            "password" => "required"
-        ]);*/
+        $updatedUserData = $request->all();
 
-        $user = User::find($id);
-        $user->name = request("name");
-        $user->email = request("name");
-
-        if (request()->has("password")) {
-            $user->password = Hash::make(request("password"));
+        if ($request->has('name') && $user->name !== $request->input('name')) {
+            $user->name = $request->input('name');
         }
 
-        if (request()->has("password")) {
-            $user->password = Hash::make(request("password"));
+        if ($request->has('email') && $user->email !== $request->input('email')) {
+            $user->email = $request->input('email');
         }
 
-        if (request()->has("avatar")) {
+        if ($request->has('age') && $user->email !== $request->input('age')) {
+            $user->email = $request->input('age');
+        }
+
+        if ($request->has('gender') && $user->email !== $request->input('gender')) {
+            $user->email = $request->input('gender');
+        }
+
+        if ($request->has('password')) {
+            $user->password = Hash::make(request('password'));
+        }
+
+        if ($request->has('avatar')) {
             $user->avatar = $this->saveImage(time(), request()->avatar, self::USERS_AVATARS_PATH);
         }
 
+        if ($request->has('country') && $user->country !== $request->input('country')) {
+            $user->country = $request->input('country');
+        }
 
         $user->save();
 
-        return redirect("/profile");
+        return $user;
     }
 }

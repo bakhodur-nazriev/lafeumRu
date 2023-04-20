@@ -5,7 +5,7 @@
             <v-col class="pa-3 hidden-md-and-up">
                 <v-card
                     tile
-                    elevation="1"
+                    elevation="0"
                     height="100%"
                     class="mx-auto rounded-lg pa-4"
                 >

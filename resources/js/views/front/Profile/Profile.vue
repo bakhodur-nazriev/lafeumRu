@@ -3,15 +3,12 @@
         <v-card
             tile
             width="800"
-            elevation="1"
+            elevation="0"
             class="mx-auto rounded-lg pa-3"
         >
             <!--  For Small Display  -->
             <v-row class="hidden-sm-and-up">
-                <v-col
-                    md="10"
-                    cols="12 sm-pb-0"
-                >
+                <v-col md="10" cols="12 sm-pb-0">
                     <v-text-field
                         solo
                         flat
@@ -25,10 +22,7 @@
                     >
                     </v-text-field>
                 </v-col>
-                <v-col
-                    md="10"
-                    cols="12 sm-pb-0"
-                >
+                <v-col md="10" cols="12 sm-pb-0">
                     <v-text-field
                         solo
                         flat
@@ -42,10 +36,7 @@
                     >
                     </v-text-field>
                 </v-col>
-                <v-col
-                    md="10"
-                    cols="12 sm-pb-0"
-                >
+                <v-col md="10" cols="12 sm-pb-0">
                     <v-text-field
                         solo
                         flat
@@ -60,11 +51,7 @@
                     >
                     </v-text-field>
                 </v-col>
-                <v-col
-                    md="10"
-                    cols="12"
-                    class="d-flex"
-                >
+                <v-col md="10" cols="12" class="d-flex">
                     <div class="mr-4">
                         <div class="d-sm-block d-md-flex">
                             <v-text-field
@@ -97,116 +84,103 @@
                     </div>
                 </v-col>
                 <v-col cols="12" sm="6">
-                    <v-select
+                    <v-textarea
                         flat
                         solo
                         chips
-                        multiple
+                        rows="3"
                         hide-details
-                        :items="items"
                         label="Chips"
                         background-color="grey lighten-2"
-                    ></v-select>
+                        placeholder="Что вы предпочитаете делать в свободное время?"
+                    ></v-textarea>
                 </v-col>
-                <v-col
-                    cols="12"
-                    sm="6"
-                    class="text-right"
-                >
+                <v-col cols="12" sm="6" class="text-right">
                     <v-btn class="primary text-capitalize">Сохранить</v-btn>
                 </v-col>
             </v-row>
 
             <!--  For Large Display  -->
             <v-row class="hidden-sm-and-down px-3">
-                <v-col md="8 pb-0" cols="12">
-                    <v-avatar size="80">
-                        <v-img :src="selectedPhoto" :alt="userData.name"></v-img>
-                    </v-avatar>
+                <form @submit.prevent="updateProfile">
+                    <v-col md="8 pb-0" cols="12">
+                        <v-avatar size="80">
+                            <v-img v-model="user.avatar" :src="selectedPhoto" :alt="userData.name"></v-img>
+                        </v-avatar>
 
-                    <v-btn
-                        depressed
-                        color="primary"
-                        class="text-capitalize rounded-lg mx-2"
-                        :loading="isSelecting"
-                        @click="handleFileImport"
-                    >
-                        Изменить фото
-                    </v-btn>
+                        <v-btn
+                            depressed
+                            color="primary"
+                            class="text-capitalize rounded-lg mx-2"
+                            :loading="isSelecting"
+                            @click="handleFileImport"
+                        >
+                            Изменить фото
+                        </v-btn>
 
-                    <input
-                        type="file"
-                        class="d-none"
-                        ref="uploader"
-                        @change="onFileChanged"
-                    >
-                    <v-btn
-                        depressed
-                        color="primary"
-                        class="text-capitalize rounded-lg"
-                        @click="deletePhoto"
-                        v-if="selectedFile"
-                    >
-                        Удалить фото
-                    </v-btn>
-                </v-col>
-                <v-col md="8" cols="12">
-                    <div>
-                        <p class="py-1 grey--text caption">Полное имя пользователя*</p>
-                    </div>
-                    <v-col class="d-sm-block d-md-flex pa-0">
-                        <v-text-field
-                            solo
-                            flat
-                            dense
-                            single-line
-                            hide-details
-                            :label="userData.name"
-                            class="rounded-lg"
-                            placeholder="Placeholder"
-                            background-color="grey lighten-2"
-                        ></v-text-field>
+                        <input
+                            type="file"
+                            class="d-none"
+                            ref="uploader"
+                            @change="onFileChanged"
+                        >
+                        <v-btn
+                            depressed
+                            color="primary"
+                            class="text-capitalize rounded-lg"
+                            @click="deletePhoto"
+                            v-if="selectedFile"
+                        >
+                            Удалить фото
+                        </v-btn>
                     </v-col>
-                </v-col>
-                <v-col md="8" cols="12">
-                    <div>
+                    <v-col md="10" cols="12">
+                        <v-col class=" pa-0">
+                            <p class="py-1 grey--text caption">Полное имя пользователя*</p>
+                            <v-text-field
+                                solo
+                                flat
+                                dense
+                                single-line
+                                hide-details
+                                class="rounded-lg"
+                                :label="userData.name"
+                                v-model="user.name"
+                                placeholder="Имя и фамилия"
+                                background-color="grey lighten-2"
+                            ></v-text-field>
+                        </v-col>
+                    </v-col>
+                    <v-col md="10" cols="12">
                         <p class="grey--text py-1 caption">Адрес E-mail</p>
-                    </div>
-                    <div class="d-sm-block d-md-flex">
                         <v-text-field
                             solo
                             flat
                             dense
                             hide-details
                             :label="userData.email"
+                            v-model="user.email"
                             class=" rounded-lg"
                             placeholder="Placeholder"
                             background-color="grey lighten-2"
                         ></v-text-field>
-                    </div>
-                </v-col>
-                <v-col md="8" cols="12">
-                    <div>
+                    </v-col>
+                    <v-col md="10" cols="12">
                         <p class="grey--text py-1 caption">Пароль</p>
-                    </div>
-                    <div class="d-sm-block d-md-flex">
                         <v-text-field
                             solo
                             flat
                             dense
                             hide-details
-                            :label="userData.password"
+                            v-model="user.password"
                             class="rounded-lg"
                             placeholder="Placeholder"
                             background-color="grey lighten-2"
                         ></v-text-field>
-
-                    </div>
-                </v-col>
-                <v-col md="8" cols="12" class="d-flex justify-content-between">
-                    <div>
-                        <p class="grey--text py-1 caption">Возраст</p>
-                        <div class="d-sm-block d-md-flex">
+                    </v-col>
+                    <v-col md="10" cols="12" class="d-flex justify-content-between">
+                        <v-col class="mr-4 pa-0">
+                            <p class="grey--text py-1 caption">Возраст</p>
                             <v-text-field
                                 solo
                                 flat
@@ -214,49 +188,61 @@
                                 hide-details
                                 type="number"
                                 :label="userData.age"
+                                v-model="user.age"
                                 class="rounded-lg"
                                 placeholder="Placeholder"
                                 background-color="grey lighten-2"
                             ></v-text-field>
-                        </div>
-                    </div>
-                    <div>
-                        <p class="grey--text py-1 caption">Пол</p>
-                        <div class="d-sm-block d-md-flex">
+                        </v-col>
+                        <v-col class="ml-4 pa-0">
+                            <p class="grey--text py-1 caption">Пол</p>
                             <v-select
                                 solo
                                 flat
                                 dense
                                 hide-details
-                                :label="userData.gender"
+                                :label="userGender"
+                                v-model="user.gender"
                                 class="rounded-lg"
+                                :items="['Мужской', 'Женский']"
                                 background-color="grey lighten-2"
                             ></v-select>
-                        </div>
-                    </div>
-                </v-col>
-                <v-col md="8" cols="12">
-                    <div>
+                        </v-col>
+                    </v-col>
+                    <v-col md="10" cols="12">
                         <p class="grey--text py-1 caption">Хобби</p>
-                    </div>
-                    <div class="d-sm-block d-md-flex">
-                        <v-autocomplete
+                        <v-textarea
                             flat
                             solo
                             dense
+                            rows="3"
                             multiple
                             hide-details
+                            v-model="user.hobby"
                             class="rounded-lg"
-                            v-model="selected"
-                            :items="['Плавание', 'Футбол', 'Рыбалка', 'Охота', 'Чтение', 'Паркур', 'Хакерство']"
+                            placeholder="Что вы предпочитаете делать в свободное время?"
                             background-color="grey lighten-2"
-                        ></v-autocomplete>
-                    </div>
-                </v-col>
-                <v-col md="8" cols="12">
-                    <v-btn depressed color="primary" class="text-capitalize rounded-lg mr-2">Сохранить</v-btn>
-                    <v-btn depressed color="primary" class="text-capitalize rounded-lg ml-2">Отменить</v-btn>
-                </v-col>
+                        ></v-textarea>
+                    </v-col>
+                    <v-col md="10" cols="12">
+                        <v-btn
+                            depressed
+                            type="submit"
+                            color="primary"
+                            class="text-capitalize rounded-lg mr-2"
+                        >
+                            Сохранить
+                        </v-btn>
+                        <v-btn
+                            depressed
+                            color="primary"
+                            class="text-capitalize rounded-lg ml-2"
+                            @click="clearFields"
+                        >
+                            Отменить
+                        </v-btn>
+                    </v-col>
+                </form>
             </v-row>
         </v-card>
     </div>
@@ -268,16 +254,32 @@ export default {
     name: "Profile",
     data() {
         return {
+            user: {
+                name: '',
+                email: '',
+                country: '',
+                age: '',
+                gender: '',
+                hobby: '',
+                password: '',
+                avatar: '',
+            },
             showPassword: false,
-            items: ['Плавание', 'Футбол', 'Рыбалка', 'Охота', 'Чтение', 'Паркур', 'Хакерство'],
             isSelecting: false,
             selectedFile: null,
-            selected: ['Плавание', 'Футбол']
         }
     },
     computed: {
         selectedPhoto() {
             return this.selectedFile ? URL.createObjectURL(this.selectedFile) : this.userData.avatar;
+        },
+        userGender() {
+            const genderTranslations = {
+                'male': 'Мужской',
+                'female': 'Женский',
+            };
+
+            return genderTranslations[this.userData.gender] || '';
         }
     },
     methods: {
@@ -295,8 +297,21 @@ export default {
         },
         deletePhoto() {
             this.selectedFile = null;
+        },
+        updateProfile() {
+            axios
+                .put('/api/profile/' + this.userData.id, this.user)
+                .then(res => {
+                    console.log(res.data);
+                    // window.location.href = '/profile';
+                })
+                .catch(err => {
+                    console.log(err.response.data);
+                });
+        },
+        clearFields() {
         }
-    }
+    },
 }
 </script>
 
@@ -305,15 +320,6 @@ export default {
     .main-block {
         max-width: 100%;
     }
-
-    .avatar-section {
-        flex-direction: column;
-    }
-
-    .avatar-title {
-        text-align: center;
-        color: #0d47a1;
-    }
 }
 
 @media (min-width: 768px) {
@@ -321,5 +327,4 @@ export default {
         max-width: 100%;
     }
 }
-
 </style>

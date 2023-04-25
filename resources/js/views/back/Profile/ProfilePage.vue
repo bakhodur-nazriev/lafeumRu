@@ -154,7 +154,7 @@
                                 </div>
                             </v-col>
 
-                            <!--                            <v-row align="center">
+                            <!--<v-row align="center">
                                                             <v-col md="6">
                                                                 <label class="w-100 text-start font-weight-bold">Имя</label>
                                                                 <div class="d-flex">
@@ -333,7 +333,6 @@
                                                         </v-row>-->
                         </v-sheet>
                     </v-form>
-
                 </v-col>
             </v-row>
         </v-container>

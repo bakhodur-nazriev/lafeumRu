@@ -17,34 +17,24 @@ class ProfileController extends Controller
 
     public function update(User $user, Request $request)
     {
-        $updatedUserData = $request->all();
+        $validatedData = $request->validate([
+            'name' => 'string|max:255',
+            'email' => 'email|max:255',
+            'age' => 'integer',
+            'gender' => 'string|in:male,female',
+            'password' => 'string|min:6',
+            'avatar' => 'image|max:2048',
+            'country' => 'string|max:255',
+        ]);
 
-        if ($request->has('name') && $user->name !== $request->input('name')) {
-            $user->name = $request->input('name');
-        }
-
-        if ($request->has('email') && $user->email !== $request->input('email')) {
-            $user->email = $request->input('email');
-        }
-
-        if ($request->has('age') && $user->email !== $request->input('age')) {
-            $user->email = $request->input('age');
-        }
-
-        if ($request->has('gender') && $user->email !== $request->input('gender')) {
-            $user->email = $request->input('gender');
-        }
+        $user->update($validatedData);
 
         if ($request->has('password')) {
-            $user->password = Hash::make(request('password'));
+            $user->password = Hash::make($request->password);
         }
 
-        if ($request->has('avatar')) {
-            $user->avatar = $this->saveImage(time(), request()->avatar, self::USERS_AVATARS_PATH);
-        }
-
-        if ($request->has('country') && $user->country !== $request->input('country')) {
-            $user->country = $request->input('country');
+        if ($request->hasFile('avatar')) {
+            $user->avatar = $this->saveImage(time(), $request->file('avatar'), self::USERS_AVATARS_PATH);
         }
 
         $user->save();

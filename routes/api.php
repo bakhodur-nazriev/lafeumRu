@@ -4,8 +4,6 @@ use Illuminate\Support\Facades\Route;
 
 /* BackEnd Routes */
 Route::group(['middleware' => 'auth:api'], function () {
-    Route::put("/profile/{profile}", "ProfileController@update");
-
     /* Users */
     Route::group(["prefix" => "users"], function () {
         Route::get("/", "UsersController@index");

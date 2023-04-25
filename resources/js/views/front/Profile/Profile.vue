@@ -103,9 +103,9 @@
             <!--  For Large Display  -->
             <v-row class="hidden-sm-and-down px-3">
                 <form @submit.prevent="updateProfile">
-                    <v-col md="8 pb-0" cols="12">
+                    <v-col cols="12">
                         <v-avatar size="80">
-                            <v-img v-model="user.avatar" :src="selectedPhoto" :alt="userData.name"></v-img>
+                            <v-img :src="selectedPhoto" :alt="userData.name"></v-img>
                         </v-avatar>
 
                         <v-btn
@@ -134,7 +134,7 @@
                             Удалить фото
                         </v-btn>
                     </v-col>
-                    <v-col md="10" cols="12">
+                    <v-col cols="12">
                         <v-col class=" pa-0">
                             <p class="py-1 grey--text caption">Полное имя пользователя*</p>
                             <v-text-field
@@ -151,7 +151,7 @@
                             ></v-text-field>
                         </v-col>
                     </v-col>
-                    <v-col md="10" cols="12">
+                    <v-col cols="12">
                         <p class="grey--text py-1 caption">Адрес E-mail</p>
                         <v-text-field
                             solo
@@ -165,7 +165,7 @@
                             background-color="grey lighten-2"
                         ></v-text-field>
                     </v-col>
-                    <v-col md="10" cols="12">
+                    <v-col cols="12">
                         <p class="grey--text py-1 caption">Пароль</p>
                         <v-text-field
                             solo
@@ -178,8 +178,8 @@
                             background-color="grey lighten-2"
                         ></v-text-field>
                     </v-col>
-                    <v-col md="10" cols="12" class="d-flex justify-content-between">
-                        <v-col class="mr-4 pa-0">
+                    <v-col cols="12" class="d-flex justify-content-between">
+                        <div class="mr-4">
                             <p class="grey--text py-1 caption">Возраст</p>
                             <v-text-field
                                 solo
@@ -193,8 +193,8 @@
                                 placeholder="Placeholder"
                                 background-color="grey lighten-2"
                             ></v-text-field>
-                        </v-col>
-                        <v-col class="ml-4 pa-0">
+                        </div>
+                        <div class="ml-4">
                             <p class="grey--text py-1 caption">Пол</p>
                             <v-select
                                 solo
@@ -207,9 +207,9 @@
                                 :items="['Мужской', 'Женский']"
                                 background-color="grey lighten-2"
                             ></v-select>
-                        </v-col>
+                        </div>
                     </v-col>
-                    <v-col md="10" cols="12">
+                    <v-col cols="12">
                         <p class="grey--text py-1 caption">Хобби</p>
                         <v-textarea
                             flat
@@ -224,7 +224,7 @@
                             background-color="grey lighten-2"
                         ></v-textarea>
                     </v-col>
-                    <v-col md="10" cols="12">
+                    <v-col cols="12">
                         <v-btn
                             depressed
                             type="submit"
@@ -282,6 +282,7 @@ export default {
             return genderTranslations[this.userData.gender] || '';
         }
     },
+    watch: {},
     methods: {
         handleFileImport() {
             this.isSelecting = true;
@@ -299,16 +300,41 @@ export default {
             this.selectedFile = null;
         },
         updateProfile() {
+            const fieldsToCheck = ['name', 'email', 'age', 'gender', 'hobby', 'country', 'avatar', 'password'];
+            const formData = new FormData();
+
+            fieldsToCheck.forEach(field => {
+                if (!this.user[field]) {
+                    this.user[field] = this.userData[field];
+                }
+            });
+
+            formData.append('avatar', this.selectedFile);
+            formData.append('name', this.user.name);
+            formData.append('email', this.user.email);
+            formData.append('age', this.user.age);
+            formData.append('gender', this.user.gender);
+            formData.append('hobby', this.user.hobby);
+            formData.append('country', this.user.country);
+            formData.append('password', this.user.password);
+
             axios
-                .put('/api/profile/' + this.userData.id, this.user)
+                .put('/api/users/' + this.userData.id, formData, {
+                    headers: {
+                        "content-type": "multipart/form-data",
+                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                            .content,
+                    },
+                })
                 .then(res => {
+                    console.log(res);
                     console.log(res.data);
-                    // window.location.href = '/profile';
                 })
                 .catch(err => {
                     console.log(err.response.data);
                 });
         },
+
         clearFields() {
         }
     },

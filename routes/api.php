@@ -9,7 +9,7 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::get("/", "UsersController@index");
         Route::get("/{id}", "UsersController@getById");
         Route::get("/{user}", "UsersController@show");
-        Route::put("/{user}", "UsersController@update");
+        Route::post("/{user}", "UsersController@update");
         Route::delete("/{user}", "UsersController@destroy");
     });
     /* Roles */

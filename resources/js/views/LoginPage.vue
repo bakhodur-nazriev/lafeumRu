@@ -9,7 +9,7 @@
                 <h2 class="mb-4 display-1 font-weight-medium">Вход</h2>
             </v-card-title>
             <v-card-text class="pa-0">
-                <v-form ref="form" method="POST" :action="appPath('login')" @keyup.enter="submit">
+                <v-form ref="form" method="POST" :action="appPath('login')">
                     <input type="hidden" name="_token" :value="csrf"/>
                     <v-col class="px-0">
                         <v-text-field
@@ -33,6 +33,7 @@
                             :type="showPassword ? 'text' : 'password'"
                             @click:append="showPassword = !showPassword"
                             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                            @keydown="handleKeyDown"
                         />
                     </v-col>
                     <v-col class="px-0">
@@ -78,6 +79,11 @@ export default {
         };
     },
     methods: {
+        handleKeyDown(event) {
+            if (event.keyCode === 13) {
+                this.submit();
+            }
+        },
         appPath(url) {
             window.laravel + url;
         },

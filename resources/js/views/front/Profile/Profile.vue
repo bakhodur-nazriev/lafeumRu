@@ -60,10 +60,10 @@
                                 dense
                                 hide-details
                                 type="number"
-                                :label="userData.age"
-                                v-model="userData.age"
+                                :label="ageAsString"
+                                v-model="user.age"
                                 class="rounded-lg"
-                                placeholder="Возрасть"
+                                placeholder="Возраст"
                                 background-color="grey lighten-2"
                             ></v-text-field>
                         </div>
@@ -172,11 +172,30 @@
                             flat
                             dense
                             hide-details
+                            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                            :type="showPassword ? 'text' : 'password'"
+                            @click:append="showPassword = !showPassword"
                             v-model="user.password"
                             class="rounded-lg"
                             placeholder="Placeholder"
                             background-color="grey lighten-2"
                         ></v-text-field>
+                    </v-col>
+                    <v-col cols="12">
+                        <p class="grey--text py-1 caption">Страна</p>
+                        <v-autocomplete
+                            solo
+                            flat
+                            dense
+                            hide-details
+                            ref="country"
+                            class="rounded-lg"
+                            :items="countries"
+                            v-model="user.country"
+                            :label="userData.country"
+                            placeholder="Выберите страну..."
+                            background-color="grey lighten-2"
+                        ></v-autocomplete>
                     </v-col>
                     <v-col cols="12" class="d-flex justify-content-between">
                         <div class="mr-4">
@@ -187,10 +206,10 @@
                                 dense
                                 hide-details
                                 type="number"
-                                :label="userData.age"
+                                :label="ageAsString"
                                 v-model="user.age"
                                 class="rounded-lg"
-                                placeholder="Placeholder"
+                                placeholder="Возраст"
                                 background-color="grey lighten-2"
                             ></v-text-field>
                         </div>
@@ -267,6 +286,7 @@ export default {
             showPassword: false,
             isSelecting: false,
             selectedFile: null,
+            countries: []
         }
     },
     computed: {
@@ -280,9 +300,12 @@ export default {
             };
 
             return genderTranslations[this.userData.gender] || '';
+        },
+        ageAsString() {
+            if (this.user)
+                return String(this.userData.age);
         }
     },
-    watch: {},
     methods: {
         handleFileImport() {
             this.isSelecting = true;
@@ -300,26 +323,29 @@ export default {
             this.selectedFile = null;
         },
         updateProfile() {
-            const fieldsToCheck = ['name', 'email', 'age', 'gender', 'hobby', 'country', 'avatar', 'password'];
             const formData = new FormData();
 
-            fieldsToCheck.forEach(field => {
-                if (!this.user[field]) {
-                    this.user[field] = this.userData[field];
-                }
-            });
+            if (this.user.gender === 'Мужской') {
+                this.user.gender = 'male';
+            }
+            if (this.user.gender === 'Женский') {
+                this.user.gender = 'female';
+            }
 
-            formData.append('avatar', this.selectedFile);
-            formData.append('name', this.user.name);
-            formData.append('email', this.user.email);
-            formData.append('age', this.user.age);
-            formData.append('gender', this.user.gender);
-            formData.append('hobby', this.user.hobby);
-            formData.append('country', this.user.country);
-            formData.append('password', this.user.password);
+            if (this.user.age === '') {
+                this.user.age = 0;
+            }
+
+            formData.append('avatar', this.selectedFile || this.userData.avatar);
+            formData.append('age', this.user.age || this.userData.age);
+            formData.append('name', this.user.name || this.userData.name);
+            formData.append('email', this.user.email || this.userData.email);
+            formData.append('gender', this.user.gender || this.userData.gender);
+            formData.append('hobby', this.user.hobby || this.userData.hobby);
+            formData.append('country', this.user.country || this.userData.country);
 
             axios
-                .put('/api/users/' + this.userData.id, formData, {
+                .post('/api/users/' + this.userData.id, formData, {
                     headers: {
                         "content-type": "multipart/form-data",
                         "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
@@ -327,17 +353,28 @@ export default {
                     },
                 })
                 .then(res => {
-                    console.log(res);
+                    window.location.href = '/profile';
                     console.log(res.data);
                 })
                 .catch(err => {
                     console.log(err.response.data);
                 });
         },
-
         clearFields() {
+        },
+        getCountries() {
+            fetch('https://restcountries.com/v3.1/all')
+                .then(response => response.json())
+                .then((res) => {
+                    this.countries = res.map(country => country.translations.rus.common);
+                })
+                .catch(error => console.error(error));
         }
     },
+    mounted() {
+        this.getCountries();
+        console.log(this.userData);
+    }
 }
 </script>
 

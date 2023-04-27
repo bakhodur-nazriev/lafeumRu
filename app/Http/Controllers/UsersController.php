@@ -82,6 +82,10 @@ class UsersController extends Controller
             $updatedUserData['password'] = Hash::make($request->password);
         }
 
+        if ($request->has('confirm_password')) {
+            $updatedUserData['password'] = Hash::make($request->confirm_password);
+        }
+
         $user->update($updatedUserData);
 
         $authIsAdmin = auth()->user()->hasRole(Role::ADMIN_ROLE_NAME);

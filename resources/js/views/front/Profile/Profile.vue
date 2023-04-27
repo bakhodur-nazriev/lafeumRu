@@ -135,8 +135,8 @@
                         </v-btn>
                     </v-col>
                     <v-col cols="12">
-                        <v-col class=" pa-0">
-                            <p class="py-1 grey--text caption">Полное имя пользователя*</p>
+                        <p class="py-1 grey--text caption">Полное имя пользователя*</p>
+                        <div class="d-flex">
                             <v-text-field
                                 solo
                                 flat
@@ -144,12 +144,13 @@
                                 single-line
                                 hide-details
                                 class="rounded-lg"
-                                :label="userData.name"
                                 v-model="user.name"
+                                :label="userData.name"
                                 placeholder="Имя и фамилия"
                                 background-color="grey lighten-2"
-                            ></v-text-field>
-                        </v-col>
+                            >
+                            </v-text-field>
+                        </div>
                     </v-col>
                     <v-col cols="12">
                         <p class="grey--text py-1 caption">Адрес E-mail</p>
@@ -172,13 +173,29 @@
                             flat
                             dense
                             hide-details
-                            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                            class="rounded-lg"
+                            label="Новый пароль"
+                            v-model="user.password"
+                            background-color="grey lighten-2"
                             :type="showPassword ? 'text' : 'password'"
                             @click:append="showPassword = !showPassword"
-                            v-model="user.password"
+                            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                        ></v-text-field>
+                    </v-col>
+                    <v-col cols="12">
+                        <p class="grey--text py-1 caption">Новый пароль</p>
+                        <v-text-field
+                            solo
+                            flat
+                            dense
+                            hide-details
                             class="rounded-lg"
-                            placeholder="Placeholder"
+                            v-model="user.confirmPassword"
                             background-color="grey lighten-2"
+                            label="Подтверждение нового пароля"
+                            :type="showConfirmPassword ? 'text' : 'password'"
+                            @click:append="showConfirmPassword = !showConfirmPassword"
+                            :append-icon="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'"
                         ></v-text-field>
                     </v-col>
                     <v-col cols="12">
@@ -220,9 +237,9 @@
                                 flat
                                 dense
                                 hide-details
-                                :label="userGender"
-                                v-model="user.gender"
                                 class="rounded-lg"
+                                :label="userData.gender === null ? 'Не выбрано' : userGender"
+                                v-model="user.gender"
                                 :items="['Мужской', 'Женский']"
                                 background-color="grey lighten-2"
                             ></v-select>
@@ -274,16 +291,18 @@ export default {
     data() {
         return {
             user: {
+                age: 0,
                 name: '',
                 email: '',
-                country: '',
-                age: '',
-                gender: '',
                 hobby: '',
-                password: '',
                 avatar: '',
+                gender: '',
+                country: '',
+                password: '',
+                confirmPassword: ''
             },
             showPassword: false,
+            showConfirmPassword: false,
             isSelecting: false,
             selectedFile: null,
             countries: []
@@ -302,7 +321,7 @@ export default {
             return genderTranslations[this.userData.gender] || '';
         },
         ageAsString() {
-            if (this.user)
+            if (this.user.age)
                 return String(this.userData.age);
         }
     },
@@ -327,22 +346,35 @@ export default {
 
             if (this.user.gender === 'Мужской') {
                 this.user.gender = 'male';
-            }
-            if (this.user.gender === 'Женский') {
+            } else if (this.user.gender === 'Женский') {
                 this.user.gender = 'female';
+            } else {
+                this.user.gender = '';
             }
 
-            if (this.user.age === '') {
-                this.user.age = 0;
+            if (this.user.age) {
+                formData.append('age', this.user.age || this.userData.age);
+            }
+            if (this.user.gender) {
+                formData.append('gender', this.user.gender || this.userData.gender);
+            }
+            if (this.user.hobby) {
+                formData.append('hobby', this.user.hobby || this.userData.hobby);
+            }
+
+            if (this.user.password) {
+                formData.append('password', this.user.password || this.userData.password);
+            }
+            if (this.user.confirmPassword) {
+                formData.append('confirm_password', this.user.confirmPassword || this.userData.confirmPassword);
+            }
+            if (this.user.country) {
+                formData.append('country', this.user.country || this.userData.country);
             }
 
             formData.append('avatar', this.selectedFile || this.userData.avatar);
-            formData.append('age', this.user.age || this.userData.age);
             formData.append('name', this.user.name || this.userData.name);
             formData.append('email', this.user.email || this.userData.email);
-            formData.append('gender', this.user.gender || this.userData.gender);
-            formData.append('hobby', this.user.hobby || this.userData.hobby);
-            formData.append('country', this.user.country || this.userData.country);
 
             axios
                 .post('/api/users/' + this.userData.id, formData, {
@@ -369,7 +401,7 @@ export default {
                     this.countries = res.map(country => country.translations.rus.common);
                 })
                 .catch(error => console.error(error));
-        }
+        },
     },
     mounted() {
         this.getCountries();

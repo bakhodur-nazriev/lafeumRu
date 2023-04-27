@@ -383,16 +383,12 @@
                         <v-text-field
                             outlined
                             hide-details
-                            v-model="profileToUpdate.passwordConfirmation"
-                            :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
-                            :rules="[
-                                        rules.getPasswordConfirm(
-                                            profileToUpdate.password
-                                        )
-                                    ]"
-                            :type="showPass ? 'text' : 'password'"
                             label="Подтверждение нового пароля"
                             @click:append="showPass = !showPass"
+                            :type="showPass ? 'text' : 'password'"
+                            v-model="profileToUpdate.passwordConfirmation"
+                            :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
+                            :rules="[rules.getPasswordConfirm(profileToUpdate.password)]"
                         />
                     </v-container>
 

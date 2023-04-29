@@ -8,96 +8,151 @@
         >
             <!--  For Small Display  -->
             <v-row class="hidden-sm-and-up">
-                <v-col md="10" cols="12 sm-pb-0">
-                    <v-text-field
-                        solo
-                        flat
-                        dense
-                        clearable
-                        single-line
-                        hide-details
-                        v-model="userData.name"
-                        label="Полное имя пользователя*"
-                        background-color="grey lighten-2"
-                    >
-                    </v-text-field>
-                </v-col>
-                <v-col md="10" cols="12 sm-pb-0">
-                    <v-text-field
-                        solo
-                        flat
-                        dense
-                        clearable
-                        single-line
-                        hide-details
-                        label="Email"
-                        v-model="userData.email"
-                        background-color="grey lighten-2"
-                    >
-                    </v-text-field>
-                </v-col>
-                <v-col md="10" cols="12 sm-pb-0">
-                    <v-text-field
-                        solo
-                        flat
-                        dense
-                        clearable
-                        single-line
-                        hide-details
-                        label="Пароль"
-                        v-model="userData.password"
-                        :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                        background-color="grey lighten-2"
-                    >
-                    </v-text-field>
-                </v-col>
-                <v-col md="10" cols="12" class="d-flex">
-                    <div class="mr-4">
-                        <div class="d-sm-block d-md-flex">
+                <form @submit.prevent="updateProfile">
+                    <v-col cols="12 pb-0">
+                        <p class="py-1 grey--text caption">Полное имя пользователя*</p>
+                        <v-text-field
+                            solo
+                            flat
+                            dense
+                            clearable
+                            single-line
+                            hide-details
+                            v-model="user.name"
+                            :label="userData.name"
+                            background-color="grey lighten-2"
+                        >
+                        </v-text-field>
+                    </v-col>
+                    <v-col cols="12 pb-0">
+                        <p class="grey--text py-1 caption">Адрес E-mail</p>
+                        <v-text-field
+                            solo
+                            flat
+                            dense
+                            clearable
+                            single-line
+                            hide-details
+                            v-model="user.email"
+                            :label="userData.email"
+                            background-color="grey lighten-2"
+                        >
+                        </v-text-field>
+                    </v-col>
+                    <v-col cols="12 pb-0">
+                        <p class="grey--text py-1 caption">Пароль</p>
+                        <v-text-field
+                            solo
+                            flat
+                            dense
+                            single-line
+                            hide-details
+                            label="Новый пароль"
+                            v-model="user.password"
+                            background-color="grey lighten-2"
+                            :type="showPassword ? 'text' : 'password'"
+                            @click:append="showPassword = !showPassword"
+                            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                        >
+                        </v-text-field>
+                    </v-col>
+                    <v-col cols="12 pb-0">
+                        <p class="grey--text py-1 caption">Новый пароль</p>
+                        <v-text-field
+                            solo
+                            flat
+                            dense
+                            single-line
+                            hide-details
+                            v-model="user.confirmPassword"
+                            background-color="grey lighten-2"
+                            label="Подтверждение нового пароля"
+                            :type="showConfirmPassword ? 'text' : 'password'"
+                            @click:append="showConfirmPassword = !showConfirmPassword"
+                            :append-icon="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                        >
+                        </v-text-field>
+                    </v-col>
+                    <v-col cols="12 pb-0">
+                        <p class="grey--text py-1 caption">Страна</p>
+                        <v-autocomplete
+                            solo
+                            flat
+                            dense
+                            hide-details
+                            ref="country"
+                            class="rounded-lg"
+                            :items="countries"
+                            v-model="user.country"
+                            :label="userData.country"
+                            placeholder="Выберите страну..."
+                            background-color="grey lighten-2"
+                        ></v-autocomplete>
+                    </v-col>
+                    <v-col cols="12 pb-0 d-flex justify-content-between">
+                        <div class="mr-4">
+                            <p class="grey--text py-1 caption">Возраст</p>
                             <v-text-field
                                 solo
                                 flat
                                 dense
                                 hide-details
                                 type="number"
-                                :label="ageAsString"
-                                v-model="user.age"
                                 class="rounded-lg"
+                                v-model="user.age"
+                                :label="ageAsString"
                                 placeholder="Возраст"
                                 background-color="grey lighten-2"
                             ></v-text-field>
                         </div>
-                    </div>
-
-                    <div>
-                        <div class="d-sm-block d-md-flex">
+                        <div class="ml-4">
+                            <p class="grey--text py-1 caption">Пол</p>
                             <v-select
                                 solo
                                 flat
                                 dense
                                 hide-details
                                 class="rounded-lg"
-                                :label="userData.gender"
+                                :label="userData.gender === null ? 'Не выбрано' : userGender"
+                                v-model="user.gender"
+                                :items="['Мужской', 'Женский']"
                                 background-color="grey lighten-2"
                             ></v-select>
                         </div>
-                    </div>
-                </v-col>
-                <v-col cols="12" sm="6">
-                    <v-textarea
-                        flat
-                        solo
-                        chips
-                        rows="3"
-                        hide-details
-                        label="Chips"
-                        background-color="grey lighten-2"
-                        placeholder="Что вы предпочитаете делать в свободное время?"
-                    ></v-textarea>
-                </v-col>
-                <v-col cols="12" sm="6" class="text-right">
-                    <v-btn class="primary text-capitalize">Сохранить</v-btn>
-                </v-col>
+                    </v-col>
+                    <v-col cols="12 pb-0">
+                        <p class="grey--text py-1 caption">Хобби</p>
+                        <v-textarea
+                            flat
+                            solo
+                            chips
+                            rows="3"
+                            hide-details
+                            v-model="user.hobby"
+                            :label="userData.hobby"
+                            background-color="grey lighten-2"
+                            placeholder="Что вы предпочитаете делать в свободное время?"
+                        ></v-textarea>
+                    </v-col>
+                    <v-col cols="12 text-right">
+                        <v-btn
+                            depressed
+                            type="submit"
+                            color="primary"
+                            class="text-capitalize rounded-lg mr-2"
+                        >
+                            Сохранить
+                        </v-btn>
+                        <v-btn
+                            depressed
+                            color="primary"
+                            class="text-capitalize rounded-lg ml-2"
+                            @click="resetForm"
+                        >
+                            Отменить
+                        </v-btn>
+                    </v-col>
+                </form>
             </v-row>
 
             <!--  For Large Display  -->
@@ -214,7 +269,7 @@
                             background-color="grey lighten-2"
                         ></v-autocomplete>
                     </v-col>
-                    <v-col cols="12" class="d-flex justify-content-between">
+                    <v-col cols="12 d-flex justify-content-between">
                         <div class="mr-4">
                             <p class="grey--text py-1 caption">Возраст</p>
                             <v-text-field
@@ -223,9 +278,9 @@
                                 dense
                                 hide-details
                                 type="number"
-                                :label="ageAsString"
-                                v-model="user.age"
                                 class="rounded-lg"
+                                v-model="user.age"
+                                :label="ageAsString"
                                 placeholder="Возраст"
                                 background-color="grey lighten-2"
                             ></v-text-field>
@@ -273,7 +328,7 @@
                             depressed
                             color="primary"
                             class="text-capitalize rounded-lg ml-2"
-                            @click="clearFields"
+                            @click="resetForm"
                         >
                             Отменить
                         </v-btn>
@@ -291,7 +346,7 @@ export default {
     data() {
         return {
             user: {
-                age: 0,
+                age: '',
                 name: '',
                 email: '',
                 hobby: '',
@@ -321,7 +376,7 @@ export default {
             return genderTranslations[this.userData.gender] || '';
         },
         ageAsString() {
-            if (this.user.age)
+            if (this.userData.age)
                 return String(this.userData.age);
         }
     },
@@ -392,7 +447,15 @@ export default {
                     console.log(err.response.data);
                 });
         },
-        clearFields() {
+        resetForm() {
+            const propertiesToReset = ['age', 'name', 'hobby', 'email', 'avatar', 'gender', 'country', 'password', 'confirmPassword'];
+
+            for (const property of propertiesToReset) {
+                if (this.user[property] !== '') {
+                    this.user[property] = '';
+                }
+            }
+
         },
         getCountries() {
             fetch('https://restcountries.com/v3.1/all')
@@ -405,7 +468,6 @@ export default {
     },
     mounted() {
         this.getCountries();
-        console.log(this.userData);
     }
 }
 </script>

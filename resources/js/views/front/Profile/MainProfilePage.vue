@@ -1,33 +1,32 @@
 <template>
     <v-container>
         <v-row class="mt-0 mb-3" justify="center">
-            <!-- Small SideBar -->
-            <v-col class="pa-3 hidden-md-and-up">
+            <!-- SideBar for small display -->
+            <v-col cols="12">
                 <v-card
-                    tile
+                    width="100%"
                     elevation="0"
-                    height="100%"
-                    class="mx-auto rounded-lg pa-4"
+                    class="rounded-lg pa-2"
                 >
-                    <div class="d-flex align-items-center justify-content-between mb-6">
-                        <a href="#" class="text-subtitle-1 grey--text text--darken-2">
+                    <!--v-for="(item, index) in items" :key="index"-->
+                    <v-card-actions class="d-flex align-items-center justify-content-between">
+                        <a href="#" class="">
                             <v-icon>mdi-settings</v-icon>
                             Настройки
                         </a>
-                        <v-btn color="primary" class="text-capitalize" @click="$refs.logout.submit()">
+                        <v-btn
+                            color="primary"
+                            class="text-capitalize"
+                            @click="$refs.logout.submit()"
+                        >
                             <v-icon class="mr-3">mdi-logout</v-icon>
                             Выход
-                            <form
-                                ref="logout"
-                                action="/logout"
-                                method="POST"
-                                style="display: none;"
-                            >
+                            <form ref="logout" action="/logout" method="POST" style="display: none;">
                                 <input type="hidden" name="_token" :value="csrf"/>
                             </form>
                         </v-btn>
-                    </div>
-                    <div class="d-flex mb-6">
+                    </v-card-actions>
+                    <div class="d-flex my-5">
                         <div class="mr-7">
                             <v-img
                                 class="rounded-lg"
@@ -38,32 +37,26 @@
                             ></v-img>
                         </div>
                         <div>
-                            <h5>Bakhodur Nazriev</h5>
-                            <h6>admin@gmail.com</h6>
-                            <h6>29.29.1980</h6>
-                            <h6>Мужчина</h6>
+                            <h5>{{ user.name }}</h5>
+                            <h6>{{ user.email }}</h6>
+                            <h6 v-if="user.age">{{ user.age }} {{ user.age <= 4 ? 'года' : 'лет' }}</h6>
+                            <h6 v-if="user.gender">{{ user.gender === 'male' ? 'Мужчина' : 'Женщина' }}</h6>
                         </div>
                     </div>
-                    <div>
-                        <a
-                            href="#"
-                            class="text-subtitle-1 mr-6 grey--text text--darken-2 text-decoration-none"
-                        >
+                    <v-card-actions class="d-flex">
+                        <a href="#" class="mr-5">
                             <v-icon :class="{ 'primary--text': true }">mdi-account</v-icon>
                             <span :class="{ 'primary--text': true }">Мой профиль</span>
                         </a>
-                        <a
-                            href="#"
-                            class="text-subtitle-1 primary--text text--darken-2 font-weight-normal text-decoration-none"
-                        >
+                        <a href="#" class="ml-5">
                             <v-icon>mdi-bookmark</v-icon>
                             <span>Избранное</span>
                         </a>
-                    </div>
+                    </v-card-actions>
                 </v-card>
             </v-col>
 
-            <!-- SideBar -->
+            <!-- SideBar for large display -->
             <div class="pa-3 hidden-sm-and-down">
                 <v-card
                     tile
@@ -117,10 +110,8 @@
                 </v-card>
             </div>
 
-            <!-- Profile -->
             <profile :user-data="user" v-if="selectedItem === 0"></profile>
 
-            <!-- Favourite -->
             <favourite v-if="selectedItem === 1"></favourite>
         </v-row>
     </v-container>

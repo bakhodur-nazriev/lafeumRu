@@ -48,7 +48,7 @@ class AppServiceProvider extends ServiceProvider
         View::composer('layouts.meta-tags', MetatagsComposer::class);
 
         /* Регистрация типа "enum" в Doctrine */
-        Type::addType('enum', EnumType::class);
+//        Type::addType('enum', EnumType::class);
 
         Category::observe(SluggableObserver::class);
         Author::observe(SluggableObserver::class);

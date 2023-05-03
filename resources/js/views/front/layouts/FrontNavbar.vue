@@ -82,7 +82,7 @@
                     </v-col>
                 </v-row>
 
-                <v-row class="hidden-md-and-down  ma-0">
+                <v-row class="hidden-md-and-down ma-0">
                     <div class="d-flex justify-content-center w-100">
                         <v-col class="d-flex justify-space-between pa-0" style="max-width: 1350px;">
                             <div
@@ -152,9 +152,9 @@
                                     </template>
                                     <v-list dense>
                                         <v-list-item
-                                            v-for="profileLink in profileLinks"
                                             :key="profileLink.href"
                                             :href="profileLink.href"
+                                            v-for="profileLink in profileLinks"
                                             class="text-decoration-none font-weight-regular"
                                         >
                                             <v-list-item-icon class="mr-2">
@@ -178,8 +178,8 @@
                                                     <span>Выход</span>
                                                     <form
                                                         ref="logout"
-                                                        action="/logout"
                                                         method="POST"
+                                                        action="/logout"
                                                         style="display: none;"
                                                     >
                                                         <input type="hidden" name="_token" :value="csrf"/>
@@ -309,11 +309,6 @@ export default {
                     title: "Мой Профиль",
                     href: "/profile",
                     icon: "mdi-account-circle"
-                },
-                {
-                    title: "Избранное",
-                    href: "profile-favorites",
-                    icon: "mdi-briefcase"
                 },
             ],
             navItems: [

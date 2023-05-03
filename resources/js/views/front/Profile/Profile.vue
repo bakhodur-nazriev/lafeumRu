@@ -9,6 +9,37 @@
             <!--  For Small Display  -->
             <v-row class="hidden-sm-and-up">
                 <form @submit.prevent="updateProfile">
+                    <v-col cols="12 pb-0 d-flex align-items-center">
+                        <v-avatar size="80">
+                            <v-img :src="selectedPhoto" :alt="userData.name"></v-img>
+                        </v-avatar>
+
+                        <v-btn
+                            depressed
+                            color="primary"
+                            class="text-capitalize rounded-lg mx-2"
+                            :loading="isSelecting"
+                            @click="handleFileImport"
+                        >
+                            Изменить фото
+                        </v-btn>
+
+                        <input
+                            type="file"
+                            class="d-none"
+                            ref="uploader"
+                            @change="onFileChanged"
+                        >
+                        <v-btn
+                            depressed
+                            color="primary"
+                            class="text-capitalize rounded-lg"
+                            @click="deletePhoto"
+                            v-if="selectedFile"
+                        >
+                            Удалить фото
+                        </v-btn>
+                    </v-col>
                     <v-col cols="12 pb-0">
                         <p class="py-1 grey--text caption">Полное имя пользователя*</p>
                         <v-text-field

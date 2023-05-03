@@ -2,18 +2,21 @@
     <v-container>
         <v-row class="mt-0 mb-3" justify="center">
             <!-- SideBar for small display -->
-            <v-col cols="12">
+            <v-col cols="12 hidden-md-and-up">
                 <v-card
                     width="100%"
                     elevation="0"
                     class="rounded-lg pa-2"
                 >
-                    <!--v-for="(item, index) in items" :key="index"-->
                     <v-card-actions class="d-flex align-items-center justify-content-between">
-                        <a href="#" class="">
-                            <v-icon>mdi-settings</v-icon>
+                        <v-btn
+                            text
+                            @click="selectedItem = 2"
+                            class="mr-5 text-capitalize pl-0"
+                        >
+                            <v-icon color="grey">mdi-settings</v-icon>
                             Настройки
-                        </a>
+                        </v-btn>
                         <v-btn
                             color="primary"
                             class="text-capitalize"
@@ -26,7 +29,7 @@
                             </form>
                         </v-btn>
                     </v-card-actions>
-                    <div class="d-flex my-5">
+                    <div class="d-flex mx-3 my-4">
                         <div class="mr-7">
                             <v-img
                                 class="rounded-lg"
@@ -43,15 +46,29 @@
                             <h6 v-if="user.gender">{{ user.gender === 'male' ? 'Мужчина' : 'Женщина' }}</h6>
                         </div>
                     </div>
-                    <v-card-actions class="d-flex">
-                        <a href="#" class="mr-5">
-                            <v-icon :class="{ 'primary--text': true }">mdi-account</v-icon>
-                            <span :class="{ 'primary--text': true }">Мой профиль</span>
-                        </a>
-                        <a href="#" class="ml-5">
-                            <v-icon>mdi-bookmark</v-icon>
-                            <span>Избранное</span>
-                        </a>
+                    <v-card-actions class="d-flex flex-column pl-0">
+                        <div class="d-flex">
+                            <v-btn
+                                text
+                                @click="selectedItem = 0"
+                                class="mr-5 text-capitalize pl-0"
+                                :class="{ 'text--primary': selectedItem === 0 }"
+                            >
+                                <v-icon color="grey">mdi-account</v-icon>
+                                Мой профиль
+                            </v-btn>
+                            <v-btn
+                                text
+                                v-model="selectedItem"
+                                @click="selectedItem = 1"
+                                class="ml-5 text-capitalize"
+                                :class="{ active: selectedItem === 1 }"
+                            >
+                                <v-icon color="grey">mdi-bookmark</v-icon>
+                                Избранное
+                            </v-btn>
+                        </div>
+
                     </v-card-actions>
                 </v-card>
             </v-col>
@@ -60,8 +77,8 @@
             <div class="pa-3 hidden-sm-and-down">
                 <v-card
                     tile
-                    elevation="0"
                     width="270"
+                    elevation="0"
                     class="mx-auto rounded-lg"
                 >
                     <v-list>
@@ -71,7 +88,6 @@
                                     <v-img :src="user.avatar" :alt="user.name"></v-img>
                                 </v-list-item-avatar>
                             </div>
-
                         </v-list-item>
 
                         <v-list-item>
@@ -93,10 +109,7 @@
                             v-model="selectedItem"
                             color="primary"
                         >
-                            <v-list-item
-                                v-for="(item, i) in items"
-                                :key="i"
-                            >
+                            <v-list-item v-for="(item, i) in items" :key="i">
                                 <v-list-item-icon>
                                     <v-icon v-text="item.icon"></v-icon>
                                 </v-list-item-icon>
@@ -105,6 +118,25 @@
                                     <v-list-item-title v-text="item.text"></v-list-item-title>
                                 </v-list-item-content>
                             </v-list-item>
+
+                            <v-btn
+                                block
+                                elevation="0"
+                                color="primary"
+                                class="text-capitalize"
+                                @click="$refs.logout.submit()"
+                            >
+                                Выход
+                            </v-btn>
+
+                            <form
+                                ref="logout"
+                                action="/logout"
+                                method="POST"
+                                style="display: none;"
+                            >
+                                <input type="hidden" name="_token" :value="csrf"/>
+                            </form>
                         </v-list-item-group>
                     </v-list>
                 </v-card>
@@ -134,7 +166,6 @@ export default {
                 {id: 0, text: "Профиль", icon: "mdi-account-circle"},
                 {id: 1, text: "Избранное", icon: "mdi-briefcase"},
                 {id: 2, text: "Настройки", icon: "mdi-settings"},
-                {id: 3, text: "Выход", icon: "mdi-logout"},
             ],
         }
     },

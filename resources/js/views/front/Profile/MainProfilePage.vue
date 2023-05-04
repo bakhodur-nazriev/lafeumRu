@@ -18,6 +18,7 @@
                             Настройки
                         </v-btn>
                         <v-btn
+                            elevation="0"
                             color="primary"
                             class="text-capitalize"
                             @click="$refs.logout.submit()"
@@ -46,29 +47,25 @@
                             <h6 v-if="user.gender">{{ user.gender === 'male' ? 'Мужчина' : 'Женщина' }}</h6>
                         </div>
                     </div>
-                    <v-card-actions class="d-flex flex-column pl-0">
-                        <div class="d-flex">
+                    <v-card-actions>
+                        <v-btn
+                            text
+                            class="text-capitalize"
+                            @click="selectedItem = 0"
+                            :class="{ 'primary' : selectedItem === 0, 'grey--text text--darken-1' : selectedItem !== 0}"
+                        >
+                            <v-icon :class="{'primary' : selectedItem === 0, 'grey--text text--darken-1' : selectedItem !== 0 }">mdi-account</v-icon>
+                            Профиль
+                        </v-btn>
                             <v-btn
-                                text
-                                @click="selectedItem = 0"
-                                class="mr-5 text-capitalize pl-0"
-                                :class="{ 'text--primary': selectedItem === 0 }"
-                            >
-                                <v-icon color="grey">mdi-account</v-icon>
-                                Мой профиль
-                            </v-btn>
-                            <v-btn
-                                text
-                                v-model="selectedItem"
-                                @click="selectedItem = 1"
-                                class="ml-5 text-capitalize"
-                                :class="{ active: selectedItem === 1 }"
-                            >
-                                <v-icon color="grey">mdi-bookmark</v-icon>
-                                Избранное
-                            </v-btn>
-                        </div>
-
+                            text                       
+                            class="text-capitalize"
+                            @click="selectedItem = 1"
+                            :class="{ 'primary': selectedItem === 1, 'grey--text text--darken-1' : selectedItem !== 1 }"
+                        >
+                            <v-icon :class="{'primary' : selectedItem === 1, 'grey--text text--darken-1' : selectedItem !== 1}">mdi-bookmark</v-icon>
+                            Избранное
+                        </v-btn> 
                     </v-card-actions>
                 </v-card>
             </v-col>
@@ -169,6 +166,11 @@ export default {
             ],
         }
     },
+    computed: {
+        isActive(){
+            
+        }
+    }
 }
 </script>
 

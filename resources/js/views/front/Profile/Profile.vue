@@ -4,12 +4,12 @@
             tile
             width="800"
             elevation="0"
-            class="mx-auto rounded-lg pa-3"
+            class="mx-auto rounded-lg pa-5"
         >
             <!--  For Small Display  -->
-            <v-row class="hidden-sm-and-up">
+            <v-row class="hidden-md-and-up">
                 <form @submit.prevent="updateProfile">
-                    <v-col cols="12 pb-0 d-flex align-items-center">
+                    <v-col cols="10" class="pb-0 d-flex align-items-center" sm="10">
                         <v-avatar size="80">
                             <v-img :src="selectedPhoto" :alt="userData.name"></v-img>
                         </v-avatar>
@@ -187,7 +187,7 @@
             </v-row>
 
             <!--  For Large Display  -->
-            <v-row class="hidden-sm-and-down px-3">
+            <v-row class="hidden-sm-and-down px-3 mt-0">
                 <form @submit.prevent="updateProfile">
                     <v-col cols="12">
                         <v-avatar size="80">

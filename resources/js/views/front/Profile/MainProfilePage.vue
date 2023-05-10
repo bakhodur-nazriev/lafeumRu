@@ -140,24 +140,25 @@
             </div>
 
             <profile :user-data="user" v-if="selectedItem === 0"></profile>
-
             <favourite v-if="selectedItem === 1"></favourite>
+            <settings v-if="selectedItem === 2"></settings>
         </v-row>
     </v-container>
 </template>
 
 <script>
-import Profile from "./Profile";
+import Profile from "./Profile.vue";
 import Favourite from "./Favorite.vue";
+import Settings from "./Settings.vue";
 
 export default {
-    components: {Profile, Favourite},
+    components: {Profile, Favourite, Settings},
     name: "MainProfilePage",
     data() {
         return {
             csrf: window.Laravel.csrf_token,
             user: window.Laravel.auth,
-            selectedItem: 0,
+            selectedItem: sessionStorage.getItem('selectedItem') || 0,
             file: null,
             items: [
                 {id: 0, text: "Профиль", icon: "mdi-account-circle"},
@@ -166,9 +167,15 @@ export default {
             ],
         }
     },
-    computed: {
-        isActive(){
-            
+    watch: {
+        selectedItem(value){
+            sessionStorage.setItem('selectedItem', value);
+        }
+    },
+    mounted(){
+        const storedValue = sessionStorage.getItem('selectedItem');
+        if (storedValue) {
+            this.selectedItem = parseInt(storedValue);
         }
     }
 }

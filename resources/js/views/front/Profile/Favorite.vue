@@ -1,6 +1,6 @@
 <template>
     <div class="pa-3 main-block">
-        <v-card tile max-width="800" elevation="0" class="mx-auto rounded-lg pa-3">
+        <v-card tile width="800" elevation="0" class="mx-auto rounded-lg pa-3">
             <TabNav :tabs="['Цитаты', 'Термины', 'Видео']" :selected="activeTab" @selected="switchTab">
                 <Tab :is-selected="activeTab === 'Цитаты'">
                     <quote-item v-for="(quote, i) in quotes" :quote="quote" :key="i" class="elevation-3"></quote-item>

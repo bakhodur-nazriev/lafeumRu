@@ -51,9 +51,12 @@
                     <v-col class="d-flex justify-content-center mt-4">
                         <span class="grey--text mr-4 font-weight-medium">У вас нет аккаунта ?</span>
                         <a class="text-decoration-none primary--text font-weight-medium"
-                           href="/register">Регистрация</a>
+                            href="/register">Регистрация</a>
                     </v-col>
                 </v-form>
+                <!-- <v-col v-if="errors.email">
+                    {{ errors.email[0] }}
+                </v-col> -->
             </v-card-text>
         </v-card>
     </v-col>
@@ -67,6 +70,10 @@ export default {
             email: "",
             password: "",
             showPassword: false,
+            // form: {
+            //     email: '',
+            //     password: ''
+            // },
             rules: {
                 required: value => !!value || 'Это поле обязательное.',
                 counter: value => value.length <= 20 || 'Максимум 20 символов',
@@ -76,6 +83,7 @@ export default {
                     return pattern.test(value) || 'E-mail должен быть действительным.'
                 },
             },
+            // errors: {}
         };
     },
     methods: {
@@ -93,6 +101,21 @@ export default {
                 this.$refs.form.$el.submit();
             }
         },
+        // login(){
+        //     axios
+        //         .post('/login', this.form)
+        //         .then(res => {
+        //             console.log(res);
+        //         })
+        //         .catch(err => {
+        //             if (err.response.status === 422){
+        //                 this.errors = error.response.data.errors;
+        //             } else {
+                        
+        //             }
+        //             console.log(err);
+        //         });
+        // }
     },
 };
 </script>

@@ -9,7 +9,7 @@
                 <h2 class="mb-4 display-1 font-weight-medium">Вход</h2>
             </v-card-title>
             <v-card-text class="pa-0">
-                <v-form ref="form" method="POST" :action="appPath('login')">
+                <v-form ref="form" @submit.prevent="login" @keyup.enter="login">
                     <input type="hidden" name="_token" :value="csrf"/>
                     <v-col class="px-0">
                         <v-text-field
@@ -41,22 +41,26 @@
                             height="48"
                             width="100%"
                             elevation="0"
-                            @click.prevent="submit"
+                            type="submit"
                             class="text-capitalize rounded-lg text-decoration-none primary"
+                            :disabled="!$refs.form"
                         >
                             вход
                         </v-btn>
                     </v-col>
+                    <v-alert type="error" :value="alert.show" class="rounded-lg m-0" v-if="alert.show">
+                        <ul>
+                            <li v-if="alert.email">{{ alert.email }}</li>
+                            <li v-if="alert.password">{{ alert.password }}</li>
+                        </ul>
+                    </v-alert>
 
                     <v-col class="d-flex justify-content-center mt-4">
                         <span class="grey--text mr-4 font-weight-medium">У вас нет аккаунта ?</span>
                         <a class="text-decoration-none primary--text font-weight-medium"
-                            href="/register">Регистрация</a>
+                           href="/register">Регистрация</a>
                     </v-col>
                 </v-form>
-                <!-- <v-col v-if="errors.email">
-                    {{ errors.email[0] }}
-                </v-col> -->
             </v-card-text>
         </v-card>
     </v-col>
@@ -70,10 +74,6 @@ export default {
             email: "",
             password: "",
             showPassword: false,
-            // form: {
-            //     email: '',
-            //     password: ''
-            // },
             rules: {
                 required: value => !!value || 'Это поле обязательное.',
                 counter: value => value.length <= 20 || 'Максимум 20 символов',
@@ -83,7 +83,11 @@ export default {
                     return pattern.test(value) || 'E-mail должен быть действительным.'
                 },
             },
-            // errors: {}
+            alert: {
+                show: false,
+                email: '',
+                password: '',
+            }
         };
     },
     methods: {
@@ -95,27 +99,29 @@ export default {
         appPath(url) {
             window.laravel + url;
         },
-        submit() {
-            let valid = this.$refs.form.validate();
-            if (valid) {
-                this.$refs.form.$el.submit();
-            }
+        login() {
+            axios
+                .post('/login', {
+                    email: this.email,
+                    password: this.password
+                })
+                .then(res => {
+                    console.log(res);
+                    window.location.replace('/');
+                })
+                .catch(err => {
+                    console.log(err);
+                    if (err.response && err.response.status === 422 && err.response.data && err.response.data.errors) {
+                        const errors = err.response.data.errors;
+                        this.updateAlert(errors);
+                    }
+                })
         },
-        // login(){
-        //     axios
-        //         .post('/login', this.form)
-        //         .then(res => {
-        //             console.log(res);
-        //         })
-        //         .catch(err => {
-        //             if (err.response.status === 422){
-        //                 this.errors = error.response.data.errors;
-        //             } else {
-                        
-        //             }
-        //             console.log(err);
-        //         });
-        // }
+        updateAlert(errors) {
+            this.alert.show = true;
+            this.alert.email = errors.email ? errors.email[0] : '';
+            this.alert.password = errors.password ? errors.password[0] : '';
+        }
     },
 };
 </script>

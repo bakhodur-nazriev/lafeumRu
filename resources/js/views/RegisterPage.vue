@@ -95,7 +95,7 @@ export default {
             rules: {
                 required: value => !!value || 'Это поле обязательное.',
                 counter: value => value.length <= 20 || 'Максимум 20 символов',
-                min: v => v.length >= 3 || 'Минимум 3 символов',
+                min: v => v.length >= 5 || 'Минимум 5 символов',
                 passwordMatch: () => (this.password === this.password_confirmation) || 'Введенный вами пароль не совпадает',
                 email: value => {
                     const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -112,24 +112,24 @@ export default {
         }
     },
     methods: {
-        async registerUser() {
-            try {
-                const response = await axios.post('/register', {
+        registerUser() {
+            axios
+                .post('/register', {
                     name: this.name,
                     email: this.email,
                     password: this.password,
                     password_confirmation: this.password_confirmation
-                });
-
-                console.log(response.data);
-                window.location.replace('/login');
-            } catch (error) {
-                // Check if response contains validation errors
-                if (error.response && error.response.status === 422 && error.response.data && error.response.data.errors) {
-                    const errors = error.response.data.errors;
-                    this.updateAlert(errors);
-                }
-            }
+                })
+                .then(res => {
+                    console.log(res);
+                    window.location.replace('/login')
+                })
+                .catch(error => {
+                    if (error.response && error.response.status === 422 && error.response.data && error.response.data.errors) {
+                        const errors = error.response.data.errors;
+                        this.updateAlert(errors);
+                    }
+                })
         },
         updateAlert(errors) {
             this.alert.show = true;

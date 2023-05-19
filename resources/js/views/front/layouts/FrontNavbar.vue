@@ -137,7 +137,7 @@
                                 v-else
                             >
                                 <v-avatar>
-                                    <img :src="user.avatar" :alt="user.name">
+                                    <img :src="user.avatar" :alt="user.name" class="h-auto">
                                 </v-avatar>
                                 <v-menu offset-y left min-width="200" rounded="lg" nudge-bottom="20">
                                     <template v-slot:activator="{ on }">

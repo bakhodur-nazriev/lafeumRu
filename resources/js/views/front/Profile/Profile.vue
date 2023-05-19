@@ -127,8 +127,11 @@
                                 solo
                                 flat
                                 dense
-                                hide-details
+                                min="8"
+                                max="100"
                                 type="number"
+                                hide-details
+                                :rules="ageRules"
                                 class="rounded-lg"
                                 v-model="user.age"
                                 :label="ageAsString"
@@ -159,11 +162,11 @@
                             chips
                             rows="3"
                             hide-details
-                            v-model="user.hobby"
-                            :label="userData.hobby"
-                            background-color="grey lighten-2"
+                            v-model="hobbyInput"
                             placeholder="Что вы предпочитаете делать в свободное время?"
-                        ></v-textarea>
+                            background-color="grey lighten-2"
+                        >
+                        </v-textarea>
                     </v-col>
                     <v-col cols="12 text-right">
                         <v-btn
@@ -245,9 +248,9 @@
                             flat
                             dense
                             hide-details
-                            :label="userData.email"
-                            v-model="user.email"
                             class=" rounded-lg"
+                            v-model="user.email"
+                            :label="userData.email"
                             placeholder="Placeholder"
                             background-color="grey lighten-2"
                         ></v-text-field>
@@ -307,8 +310,10 @@
                                 solo
                                 flat
                                 dense
+                                min="8"
                                 hide-details
                                 type="number"
+                                :rules="ageRules"
                                 class="rounded-lg"
                                 v-model="user.age"
                                 :label="ageAsString"
@@ -340,8 +345,8 @@
                             rows="3"
                             multiple
                             hide-details
-                            v-model="user.hobby"
                             class="rounded-lg"
+                            v-model="hobbyInput"
                             placeholder="Что вы предпочитаете делать в свободное время?"
                             background-color="grey lighten-2"
                         ></v-textarea>
@@ -391,7 +396,11 @@ export default {
             showConfirmPassword: false,
             isSelecting: false,
             selectedFile: null,
-            countries: []
+            countries: [],
+            ageRules: [
+                (v) => !!v || 'Укажите возраст.',
+                (v) => /^\d+$/.test(v) || 'Возраст должен быть положительным целым числом.',
+            ],
         }
     },
     computed: {
@@ -409,6 +418,18 @@ export default {
         ageAsString() {
             if (this.userData.age)
                 return String(this.userData.age);
+        },
+        hobbyInput: {
+            get(){
+                if (this.user.hobby.legnth <= 0){
+                    return this.user.hobby;
+                } else {
+                    return this.userData.hobby;
+                }
+            },
+            set(value) {
+                this.user.hobby = value;
+            }
         }
     },
     methods: {
@@ -496,6 +517,13 @@ export default {
                 })
                 .catch(error => console.error(error));
         },
+    },
+    watch: {
+        hobbyInput(newValue, oldValue) {
+            if (!newValue) {
+                this.hobbyInput = '';
+            }
+        }
     },
     mounted() {
         this.getCountries();
